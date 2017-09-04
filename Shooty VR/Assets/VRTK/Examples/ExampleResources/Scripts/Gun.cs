@@ -7,17 +7,36 @@
         private GameObject bullet;
         private float bulletSpeed = 10000f;
         private float bulletLife = 5f;
+        public bool isTriggerPressed = false;
 
         public override void StartUsing(VRTK_InteractUse usingObject)
         {
             base.StartUsing(usingObject);
-            FireBullet();
+            StartDeath();
+            //FireBullet();
+        }
+
+        public override void StopUsing(VRTK_InteractUse usingObject)
+        {
+            base.StopUsing(usingObject);
+            StopDeath();
+            //FireBullet();
         }
 
         protected void Start()
         {
             bullet = transform.Find("Bullet").gameObject;
             bullet.SetActive(false);
+        }
+
+        private void StartDeath()
+        {
+            isTriggerPressed = true;
+        }
+
+        private void StopDeath()
+        {
+            isTriggerPressed = false;
         }
 
         private void FireBullet()

@@ -14,12 +14,21 @@ public class BulletScript : MonoBehaviour {
 		
 	//}
 
-    void OnCollisionEnter(Collision other)
+    //void OnCollisionEnter(Collision other)
+    //{
+    //    if (other.gameObject.tag != "bullet")
+    //    {
+    //        Debug.Log(other.gameObject.name);
+    //        Destroy(this, 0.05f);
+    //    }
+    //}
+
+    private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag != "bullet")
+        if (other.GetComponent<Destructible>() != null)
         {
-            Debug.Log(other.gameObject.name);
-            Destroy(this, 0.05f);
+            Destroy(other);
+            Destroy(this.gameObject);
         }
     }
 }

@@ -47,7 +47,7 @@ public class Destructible : MonoBehaviour
 
         transform.position = position;
     }
-
+    
     private void OnTriggerEnter(Collider other)
     {
         if(other.tag == "bullet")

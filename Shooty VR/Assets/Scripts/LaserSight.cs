@@ -28,7 +28,6 @@ namespace ShootyVR
         public float alpha = 1.0f;
         public ShadowCastingMode castShadows;
         public bool receiveShadows = false;
-        private Vector3 endPoint;
 
         // Use this for initialization
         void Start()
@@ -59,17 +58,17 @@ namespace ShootyVR
                 laser.SetPosition(1, roomHit.point);
             }
 
-            RaycastHit enemyHit;
-            if (Physics.Raycast(transform.position, transform.forward, out enemyHit, 200.0f))
-            {
-                if (enemyHit.collider.GetComponent<Destructible>() != null &&
-                    gameObject.GetComponentInParent<VRTK.Examples.Gun>().isTriggerPressed)
-                {
-                    enemyHit.collider.gameObject.GetComponent<Destructible>().GetHit();
-                    //enemyHit.collider.gameObject.GetComponent<Renderer>().material.color = Color.red;
-                    //Destroy(enemyHit.collider.gameObject, 0.5f);
-                }
-            }
+            //RaycastHit enemyHit;
+            //if (Physics.Raycast(transform.position, transform.forward, out enemyHit, 200.0f))
+            //{
+            //    if (enemyHit.collider.GetComponent<Destructible>() != null &&
+            //        gameObject.GetComponentInParent<VRTK.Examples.Gun>().isTriggerPressed)
+            //    {
+            //        enemyHit.collider.gameObject.GetComponent<Destructible>().GetHit();
+            //        //enemyHit.collider.gameObject.GetComponent<Renderer>().material.color = Color.red;
+            //        //Destroy(enemyHit.collider.gameObject, 0.5f);
+            //    }
+            //}
         }
     }
 }

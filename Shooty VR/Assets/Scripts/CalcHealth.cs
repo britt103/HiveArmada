@@ -19,9 +19,14 @@ public class CalcHealth : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isHit) StartCoroutine(onHit());
+        if (isHit) BlowUp();
         if (healthVal <= 0) isAlive = false;
-        if (!isAlive) Destroy(this.gameObject);
+        //if (!isAlive) Destroy(this.gameObject);
+    }
+
+    void BlowUp()
+    {
+        StartCoroutine(onHit());
     }
 
     IEnumerator onHit()
@@ -30,5 +35,10 @@ public class CalcHealth : MonoBehaviour
         yield return new WaitForSeconds(.01f);
         isHit = false;
         gameObject.GetComponent<Renderer>().material = color[0];
+
+        if (healthVal <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 }

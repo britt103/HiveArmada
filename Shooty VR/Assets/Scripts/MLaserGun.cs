@@ -8,17 +8,17 @@ public class MLaserGun : MonoBehaviour
     public GameObject projectile;
     public Transform spawnPoint;
     public Vector3 pos;
-    public float fireRate;
+    public float firerate;
     public float fireSpeed;
     public float radius;
     private bool canShoot = true;
 
-    private VRTK.Examples.Gun gunScript;
+    private ShipController gunScript;
 
     // Use this for initialization
     void Start()
     {
-        gunScript = gameObject.GetComponentInParent<VRTK.Examples.Gun>();
+        gunScript = gameObject.GetComponentInParent<ShipController>();
     }
 
     // Update is called once per frame
@@ -53,9 +53,8 @@ public class MLaserGun : MonoBehaviour
 
         laser.transform.LookAt(target);
         laser.GetComponent<Rigidbody>().velocity = laser.transform.forward * fireSpeed;
-        Destroy(laser, 6.0f);
 
-        yield return new WaitForSeconds(1.0f / gunScript.firerate);
+        yield return new WaitForSeconds(1.0f / firerate);
         canShoot = true;
     }
 }

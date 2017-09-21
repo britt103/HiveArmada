@@ -23,8 +23,9 @@ public class MLaserProjectile : MonoBehaviour
     {
         if (other.tag == "Enemy")
         {
-            other.GetComponent<CalcHealth>().isHit = true;
-            other.GetComponent<CalcHealth>().healthVal -= 10;
+            //other.GetComponent<CalcHealth>().isHit = true;
+            //other.GetComponent<CalcHealth>().healthVal -= 10;
+            other.GetComponent<CalcHealth>().Hit(10);
             Destroy(gameObject);
         }
         else if (other.tag == "Room")

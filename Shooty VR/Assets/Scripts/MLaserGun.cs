@@ -38,7 +38,7 @@ public class MLaserGun : MonoBehaviour
         var roomMask = LayerMask.GetMask("Room");
         if (Physics.SphereCast(transform.position, radius, transform.forward, out hit, 200.0f, enemyMask))
         {
-            StartCoroutine(Fire(hit.point));
+            StartCoroutine(Fire(hit.collider.gameObject.transform.position));
         }
         else if (Physics.Raycast(transform.position, transform.forward, out hit, 200.0f, roomMask))
         {

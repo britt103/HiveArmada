@@ -23,13 +23,11 @@ public class ShipController : VRTK_InteractableObject
 
     private void StartDeath()
     {
-        Debug.Log("trigger pressed");
         isTriggerPressed = true;
     }
 
     private void StopDeath()
     {
-        Debug.Log("trigger released");
         isTriggerPressed = false;
     }
 }

@@ -19,8 +19,9 @@ public class EnemyBullet : MonoBehaviour {
 	void OnTriggerEnter(Collider other){
         if (other.tag == "Player")
         {
-            other.GetComponent<CalcHealth>().healthVal -= 20;
-            other.GetComponent<CalcHealth>().isHit = true;
+            //other.GetComponent<CalcHealth>().healthVal -= 20;
+            //other.GetComponent<CalcHealth>().isHit = true;
+            other.GetComponent<CalcHealth>().Hit(20);
         }
 	}
 }

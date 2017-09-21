@@ -32,8 +32,9 @@ public class AreaBomb : MonoBehaviour {
                     if (objectCollider.gameObject.tag == "Enemy")
                     {
 
-                        objectCollider.gameObject.GetComponent<CalcHealth>().isHit = true;
-                        objectCollider.gameObject.GetComponent<CalcHealth>().healthVal -= 100;
+                        //objectCollider.gameObject.GetComponent<CalcHealth>().isHit = true;
+                        //objectCollider.gameObject.GetComponent<CalcHealth>().healthVal -= 100;
+                        objectCollider.gameObject.GetComponent<CalcHealth>().Hit(100);
                         //Destroy(objectCollider.gameObject);
                     }
                 }

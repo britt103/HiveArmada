@@ -152,6 +152,11 @@ Prefab:
       propertyPath: firerate
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 114906918152020788, guid: fe26faada3c2d9142ba7a9ff0a6e4111,
+        type: 2}
+      propertyPath: radius
+      value: 0.3
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114159607103581202, guid: fe26faada3c2d9142ba7a9ff0a6e4111, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: fe26faada3c2d9142ba7a9ff0a6e4111, type: 2}
@@ -849,12 +854,12 @@ Prefab:
     - target: {fileID: 224000012623161658, guid: d46cf6b1ad9d84a48ae7548a2a6b41b3,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 874
+      value: 894
       objectReference: {fileID: 0}
     - target: {fileID: 224000012623161658, guid: d46cf6b1ad9d84a48ae7548a2a6b41b3,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -70
       objectReference: {fileID: 0}
     - target: {fileID: 224000012623161658, guid: d46cf6b1ad9d84a48ae7548a2a6b41b3,
         type: 2}
@@ -864,7 +869,7 @@ Prefab:
     - target: {fileID: 224000012623161658, guid: d46cf6b1ad9d84a48ae7548a2a6b41b3,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 120
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d46cf6b1ad9d84a48ae7548a2a6b41b3, type: 2}
@@ -1899,7 +1904,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 469aaa91b42111b4d8f31ff4cb670bfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthVal: 100
+  health: 100
   isAlive: 0
   isHit: 0
   color:
@@ -2400,7 +2405,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 469aaa91b42111b4d8f31ff4cb670bfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthVal: 100
+  health: 100
   isAlive: 0
   isHit: 0
   color:
@@ -2963,7 +2968,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 469aaa91b42111b4d8f31ff4cb670bfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthVal: 100
+  health: 100
   isAlive: 0
   isHit: 0
   color:
@@ -3209,7 +3214,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 469aaa91b42111b4d8f31ff4cb670bfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthVal: 100
+  health: 100
   isAlive: 0
   isHit: 0
   color:
@@ -3309,7 +3314,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 469aaa91b42111b4d8f31ff4cb670bfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthVal: 100
+  health: 100
   isAlive: 0
   isHit: 0
   color:
@@ -4130,11 +4135,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 469aaa91b42111b4d8f31ff4cb670bfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthVal: 100
+  health: 100
   isAlive: 0
   isHit: 0
   color:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 0}
   - {fileID: 2100000, guid: 1db15971033ba594294b4f0c035f7da8, type: 2}
 --- !u!1 &730940074
 GameObject:
@@ -4801,7 +4806,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 469aaa91b42111b4d8f31ff4cb670bfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthVal: 100
+  health: 100
   isAlive: 0
   isHit: 0
   color:
@@ -4901,7 +4906,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 469aaa91b42111b4d8f31ff4cb670bfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthVal: 100
+  health: 100
   isAlive: 0
   isHit: 0
   color:
@@ -5746,7 +5751,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 469aaa91b42111b4d8f31ff4cb670bfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthVal: 100
+  health: 100
   isAlive: 0
   isHit: 0
   color:
@@ -7129,7 +7134,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 469aaa91b42111b4d8f31ff4cb670bfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthVal: 100
+  health: 100
   isAlive: 0
   isHit: 0
   color:
@@ -7745,7 +7750,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 469aaa91b42111b4d8f31ff4cb670bfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthVal: 100
+  health: 100
   isAlive: 0
   isHit: 0
   color:
@@ -8252,7 +8257,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 469aaa91b42111b4d8f31ff4cb670bfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthVal: 100
+  health: 100
   isAlive: 0
   isHit: 0
   color:
@@ -8970,7 +8975,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 469aaa91b42111b4d8f31ff4cb670bfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthVal: 100
+  health: 100
   isAlive: 0
   isHit: 0
   color:
@@ -9442,7 +9447,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 469aaa91b42111b4d8f31ff4cb670bfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthVal: 100
+  health: 100
   isAlive: 0
   isHit: 0
   color:
@@ -9757,7 +9762,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 469aaa91b42111b4d8f31ff4cb670bfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthVal: 100
+  health: 100
   isAlive: 0
   isHit: 0
   color:
@@ -10002,7 +10007,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 469aaa91b42111b4d8f31ff4cb670bfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthVal: 100
+  health: 100
   isAlive: 0
   isHit: 0
   color:
@@ -10448,7 +10453,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 469aaa91b42111b4d8f31ff4cb670bfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthVal: 100
+  health: 100
   isAlive: 0
   isHit: 0
   color:
@@ -10548,7 +10553,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 469aaa91b42111b4d8f31ff4cb670bfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthVal: 100
+  health: 100
   isAlive: 0
   isHit: 0
   color:
@@ -11120,7 +11125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 469aaa91b42111b4d8f31ff4cb670bfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthVal: 100
+  health: 100
   isAlive: 0
   isHit: 0
   color:

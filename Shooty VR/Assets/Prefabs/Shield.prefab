@@ -94,8 +94,8 @@ MeshCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Convex: 1
-  m_InflateMesh: 0
-  m_SkinWidth: 0.01
+  m_InflateMesh: 1
+  m_SkinWidth: 1.5
   m_Mesh: {fileID: 4300000, guid: e892062c763912a4b9e5ec41865d0a8a, type: 3}
 --- !u!95 &95235547479060226
 Animator:
@@ -128,4 +128,4 @@ MonoBehaviour:
   localAdjustmentX: 0
   localAdjustmentY: 0
   localAdjustmentZ: 0
-  timeLimit: 10
+  timeLimit: 30

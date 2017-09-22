@@ -28,6 +28,7 @@ namespace ShootyVR.Enemies
         /// </summary>
         void Awake()
         {
+            health = maxHealth;
             material = gameObject.GetComponent<Renderer>().material;
         }
 
@@ -35,6 +36,31 @@ namespace ShootyVR.Enemies
         void Update()
         {
 
+        }
+
+        public override void Hit(int damage)
+        {
+            health -= damage;
+            StartCoroutine(HitFlash());
+        }
+
+        protected override IEnumerator HitFlash()
+        {
+            gameObject.GetComponent<Renderer>().material = flashColor;
+            yield return new WaitForSeconds(.01f);
+
+            if (health <= 0)
+            {
+                GameObject.Find("GameManager").GetComponent<GameManager>().kills++;
+
+                if (GameObject.Find("GameManager").GetComponent<GameManager>().kills >= 10)
+                {
+                    GameObject.Find("GameManager").GetComponent<GameManager>().gameOver();
+                }
+                health = maxHealth;
+                gameObject.SetActive(false);
+            }
+            gameObject.GetComponent<Renderer>().material = material;
         }
     }
 }

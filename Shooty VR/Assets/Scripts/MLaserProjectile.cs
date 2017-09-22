@@ -25,7 +25,7 @@ public class MLaserProjectile : MonoBehaviour
         {
             //other.GetComponent<CalcHealth>().isHit = true;
             //other.GetComponent<CalcHealth>().healthVal -= 10;
-            other.GetComponent<CalcHealth>().Hit(10);
+            other.GetComponent<ShootyVR.Enemies.EnemyBasic>().Hit(10);
             Destroy(gameObject);
         }
         else if (other.tag == "Room")

@@ -35,8 +35,8 @@ public class AreaBomb : MonoBehaviour {
 
                         //objectCollider.gameObject.GetComponent<CalcHealth>().isHit = true;
                         //objectCollider.gameObject.GetComponent<CalcHealth>().healthVal -= 100;
-                        objectCollider.gameObject.GetComponent<CalcHealth>().Hit(100);
-                        //Destroy(objectCollider.gameObject);
+                        objectCollider.gameObject.GetComponent<ShootyVR.Enemies.EnemyBasic>().Hit(100);
+                        ///Destroy(objectCollider.gameObject);
                     }
                 }
                 Destroy(gameObject);

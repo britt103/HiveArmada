@@ -27,4 +27,13 @@ public class Shield : MonoBehaviour {
             Destroy(gameObject);
         }
     }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "bullet")
+        {
+            //Debug.Log("KEK");
+            Destroy(other.gameObject);
+        }
+    }
 }

@@ -5,6 +5,7 @@
 //Assignment: Group Project
 //Purpose: Handles collision with Player, instantiates powerups
 using UnityEngine;
+using ShootyVR;
 
 public class PowerUp : MonoBehaviour {
     //prefab to use for instantiation

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using ShootyVR;
 
 public class MLaserGun : MonoBehaviour
 {
@@ -13,18 +14,18 @@ public class MLaserGun : MonoBehaviour
     public float radius;
     private bool canShoot = true;
 
-    private ShipController gunScript;
+    private ShootyVR.ShipController gunScript;
 
     // Use this for initialization
     void Start()
     {
+        Random.InitState((int)System.DateTime.Now.Ticks);
         gunScript = gameObject.GetComponentInParent<ShipController>();
     }
 
     // Update is called once per frame
     void Update()
     {
-
         if (gunScript.isTriggerPressed && canShoot)
         {
             Clicked();
@@ -50,7 +51,6 @@ public class MLaserGun : MonoBehaviour
     {
         canShoot = false;
         var laser = Instantiate(projectile, spawnPoint.position, spawnPoint.rotation);
-
         laser.transform.LookAt(target);
         laser.GetComponent<Rigidbody>().velocity = laser.transform.forward * fireSpeed;
 

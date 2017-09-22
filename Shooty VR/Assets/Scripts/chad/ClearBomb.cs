@@ -6,6 +6,7 @@
 //Purpose: Script clear bomb powerup bahavior
 
 using UnityEngine;
+using ShootyVR;
 
 /// <summary>
 /// Destroys all enemies

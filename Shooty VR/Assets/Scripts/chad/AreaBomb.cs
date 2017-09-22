@@ -6,6 +6,7 @@
 //Purpose: Script area bomb powerup behavior
 
 using UnityEngine;
+using ShootyVR;
 
 public class AreaBomb : MonoBehaviour {
     public float timeLimit;

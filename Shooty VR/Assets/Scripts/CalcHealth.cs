@@ -30,11 +30,6 @@ public class CalcHealth : MonoBehaviour
         StartCoroutine(onHit());
     }
 
-    void BlowUp()
-    {
-        StartCoroutine(onHit());
-    }
-
     IEnumerator onHit()
     {
         gameObject.GetComponent<Renderer>().material = color[1];

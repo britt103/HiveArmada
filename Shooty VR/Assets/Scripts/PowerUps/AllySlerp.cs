@@ -8,17 +8,14 @@
 using System.Collections;
 using UnityEngine;
 
-public class Ally : MonoBehaviour
+public class AllySlerp : MonoBehaviour
 {
     //distance between ally and player ship
     public float distance;
     public float timeLimit;
 
-    public float moveSpeed;
-    public float turnSpeed;
-
     public GameObject bullet;
-    public Transform bulletSpawn;
+    //public Transform bulletSpawn;
     public float bulletSpeed;
     public float firerate;
     private bool canFire = true;
@@ -43,8 +40,6 @@ public class Ally : MonoBehaviour
         Transform target = nearestEnemy();
         setLocalPosition(target);
         transform.LookAt(target);
-
-        //transform.rotation = Quaternion.Slerp(transform.rotation, )
 
         if (canFire)
         {

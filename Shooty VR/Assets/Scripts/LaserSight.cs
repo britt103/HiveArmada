@@ -25,7 +25,6 @@ namespace ShootyVR
         public LineAlignment alignment;
         public Color color;
         public float thickness = 0.002f;
-        public float alpha = 1.0f;
         public ShadowCastingMode castShadows;
         public bool receiveShadows = false;
 
@@ -36,7 +35,7 @@ namespace ShootyVR
             Gradient gradient = new Gradient();
             gradient.SetKeys(
                 new GradientColorKey[] { new GradientColorKey(color, 0.0f), new GradientColorKey(color, 1.0f), },
-                new GradientAlphaKey[] { new GradientAlphaKey(alpha, 0.0f), new GradientAlphaKey(alpha, 1.0f), });
+                new GradientAlphaKey[] { new GradientAlphaKey(color.a, 0.0f), new GradientAlphaKey(color.a, 1.0f), });
             laser.shadowCastingMode = castShadows;
             laser.receiveShadows = receiveShadows;
             laser.alignment = alignment;

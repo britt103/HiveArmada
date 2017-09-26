@@ -1,16 +1,26 @@
 Ryan Britton
-	britt103@mail.chapman.edu
+1849351
+britt103@mail.chapman.edu
+
 Miguel Gotao
-	
+2264941
+gotao100@mail.chapman.edu
+
 Chad Johnson
-	johns428@mail.chapman.edu
+1763718
+johns428@mail.chapman.edu
+
 Marc Karam
-	karam105@mail.chapman.edu
+1908847
+karam105@mail.chapman.edu
+
 Kara Mendez
-	mende122@mail.chapman.edu
+1846703
+mende122@mail.chapman.edu
+
 Perry Sidler
-	1831784
-	sidle104@mail.chapman.edu
+1831784
+sidle104@mail.chapman.edu
 
 CPSC 340-01 Game Development
 CPSC 344-01 Level Design II

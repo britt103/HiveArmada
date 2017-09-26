@@ -5,8 +5,9 @@
 //Assignment: Group Project
 //Purpose: Script ally powerup movement, behavior
 
-using System.Collections;
 using UnityEngine;
+using System;
+using System.Collections;
 
 public class AllySlerp : MonoBehaviour
 {
@@ -15,7 +16,8 @@ public class AllySlerp : MonoBehaviour
     public float timeLimit;
     public float slerpTime = 1.0F;
     private float slerpTimer = 0.0F;
-    private bool isSlerping = false;
+    private float slerpFraction;
+    //public float slerpAngleTolerance = 45.0F;
 
     public GameObject currentTarget = null;
 
@@ -42,19 +44,9 @@ public class AllySlerp : MonoBehaviour
             Destroy(gameObject);
         }
 
-        //if(currentTarget == null)
-        if(currentTarget == null || currentTarget.activeSelf == false)
-        {
-            isSlerping = true;
-            slerpTimer = 0.0F;
-            currentTarget = nearestEnemy().gameObject;
-        }
+        move();
 
-
-        move(currentTarget.transform);
-        //transform.LookAt(currentTarget.transform);
-
-        if (canFire && !isSlerping)
+        if (canFire && slerpFraction >= 1.0F)
         {
             StartCoroutine(Fire(currentTarget.transform.position));
         }
@@ -84,39 +76,62 @@ public class AllySlerp : MonoBehaviour
         return nearestEnemy.transform;
     }
 
-    //set transform.localPosition based on position of nearest enemy in local space
-    private void setLocalPosition(Transform enemy)
+    //http://answers.unity3d.com/questions/389713/detaliled-explanation-about-given-vector3slerp-exa.html
+    private void move()
     {
-        transform.localPosition = Vector3.zero;
-        Vector3 enemyLocalPosition = transform.parent.transform.InverseTransformPoint(enemy.position);
+        //no current target
+        if (currentTarget == null || currentTarget.activeSelf == false)
+        {
+            slerpTimer = 0.0F;
+            currentTarget = nearestEnemy().gameObject;
+        }
 
-        Vector3 direction = enemyLocalPosition - transform.localPosition;
-        direction = new Vector3(direction.x, direction.y, 0).normalized * distance;
-
-        transform.localPosition = direction;
-    }
-
-    private void move(Transform enemy)
-    {
-        Quaternion rotation = Quaternion.LookRotation((enemy.position - transform.position).normalized);
-        Vector3 enemyLocalPosition = transform.parent.transform.InverseTransformPoint(enemy.position);
+        Quaternion rotation = Quaternion.LookRotation((currentTarget.transform.position - transform.position).normalized);
+        Vector3 enemyLocalPosition = transform.parent.transform.InverseTransformPoint(currentTarget.transform.position);
         Vector3 localTranslation = new Vector3(enemyLocalPosition.x, enemyLocalPosition.y, 0).normalized * distance;
 
-        float slerpFraction = slerpTimer / slerpTime;
+        slerpFraction = slerpTimer / slerpTime;
 
-        if (slerpFraction < 1.0)
+        //is slerping
+        if (slerpFraction < 1.0F)
         {
             transform.rotation = Quaternion.Slerp(transform.rotation, rotation, slerpFraction);
             transform.localPosition = Vector3.Slerp(transform.localPosition, localTranslation, slerpFraction);
 
             slerpTimer += Time.deltaTime;
         }
+        //not slerping
         else
         {
             transform.rotation = rotation;
-            transform.localPosition = localTranslation;
+            //transform.localPosition = localTranslation;
 
-            isSlerping = false;
+            //float currentTargetTheta = (float)(Math.Acos(enemyLocalPosition.normalized.x) * 180/Math.PI);
+            //if(enemyLocalPosition.y < 0)
+            //{
+            //    currentTargetTheta = -currentTargetTheta;
+            //}
+            //float theta = (float)(Math.Acos(transform.localPosition.normalized.x) * 180/Math.PI);
+            //if(transform.localPosition.y < 0)
+            //{
+            //    theta = -theta;
+            //}
+            //Debug.Log(currentTargetTheta - theta);
+
+            //if(Math.Abs(currentTargetTheta - theta) > slerpAngleTolerance)
+            //{
+            //    slerpTimer = 0.0F;
+            //}
+
+            //http://answers.unity3d.com/questions/532062/raycast-to-determine-certain-game-objects.html
+            RaycastHit hit;
+            if(Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 1))
+            {
+                if (hit.collider.gameObject.CompareTag("Player"))
+                {
+                    slerpTimer = 0.0F;
+                }
+            }
         }
     }
 

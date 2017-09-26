@@ -8,17 +8,14 @@
 using System.Collections;
 using UnityEngine;
 
-public class Ally : MonoBehaviour
+public class AllyStatic : MonoBehaviour
 {
     //distance between ally and player ship
-    public float distance;
+    public Vector3 localPosition;
     public float timeLimit;
 
-    public float moveSpeed;
-    public float turnSpeed;
-
     public GameObject bullet;
-    public Transform bulletSpawn;
+    //public Transform bulletSpawn;
     public float bulletSpeed;
     public float firerate;
     private bool canFire = true;
@@ -26,25 +23,21 @@ public class Ally : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        //in case no enemies are present on init
-        transform.localPosition = new Vector3(0, distance, 0);
+        transform.localPosition = localPosition;
     }
 
     // Update is called once per frame
     void Update()
     {
         timeLimit -= Time.deltaTime;
-        if(timeLimit < 0.0F)
+        if (timeLimit < 0.0F)
         {
             GameObject.FindGameObjectWithTag("Player").GetComponent<PowerUpStatus>().ally = false;
             Destroy(gameObject);
         }
 
         Transform target = nearestEnemy();
-        setLocalPosition(target);
         transform.LookAt(target);
-
-        //transform.rotation = Quaternion.Slerp(transform.rotation, )
 
         if (canFire)
         {
@@ -60,6 +53,7 @@ public class Ally : MonoBehaviour
     {
         Vector3 positionDifference;
         float distance;
+        float enemyLocalZ;
         float shortestDistance = Mathf.Infinity;
         GameObject nearestEnemy = null;
         foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
@@ -67,25 +61,15 @@ public class Ally : MonoBehaviour
             positionDifference = enemy.transform.position - transform.parent.transform.position;
             //faster than non-squared magnitude
             distance = positionDifference.sqrMagnitude;
-            if (distance < shortestDistance)
+            enemyLocalZ = transform.parent.transform.InverseTransformPoint(enemy.transform.position).z;
+            //for static, want enemy to be in front of ally
+            if (distance < shortestDistance && enemyLocalZ > localPosition.z)
             {
                 shortestDistance = distance;
                 nearestEnemy = enemy;
             }
         }
         return nearestEnemy.transform;
-    }
-
-    //set transform.localPosition based on position of nearest enemy in local space
-    private void setLocalPosition(Transform enemy)
-    {
-        transform.localPosition = Vector3.zero;
-        Vector3 enemyLocalPosition = transform.parent.transform.InverseTransformPoint(enemy.position);
-
-        Vector3 direction = enemyLocalPosition - transform.localPosition;
-        direction = new Vector3(direction.x, direction.y, 0).normalized * distance;
-
-        transform.localPosition = direction;
     }
 
     private IEnumerator Fire(Vector3 target)

@@ -131,14 +131,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1167844506918502}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7ac3399e7e8d514dbdf9a55dd29f47a, type: 3}
+  m_Script: {fileID: 11500000, guid: 1db3a826477099a4a806193ed5a90b12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   distance: 0.15
-  timeLimit: 30
-  moveSpeed: 0
-  turnSpeed: 0
+  timeLimit: 3000
+  slerpTime: 0.5
+  slerpAngleTolerance: 135
+  currentTarget: {fileID: 0}
   bullet: {fileID: 1671938464347278, guid: 607f6d4154e10db4897bb2a683cfe8bf, type: 2}
-  bulletSpawn: {fileID: 4736475824850774}
-  bulletSpeed: 10
+  bulletSpeed: 1
   firerate: 3

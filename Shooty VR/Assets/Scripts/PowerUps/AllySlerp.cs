@@ -13,6 +13,11 @@ public class AllySlerp : MonoBehaviour
     //distance between ally and player ship
     public float distance;
     public float timeLimit;
+    public float slerpTime = 1.0F;
+    private float slerpTimer = 0.0F;
+    private bool isSlerping = false;
+
+    public GameObject currentTarget = null;
 
     public GameObject bullet;
     //public Transform bulletSpawn;
@@ -37,13 +42,21 @@ public class AllySlerp : MonoBehaviour
             Destroy(gameObject);
         }
 
-        Transform target = nearestEnemy();
-        setLocalPosition(target);
-        transform.LookAt(target);
-
-        if (canFire)
+        //if(currentTarget == null)
+        if(currentTarget == null || currentTarget.activeSelf == false)
         {
-            StartCoroutine(Fire(target.position));
+            isSlerping = true;
+            slerpTimer = 0.0F;
+            currentTarget = nearestEnemy().gameObject;
+        }
+
+
+        move(currentTarget.transform);
+        //transform.LookAt(currentTarget.transform);
+
+        if (canFire && !isSlerping)
+        {
+            StartCoroutine(Fire(currentTarget.transform.position));
         }
     }
 
@@ -81,6 +94,30 @@ public class AllySlerp : MonoBehaviour
         direction = new Vector3(direction.x, direction.y, 0).normalized * distance;
 
         transform.localPosition = direction;
+    }
+
+    private void move(Transform enemy)
+    {
+        Quaternion rotation = Quaternion.LookRotation((enemy.position - transform.position).normalized);
+        Vector3 enemyLocalPosition = transform.parent.transform.InverseTransformPoint(enemy.position);
+        Vector3 localTranslation = new Vector3(enemyLocalPosition.x, enemyLocalPosition.y, 0).normalized * distance;
+
+        float slerpFraction = slerpTimer / slerpTime;
+
+        if (slerpFraction < 1.0)
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, slerpFraction);
+            transform.localPosition = Vector3.Slerp(transform.localPosition, localTranslation, slerpFraction);
+
+            slerpTimer += Time.deltaTime;
+        }
+        else
+        {
+            transform.rotation = rotation;
+            transform.localPosition = localTranslation;
+
+            isSlerping = false;
+        }
     }
 
     private IEnumerator Fire(Vector3 target)

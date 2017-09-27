@@ -6,7 +6,6 @@
 //Purpose: Script ally powerup movement, behavior
 
 using UnityEngine;
-using System;
 using System.Collections;
 
 public class AllySlerp : MonoBehaviour
@@ -17,9 +16,12 @@ public class AllySlerp : MonoBehaviour
     public float slerpTime = 1.0F;
     private float slerpTimer = 0.0F;
     private float slerpFraction;
+    public float sphereCastRadius = 1.0F;
+    public float sphereCastMaxDistance = 1.0F;
     //public float slerpAngleTolerance = 45.0F;
 
     public GameObject currentTarget = null;
+    private bool targetAcquired;
 
     public GameObject bullet;
     //public Transform bulletSpawn;
@@ -73,7 +75,16 @@ public class AllySlerp : MonoBehaviour
                 nearestEnemy = enemy;
             }
         }
-        return nearestEnemy.transform;
+
+        //couldn't find any enemies
+        if(shortestDistance == Mathf.Infinity)
+        {
+            return null;
+        }
+        else
+        {
+            return nearestEnemy.transform;
+        }
     }
 
     //http://answers.unity3d.com/questions/389713/detaliled-explanation-about-given-vector3slerp-exa.html
@@ -83,7 +94,16 @@ public class AllySlerp : MonoBehaviour
         if (currentTarget == null || currentTarget.activeSelf == false)
         {
             slerpTimer = 0.0F;
-            currentTarget = nearestEnemy().gameObject;
+
+            //no enemies found
+            if(nearestEnemy() == null)
+            {
+                return;
+            }
+            else
+            {
+                currentTarget = nearestEnemy().gameObject;
+            }
         }
 
         Quaternion rotation = Quaternion.LookRotation((currentTarget.transform.position - transform.position).normalized);
@@ -104,32 +124,18 @@ public class AllySlerp : MonoBehaviour
         else
         {
             transform.rotation = rotation;
-            //transform.localPosition = localTranslation;
-
-            //float currentTargetTheta = (float)(Math.Acos(enemyLocalPosition.normalized.x) * 180/Math.PI);
-            //if(enemyLocalPosition.y < 0)
-            //{
-            //    currentTargetTheta = -currentTargetTheta;
-            //}
-            //float theta = (float)(Math.Acos(transform.localPosition.normalized.x) * 180/Math.PI);
-            //if(transform.localPosition.y < 0)
-            //{
-            //    theta = -theta;
-            //}
-            //Debug.Log(currentTargetTheta - theta);
-
-            //if(Math.Abs(currentTargetTheta - theta) > slerpAngleTolerance)
-            //{
-            //    slerpTimer = 0.0F;
-            //}
 
             //http://answers.unity3d.com/questions/532062/raycast-to-determine-certain-game-objects.html
             RaycastHit hit;
-            if(Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 1))
+            if(Physics.Raycast(transform.position, transform.forward, out hit, 1))
+            //if(Physics.SphereCast(transform.position, sphereCastRadius, transform.forward, out hit, sphereCastMaxDistance))
+            //if(Physics.SphereCast(transform.position, sphereCastRadius, transform.forward, out hit, sphereCastMaxDistance, LayerMask.GetMask("Player")))
             {
+                Debug.Log("first");
                 if (hit.collider.gameObject.CompareTag("Player"))
                 {
                     slerpTimer = 0.0F;
+                    Debug.Log("second");
                 }
             }
         }

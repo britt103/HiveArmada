@@ -5,6 +5,8 @@
 //Assignment: Group Project
 //Purpose: Script area bomb powerup behavior
 
+//http://www.sdkboy.com/2016/11/throwing-objects-daydream-vr/
+
 using UnityEngine;
 using ShootyVR;
 
@@ -12,6 +14,10 @@ public class AreaBomb : MonoBehaviour {
     public float timeLimit;
     public float radius;
     private bool released;
+    private Vector3 velocity;
+    private Vector3 lastPosition;
+    public bool isThrowable = true;
+    public float velocityMultiplier = 10.0F;
 
     private GameObject playerShip;
 
@@ -32,21 +38,27 @@ public class AreaBomb : MonoBehaviour {
                 {
                     if (objectCollider.gameObject.tag == "Enemy")
                     {
-
-                        //objectCollider.gameObject.GetComponent<CalcHealth>().isHit = true;
-                        //objectCollider.gameObject.GetComponent<CalcHealth>().healthVal -= 100;
                         objectCollider.gameObject.GetComponent<ShootyVR.Enemies.EnemyBasic>().Hit(100);
-                        ///Destroy(objectCollider.gameObject);
                     }
                 }
                 Destroy(gameObject);
             }
         }
 
+        velocity = transform.position - lastPosition;
+        lastPosition = transform.position;
+
         if (!released && playerShip.GetComponent<ShipController>().isTriggerPressed)
         {
-            playerShip.GetComponent<PowerUpStatus>().clearBomb = false;
+            playerShip.GetComponent<PowerUpStatus>().areaBomb = false;
             gameObject.transform.parent = null;
+
+            if (isThrowable)
+            {
+                gameObject.GetComponent<Rigidbody>().isKinematic = false;
+                gameObject.GetComponent<Rigidbody>().AddForce(velocity * velocityMultiplier, ForceMode.Impulse);
+            }
+
             released = true;
         }
     }

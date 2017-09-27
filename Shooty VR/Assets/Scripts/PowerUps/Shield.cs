@@ -8,10 +8,11 @@
 using UnityEngine;
 
 public class Shield : MonoBehaviour {
-    public float localAdjustmentX;
-    public float localAdjustmentY;
-    public float localAdjustmentZ;
     public float timeLimit;
+    public float warningTime;
+    public float warningFlashIntervalTime;
+    private float flashTimer = 0.0F;
+    private bool flashState = false;
 
 	// Use this for initialization
 	void Start () {
@@ -21,10 +22,15 @@ public class Shield : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         timeLimit -= Time.deltaTime;
-        if(timeLimit < 0.0F)
+        if(timeLimit <= 0.0F)
         {
             GameObject.FindGameObjectWithTag("Player").GetComponent<PowerUpStatus>().shield = false;
             Destroy(gameObject);
+        }
+
+        if(timeLimit <= warningTime)
+        {
+            Flash();
         }
     }
 
@@ -32,8 +38,18 @@ public class Shield : MonoBehaviour {
     {
         if (other.tag == "bullet")
         {
-            //Debug.Log("KEK");
             Destroy(other.gameObject);
+        }
+    }
+
+    private void Flash()
+    {
+        flashTimer += Time.deltaTime;
+        if(flashTimer >= warningFlashIntervalTime)
+        {
+            gameObject.GetComponent<MeshRenderer>().enabled = flashState;
+            flashState = !flashState;
+            flashTimer = 0.0F;
         }
     }
 }

@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviour
     public GameObject enemyParent;
     public int kills = 0;
 
+    private bool shipPickedUp;
+
     // Use this for initialization
     void Start()
     {
@@ -78,7 +80,11 @@ public class GameManager : MonoBehaviour
 
     private void ShipPickUp(object sender, InteractableObjectEventArgs args)
     {
-        StartCoroutine(Begin());
+        if (!shipPickedUp)
+        {
+            StartCoroutine(Begin());
+        }
+        shipPickedUp = true;
     }
 
     private IEnumerator Begin()

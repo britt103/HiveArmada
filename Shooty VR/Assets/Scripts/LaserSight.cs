@@ -16,7 +16,7 @@
 using UnityEngine;
 using UnityEngine.Rendering;
 
-namespace ShootyVR
+namespace GameName
 {
     public class LaserSight : MonoBehaviour
     {

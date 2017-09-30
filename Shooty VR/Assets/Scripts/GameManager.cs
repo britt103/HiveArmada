@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using VRTK;
 using UnityEngine.UI;
+using GameName;
 
 /// <summary>
 /// Chad Johnson
@@ -47,7 +48,7 @@ public class GameManager : MonoBehaviour
         controller.GetComponent<VRTK_StraightPointerRenderer>().enabled = false;
         controller.GetComponent<VRTK_UIPointer>().enabled = false;
 
-        ship.GetComponent<ShootyVR.ShipController>().InteractableObjectGrabbed += new InteractableObjectEventHandler(ShipPickUp);
+        ship.GetComponent<ShipController>().InteractableObjectGrabbed += new InteractableObjectEventHandler(ShipPickUp);
 
         //for (int i = 0; i < enemies.Length; ++i)
         //{

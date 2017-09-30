@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using ShootyVR;
+using GameName;
 
 public class MLaserGun : MonoBehaviour
 {
@@ -14,7 +14,7 @@ public class MLaserGun : MonoBehaviour
     public float radius;
     private bool canShoot = true;
 
-    private ShootyVR.ShipController gunScript;
+    private ShipController gunScript;
 
     // Use this for initialization
     void Start()

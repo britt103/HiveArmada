@@ -14,7 +14,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace ShootyVR.Enemies
+namespace GameName.Enemies
 {
     public abstract class Enemy : MonoBehaviour
     {

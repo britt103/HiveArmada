@@ -12,11 +12,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
-using ShootyVR;
-using ShootyVR.Enemies;
+using GameName;
+using GameName.Enemies;
 using UnityEngine.Networking;
 
-namespace ShootyVR.Player
+namespace GameName.Player
 {
     public class PlayerLaser : MonoBehaviour
     {

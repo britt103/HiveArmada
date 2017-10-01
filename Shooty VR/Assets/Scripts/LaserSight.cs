@@ -21,6 +21,7 @@ namespace GameName
     public class LaserSight : MonoBehaviour
     {
         private LineRenderer laser;
+        public Material laserMaterial;
         [Tooltip("View makes line face camera. Local makes the line face the direction of the transform component")]
         public LineAlignment alignment;
         public Color color;
@@ -31,11 +32,12 @@ namespace GameName
         // Use this for initialization
         void Start()
         {
-            laser = GetComponent<LineRenderer>();
+            laser = gameObject.AddComponent<LineRenderer>();
             Gradient gradient = new Gradient();
             gradient.SetKeys(
                 new GradientColorKey[] { new GradientColorKey(color, 0.0f), new GradientColorKey(color, 1.0f), },
                 new GradientAlphaKey[] { new GradientAlphaKey(color.a, 0.0f), new GradientAlphaKey(color.a, 1.0f), });
+            laser.material = laserMaterial;
             laser.shadowCastingMode = castShadows;
             laser.receiveShadows = receiveShadows;
             laser.alignment = alignment;

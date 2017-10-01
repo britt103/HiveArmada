@@ -6,7 +6,8 @@
 //Purpose: Script area bomb powerup behavior
 
 using UnityEngine;
-using ShootyVR;
+using GameName;
+using GameName.Enemies;
 
 public class AreaBomb : MonoBehaviour {
     public float timeLimit;
@@ -35,7 +36,7 @@ public class AreaBomb : MonoBehaviour {
 
                         //objectCollider.gameObject.GetComponent<CalcHealth>().isHit = true;
                         //objectCollider.gameObject.GetComponent<CalcHealth>().healthVal -= 100;
-                        objectCollider.gameObject.GetComponent<ShootyVR.Enemies.EnemyBasic>().Hit(100);
+                        objectCollider.gameObject.GetComponent<EnemyBasic>().Hit(100);
                         ///Destroy(objectCollider.gameObject);
                     }
                 }

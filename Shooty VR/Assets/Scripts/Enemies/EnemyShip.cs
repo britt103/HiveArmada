@@ -13,7 +13,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace ShootyVR.Enemies
+namespace GameName.Enemies
 {
     [RequireComponent(typeof(Enemy))]
     public abstract class EnemyShip : MonoBehaviour

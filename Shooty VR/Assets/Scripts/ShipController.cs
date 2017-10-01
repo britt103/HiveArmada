@@ -13,7 +13,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using VRTK;
 
-namespace ShootyVR
+namespace GameName
 {
     public class ShipController : VRTK_InteractableObject
     {

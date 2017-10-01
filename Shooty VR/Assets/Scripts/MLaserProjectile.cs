@@ -1,10 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GameName.Enemies;
 
 public class MLaserProjectile : MonoBehaviour
 {
-
     GameObject enemy;
 
     // Use this for initialization
@@ -25,7 +25,7 @@ public class MLaserProjectile : MonoBehaviour
         {
             //other.GetComponent<CalcHealth>().isHit = true;
             //other.GetComponent<CalcHealth>().healthVal -= 10;
-            other.GetComponent<ShootyVR.Enemies.EnemyBasic>().Hit(10);
+            other.GetComponent<EnemyBasic>().Hit(10);
             Destroy(gameObject);
         }
         else if (other.tag == "Room")

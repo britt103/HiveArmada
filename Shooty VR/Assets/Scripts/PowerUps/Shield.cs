@@ -13,6 +13,7 @@ public class Shield : MonoBehaviour {
     public float warningFlashIntervalTime;
     private float flashTimer = 0.0F;
     private bool flashState = false;
+    public Vector3 rotation = new Vector3(0.0F, 0.0F, 0.0F);
 
 	// Use this for initialization
 	void Start () {
@@ -32,6 +33,8 @@ public class Shield : MonoBehaviour {
         {
             Flash();
         }
+
+        transform.Rotate(rotation);
     }
 
     void OnTriggerEnter(Collider other)

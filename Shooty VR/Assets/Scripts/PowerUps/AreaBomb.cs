@@ -9,6 +9,7 @@
 
 using UnityEngine;
 using ShootyVR;
+using System.Collections;
 
 public class AreaBomb : MonoBehaviour {
     public float timeLimit;
@@ -18,6 +19,10 @@ public class AreaBomb : MonoBehaviour {
     private Vector3 lastPosition;
     public bool isThrowable = true;
     public float velocityMultiplier = 10.0F;
+    public int numAveragedVelocities = 10;
+    private Queue velocities;
+    public bool isSetVelocity;
+    public float setVelocity;
 
     private GameObject playerShip;
 
@@ -25,6 +30,7 @@ public class AreaBomb : MonoBehaviour {
     void Start () {
         playerShip = GameObject.FindGameObjectWithTag("Player");
         released = false;
+        velocities = new Queue(numAveragedVelocities);
 	}
 
     // Update is called once per frame
@@ -48,6 +54,12 @@ public class AreaBomb : MonoBehaviour {
         velocity = transform.position - lastPosition;
         lastPosition = transform.position;
 
+        velocities.Enqueue(velocity);
+        if(velocities.Count > numAveragedVelocities)
+        {
+            velocities.Dequeue();
+        }
+
         if (!released && playerShip.GetComponent<ShipController>().isTriggerPressed)
         {
             playerShip.GetComponent<PowerUpStatus>().areaBomb = false;
@@ -55,8 +67,24 @@ public class AreaBomb : MonoBehaviour {
 
             if (isThrowable)
             {
+                Vector3 averagedVelocity = Vector3.zero;
+                foreach(Vector3 velocity in velocities)
+                {
+                    averagedVelocity += velocity;
+                }
+                averagedVelocity /= velocities.Count;
+
                 gameObject.GetComponent<Rigidbody>().isKinematic = false;
-                gameObject.GetComponent<Rigidbody>().AddForce(velocity * velocityMultiplier, ForceMode.Impulse);
+
+                if (!isSetVelocity)
+                {
+                    gameObject.GetComponent<Rigidbody>().AddForce(averagedVelocity * velocityMultiplier, ForceMode.Impulse);
+                }
+                else
+                {
+                    gameObject.GetComponent<Rigidbody>().AddForce(averagedVelocity.normalized * setVelocity, ForceMode.Impulse);
+                }
+                
             }
 
             released = true;

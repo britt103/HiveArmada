@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using ShootyVR.Enemies;
+///using ShootyVR.Enemies;
 /// <summary>
 /// /// Ryan Britton
 /// britt103
@@ -12,19 +12,14 @@ using ShootyVR.Enemies;
 /// This script handles the logic of a turret moving between two points
 /// </summary>
 
-public class MovingTurret : Enemy
+public class MovingTurret : MonoBehaviour
 {
     public float movingSpeed;
-    public float xMax;
-    public float xMin;
+    public float xMax;    
     public float yMax;
-    public float yMin;
-
-
     private Vector3 posA;
     private Vector3 posB;
 
-    private float xStart;
     private float xEnd;
     public GameObject bullet;
     public Transform spawn;
@@ -39,21 +34,28 @@ public class MovingTurret : Enemy
     // Use this for initialization
     void Start()
     {
-        SetPositions();
- 
+        SetPosition(); 
         player = GameObject.FindGameObjectWithTag("Player");
-        pos = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z);
+        
     }
-    void SetPositions()
+    void SetPosition()
     {
-        xStart = transform.position.x + xMin;
-        xEnd = transform.position.x +  xMax;
-
-        posA = new Vector3(xStart, yMin, 0);
-        posB = new Vector3(xEnd, yMax, 0);
+        pos = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+        posA = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+        posB = new Vector3(transform.position.x + xEnd,transform.position.y + yMax, 0);
     }
     private void Update()
     {
         transform.position = Vector3.Lerp(posA, posB, Mathf.PingPong(Time.time * movingSpeed, 1.0f));
+        pos = player.transform.position;
+        transform.LookAt(pos);
+
+        /*if (Time.time > fireNext)
+        {
+            fireNext = Time.time + fireRate;
+            var shoot = Instantiate(bullet, spawn.position, spawn.rotation);
+            shoot.GetComponent<Rigidbody>().velocity = shoot.transform.forward * fireSpeed;
+        }*/
     }
+
 }

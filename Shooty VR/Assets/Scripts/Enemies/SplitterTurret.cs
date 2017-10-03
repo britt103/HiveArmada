@@ -13,7 +13,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using ShootyVR.Enemies;
 
-public class SplitterTurret : Enemy
+public class SplitterTurret : MonoBehaviour
 {
     public GameObject bullet;
     public Transform spawn;
@@ -50,8 +50,7 @@ public class SplitterTurret : Enemy
             shoot.GetComponent<Rigidbody>().velocity = shoot.transform.forward * fireSpeed;
         }
     }
-
-    protected override IEnumerator HitFlash()
+    /*protected override IEnumerator HitFlash()
     {
         gameObject.GetComponent<Renderer>().material = flashColor;
         yield return new WaitForSeconds(.01f);
@@ -72,6 +71,6 @@ public class SplitterTurret : Enemy
             Destroy(gameObject);
         }
         gameObject.GetComponent<Renderer>().material = material;
-    }
+    }*/
 
 }

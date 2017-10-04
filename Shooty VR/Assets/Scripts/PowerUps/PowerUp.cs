@@ -4,22 +4,13 @@
 //Course: CPSC 340-01, CPSC-344-01
 //Assignment: Group Project
 //Purpose: Handles collision with Player, instantiates powerups
+
 using UnityEngine;
 using ShootyVR;
 
 public class PowerUp : MonoBehaviour {
     //prefab to use for instantiation
     public GameObject powerUpPrefab;
-
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        
-	}
 
     /// <summary>
     /// handles collision with player

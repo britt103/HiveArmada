@@ -8,9 +8,6 @@
 using UnityEngine;
 using ShootyVR;
 
-/// <summary>
-/// Destroys all enemies
-/// </summary>
 public class ClearBomb : MonoBehaviour
 {
     private GameObject playerShip;
@@ -21,6 +18,7 @@ public class ClearBomb : MonoBehaviour
         playerShip = GameObject.FindGameObjectWithTag("Player");
     }
 
+    // Update is called once per frame
     void Update()
     {
         if (playerShip.GetComponent<ShipController>().isTriggerPressed)

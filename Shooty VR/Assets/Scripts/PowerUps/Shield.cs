@@ -14,11 +14,6 @@ public class Shield : MonoBehaviour {
     private float flashTimer = 0.0F;
     private bool flashState = false;
     public Vector3 rotation = new Vector3(0.0F, 0.0F, 0.0F);
-
-	// Use this for initialization
-	void Start () {
-
-	}
 	
 	// Update is called once per frame
 	void Update () {
@@ -37,6 +32,10 @@ public class Shield : MonoBehaviour {
         transform.Rotate(rotation);
     }
 
+    /// <summary>
+    /// Handles collision with other
+    /// </summary>
+    /// <param name="other">Collider of other object</param>
     void OnTriggerEnter(Collider other)
     {
         if (other.tag == "bullet")
@@ -45,6 +44,9 @@ public class Shield : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Alternates mesh renderer status for Warning effect
+    /// </summary>
     private void Flash()
     {
         flashTimer += Time.deltaTime;

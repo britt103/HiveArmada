@@ -5,28 +5,31 @@
 //Assignment: Group Project
 //Purpose: Script ally powerup movement, behavior
 
+//http://answers.unity3d.com/questions/496463/find-nearest-object.html
+//https://docs.unity3d.com/ScriptReference/Vector3-sqrMagnitude.html
+//http://answers.unity3d.com/questions/389713/detaliled-explanation-about-given-vector3slerp-exa.html
+//http://answers.unity3d.com/questions/532062/raycast-to-determine-certain-game-objects.html
+
 using UnityEngine;
 using System.Collections;
 
 public class AllySlerp : MonoBehaviour
 {
-    //distance between ally and player ship
     public float distance;
     public float timeLimit;
     public float slerpTime = 1.0F;
-    private float slerpTimer = 0.0F;
-    private float slerpFraction;
     public float sphereCastRadius = 1.0F;
     public float sphereCastMaxDistance = 1.0F;
-    //public float slerpAngleTolerance = 45.0F;
-
     public GameObject currentTarget = null;
+
+    private float slerpTimer = 0.0F;
+    private float slerpFraction;
     private bool targetAcquired;
 
     public GameObject bullet;
-    //public Transform bulletSpawn;
     public float bulletSpeed;
     public float firerate;
+
     private bool canFire = true;
 
     // Use this for initialization
@@ -54,10 +57,10 @@ public class AllySlerp : MonoBehaviour
         }
     }
 
-    //http://answers.unity3d.com/questions/496463/find-nearest-object.html
-    //https://docs.unity3d.com/ScriptReference/Vector3-sqrMagnitude.html
-
-    //determine nearest enemy to player ship, return its transform
+    /// <summary>
+    /// Determine transform of enemy nearest to player ship
+    /// </summary>
+    /// <returns>Transform of nearest enemy ship</returns>
     private Transform nearestEnemy()
     {
         Vector3 positionDifference;
@@ -87,7 +90,9 @@ public class AllySlerp : MonoBehaviour
         }
     }
 
-    //http://answers.unity3d.com/questions/389713/detaliled-explanation-about-given-vector3slerp-exa.html
+    /// <summary>
+    /// Controls movement and rotation; utilizes slerp
+    /// </summary>
     private void move()
     {
         //no current target
@@ -125,7 +130,6 @@ public class AllySlerp : MonoBehaviour
         {
             transform.rotation = rotation;
 
-            //http://answers.unity3d.com/questions/532062/raycast-to-determine-certain-game-objects.html
             RaycastHit hit;
             if(Physics.Raycast(transform.position, transform.forward, out hit, 1))
             //if(Physics.SphereCast(transform.position, sphereCastRadius, transform.forward, out hit, sphereCastMaxDistance))
@@ -141,6 +145,11 @@ public class AllySlerp : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Instantiates bullet according to firerate
+    /// </summary>
+    /// <param name="target">Enemy bullet is "aimed" at</param>
+    /// <returns>IEnumerator for StartCoroutine in Update()</returns>
     private IEnumerator Fire(Vector3 target)
     {
         canFire = false;

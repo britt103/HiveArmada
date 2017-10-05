@@ -16,7 +16,7 @@
 using UnityEngine;
 using UnityEngine.Rendering;
 
-namespace GameName
+namespace GameName.Player
 {
     public class LaserSight : MonoBehaviour
     {

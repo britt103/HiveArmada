@@ -28,8 +28,9 @@ namespace GameName.Player
         //private float timeBeforeConfirmingHandSwitch = 1.5f;
         //private bool possibleHandSwitch = false;
 
-        public LaserGun laserGun;
-        public Transform snapPoint;
+        public GameObject lasers;
+        private LaserGun laserGun;
+        public Transform pivotTransform;
         private Hand hand;
 
         public GunTypes currentGun = GunTypes.Lasers;

@@ -12,8 +12,8 @@ namespace VRTK.Examples
     public class Gun : VRTK_InteractableObject
     {
         private GameObject bullet;
-        private float bulletSpeed = 10000f;
-        private float bulletLife = 5f;
+        //private float bulletSpeed = 10000f;
+        //private float bulletLife = 5f;
         public bool isTriggerPressed = false;
 
         public GameObject laserPrefab;
@@ -25,29 +25,17 @@ namespace VRTK.Examples
         public override void StartUsing(VRTK_InteractUse usingObject)
         {
             base.StartUsing(usingObject);
-            StartDeath();
         }
 
         public override void StopUsing(VRTK_InteractUse usingObject)
         {
             base.StopUsing(usingObject);
-            StopDeath();
         }
 
         protected void Start()
         {
-            //bullet = transform.Find("Bullet").gameObject;
-            //bullet.SetActive(false);
-        }
-
-        private void StartDeath()
-        {
-            isTriggerPressed = true;
-        }
-
-        private void StopDeath()
-        {
-            isTriggerPressed = false;
+            bullet = transform.Find("Bullet").gameObject;
+            bullet.SetActive(false);
         }
     }
 }

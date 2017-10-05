@@ -17,7 +17,7 @@ using GameName.Enemies;
 using System;
 using UnityEngine.Rendering;
 
-namespace GameName.Player
+namespace GameName.Player.Guns
 {
     public class LaserGun : Gun
     {

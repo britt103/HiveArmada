@@ -5,10 +5,10 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 451722}
-  - 114: {fileID: 11450054}
+  - component: {fileID: 451722}
+  - component: {fileID: 11450054}
   m_Layer: 0
   m_Name: LongbowItemPackage
   m_TagString: Untagged
@@ -25,10 +25,10 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &11450054
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -45,7 +45,7 @@ MonoBehaviour:
   itemPrefab: {fileID: 173346, guid: f1f5f898fbfdb80478825ce9b01fe8ae, type: 2}
   otherHandItemPrefab: {fileID: 187848, guid: d410d7126dd411c4ea651fc94eae9202, type: 2}
   previewPrefab: {fileID: 196770, guid: a5b684916cfe6804985d74652a2af09f, type: 2}
-  fadedPreviewPrefab: {fileID: 103010, guid: b9d299b8c6aa86242bec9a060f7e2d81, type: 2}
+  fadedPreviewPrefab: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

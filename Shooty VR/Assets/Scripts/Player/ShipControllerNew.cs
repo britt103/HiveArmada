@@ -14,6 +14,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR.InteractionSystem;
+using GameName.Player.Guns;
 
 namespace GameName.Player
 {
@@ -73,6 +74,7 @@ namespace GameName.Player
         void Awake()
         {
             newPosesAppliedAction = SteamVR_Events.NewPosesAppliedAction(OnNewPosesApplied);
+            laserGun = lasers.GetComponentInChildren<LaserGun>();
         }
 
         void OnEnable()
@@ -111,6 +113,12 @@ namespace GameName.Player
             // Reset transform since we cheated it right after getting poses on previous frame
             transform.localPosition = Vector3.zero;
             transform.localRotation = Quaternion.identity;
+
+            if (hand.GetStandardInteractionButton())
+            {
+                laserGun.TriggerUpdate();
+            }
+            
 
             //// Update handedness guess
             //EvaluateHandedness();
@@ -183,7 +191,7 @@ namespace GameName.Player
 
         private void ShutDown()
         {
-            hand.DetachObject(gameObject);
+            //hand.DetachObject(gameObject);
             //if (hand != null && hand.otherHand.currentAttachedObject != null)
             //{
             //    if (hand.otherHand.currentAttachedObject.GetComponent<ItemPackageReference>() != null)

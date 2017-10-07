@@ -31,6 +31,7 @@ public class EnemyBullet : MonoBehaviour {
             //other.GetComponent<CalcHealth>().healthVal -= 20;
             //other.GetComponent<CalcHealth>().isHit = true;
             other.GetComponent<CalcHealth>().Hit(1);
+            Debug.Log("Hi!");
         }
 	}
 }

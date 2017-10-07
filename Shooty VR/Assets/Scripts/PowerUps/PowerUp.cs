@@ -24,34 +24,34 @@ public class PowerUp : MonoBehaviour {
             switch (powerUpPrefab.name)
             {
                 case "Shield":
-                    if (!other.gameObject.GetComponent<PowerUpStatus>().shield)
+                    if (!other.gameObject.GetComponent<PowerUpStatus>().GetShield())
                     {
                         Instantiate(powerUpPrefab, other.gameObject.GetComponent<ShipController>().powerupPoint);
-                        other.gameObject.GetComponent<PowerUpStatus>().shield = true;
+                        other.gameObject.GetComponent<PowerUpStatus>().SetShield(true);
                     }
                     break;
 
                 case "Area Bomb":
-                    if (!other.gameObject.GetComponent<PowerUpStatus>().areaBomb)
+                    if (!other.gameObject.GetComponent<PowerUpStatus>().GetSAreaBomb())
                     {
                         Instantiate(powerUpPrefab, other.gameObject.GetComponent<ShipController>().powerupPoint);
-                        other.gameObject.GetComponent<PowerUpStatus>().areaBomb = true;
+                        other.gameObject.GetComponent<PowerUpStatus>().SetAreaBomb(true);
                     }
                     break;
 
                 case "Clear Bomb":
-                    if (!other.gameObject.GetComponent<PowerUpStatus>().clearBomb)
+                    if (!other.gameObject.GetComponent<PowerUpStatus>().GetClear())
                     {
                         Instantiate(powerUpPrefab, other.gameObject.GetComponent<ShipController>().powerupPoint);
-                        other.gameObject.GetComponent<PowerUpStatus>().clearBomb = true;
+                        other.gameObject.GetComponent<PowerUpStatus>().SetClear(true);
                     }
                     break;
 
                 case "Ally":
-                    if (!other.gameObject.GetComponent<PowerUpStatus>().ally)
+                    if (!other.gameObject.GetComponent<PowerUpStatus>().GetAlly())
                     {
                         Instantiate(powerUpPrefab, other.gameObject.GetComponent<ShipController>().powerupPoint);
-                        other.gameObject.GetComponent<PowerUpStatus>().ally = true;
+                        other.gameObject.GetComponent<PowerUpStatus>().SetAlly(true);
                     }
                     break;
             }

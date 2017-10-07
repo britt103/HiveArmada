@@ -23,7 +23,7 @@ public class ClearBomb : MonoBehaviour
     {
         if (playerShip.GetComponent<ShipController>().isTriggerPressed)
         {
-            playerShip.GetComponent<PowerUpStatus>().clearBomb = false;
+            playerShip.GetComponent<PowerUpStatus>().SetClear(false);
             foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
             {
                 Destroy(enemy);

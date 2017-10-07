@@ -13,152 +13,153 @@
 using UnityEngine;
 using System.Collections;
 
-public class AllySlerp : MonoBehaviour
+namespace ShootyVR
 {
-    public float distance;
-    public float timeLimit;
-    public float slerpTime = 1.0F;
-    public float sphereCastRadius = 1.0F;
-    public float sphereCastMaxDistance = 1.0F;
-    public GameObject currentTarget = null;
-
-    private float slerpTimer = 0.0F;
-    private float slerpFraction;
-    private bool targetAcquired;
-
-    public GameObject bullet;
-    public float bulletSpeed;
-    public float firerate;
-
-    private bool canFire = true;
-
-    // Use this for initialization
-    void Start()
+    public class AllySlerp : MonoBehaviour
     {
-        //in case no enemies are present on init
-        transform.localPosition = new Vector3(0, distance, 0);
-    }
+        public float distance;
+        public float timeLimit;
+        public float slerpTime = 1.0F;
+        public float sphereCastRadius = 1.0F;
+        public float sphereCastMaxDistance = 1.0F;
+        public GameObject currentTarget = null;
 
-    // Update is called once per frame
-    void Update()
-    {
-        timeLimit -= Time.deltaTime;
-        if(timeLimit < 0.0F)
+        private float slerpTimer = 0.0F;
+        private float slerpFraction;
+        private bool targetAcquired;
+
+        public GameObject bullet;
+        public float bulletSpeed;
+        public float firerate;
+
+        private bool canFire = true;
+
+        // Use this for initialization
+        void Start()
         {
-            GameObject.FindGameObjectWithTag("Player").GetComponent<PowerUpStatus>().ally = false;
-            Destroy(gameObject);
+            //in case no enemies are present on init
+            transform.localPosition = new Vector3(0, distance, 0);
         }
 
-        move();
-
-        if (canFire && slerpFraction >= 1.0F)
+        // Update is called once per frame
+        void Update()
         {
-            StartCoroutine(Fire(currentTarget.transform.position));
-        }
-    }
-
-    /// <summary>
-    /// Determine transform of enemy nearest to player ship
-    /// </summary>
-    /// <returns>Transform of nearest enemy ship</returns>
-    private Transform nearestEnemy()
-    {
-        Vector3 positionDifference;
-        float distance;
-        float shortestDistance = Mathf.Infinity;
-        GameObject nearestEnemy = null;
-        foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
-        {
-            positionDifference = enemy.transform.position - transform.parent.transform.position;
-            //faster than non-squared magnitude
-            distance = positionDifference.sqrMagnitude;
-            if (distance < shortestDistance)
+            timeLimit -= Time.deltaTime;
+            if (timeLimit < 0.0F)
             {
-                shortestDistance = distance;
-                nearestEnemy = enemy;
+                GameObject.FindGameObjectWithTag("Player").GetComponent<PowerUpStatus>().SetAlly(false);
+                Destroy(gameObject);
+            }
+
+            move();
+
+            if (canFire && slerpFraction >= 1.0F)
+            {
+                StartCoroutine(Fire(currentTarget.transform.position));
             }
         }
 
-        //couldn't find any enemies
-        if(shortestDistance == Mathf.Infinity)
+        /// <summary>
+        /// Determine transform of enemy nearest to player ship
+        /// </summary>
+        /// <returns>Transform of nearest enemy ship</returns>
+        private Transform nearestEnemy()
         {
-            return null;
-        }
-        else
-        {
-            return nearestEnemy.transform;
-        }
-    }
-
-    /// <summary>
-    /// Controls movement and rotation; utilizes slerp
-    /// </summary>
-    private void move()
-    {
-        //no current target
-        if (currentTarget == null || currentTarget.activeSelf == false)
-        {
-            slerpTimer = 0.0F;
-
-            //no enemies found
-            if(nearestEnemy() == null)
+            Vector3 positionDifference;
+            float distance;
+            float shortestDistance = Mathf.Infinity;
+            GameObject nearestEnemy = null;
+            foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
             {
-                return;
+                positionDifference = enemy.transform.position - transform.parent.transform.position;
+                //faster than non-squared magnitude
+                distance = positionDifference.sqrMagnitude;
+                if (distance < shortestDistance)
+                {
+                    shortestDistance = distance;
+                    nearestEnemy = enemy;
+                }
+            }
+
+            //couldn't find any enemies
+            if (shortestDistance == Mathf.Infinity)
+            {
+                return null;
             }
             else
             {
-                currentTarget = nearestEnemy().gameObject;
+                return nearestEnemy.transform;
             }
         }
 
-        Quaternion rotation = Quaternion.LookRotation((currentTarget.transform.position - transform.position).normalized);
-        Vector3 enemyLocalPosition = transform.parent.transform.InverseTransformPoint(currentTarget.transform.position);
-        Vector3 localTranslation = new Vector3(enemyLocalPosition.x, enemyLocalPosition.y, 0).normalized * distance;
-
-        slerpFraction = slerpTimer / slerpTime;
-
-        //is slerping
-        if (slerpFraction < 1.0F)
+        /// <summary>
+        /// Controls movement and rotation; utilizes slerp
+        /// </summary>
+        private void move()
         {
-            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, slerpFraction);
-            transform.localPosition = Vector3.Slerp(transform.localPosition, localTranslation, slerpFraction);
-
-            slerpTimer += Time.deltaTime;
-        }
-        //not slerping
-        else
-        {
-            transform.rotation = rotation;
-
-            RaycastHit hit;
-            if(Physics.Raycast(transform.position, transform.forward, out hit, 1))
-            //if(Physics.SphereCast(transform.position, sphereCastRadius, transform.forward, out hit, sphereCastMaxDistance))
-            //if(Physics.SphereCast(transform.position, sphereCastRadius, transform.forward, out hit, sphereCastMaxDistance, LayerMask.GetMask("Player")))
+            //no current target
+            if (currentTarget == null || currentTarget.activeSelf == false)
             {
-                Debug.Log("first");
-                if (hit.collider.gameObject.CompareTag("Player"))
+                slerpTimer = 0.0F;
+
+                //no enemies found
+                if (nearestEnemy() == null)
                 {
-                    slerpTimer = 0.0F;
-                    Debug.Log("second");
+                    return;
+                }
+                else
+                {
+                    currentTarget = nearestEnemy().gameObject;
+                }
+            }
+
+            Quaternion rotation = Quaternion.LookRotation((currentTarget.transform.position - transform.position).normalized);
+            Vector3 enemyLocalPosition = transform.parent.transform.InverseTransformPoint(currentTarget.transform.position);
+            Vector3 localTranslation = new Vector3(enemyLocalPosition.x, enemyLocalPosition.y, 0).normalized * distance;
+
+            slerpFraction = slerpTimer / slerpTime;
+
+            //is slerping
+            if (slerpFraction < 1.0F)
+            {
+                transform.rotation = Quaternion.Slerp(transform.rotation, rotation, slerpFraction);
+                transform.localPosition = Vector3.Slerp(transform.localPosition, localTranslation, slerpFraction);
+
+                slerpTimer += Time.deltaTime;
+            }
+            //not slerping
+            else
+            {
+                transform.rotation = rotation;
+
+                RaycastHit hit;
+                if (Physics.Raycast(transform.position, transform.forward, out hit, 1))
+                //if(Physics.SphereCast(transform.position, sphereCastRadius, transform.forward, out hit, sphereCastMaxDistance))
+                //if(Physics.SphereCast(transform.position, sphereCastRadius, transform.forward, out hit, sphereCastMaxDistance, LayerMask.GetMask("Player")))
+                {
+                    if (hit.collider.gameObject.CompareTag("Player"))
+                    {
+                        slerpTimer = 0.0F;
+                    }
                 }
             }
         }
-    }
 
-    /// <summary>
-    /// Instantiates bullet according to firerate
-    /// </summary>
-    /// <param name="target">Enemy bullet is "aimed" at</param>
-    /// <returns>IEnumerator for StartCoroutine in Update()</returns>
-    private IEnumerator Fire(Vector3 target)
-    {
-        canFire = false;
-        var laser = Instantiate(bullet, transform.position, transform.rotation);
+        /// <summary>
+        /// Instantiates bullet according to firerate
+        /// </summary>
+        /// <param name="target">Enemy bullet is "aimed" at</param>
+        /// <returns>IEnumerator for StartCoroutine in Update()</returns>
+        private IEnumerator Fire(Vector3 target)
+        {
+            canFire = false;
+            var laser = Instantiate(bullet, transform.position, transform.rotation);
 
-        laser.transform.LookAt(target);
-        laser.GetComponent<Rigidbody>().velocity = laser.transform.forward * bulletSpeed;
+            laser.transform.LookAt(target);
+            laser.GetComponent<Rigidbody>().velocity = laser.transform.forward * bulletSpeed;
 
-        yield return new WaitForSeconds(1.0f / firerate);
-        canFire = true;
+            yield return new WaitForSeconds(1.0f / firerate);
+            canFire = true;
+        }
     }
 }

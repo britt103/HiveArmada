@@ -7,19 +7,83 @@
 
 using UnityEngine;
 
-public class PowerUpStatus : MonoBehaviour {
-    public bool shield;
-    public bool areaBomb;
-    public bool clearBomb;
-    public bool ally;
+namespace ShootyVR
+{
+    public class PowerUpStatus : MonoBehaviour
+    {
+        private bool shieldState = false;
+        private bool areaBombState = false;
+        private bool clearState = false;
+        private bool allyState = false;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+        private PlayerStats stats;
+
+        // Use this for initialization
+        void Start()
+        {
+            stats = GameObject.Find("Player Stats").GetComponent<PlayerStats>();
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+
+        }
+
+        public bool GetShield()
+        {
+            return shieldState;
+        }
+
+        public void SetShield(bool newState)
+        {
+            if (newState)
+            {
+                stats.ShieldCount();
+            }
+            shieldState = newState;
+        }
+
+        public bool GetSAreaBomb()
+        {
+            return areaBombState;
+        }
+
+        public void SetAreaBomb(bool newState)
+        {
+            if (newState)
+            {
+                stats.AreaBombCount();
+            }
+            areaBombState = newState;
+        }
+
+        public bool GetClear()
+        {
+            return clearState;
+        }
+
+        public void SetClear(bool newState)
+        {
+            if (newState)
+            {
+                stats.ClearCount();
+            }
+            clearState = newState;
+        }
+
+        public bool GetAlly()
+        {
+            return allyState;
+        }
+
+        public void SetAlly(bool newState)
+        {
+            if (newState)
+            {
+                stats.AllyCount();
+            }
+            allyState = newState;
+        }
+    }
 }

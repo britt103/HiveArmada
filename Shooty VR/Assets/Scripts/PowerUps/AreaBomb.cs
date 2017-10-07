@@ -5,6 +5,8 @@
 //Assignment: Group Project
 //Purpose: Script area bomb powerup behavior; bomb accelerates forward until detonation
 
+//http://answers.unity3d.com/questions/459602/transformforward-problem.html
+
 using UnityEngine;
 using ShootyVR;
 
@@ -30,11 +32,7 @@ public class AreaBomb : MonoBehaviour {
         if (released)
         {
             currentSpeed += acceleration * Time.deltaTime;
-            if(currentSpeed > maxSpeed)
-            {
-                currentSpeed = maxSpeed;
-            }
-            transform.Translate(transform.forward.normalized * currentSpeed);
+            transform.Translate(Vector3.forward * Mathf.Clamp(currentSpeed, 0.0F, maxSpeed));
 
             //time-based detonation
             timeLimit -= Time.deltaTime;
@@ -54,7 +52,10 @@ public class AreaBomb : MonoBehaviour {
         //player presses "bomb"/"powerup" button
         if (!released && playerShip.GetComponent<ShipController>().isTriggerPressed)
         {
-            playerShip.GetComponent<PowerUpStatus>().areaBomb = false;
+            playerShip.GetComponent<PowerUpStatus>().SetAreaBomb(false);
+
+            //trajectory = playerShip.transform.forward.normalized;
+
             gameObject.transform.parent = null;
 
             released = true;

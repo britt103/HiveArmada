@@ -18,6 +18,7 @@ namespace GameName.Player.Guns
 {
     public abstract class Gun : MonoBehaviour
     {
+        public ShipControllerNew shipController;
         public int damage;
         public float fireRate;
         protected bool canShoot = true;

@@ -16,6 +16,7 @@ using GameName;
 using GameName.Enemies;
 using System;
 using UnityEngine.Rendering;
+using Valve.VR;
 
 namespace GameName.Player.Guns
 {
@@ -77,10 +78,19 @@ namespace GameName.Player.Guns
             if (Physics.SphereCast(transform.position, radius, transform.forward, out hit, 200.0f, Utility.enemyMask))
             {
                 StartCoroutine(Shoot(hit.collider.gameObject.transform.position, hit.collider.gameObject));
+
+                //if (shipController.hand != null)
+                //{
+                //    shipController.hand.controller.TriggerHapticPulse();
+                //}
+                
+                
                 if (hit.collider.gameObject.GetComponent<EnemyBasic>() != null)
                 {
                     hit.collider.gameObject.GetComponent<EnemyBasic>().Hit(damage);
                 }
+
+                shipController.hand.controller.TriggerHapticPulse(2500);
             }
             else if (Physics.Raycast(transform.position, transform.forward, out hit, 200.0f, Utility.roomMask))
             {

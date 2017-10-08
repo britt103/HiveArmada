@@ -12,6 +12,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 using Valve.VR.InteractionSystem;
 using GameName.Player.Guns;
@@ -32,7 +33,7 @@ namespace GameName.Player
         public GameObject lasers;
         private LaserGun laserGun;
         public Transform pivotTransform;
-        private Hand hand;
+        public Hand hand { get; private set; }
 
         public GunTypes currentGun = GunTypes.Lasers;
 
@@ -68,6 +69,7 @@ namespace GameName.Player
 
         private void OnAttachedToHand(Hand attachedHand)
         {
+            Debug.Log("HOLY SHIT I ATTACHED");
             hand = attachedHand;
         }
 

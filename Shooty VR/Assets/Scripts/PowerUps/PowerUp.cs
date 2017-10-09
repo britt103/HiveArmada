@@ -5,56 +5,68 @@
 //Assignment: Group Project
 //Purpose: Handles collision with Player, instantiates powerups
 
-using UnityEngine;
-using ShootyVR;
+using UnityEngine; 
+using Valve.VR.InteractionSystem;
 
-public class PowerUp : MonoBehaviour {
-    //prefab to use for instantiation
-    public GameObject powerUpPrefab;
-
-    /// <summary>
-    /// handles collision with player
-    /// </summary>
-    /// <param name="other">object powerup collided with</param>
-    void OnTriggerEnter(Collider other)
+namespace GameName
+{
+    public class PowerUp : MonoBehaviour
     {
-        if(other.gameObject.tag == "Player")
+        //prefab to use for instantiation
+        public GameObject powerUpPrefab;
+        private PowerUpStatus status;
+
+        private void Start()
         {
-            Destroy(gameObject);
-            switch (powerUpPrefab.name)
+            status = GameObject.Find("Player").GetComponent<PowerUpStatus>();
+        }
+
+        /// <summary>
+        /// handles collision with player
+        /// </summary>
+        /// <param name="other">object powerup collided with</param>
+        void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject.tag == "Player")
             {
-                case "Shield":
-                    if (!other.gameObject.GetComponent<PowerUpStatus>().GetShield())
-                    {
-                        Instantiate(powerUpPrefab, other.gameObject.GetComponent<ShipController>().powerupPoint);
-                        other.gameObject.GetComponent<PowerUpStatus>().SetShield(true);
-                    }
-                    break;
+                switch (powerUpPrefab.name)
+                {
+                    case "Shield":
+                        if (!status.GetShield())
+                        {
+                            Instantiate(powerUpPrefab, other.gameObject.transform);
+                            status.SetShield(true);
+                        }
+                        break;
 
-                case "Area Bomb":
-                    if (!other.gameObject.GetComponent<PowerUpStatus>().GetSAreaBomb())
-                    {
-                        Instantiate(powerUpPrefab, other.gameObject.GetComponent<ShipController>().powerupPoint);
-                        other.gameObject.GetComponent<PowerUpStatus>().SetAreaBomb(true);
-                    }
-                    break;
+                    case "Area Bomb":
+                        if (!status.GetSAreaBomb())
+                        {
+                            Instantiate(powerUpPrefab, other.gameObject.transform);
+                            status.SetAreaBomb(true);
 
-                case "Clear Bomb":
-                    if (!other.gameObject.GetComponent<PowerUpStatus>().GetClear())
-                    {
-                        Instantiate(powerUpPrefab, other.gameObject.GetComponent<ShipController>().powerupPoint);
-                        other.gameObject.GetComponent<PowerUpStatus>().SetClear(true);
-                    }
-                    break;
+                        }
+                        break;
 
-                case "Ally":
-                    if (!other.gameObject.GetComponent<PowerUpStatus>().GetAlly())
-                    {
-                        Instantiate(powerUpPrefab, other.gameObject.GetComponent<ShipController>().powerupPoint);
-                        other.gameObject.GetComponent<PowerUpStatus>().SetAlly(true);
-                    }
-                    break;
+                    case "Clear":
+                        if (!status.GetClear())
+                        {
+                            Instantiate(powerUpPrefab, other.gameObject.transform);
+                            status.SetClear(true);
+                        }
+                        break;
+
+                    case "Ally":
+                        if (!status.GetAlly())
+                        {
+                            Instantiate(powerUpPrefab, other.gameObject.transform);
+                            status.SetAlly(true);
+                        }
+                        break;
+                }
+                Destroy(gameObject);
             }
         }
     }
+
 }

@@ -7,7 +7,7 @@
 
 using UnityEngine;
 
-namespace ShootyVR
+namespace GameName
 {
     public class PowerUpStatus : MonoBehaviour
     {
@@ -16,12 +16,12 @@ namespace ShootyVR
         private bool clearState = false;
         private bool allyState = false;
 
-        private PlayerStats stats;
+        public PlayerStats stats;
 
         // Use this for initialization
         void Start()
         {
-            stats = GameObject.Find("Player Stats").GetComponent<PlayerStats>();
+            //stats = GameObject.Find("Player Stats").GetComponent<PlayerStats>();
         }
 
         // Update is called once per frame

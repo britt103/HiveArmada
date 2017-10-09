@@ -8,57 +8,58 @@
 //http://answers.unity3d.com/questions/459602/transformforward-problem.html
 
 using UnityEngine;
-using ShootyVR;
+using Valve.VR.InteractionSystem;
 
-public class AreaBomb : MonoBehaviour {
-    public float timeLimit;
-    public float radius;
-    private bool released;
-    public float acceleration;
-    public float maxSpeed;
+namespace GameName
+{
+    [RequireComponent(typeof(Interactable))]
+    public class AreaBomb : MonoBehaviour
+    {
+        public float radius;
+        public float acceleration;
 
-    private float currentSpeed;
-    private GameObject playerShip;
+        private float currentSpeed;
+        private bool released;
+        private Hand hand;
 
-    // Use this for initialization
-    void Start () {
-        playerShip = GameObject.FindGameObjectWithTag("Player");
-        released = false;
-	}
-
-    // Update is called once per frame
-    void Update () {
-        //accelerating forward
-        if (released)
+        // Use this for initialization
+        void Start()
         {
-            currentSpeed += acceleration * Time.deltaTime;
-            transform.Translate(Vector3.forward * Mathf.Clamp(currentSpeed, 0.0F, maxSpeed));
-
-            //time-based detonation
-            timeLimit -= Time.deltaTime;
-            if (timeLimit < 0.0F)
-            {
-                foreach (Collider objectCollider in Physics.OverlapSphere(transform.position, radius))
-                {
-                    if (objectCollider.gameObject.tag == "Enemy")
-                    {
-                        objectCollider.gameObject.GetComponent<ShootyVR.Enemies.EnemyBasic>().Hit(100);
-                    }
-                }
-                Destroy(gameObject);
-            }
+            hand = gameObject.GetComponentInParent<Hand>();
+            released = false;
         }
 
-        //player presses "bomb"/"powerup" button
-        if (!released && playerShip.GetComponent<ShipController>().isTriggerPressed)
+        //Update is called once per frame
+        void Update()
         {
-            playerShip.GetComponent<PowerUpStatus>().SetAreaBomb(false);
+            //accelerating forward
+            if (released)
+            {
+                currentSpeed += acceleration * Time.deltaTime;
+                transform.Translate(Vector3.forward * currentSpeed);
 
-            //trajectory = playerShip.transform.forward.normalized;
+                //button-based detonation
+                if(hand.controller.GetHairTriggerDown())
+                {
+                    foreach (Collider objectCollider in Physics.OverlapSphere(transform.position, radius))
+                    {
+                        if (objectCollider.gameObject.tag == "Enemy")
+                        {
+                            objectCollider.gameObject.GetComponent<Enemies.EnemyBasic>().Hit(100);
+                        }
+                    }
+                    Destroy(gameObject);
+                }
+            }
 
-            gameObject.transform.parent = null;
+            if (!released && hand.controller.GetHairTriggerDown())
+            {
+                GameObject.Find("Player").GetComponent<PowerUpStatus>().SetAreaBomb(false);
 
-            released = true;
+                gameObject.transform.parent = null;
+
+                released = true;
+            }
         }
     }
 }

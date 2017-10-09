@@ -7,7 +7,7 @@
 
 using UnityEngine;
 
-namespace ShootyVR
+namespace GameName
 {
     public class Shield : MonoBehaviour
     {
@@ -18,13 +18,20 @@ namespace ShootyVR
         private bool flashState = false;
         public Vector3 rotation = new Vector3(0.0F, 0.0F, 0.0F);
 
+        private PowerUpStatus status;
+
+        private void Start()
+        {
+            status = GameObject.Find("Player").GetComponent<PowerUpStatus>();
+        }
+
         // Update is called once per frame
         void Update()
         {
             timeLimit -= Time.deltaTime;
             if (timeLimit <= 0.0F)
             {
-                GameObject.FindGameObjectWithTag("Player").GetComponent<PowerUpStatus>().SetShield(false);
+                gameObject.GetComponentInParent<PowerUpStatus>().SetShield(false);
                 Destroy(gameObject);
             }
 

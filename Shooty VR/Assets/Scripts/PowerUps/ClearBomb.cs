@@ -6,29 +6,33 @@
 //Purpose: Script clear bomb powerup bahavior
 
 using UnityEngine;
-using ShootyVR;
+using Valve.VR.InteractionSystem;
 
-public class ClearBomb : MonoBehaviour
+namespace GameName
 {
-    private GameObject playerShip;
-
-    // Use this for initialization
-    void Start()
+    public class ClearBomb : MonoBehaviour
     {
-        playerShip = GameObject.FindGameObjectWithTag("Player");
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (playerShip.GetComponent<ShipController>().isTriggerPressed)
+        private Hand hand;
+        // Use this for initialization
+        void Start()
         {
-            playerShip.GetComponent<PowerUpStatus>().SetClear(false);
-            foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
+            hand = gameObject.GetComponentInParent<Hand>();
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+            if (hand.controller.GetHairTriggerDown())
             {
-                Destroy(enemy);
+                GameObject.Find("Player").GetComponent<PowerUpStatus>().SetClear(false);
+
+                foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
+                {
+                    enemy.GetComponent<Enemies.EnemyBasic>().Hit(100);
+                }
+                Destroy(gameObject);
             }
-            Destroy(gameObject);
         }
     }
+
 }

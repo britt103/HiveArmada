@@ -11,8 +11,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Valve.VR.InteractionSystem;
 
-namespace ShootyVR
+namespace GameName
 {
     public class PlayerStats : MonoBehaviour
     {
@@ -20,6 +21,7 @@ namespace ShootyVR
         public int enemiesKilled = 0;
         public float firingTime = 0.0F;
         public int score = 0;
+        public bool isFiring = false;
 
         //powerups
         public int shieldCount = 0;
@@ -30,21 +32,27 @@ namespace ShootyVR
         //currency
         public int currencyCollected = 0;
 
-        public ShipController controller;
+        //hands
+        //private Hand[] hands;
 
         // Use this for initialization
         void Start()
         {
-
+            //Debug.Log(gameObject.GetComponentInChildren<Hand>().gameObject.name);
+            //hands = gameObject.GetComponentsInChildren<Hand>();
+            //Debug.Log(hands[1].gameObject.name);
+            //Debug.Log(hands[0].gameObject.name);
+            //Debug.Log(hands[1].controller.GetHairTriggerDown());
         }
 
         // Update is called once per frame
         void Update()
         {
-            if (controller.isTriggerPressed)
+            if (isFiring)
             {
                 firingTime += Time.deltaTime;
             }
+            isFiring = false;
         }
 
         private void OnApplicationQuit()

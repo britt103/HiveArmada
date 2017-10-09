@@ -11,7 +11,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace ShootyVR
+namespace GameName
 {
     public class AllyStatic : MonoBehaviour
     {

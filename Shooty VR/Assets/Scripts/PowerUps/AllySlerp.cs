@@ -13,7 +13,7 @@
 using UnityEngine;
 using System.Collections;
 
-namespace ShootyVR
+namespace GameName
 {
     public class AllySlerp : MonoBehaviour
     {
@@ -47,7 +47,7 @@ namespace ShootyVR
             timeLimit -= Time.deltaTime;
             if (timeLimit < 0.0F)
             {
-                GameObject.FindGameObjectWithTag("Player").GetComponent<PowerUpStatus>().SetAlly(false);
+                GameObject.FindGameObjectWithTag("Player").GetComponent<GameName.PowerUpStatus>().SetAlly(false);
                 Destroy(gameObject);
             }
 

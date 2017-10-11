@@ -38,6 +38,9 @@ namespace GameName.Player.Guns
 
         void Start()
         {
+            damage = shipController.laserDamage;
+            fireRate = shipController.laserFireRate;
+
             leftLaser = left.gameObject.AddComponent<LineRenderer>();
             leftLaser.material = laserMaterial;
             leftLaser.shadowCastingMode = castShadows;

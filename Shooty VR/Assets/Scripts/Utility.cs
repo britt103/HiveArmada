@@ -19,5 +19,7 @@ namespace GameName
     {
         public static LayerMask enemyMask = LayerMask.GetMask("Enemy");
         public static LayerMask roomMask = LayerMask.GetMask("Room");
+
+        public static LayerMask uiMask = LayerMask.GetMask("UI");
     }
 }

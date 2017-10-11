@@ -17,6 +17,9 @@ using GameName.Enemies;
 using System;
 using UnityEngine.Rendering;
 
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
+
 namespace GameName.Player.Guns
 {
     public class LaserGun : Gun
@@ -82,10 +85,24 @@ namespace GameName.Player.Guns
                     hit.collider.gameObject.GetComponent<EnemyBasic>().Hit(damage);
                 }
             }
+
+
+            //else if (Physics.SphereCast(transform.position, radius, transform.forward, out hit, 200.0F, Utility.uiMask))
+            //{
+            //    StartCoroutine(Shoot(hit.collider.gameObject.transform.position, hit.collider.gameObject));
+            //    if (hit.collider.gameObject.GetComponent<ShootableUI>() != null)
+            //    {
+            //        hit.collider.gameObject.GetComponent<ShootableUI>().shot();
+            //    }
+
+            //}
+
+
             else if (Physics.Raycast(transform.position, transform.forward, out hit, 200.0f, Utility.roomMask))
             {
                 StartCoroutine(Shoot(hit.point, hit.collider.gameObject));
             }
+
         }
 
         /// <summary>

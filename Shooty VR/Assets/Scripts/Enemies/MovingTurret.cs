@@ -19,7 +19,7 @@ public class MovingTurret : MonoBehaviour
     public float yMax;
     private Vector3 posA;
     private Vector3 posB;
-
+    private bool perry = false;
     private float xEnd;
     public GameObject bullet;
     public Transform spawn;
@@ -42,12 +42,31 @@ public class MovingTurret : MonoBehaviour
     {
         pos = new Vector3(transform.position.x, transform.position.y, transform.position.z);
         posA = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-        posB = new Vector3(transform.position.x + xEnd,transform.position.y + yMax, 0);
+        posB = new Vector3(transform.position.x + xMax,transform.position.y + yMax, 0);
     }
     private void Update()
     {
-        transform.position = Vector3.Lerp(posA, posB, Mathf.PingPong(Time.time * movingSpeed, 1.0f));
-        pos = player.transform.position;
+        pos = transform.position;
+        float step = movingSpeed * Time.deltaTime;
+        if (perry == false) {
+            Debug.Log("I moved, senpai!");
+            transform.position = Vector3.MoveTowards(pos, posB, step);
+        }
+        else
+        {
+            Debug.Log("Die senpai!");
+            transform.position = Vector3.MoveTowards(pos, posA, step);
+        }
+        
+        if (pos.Equals(posA))
+        {
+            perry = false;
+        }
+        else if (pos.Equals(posB))
+        {
+            perry = true;
+        }
+
         transform.LookAt(pos);
 
         /*if (Time.time > fireNext)

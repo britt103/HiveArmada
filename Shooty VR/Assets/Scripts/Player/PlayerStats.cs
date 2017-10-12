@@ -65,7 +65,8 @@ namespace GameName
 
         void printStats()
         {
-            String output = "Current Score: " + score + "\n" +
+            String output = DateTime.Now.ToString() + "\n" + 
+                      "Current Score: " + score + "\n" +
                       "Enemies Killed: " + enemiesKilled + "\n" +
                       "Time Holding Down Trigger: " + Math.Round(firingTime, 2) + "\n" +
                       "Currency Collected: " + currencyCollected + "\n" +

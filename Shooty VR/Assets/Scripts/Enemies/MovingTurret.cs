@@ -43,7 +43,7 @@ namespace ShootyVR.Enemies
         void SetPosition()
         {
             //This sets the starting position and the 2 points the turrets moves between
-            pos = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+            pos = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z);
             posA = new Vector3(transform.position.x, transform.position.y, transform.position.z);
             posB = new Vector3(transform.position.x + xMax, transform.position.y + yMax, 0);
             posCenter = new Vector3(posA.x + posB.x, posA.y + posB.y) / 2.0f;
@@ -52,15 +52,17 @@ namespace ShootyVR.Enemies
         }
         private void Update()
         {
-            pos = transform.position;
             transform.position = Vector3.Lerp(posA, posB, (Mathf.Sin(movingSpeed * Time.time) + 1.0f) / 2.0f);
-          
-            /*if (Time.time > fireNext)
-            {
-                fireNext = Time.time + fireRate;
-                var shoot = Instantiate(bullet, spawn.position, spawn.rotation);
-                shoot.GetComponent<Rigidbody>().velocity = shoot.transform.forward * fireSpeed;
-            }*/
+
+            pos = player.transform.position;        //tracks the player position
+            transform.LookAt(pos);                  //and makes the transform look at said position
+
+            if (Time.time > fireNext)
+            {                                                                                       //Basic firerate calculation that determines
+                fireNext = Time.time + fireRate;                                                    //how many projectiles shoot out of the turret
+                var shoot = Instantiate(bullet, spawn.position, spawn.rotation);                    //within a certain duration. The turret then
+                shoot.GetComponent<Rigidbody>().velocity = shoot.transform.forward * fireSpeed;     //instantiates a bullet and shoots it forward
+            }                                                                                       //in the direction of the player.
         }
 
     }

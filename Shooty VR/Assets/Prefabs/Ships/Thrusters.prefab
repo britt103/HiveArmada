@@ -424,7 +424,7 @@ GameObject:
   - component: {fileID: 114599631223697312}
   m_Layer: 0
   m_Name: Thrusters
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5125,9 +5125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb0a93de5b61b7b47b6c9d4dcac4eeb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ship: {fileID: 1354620755413656}
-  damage: 10
-  fireRate: 10
+  shipController: {fileID: 0}
   left: {fileID: 1622776023520740}
   right: {fileID: 1861651141281316}
   laserMaterial: {fileID: 2100000, guid: fb4863ba36a8e134791cc6e1bbb1efeb, type: 2}

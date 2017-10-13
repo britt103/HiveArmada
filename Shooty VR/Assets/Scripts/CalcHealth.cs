@@ -14,8 +14,8 @@ using UnityEngine.SceneManagement;
 public class CalcHealth : MonoBehaviour
 {
 
-    public int health = 100;
-    public bool isAlive = true;
+    public int health;
+    public bool isAlive;
     public bool isHit;
     //public Material[] color;
 

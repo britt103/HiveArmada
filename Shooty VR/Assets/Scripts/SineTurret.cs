@@ -35,7 +35,6 @@ public class SineTurret : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         //if(reverse) gameObject.transform.Rotate(Vector3.down * -Mathf.Sin(Time.time));    //reverse added as some turrets shot offscreen
         //{
             gameObject.transform.Rotate(Vector3.up * Mathf.Sin(Time.time));           //rotates the turret in a sine pattern

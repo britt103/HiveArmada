@@ -177,7 +177,8 @@ namespace Valve.VR.InteractionSystem
 
 			if ( requireTriggerPressToTake && showTriggerHint )
 			{
-				ControllerButtonHints.ShowTextHint( hand, Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger, "PickUp" );
+                // Perry - change text from "PickUp" to "GRAB ME, ASSHOLE"
+				ControllerButtonHints.ShowTextHint( hand, Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger, "GRAB ME, ASSHOLE" );
 			}
 		}
 

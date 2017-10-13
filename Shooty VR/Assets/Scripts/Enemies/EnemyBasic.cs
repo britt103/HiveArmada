@@ -13,7 +13,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace ShootyVR.Enemies
+namespace GameName.Enemies
 {
     public class EnemyBasic : Enemy
     {
@@ -47,18 +47,19 @@ namespace ShootyVR.Enemies
         protected override IEnumerator HitFlash()
         {
             gameObject.GetComponent<Renderer>().material = flashColor;
-            yield return new WaitForSeconds(.01f);
+            yield return new WaitForSeconds(0.01f);
 
             if (health <= 0)
             {
-                GameObject.Find("GameManager").GetComponent<GameManager>().kills++;
+                //GameObject.Find("GameManager").GetComponent<GameManager>().kills++;
 
-                if (GameObject.Find("GameManager").GetComponent<GameManager>().kills >= 10)
-                {
-                    GameObject.Find("GameManager").GetComponent<GameManager>().gameOver();
-                }
+                //if (GameObject.Find("GameManager").GetComponent<GameManager>().kills >= GameObject.Find("GameManager").GetComponent<GameManager>().enemyParent.gameObject.transform.childCount)
+                //{
+                //    GameObject.Find("GameManager").GetComponent<GameManager>().gameOver();
+                //}
                 health = maxHealth;
                 gameObject.SetActive(false);
+                //Destroy(gameObject);
             }
             gameObject.GetComponent<Renderer>().material = material;
         }

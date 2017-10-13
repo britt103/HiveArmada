@@ -14,7 +14,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace ShootyVR.Enemies
+namespace GameName.Enemies
 {
     public abstract class Enemy : MonoBehaviour
     {
@@ -52,11 +52,11 @@ namespace ShootyVR.Enemies
         /// Used to apply damage to an enemy.
         /// </summary>
         /// <param name="damage"> How much damage this enemy is taking. </param>
-        public abstract void Hit(int damage);
-        //{
-        //    health -= damage;
-        //    StartCoroutine(HitFlash());
-        //}
+        public virtual void Hit(int damage)
+        {
+            health -= damage;
+            StartCoroutine(HitFlash());
+        }
 
         /// <summary>
         /// Currently unused. Flashes and destroys the enemy when it collides with the player.
@@ -80,16 +80,16 @@ namespace ShootyVR.Enemies
         /// Calls Kill() if the enemy is out of health. Adds to the score via GameManager.
         /// </summary>
         /// <returns>  </returns>
-        protected abstract IEnumerator HitFlash();
-        //{
-        //    gameObject.GetComponent<Renderer>().material = flashColor;
-        //    yield return new WaitForSeconds(.01f);
+        protected virtual IEnumerator HitFlash()
+        {
+            gameObject.GetComponent<Renderer>().material = flashColor;
+            yield return new WaitForSeconds(.01f);
 
-        //    if (health <= 0)
-        //    {
-        //        Destroy(gameObject);
-        //    }
-        //    gameObject.GetComponent<Renderer>().material = material;
-        //}
+            if (health <= 0)
+            {
+                Destroy(gameObject);
+            }
+            gameObject.GetComponent<Renderer>().material = material;
+        }
     }
 }

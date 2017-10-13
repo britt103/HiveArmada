@@ -1,0 +1,46 @@
+﻿//=============================================================================
+// 
+// Perry Sidler
+// 1831784
+// sidle104@mail.chapman.edu
+// CPSC-340-01 & CPSC-344-01
+// Group Project
+// 
+// [DESCRIPTION]
+// 
+//=============================================================================
+
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using GameName;
+
+namespace GameName.Player
+{
+    public class PlayerHealth : MonoBehaviour
+    {
+        public ShipControllerNew shipController;
+        public int maxHealth = 100;
+        private int currentHealth;
+        public bool isAlive { get; private set; }
+
+        void Start()
+        {
+            currentHealth = maxHealth;
+            isAlive = true;
+        }
+
+        public void Hit(int damage)
+        {
+            currentHealth -= damage;
+
+            if (currentHealth <= 0)
+            {
+                if (shipController != null)
+                {
+                    shipController.hand.DetachObject(shipController.gameObject);
+                }
+            }
+        }
+    }
+}

@@ -526,7 +526,8 @@ namespace Valve.VR.InteractionSystem
 					SteamVR_Controller.Device device = SteamVR_Controller.Input( (int)renderModel.index );
 					if ( device != null )
 					{
-						device.TriggerHapticPulse();
+                        // Perry - changed default value of 500 to 1000
+						device.TriggerHapticPulse(1000);
 					}
 				}
 

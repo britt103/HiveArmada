@@ -12,6 +12,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GameName.Player;
 
 namespace GameName.Enemies
 {
@@ -29,9 +30,10 @@ namespace GameName.Enemies
         {
             if (other.CompareTag("Player"))
             {
-                if (other.GetComponent<CalcHealth>() != null)
+                if (other.GetComponent<PlayerHealth>() != null)
                 {
-                    other.GetComponent<CalcHealth>().Hit(damage);
+                    other.GetComponent<PlayerHealth>().Hit(damage);
+                    Debug.Log("PlayerHealth.Hit(Damage);");
                 }
                 else
                 {

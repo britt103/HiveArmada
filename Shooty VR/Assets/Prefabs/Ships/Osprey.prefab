@@ -788,6 +788,7 @@ GameObject:
   - component: {fileID: 114516875317149570}
   - component: {fileID: 114547964215576888}
   - component: {fileID: 114933472664841406}
+  - component: {fileID: 114169953006868852}
   m_Layer: 0
   m_Name: Osprey
   m_TagString: Player
@@ -5099,6 +5100,19 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114169953006868852
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1517775807634338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0f93fd932201a14f8d38f1d5776112c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shipController: {fileID: 114639244745126638}
+  maxHealth: 100
 --- !u!114 &114516875317149570
 MonoBehaviour:
   m_ObjectHideFlags: 1

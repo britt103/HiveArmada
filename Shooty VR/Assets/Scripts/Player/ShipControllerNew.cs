@@ -12,7 +12,10 @@
 
 using System.Collections;
 using System.Collections.Generic;
+<<<<<<< HEAD
 using System.Security.Cryptography;
+=======
+>>>>>>> feature/powerups
 using UnityEngine;
 using Valve.VR.InteractionSystem;
 using GameName.Player.Guns;
@@ -33,7 +36,11 @@ namespace GameName.Player
         public GameObject lasers;
         private LaserGun laserGun;
         public Transform pivotTransform;
+<<<<<<< HEAD
         public Hand hand { get; private set; }
+=======
+        private Hand hand;
+>>>>>>> feature/powerups
 
         public GunTypes currentGun = GunTypes.Lasers;
 
@@ -67,10 +74,22 @@ namespace GameName.Player
         public GameObject deathExplosion;
         public bool canShoot = false;
 
+<<<<<<< HEAD
         private void OnAttachedToHand(Hand attachedHand)
         {
             Debug.Log("HOLY SHIT I ATTACHED");
             hand = attachedHand;
+=======
+        //player stats
+        private PlayerStats stats;
+
+        private void OnAttachedToHand(Hand attachedHand)
+        {
+            hand = attachedHand;
+
+            //player stats
+            stats = gameObject.GetComponentInParent<PlayerStats>();
+>>>>>>> feature/powerups
         }
 
         void Awake()
@@ -119,6 +138,12 @@ namespace GameName.Player
             if (hand.GetStandardInteractionButton())
             {
                 laserGun.TriggerUpdate();
+<<<<<<< HEAD
+=======
+
+                //player stats
+                stats.isFiring = true;
+>>>>>>> feature/powerups
             }
             
 

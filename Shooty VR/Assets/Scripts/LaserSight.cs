@@ -48,27 +48,13 @@ namespace ShootyVR
         // Update is called once per frame
         void Update()
         {
-            // Makes the Raycast ignore all objects without the "Room" tag
-            int layerMask = LayerMask.GetMask("Room");
-            RaycastHit roomHit;
+            RaycastHit hit;
 
-            if (Physics.Raycast(transform.position, transform.forward, out roomHit, Mathf.Infinity, layerMask))
+            if (Physics.Raycast(transform.position, transform.forward, out hit, Mathf.Infinity, Utility.roomMask))
             {
                 laser.SetPosition(0, transform.position);
-                laser.SetPosition(1, roomHit.point);
+                laser.SetPosition(1, hit.point);
             }
-
-            //RaycastHit enemyHit;
-            //if (Physics.Raycast(transform.position, transform.forward, out enemyHit, 200.0f))
-            //{
-            //    if (enemyHit.collider.GetComponent<Destructible>() != null &&
-            //        gameObject.GetComponentInParent<VRTK.Examples.Gun>().isTriggerPressed)
-            //    {
-            //        enemyHit.collider.gameObject.GetComponent<Destructible>().GetHit();
-            //        //enemyHit.collider.gameObject.GetComponent<Renderer>().material.color = Color.red;
-            //        //Destroy(enemyHit.collider.gameObject, 0.5f);
-            //    }
-            //}
         }
     }
 }

@@ -11,6 +11,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.IO;
 using Valve.VR.InteractionSystem;
 
 namespace GameName
@@ -34,6 +35,8 @@ namespace GameName
 
         //hands
         //private Hand[] hands;
+
+        //time alive
 
         // Use this for initialization
         void Start()
@@ -62,14 +65,19 @@ namespace GameName
 
         void printStats()
         {
-            Debug.Log("Current Score: " + score + "\n" +
+            String output = DateTime.Now.ToString() + "\n" + 
+                      "Current Score: " + score + "\n" +
                       "Enemies Killed: " + enemiesKilled + "\n" +
                       "Time Holding Down Trigger: " + Math.Round(firingTime, 2) + "\n" +
                       "Currency Collected: " + currencyCollected + "\n" +
                       "Shields Used: " + shieldCount + "\n" +
                       "Area Bombs Used: " + areaBombCount + "\n" +
                       "Clears Used: " + clearCount + "\n" +
-                      "Allies Used: " + allyCount);
+                      "Allies Used: " + allyCount;
+
+            Debug.Log(output);
+
+            File.AppendAllText(@"PlayerStats.txt", output + "\n\n");
         }
 
         public void EnemyKilled()

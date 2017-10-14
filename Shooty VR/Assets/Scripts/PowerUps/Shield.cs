@@ -17,27 +17,6 @@ namespace GameName
         private float flashTimer = 0.0F;
         private bool flashState = false;
         public Vector3 rotation = new Vector3(0.0F, 0.0F, 0.0F);
-
-<<<<<<< HEAD
-        // Update is called once per frame
-        void Update()
-        {
-            timeLimit -= Time.deltaTime;
-            if (timeLimit <= 0.0F)
-            {
-                gameObject.GetComponentInParent<PowerUpStatus>().SetShield(false);
-                Destroy(gameObject);
-            }
-
-            if (timeLimit <= warningTime)
-            {
-                Flash();
-            }
-
-            transform.Rotate(rotation);
-        }
-
-=======
         private PowerUpStatus status;
 
         private void Start()
@@ -63,7 +42,6 @@ namespace GameName
             transform.Rotate(rotation);
         }
 
->>>>>>> feature/powerups
         /// <summary>
         /// Handles collision with other
         /// </summary>

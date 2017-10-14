@@ -12,7 +12,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-<<<<<<< HEAD
 using GameName.Player;
 
 namespace GameName.Enemies
@@ -46,36 +45,6 @@ namespace GameName.Enemies
             {
                 Destroy(gameObject);
             }
-=======
-
-public class Projectile : MonoBehaviour
-{
-    public int damage;
-    public float lifetime;
-
-    void Start()
-    {
-        Destroy(gameObject, lifetime);
-    }
-
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            if (other.GetComponent<CalcHealth>() != null)
-            {
-                other.GetComponent<CalcHealth>().Hit(damage);
-            }
-            else
-            {
-                Debug.Log("[WARNING] GameObject tagged with \"Player\" does NOT have CalcHealth on it!");
-            }
-            Destroy(gameObject);
-        }
-        else if (other.CompareTag("Room"))
-        {
-            Destroy(gameObject);
->>>>>>> feature/powerups
         }
     }
 }

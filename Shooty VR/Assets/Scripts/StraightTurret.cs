@@ -13,7 +13,8 @@ using UnityEngine;
 /// shoots directly at the player character.
 /// </summary>
 
-public class StraightTurret : MonoBehaviour {
+public class StraightTurret : MonoBehaviour
+{
 
     public GameObject bullet;
     public Transform spawn;
@@ -23,31 +24,16 @@ public class StraightTurret : MonoBehaviour {
     private float fireNext, randX, randY, randZ;
     bool canFire;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         //player = GameObject.FindGameObjectWithTag("Player");        //finds player and stores it's position
         //pos = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z);
-	}
-	
-	// Update is called once per frame
-	void Update () {
-<<<<<<< HEAD
-        randX = Random.Range(-fireCone, fireCone);
-        randY = Random.Range(-fireCone, fireCone);
-        randZ = Random.Range(-fireCone, fireCone);
+    }
 
-        pos = player.transform.position;        //tracks the player position
-        transform.LookAt(pos);                  //and makes the transform look at said position
-
-        if (Time.time > fireNext)
-        {                                                                                       //Basic firerate calculation that determines
-            fireNext = Time.time + fireRate;                                                    //how many projectiles shoot out of the turret
-            var shoot = Instantiate(bullet, spawn.position, spawn.rotation);                    //within a certain duration. The turret then
-            shoot.GetComponent<Transform>().Rotate(randX, randY, randZ);
-            shoot.GetComponent<Rigidbody>().velocity = shoot.transform.forward * fireSpeed;     //instantiates a bullet and shoots it forward
-        }                                                                                       //in the direction of the player.
-=======
-
+    // Update is called once per frame
+    void Update()
+    {
         if (player == null)
         {
             player = GameObject.FindGameObjectWithTag("Player");
@@ -59,6 +45,10 @@ public class StraightTurret : MonoBehaviour {
         }
         else
         {
+            randX = Random.Range(-fireCone, fireCone);
+            randY = Random.Range(-fireCone, fireCone);
+            randZ = Random.Range(-fireCone, fireCone);
+
             pos = player.transform.position;        //tracks the player position
             transform.LookAt(pos);                  //and makes the transform look at said position
 
@@ -66,9 +56,9 @@ public class StraightTurret : MonoBehaviour {
             {                                                                                       //Basic firerate calculation that determines
                 fireNext = Time.time + fireRate;                                                    //how many projectiles shoot out of the turret
                 var shoot = Instantiate(bullet, spawn.position, spawn.rotation);                    //within a certain duration. The turret then
+                shoot.GetComponent<Transform>().Rotate(randX, randY, randZ);
                 shoot.GetComponent<Rigidbody>().velocity = shoot.transform.forward * fireSpeed;     //instantiates a bullet and shoots it forward
-            }
-        }                                                                                     //in the direction of the player.
->>>>>>> feature/powerups
-	}
+            }                                                                                       //in the direction of the player.
+        }
+    }
 }

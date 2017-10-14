@@ -789,6 +789,7 @@ GameObject:
   - component: {fileID: 114547964215576888}
   - component: {fileID: 114933472664841406}
   - component: {fileID: 114169953006868852}
+  - component: {fileID: 136889819752783882}
   m_Layer: 0
   m_Name: Osprey
   m_TagString: Player
@@ -1002,8 +1003,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4822688023424866}
-  - component: {fileID: 135858282621586340}
-  - component: {fileID: 114945983422450278}
   m_Layer: 0
   m_Name: OspreyPreview
   m_TagString: Untagged
@@ -5221,29 +5220,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb6d6653511aff5409d0827d4e3b79ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114945983422450278
-MonoBehaviour:
+--- !u!136 &136889819752783882
+CapsuleCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1707191898447694}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aed1931f702d33147996484baba2711a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 100
-  isAlive: 1
-  isHit: 0
---- !u!135 &135858282621586340
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1707191898447694}
+  m_GameObject: {fileID: 1517775807634338}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 0.5
+  m_Height: 2.5
+  m_Direction: 0
+  m_Center: {x: 0, y: -0.3, z: 0.1}

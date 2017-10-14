@@ -104,8 +104,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4722576531211874}
-  - component: {fileID: 135543030362155902}
-  - component: {fileID: 114940051485693366}
   m_Layer: 0
   m_Name: Thrusters
   m_TagString: Player
@@ -760,6 +758,8 @@ GameObject:
   - component: {fileID: 114898693043910518}
   - component: {fileID: 114040393628410134}
   - component: {fileID: 114171615098549492}
+  - component: {fileID: 114013138563554888}
+  - component: {fileID: 136399017464132670}
   m_Layer: 0
   m_Name: ThrustersRotated
   m_TagString: Untagged
@@ -5128,6 +5128,19 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114013138563554888
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1564350017730994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0f93fd932201a14f8d38f1d5776112c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shipController: {fileID: 114924806039134942}
+  maxHealth: 100
 --- !u!114 &114040393628410134
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5227,10 +5240,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb0a93de5b61b7b47b6c9d4dcac4eeb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ship: {fileID: 0}
   shipController: {fileID: 114924806039134942}
-  damage: 10
-  fireRate: 10
   left: {fileID: 1439295820520486}
   right: {fileID: 1505909368972486}
   laserMaterial: {fileID: 2100000, guid: fb4863ba36a8e134791cc6e1bbb1efeb, type: 2}
@@ -5239,29 +5249,16 @@ MonoBehaviour:
   thickness: 0.002
   castShadows: 0
   receiveShadows: 0
---- !u!114 &114940051485693366
-MonoBehaviour:
+--- !u!136 &136399017464132670
+CapsuleCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1061009167246432}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aed1931f702d33147996484baba2711a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 10000
-  isAlive: 1
-  isHit: 0
---- !u!135 &135543030362155902
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1061009167246432}
+  m_GameObject: {fileID: 1564350017730994}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
   m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Height: 1.6
+  m_Direction: 0
+  m_Center: {x: 0, y: -0.5, z: 0.1}

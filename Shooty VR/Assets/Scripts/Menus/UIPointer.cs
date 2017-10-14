@@ -15,17 +15,38 @@ using UnityEngine.Rendering;
 
 namespace GameName
 {
-    [RequireComponent(typeof(LineRenderer))]
+    //[RequireComponent(typeof(LineRenderer))]
     public class UIPointer : MonoBehaviour
     {
         private Hand hand;
         private LineRenderer pointer;
+        public Material laserMaterial;
+        [Tooltip("View makes line face camera. Local makes the line face the direction of the transform component")]
+        public LineAlignment alignment;
+        public Color color;
+        public float thickness = 0.002f;
+        public ShadowCastingMode castShadows;
+        public bool receiveShadows = false;
 
         // Use this for initialization
         void Start()
         {
             hand = gameObject.GetComponentInParent<Hand>();
-            pointer = gameObject.GetComponent<LineRenderer>();
+            //pointer = gameObject.GetComponent<LineRenderer>();
+            pointer = gameObject.AddComponent<LineRenderer>();
+            Gradient gradient = new Gradient();
+            gradient.SetKeys(
+                new GradientColorKey[] { new GradientColorKey(color, 0.0f), new GradientColorKey(color, 1.0f), },
+                new GradientAlphaKey[] { new GradientAlphaKey(color.a, 0.0f), new GradientAlphaKey(color.a, 1.0f), });
+            pointer.material = laserMaterial;
+            pointer.shadowCastingMode = castShadows;
+            pointer.receiveShadows = receiveShadows;
+            pointer.alignment = alignment;
+            pointer.colorGradient = gradient;
+            pointer.startWidth = thickness;
+            pointer.endWidth = thickness;
+
+            Debug.Log(gameObject.GetComponent<LineRenderer>());
         }
 
         // Update is called once per frame

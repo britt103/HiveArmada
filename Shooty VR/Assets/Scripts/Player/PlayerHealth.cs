@@ -32,13 +32,16 @@ namespace GameName.Player
 
         public void Hit(int damage)
         {
+            if (Utility.isDebug)
+                Debug.Log("Hit for " + damage + " damage! Remaining health = " + currentHealth);
+
             currentHealth -= damage;
 
             if (currentHealth <= 0)
             {
                 if (shipController != null)
                 {
-                    shipController.hand.DetachObject(shipController.gameObject);
+                    shipController.hand.DetachObject(gameObject);
                 }
             }
         }

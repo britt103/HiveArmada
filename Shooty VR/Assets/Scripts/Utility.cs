@@ -17,6 +17,8 @@ namespace GameName
 {
     public static class Utility
     {
+        public static bool isDebug = true;
+
         public static LayerMask enemyMask = LayerMask.GetMask("Enemy");
         public static LayerMask roomMask = LayerMask.GetMask("Room");
 

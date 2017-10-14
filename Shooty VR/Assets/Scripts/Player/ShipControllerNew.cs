@@ -124,7 +124,7 @@ namespace GameName.Player
             {
                 laserGun.TriggerUpdate();
                 //player stats
-                stats.isFiring = true;
+                //stats.isFiring = true;
             }
             
 

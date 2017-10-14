@@ -33,11 +33,15 @@ namespace GameName.Enemies
                 if (other.GetComponent<PlayerHealth>() != null)
                 {
                     other.GetComponent<PlayerHealth>().Hit(damage);
-                    Debug.Log("PlayerHealth.Hit(Damage);");
+
+                    if (Utility.isDebug)
+                        Debug.Log("PlayerHealth.Hit(Damage);");
+
                 }
                 else
                 {
-                    Debug.Log("[WARNING] GameObject tagged with \"Player\" does NOT have CalcHealth on it!");
+                    if (Utility.isDebug)
+                        Debug.Log("[WARNING] GameObject tagged with \"Player\" does NOT have PlayerHealth.cs on it!");
                 }
                 Destroy(gameObject);
             }

@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-///using ShootyVR.Enemies;
 /// <summary>
 /// /// Ryan Britton
 /// britt103
@@ -11,7 +10,7 @@ using UnityEngine;
 /// 
 /// This script handles the logic of a turret moving between two points
 /// </summary>
-namespace ShootyVR.Enemies
+namespace GameName.Enemies
 {
     public class MovingTurret : EnemyBasic
     {

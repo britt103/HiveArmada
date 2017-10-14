@@ -51,12 +51,18 @@ namespace GameName.Player
         {
             // Makes the Raycast ignore all objects without the "Room" tag
             int layerMask = LayerMask.GetMask("Room");
-            RaycastHit roomHit;
+            RaycastHit hit;
 
-            if (Physics.Raycast(transform.position, transform.forward, out roomHit, Mathf.Infinity, layerMask))
+            //if (Physics.Raycast(transform.position, transform.forward, out hit, Mathf.Infinity, Utility.uiMask))
+            //{
+            //    laser.SetPosition(0, transform.position);
+            //    laser.SetPosition(1, hit.point);
+            //}
+
+            if (Physics.Raycast(transform.position, transform.forward, out hit, Mathf.Infinity, Utility.roomMask))
             {
                 laser.SetPosition(0, transform.position);
-                laser.SetPosition(1, roomHit.point);
+                laser.SetPosition(1, hit.point);
             }
 
             //RaycastHit enemyHit;

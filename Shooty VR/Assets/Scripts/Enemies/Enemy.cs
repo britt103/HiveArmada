@@ -18,26 +18,10 @@ namespace GameName.Enemies
 {
     public abstract class Enemy : MonoBehaviour
     {
-        /// <summary>
-        /// The starting health for the enemy.
-        /// </summary>
         public int maxHealth;
-
-        /// <summary>
-        /// The current health for the enemy.
-        /// </summary>
         protected int health;
-
-        /// <summary>
-        /// The material that this
-        /// </summary>
         public Material flashColor;
-
-        /// <summary>
-        /// Reference to the original material of the game object.
-        /// </summary>
         protected Material material;
-
 
         /// <summary>
         /// The current health for the enemy.
@@ -87,7 +71,7 @@ namespace GameName.Enemies
 
             if (health <= 0)
             {
-                Destroy(gameObject);
+                Kill();
             }
             gameObject.GetComponent<Renderer>().material = material;
         }

@@ -12,7 +12,7 @@ using UnityEngine;
 /// </summary>
 namespace GameName.Enemies
 {
-    public class MovingTurret : EnemyBasic
+    public class MovingTurret : Enemy
     {
         public float movingSpeed;
         public float xMax;
@@ -21,10 +21,10 @@ namespace GameName.Enemies
         private Vector3 posB;
         private Vector3 posCenter;
         private bool perry = false;
+        public Transform spawn;
         private float xEnd;
         public GameObject bullet;
-        public Transform spawn;
-        GameObject player;
+        private GameObject player;
         public Vector3 pos;
         public float fireRate, fireSpeed;
         private float fireNext;
@@ -35,10 +35,10 @@ namespace GameName.Enemies
         // Use this for initialization
         void Start()
         {
-            SetPosition();
             player = GameObject.FindGameObjectWithTag("Player");
-
+            SetPosition();
         }
+
         void SetPosition()
         {
             //This sets the starting position and the 2 points the turrets moves between
@@ -61,7 +61,7 @@ namespace GameName.Enemies
                 fireNext = Time.time + fireRate;                                                    //how many projectiles shoot out of the turret
                 var shoot = Instantiate(bullet, spawn.position, spawn.rotation);                    //within a certain duration. The turret then
                 shoot.GetComponent<Rigidbody>().velocity = shoot.transform.forward * fireSpeed;     //instantiates a bullet and shoots it forward
-            }                                                                                       //in the direction of the player.
+            }                                                                                    //in the direction of the player.
         }
 
     }

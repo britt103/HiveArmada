@@ -14,15 +14,15 @@ using UnityEngine;
 
 namespace GameName.Enemies
 {
-    public class SplitterTurret : MonoBehaviour
+    public class SplitterTurret : Enemy
     {
         public GameObject bullet;
         public Transform spawn;
         GameObject player;
-        GameObject Turret; /// set reference in inspector
+        GameObject turret; /// set reference in inspector
         public Vector3 pos;
-        public float fireRate, fireSpeed;
-        private float fireNext;
+        public float fireRate, fireSpeed, fireCone;
+        private float fireNext, randX, randY, randZ;
         bool canFire;
         public Vector2 splitVel1; ///Set value in inspector
         public Vector2 splitVel2; ///Set value in inspector
@@ -41,38 +41,52 @@ namespace GameName.Enemies
         ///While shooting bullets using the formula below
         void Update()
         {
-            pos = player.transform.position;
-            transform.LookAt(pos);
-
-            if (Time.time > fireNext)
+            if (player == null)
             {
-                fireNext = Time.time + fireRate;
-                var shoot = Instantiate(bullet, spawn.position, spawn.rotation);
-                shoot.GetComponent<Rigidbody>().velocity = shoot.transform.forward * fireSpeed;
+                player = GameObject.FindGameObjectWithTag("Player");
+
+                if (player != null)
+                {
+                    pos = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z);
+                }
+            }
+            else
+            {
+                randX = Random.Range(-fireCone, fireCone);
+                randY = Random.Range(-fireCone, fireCone);
+                randZ = Random.Range(-fireCone, fireCone);
+
+                pos = player.transform.position;        //tracks the player position
+                transform.LookAt(pos);                  //and makes the transform look at said position
+
+                if (Time.time > fireNext)
+                {                                                                                       //Basic firerate calculation that determines
+                    fireNext = Time.time + fireRate;                                                    //how many projectiles shoot out of the turret
+                    var shoot = Instantiate(bullet, spawn.position, spawn.rotation);                    //within a certain duration. The turret then
+                    shoot.GetComponent<Transform>().Rotate(randX, randY, randZ);
+                    shoot.GetComponent<Rigidbody>().velocity = shoot.transform.forward * fireSpeed;     //instantiates a bullet and shoots it forward
+                }                                                                                       //in the direction of the player.
             }
         }
-        /*protected override IEnumerator HitFlash()
+        protected override void Kill()
         {
-            gameObject.GetComponent<Renderer>().material = flashColor;
-            yield return new WaitForSeconds(.01f);
-
-            if (health <= 0)
+            if (turret != null)
             {
                 //Instantiate("Explosion.name", transform.position, transform.rotation);
-                GameObject smlSplt1 = Instantiate(Turret, transform.position, transform.rotation);
-                GameObject smlSplt2 = Instantiate(Turret, transform.position, transform.rotation);
-                GameObject smlSplt3 = Instantiate(Turret, transform.position, transform.rotation);
-                GameObject smlSplt4 = Instantiate(Turret, transform.position, transform.rotation);
+                GameObject smlSplt1 = Instantiate(turret, transform.position, transform.rotation);
+                GameObject smlSplt2 = Instantiate(turret, transform.position, transform.rotation);
+                GameObject smlSplt3 = Instantiate(turret, transform.position, transform.rotation);
+                GameObject smlSplt4 = Instantiate(turret, transform.position, transform.rotation);
 
                 smlSplt1.GetComponent<Rigidbody>().velocity = splitVel1;
                 smlSplt2.GetComponent<Rigidbody>().velocity = splitVel2;
                 smlSplt3.GetComponent<Rigidbody>().velocity = splitVel3;
                 smlSplt4.GetComponent<Rigidbody>().velocity = splitVel4;
-
-                Destroy(gameObject);
             }
-            gameObject.GetComponent<Renderer>().material = material;
-        }*/
+
+            Destroy(gameObject);
+
+        }
 
     }
 }

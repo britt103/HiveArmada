@@ -13,10 +13,9 @@ using UnityEngine.EventSystems;
 using Valve.VR.InteractionSystem;
 using UnityEngine.Rendering;
 
-namespace GameName
+namespace GameName.Menu
 {
-    //[RequireComponent(typeof(LineRenderer))]
-    public class UIPointer : MonoBehaviour
+    public class UiPointer : MonoBehaviour
     {
         private Hand hand;
         private LineRenderer pointer;
@@ -27,65 +26,91 @@ namespace GameName
         public float thickness = 0.002f;
         public ShadowCastingMode castShadows;
         public bool receiveShadows = false;
+        private bool isEnabled = false;
 
         // Use this for initialization
         void Start()
         {
             hand = gameObject.GetComponentInParent<Hand>();
-            //pointer = gameObject.GetComponent<LineRenderer>();
-            pointer = gameObject.AddComponent<LineRenderer>();
-            Gradient gradient = new Gradient();
-            gradient.SetKeys(
-                new GradientColorKey[] { new GradientColorKey(color, 0.0f), new GradientColorKey(color, 1.0f), },
-                new GradientAlphaKey[] { new GradientAlphaKey(color.a, 0.0f), new GradientAlphaKey(color.a, 1.0f), });
-            pointer.material = laserMaterial;
-            pointer.shadowCastingMode = castShadows;
-            pointer.receiveShadows = receiveShadows;
-            pointer.alignment = alignment;
-            pointer.colorGradient = gradient;
-            pointer.startWidth = thickness;
-            pointer.endWidth = thickness;
 
-            Debug.Log(gameObject.GetComponent<LineRenderer>());
+            if (hand.controller != null)
+            {
+                //pointer = gameObject.GetComponent<LineRenderer>();
+                pointer = gameObject.AddComponent<LineRenderer>();
+                Gradient gradient = new Gradient();
+                gradient.SetKeys(
+                    new GradientColorKey[] { new GradientColorKey(color, 0.0f), new GradientColorKey(color, 1.0f), },
+                    new GradientAlphaKey[] { new GradientAlphaKey(color.a, 0.0f), new GradientAlphaKey(color.a, 1.0f), });
+                pointer.material = laserMaterial;
+                pointer.shadowCastingMode = castShadows;
+                pointer.receiveShadows = receiveShadows;
+                pointer.alignment = alignment;
+                pointer.colorGradient = gradient;
+                pointer.startWidth = thickness;
+                pointer.endWidth = thickness;
+            }
         }
 
         // Update is called once per frame
         void Update()
         {
-            if(hand.GetComponentInChildren<Player.ShipControllerNew>() == null)
+            if (hand.controller != null)
             {
-                RaycastHit hit;
-                if (Physics.Raycast(transform.position, transform.forward, out hit, Mathf.Infinity, Utility.uiMask))
+                if (isEnabled)
                 {
-                    pointer.SetPosition(0, transform.position);
-                    pointer.SetPosition(1, hit.point);
-
-                    if (hit.collider.gameObject.CompareTag("Button"))
+                    if (hand.GetComponentInChildren<Player.ShipControllerNew>() == null)
                     {
-                        PointerEventData eventData = new PointerEventData(EventSystem.current);
-
-                        //hover
-                        //ExecuteEvents.Execute(hit.collider.gameObject, eventData, ExecuteEvents.pointerEnterHandler);
-
-                        //click button
-                        if (hand.controller.GetHairTriggerDown())
+                        RaycastHit hit;
+                        if (Physics.Raycast(transform.position, transform.forward, out hit, Mathf.Infinity, Utility.uiMask))
                         {
-                            ExecuteEvents.Execute(hit.collider.gameObject, eventData, ExecuteEvents.submitHandler);
+                            pointer.SetPosition(0, transform.position);
+                            pointer.SetPosition(1, hit.point);
+
+                            if (hit.collider.gameObject.CompareTag("Button"))
+                            {
+                                PointerEventData eventData = new PointerEventData(EventSystem.current);
+
+                                //hover
+                                //ExecuteEvents.Execute(hit.collider.gameObject, eventData, ExecuteEvents.pointerEnterHandler);
+
+                                //click button
+                                if (hand.controller.GetHairTriggerDown())
+                                {
+                                    ExecuteEvents.Execute(hit.collider.gameObject, eventData, ExecuteEvents.submitHandler);
+                                }
+
+                            }
                         }
-                        
+
+                        else if (Physics.Raycast(transform.position, transform.forward, out hit, Mathf.Infinity, Utility.roomMask))
+                        {
+                            pointer.SetPosition(0, transform.position);
+                            pointer.SetPosition(1, hit.point);
+                        }
+                    }
+                    else
+                    {
+                        pointer.SetPosition(0, transform.position);
+                        pointer.SetPosition(1, transform.position);
                     }
                 }
-
-                else if (Physics.Raycast(transform.position, transform.forward, out hit, Mathf.Infinity, Utility.roomMask))
+                else
                 {
-                    pointer.SetPosition(0, transform.position);
-                    pointer.SetPosition(1, hit.point);
+                    isEnabled = true;
+                    //pointer = gameObject.GetComponent<LineRenderer>();
+                    pointer = gameObject.AddComponent<LineRenderer>();
+                    Gradient gradient = new Gradient();
+                    gradient.SetKeys(
+                        new GradientColorKey[] { new GradientColorKey(color, 0.0f), new GradientColorKey(color, 1.0f), },
+                        new GradientAlphaKey[] { new GradientAlphaKey(color.a, 0.0f), new GradientAlphaKey(color.a, 1.0f), });
+                    pointer.material = laserMaterial;
+                    pointer.shadowCastingMode = castShadows;
+                    pointer.receiveShadows = receiveShadows;
+                    pointer.alignment = alignment;
+                    pointer.colorGradient = gradient;
+                    pointer.startWidth = thickness;
+                    pointer.endWidth = thickness;
                 }
-            }
-            else
-            {
-                pointer.SetPosition(0, transform.position);
-                pointer.SetPosition(1, transform.position);
             }
         }
     }

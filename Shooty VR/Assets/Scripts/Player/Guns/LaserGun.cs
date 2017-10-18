@@ -9,6 +9,7 @@
 // [DESCRIPTION]
 // 
 //=============================================================================
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -36,7 +37,6 @@ namespace GameName.Player.Guns
         public ShadowCastingMode castShadows;
         public bool receiveShadows = false;
         private bool isLeftFire = true;
-
 
         void Start()
         {
@@ -73,7 +73,6 @@ namespace GameName.Player.Guns
             }
         }
 
-
         /// <summary>
         /// Gets enemy or wall aimpoint and shoots at it. Will damage enemies.
         /// </summary>
@@ -88,11 +87,9 @@ namespace GameName.Player.Guns
                 //{
                 //    shipController.hand.controller.TriggerHapticPulse();
                 //}
-                
-                
-                if (hit.collider.gameObject.GetComponent<EnemyBasic>() != null)
+                if (hit.collider.gameObject.GetComponent<Enemy>() != null)
                 {
-                    hit.collider.gameObject.GetComponent<EnemyBasic>().Hit(damage);
+                    hit.collider.gameObject.GetComponent<Enemy>().Hit(damage);
                 }
 
                 shipController.hand.controller.TriggerHapticPulse(2500);

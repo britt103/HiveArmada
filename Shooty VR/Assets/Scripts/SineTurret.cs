@@ -13,39 +13,43 @@ using UnityEngine;
 /// the turret shoot in a wavelike sine pattern.
 /// </summary> 
 
-public class SineTurret : MonoBehaviour
+
+namespace GameName.Enemies
 {
-    public GameObject bullet;
-    GameObject player;
-    public Transform spawn;
-    Vector3 pos;
-    public float fireRate, fireSpeed;
-    private float fireNext;
-    bool canFire;
-    public bool reverse;
-
-    // Use this for initialization
-    void Start()
+    public class SineTurret : Enemy
     {
-        player = GameObject.FindGameObjectWithTag("Player");    //finds the player object and
-        pos = player.transform.position;                        //its corresponding position
-        transform.LookAt(pos);
-    }
+        public GameObject bullet;
+        GameObject player;
+        public Transform spawn;
+        Vector3 pos;
+        public float fireRate, fireSpeed;
+        private float fireNext;
+        bool canFire;
+        public bool reverse;
 
-    // Update is called once per frame
-    void Update()
-    {
-
-        //if(reverse) gameObject.transform.Rotate(Vector3.down * -Mathf.Sin(Time.time));    //reverse added as some turrets shot offscreen
+        // Use this for initialization
+        //void Start()
         //{
+        //    player = GameObject.FindGameObjectWithTag("Player");    //finds the player object and
+        //    pos = player.transform.position;                        //its corresponding position
+        //    transform.LookAt(pos);
+        //}
+
+        // Update is called once per frame
+        void Update()
+        {
+
+            //if(reverse) gameObject.transform.Rotate(Vector3.down * -Mathf.Sin(Time.time));    //reverse added as some turrets shot offscreen
+            //{
             gameObject.transform.Rotate(Vector3.up * Mathf.Sin(Time.time));           //rotates the turret in a sine pattern
             gameObject.transform.Rotate(Mathf.Lerp(-1, 1, 0), 0, Mathf.Lerp(-1, 1, 0));
-        //}
-        if (Time.time > fireNext)                                                           //while shooting bullets at the angle
-        {                                                                                   //of rotation.
-            fireNext = Time.time + fireRate;
-            var shoot = Instantiate(bullet, spawn.position, spawn.rotation);
-            shoot.GetComponent<Rigidbody>().velocity = shoot.transform.forward * fireSpeed;
+            //}
+            if (Time.time > fireNext)                                                           //while shooting bullets at the angle
+            {                                                                                   //of rotation.
+                fireNext = Time.time + fireRate;
+                var shoot = Instantiate(bullet, spawn.position, spawn.rotation);
+                shoot.GetComponent<Rigidbody>().velocity = shoot.transform.forward * fireSpeed;
+            }
         }
     }
 }

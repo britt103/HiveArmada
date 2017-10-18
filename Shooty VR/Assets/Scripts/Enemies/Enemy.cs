@@ -26,7 +26,7 @@ namespace GameName.Enemies
         /// <summary>
         /// The current health for the enemy.
         /// </summary>
-        protected int health;
+        public int health;
 
         /// <summary>
         /// The material that this
@@ -38,11 +38,22 @@ namespace GameName.Enemies
         /// </summary>
         protected Material material;
 
+        public GameObject waveManager;
+        WaveManager mWaveManager;
 
         /// <summary>
         /// The current health for the enemy.
         /// </summary>
         /// <returns> Integer health value </returns>
+
+        void Start()
+        {
+            health = 100;
+            material = gameObject.GetComponent<Renderer>().material;
+            mWaveManager = waveManager.GetComponent<WaveManager>();
+            mWaveManager.currSpawn++;
+        }
+
         public virtual int GetHealth()
         {
             return health;
@@ -72,6 +83,7 @@ namespace GameName.Enemies
         /// </summary>
         protected virtual void Kill()
         {
+            mWaveManager.currDead++;
             Destroy(gameObject);
         }
 
@@ -87,7 +99,7 @@ namespace GameName.Enemies
 
             if (health <= 0)
             {
-                Destroy(gameObject);
+                Kill();
             }
             gameObject.GetComponent<Renderer>().material = material;
         }

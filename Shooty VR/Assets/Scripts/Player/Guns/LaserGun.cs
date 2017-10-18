@@ -90,9 +90,9 @@ namespace GameName.Player.Guns
                 //}
                 
                 
-                if (hit.collider.gameObject.GetComponent<EnemyBasic>() != null)
+                if (hit.collider.gameObject.GetComponent<Enemy>() != null)
                 {
-                    hit.collider.gameObject.GetComponent<EnemyBasic>().Hit(damage);
+                    hit.collider.gameObject.GetComponent<Enemy>().Hit(damage);
                 }
 
                 shipController.hand.controller.TriggerHapticPulse(2500);

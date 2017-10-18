@@ -22,15 +22,15 @@ public class Spawn : MonoBehaviour
     IEnumerator SpawnWaves()
     {
         yield return new WaitForSeconds(startWait);
-        while (true)
-        {
+        //while (true)
+        //{
             for (int i = 0; i < hazardCount; i++)
             {
                 Vector3 spawnPosition = new Vector3(Random.Range(CORNER1.transform.position.x, CORNER2.transform.position.x), Random.Range(CORNER1.transform.position.y, CORNER2.transform.position.y), Random.Range(CORNER1.transform.position.z, CORNER2.transform.position.z));
                 Instantiate(HazardArray[Random.Range(0, HazardArray.Length)], spawnPosition, Quaternion.identity);
                 yield return new WaitForSeconds(spawnWait);
             }
-            yield return new WaitForSeconds(waveWait);
-        }
+            //yield return new WaitForSeconds(waveWait);
+        //}
     }
 }

@@ -13,7 +13,7 @@ using UnityEngine.EventSystems;
 using Valve.VR.InteractionSystem;
 using UnityEngine.Rendering;
 
-namespace GameName.Menu
+namespace Hive.Armada.Menu
 {
     public class UiPointer : MonoBehaviour
     {

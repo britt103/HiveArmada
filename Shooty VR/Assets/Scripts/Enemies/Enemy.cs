@@ -14,22 +14,20 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using Hive.Armada.Game;
 using UnityEngine;
 
-namespace GameName.Enemies
+namespace Hive.Armada.Enemies
 {
     public abstract class Enemy : MonoBehaviour
     {
+        public Spawner spawner;
         public int maxHealth;
         protected int health;
         public Material flashColor;
         protected Material material;
         protected WaveManager waveManager;
-
-        //void Start()
-        //{
-        //    StartCoroutine(InitEnemy());
-        //}
+        protected bool untouched = true;
 
         /// <summary>
         /// Initializes variables for the enemy when it loads.
@@ -39,6 +37,7 @@ namespace GameName.Enemies
             health = maxHealth;
             material = gameObject.GetComponent<Renderer>().material;
             waveManager = GameObject.FindGameObjectWithTag("Wave").GetComponent<WaveManager>();
+            spawner = GameObject.FindGameObjectWithTag("Wave").GetComponent<Spawner>();
         }
 
         /// <summary>
@@ -58,6 +57,13 @@ namespace GameName.Enemies
         {
             health -= damage;
             StartCoroutine(HitFlash());
+
+            if (untouched)
+            {
+                untouched = false;
+                if (spawner != null)
+                    spawner.EnemyHit();
+            }
         }
 
         /// <summary>
@@ -74,6 +80,7 @@ namespace GameName.Enemies
         /// </summary>
         protected virtual void Kill()
         {
+            spawner.AddKill();
             waveManager.currDead++;
             Destroy(gameObject);
         }
@@ -94,23 +101,5 @@ namespace GameName.Enemies
             }
             gameObject.GetComponent<Renderer>().material = material;
         }
-
-        ///// <summary>
-        ///// Initializes enemy health and base material for flashing.
-        ///// Also finds the wave manager in scene and adds a spawn value.
-        ///// </summary>
-        ///// <returns></returns>
-        //IEnumerator InitEnemy()
-        //{
-        //    health = maxHealth;
-        //    material = gameObject.GetComponent<Renderer>().material;
-        //    if (waveManager != null)
-        //    {
-        //        waveManager = GameObject.FindGameObjectWithTag("Wave").GetComponent<WaveManager>();
-        //        waveManager.currSpawn++;
-        //    }
-        //    yield return new WaitForSeconds(3);
-        //    Kill();   //just to test death without headset
-        //}
     }
 }

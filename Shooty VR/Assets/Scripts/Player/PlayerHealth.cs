@@ -13,9 +13,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using GameName;
+using Hive.Armada;
 
-namespace GameName.Player
+namespace Hive.Armada.Player
 {
     public class PlayerHealth : MonoBehaviour
     {

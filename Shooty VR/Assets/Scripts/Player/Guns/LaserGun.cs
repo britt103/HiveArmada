@@ -13,15 +13,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using GameName;
-using GameName.Enemies;
+using Hive.Armada;
 using System;
+using Hive.Armada.Enemies;
 using UnityEngine.Rendering;
 using Valve.VR;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-namespace GameName.Player.Guns
+namespace Hive.Armada.Player.Guns
 {
     public class LaserGun : Gun
     {

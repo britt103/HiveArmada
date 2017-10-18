@@ -7,7 +7,7 @@
 
 using UnityEngine;
 
-namespace GameName
+namespace Hive.Armada
 {
     public class Shield : MonoBehaviour
     {

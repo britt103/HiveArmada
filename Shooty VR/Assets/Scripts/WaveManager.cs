@@ -8,7 +8,7 @@ using UnityEngine;
 //Course: CPSC340-01
 //Game Development Project
 
-namespace GameName
+namespace Hive.Armada
 {
     /// <summary>
     /// Script in charge of wave spawning in the scene.

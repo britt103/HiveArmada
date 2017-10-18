@@ -14,7 +14,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace GameName.Player.Guns
+namespace Hive.Armada.Player.Guns
 {
     public abstract class Gun : MonoBehaviour
     {

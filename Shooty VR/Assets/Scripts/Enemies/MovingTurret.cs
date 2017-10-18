@@ -10,7 +10,7 @@ using UnityEngine;
 /// 
 /// This script handles the logic of a turret moving between two points
 /// </summary>
-namespace GameName.Enemies
+namespace Hive.Armada.Enemies
 {
     public class MovingTurret : EnemyBasic
     {

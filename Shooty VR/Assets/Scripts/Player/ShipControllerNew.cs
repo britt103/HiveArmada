@@ -15,9 +15,9 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using UnityEngine;
 using Valve.VR.InteractionSystem;
-using GameName.Player.Guns;
+using Hive.Armada.Player.Guns;
 
-namespace GameName.Player
+namespace Hive.Armada.Player
 {
     [RequireComponent(typeof(Interactable))]
     public class ShipControllerNew : MonoBehaviour

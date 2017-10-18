@@ -10,7 +10,7 @@
 using UnityEngine;
 using Valve.VR.InteractionSystem;
 
-namespace GameName
+namespace Hive.Armada
 {
     [RequireComponent(typeof(Interactable))]
     public class AreaBomb : MonoBehaviour

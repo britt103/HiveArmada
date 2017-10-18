@@ -12,7 +12,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace GameName.Ambient
+namespace Hive.Armada.Ambient
 {
     public class FanBlades : MonoBehaviour
     {

@@ -16,7 +16,7 @@
 using UnityEngine;
 using UnityEngine.Rendering;
 
-namespace GameName.Player
+namespace Hive.Armada.Player
 {
     public class LaserSight : MonoBehaviour
     {

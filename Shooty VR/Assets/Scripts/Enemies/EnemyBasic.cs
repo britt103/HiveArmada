@@ -13,7 +13,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace GameName.Enemies
+namespace Hive.Armada.Enemies
 {
     public class EnemyBasic : Enemy
     {

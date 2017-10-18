@@ -12,9 +12,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using GameName.Player;
+using Hive.Armada.Player;
 
-namespace GameName.Enemies
+namespace Hive.Armada.Enemies
 {
     public class Projectile : MonoBehaviour
     {

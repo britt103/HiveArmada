@@ -8,7 +8,7 @@
 using UnityEngine; 
 using Valve.VR.InteractionSystem;
 
-namespace GameName
+namespace Hive.Armada
 {
     public class PowerUp : MonoBehaviour
     {

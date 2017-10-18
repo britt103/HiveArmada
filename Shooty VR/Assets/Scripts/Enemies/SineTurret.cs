@@ -8,7 +8,7 @@ using UnityEngine;
 //Course: CPSC340-01
 //Game Development Project 01
 
-namespace GameName.Enemies
+namespace Hive.Armada.Enemies
 {
     /// <summary>
     /// Script that enables basic turret behavior to make

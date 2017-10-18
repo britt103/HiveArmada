@@ -14,7 +14,7 @@ using System;
 using System.IO;
 using Valve.VR.InteractionSystem;
 
-namespace GameName
+namespace Hive.Armada
 {
     public class PlayerStats : MonoBehaviour
     {

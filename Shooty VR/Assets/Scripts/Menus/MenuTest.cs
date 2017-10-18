@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Hive.Armada.Game;
 
-namespace GameName.Menu
+namespace Hive.Armada.Menu
 {
     public class MenuTest : MonoBehaviour
     {
+        public Spawner spawner;
 
         // Use this for initialization
         void Start()
@@ -21,6 +23,11 @@ namespace GameName.Menu
 
         public void buttonClicked()
         {
+            if (spawner != null)
+                spawner.Run();
+            else
+                Debug.Log("CRITICAL - MENU'S REFERENCE TO SPAWNER IS NULL");
+
             gameObject.SetActive(false);
         }
     }

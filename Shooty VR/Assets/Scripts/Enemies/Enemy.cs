@@ -38,7 +38,7 @@ namespace GameName.Enemies
         /// </summary>
         protected Material material;
 
-        public GameObject waveManager;
+        GameObject waveManager;
         WaveManager mWaveManager;
 
         /// <summary>

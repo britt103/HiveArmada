@@ -19,15 +19,16 @@ namespace GameName.Enemies
         public GameObject bullet;
         public Transform spawn;
         GameObject player;
-        GameObject turret; /// set reference in inspector
+        public GameObject turret; /// set reference PREFAB in inspector
         public Vector3 pos;
+        public Vector3 thisPos;
         public float fireRate, fireSpeed, fireCone;
         private float fireNext, randX, randY, randZ;
         bool canFire;
-        public Vector2 splitVel1; ///Set value in inspector
-        public Vector2 splitVel2; ///Set value in inspector
-        public Vector2 splitVel3; ///Set value in inspector
-        public Vector2 splitVel4; ///Set value in inspector
+        public Vector2 splitDir1; ///Set value in inspector
+        public Vector2 splitDir2; ///Set value in inspector
+        public Vector2 splitDir3; ///Set value in inspector
+        public Vector2 splitDir4; ///Set value in inspector
 
 
         /// Use this for initialization
@@ -52,10 +53,6 @@ namespace GameName.Enemies
             }
             else
             {
-                randX = Random.Range(-fireCone, fireCone);
-                randY = Random.Range(-fireCone, fireCone);
-                randZ = Random.Range(-fireCone, fireCone);
-
                 pos = player.transform.position;        //tracks the player position
                 transform.LookAt(pos);                  //and makes the transform look at said position
 
@@ -63,25 +60,24 @@ namespace GameName.Enemies
                 {                                                                                       //Basic firerate calculation that determines
                     fireNext = Time.time + fireRate;                                                    //how many projectiles shoot out of the turret
                     var shoot = Instantiate(bullet, spawn.position, spawn.rotation);                    //within a certain duration. The turret then
-                    shoot.GetComponent<Transform>().Rotate(randX, randY, randZ);
                     shoot.GetComponent<Rigidbody>().velocity = shoot.transform.forward * fireSpeed;     //instantiates a bullet and shoots it forward
-                }                                                                                       //in the direction of the player.
+                }
             }
         }
         protected override void Kill()
         {
             if (turret != null)
             {
-                //Instantiate("Explosion.name", transform.position, transform.rotation);
-                GameObject smlSplt1 = Instantiate(turret, transform.position, transform.rotation);
-                GameObject smlSplt2 = Instantiate(turret, transform.position, transform.rotation);
-                GameObject smlSplt3 = Instantiate(turret, transform.position, transform.rotation);
-                GameObject smlSplt4 = Instantiate(turret, transform.position, transform.rotation);
+                //Instantiate("Explosion.name", transform.position, transform.rotation); Placeholder for destroy effect
+                GameObject smlSplt1 = Instantiate(turret, transform.position, transform.rotation) as GameObject; //Creates 4 instances of the Turret prefab set in Inspector and creates 4 copies
+                GameObject smlSplt2 = Instantiate(turret, transform.position, transform.rotation) as GameObject;
+                GameObject smlSplt3 = Instantiate(turret, transform.position, transform.rotation) as GameObject;
+                GameObject smlSplt4 = Instantiate(turret, transform.position, transform.rotation) as GameObject;
 
-                smlSplt1.GetComponent<Rigidbody>().velocity = splitVel1;
-                smlSplt2.GetComponent<Rigidbody>().velocity = splitVel2;
-                smlSplt3.GetComponent<Rigidbody>().velocity = splitVel3;
-                smlSplt4.GetComponent<Rigidbody>().velocity = splitVel4;
+                smlSplt1.transform.position = new Vector3(transform.position.x + splitDir1.x, transform.position.y + splitDir1.y, transform.position.z); //Places each new turret at distances relative to the destroyed Splitter Turret
+                smlSplt2.transform.position = new Vector3(transform.position.x + splitDir2.x, transform.position.y + splitDir2.y, transform.position.z); //Values for each are set in Inspector
+                smlSplt3.transform.position = new Vector3(transform.position.x + splitDir3.x, transform.position.y + splitDir3.y, transform.position.z); 
+                smlSplt4.transform.position = new Vector3(transform.position.x + splitDir4.x, transform.position.y + splitDir4.y,transform.position.z); 
             }
 
             Destroy(gameObject);

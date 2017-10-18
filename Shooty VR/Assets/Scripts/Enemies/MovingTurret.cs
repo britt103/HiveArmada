@@ -20,7 +20,6 @@ namespace GameName.Enemies
         private Vector3 posA;
         private Vector3 posB;
         private Vector3 posCenter;
-        private bool perry = false;
         public Transform spawn;
         private float xEnd;
         public GameObject bullet;

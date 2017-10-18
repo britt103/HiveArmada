@@ -8,60 +8,69 @@ using UnityEngine;
 //Course: CPSC340-01
 //Game Development Project
 
-/// <summary>
-/// Script in charge of wave spawning in the scene.
-/// </summary>
-
-public class WaveManager : MonoBehaviour {
-
+namespace GameName
+{
     /// <summary>
-    /// Values in charge of keeping track of:
-    /// -What round it is
-    /// -How many enemies will be spawned current round
-    /// -How many enemies have currently spawned
-    /// -How many enemies have already been killed
+    /// Script in charge of wave spawning in the scene.
     /// </summary>
-    public int countSpawn, currWave, currSpawn, currDead;
-
-    /// <summary>
-    /// Enemy pool for easy access to list.
-    /// </summary>
-    public GameObject enemyOne, enemyTwo, enemyThree, enemyFour;
-
-    /// <summary>
-    /// Reference to the spawn zone
-    /// </summary>
-    public GameObject mSpawn;
-	
-	/// <summary>
-    /// Tracks the current number of spawned enemies and dead enemies.
-    /// When the number of spawned enemies meets the designated countSpawn, shuts off spawning.
-    /// When the number of dead enemies meets the designated countSpawn, makes preparations for the next wave.
-    /// </summary>
-	void Update () {
-        if (currSpawn == countSpawn) mSpawn.SetActive(false);
-        if (currDead == countSpawn) StartCoroutine(RoundWait());
-	}
-
-    IEnumerator RoundWait()
+    public class WaveManager : MonoBehaviour
     {
-        var waveSettings = mSpawn.GetComponent<Spawn>();
-        waveSettings.canSpawn = false;
+        /// <summary>
+        /// Values in charge of keeping track of:
+        /// -What round it is
+        /// -How many enemies will be spawned current round
+        /// -How many enemies have currently spawned
+        /// -How many enemies have already been killed
+        /// </summary>
+        public int countSpawn;
+        public int currWave;
+        public int currSpawn;
+        public int currDead;
 
-        if(currWave == 1)
+        /// <summary>
+        /// Enemy pool for easy access to list.
+        /// </summary>
+        public GameObject enemyOne;
+        public GameObject enemyTwo;
+        public GameObject enemyThree;
+        public GameObject enemyFour;
+
+        /// <summary>
+        /// Reference to the spawn zone
+        /// </summary>
+        public GameObject mSpawn;
+
+        /// <summary>
+        /// Tracks the current number of spawned enemies and dead enemies.
+        /// When the number of spawned enemies meets the designated countSpawn, shuts off spawning.
+        /// When the number of dead enemies meets the designated countSpawn, makes preparations for the next wave.
+        /// </summary>
+        void Update()
         {
-            countSpawn = 20;
-            waveSettings.hazardCount = 5;
-            waveSettings.spawnWait = 0.5f;
-            waveSettings.HazardList.Add(enemyTwo);
-            waveSettings.waveWait = 3;
-            currWave++;
+            if (currSpawn == countSpawn) mSpawn.SetActive(false);
+            if (currDead == countSpawn) StartCoroutine(RoundWait());
         }
 
-        currSpawn = 0;
-        currDead = 0;
-        yield return new WaitForSeconds(5);
-        waveSettings.canSpawn = true;
-        StartCoroutine(waveSettings.SpawnWaves());
+        IEnumerator RoundWait()
+        {
+            var waveSettings = mSpawn.GetComponent<Spawn>();
+            waveSettings.canSpawn = false;
+
+            if (currWave == 1)
+            {
+                countSpawn = 20;
+                waveSettings.hazardCount = 5;
+                waveSettings.spawnWait = 0.5f;
+                waveSettings.HazardList.Add(enemyTwo);
+                waveSettings.waveWait = 3;
+                currWave++;
+            }
+
+            currSpawn = 0;
+            currDead = 0;
+            yield return new WaitForSeconds(5);
+            waveSettings.canSpawn = true;
+            StartCoroutine(waveSettings.SpawnWaves());
+        }
     }
 }

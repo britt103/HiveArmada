@@ -8,14 +8,12 @@ using UnityEngine;
 //Course: CPSC340-01
 //Game Development Project 01
 
-/// <summary>
-/// Script that enables basic turret behavior to make
-/// the turret shoot in a wavelike sine pattern.
-/// </summary> 
-
-
 namespace GameName.Enemies
 {
+    /// <summary>
+    /// Script that enables basic turret behavior to make
+    /// the turret shoot in a wavelike sine pattern.
+    /// </summary> 
     public class SineTurret : Enemy
     {
         public GameObject bullet;
@@ -28,12 +26,12 @@ namespace GameName.Enemies
         public bool reverse;
 
         // Use this for initialization
-        //void Start()
-        //{
-        //    player = GameObject.FindGameObjectWithTag("Player");    //finds the player object and
-        //    pos = player.transform.position;                        //its corresponding position
-        //    transform.LookAt(pos);
-        //}
+        void Start()
+        {
+            player = GameObject.FindGameObjectWithTag("Player");    //finds the player object and
+            pos = player.transform.position;                        //its corresponding position
+            transform.LookAt(pos);
+        }
 
         // Update is called once per frame
         void Update()
@@ -46,7 +44,7 @@ namespace GameName.Enemies
             //}
             if (Time.time > fireNext)                                                           //while shooting bullets at the angle
             {                                                                                   //of rotation.
-                fireNext = Time.time + fireRate;
+                fireNext = Time.time + (1 / fireRate);
                 var shoot = Instantiate(bullet, spawn.position, spawn.rotation);
                 shoot.GetComponent<Rigidbody>().velocity = shoot.transform.forward * fireSpeed;
             }

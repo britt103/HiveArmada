@@ -23,7 +23,6 @@ GameObject:
   - component: {fileID: 135464690169009892}
   - component: {fileID: 23669122299914676}
   - component: {fileID: 114428710879818720}
-  - component: {fileID: 114660750323839160}
   m_Layer: 9
   m_Name: Straight Turret
   m_TagString: Enemy
@@ -124,31 +123,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
-  health: 0
   flashColor: {fileID: 2100000, guid: 1db15971033ba594294b4f0c035f7da8, type: 2}
-  waveManager: {fileID: 1030734940671854, guid: d9f2a9ef87214aa4e9c338464a9a76c4,
-    type: 2}
   bullet: {fileID: 1751136267563060, guid: a3e97b332c7c7484eb0cf0632e2a5e94, type: 2}
   spawn: {fileID: 4632958541488394}
   pos: {x: 0, y: 0, z: 0}
   fireRate: 1
   fireSpeed: 3
   fireCone: 0
---- !u!114 &114660750323839160
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1329020231432000}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba249d09f93812549b0d5ed3b4409c92, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 100
-  health: 100
-  flashColor: {fileID: 2100000, guid: 1db15971033ba594294b4f0c035f7da8, type: 2}
-  waveManager: {fileID: 0}
 --- !u!135 &135464690169009892
 SphereCollider:
   m_ObjectHideFlags: 1

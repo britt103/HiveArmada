@@ -1,4 +1,5 @@
-﻿// 
+﻿//=============================================================================
+// 
 // Perry Sidler
 // 1831784
 // sidle104@mail.chapman.edu
@@ -9,6 +10,7 @@
 // It handles all fields and methods related to
 // health and taking damage.
 // 
+//=============================================================================
 
 using System.Collections;
 using System.Collections.Generic;
@@ -18,42 +20,31 @@ namespace GameName.Enemies
 {
     public abstract class Enemy : MonoBehaviour
     {
-        /// <summary>
-        /// The starting health for the enemy.
-        /// </summary>
         public int maxHealth;
-
-        /// <summary>
-        /// The current health for the enemy.
-        /// </summary>
-        public int health;
-
-        /// <summary>
-        /// The material that this
-        /// </summary>
+        protected int health;
         public Material flashColor;
-
-        /// <summary>
-        /// Reference to the original material of the game object.
-        /// </summary>
         protected Material material;
+        protected WaveManager waveManager;
+
+        //void Start()
+        //{
+        //    StartCoroutine(InitEnemy());
+        //}
 
         /// <summary>
-        /// Access to the wave manager object and its parameters
+        /// Initializes variables for the enemy when it loads.
         /// </summary>
-        GameObject waveManager;
-        WaveManager mWaveManager;
+        public virtual void Awake()
+        {
+            health = maxHealth;
+            material = gameObject.GetComponent<Renderer>().material;
+            waveManager = GameObject.FindGameObjectWithTag("Wave").GetComponent<WaveManager>();
+        }
 
         /// <summary>
         /// The current health for the enemy.
         /// </summary>
         /// <returns> Integer health value </returns>
-
-        void Start()
-        {
-            StartCoroutine(InitEnemy());
-        }
-
         public virtual int GetHealth()
         {
             return health;
@@ -83,7 +74,7 @@ namespace GameName.Enemies
         /// </summary>
         protected virtual void Kill()
         {
-            mWaveManager.currDead++;
+            waveManager.currDead++;
             Destroy(gameObject);
         }
 
@@ -104,20 +95,22 @@ namespace GameName.Enemies
             gameObject.GetComponent<Renderer>().material = material;
         }
 
-        /// <summary>
-        /// Initializes enemy health and base material for flashing.
-        /// Also finds the wave manager in scene and adds a spawn value.
-        /// </summary>
-        /// <returns></returns>
-        IEnumerator InitEnemy()
-        {
-            health = maxHealth;
-            material = gameObject.GetComponent<Renderer>().material;
-            waveManager = GameObject.FindGameObjectWithTag("Wave");
-            mWaveManager = waveManager.GetComponent<WaveManager>();
-            mWaveManager.currSpawn++;
-            yield return new WaitForSeconds(3);
-            Kill();   //just to test death without headset
-        }
+        ///// <summary>
+        ///// Initializes enemy health and base material for flashing.
+        ///// Also finds the wave manager in scene and adds a spawn value.
+        ///// </summary>
+        ///// <returns></returns>
+        //IEnumerator InitEnemy()
+        //{
+        //    health = maxHealth;
+        //    material = gameObject.GetComponent<Renderer>().material;
+        //    if (waveManager != null)
+        //    {
+        //        waveManager = GameObject.FindGameObjectWithTag("Wave").GetComponent<WaveManager>();
+        //        waveManager.currSpawn++;
+        //    }
+        //    yield return new WaitForSeconds(3);
+        //    Kill();   //just to test death without headset
+        //}
     }
 }

@@ -6,7 +6,7 @@ using UnityEngine;
 //Student ID: 2264941
 //Email: gotao100@mail.chapman.edu
 //Course: CPSC340-01
-//Game Development Project 01
+//Game Development Project
 
 /// <summary>
 /// Script enabling basic turret behavior that
@@ -27,11 +27,11 @@ namespace GameName.Enemies
         bool canFire;
 
         // Use this for initialization
-        void Start()
-        {
-            //player = GameObject.FindGameObjectWithTag("Player");        //finds player and stores it's position
-            //pos = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z);
-        }
+        //void Start()
+        //{
+        //    //player = GameObject.FindGameObjectWithTag("Player");        //finds player and stores it's position
+        //    //pos = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z);
+        //}
 
         // Update is called once per frame
         void Update()

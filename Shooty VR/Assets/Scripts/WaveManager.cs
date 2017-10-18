@@ -2,25 +2,66 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//Name: Miguel Luis Gotao
+//Student ID: 2264941
+//Email: gotao100@mail.chapman.edu
+//Course: CPSC340-01
+//Game Development Project
+
+/// <summary>
+/// Script in charge of wave spawning in the scene.
+/// </summary>
+
 public class WaveManager : MonoBehaviour {
 
+    /// <summary>
+    /// Values in charge of keeping track of:
+    /// -What round it is
+    /// -How many enemies will be spawned current round
+    /// -How many enemies have currently spawned
+    /// -How many enemies have already been killed
+    /// </summary>
     public int countSpawn, currWave, currSpawn, currDead;
-    public GameObject mSpawn;
 
-	// Use this for initialization
-	void Start () {
-        var waveSettings = mSpawn.GetComponent<Spawn>();
-	}
+    /// <summary>
+    /// Enemy pool for easy access to list.
+    /// </summary>
+    public GameObject enemyOne, enemyTwo, enemyThree, enemyFour;
+
+    /// <summary>
+    /// Reference to the spawn zone
+    /// </summary>
+    public GameObject mSpawn;
 	
-	// Update is called once per frame
+	/// <summary>
+    /// Tracks the current number of spawned enemies and dead enemies.
+    /// When the number of spawned enemies meets the designated countSpawn, shuts off spawning.
+    /// When the number of dead enemies meets the designated countSpawn, makes preparations for the next wave.
+    /// </summary>
 	void Update () {
         if (currSpawn == countSpawn) mSpawn.SetActive(false);
-        if (currDead == countSpawn) StartCoroutine(roundWait());
+        if (currDead == countSpawn) StartCoroutine(RoundWait());
 	}
 
-    IEnumerator roundWait()
+    IEnumerator RoundWait()
     {
+        var waveSettings = mSpawn.GetComponent<Spawn>();
+        waveSettings.canSpawn = false;
+
+        if(currWave == 1)
+        {
+            countSpawn = 20;
+            waveSettings.hazardCount = 5;
+            waveSettings.spawnWait = 0.5f;
+            waveSettings.HazardList.Add(enemyTwo);
+            waveSettings.waveWait = 3;
+            currWave++;
+        }
+
+        currSpawn = 0;
+        currDead = 0;
         yield return new WaitForSeconds(5);
-        mSpawn.SetActive(true);
+        waveSettings.canSpawn = true;
+        StartCoroutine(waveSettings.SpawnWaves());
     }
 }

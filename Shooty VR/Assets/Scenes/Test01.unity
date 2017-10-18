@@ -6657,14 +6657,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CORNER1: {fileID: 1332439489}
   CORNER2: {fileID: 1728632777}
-  HazardArray:
+  HazardList:
   - {fileID: 1642054914622950, guid: 700303d8a33bf59499a863686815de4d, type: 2}
-  - {fileID: 1329020231432000, guid: e97848a32505f5c43b2f389ff3bc20b4, type: 2}
   spawnValues: {x: 0, y: 0, z: 0}
   hazardCount: 10
   spawnWait: 0.5
   startWait: 0
-  waveWait: 5
+  waveWait: 3
+  canSpawn: 0
 --- !u!4 &672316278
 Transform:
   m_ObjectHideFlags: 0
@@ -15519,7 +15519,7 @@ GameObject:
   - component: {fileID: 1490104823}
   m_Layer: 0
   m_Name: Wave Manager
-  m_TagString: Untagged
+  m_TagString: Wave
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15538,8 +15538,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   countSpawn: 10
   currWave: 1
-  currSpawn: 18
+  currSpawn: 0
   currDead: 0
+  enemyOne: {fileID: 1642054914622950, guid: 700303d8a33bf59499a863686815de4d, type: 2}
+  enemyTwo: {fileID: 1329020231432000, guid: e97848a32505f5c43b2f389ff3bc20b4, type: 2}
+  enemyThree: {fileID: 0}
+  enemyFour: {fileID: 0}
   mSpawn: {fileID: 672316276}
 --- !u!4 &1490104824
 Transform:

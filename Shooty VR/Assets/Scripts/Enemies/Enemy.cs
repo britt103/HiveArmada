@@ -38,6 +38,9 @@ namespace GameName.Enemies
         /// </summary>
         protected Material material;
 
+        /// <summary>
+        /// Access to the wave manager object and its parameters
+        /// </summary>
         GameObject waveManager;
         WaveManager mWaveManager;
 
@@ -48,10 +51,7 @@ namespace GameName.Enemies
 
         void Start()
         {
-            health = 100;
-            material = gameObject.GetComponent<Renderer>().material;
-            mWaveManager = waveManager.GetComponent<WaveManager>();
-            mWaveManager.currSpawn++;
+            StartCoroutine(InitEnemy());
         }
 
         public virtual int GetHealth()
@@ -102,6 +102,22 @@ namespace GameName.Enemies
                 Kill();
             }
             gameObject.GetComponent<Renderer>().material = material;
+        }
+
+        /// <summary>
+        /// Initializes enemy health and base material for flashing.
+        /// Also finds the wave manager in scene and adds a spawn value.
+        /// </summary>
+        /// <returns></returns>
+        IEnumerator InitEnemy()
+        {
+            health = maxHealth;
+            material = gameObject.GetComponent<Renderer>().material;
+            waveManager = GameObject.FindGameObjectWithTag("Wave");
+            mWaveManager = waveManager.GetComponent<WaveManager>();
+            mWaveManager.currSpawn++;
+            yield return new WaitForSeconds(3);
+            Kill();   //just to test death without headset
         }
     }
 }

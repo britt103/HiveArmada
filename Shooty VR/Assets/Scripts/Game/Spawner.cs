@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Hive.Armada.Game;
+using UnityEngine.UI;
 
 namespace Hive.Armada.Game
 {
@@ -32,10 +33,16 @@ namespace Hive.Armada.Game
         private bool canSpawn = true;
         private Coroutine waveSpawn;
 
+        public GameObject waveCountGO;
+        public GameObject shipReminderGO;
+
         void Awake()
         {
             wave = -1;
             //spawns = 0;
+
+            waveCountGO.SetActive(false);
+            shipReminderGO.SetActive(false);
         }
 
         public void Run()
@@ -80,6 +87,14 @@ namespace Hive.Armada.Game
 
         private IEnumerator WaveTimer()
         {
+            //remind player to pickup ship before wave starts
+            if (GameObject.Find("Player").GetComponentInChildren<Player.ShipControllerNew>() == null)
+            {
+                shipReminderGO.SetActive(true);
+                yield return new WaitWhile(() => (GameObject.Find("Player").GetComponentInChildren<Player.ShipControllerNew>() == null));
+                shipReminderGO.SetActive(false);
+            }
+
             while (wave <= 4)
             {
                 if (waveSpawn == null)
@@ -87,6 +102,12 @@ namespace Hive.Armada.Game
                     List<GameObject> spawns = SetupWave();
 
                     Debug.Log("BEGINNING WAVE " + wave);
+                    waveCountGO.SetActive(true);
+                    waveCountGO.GetComponent<Text>().text = "Wave: " + (wave + 1);
+
+                    yield return new WaitForSeconds(2);
+
+                    waveCountGO.SetActive(false);
 
                     waveSpawn = StartCoroutine(SpawnWave(spawns));
                 }

@@ -34,7 +34,7 @@ namespace Hive.Armada
                     case "Shield":
                         if (!status.GetShield())
                         {
-                            Instantiate(powerUpPrefab, other.gameObject.transform);
+                            Instantiate(powerUpPrefab, other.gameObject.transform.Find("Thrusters").transform);
                             status.SetShield(true);
                         }
                         break;
@@ -42,7 +42,7 @@ namespace Hive.Armada
                     case "Area Bomb":
                         if (!status.GetSAreaBomb())
                         {
-                            Instantiate(powerUpPrefab, other.gameObject.transform);
+                            Instantiate(powerUpPrefab, other.gameObject.transform.Find("Thrusters").transform);
                             status.SetAreaBomb(true);
 
                         }
@@ -51,7 +51,7 @@ namespace Hive.Armada
                     case "Clear":
                         if (!status.GetClear())
                         {
-                            Instantiate(powerUpPrefab, other.gameObject.transform);
+                            Instantiate(powerUpPrefab, other.gameObject.transform.Find("Thrusters").transform);
                             status.SetClear(true);
                         }
                         break;
@@ -59,7 +59,7 @@ namespace Hive.Armada
                     case "Ally":
                         if (!status.GetAlly())
                         {
-                            Instantiate(powerUpPrefab, other.gameObject.transform);
+                            Instantiate(powerUpPrefab, other.gameObject.transform.Find("Thrusters").transform);
                             status.SetAlly(true);
                         }
                         break;

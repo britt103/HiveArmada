@@ -22,13 +22,13 @@ namespace Hive.Armada
         // Update is called once per frame
         void Update()
         {
-            if (hand.controller.GetHairTriggerDown())
+            if (hand.controller.GetPressDown(Valve.VR.EVRButtonId.k_EButton_Grip))
             {
                 GameObject.Find("Player").GetComponent<PowerUpStatus>().SetClear(false);
 
                 foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
                 {
-                    enemy.GetComponent<Enemies.EnemyBasic>().Hit(100);
+                    enemy.GetComponent<Enemies.Enemy>().Hit(100);
                 }
                 Destroy(gameObject);
             }

@@ -6,9 +6,9 @@ public class Spawn : MonoBehaviour
 {
     public GameObject CORNER1;
     public GameObject CORNER2;
-    public List<GameObject> HazardList;
+    public List<GameObject> SpawnList;
     public Vector3 spawnValues;
-    public int hazardCount;
+    public int SpawnCount;
     public float spawnWait;
     public float startWait;
     public float waveWait;
@@ -26,10 +26,10 @@ public class Spawn : MonoBehaviour
         //yield return new WaitForSeconds(startWait);
         while (canSpawn)
         {
-            for (int i = 0; i < hazardCount; i++)
+            for (int i = 0; i < SpawnCount; i++)
             {
                 Vector3 spawnPosition = new Vector3(Random.Range(CORNER1.transform.position.x, CORNER2.transform.position.x), Random.Range(CORNER1.transform.position.y, CORNER2.transform.position.y), Random.Range(CORNER1.transform.position.z, CORNER2.transform.position.z));
-                Instantiate(HazardList[Random.Range(0, HazardList.Count - 1)], spawnPosition, Quaternion.identity);
+                Instantiate(SpawnList[Random.Range(0, SpawnList.Count)], spawnPosition, Quaternion.identity);
                 yield return new WaitForSeconds(spawnWait);
             }
             yield return new WaitForSeconds(waveWait);

@@ -15,10 +15,12 @@ namespace Hive.Armada
         //prefab to use for instantiation
         public GameObject powerUpPrefab;
         private PowerUpStatus status;
+        private float lifeTime = 10.0f;
 
         private void Start()
         {
             status = GameObject.Find("Player").GetComponent<PowerUpStatus>();
+            Destroy(gameObject, lifeTime);
         }
 
         /// <summary>

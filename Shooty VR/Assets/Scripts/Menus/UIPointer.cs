@@ -15,7 +15,7 @@ using UnityEngine.Rendering;
 
 namespace Hive.Armada.Menu
 {
-    public class UiPointer : MonoBehaviour
+    public class UIPointer : MonoBehaviour
     {
         private Hand hand;
         private LineRenderer pointer;

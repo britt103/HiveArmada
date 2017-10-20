@@ -20,9 +20,10 @@ using Hive.Armada.Player.Guns;
 namespace Hive.Armada.Player
 {
     [RequireComponent(typeof(Interactable))]
-    public class ShipControllerNew : MonoBehaviour
+    public class ShipController : MonoBehaviour
     {
         //public enum Handedness { Left, Right };
+        public enum ShipMode { Menu, Game };
         public enum GunTypes { Lasers, Miniguns, Railguns, Launchers };
 
         //public Handedness currentHandGuess = Handedness.Left;
@@ -30,6 +31,7 @@ namespace Hive.Armada.Player
         //private float timeBeforeConfirmingHandSwitch = 1.5f;
         //private bool possibleHandSwitch = false;
 
+        public ShipMode shipMode { get; private set; }
         public GameObject lasers;
         private LaserGun laserGun;
         public Transform pivotTransform;
@@ -48,15 +50,15 @@ namespace Hive.Armada.Player
         public const float LAUNCHER_BASE_FIRE_RATE = 1.0f;
 
         // Gun current stats
-        public int laserDamage;
-        public float laserFireRate;
-        public int minigunDamage;
-        public float minigunFireRate;
-        public int railgunDamage;
-        public float railgunFireRate;
-        public int launcherDamage;
-        public float launcherFireRate;
-        
+        public int laserDamage { get; private set; }
+        public float laserFireRate { get; private set; }
+        public int minigunDamage { get; private set; }
+        public float minigunFireRate { get; private set; }
+        public int railgunDamage { get; private set; }
+        public float railgunFireRate { get; private set; }
+        public int launcherDamage { get; private set; }
+        public float launcherFireRate { get; private set; }
+
         private bool deferNewPoses = false;
         private Vector3 lateUpdatePos;
         private Quaternion lateUpdateRot;

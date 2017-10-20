@@ -20,11 +20,11 @@ namespace Hive.Armada.Player
 {
     public class LaserSight : MonoBehaviour
     {
+        public ShipController.ShipMode mode;
         private LineRenderer laser;
         public Material laserMaterial;
         [Tooltip("View makes line face camera. Local makes the line face the direction of the transform component")]
         public LineAlignment alignment;
-        public Color color;
         public float thickness = 0.002f;
         public ShadowCastingMode castShadows;
         public bool receiveShadows = false;
@@ -35,8 +35,8 @@ namespace Hive.Armada.Player
             laser = gameObject.AddComponent<LineRenderer>();
             Gradient gradient = new Gradient();
             gradient.SetKeys(
-                new GradientColorKey[] { new GradientColorKey(color, 0.0f), new GradientColorKey(color, 1.0f), },
-                new GradientAlphaKey[] { new GradientAlphaKey(color.a, 0.0f), new GradientAlphaKey(color.a, 1.0f), });
+                new GradientColorKey[] { new GradientColorKey(laserMaterial.color, 0.0f), new GradientColorKey(laserMaterial.color, 1.0f), },
+                new GradientAlphaKey[] { new GradientAlphaKey(laserMaterial.color.a, 0.0f), new GradientAlphaKey(laserMaterial.color.a, 1.0f), });
             laser.material = laserMaterial;
             laser.shadowCastingMode = castShadows;
             laser.receiveShadows = receiveShadows;
@@ -56,6 +56,15 @@ namespace Hive.Armada.Player
                 laser.SetPosition(0, transform.position);
                 laser.SetPosition(1, hit.point);
             }
+        }
+
+        /// <summary>
+        /// Sets the mode for the laser, whether it should interact with UI or not.
+        /// </summary>
+        /// <param name="mode">  </param>
+        public void SetMode(ShipController.ShipMode mode)
+        {
+
         }
     }
 }

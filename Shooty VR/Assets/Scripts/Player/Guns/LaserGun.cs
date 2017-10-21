@@ -37,11 +37,13 @@ namespace Hive.Armada.Player.Guns
         public ShadowCastingMode castShadows;
         public bool receiveShadows = false;
         private bool isLeftFire = true;
+        public int damageBoost;
 
         void Start()
         {
             damage = shipController.laserDamage;
             fireRate = shipController.laserFireRate;
+            damageBoost = 1;
 
             leftLaser = left.gameObject.AddComponent<LineRenderer>();
             leftLaser.material = laserMaterial;
@@ -89,7 +91,7 @@ namespace Hive.Armada.Player.Guns
                 //}
                 if (hit.collider.gameObject.GetComponent<Enemy>() != null)
                 {
-                    hit.collider.gameObject.GetComponent<Enemy>().Hit(damage);
+                    hit.collider.gameObject.GetComponent<Enemy>().Hit(damage*damageBoost);
                 }
 
                 shipController.hand.controller.TriggerHapticPulse(2500);

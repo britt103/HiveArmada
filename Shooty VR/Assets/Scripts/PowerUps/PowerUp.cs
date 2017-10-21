@@ -63,6 +63,13 @@ namespace Hive.Armada
                             status.SetAlly(true);
                         }
                         break;
+                    case "Damage Boost":
+                        if (!status.GetDamageBoost())
+                        {
+                            Instantiate(powerUpPrefab, other.gameObject.transform);
+                            status.SetDamageBoost(true);
+                        }
+                        break;
                 }
                 Destroy(gameObject);
             }

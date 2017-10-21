@@ -36,6 +36,8 @@ namespace Hive.Armada.Game
             3.0f
         };
 
+        public float[][] wavePowerupChances;
+
         void Awake()
         {
             waveSpawns = new int[5][];
@@ -54,6 +56,14 @@ namespace Hive.Armada.Game
             //    { 4, 1, 0, 0 },
             //    { 0, 3, 0, 0 }
             //};
+
+            wavePowerupChances = new float[5][];
+
+            wavePowerupChances[0] = new[] { 0.7f, 0.3f, 0.0f, 0.0f };
+            wavePowerupChances[1] = new[] { 0.3f, 0.7f, 0.0f, 0.0f };
+            wavePowerupChances[2] = new[] { 0.0f, 0.3f, 0.7f, 0.0f };
+            wavePowerupChances[3] = new[] { 0.0f, 0.0f, 0.3f, 0.7f };
+            wavePowerupChances[4] = new[] { 0.25f, 0.25f, 0.25f, 0.25f };
         }
 
         /// <summary>
@@ -92,6 +102,11 @@ namespace Hive.Armada.Game
         public float GetSpawnTime(int wave)
         {
             return spawnTime[wave];
+        }
+
+        public float[] GetPowerupChances(int wave)
+        {
+            return wavePowerupChances[wave];
         }
     }
 }

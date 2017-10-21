@@ -21,15 +21,18 @@ namespace Hive.Armada.Game
     public class Spawner : MonoBehaviour
     {
         public Waves waves;
-        public GameObject[] bounds;
+        public GameObject[] powerups;
+        public GameObject[] enemyBounds;
+        public GameObject[] powerupBounds;
         //public GameObject[] enemyPrefabs;
         public int wave { get; private set; }
         public int kills { get; private set; }
-        private int spawnCount;
+        private int enemySpawnCount;
         private float spawnTime;
         private int alive;
         private int enemyCap;
-        private bool canSpawn = true;
+        private bool canSpawnEnemy = true;
+        private bool canSpawnPowerup = true;
         private Coroutine waveSpawn;
 
         void Awake()
@@ -106,7 +109,7 @@ namespace Hive.Armada.Game
             spawnTime = waves.GetSpawnTime(wave);
 
             List<GameObject> spawns = GetSpawns();
-            spawnCount = spawns.Count;
+            enemySpawnCount = spawns.Count;
 
             //StartCoroutine(SpawnWave(spawns));
             return spawns;
@@ -165,9 +168,9 @@ namespace Hive.Armada.Game
 
         private IEnumerator SpawnWave(List<GameObject> spawns)
         {
-            while (kills < spawnCount)
+            while (kills < enemySpawnCount)
             {
-                if (canSpawn)
+                if (canSpawnEnemy)
                 {
                     if (spawns.Count > 0)
                     {
@@ -180,6 +183,11 @@ namespace Hive.Armada.Game
                 }
                 else
                     yield return new WaitForSeconds(0.1f);
+
+                if (canSpawnPowerup)
+                {
+                    StartCoroutine(SpawnPowerup());
+                }
             }
 
             waveSpawn = null;
@@ -187,17 +195,17 @@ namespace Hive.Armada.Game
 
         public void EnemyHit()
         {
-            canSpawn = true;
+            canSpawnEnemy = true;
         }
 
         private IEnumerator SpawnEnemy(GameObject prefab)
         {
-            canSpawn = false;
+            canSpawnEnemy = false;
             yield return new WaitForSeconds(3.0f);
 
             // SPAWN THAT SHIT HERE
-            Vector3 lower = bounds[0].transform.position;
-            Vector3 upper = bounds[1].transform.position;
+            Vector3 lower = enemyBounds[0].transform.position;
+            Vector3 upper = enemyBounds[1].transform.position;
             Vector3 position = new Vector3(
                 Random.Range(lower.x, upper.x),
                 Random.Range(lower.y, upper.y),
@@ -207,7 +215,7 @@ namespace Hive.Armada.Game
             ++alive;
 
             if (alive < enemyCap)
-                canSpawn = true;
+                canSpawnEnemy = true;
         }
 
         public void AddKill()
@@ -216,10 +224,41 @@ namespace Hive.Armada.Game
             --alive;
 
             if (alive < enemyCap)
-                canSpawn = true;
+                canSpawnEnemy = true;
 
             if (alive < 0)
                 alive = 0;
+        }
+
+        private IEnumerator SpawnPowerup()
+        {
+            canSpawnPowerup = false;
+            yield return new WaitForSeconds(15.0f);
+
+            // SPAWN THAT OTHER SHIT HERE
+            Vector3 lower = powerupBounds[0].transform.position;
+            Vector3 upper = powerupBounds[1].transform.position;
+
+            Vector3 position = new Vector3(
+                Random.Range(lower.x, upper.x),
+                Random.Range(lower.y, upper.y),
+                Random.Range(lower.z, upper.z));
+
+            //GameObject prefab = powerups[Random.Range(0, powerups.Length)];
+            float chance = Random.Range(0.0f, 1.0f);
+
+            float[] chances = waves.GetPowerupChances(wave);
+
+            for(int i = 0; i < chances.Length; ++i)
+            {
+                if(Random.Range(0.0f, 1.0f) <= chances[i])
+                {
+                    Instantiate(powerups[i], position, Quaternion.identity);
+                    break;
+                }
+            }
+
+            canSpawnPowerup = true;
         }
     }
 }

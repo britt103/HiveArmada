@@ -28,7 +28,7 @@ namespace Hive.Armada
         private float slerpFraction;
         private bool targetAcquired;
 
-        public GameObject bullet;
+        public GameObject bulletPrefab;
         public float bulletSpeed;
         public float firerate;
 
@@ -47,13 +47,13 @@ namespace Hive.Armada
             timeLimit -= Time.deltaTime;
             if (timeLimit < 0.0F)
             {
-                GameObject.FindGameObjectWithTag("Player").GetComponent<PowerUpStatus>().SetAlly(false);
+                GameObject.Find("Player").GetComponent<PowerUpStatus>().SetAlly(false);
                 Destroy(gameObject);
             }
 
             move();
 
-            if (canFire && slerpFraction >= 1.0F)
+            if (canFire && slerpFraction >= 1.0F && currentTarget != null)
             {
                 StartCoroutine(Fire(currentTarget.transform.position));
             }
@@ -153,10 +153,10 @@ namespace Hive.Armada
         private IEnumerator Fire(Vector3 target)
         {
             canFire = false;
-            var laser = Instantiate(bullet, transform.position, transform.rotation);
+            var bullet = Instantiate(bulletPrefab, transform.Find("BulletPoint").transform.position, transform.rotation);
 
-            laser.transform.LookAt(target);
-            laser.GetComponent<Rigidbody>().velocity = laser.transform.forward * bulletSpeed;
+            bullet.transform.LookAt(target);
+            bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * bulletSpeed;
 
             yield return new WaitForSeconds(1.0f / firerate);
             canFire = true;

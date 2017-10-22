@@ -44,7 +44,7 @@ namespace Hive.Armada
             shieldState = newState;
         }
 
-        public bool GetSAreaBomb()
+        public bool GetAreaBomb()
         {
             return areaBombState;
         }

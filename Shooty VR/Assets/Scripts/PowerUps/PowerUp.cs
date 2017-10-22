@@ -15,10 +15,12 @@ namespace Hive.Armada
         //prefab to use for instantiation
         public GameObject powerUpPrefab;
         private PowerUpStatus status;
+        private float lifeTime = 10.0f;
 
         private void Start()
         {
             status = GameObject.Find("Player").GetComponent<PowerUpStatus>();
+            Destroy(gameObject, lifeTime);
         }
 
         /// <summary>
@@ -34,37 +36,40 @@ namespace Hive.Armada
                     case "Shield":
                         if (!status.GetShield())
                         {
-                            Instantiate(powerUpPrefab, other.gameObject.transform);
+                            Instantiate(powerUpPrefab, other.gameObject.transform.Find("Thrusters").transform);
                             status.SetShield(true);
+                            Destroy(gameObject);
                         }
                         break;
 
                     case "Area Bomb":
-                        if (!status.GetSAreaBomb())
+                        if (!status.GetAreaBomb() && !status.GetClear())
                         {
-                            Instantiate(powerUpPrefab, other.gameObject.transform);
+                            Instantiate(powerUpPrefab, other.gameObject.transform.Find("Thrusters").transform);
                             status.SetAreaBomb(true);
+                            Destroy(gameObject);
 
                         }
                         break;
 
                     case "Clear":
-                        if (!status.GetClear())
+                        if (!status.GetClear() && !status.GetAreaBomb())
                         {
-                            Instantiate(powerUpPrefab, other.gameObject.transform);
+                            Instantiate(powerUpPrefab, other.gameObject.transform.Find("Thrusters").transform);
                             status.SetClear(true);
+                            Destroy(gameObject);
                         }
                         break;
 
                     case "Ally":
                         if (!status.GetAlly())
                         {
-                            Instantiate(powerUpPrefab, other.gameObject.transform);
+                            Instantiate(powerUpPrefab, other.gameObject.transform.Find("Thrusters").transform);
                             status.SetAlly(true);
+                            Destroy(gameObject);
                         }
                         break;
                 }
-                Destroy(gameObject);
             }
         }
     }

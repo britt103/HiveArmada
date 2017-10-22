@@ -59,9 +59,9 @@ namespace Hive.Armada
             if (currWave == 1)
             {
                 countSpawn = 20;
-                waveSettings.hazardCount = 5;
+                waveSettings.SpawnCount = 5;
                 waveSettings.spawnWait = 0.5f;
-                waveSettings.HazardList.Add(enemyTwo);
+                waveSettings.SpawnList.Add(enemyTwo);
                 waveSettings.waveWait = 3;
                 currWave++;
             }

@@ -1,4 +1,5 @@
-﻿// 
+﻿//=============================================================================
+// 
 // Perry Sidler
 // 1831784
 // sidle104@mail.chapman.edu
@@ -9,35 +10,35 @@
 // It handles all fields and methods related to
 // health and taking damage.
 // 
+//=============================================================================
 
 using System.Collections;
 using System.Collections.Generic;
+using Hive.Armada.Game;
 using UnityEngine;
 
-namespace ShootyVR.Enemies
+namespace Hive.Armada.Enemies
 {
     public abstract class Enemy : MonoBehaviour
     {
-        /// <summary>
-        /// The starting health for the enemy.
-        /// </summary>
+        public Spawner spawner;
         public int maxHealth;
-
-        /// <summary>
-        /// The current health for the enemy.
-        /// </summary>
         protected int health;
-
-        /// <summary>
-        /// The material that this
-        /// </summary>
         public Material flashColor;
+        protected Material material;
+        protected WaveManager waveManager;
+        protected bool untouched = true;
 
         /// <summary>
-        /// Reference to the original material of the game object.
+        /// Initializes variables for the enemy when it loads.
         /// </summary>
-        protected Material material;
-
+        public virtual void Awake()
+        {
+            health = maxHealth;
+            material = gameObject.GetComponent<Renderer>().material;
+            waveManager = GameObject.FindGameObjectWithTag("Wave").GetComponent<WaveManager>();
+            spawner = GameObject.FindGameObjectWithTag("Wave").GetComponent<Spawner>();
+        }
 
         /// <summary>
         /// The current health for the enemy.
@@ -52,11 +53,18 @@ namespace ShootyVR.Enemies
         /// Used to apply damage to an enemy.
         /// </summary>
         /// <param name="damage"> How much damage this enemy is taking. </param>
-        public abstract void Hit(int damage);
-        //{
-        //    health -= damage;
-        //    StartCoroutine(HitFlash());
-        //}
+        public virtual void Hit(int damage)
+        {
+            health -= damage;
+            StartCoroutine(HitFlash());
+
+            if (untouched)
+            {
+                untouched = false;
+                if (spawner != null)
+                    spawner.EnemyHit();
+            }
+        }
 
         /// <summary>
         /// Currently unused. Flashes and destroys the enemy when it collides with the player.
@@ -72,6 +80,8 @@ namespace ShootyVR.Enemies
         /// </summary>
         protected virtual void Kill()
         {
+            spawner.AddKill();
+            waveManager.currDead++;
             Destroy(gameObject);
         }
 
@@ -80,16 +90,16 @@ namespace ShootyVR.Enemies
         /// Calls Kill() if the enemy is out of health. Adds to the score via GameManager.
         /// </summary>
         /// <returns>  </returns>
-        protected abstract IEnumerator HitFlash();
-        //{
-        //    gameObject.GetComponent<Renderer>().material = flashColor;
-        //    yield return new WaitForSeconds(.01f);
+        protected virtual IEnumerator HitFlash()
+        {
+            gameObject.GetComponent<Renderer>().material = flashColor;
+            yield return new WaitForSeconds(.01f);
 
-        //    if (health <= 0)
-        //    {
-        //        Destroy(gameObject);
-        //    }
-        //    gameObject.GetComponent<Renderer>().material = material;
-        //}
+            if (health <= 0)
+            {
+                Kill();
+            }
+            gameObject.GetComponent<Renderer>().material = material;
+        }
     }
 }

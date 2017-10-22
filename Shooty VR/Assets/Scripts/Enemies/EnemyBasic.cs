@@ -13,7 +13,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace ShootyVR.Enemies
+namespace Hive.Armada.Enemies
 {
     public class EnemyBasic : Enemy
     {

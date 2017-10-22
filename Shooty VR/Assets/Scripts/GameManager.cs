@@ -12,7 +12,7 @@ using UnityEngine.UI;
 /// General game mode/status manager: activates/deactivates relevent objects
 /// </summary>
 
-namespace GameName
+namespace Hive.Armada
 {
     public class GameManager : MonoBehaviour
     {

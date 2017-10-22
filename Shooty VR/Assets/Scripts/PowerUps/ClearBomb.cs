@@ -8,7 +8,7 @@
 using UnityEngine;
 using Valve.VR.InteractionSystem;
 
-namespace GameName
+namespace Hive.Armada
 {
     public class ClearBomb : MonoBehaviour
     {
@@ -22,13 +22,13 @@ namespace GameName
         // Update is called once per frame
         void Update()
         {
-            if (hand.controller.GetHairTriggerDown())
+            if (hand.controller.GetPressDown(Valve.VR.EVRButtonId.k_EButton_Grip))
             {
                 GameObject.Find("Player").GetComponent<PowerUpStatus>().SetClear(false);
 
-                foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
+                foreach (GameObject bullet in GameObject.FindGameObjectsWithTag("bullet"))
                 {
-                    enemy.GetComponent<Enemies.EnemyBasic>().Hit(100);
+                    Destroy(bullet);
                 }
                 Destroy(gameObject);
             }

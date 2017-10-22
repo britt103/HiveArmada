@@ -10,7 +10,7 @@
 using UnityEngine;
 using Valve.VR.InteractionSystem;
 
-namespace GameName
+namespace Hive.Armada
 {
     [RequireComponent(typeof(Interactable))]
     public class AreaBomb : MonoBehaviour
@@ -39,20 +39,20 @@ namespace GameName
                 transform.Translate(Vector3.forward * currentSpeed);
 
                 //button-based detonation
-                if(hand.controller.GetHairTriggerDown())
+                if(hand.controller.GetPressDown(Valve.VR.EVRButtonId.k_EButton_Grip))
                 {
                     foreach (Collider objectCollider in Physics.OverlapSphere(transform.position, radius))
                     {
                         if (objectCollider.gameObject.tag == "Enemy")
                         {
-                            objectCollider.gameObject.GetComponent<Enemies.EnemyBasic>().Hit(100);
+                            objectCollider.gameObject.GetComponent<Enemies.Enemy>().Hit(100);
                         }
                     }
                     Destroy(gameObject);
                 }
             }
 
-            if (!released && hand.controller.GetHairTriggerDown())
+            if (!released && hand.controller.GetPressDown(Valve.VR.EVRButtonId.k_EButton_Grip))
             {
                 GameObject.Find("Player").GetComponent<PowerUpStatus>().SetAreaBomb(false);
 

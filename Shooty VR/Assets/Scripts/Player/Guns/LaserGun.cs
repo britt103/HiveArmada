@@ -9,18 +9,19 @@
 // [DESCRIPTION]
 // 
 //=============================================================================
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using GameName;
-using GameName.Enemies;
+using Hive.Armada;
 using System;
+using Hive.Armada.Enemies;
 using UnityEngine.Rendering;
 using Valve.VR;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-namespace GameName.Player.Guns
+namespace Hive.Armada.Player.Guns
 {
     public class LaserGun : Gun
     {
@@ -36,12 +37,14 @@ namespace GameName.Player.Guns
         public ShadowCastingMode castShadows;
         public bool receiveShadows = false;
         private bool isLeftFire = true;
-
+        public int damageBoost;
 
         void Start()
         {
+            canShoot = true;
             damage = shipController.laserDamage;
             fireRate = shipController.laserFireRate;
+            damageBoost = 1;
 
             leftLaser = left.gameObject.AddComponent<LineRenderer>();
             leftLaser.material = laserMaterial;
@@ -73,7 +76,6 @@ namespace GameName.Player.Guns
             }
         }
 
-
         /// <summary>
         /// Gets enemy or wall aimpoint and shoots at it. Will damage enemies.
         /// </summary>
@@ -88,11 +90,9 @@ namespace GameName.Player.Guns
                 //{
                 //    shipController.hand.controller.TriggerHapticPulse();
                 //}
-                
-                
-                if (hit.collider.gameObject.GetComponent<EnemyBasic>() != null)
+                if (hit.collider.gameObject.GetComponent<Enemy>() != null)
                 {
-                    hit.collider.gameObject.GetComponent<EnemyBasic>().Hit(damage);
+                    hit.collider.gameObject.GetComponent<Enemy>().Hit(damage*damageBoost);
                 }
 
                 shipController.hand.controller.TriggerHapticPulse(2500);

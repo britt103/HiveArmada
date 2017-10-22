@@ -11,7 +11,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace GameName
+namespace Hive.Armada
 {
     public class AllyStatic : MonoBehaviour
     {

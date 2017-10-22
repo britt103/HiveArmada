@@ -7,7 +7,7 @@
 
 using UnityEngine;
 
-namespace GameName
+namespace Hive.Armada
 {
     public class PowerUpStatus : MonoBehaviour
     {
@@ -15,6 +15,7 @@ namespace GameName
         private bool areaBombState = false;
         private bool clearState = false;
         private bool allyState = false;
+        private bool damageBoostState = false;
 
         public PlayerStats stats;
 
@@ -44,7 +45,7 @@ namespace GameName
             shieldState = newState;
         }
 
-        public bool GetSAreaBomb()
+        public bool GetAreaBomb()
         {
             return areaBombState;
         }
@@ -84,6 +85,19 @@ namespace GameName
                 stats.AllyCount();
             }
             allyState = newState;
+        }
+        public bool GetDamageBoost()
+        {
+            return damageBoostState;
+        }
+
+        public void SetDamageBoost(bool newState)
+        {
+            if (newState)
+            {
+                stats.DamageBoostCount();
+            }
+            damageBoostState = newState;
         }
     }
 }

@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Moving : MonoBehaviour {
+public class Moving : Hive.Armada.Enemies.Enemy {
 
     private Transform target;
     public float speed;
+    public int damage;
 
 	// Use this for initialization
 	void Start () {
@@ -26,11 +27,14 @@ public class Moving : MonoBehaviour {
         //}
 	}
 
-    //void OnTriggerEnter(Collider other)
-    //{
-    //    if (other.tag == "Player")
-    //    {
-    //        target = other.transform;
-    //    }
-    //}
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            //target = other.transform;
+            other.gameObject.GetComponent<Hive.Armada.Player.PlayerHealth>().Hit(damage);
+            Kill();
+            Destroy(gameObject);
+        }
+    }
 }

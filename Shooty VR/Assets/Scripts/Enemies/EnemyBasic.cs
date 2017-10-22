@@ -17,26 +17,26 @@ namespace Hive.Armada.Enemies
 {
     public class EnemyBasic : Enemy
     {
-        // Use this for initialization
-        void Start()
-        {
+        //// Use this for initialization
+        //void Start()
+        //{
 
-        }
+        //}
 
-        /// <summary>
-        /// Initializes variables before the game starts.
-        /// </summary>
-        void Awake()
-        {
-            health = maxHealth;
-            material = gameObject.GetComponent<Renderer>().material;
-        }
+        ///// <summary>
+        ///// Initializes variables before the game starts.
+        ///// </summary>
+        //void Awake()
+        //{
+        //    health = maxHealth;
+        //    material = gameObject.GetComponent<Renderer>().material;
+        //}
 
-        // Update is called once per frame
-        void Update()
-        {
+        //// Update is called once per frame
+        //void Update()
+        //{
 
-        }
+        //}
 
         public override void Hit(int damage)
         {

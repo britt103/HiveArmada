@@ -32,10 +32,11 @@ namespace Hive.Armada.Player
 
         public void Hit(int damage)
         {
-            if (Utility.isDebug)
-                Debug.Log("Hit for " + damage + " damage! Remaining health = " + currentHealth);
 
             currentHealth -= damage;
+
+            if (Utility.isDebug)
+                Debug.Log("Hit for " + damage + " damage! Remaining health = " + currentHealth);
 
             if (currentHealth <= 0)
             {

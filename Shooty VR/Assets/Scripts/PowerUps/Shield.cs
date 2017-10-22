@@ -48,7 +48,7 @@ namespace Hive.Armada
         /// <param name="other">Collider of other object</param>
         void OnTriggerEnter(Collider other)
         {
-            if (other.tag == "bullet")
+            if (other.CompareTag("bullet"))
             {
                 Destroy(other.gameObject);
             }

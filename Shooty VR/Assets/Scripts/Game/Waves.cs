@@ -60,7 +60,7 @@ namespace Hive.Armada.Game
             wavePowerupChances = new float[5][];
 
             //currently shield, ally, area, clear
-            wavePowerupChances[0] = new[] { 0.7f, 0.3f, 0.0f, 0.0f };
+            wavePowerupChances[0] = new[] { 1.0f, 0.3f, 0.0f, 0.0f };
             wavePowerupChances[1] = new[] { 0.3f, 0.7f, 0.0f, 0.0f };
             wavePowerupChances[2] = new[] { 0.0f, 0.3f, 0.7f, 0.0f };
             wavePowerupChances[3] = new[] { 0.0f, 0.0f, 0.3f, 0.7f };
@@ -74,7 +74,6 @@ namespace Hive.Armada.Game
         /// <returns></returns>
         public int[] GetSpawns(int wave)
         {
-            Debug.Log("waveSpawns.GetUpperBound(" + wave + ")");
             int[] spawns = new int[waveSpawns[wave].Length];
 
             for (int i = 0; i < waveSpawns[wave].Length; ++i)

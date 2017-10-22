@@ -22,6 +22,7 @@ namespace Hive.Armada.Game
     public class Spawner : MonoBehaviour
     {
         public Waves waves;
+        [Tooltip("Powerup prefabs in order: Shield, Ally, Area, Clear")]
         public GameObject[] powerups;
         public GameObject[] enemyBounds;
         public GameObject[] powerupBounds;
@@ -29,15 +30,18 @@ namespace Hive.Armada.Game
         public int wave { get; private set; }
         public int kills { get; private set; }
         private int enemySpawnCount;
-        private float spawnTime;
+        private float enemySpawnTime;
+        public float powerupSpawnTime;
         private int alive;
         private int enemyCap;
+        //private bool 
         private bool canSpawnEnemy = true;
         private bool canSpawnPowerup = true;
         private Coroutine waveSpawn;
 
         public GameObject waveCountGO;
         public GameObject shipReminderGO;
+        public GameObject winScreenGO;
 
         void Awake()
         {
@@ -45,6 +49,7 @@ namespace Hive.Armada.Game
 
             waveCountGO.SetActive(false);
             shipReminderGO.SetActive(false);
+            winScreenGO.SetActive(false);
         }
 
         public void Run()
@@ -97,15 +102,20 @@ namespace Hive.Armada.Game
                 shipReminderGO.SetActive(false);
             }
 
-            while (wave <= 4)
+            while (wave <= 3)
             {
                 if (waveSpawn == null)
                 {
+                    Debug.Log("Kills: " + kills + ", Enemy Spawn Count: " + enemySpawnCount);
                     List<GameObject> spawns = SetupWave();
 
-                    Debug.Log("BEGINNING WAVE " + wave);
+                    
+
+                    int waveNum = wave + 1;
+
+                    Debug.Log("BEGINNING WAVE " + waveNum);
                     waveCountGO.SetActive(true);
-                    waveCountGO.GetComponent<Text>().text = "Wave: " + (wave + 1);
+                    waveCountGO.GetComponent<Text>().text = "Wave: " + waveNum;
 
                     yield return new WaitForSeconds(2);
 
@@ -126,7 +136,7 @@ namespace Hive.Armada.Game
             kills = 0;
             alive = 0;
             enemyCap = waves.GetEnemyCap(wave);
-            spawnTime = waves.GetSpawnTime(wave);
+            enemySpawnTime = waves.GetSpawnTime(wave);
 
             List<GameObject> spawns = GetSpawns();
             enemySpawnCount = spawns.Count;
@@ -211,6 +221,11 @@ namespace Hive.Armada.Game
             }
 
             waveSpawn = null;
+
+            if (wave == 4)
+            {
+                winScreenGO.SetActive(true);
+            }
         }
 
         public void EnemyHit()
@@ -221,7 +236,7 @@ namespace Hive.Armada.Game
         private IEnumerator SpawnEnemy(GameObject prefab)
         {
             canSpawnEnemy = false;
-            yield return new WaitForSeconds(3.0f);
+            yield return new WaitForSeconds(enemySpawnTime);
 
             // SPAWN THAT SHIT HERE
             Vector3 lower = enemyBounds[0].transform.position;
@@ -253,7 +268,7 @@ namespace Hive.Armada.Game
         private IEnumerator SpawnPowerup()
         {
             canSpawnPowerup = false;
-            yield return new WaitForSeconds(15.0f);
+            yield return new WaitForSeconds(powerupSpawnTime);
 
             // SPAWN THAT OTHER SHIT HERE
             Vector3 lower = powerupBounds[0].transform.position;

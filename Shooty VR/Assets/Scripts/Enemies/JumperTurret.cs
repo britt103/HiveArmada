@@ -43,11 +43,11 @@ namespace Hive.Armada.Enemies
             coroutine = JumpFlash(timer);
             StartCoroutine(coroutine);
         }
-        void Awake()
-        {
-            health = maxHealth;
-            material = gameObject.GetComponent<Renderer>().material;
-        }
+        //void Awake()
+        //{
+        //    health = maxHealth;
+        //    material = gameObject.GetComponent<Renderer>().material;
+        //}
         void SetPosition()
         {
             //This sets the starting position and the 2 points the turrets teleports between

@@ -137,7 +137,7 @@ namespace Hive.Armada
                 //if(Physics.SphereCast(transform.position, sphereCastRadius, transform.forward, out hit, sphereCastMaxDistance))
                 //if(Physics.SphereCast(transform.position, sphereCastRadius, transform.forward, out hit, sphereCastMaxDistance, LayerMask.GetMask("Player")))
                 {
-                    if (hit.collider.gameObject.CompareTag("Player"))
+                    if (hit.collider.gameObject.CompareTag("Player") || hit.collider.gameObject.GetComponent<Shield>() != null)
                     {
                         slerpTimer = 0.0F;
                     }

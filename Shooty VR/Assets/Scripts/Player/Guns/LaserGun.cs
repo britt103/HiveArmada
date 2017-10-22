@@ -40,6 +40,7 @@ namespace Hive.Armada.Player.Guns
 
         void Start()
         {
+            canShoot = true;
             damage = shipController.laserDamage;
             fireRate = shipController.laserFireRate;
 

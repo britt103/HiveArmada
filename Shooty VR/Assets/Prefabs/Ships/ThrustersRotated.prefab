@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: 4722576531211874}
   m_Layer: 0
   m_Name: Thrusters
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -762,7 +762,7 @@ GameObject:
   - component: {fileID: 136399017464132670}
   m_Layer: 0
   m_Name: ThrustersRotated
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5198,9 +5198,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25c53dce1aeb61f49aadaf374748dd00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mode: 0
   laserMaterial: {fileID: 2100000, guid: 52fd0a2d4a02c4e46af843e393a6ec28, type: 2}
   alignment: 0
-  color: {r: 1, g: 0, b: 0, a: 1}
   thickness: 0.001
   castShadows: 0
   receiveShadows: 0
@@ -5215,17 +5215,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e23030c77dd034d4ab463f488c746cc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shipMode: 0
+  laserSight: {fileID: 114899471037599084}
   lasers: {fileID: 1115718984184690}
   pivotTransform: {fileID: 4522224282575776}
   currentGun: 0
   laserDamage: 10
   laserFireRate: 10
-  minigunDamage: 0
-  minigunFireRate: 0
-  railgunDamage: 0
-  railgunFireRate: 0
-  launcherDamage: 0
-  launcherFireRate: 0
+  minigunDamage: 1
+  minigunFireRate: 110
+  railgunDamage: 1
+  railgunFireRate: 10
+  launcherDamage: 1
+  launcherFireRate: 10
   engineSound: {fileID: 0}
   deathExplosion: {fileID: 0}
   canShoot: 0

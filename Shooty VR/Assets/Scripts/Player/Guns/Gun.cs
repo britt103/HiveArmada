@@ -18,7 +18,7 @@ namespace Hive.Armada.Player.Guns
 {
     public abstract class Gun : MonoBehaviour
     {
-        public ShipControllerNew shipController;
+        public ShipController shipController;
         protected int damage;
         protected float fireRate;
         protected bool canShoot = true;

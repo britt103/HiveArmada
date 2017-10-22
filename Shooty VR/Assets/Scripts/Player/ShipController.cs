@@ -20,9 +20,10 @@ using Hive.Armada.Player.Guns;
 namespace Hive.Armada.Player
 {
     [RequireComponent(typeof(Interactable))]
-    public class ShipControllerNew : MonoBehaviour
+    public class ShipController : MonoBehaviour
     {
         //public enum Handedness { Left, Right };
+        public enum ShipMode { Menu, Game };
         public enum GunTypes { Lasers, Miniguns, Railguns, Launchers };
 
         //public Handedness currentHandGuess = Handedness.Left;
@@ -30,6 +31,8 @@ namespace Hive.Armada.Player
         //private float timeBeforeConfirmingHandSwitch = 1.5f;
         //private bool possibleHandSwitch = false;
 
+        public ShipMode shipMode;
+        public LaserSight laserSight;
         public GameObject lasers;
         private LaserGun laserGun;
         public Transform pivotTransform;
@@ -48,15 +51,15 @@ namespace Hive.Armada.Player
         public const float LAUNCHER_BASE_FIRE_RATE = 1.0f;
 
         // Gun current stats
-        public int laserDamage;
-        public float laserFireRate;
-        public int minigunDamage;
-        public float minigunFireRate;
-        public int railgunDamage;
-        public float railgunFireRate;
-        public int launcherDamage;
-        public float launcherFireRate;
-        
+        public int laserDamage = 10;
+        public float laserFireRate = 10.0f;
+        public int minigunDamage = 1;
+        public float minigunFireRate = 110.0f;
+        public int railgunDamage = 1;
+        public float railgunFireRate = 10.0f;
+        public int launcherDamage = 1;
+        public float launcherFireRate = 10.0f;
+
         private bool deferNewPoses = false;
         private Vector3 lateUpdatePos;
         private Quaternion lateUpdateRot;
@@ -65,7 +68,7 @@ namespace Hive.Armada.Player
 
         public SoundPlayOneshot engineSound;
         public GameObject deathExplosion;
-        public bool canShoot = false;
+        public bool canShoot;
 
         private PlayerStats stats;
 
@@ -79,6 +82,15 @@ namespace Hive.Armada.Player
 
         void Awake()
         {
+            //laserDamage = LASER_BASE_DAMAGE;
+            //laserFireRate = LASER_BASE_FIRE_RATE;
+            //minigunDamage = MINIGUN_BASE_DAMAGE;
+            //minigunFireRate = MINIGUN_BASE_FIRE_RATE;
+            //railgunDamage = RAILGUN_BASE_DAMAGE;
+            //railgunFireRate = RAILGUN_BASE_FIRE_RATE;
+            //launcherDamage = LAUNCHER_BASE_DAMAGE;
+            //launcherFireRate = LAUNCHER_BASE_FIRE_RATE;
+
             newPosesAppliedAction = SteamVR_Events.NewPosesAppliedAction(OnNewPosesApplied);
             laserGun = lasers.GetComponentInChildren<LaserGun>();
         }
@@ -120,18 +132,39 @@ namespace Hive.Armada.Player
             transform.localPosition = Vector3.zero;
             transform.localRotation = Quaternion.identity;
 
-            if (hand.GetStandardInteractionButton())
+            if (shipMode.Equals(ShipMode.Game))
             {
-                laserGun.TriggerUpdate();
-                //player stats
-                //stats.isFiring = true;
+                if (canShoot)
+                {
+                    if (hand.GetStandardInteractionButton())
+                    {
+                        laserGun.TriggerUpdate();
+                        //player stats
+                        //stats.isFiring = true;
+                    }
+                }
+                else if (!canShoot && hand.GetStandardInteractionButtonUp())
+                {
+                    canShoot = true;
+                }
             }
-            
+            else if (shipMode.Equals(ShipMode.Menu))
+            {
+                if (hand.GetStandardInteractionButtonDown())
+                    laserSight.TriggerUpdate();
+            }
 
             //// Update handedness guess
             //EvaluateHandedness();
+        }
 
-
+        /// <summary>
+        /// Sets the ship to switch to either Game or Menu mode.
+        /// </summary>
+        /// <param name="mode"> The mode to switch the ship to </param>
+        public void SetShipMode(ShipMode mode)
+        {
+            shipMode = mode;
         }
 
         //private void EvaluateHandedness()

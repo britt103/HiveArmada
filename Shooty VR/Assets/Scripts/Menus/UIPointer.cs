@@ -15,7 +15,7 @@ using UnityEngine.Rendering;
 
 namespace Hive.Armada.Menu
 {
-    public class UiPointer : MonoBehaviour
+    public class UIPointer : MonoBehaviour
     {
         private Hand hand;
         private LineRenderer pointer;
@@ -58,7 +58,7 @@ namespace Hive.Armada.Menu
             {
                 if (isEnabled)
                 {
-                    if (hand.GetComponentInChildren<Player.ShipControllerNew>() == null)
+                    if (hand.GetComponentInChildren<Player.ShipController>() == null)
                     {
                         RaycastHit hit;
                         if (Physics.Raycast(transform.position, transform.forward, out hit, Mathf.Infinity, Utility.uiMask))

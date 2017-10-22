@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Hive.Armada.Game;
+using Hive.Armada.Player;
 
 namespace Hive.Armada.Menu
 {
@@ -9,20 +10,27 @@ namespace Hive.Armada.Menu
     {
         public Spawner spawner;
 
-        // Use this for initialization
-        void Start()
-        {
+        //// Use this for initialization
+        //void Start()
+        //{
 
-        }
+        //}
 
-        // Update is called once per frame
-        void Update()
-        {
+        //// Update is called once per frame
+        //void Update()
+        //{
 
-        }
+        //}
 
         public void buttonClicked()
         {
+            GameObject ship = GameObject.FindGameObjectWithTag("Player");
+            if (ship != null)
+            {
+                if (ship.GetComponent<ShipController>() != null)
+                    ship.GetComponent<ShipController>().SetShipMode(ShipController.ShipMode.Game);
+            }
+
             if (spawner != null)
                 spawner.Run();
             else

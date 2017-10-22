@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Hive.Armada.Enemies;
 /// <summary>
 /// /// Ryan Britton
 /// britt103
@@ -10,7 +11,7 @@ using UnityEngine;
 /// 
 /// This script handles the logic of a turret teleporting between two points
 /// </summary>
-namespace GameName.Enemies
+namespace Hive.Armada.Enemies
 {
     public class JumperTurret : Enemy
     {

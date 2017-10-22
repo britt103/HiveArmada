@@ -26,9 +26,9 @@ namespace Hive.Armada
             {
                 GameObject.Find("Player").GetComponent<PowerUpStatus>().SetClear(false);
 
-                foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
+                foreach (GameObject bullet in GameObject.FindGameObjectsWithTag("bullet"))
                 {
-                    enemy.GetComponent<Enemies.Enemy>().Hit(100);
+                    Destroy(bullet);
                 }
                 Destroy(gameObject);
             }

@@ -87,7 +87,11 @@ namespace Hive.Armada.Menu
                             pointer.SetPosition(0, transform.position);
                             pointer.SetPosition(1, hit.point);
                         }
+
+                        float mag = (transform.position - hit.point).magnitude;
+                        pointer.endWidth = thickness * Mathf.Max(mag, 1.0f);
                     }
+                    //disapear line when ship being held
                     else
                     {
                         pointer.SetPosition(0, transform.position);

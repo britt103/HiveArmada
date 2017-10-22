@@ -8,20 +8,22 @@ using UnityEngine;
 /// CPSC-340-01, CPSC-344-01
 /// Group Project
 /// 
-/// This script handles the logic of a turret moving between two points
+/// This script handles the logic of a turret teleporting between two points
 /// </summary>
-namespace Hive.Armada.Enemies
+namespace GameName.Enemies
 {
-    public class MovingTurret : Enemy
+    public class JumperTurret : Enemy
     {
-        public float movingSpeed;
         public float xMax;
         public float yMax;
+        public float zMax;
         private Vector3 posA;
         private Vector3 posB;
-        private Vector3 posCenter;
         public Transform spawn;
-        private float xEnd;
+        bool perry;
+        private IEnumerator coroutine;
+        public float timer;
+        //public float timer;
         public GameObject bullet;
         private GameObject player;
         public Vector3 pos;
@@ -36,22 +38,25 @@ namespace Hive.Armada.Enemies
         {
             player = GameObject.FindGameObjectWithTag("Player");
             SetPosition();
+            perry = true;
+            coroutine = JumpFlash(timer);
+            StartCoroutine(coroutine);
         }
-
+        void Awake()
+        {
+            health = maxHealth;
+            material = gameObject.GetComponent<Renderer>().material;
+        }
         void SetPosition()
         {
-            //This sets the starting position and the 2 points the turrets moves between
+            //This sets the starting position and the 2 points the turrets teleports between
             pos = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z);
             posA = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-            posB = new Vector3(transform.position.x + xMax, transform.position.y + yMax, 0);
-            posCenter = new Vector3(posA.x + posB.x, posA.y + posB.y) / 2.0f;
-            transform.position = posCenter;
+            posB = new Vector3(transform.position.x + xMax, transform.position.y + yMax, transform.position.z + zMax);
 
         }
         private void Update()
         {
-            transform.position = Vector3.Lerp(posA, posB, (Mathf.Sin(movingSpeed * Time.time) + 1.0f) / 2.0f);
-
             pos = player.transform.position;        //tracks the player position
             transform.LookAt(pos);                  //and makes the transform look at said position
 
@@ -61,6 +66,27 @@ namespace Hive.Armada.Enemies
                 var shoot = Instantiate(bullet, spawn.position, spawn.rotation);                    //within a certain duration. The turret then
                 shoot.GetComponent<Rigidbody>().velocity = shoot.transform.forward * fireSpeed;     //instantiates a bullet and shoots it forward
             }                                                                                    //in the direction of the player.
+        }
+        private IEnumerator JumpFlash(float waitTime)
+        {
+            while (true)
+            {
+                gameObject.GetComponent<Renderer>().material = flashColor;
+                yield return new WaitForSeconds(1.0f);
+
+                if (perry == true)
+                {
+                    transform.position = posB;
+                    perry = false;
+                }
+                else
+                {
+                    transform.position = posA;
+                    perry = true;
+                }
+                gameObject.GetComponent<Renderer>().material = material;
+                yield return new WaitForSeconds(waitTime);
+            }
         }
 
     }

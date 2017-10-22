@@ -14,20 +14,17 @@ using UnityEngine;
 
 namespace Hive.Armada.Enemies
 {
-    public class SplitterTurret : MonoBehaviour
+    public class SplitterTurret : Enemy
     {
         public GameObject bullet;
         public Transform spawn;
         GameObject player;
-        GameObject Turret; /// set reference in inspector
+        public GameObject turret; /// set reference PREFAB in inspector
         public Vector3 pos;
         public float fireRate, fireSpeed;
-        private float fireNext;
+        private float fireNext, randX, randY, randZ;
         bool canFire;
-        public Vector2 splitVel1; ///Set value in inspector
-        public Vector2 splitVel2; ///Set value in inspector
-        public Vector2 splitVel3; ///Set value in inspector
-        public Vector2 splitVel4; ///Set value in inspector
+        public float splitDir;
 
 
         /// Use this for initialization
@@ -35,44 +32,54 @@ namespace Hive.Armada.Enemies
         {
             player = GameObject.FindGameObjectWithTag("Player");
             pos = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z);
+           
         }
-
         ///Constantly tracks the player position
         ///While shooting bullets using the formula below
         void Update()
         {
-            pos = player.transform.position;
-            transform.LookAt(pos);
-
-            if (Time.time > fireNext)
+            if (player == null)
             {
-                fireNext = Time.time + fireRate;
-                var shoot = Instantiate(bullet, spawn.position, spawn.rotation);
-                shoot.GetComponent<Rigidbody>().velocity = shoot.transform.forward * fireSpeed;
+                player = GameObject.FindGameObjectWithTag("Player");
+
+                if (player != null)
+                {
+                    pos = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z);
+                }
+            }
+            else
+            {
+                pos = player.transform.position;        //tracks the player position
+                transform.LookAt(pos);                  //and makes the transform look at said position
+
+                if (Time.time > fireNext)
+                {                                                                                       //Basic firerate calculation that determines
+                    fireNext = Time.time + fireRate;                                                    //how many projectiles shoot out of the turret
+                    var shoot = Instantiate(bullet, spawn.position, spawn.rotation);                    //within a certain duration. The turret then
+                    shoot.GetComponent<Rigidbody>().velocity = shoot.transform.forward * fireSpeed;     //instantiates a bullet and shoots it forward
+                }
             }
         }
-        /*protected override IEnumerator HitFlash()
+        protected override void Kill()
         {
-            gameObject.GetComponent<Renderer>().material = flashColor;
-            yield return new WaitForSeconds(.01f);
-
-            if (health <= 0)
+            if (turret != null)
             {
-                //Instantiate("Explosion.name", transform.position, transform.rotation);
-                GameObject smlSplt1 = Instantiate(Turret, transform.position, transform.rotation);
-                GameObject smlSplt2 = Instantiate(Turret, transform.position, transform.rotation);
-                GameObject smlSplt3 = Instantiate(Turret, transform.position, transform.rotation);
-                GameObject smlSplt4 = Instantiate(Turret, transform.position, transform.rotation);
+                Vector3 splitDir1 = new Vector3(transform.position.x, transform.position.y + splitDir, transform.position.z);
+                Vector3 splitDir2 = new Vector3(transform.position.x, transform.position.y - splitDir, transform.position.z);
+                Vector3 splitDir3 = new Vector3(transform.position.x + splitDir, transform.position.y, transform.position.z);
+                Vector3 splitDir4 = new Vector3(transform.position.x - splitDir, transform.position.y, transform.position.z);
 
-                smlSplt1.GetComponent<Rigidbody>().velocity = splitVel1;
-                smlSplt2.GetComponent<Rigidbody>().velocity = splitVel2;
-                smlSplt3.GetComponent<Rigidbody>().velocity = splitVel3;
-                smlSplt4.GetComponent<Rigidbody>().velocity = splitVel4;
-
-                Destroy(gameObject);
+                //Instantiate("Explosion.name", transform.position, transform.rotation); Placeholder for destroy effect
+                Instantiate(turret, splitDir1, transform.rotation); //Creates 4 instances of the Turret prefab set in Inspector
+                Instantiate(turret, splitDir2, transform.rotation);
+                Instantiate(turret, splitDir3, transform.rotation);
+                Instantiate(turret, splitDir4, transform.rotation);
+                
             }
-            gameObject.GetComponent<Renderer>().material = material;
-        }*/
+
+            Destroy(gameObject);
+
+        }
 
     }
 }

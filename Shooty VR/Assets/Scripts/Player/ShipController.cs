@@ -78,6 +78,12 @@ namespace Hive.Armada.Player
 
             //player stats
             stats = gameObject.GetComponentInParent<PlayerStats>();
+            GameObject pickup = GameObject.FindGameObjectWithTag("ShipPickup");
+
+            if (pickup)
+            {
+                pickup.SetActive(false);
+            }
         }
 
         void Awake()

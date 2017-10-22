@@ -38,7 +38,6 @@ namespace Hive.Armada.Player
         public bool receiveShadows = false;
         private GameObject aimObject;
         private bool isButton;
-        private bool isHighlightBegin;
 
         // Use this for initialization
         void Start()

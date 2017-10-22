@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Hive.Armada.Game;
+using Hive.Armada.Player;
 using UnityEngine.UI;
 
 namespace Hive.Armada.Menu
@@ -10,53 +11,60 @@ namespace Hive.Armada.Menu
     {
         public Spawner spawner;
         public GameObject[] countdownTimers;
+        private bool isStarting;
 
-        // Use this for initialization
         void Start()
         {
-            foreach(GameObject countdownTimer in countdownTimers)
+            foreach (GameObject countdownTimer in countdownTimers)
             {
                 countdownTimer.SetActive(false);
             }
         }
 
-        // Update is called once per frame
-        void Update()
+        public void ButtonClicked()
         {
-
-        }
-
-        public void buttonClicked()
-        {
-            if (spawner != null)
+            if (!isStarting)
             {
-                gameObject.GetComponentInChildren<Button>().enabled = false;
-                StartCoroutine(Countdown());
-            }
+                isStarting = true;
 
-            else
-                Debug.Log("CRITICAL - MENU'S REFERENCE TO SPAWNER IS NULL");
+                GameObject ship = GameObject.FindGameObjectWithTag("Player");
+                if (ship != null)
+                {
+                    if (ship.GetComponent<ShipController>() != null)
+                        ship.GetComponent<ShipController>().SetShipMode(ShipController.ShipMode.Game);
+                }
+
+                if (spawner != null)
+                {
+                    gameObject.GetComponentInChildren<Button>().enabled = false;
+                    StartCoroutine(Countdown());
+                }
+                else
+                {
+                    Debug.Log("CRITICAL - MENU'S REFERENCE TO SPAWNER IS NULL");
+                }  
+            }
         }
 
         private IEnumerator Countdown()
         {
-            for(int i = 0; i < countdownTimers.Length; ++i)
+            foreach (GameObject timer in countdownTimers)
             {
-                countdownTimers[i].SetActive(true);
+                timer.SetActive(true);
             }
 
             for (int i = 5; i > 0; i--)
             {
-                for (int j = 0; j < countdownTimers.Length; ++j)
+                foreach (GameObject timer in countdownTimers)
                 {
-                    countdownTimers[j].GetComponentInChildren<Text>().text = i.ToString();
+                    timer.GetComponentInChildren<Text>().text = i.ToString();
                 }
                 yield return new WaitForSeconds(1.0f);
             }
 
-            for (int i = 0; i < countdownTimers.Length; ++i)
+            foreach (GameObject timer in countdownTimers)
             {
-                countdownTimers[i].SetActive(false);
+                timer.SetActive(false);
             }
 
             spawner.Run();

@@ -29,6 +29,7 @@ namespace Hive.Armada
         public int areaBombCount = 0;
         public int clearCount = 0;
         public int allyCount = 0;
+        public int damageBoostCount = 0;
 
         //currency
         public int currencyCollected = 0;
@@ -73,7 +74,8 @@ namespace Hive.Armada
                       "Shields Used: " + shieldCount + "\n" +
                       "Area Bombs Used: " + areaBombCount + "\n" +
                       "Clears Used: " + clearCount + "\n" +
-                      "Allies Used: " + allyCount;
+                      "Allies Used: " + allyCount + "\n" +
+                      "Damage Boosts Used:" + damageBoostCount;
 
             Debug.Log(output);
 
@@ -113,6 +115,10 @@ namespace Hive.Armada
         public void AllyCount()
         {
             allyCount++;
+        }
+        public void DamageBoostCount()
+        {
+            damageBoostCount++;
         }
     }
 

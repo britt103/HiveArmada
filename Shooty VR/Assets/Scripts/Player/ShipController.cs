@@ -172,6 +172,12 @@ namespace Hive.Armada.Player
         {
             shipMode = mode;
         }
+        public IEnumerator DamageBoost()
+        {
+            laserGun.damageBoost = 2;
+            yield return new WaitForSeconds(10.0f);
+            laserGun.damageBoost = 1;
+        }
 
         //private void EvaluateHandedness()
         //{

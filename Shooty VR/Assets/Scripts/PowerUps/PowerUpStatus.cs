@@ -15,6 +15,7 @@ namespace Hive.Armada
         private bool areaBombState = false;
         private bool clearState = false;
         private bool allyState = false;
+        private bool damageBoostState = false;
 
         public PlayerStats stats;
 
@@ -84,6 +85,19 @@ namespace Hive.Armada
                 stats.AllyCount();
             }
             allyState = newState;
+        }
+        public bool GetDamageBoost()
+        {
+            return damageBoostState;
+        }
+
+        public void SetDamageBoost(bool newState)
+        {
+            if (newState)
+            {
+                stats.DamageBoostCount();
+            }
+            damageBoostState = newState;
         }
     }
 }

@@ -69,6 +69,13 @@ namespace Hive.Armada
                             Destroy(gameObject);
                         }
                         break;
+                    case "Damage Boost":
+                        if (!status.GetDamageBoost())
+                        {
+                            Instantiate(powerUpPrefab, other.gameObject.transform);
+                            status.SetDamageBoost(true);
+                        }
+                        break;
                 }
             }
         }

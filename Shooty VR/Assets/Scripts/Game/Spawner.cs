@@ -32,10 +32,9 @@ namespace Hive.Armada.Game
         private bool canSpawn = true;
         private Coroutine waveSpawn;
 
-        void Awake()
+        void Start()
         {
             wave = -1;
-            //spawns = 0;
         }
 
         public void Run()

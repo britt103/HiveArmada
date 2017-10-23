@@ -159,7 +159,7 @@ namespace Hive.Armada.Player.Guns
             }
 
             stats.isFiring = true;
-            stats.ShotsFired(2);
+            stats.ShotsFired(1);
 
             yield return new WaitForSeconds(1.0f / fireRate);
 

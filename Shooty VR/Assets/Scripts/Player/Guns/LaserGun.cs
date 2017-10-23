@@ -42,6 +42,8 @@ namespace Hive.Armada.Player.Guns
         public AudioSource sfx;
         public AudioClip[] clips;
 
+        private PlayerStats stats;
+
         void Start()
         {
             canShoot = true;
@@ -66,6 +68,8 @@ namespace Hive.Armada.Player.Guns
             rightLaser.startWidth = thickness;
             rightLaser.endWidth = thickness;
             rightLaser.enabled = false;
+
+            stats = FindObjectOfType<PlayerStats>();
         }
 
         /// <summary>
@@ -154,10 +158,15 @@ namespace Hive.Armada.Player.Guns
                 //sfx.pitch = 1.0f;
             }
 
+            stats.isFiring = true;
+            stats.ShotsFired(2);
+
             yield return new WaitForSeconds(1.0f / fireRate);
 
             isLeftFire = !isLeftFire;
             canShoot = true;
+
+            stats.isFiring = false;
         }
 
         /// <summary>

@@ -95,6 +95,7 @@ namespace Hive.Armada.Menu
         public void GameOver()
         {
             StartCoroutine(Reload());
+            FindObjectOfType<PlayerStats>().PrintStats();
         }
 
         /// <summary>

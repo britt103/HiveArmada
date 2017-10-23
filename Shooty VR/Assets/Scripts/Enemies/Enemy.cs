@@ -30,6 +30,8 @@ namespace Hive.Armada.Enemies
         protected WaveManager waveManager;
         protected bool untouched = true;
 
+        private PlayerStats stats;
+
         /// <summary>
         /// Initializes variables for the enemy when it loads.
         /// </summary>
@@ -40,6 +42,8 @@ namespace Hive.Armada.Enemies
             waveManager = GameObject.FindGameObjectWithTag("Wave").GetComponent<WaveManager>();
             spawner = GameObject.FindGameObjectWithTag("Wave").GetComponent<Spawner>();
             Instantiate(fxSpawn, transform.position, transform.rotation);
+
+            stats = FindObjectOfType<PlayerStats>();
         }
 
         /// <summary>
@@ -85,6 +89,7 @@ namespace Hive.Armada.Enemies
             Instantiate(fxKill, transform.position, transform.rotation);
             spawner.AddKill();
             waveManager.currDead++;
+            stats.EnemyKilled();
             Destroy(gameObject);
         }
 

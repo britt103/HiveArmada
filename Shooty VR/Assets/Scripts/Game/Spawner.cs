@@ -47,6 +47,8 @@ namespace Hive.Armada.Game
 
         public int startWave;
 
+        private PlayerStats stats;
+
         void Awake()
         {
             wave = startWave - 2;
@@ -54,6 +56,8 @@ namespace Hive.Armada.Game
             waveCountGO.SetActive(false);
             shipReminderGO.SetActive(false);
             winScreenGO.SetActive(false);
+
+            stats = FindObjectOfType<PlayerStats>();
         }
 
         public void Run()
@@ -89,6 +93,8 @@ namespace Hive.Armada.Game
                     waveCountGO.SetActive(false);
 
                     waveSpawn = StartCoroutine(SpawnWave(spawns));
+
+                    stats.isAlive = true;
                 }
                 else
                 {
@@ -216,6 +222,7 @@ namespace Hive.Armada.Game
                 }
             }
 
+            stats.WaveComplete();
             waveSpawn = null;
 
             if (wave == 9)
@@ -296,6 +303,7 @@ namespace Hive.Armada.Game
         {
             winScreenGO.SetActive(true);
             yield return new WaitForSeconds(3);
+            FindObjectOfType<PlayerStats>().PrintStats();
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }

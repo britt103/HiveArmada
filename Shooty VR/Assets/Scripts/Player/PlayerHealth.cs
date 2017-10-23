@@ -27,12 +27,15 @@ namespace Hive.Armada.Player
         public bool isAlive { get; private set; }
         public GameObject gameoverScreenGO;
         public GameObject fxHit, fxHurt, fxDead;
+        private Material material;
+        public Material flashColor;
 
         void Start()
         {
             currentHealth = maxHealth;
             isAlive = true;
             //gameoverScreenGO.SetActive(false);
+            material = gameObject.GetComponentInChildren<Renderer>().material;
         }
 
         public void Hit(int damage)
@@ -45,6 +48,25 @@ namespace Hive.Armada.Player
 
             //if (currentHealth <= 10) fxHurt.SetActive(true);
 
+            StartCoroutine(HitFlash());
+        }
+
+        //private IEnumerator GameOver()
+        //{
+        //    gameoverScreenGO.SetActive(true);
+        //    yield return new WaitForSeconds(3);
+        //    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        //}
+
+        private IEnumerator HitFlash()
+        {
+            foreach (Renderer renderer in gameObject.GetComponentsInChildren<Renderer>())
+            {
+                renderer.material = flashColor;
+            }
+
+            yield return new WaitForSeconds(0.01f);
+
             if (currentHealth <= 0)
             {
                 if (shipController != null)
@@ -55,13 +77,11 @@ namespace Hive.Armada.Player
                     //StartCoroutine(GameOver());
                 }
             }
-        }
 
-        //private IEnumerator GameOver()
-        //{
-        //    gameoverScreenGO.SetActive(true);
-        //    yield return new WaitForSeconds(3);
-        //    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        //}
+            foreach (Renderer renderer in gameObject.GetComponentsInChildren<Renderer>())
+            {
+                renderer.material = material;
+            }
+        }
     }
 }

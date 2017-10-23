@@ -29,12 +29,17 @@ namespace Hive.Armada.Enemies
         private float fireNext;
         bool canFire;
         private float distance;
-
+        private float startTime;
 
         // Use this for initialization
         void Start()
         {
+            startTime = Time.time;
             player = GameObject.FindGameObjectWithTag("Player");
+            if (player != null)
+            {
+                transform.LookAt(player.transform);
+            }
             SetPosition();
         }
 
@@ -43,14 +48,14 @@ namespace Hive.Armada.Enemies
             //This sets the starting position and the 2 points the turrets moves between
             pos = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z);
             posA = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-            posB = new Vector3(transform.position.x + xMax, transform.position.y + yMax, 0);
-            posCenter = new Vector3(posA.x + posB.x, posA.y + posB.y) / 2.0f;
-            transform.position = posCenter;
+            posB = new Vector3(transform.localPosition.x + xMax, transform.localPosition.y + yMax, transform.position.z);
+            //posCenter = new Vector3(posA.x + posB.x, posA.y + posB.y) / 2.0f;
+            //transform.position = posCenter;
 
         }
         private void Update()
         {
-            transform.position = Vector3.Lerp(posA, posB, (Mathf.Sin(movingSpeed * Time.time) + 1.0f) / 2.0f);
+            transform.position = Vector3.Lerp(posA, posB, (Mathf.Sin(movingSpeed * (Time.time + startTime)) + 1.0f) / 2.0f);
 
             pos = player.transform.position;        //tracks the player position
             transform.LookAt(pos);                  //and makes the transform look at said position

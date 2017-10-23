@@ -45,7 +45,7 @@ namespace Hive.Armada.Game
 
         void Awake()
         {
-            wave = -1;
+            wave = 8;
 
             waveCountGO.SetActive(false);
             shipReminderGO.SetActive(false);
@@ -55,41 +55,6 @@ namespace Hive.Armada.Game
         public void Run()
         {
             StartCoroutine(WaveTimer());
-            // Spawn wave 1
-
-            //SetupWave();
-
-            //while (kills < spawnCount)
-            //{
-            //    // wait for wave 1 to finish
-            //}
-
-            //// Spawn wave 2
-            //SetupWave();
-
-            //while (kills < spawnCount)
-            //{
-            //    // wait for wave 2 to finish
-            //}
-
-            //// Spawn wave 3
-            //SetupWave();
-
-            //while (kills < spawnCount)
-            //{
-            //    // wait for wave 3 to finish
-            //}
-
-            //// Spawn wave 4
-            //SetupWave();
-
-            //while (kills < spawnCount)
-            //{
-            //    // wait for wave 4 to finish
-            //}
-
-            //// Spawn wave 5
-            //SetupWave();
         }
 
         private IEnumerator WaveTimer()
@@ -102,14 +67,12 @@ namespace Hive.Armada.Game
                 shipReminderGO.SetActive(false);
             }
 
-            while (wave <= 3)
+            while (wave <= 8)
             {
                 if (waveSpawn == null)
                 {
                     Debug.Log("Kills: " + kills + ", Enemy Spawn Count: " + enemySpawnCount);
                     List<GameObject> spawns = SetupWave();
-
-                    
 
                     int waveNum = wave + 1;
 
@@ -128,6 +91,7 @@ namespace Hive.Armada.Game
                     yield return new WaitForSeconds(0.1f);
                 }
             }
+            Debug.Log("Kills: " + kills + ", Enemy Spawn Count: " + enemySpawnCount);
         }
 
         private List<GameObject> SetupWave()
@@ -135,11 +99,17 @@ namespace Hive.Armada.Game
             ++wave;
             kills = 0;
             alive = 0;
-            enemyCap = waves.GetEnemyCap(wave);
+            enemyCap = waves.GetEnemyCap(wave) * 2;
             enemySpawnTime = waves.GetSpawnTime(wave);
 
             List<GameObject> spawns = GetSpawns();
-            enemySpawnCount = spawns.Count;
+            //enemySpawnCount = spawns.Count;
+
+            //foreach (GameObject enemy in spawns)
+            //{
+            //    if (enemy.GetType().Equals(waves.enemies[3]))
+            //        enemySpawnTime += 4;
+            //}
 
             //StartCoroutine(SpawnWave(spawns));
             return spawns;
@@ -147,8 +117,15 @@ namespace Hive.Armada.Game
 
         private List<GameObject> GetSpawns()
         {
+            enemySpawnCount = 0;
             List<GameObject> spawns = new List<GameObject>();
             int[] waveSpawns = waves.GetSpawns(wave);
+
+            for (int i = 0; i < waveSpawns.Length; ++i)
+            {
+                waveSpawns[i] *= 2;
+            }
+
             System.Random random = new System.Random();
 
             for (int i = 0; i < waveSpawns.Length; ++i)
@@ -160,28 +137,41 @@ namespace Hive.Armada.Game
                     {
                         case 0:
                             if (waves.enemies[0] != null)
+                            {
+                                ++enemySpawnCount;
                                 spawns.Add(waves.enemies[0]);
+                            }
                             else
                                 if (Utility.isDebug)
                                 Debug.Log("CRITICAL - Waves enemies[0] is null");
                             break;
                         case 1:
                             if (waves.enemies[1] != null)
+                            {
+                                ++enemySpawnCount;
                                 spawns.Add(waves.enemies[1]);
+                            }
                             else
                                 if (Utility.isDebug)
                                 Debug.Log("CRITICAL - Waves enemies[1] is null");
                             break;
                         case 2:
                             if (waves.enemies[2] != null)
+                            {
+                                ++enemySpawnCount;
                                 spawns.Add(waves.enemies[2]);
+                            }
                             else
                                 if (Utility.isDebug)
                                 Debug.Log("CRITICAL - Waves enemies[2] is null");
                             break;
                         case 3:
+                            //increase for splitter
                             if (waves.enemies[3] != null)
+                            {
+                                enemySpawnCount += 5;
                                 spawns.Add(waves.enemies[3]);
+                            }
                             else
                                 if (Utility.isDebug)
                                 Debug.Log("CRITICAL - Waves enemies[3] is null");
@@ -198,6 +188,8 @@ namespace Hive.Armada.Game
 
         private IEnumerator SpawnWave(List<GameObject> spawns)
         {
+            Debug.Log("Wave: " + wave + " - spawns: " + enemySpawnCount);
+
             while (kills < enemySpawnCount)
             {
                 if (canSpawnEnemy)
@@ -222,7 +214,7 @@ namespace Hive.Armada.Game
 
             waveSpawn = null;
 
-            if (wave == 4)
+            if (wave == 9)
             {
                 winScreenGO.SetActive(true);
             }
@@ -284,16 +276,12 @@ namespace Hive.Armada.Game
 
             float[] chances = waves.GetPowerupChances(wave);
 
-            for(int i = 0; i < chances.Length; ++i)
+            for (int i = 0; i < chances.Length; ++i)
             {
-                if(Random.Range(0.0f, 1.0f) <= chances[i])
+                if (chance <= chances[i])
                 {
                     Instantiate(powerups[i], position, Quaternion.Euler(0, 180.0f, 0));
                     break;
-                }
-                else
-                {
-                    chances[i + 1] += chances[i];
                 }
             }
 

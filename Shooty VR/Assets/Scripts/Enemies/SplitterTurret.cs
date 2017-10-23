@@ -62,12 +62,13 @@ namespace Hive.Armada.Enemies
         }
         protected override void Kill()
         {
+            spawner.AddKill();
             if (turret != null)
             {
-                Vector3 splitDir1 = new Vector3(transform.position.x, transform.position.y + splitDir, transform.position.z);
-                Vector3 splitDir2 = new Vector3(transform.position.x, transform.position.y - splitDir, transform.position.z);
-                Vector3 splitDir3 = new Vector3(transform.position.x + splitDir, transform.position.y, transform.position.z);
-                Vector3 splitDir4 = new Vector3(transform.position.x - splitDir, transform.position.y, transform.position.z);
+                Vector3 splitDir1 = new Vector3(transform.localPosition.x, transform.localPosition.y + splitDir, transform.localPosition.z);
+                Vector3 splitDir2 = new Vector3(transform.localPosition.x, transform.localPosition.y - splitDir, transform.localPosition.z);
+                Vector3 splitDir3 = new Vector3(transform.localPosition.x + splitDir, transform.localPosition.y, transform.localPosition.z);
+                Vector3 splitDir4 = new Vector3(transform.localPosition.x - splitDir, transform.localPosition.y, transform.localPosition.z);
 
                 //Instantiate("Explosion.name", transform.position, transform.rotation); Placeholder for destroy effect
                 Instantiate(turret, splitDir1, transform.rotation); //Creates 4 instances of the Turret prefab set in Inspector

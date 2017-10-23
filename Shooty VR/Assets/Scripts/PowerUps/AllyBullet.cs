@@ -22,6 +22,10 @@ namespace Hive.Armada
             Destroy(gameObject, lifeTime);
         }
 
+        /// <summary>
+        /// Damage enemy upon collision, destroy self after collision with enemy or room
+        /// </summary>
+        /// <param name="other">Collider of object this collided with</param>
         private void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.CompareTag("Enemy"))

@@ -72,8 +72,9 @@ namespace Hive.Armada
                     case "Damage Boost":
                         if (!status.GetDamageBoost())
                         {
-                            Instantiate(powerUpPrefab, other.gameObject.transform);
+                            Instantiate(powerUpPrefab, other.gameObject.transform.Find("Thrusters").transform);
                             status.SetDamageBoost(true);
+                            Destroy(gameObject);
                         }
                         break;
                 }

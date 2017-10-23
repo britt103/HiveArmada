@@ -1,9 +1,17 @@
-﻿using System.Collections;
+﻿//Name: Chad Johnson
+//Student ID: 1763718
+//Email: johns428@mail.chapman.edu
+//Course: CPSC 340-01, CPSC-344-01
+//Assignment: Group Project
+//Purpose: Control interactions with start menu, primarily start button
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Hive.Armada.Game;
 using Hive.Armada.Player;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 namespace Hive.Armada.Menu
 {
@@ -11,6 +19,7 @@ namespace Hive.Armada.Menu
     {
         public Spawner spawner;
         public GameObject[] countdownTimers;
+        public GameObject gameOver;
         private bool isStarting;
 
         void Start()
@@ -21,6 +30,9 @@ namespace Hive.Armada.Menu
             }
         }
 
+        /// <summary>
+        /// Called by start button; changes ship mode and starts countdown
+        /// </summary>
         public void ButtonClicked()
         {
             if (!isStarting)
@@ -46,8 +58,15 @@ namespace Hive.Armada.Menu
             }
         }
 
+        /// <summary>
+        /// Changes countdown timer texts based on time, then starts spawner
+        /// </summary>
+        /// <returns></returns>
         private IEnumerator Countdown()
         {
+            GameObject.Find("Title").SetActive(false);
+            GameObject.Find("Start Button").SetActive(false);
+
             foreach (GameObject timer in countdownTimers)
             {
                 timer.SetActive(true);
@@ -68,7 +87,25 @@ namespace Hive.Armada.Menu
             }
 
             spawner.Run();
-            gameObject.SetActive(false);
+        }
+
+        /// <summary>
+        /// Triggers gameover/reload process
+        /// </summary>
+        public void GameOver()
+        {
+            StartCoroutine(Reload());
+        }
+
+        /// <summary>
+        /// Activate game over text, reloads scene
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerator Reload()
+        {
+            gameOver.SetActive(true);
+            yield return new WaitForSeconds(3.0f);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 }

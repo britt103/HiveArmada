@@ -14,6 +14,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Hive.Armada;
+using Hive.Armada.Menu;
+using UnityEngine.SceneManagement;
 
 namespace Hive.Armada.Player
 {
@@ -23,11 +25,13 @@ namespace Hive.Armada.Player
         public int maxHealth = 100;
         private int currentHealth;
         public bool isAlive { get; private set; }
+        public GameObject gameoverScreenGO;
 
         void Start()
         {
             currentHealth = maxHealth;
             isAlive = true;
+            //gameoverScreenGO.SetActive(false);
         }
 
         public void Hit(int damage)
@@ -42,9 +46,18 @@ namespace Hive.Armada.Player
             {
                 if (shipController != null)
                 {
+                    GameObject.Find("Main Menu").GetComponent<StartMenu>().GameOver();
                     shipController.hand.DetachObject(gameObject);
+                    //StartCoroutine(GameOver());
                 }
             }
         }
+
+        //private IEnumerator GameOver()
+        //{
+        //    gameoverScreenGO.SetActive(true);
+        //    yield return new WaitForSeconds(3);
+        //    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        //}
     }
 }

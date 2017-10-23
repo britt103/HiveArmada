@@ -20,16 +20,16 @@ namespace Hive.Armada
         public PlayerStats stats;
 
         // Use this for initialization
-        void Start()
-        {
-            //stats = GameObject.Find("Player Stats").GetComponent<PlayerStats>();
-        }
+        //void Start()
+        //{
+        //    //stats = GameObject.Find("Player Stats").GetComponent<PlayerStats>();
+        //}
 
-        // Update is called once per frame
-        void Update()
-        {
+        //// Update is called once per frame
+        //void Update()
+        //{
 
-        }
+        //}
 
         public bool GetShield()
         {

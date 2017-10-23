@@ -39,6 +39,9 @@ namespace Hive.Armada.Player.Guns
         private bool isLeftFire = true;
         public int damageBoost;
 
+        public AudioSource sfx;
+        public AudioClip[] clips;
+
         void Start()
         {
             canShoot = true;
@@ -132,6 +135,20 @@ namespace Hive.Armada.Player.Guns
             rightLaser.SetPosition(0, right.transform.position);
             rightLaser.SetPosition(1, target);
             StartCoroutine(FlashLaser(isLeftFire));
+
+            float r = UnityEngine.Random.Range(0.0f, 1.0f);
+
+            if(r <= 0.9)
+            {
+                sfx.PlayOneShot(clips[0]);
+            }
+            else
+            {
+                //sfx.PlayOneShot(clips[UnityEngine.Random.Range(1, clips.Length)]);
+                sfx.pitch = 1.0f + UnityEngine.Random.Range(-0.15f, 0.15f);
+                sfx.PlayOneShot(clips[0]);
+                //sfx.pitch = 1.0f;
+            }
 
             yield return new WaitForSeconds(1.0f / fireRate);
 

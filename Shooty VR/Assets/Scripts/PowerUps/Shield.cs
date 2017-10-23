@@ -30,7 +30,7 @@ namespace Hive.Armada
             timeLimit -= Time.deltaTime;
             if (timeLimit <= 0.0F)
             {
-                gameObject.GetComponentInParent<PowerUpStatus>().SetShield(false);
+                status.SetShield(false);
                 Destroy(gameObject);
             }
 

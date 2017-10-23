@@ -51,7 +51,7 @@ namespace Hive.Armada
                 Destroy(gameObject);
             }
 
-            move();
+            Move();
 
             if (canFire && slerpFraction >= 1.0F && currentTarget != null)
             {
@@ -63,7 +63,7 @@ namespace Hive.Armada
         /// Determine transform of enemy nearest to player ship
         /// </summary>
         /// <returns>Transform of nearest enemy ship</returns>
-        private Transform nearestEnemy()
+        private Transform NearestEnemy()
         {
             Vector3 positionDifference;
             float distance;
@@ -95,7 +95,7 @@ namespace Hive.Armada
         /// <summary>
         /// Controls movement and rotation; utilizes slerp
         /// </summary>
-        private void move()
+        private void Move()
         {
             //no current target
             if (currentTarget == null || currentTarget.activeSelf == false)
@@ -103,13 +103,13 @@ namespace Hive.Armada
                 slerpTimer = 0.0F;
 
                 //no enemies found
-                if (nearestEnemy() == null)
+                if (NearestEnemy() == null)
                 {
                     return;
                 }
                 else
                 {
-                    currentTarget = nearestEnemy().gameObject;
+                    currentTarget = NearestEnemy().gameObject;
                 }
             }
 

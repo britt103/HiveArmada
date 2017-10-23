@@ -27,14 +27,6 @@ namespace Hive.Armada.Enemies
         private float randX;
         private float randY;
         private float randZ;
-        //bool canFire;
-
-        // Use this for initialization
-        void Start()
-        {
-            //player = GameObject.FindGameObjectWithTag("Player");        //finds player and stores it's position
-            //pos = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z);
-        }
 
         // Update is called once per frame
         void Update()
@@ -60,11 +52,6 @@ namespace Hive.Armada.Enemies
             else
             {
                 player = GameObject.FindGameObjectWithTag("Player");
-
-                if (player != null)
-                {
-                    pos = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z);
-                }
             }
         }
     }

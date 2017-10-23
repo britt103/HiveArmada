@@ -25,6 +25,7 @@ namespace Hive.Armada.Enemies
         public int maxHealth;
         protected int health;
         public Material flashColor;
+        public GameObject fxSpawn, fxKill;
         protected Material material;
         protected WaveManager waveManager;
         protected bool untouched = true;
@@ -35,9 +36,10 @@ namespace Hive.Armada.Enemies
         public virtual void Awake()
         {
             health = maxHealth;
-            material = gameObject.GetComponent<Renderer>().material;
+            material = gameObject.GetComponentInChildren<Renderer>().material;
             waveManager = GameObject.FindGameObjectWithTag("Wave").GetComponent<WaveManager>();
             spawner = GameObject.FindGameObjectWithTag("Wave").GetComponent<Spawner>();
+            Instantiate(fxSpawn, transform.position, transform.rotation);
         }
 
         /// <summary>
@@ -80,6 +82,7 @@ namespace Hive.Armada.Enemies
         /// </summary>
         protected virtual void Kill()
         {
+            Instantiate(fxKill, transform.position, transform.rotation);
             spawner.AddKill();
             waveManager.currDead++;
             Destroy(gameObject);
@@ -92,14 +95,25 @@ namespace Hive.Armada.Enemies
         /// <returns>  </returns>
         protected virtual IEnumerator HitFlash()
         {
-            gameObject.GetComponent<Renderer>().material = flashColor;
+            //gameObject.GetComponent<Renderer>().material = flashColor;
+
+            foreach (Renderer renderer in gameObject.GetComponentsInChildren<Renderer>())
+            {
+                renderer.material = flashColor;
+            }
+
             yield return new WaitForSeconds(.01f);
 
             if (health <= 0)
             {
                 Kill();
             }
-            gameObject.GetComponent<Renderer>().material = material;
+            //gameObject.GetComponent<Renderer>().material = material;
+
+            foreach (Renderer renderer in gameObject.GetComponentsInChildren<Renderer>())
+            {
+                renderer.material = material;
+            }
         }
     }
 }

@@ -71,6 +71,9 @@ namespace Hive.Armada.Player
 
                         laser.SetPosition(0, transform.position);
                         laser.SetPosition(1, hit.point);
+
+                        float mag = (transform.position - hit.point).magnitude;
+                        laser.endWidth = thickness * Mathf.Max(mag, 1.0f);
                     }
                     else
                     {
@@ -102,6 +105,9 @@ namespace Hive.Armada.Player
 
                         laser.SetPosition(0, transform.position);
                         laser.SetPosition(1, hit.point);
+
+                        float mag = (transform.position - hit.point).magnitude;
+                        laser.endWidth = thickness * Mathf.Max(mag, 1.0f);
                     }
                     else if (Physics.Raycast(transform.position, transform.forward, out hit, Mathf.Infinity, Utility.roomMask))
                     {
@@ -110,6 +116,9 @@ namespace Hive.Armada.Player
 
                         laser.SetPosition(0, transform.position);
                         laser.SetPosition(1, hit.point);
+
+                        float mag = (transform.position - hit.point).magnitude;
+                        laser.endWidth = thickness * Mathf.Max(mag, 1.0f);
                     }
                     else
                     {
@@ -117,7 +126,11 @@ namespace Hive.Armada.Player
                         isButton = false;
                     }
                     break;
+
+
             }
+            
+
         }
 
         /// <summary>

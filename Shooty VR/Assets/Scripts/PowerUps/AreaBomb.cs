@@ -21,6 +21,7 @@ namespace Hive.Armada
         private float currentSpeed;
         private bool released;
         private Hand hand;
+        public GameObject fxTrail, fxBomb;
 
         // Use this for initialization
         void Start()
@@ -35,6 +36,7 @@ namespace Hive.Armada
             //accelerating forward
             if (released)
             {
+                fxTrail.SetActive(true);
                 currentSpeed += acceleration * Time.deltaTime;
                 transform.Translate(Vector3.forward * currentSpeed);
 
@@ -48,6 +50,7 @@ namespace Hive.Armada
                             objectCollider.gameObject.GetComponent<Enemies.Enemy>().Hit(100);
                         }
                     }
+                    Instantiate(fxBomb, transform.position, transform.rotation);
                     Destroy(gameObject);
                 }
             }

@@ -16,6 +16,7 @@ using System.Linq;
 using UnityEngine;
 using Hive.Armada.Game;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 namespace Hive.Armada.Game
 {
@@ -45,7 +46,7 @@ namespace Hive.Armada.Game
 
         void Awake()
         {
-            wave = 8;
+            wave = 6;
 
             waveCountGO.SetActive(false);
             shipReminderGO.SetActive(false);
@@ -216,7 +217,7 @@ namespace Hive.Armada.Game
 
             if (wave == 9)
             {
-                winScreenGO.SetActive(true);
+                StartCoroutine(Win());
             }
         }
 
@@ -286,6 +287,13 @@ namespace Hive.Armada.Game
             }
 
             canSpawnPowerup = true;
+        }
+
+        private IEnumerator Win()
+        {
+            winScreenGO.SetActive(true);
+            yield return new WaitForSeconds(3);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 }

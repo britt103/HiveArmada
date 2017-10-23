@@ -28,7 +28,7 @@ namespace Hive.Armada
         private float slerpFraction;
         private bool targetAcquired;
 
-        public GameObject bulletPrefab;
+        public GameObject bulletPrefab, fxSpawn;
         public float bulletSpeed;
         public float firerate;
 
@@ -38,6 +38,7 @@ namespace Hive.Armada
         void Start()
         {
             //in case no enemies are present on init
+            Instantiate(fxSpawn, transform);
             transform.localPosition = new Vector3(0, distance, 0);
         }
 

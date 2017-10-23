@@ -14,6 +14,7 @@ namespace Hive.Armada
     {
         //prefab to use for instantiation
         public GameObject powerUpPrefab;
+        //public GameObject fxAlly;
         private PowerUpStatus status;
         private float lifeTime = 10.0f;
 
@@ -64,7 +65,9 @@ namespace Hive.Armada
                     case "Ally":
                         if (!status.GetAlly())
                         {
+                            
                             Instantiate(powerUpPrefab, other.gameObject.transform.Find("Thrusters").transform);
+                            //Instantiate(fxAlly, other.gameObject.transform.Find("Ally").transform);
                             status.SetAlly(true);
                             Destroy(gameObject);
                         }

@@ -87,6 +87,10 @@ namespace Hive.Armada.Player.Guns
             RaycastHit hit;
             if (Physics.SphereCast(transform.position, radius, transform.forward, out hit, 200.0f, Utility.enemyMask))
             {
+                float mag = (transform.position - hit.point).magnitude;
+                leftLaser.endWidth = thickness * Mathf.Max(mag, 1.0f);
+                rightLaser.endWidth = thickness * Mathf.Max(mag, 1.0f);
+
                 StartCoroutine(Shoot(hit.collider.gameObject.transform.position, hit.collider.gameObject));
 
                 //if (shipController.hand != null)

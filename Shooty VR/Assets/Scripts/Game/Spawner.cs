@@ -22,6 +22,7 @@ namespace Hive.Armada.Game
 {
     public class Spawner : MonoBehaviour
     {
+        public int multiplier;
         public Waves waves;
         [Tooltip("Powerup prefabs in order: Shield, Ally, Area, Clear")]
         public GameObject[] powerups;
@@ -102,7 +103,7 @@ namespace Hive.Armada.Game
             ++wave;
             kills = 0;
             alive = 0;
-            enemyCap = waves.GetEnemyCap(wave) * 2;
+            enemyCap = waves.GetEnemyCap(wave) * multiplier;
             enemySpawnTime = waves.GetSpawnTime(wave);
 
             List<GameObject> spawns = GetSpawns();
@@ -126,7 +127,7 @@ namespace Hive.Armada.Game
 
             for (int i = 0; i < waveSpawns.Length; ++i)
             {
-                waveSpawns[i] *= 2;
+                waveSpawns[i] *= multiplier;
             }
 
             System.Random random = new System.Random();

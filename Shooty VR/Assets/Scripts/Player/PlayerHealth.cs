@@ -43,7 +43,7 @@ namespace Hive.Armada.Player
             if (Utility.isDebug)
                 Debug.Log("Hit for " + damage + " damage! Remaining health = " + currentHealth);
 
-            if (currentHealth <= 10) fxHurt.SetActive(true);
+            //if (currentHealth <= 10) fxHurt.SetActive(true);
 
             if (currentHealth <= 0)
             {

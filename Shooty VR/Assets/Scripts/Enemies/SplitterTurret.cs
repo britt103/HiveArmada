@@ -20,7 +20,7 @@ namespace Hive.Armada.Enemies
         public Transform spawn;
         GameObject player;
         public GameObject turret; /// set reference PREFAB in inspector
-        public Vector3 pos;
+        private Vector3 pos;
         public float fireRate, fireSpeed;
         private float fireNext, randX, randY, randZ;
         bool canFire;

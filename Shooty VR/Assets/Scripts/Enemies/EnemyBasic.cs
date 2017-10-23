@@ -38,30 +38,30 @@ namespace Hive.Armada.Enemies
 
         //}
 
-        public override void Hit(int damage)
-        {
-            health -= damage;
-            StartCoroutine(HitFlash());
-        }
+        //public override void Hit(int damage)
+        //{
+        //    health -= damage;
+        //    StartCoroutine(HitFlash());
+        //}
 
-        protected override IEnumerator HitFlash()
-        {
-            gameObject.GetComponent<Renderer>().material = flashColor;
-            yield return new WaitForSeconds(0.01f);
+        //protected override IEnumerator HitFlash()
+        //{
+        //    gameObject.GetComponent<Renderer>().material = flashColor;
+        //    yield return new WaitForSeconds(0.01f);
 
-            if (health <= 0)
-            {
-                //GameObject.Find("GameManager").GetComponent<GameManager>().kills++;
+        //    if (health <= 0)
+        //    {
+        //        //GameObject.Find("GameManager").GetComponent<GameManager>().kills++;
 
-                //if (GameObject.Find("GameManager").GetComponent<GameManager>().kills >= GameObject.Find("GameManager").GetComponent<GameManager>().enemyParent.gameObject.transform.childCount)
-                //{
-                //    GameObject.Find("GameManager").GetComponent<GameManager>().gameOver();
-                //}
-                health = maxHealth;
-                gameObject.SetActive(false);
-                //Destroy(gameObject);
-            }
-            gameObject.GetComponent<Renderer>().material = material;
-        }
+        //        //if (GameObject.Find("GameManager").GetComponent<GameManager>().kills >= GameObject.Find("GameManager").GetComponent<GameManager>().enemyParent.gameObject.transform.childCount)
+        //        //{
+        //        //    GameObject.Find("GameManager").GetComponent<GameManager>().gameOver();
+        //        //}
+        //        health = maxHealth;
+        //        gameObject.SetActive(false);
+        //        //Destroy(gameObject);
+        //    }
+        //    gameObject.GetComponent<Renderer>().material = material;
+        //}
     }
 }

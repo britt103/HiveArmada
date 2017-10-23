@@ -44,9 +44,11 @@ namespace Hive.Armada.Game
         public GameObject shipReminderGO;
         public GameObject winScreenGO;
 
+        public int startWave;
+
         void Awake()
         {
-            wave = 6;
+            wave = startWave - 2;
 
             waveCountGO.SetActive(false);
             shipReminderGO.SetActive(false);

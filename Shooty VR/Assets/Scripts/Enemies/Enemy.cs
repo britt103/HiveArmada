@@ -41,7 +41,7 @@ namespace Hive.Armada.Enemies
             material = gameObject.GetComponentInChildren<Renderer>().material;
             waveManager = GameObject.FindGameObjectWithTag("Wave").GetComponent<WaveManager>();
             spawner = GameObject.FindGameObjectWithTag("Wave").GetComponent<Spawner>();
-            Instantiate(fxSpawn, transform.position, transform.rotation);
+            Instantiate(fxSpawn, transform.position, transform.rotation, transform);
 
             stats = FindObjectOfType<PlayerStats>();
         }
@@ -104,6 +104,9 @@ namespace Hive.Armada.Enemies
 
             foreach (Renderer renderer in gameObject.GetComponentsInChildren<Renderer>())
             {
+                if (renderer.gameObject.CompareTag("FX"))
+                    continue;
+
                 renderer.material = flashColor;
             }
 
@@ -117,6 +120,9 @@ namespace Hive.Armada.Enemies
 
             foreach (Renderer renderer in gameObject.GetComponentsInChildren<Renderer>())
             {
+                if (renderer.gameObject.CompareTag("FX"))
+                    continue;
+
                 renderer.material = material;
             }
         }

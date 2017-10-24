@@ -25,7 +25,6 @@ namespace Hive.Armada.Player
         public int maxHealth = 100;
         private int currentHealth;
         public bool isAlive { get; private set; }
-        public GameObject gameoverScreenGO;
         public GameObject fxHit, fxHurt, fxDead;
         private Material material;
         public Material flashColor;
@@ -34,7 +33,6 @@ namespace Hive.Armada.Player
         {
             currentHealth = maxHealth;
             isAlive = true;
-            //gameoverScreenGO.SetActive(false);
             material = gameObject.GetComponentInChildren<Renderer>().material;
         }
 
@@ -46,26 +44,7 @@ namespace Hive.Armada.Player
             if (Utility.isDebug)
                 Debug.Log("Hit for " + damage + " damage! Remaining health = " + currentHealth);
 
-            //if (currentHealth <= 10) fxHurt.SetActive(true);
-
-            StartCoroutine(HitFlash());
-        }
-
-        //private IEnumerator GameOver()
-        //{
-        //    gameoverScreenGO.SetActive(true);
-        //    yield return new WaitForSeconds(3);
-        //    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        //}
-
-        private IEnumerator HitFlash()
-        {
-            foreach (Renderer renderer in gameObject.GetComponentsInChildren<Renderer>())
-            {
-                renderer.material = flashColor;
-            }
-
-            yield return new WaitForSeconds(0.01f);
+            if (currentHealth <= 10) fxHurt.SetActive(true);
 
             if (currentHealth <= 0)
             {
@@ -74,12 +53,29 @@ namespace Hive.Armada.Player
                     Instantiate(fxDead, transform.position, transform.rotation);
                     GameObject.Find("Main Menu").GetComponent<StartMenu>().GameOver();
                     shipController.hand.DetachObject(gameObject);
-                    //StartCoroutine(GameOver());
                 }
             }
 
+            //StartCoroutine(HitFlash());
+        }
+
+        private IEnumerator HitFlash()
+        {
             foreach (Renderer renderer in gameObject.GetComponentsInChildren<Renderer>())
             {
+                if (renderer.gameObject.CompareTag("FX"))
+                    continue;
+
+                renderer.material = flashColor;
+            }
+
+            yield return new WaitForSeconds(0.05f);
+
+            foreach (Renderer renderer in gameObject.GetComponentsInChildren<Renderer>())
+            {
+                if (renderer.gameObject.CompareTag("FX"))
+                    continue;
+
                 renderer.material = material;
             }
         }

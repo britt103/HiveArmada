@@ -46,7 +46,7 @@ namespace Hive.Armada
                     case "Area Bomb":
                         if (!status.GetAreaBomb() && !status.GetClear())
                         {
-                            Instantiate(powerUpPrefab, other.gameObject.transform.Find("Thrusters").transform);
+                            Instantiate(powerUpPrefab, other.gameObject.transform.Find("BombPoint").transform);
                             status.SetAreaBomb(true);
                             Destroy(gameObject);
 
@@ -56,7 +56,7 @@ namespace Hive.Armada
                     case "Clear":
                         if (!status.GetClear() && !status.GetAreaBomb())
                         {
-                            Instantiate(powerUpPrefab, other.gameObject.transform.Find("Thrusters").transform);
+                            Instantiate(powerUpPrefab, other.gameObject.transform.Find("BombPoint").transform);
                             status.SetClear(true);
                             Destroy(gameObject);
                         }

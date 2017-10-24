@@ -21,14 +21,13 @@ namespace Hive.Armada.Enemies
         GameObject player;
         Vector3 pos;
         public float fireRate, fireSpeed, fireCone, firePellet;
-        private float fireNext, radius, randX, randY, randZ;
+        private float fireNext, randX, randY, randZ;
         bool canFire;
         
         void Start()
         {
             player = GameObject.FindGameObjectWithTag("Player");
             pos = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z);
-            ///radius = UnityEngine.Random.Range(-fireCone, fireCone);
         }
         
         void Update()
@@ -48,10 +47,10 @@ namespace Hive.Armada.Enemies
                     }
                 }
             }
-            catch (Exception e)
-            {
-                //Debug.Log("Player is dead");
-            }
+            //catch (Exception e)
+            //{
+            //    //Debug.Log("Player is dead");
+            //}
         }
 
         IEnumerator fireBullet()

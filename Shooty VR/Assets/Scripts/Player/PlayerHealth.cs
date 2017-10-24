@@ -29,6 +29,9 @@ namespace Hive.Armada.Player
         private Material material;
         public Material flashColor;
 
+        public AudioSource sfx;
+        public AudioClip clip;
+
         void Start()
         {
             currentHealth = maxHealth;
@@ -48,6 +51,7 @@ namespace Hive.Armada.Player
 
             if (currentHealth <= 0)
             {
+                sfx.PlayOneShot(clip);
                 if (shipController != null)
                 {
                     Instantiate(fxDead, transform.position, transform.rotation);

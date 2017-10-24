@@ -156,6 +156,7 @@ GameObject:
   - component: {fileID: 95055946194472990}
   - component: {fileID: 136941660410051782}
   - component: {fileID: 114822191600306730}
+  - component: {fileID: 82747368214572024}
   m_Layer: 9
   m_Name: Enemy_Splitter_Child
   m_TagString: Enemy
@@ -320,7 +321,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1618603837932422}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6.223, y: 0, z: 1.064}
+  m_LocalPosition: {x: 0.45369253, y: 1.5255418, z: 0.621562}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 4896050114896716}
@@ -911,6 +912,86 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1627049817178518}
   m_Mesh: {fileID: 4300000, guid: 6b8c1575b5415ea4d910f48fcea7923c, type: 3}
+--- !u!82 &82747368214572024
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1618603837932422}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!95 &95055946194472990
 Animator:
   serializedVersion: 3
@@ -944,6 +1025,8 @@ MonoBehaviour:
   flashColor: {fileID: 2100000, guid: 1db15971033ba594294b4f0c035f7da8, type: 2}
   fxSpawn: {fileID: 1986916411221482, guid: c22c489c25fedaa41a77630cc26e3c53, type: 2}
   fxKill: {fileID: 1110594293534486, guid: 2cb25da53015f534a920f821d2fb89cb, type: 2}
+  sfx: {fileID: 82747368214572024}
+  clip: {fileID: 8300000, guid: 05bb899537bd594489955c738451dbec, type: 3}
   projectilePrefab: {fileID: 1751136267563060, guid: a3e97b332c7c7484eb0cf0632e2a5e94,
     type: 2}
   shootPoint: {fileID: 4930210303104310}

@@ -793,13 +793,14 @@ GameObject:
   - component: {fileID: 114171615098549492}
   - component: {fileID: 114013138563554888}
   - component: {fileID: 136399017464132670}
+  - component: {fileID: 82815755035714528}
   m_Layer: 0
   m_Name: ThrustersRotated
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1595115282187500
 GameObject:
   m_ObjectHideFlags: 1
@@ -1672,7 +1673,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1564350017730994}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 29.436264, y: 23.2157, z: 9.9790325}
+  m_LocalPosition: {x: 0.042937346, y: 1.2499384, z: 0.6147691}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children:
   - {fileID: 4522224282575776}
@@ -5246,6 +5247,86 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!82 &82815755035714528
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1564350017730994}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!95 &95133885226005704
 Animator:
   serializedVersion: 3
@@ -5344,11 +5425,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shipController: {fileID: 114924806039134942}
   maxHealth: 30
-  gameoverScreenGO: {fileID: 0}
   fxHit: {fileID: 1055841953223108, guid: 0d57f6e2384c7034888dccc749fac7f4, type: 2}
   fxHurt: {fileID: 1653496167222770}
   fxDead: {fileID: 1110594293534486, guid: 816e672531c51d649993a326eac379f8, type: 2}
   flashColor: {fileID: 2100000, guid: 1db15971033ba594294b4f0c035f7da8, type: 2}
+  sfx: {fileID: 82815755035714528}
+  clip: {fileID: 8300000, guid: 0c77c85a414b8c747ab00bc53c4684e3, type: 3}
 --- !u!114 &114040393628410134
 MonoBehaviour:
   m_ObjectHideFlags: 1

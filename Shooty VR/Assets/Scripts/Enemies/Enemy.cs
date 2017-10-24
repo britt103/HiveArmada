@@ -30,6 +30,9 @@ namespace Hive.Armada.Enemies
         protected WaveManager waveManager;
         protected bool untouched = true;
 
+        public AudioSource sfx;
+        public AudioClip clip;
+
         private PlayerStats stats;
 
         /// <summary>
@@ -90,6 +93,9 @@ namespace Hive.Armada.Enemies
             spawner.AddKill();
             waveManager.currDead++;
             stats.EnemyKilled();
+
+            sfx.PlayOneShot(clip);
+
             Destroy(gameObject);
         }
 

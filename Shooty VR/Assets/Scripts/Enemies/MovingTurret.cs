@@ -57,15 +57,26 @@ namespace Hive.Armada.Enemies
         {
             transform.position = Vector3.Lerp(posA, posB, (Mathf.Sin(movingSpeed * (Time.time + startTime)) + 1.0f) / 2.0f);
 
-            pos = player.transform.position;        //tracks the player position
-            transform.LookAt(pos);                  //and makes the transform look at said position
+            if (player != null)
+            {
+                transform.LookAt(player.transform.position); //and makes the transform look at said position
+            }
+            else
+            {
+                player = GameObject.FindGameObjectWithTag("Player");
+
+                if (player == null)
+                {
+                    transform.LookAt(new Vector3(0.0f, 0.0f, 0.0f));
+                }
+            }
 
             if (Time.time > fireNext)
             {                                                                                       //Basic firerate calculation that determines
                 fireNext = Time.time + fireRate;                                                    //how many projectiles shoot out of the turret
                 var shoot = Instantiate(bullet, spawn.position, spawn.rotation);                    //within a certain duration. The turret then
                 shoot.GetComponent<Rigidbody>().velocity = shoot.transform.forward * fireSpeed;     //instantiates a bullet and shoots it forward
-            }                                                                                    //in the direction of the player.
+            }                                                                                       //in the direction of the player.
         }
 
     }

@@ -14,6 +14,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Hive.Armada.Game;
 using UnityEngine;
 
@@ -29,6 +30,7 @@ namespace Hive.Armada.Enemies
         protected Material material;
         protected WaveManager waveManager;
         protected bool untouched = true;
+        protected List<Material> mats;
 
         public AudioSource sfx;
         public AudioClip clip;
@@ -40,6 +42,7 @@ namespace Hive.Armada.Enemies
         /// </summary>
         public virtual void Awake()
         {
+            mats = new List<Material>();
             health = maxHealth;
             material = gameObject.GetComponentInChildren<Renderer>().material;
             waveManager = GameObject.FindGameObjectWithTag("Wave").GetComponent<WaveManager>();
@@ -94,8 +97,6 @@ namespace Hive.Armada.Enemies
             waveManager.currDead++;
             stats.EnemyKilled();
 
-            sfx.PlayOneShot(clip);
-
             Destroy(gameObject);
         }
 
@@ -113,6 +114,8 @@ namespace Hive.Armada.Enemies
                 if (renderer.gameObject.CompareTag("FX"))
                     continue;
 
+                mats.Add(renderer.material);
+
                 renderer.material = flashColor;
             }
 
@@ -129,7 +132,8 @@ namespace Hive.Armada.Enemies
                 if (renderer.gameObject.CompareTag("FX"))
                     continue;
 
-                renderer.material = material;
+                renderer.material = mats.First();
+                mats.RemoveAt(0);
             }
         }
     }

@@ -146,17 +146,17 @@ namespace Hive.Armada.Player.Guns
 
             float r = UnityEngine.Random.Range(0.0f, 1.0f);
 
-            if(r <= 0.9)
-            {
+            //if(r <= 0.9)
+            //{
                 sfx.PlayOneShot(clips[0]);
-            }
-            else
-            {
-                //sfx.PlayOneShot(clips[UnityEngine.Random.Range(1, clips.Length)]);
-                sfx.pitch = 1.0f + UnityEngine.Random.Range(-0.15f, 0.15f);
-                sfx.PlayOneShot(clips[0]);
-                //sfx.pitch = 1.0f;
-            }
+            //}
+            //else
+            //{
+            //    //sfx.PlayOneShot(clips[UnityEngine.Random.Range(1, clips.Length)]);
+            //    sfx.pitch = 1.0f + UnityEngine.Random.Range(-0.15f, 0.15f);
+            //    sfx.PlayOneShot(clips[0]);
+            //    //sfx.pitch = 1.0f;
+            //}
 
             stats.isFiring = true;
             stats.ShotsFired(1);

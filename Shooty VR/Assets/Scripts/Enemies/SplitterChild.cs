@@ -20,9 +20,9 @@ namespace Hive.Armada.Enemies
     {
         public GameObject projectilePrefab;
         public Transform shootPoint;
-        //[Tooltip("Number of seconds between shots")]
-        //public float shootDelay;
+        [Tooltip("The number of seconds between each shot.")]
         public float fireRate;
+        [Tooltip("The speed at which the bullets are shot.")]
         public float projectileSpeed;
         public float spread;
         private GameObject player;
@@ -42,6 +42,11 @@ namespace Hive.Armada.Enemies
             else
             {
                 player = GameObject.FindGameObjectWithTag("Player");
+
+                if (player == null)
+                {
+                    transform.LookAt(new Vector3(0.0f, 0.0f, 0.0f));
+                }
             }
         }
 
@@ -59,7 +64,7 @@ namespace Hive.Armada.Enemies
                                                         Random.Range(-spread, spread));
             projectile.GetComponent<Rigidbody>().velocity = projectile.transform.forward * projectileSpeed;
 
-            yield return new WaitForSeconds(1.0f / fireRate);
+            yield return new WaitForSeconds(fireRate);
 
             canShoot = true;
         }

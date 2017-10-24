@@ -52,6 +52,11 @@ namespace Hive.Armada.Enemies
             else
             {
                 player = GameObject.FindGameObjectWithTag("Player");
+
+                if (player == null)
+                {
+                    transform.LookAt(new Vector3(0.0f, 0.0f, 0.0f));
+                }
             }
         }
     }

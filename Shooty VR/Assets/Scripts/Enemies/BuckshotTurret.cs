@@ -47,10 +47,10 @@ namespace Hive.Armada.Enemies
                     }
                 }
             }
-            //catch (Exception e)
-            //{
+            catch (Exception e)
+            {
             //    //Debug.Log("Player is dead");
-            //}
+            }
         }
 
         IEnumerator fireBullet()

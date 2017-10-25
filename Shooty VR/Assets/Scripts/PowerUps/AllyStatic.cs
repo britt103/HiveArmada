@@ -41,7 +41,7 @@ namespace Hive.Armada
                 Destroy(gameObject);
             }
 
-            Transform target = nearestEnemy();
+            Transform target = NearestEnemy();
             transform.LookAt(target);
 
             if (canFire)
@@ -53,7 +53,7 @@ namespace Hive.Armada
 
 
         //determine nearest enemy to player ship, return its transform
-        private Transform nearestEnemy()
+        private Transform NearestEnemy()
         {
             Vector3 positionDifference;
             float distance;

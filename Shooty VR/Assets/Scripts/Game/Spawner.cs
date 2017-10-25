@@ -16,12 +16,15 @@ using System.Linq;
 using UnityEngine;
 using Hive.Armada.Game;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 namespace Hive.Armada.Game
 {
     public class Spawner : MonoBehaviour
     {
+        public int multiplier;
         public Waves waves;
+        [Tooltip("Powerup prefabs in order: Shield, Ally, Area, Clear")]
         public GameObject[] powerups;
         public GameObject[] enemyBounds;
         public GameObject[] powerupBounds;
@@ -29,62 +32,37 @@ namespace Hive.Armada.Game
         public int wave { get; private set; }
         public int kills { get; private set; }
         private int enemySpawnCount;
-        private float spawnTime;
+        private float enemySpawnTime;
+        public float powerupSpawnTime;
         private int alive;
         private int enemyCap;
+        //private bool 
         private bool canSpawnEnemy = true;
         private bool canSpawnPowerup = true;
         private Coroutine waveSpawn;
 
         public GameObject waveCountGO;
         public GameObject shipReminderGO;
+        public GameObject winScreenGO;
+
+        public int startWave;
+
+        private PlayerStats stats;
 
         void Awake()
         {
-            wave = -1;
+            wave = startWave - 2;
 
             waveCountGO.SetActive(false);
             shipReminderGO.SetActive(false);
+            winScreenGO.SetActive(false);
+
+            stats = FindObjectOfType<PlayerStats>();
         }
 
         public void Run()
         {
             StartCoroutine(WaveTimer());
-            // Spawn wave 1
-
-            //SetupWave();
-
-            //while (kills < spawnCount)
-            //{
-            //    // wait for wave 1 to finish
-            //}
-
-            //// Spawn wave 2
-            //SetupWave();
-
-            //while (kills < spawnCount)
-            //{
-            //    // wait for wave 2 to finish
-            //}
-
-            //// Spawn wave 3
-            //SetupWave();
-
-            //while (kills < spawnCount)
-            //{
-            //    // wait for wave 3 to finish
-            //}
-
-            //// Spawn wave 4
-            //SetupWave();
-
-            //while (kills < spawnCount)
-            //{
-            //    // wait for wave 4 to finish
-            //}
-
-            //// Spawn wave 5
-            //SetupWave();
         }
 
         private IEnumerator WaveTimer()
@@ -97,27 +75,33 @@ namespace Hive.Armada.Game
                 shipReminderGO.SetActive(false);
             }
 
-            while (wave <= 4)
+            while (wave <= 8)
             {
                 if (waveSpawn == null)
                 {
+                    Debug.Log("Kills: " + kills + ", Enemy Spawn Count: " + enemySpawnCount);
                     List<GameObject> spawns = SetupWave();
 
-                    Debug.Log("BEGINNING WAVE " + wave);
+                    int waveNum = wave + 1;
+
+                    Debug.Log("BEGINNING WAVE " + waveNum);
                     waveCountGO.SetActive(true);
-                    waveCountGO.GetComponent<Text>().text = "Wave: " + (wave + 1);
+                    waveCountGO.GetComponent<Text>().text = "Wave: " + waveNum;
 
                     yield return new WaitForSeconds(2);
 
                     waveCountGO.SetActive(false);
 
                     waveSpawn = StartCoroutine(SpawnWave(spawns));
+
+                    stats.isAlive = true;
                 }
                 else
                 {
                     yield return new WaitForSeconds(0.1f);
                 }
             }
+            Debug.Log("Kills: " + kills + ", Enemy Spawn Count: " + enemySpawnCount);
         }
 
         private List<GameObject> SetupWave()
@@ -125,11 +109,17 @@ namespace Hive.Armada.Game
             ++wave;
             kills = 0;
             alive = 0;
-            enemyCap = waves.GetEnemyCap(wave);
-            spawnTime = waves.GetSpawnTime(wave);
+            enemyCap = waves.GetEnemyCap(wave) * multiplier;
+            enemySpawnTime = waves.GetSpawnTime(wave);
 
             List<GameObject> spawns = GetSpawns();
-            enemySpawnCount = spawns.Count;
+            //enemySpawnCount = spawns.Count;
+
+            //foreach (GameObject enemy in spawns)
+            //{
+            //    if (enemy.GetType().Equals(waves.enemies[3]))
+            //        enemySpawnTime += 4;
+            //}
 
             //StartCoroutine(SpawnWave(spawns));
             return spawns;
@@ -137,8 +127,15 @@ namespace Hive.Armada.Game
 
         private List<GameObject> GetSpawns()
         {
+            enemySpawnCount = 0;
             List<GameObject> spawns = new List<GameObject>();
             int[] waveSpawns = waves.GetSpawns(wave);
+
+            for (int i = 0; i < waveSpawns.Length; ++i)
+            {
+                waveSpawns[i] *= multiplier;
+            }
+
             System.Random random = new System.Random();
 
             for (int i = 0; i < waveSpawns.Length; ++i)
@@ -150,28 +147,41 @@ namespace Hive.Armada.Game
                     {
                         case 0:
                             if (waves.enemies[0] != null)
+                            {
+                                ++enemySpawnCount;
                                 spawns.Add(waves.enemies[0]);
+                            }
                             else
                                 if (Utility.isDebug)
                                 Debug.Log("CRITICAL - Waves enemies[0] is null");
                             break;
                         case 1:
                             if (waves.enemies[1] != null)
+                            {
+                                ++enemySpawnCount;
                                 spawns.Add(waves.enemies[1]);
+                            }
                             else
                                 if (Utility.isDebug)
                                 Debug.Log("CRITICAL - Waves enemies[1] is null");
                             break;
                         case 2:
                             if (waves.enemies[2] != null)
+                            {
+                                ++enemySpawnCount;
                                 spawns.Add(waves.enemies[2]);
+                            }
                             else
                                 if (Utility.isDebug)
                                 Debug.Log("CRITICAL - Waves enemies[2] is null");
                             break;
                         case 3:
+                            //increase for splitter
                             if (waves.enemies[3] != null)
+                            {
+                                enemySpawnCount += 5;
                                 spawns.Add(waves.enemies[3]);
+                            }
                             else
                                 if (Utility.isDebug)
                                 Debug.Log("CRITICAL - Waves enemies[3] is null");
@@ -188,6 +198,8 @@ namespace Hive.Armada.Game
 
         private IEnumerator SpawnWave(List<GameObject> spawns)
         {
+            Debug.Log("Wave: " + wave + " - spawns: " + enemySpawnCount);
+
             while (kills < enemySpawnCount)
             {
                 if (canSpawnEnemy)
@@ -210,7 +222,13 @@ namespace Hive.Armada.Game
                 }
             }
 
+            stats.WaveComplete();
             waveSpawn = null;
+
+            if (wave == 9)
+            {
+                StartCoroutine(Win());
+            }
         }
 
         public void EnemyHit()
@@ -221,7 +239,7 @@ namespace Hive.Armada.Game
         private IEnumerator SpawnEnemy(GameObject prefab)
         {
             canSpawnEnemy = false;
-            yield return new WaitForSeconds(3.0f);
+            yield return new WaitForSeconds(enemySpawnTime);
 
             // SPAWN THAT SHIT HERE
             Vector3 lower = enemyBounds[0].transform.position;
@@ -253,7 +271,7 @@ namespace Hive.Armada.Game
         private IEnumerator SpawnPowerup()
         {
             canSpawnPowerup = false;
-            yield return new WaitForSeconds(15.0f);
+            yield return new WaitForSeconds(powerupSpawnTime);
 
             // SPAWN THAT OTHER SHIT HERE
             Vector3 lower = powerupBounds[0].transform.position;
@@ -269,20 +287,24 @@ namespace Hive.Armada.Game
 
             float[] chances = waves.GetPowerupChances(wave);
 
-            for(int i = 0; i < chances.Length; ++i)
+            for (int i = 0; i < chances.Length; ++i)
             {
-                if(Random.Range(0.0f, 1.0f) <= chances[i])
+                if (chance <= chances[i])
                 {
                     Instantiate(powerups[i], position, Quaternion.Euler(0, 180.0f, 0));
                     break;
                 }
-                else
-                {
-                    chances[i + 1] += chances[i];
-                }
             }
 
             canSpawnPowerup = true;
+        }
+
+        private IEnumerator Win()
+        {
+            winScreenGO.SetActive(true);
+            yield return new WaitForSeconds(3);
+            FindObjectOfType<PlayerStats>().PrintStats();
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 }

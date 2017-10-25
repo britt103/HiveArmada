@@ -18,39 +18,20 @@ namespace Hive.Armada.Enemies
     {
         public GameObject bullet;
         public Transform spawn;
-        GameObject player;
+        private GameObject player;
         public GameObject turret; /// set reference PREFAB in inspector
-        public Vector3 pos;
         public float fireRate, fireSpeed;
         private float fireNext, randX, randY, randZ;
         bool canFire;
         public float splitDir;
 
-
-        /// Use this for initialization
-        void Start()
-        {
-            player = GameObject.FindGameObjectWithTag("Player");
-            pos = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z);
-           
-        }
         ///Constantly tracks the player position
         ///While shooting bullets using the formula below
         void Update()
         {
-            if (player == null)
+            if (player != null)
             {
-                player = GameObject.FindGameObjectWithTag("Player");
-
-                if (player != null)
-                {
-                    pos = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z);
-                }
-            }
-            else
-            {
-                pos = player.transform.position;        //tracks the player position
-                transform.LookAt(pos);                  //and makes the transform look at said position
+                transform.LookAt(player.transform.position);                  //makes the transform look at the player's position
 
                 if (Time.time > fireNext)
                 {                                                                                       //Basic firerate calculation that determines
@@ -59,15 +40,25 @@ namespace Hive.Armada.Enemies
                     shoot.GetComponent<Rigidbody>().velocity = shoot.transform.forward * fireSpeed;     //instantiates a bullet and shoots it forward
                 }
             }
+            else
+            {
+                player = GameObject.FindGameObjectWithTag("Player");
+
+                if (player == null)
+                {
+                    transform.LookAt(new Vector3(0.0f, 0.0f, 0.0f));
+                }
+            }
         }
         protected override void Kill()
         {
+            spawner.AddKill();
             if (turret != null)
             {
-                Vector3 splitDir1 = new Vector3(transform.position.x, transform.position.y + splitDir, transform.position.z);
-                Vector3 splitDir2 = new Vector3(transform.position.x, transform.position.y - splitDir, transform.position.z);
-                Vector3 splitDir3 = new Vector3(transform.position.x + splitDir, transform.position.y, transform.position.z);
-                Vector3 splitDir4 = new Vector3(transform.position.x - splitDir, transform.position.y, transform.position.z);
+                Vector3 splitDir1 = new Vector3(transform.localPosition.x, transform.localPosition.y + splitDir, transform.localPosition.z);
+                Vector3 splitDir2 = new Vector3(transform.localPosition.x, transform.localPosition.y - splitDir, transform.localPosition.z);
+                Vector3 splitDir3 = new Vector3(transform.localPosition.x + splitDir, transform.localPosition.y, transform.localPosition.z);
+                Vector3 splitDir4 = new Vector3(transform.localPosition.x - splitDir, transform.localPosition.y, transform.localPosition.z);
 
                 //Instantiate("Explosion.name", transform.position, transform.rotation); Placeholder for destroy effect
                 Instantiate(turret, splitDir1, transform.rotation); //Creates 4 instances of the Turret prefab set in Inspector

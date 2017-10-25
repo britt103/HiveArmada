@@ -5111,6 +5111,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shipController: {fileID: 114676328033557378}
   maxHealth: 100
+  gameoverScreenGO: {fileID: 0}
 --- !u!114 &114271064660504650
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5122,9 +5123,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25c53dce1aeb61f49aadaf374748dd00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shipController: {fileID: 0}
+  mode: 0
   laserMaterial: {fileID: 2100000, guid: 52fd0a2d4a02c4e46af843e393a6ec28, type: 2}
   alignment: 0
-  color: {r: 1, g: 0, b: 0, a: 1}
   thickness: 0.001
   castShadows: 0
   receiveShadows: 0
@@ -5148,6 +5150,8 @@ MonoBehaviour:
   thickness: 0.002
   castShadows: 0
   receiveShadows: 0
+  damageBoost: 0
+  clip: {fileID: 0}
 --- !u!114 &114599631223697312
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5194,6 +5198,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e23030c77dd034d4ab463f488c746cc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shipMode: 0
+  laserSight: {fileID: 0}
   lasers: {fileID: 1786511721281030}
   pivotTransform: {fileID: 4954451017304550}
   currentGun: 0

@@ -33,10 +33,6 @@ namespace Hive.Armada.Enemies
                 if (other.GetComponent<PlayerHealth>() != null)
                 {
                     other.GetComponent<PlayerHealth>().Hit(damage);
-
-                    if (Utility.isDebug)
-                        Debug.Log("PlayerHealth.Hit(Damage);");
-
                 }
                 else
                 {

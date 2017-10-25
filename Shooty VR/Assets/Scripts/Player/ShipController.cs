@@ -70,14 +70,10 @@ namespace Hive.Armada.Player
         public GameObject deathExplosion;
         public bool canShoot;
 
-        private PlayerStats stats;
-
         private void OnAttachedToHand(Hand attachedHand)
         {
             hand = attachedHand;
 
-            //player stats
-            stats = gameObject.GetComponentInParent<PlayerStats>();
             GameObject pickup = GameObject.FindGameObjectWithTag("ShipPickup");
 
             if (pickup)
@@ -145,8 +141,6 @@ namespace Hive.Armada.Player
                     if (hand.GetStandardInteractionButton())
                     {
                         laserGun.TriggerUpdate();
-                        //player stats
-                        //stats.isFiring = true;
                     }
                 }
                 else if (!canShoot && hand.GetStandardInteractionButtonUp())

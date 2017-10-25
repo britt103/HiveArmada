@@ -14,6 +14,7 @@ namespace Hive.Armada
     {
         //prefab to use for instantiation
         public GameObject powerUpPrefab;
+        //public GameObject fxAlly;
         private PowerUpStatus status;
         private float lifeTime = 10.0f;
 
@@ -45,7 +46,7 @@ namespace Hive.Armada
                     case "Area Bomb":
                         if (!status.GetAreaBomb() && !status.GetClear())
                         {
-                            Instantiate(powerUpPrefab, other.gameObject.transform.Find("Thrusters").transform);
+                            Instantiate(powerUpPrefab, other.gameObject.transform.Find("BombPoint").transform);
                             status.SetAreaBomb(true);
                             Destroy(gameObject);
 
@@ -55,7 +56,7 @@ namespace Hive.Armada
                     case "Clear":
                         if (!status.GetClear() && !status.GetAreaBomb())
                         {
-                            Instantiate(powerUpPrefab, other.gameObject.transform.Find("Thrusters").transform);
+                            Instantiate(powerUpPrefab, other.gameObject.transform.Find("BombPoint").transform);
                             status.SetClear(true);
                             Destroy(gameObject);
                         }
@@ -64,7 +65,9 @@ namespace Hive.Armada
                     case "Ally":
                         if (!status.GetAlly())
                         {
+                            
                             Instantiate(powerUpPrefab, other.gameObject.transform.Find("Thrusters").transform);
+                            //Instantiate(fxAlly, other.gameObject.transform.Find("Ally").transform);
                             status.SetAlly(true);
                             Destroy(gameObject);
                         }
@@ -72,8 +75,9 @@ namespace Hive.Armada
                     case "Damage Boost":
                         if (!status.GetDamageBoost())
                         {
-                            Instantiate(powerUpPrefab, other.gameObject.transform);
+                            Instantiate(powerUpPrefab, other.gameObject.transform.Find("Thrusters").transform);
                             status.SetDamageBoost(true);
+                            Destroy(gameObject);
                         }
                         break;
                 }

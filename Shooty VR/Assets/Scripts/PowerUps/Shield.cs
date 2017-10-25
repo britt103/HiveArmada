@@ -30,7 +30,7 @@ namespace Hive.Armada
             timeLimit -= Time.deltaTime;
             if (timeLimit <= 0.0F)
             {
-                gameObject.GetComponentInParent<PowerUpStatus>().SetShield(false);
+                status.SetShield(false);
                 Destroy(gameObject);
             }
 
@@ -48,7 +48,7 @@ namespace Hive.Armada
         /// <param name="other">Collider of other object</param>
         void OnTriggerEnter(Collider other)
         {
-            if (other.tag == "bullet")
+            if (other.CompareTag("bullet"))
             {
                 Destroy(other.gameObject);
             }

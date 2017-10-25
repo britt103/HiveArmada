@@ -39,6 +39,11 @@ namespace Hive.Armada.Player.Guns
         private bool isLeftFire = true;
         public int damageBoost;
 
+        public AudioSource sfx;
+        public AudioClip[] clips;
+
+        private PlayerStats stats;
+
         void Start()
         {
             canShoot = true;
@@ -63,6 +68,8 @@ namespace Hive.Armada.Player.Guns
             rightLaser.startWidth = thickness;
             rightLaser.endWidth = thickness;
             rightLaser.enabled = false;
+
+            stats = FindObjectOfType<PlayerStats>();
         }
 
         /// <summary>
@@ -84,6 +91,10 @@ namespace Hive.Armada.Player.Guns
             RaycastHit hit;
             if (Physics.SphereCast(transform.position, radius, transform.forward, out hit, 200.0f, Utility.enemyMask))
             {
+                float mag = (transform.position - hit.point).magnitude;
+                leftLaser.endWidth = thickness * Mathf.Max(mag, 1.0f);
+                rightLaser.endWidth = thickness * Mathf.Max(mag, 1.0f);
+
                 StartCoroutine(Shoot(hit.collider.gameObject.transform.position, hit.collider.gameObject));
 
                 //if (shipController.hand != null)
@@ -133,10 +144,29 @@ namespace Hive.Armada.Player.Guns
             rightLaser.SetPosition(1, target);
             StartCoroutine(FlashLaser(isLeftFire));
 
+            float r = UnityEngine.Random.Range(0.0f, 1.0f);
+
+            //if(r <= 0.9)
+            //{
+                sfx.PlayOneShot(clips[0]);
+            //}
+            //else
+            //{
+            //    //sfx.PlayOneShot(clips[UnityEngine.Random.Range(1, clips.Length)]);
+            //    sfx.pitch = 1.0f + UnityEngine.Random.Range(-0.15f, 0.15f);
+            //    sfx.PlayOneShot(clips[0]);
+            //    //sfx.pitch = 1.0f;
+            //}
+
+            stats.isFiring = true;
+            stats.ShotsFired(1);
+
             yield return new WaitForSeconds(1.0f / fireRate);
 
             isLeftFire = !isLeftFire;
             canShoot = true;
+
+            stats.isFiring = false;
         }
 
         /// <summary>

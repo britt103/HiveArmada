@@ -14,6 +14,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Hive.Armada.Game;
 using UnityEngine;
 
@@ -25,19 +26,30 @@ namespace Hive.Armada.Enemies
         public int maxHealth;
         protected int health;
         public Material flashColor;
+        public GameObject fxSpawn, fxKill;
         protected Material material;
         protected WaveManager waveManager;
         protected bool untouched = true;
+        protected List<Material> mats;
+
+        public AudioSource sfx;
+        public AudioClip clip;
+
+        private PlayerStats stats;
 
         /// <summary>
         /// Initializes variables for the enemy when it loads.
         /// </summary>
         public virtual void Awake()
         {
+            mats = new List<Material>();
             health = maxHealth;
-            material = gameObject.GetComponent<Renderer>().material;
+            material = gameObject.GetComponentInChildren<Renderer>().material;
             waveManager = GameObject.FindGameObjectWithTag("Wave").GetComponent<WaveManager>();
             spawner = GameObject.FindGameObjectWithTag("Wave").GetComponent<Spawner>();
+            Instantiate(fxSpawn, transform.position, transform.rotation, transform);
+
+            stats = FindObjectOfType<PlayerStats>();
         }
 
         /// <summary>
@@ -80,8 +92,11 @@ namespace Hive.Armada.Enemies
         /// </summary>
         protected virtual void Kill()
         {
+            Instantiate(fxKill, transform.position, transform.rotation);
             spawner.AddKill();
             waveManager.currDead++;
+            stats.EnemyKilled();
+
             Destroy(gameObject);
         }
 
@@ -92,14 +107,34 @@ namespace Hive.Armada.Enemies
         /// <returns>  </returns>
         protected virtual IEnumerator HitFlash()
         {
-            gameObject.GetComponent<Renderer>().material = flashColor;
+            //gameObject.GetComponent<Renderer>().material = flashColor;
+
+            foreach (Renderer renderer in gameObject.GetComponentsInChildren<Renderer>())
+            {
+                if (renderer.gameObject.CompareTag("FX"))
+                    continue;
+
+                mats.Add(renderer.material);
+
+                renderer.material = flashColor;
+            }
+
             yield return new WaitForSeconds(.01f);
 
             if (health <= 0)
             {
                 Kill();
             }
-            gameObject.GetComponent<Renderer>().material = material;
+            //gameObject.GetComponent<Renderer>().material = material;
+
+            foreach (Renderer renderer in gameObject.GetComponentsInChildren<Renderer>())
+            {
+                if (renderer.gameObject.CompareTag("FX"))
+                    continue;
+
+                renderer.material = mats.First();
+                mats.RemoveAt(0);
+            }
         }
     }
 }

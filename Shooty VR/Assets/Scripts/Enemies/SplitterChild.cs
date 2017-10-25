@@ -26,7 +26,7 @@ namespace Hive.Armada.Enemies
         public float projectileSpeed;
         public float spread;
         private GameObject player;
-        private bool canShoot;
+        private bool canShoot = true;
 
         void Update()
         {

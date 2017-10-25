@@ -28,7 +28,7 @@ namespace Hive.Armada
         private float slerpFraction;
         private bool targetAcquired;
 
-        public GameObject bulletPrefab;
+        public GameObject bulletPrefab, fxSpawn;
         public float bulletSpeed;
         public float firerate;
 
@@ -38,6 +38,7 @@ namespace Hive.Armada
         void Start()
         {
             //in case no enemies are present on init
+            Instantiate(fxSpawn, transform);
             transform.localPosition = new Vector3(0, distance, 0);
         }
 
@@ -51,7 +52,7 @@ namespace Hive.Armada
                 Destroy(gameObject);
             }
 
-            move();
+            Move();
 
             if (canFire && slerpFraction >= 1.0F && currentTarget != null)
             {
@@ -63,7 +64,7 @@ namespace Hive.Armada
         /// Determine transform of enemy nearest to player ship
         /// </summary>
         /// <returns>Transform of nearest enemy ship</returns>
-        private Transform nearestEnemy()
+        private Transform NearestEnemy()
         {
             Vector3 positionDifference;
             float distance;
@@ -95,7 +96,7 @@ namespace Hive.Armada
         /// <summary>
         /// Controls movement and rotation; utilizes slerp
         /// </summary>
-        private void move()
+        private void Move()
         {
             //no current target
             if (currentTarget == null || currentTarget.activeSelf == false)
@@ -103,13 +104,13 @@ namespace Hive.Armada
                 slerpTimer = 0.0F;
 
                 //no enemies found
-                if (nearestEnemy() == null)
+                if (NearestEnemy() == null)
                 {
                     return;
                 }
                 else
                 {
-                    currentTarget = nearestEnemy().gameObject;
+                    currentTarget = NearestEnemy().gameObject;
                 }
             }
 
@@ -137,7 +138,7 @@ namespace Hive.Armada
                 //if(Physics.SphereCast(transform.position, sphereCastRadius, transform.forward, out hit, sphereCastMaxDistance))
                 //if(Physics.SphereCast(transform.position, sphereCastRadius, transform.forward, out hit, sphereCastMaxDistance, LayerMask.GetMask("Player")))
                 {
-                    if (hit.collider.gameObject.CompareTag("Player"))
+                    if (hit.collider.gameObject.CompareTag("Player") || hit.collider.gameObject.GetComponent<Shield>() != null)
                     {
                         slerpTimer = 0.0F;
                     }

@@ -15,18 +15,18 @@ namespace Hive.Armada
         // Use this for initialization
         void Start()
         {
-            hand = gameObject.GetComponentInParent<Hand>();
+            //hand = gameObject.GetComponentInParent<Hand>();
             StartCoroutine(GameObject.FindGameObjectWithTag("Player").GetComponent<ShipController>().DamageBoost());
-            GameObject.FindGameObjectWithTag("Player").GetComponent<PowerUpStatus>().SetDamageBoost(false);
+            GameObject.Find("Player").GetComponent<PowerUpStatus>().SetDamageBoost(false);
             Destroy(gameObject);
 
         }
        
-        // Update is called once per frame
-        void Update()
-        {
+        //// Update is called once per frame
+        //void Update()
+        //{
             
-        }
+        //}
        
     }
 }

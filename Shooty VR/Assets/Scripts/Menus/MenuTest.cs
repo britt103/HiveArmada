@@ -22,7 +22,10 @@ namespace Hive.Armada.Menu
 
         //}
 
-        public void buttonClicked()
+        /// <summary>
+        /// Called by start button; changes ship mode and start spawner
+        /// </summary>
+        public void ButtonClicked()
         {
             GameObject ship = GameObject.FindGameObjectWithTag("Player");
             if (ship != null)

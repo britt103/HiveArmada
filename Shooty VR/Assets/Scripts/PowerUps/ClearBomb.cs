@@ -22,15 +22,20 @@ namespace Hive.Armada
         // Update is called once per frame
         void Update()
         {
-            if (hand.controller.GetPressDown(Valve.VR.EVRButtonId.k_EButton_Grip))
+            if (hand.controller.GetPressDown(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad))
             {
-                GameObject.Find("Player").GetComponent<PowerUpStatus>().SetClear(false);
+                Vector2 touchpad = hand.controller.GetAxis(Valve.VR.EVRButtonId.k_EButton_Axis0);
 
-                foreach (GameObject bullet in GameObject.FindGameObjectsWithTag("bullet"))
+                if (touchpad.y < -0.7)
                 {
-                    Destroy(bullet);
+                    GameObject.Find("Player").GetComponent<PowerUpStatus>().SetClear(false);
+
+                    foreach (GameObject bullet in GameObject.FindGameObjectsWithTag("bullet"))
+                    {
+                        Destroy(bullet);
+                    }
+                    Destroy(gameObject);
                 }
-                Destroy(gameObject);
             }
         }
     }

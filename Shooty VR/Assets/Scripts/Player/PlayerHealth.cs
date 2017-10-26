@@ -22,7 +22,7 @@ namespace Hive.Armada.Player
     public class PlayerHealth : MonoBehaviour
     {
         public ShipController shipController;
-        public int maxHealth = 100;
+        public int maxHealth = 30;
         private int currentHealth;
         public bool isAlive { get; private set; }
         public GameObject fxHit, fxHurt, fxDead;

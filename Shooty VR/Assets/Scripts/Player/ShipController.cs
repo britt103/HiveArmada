@@ -24,7 +24,7 @@ namespace Hive.Armada.Player
     {
         //public enum Handedness { Left, Right };
         public enum ShipMode { Menu, Game };
-        public enum GunTypes { Lasers, Miniguns, Railguns, Launchers };
+        public enum GunTypes { Laser, Minigun, Plasma, RocketPod };
 
         //public Handedness currentHandGuess = Handedness.Left;
         //private float timeOfPossibleHandSwitch = 0f;
@@ -35,10 +35,10 @@ namespace Hive.Armada.Player
         public LaserSight laserSight;
         public GameObject lasers;
         private LaserGun laserGun;
-        public Transform pivotTransform;
+        //public Transform pivotTransform;
         public Hand hand { get; private set; }
 
-        public GunTypes currentGun = GunTypes.Lasers;
+        public GunTypes currentGun = GunTypes.Laser;
 
         // Gun base stats
         public const int LASER_BASE_DAMAGE = 10;

@@ -102,6 +102,9 @@ namespace Hive.Armada
         /// </summary>
         public void PrintStats()
         {
+            //totalFiringTime = Math.Round(totalFiringTime, 2);
+            //totalAliveTime = Math.Round(totalAliveTime, 2);
+
             String output = dateTime + "\n" +
                       "Waves Finished: " + waves + "\n" +
                       "Total Score: " + totalScore + "\n" +
@@ -126,8 +129,8 @@ namespace Hive.Armada
         /// </summary>
         public void PrintWaveStats()
         {
-            firingTime = (float)Math.Round(firingTime, 2);
-            aliveTime = (float)Math.Round(aliveTime, 2);
+            firingTime = Math.Round(firingTime, 2);
+            aliveTime = Math.Round(aliveTime, 2);
 
             String output = DateTime.Now.ToString() + "\n" +
                       "Wave: " + waves + "\n" +

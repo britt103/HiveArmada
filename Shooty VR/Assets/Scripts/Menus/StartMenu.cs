@@ -19,7 +19,7 @@ namespace Hive.Armada.Menu
     {
         public Spawner spawner;
         public GameObject[] countdownTimers;
-        public GameObject gameOver;
+        public GameObject gameOverGO;
         private bool isStarting;
 
         void Start()
@@ -28,6 +28,7 @@ namespace Hive.Armada.Menu
             {
                 countdownTimer.SetActive(false);
             }
+            gameOverGO.SetActive(false);
         }
 
         /// <summary>
@@ -104,7 +105,7 @@ namespace Hive.Armada.Menu
         /// <returns></returns>
         private IEnumerator Reload()
         {
-            gameOver.SetActive(true);
+            gameOverGO.SetActive(true);
             yield return new WaitForSeconds(3.0f);
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }

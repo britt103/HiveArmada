@@ -42,7 +42,6 @@ namespace Hive.Armada.Game
         private Coroutine waveSpawn;
 
         public GameObject waveCountGO;
-        public GameObject shipReminderGO;
         public GameObject winScreenGO;
 
         public int startWave;
@@ -54,7 +53,6 @@ namespace Hive.Armada.Game
             wave = startWave - 2;
 
             waveCountGO.SetActive(false);
-            shipReminderGO.SetActive(false);
             winScreenGO.SetActive(false);
 
             stats = FindObjectOfType<PlayerStats>();
@@ -67,13 +65,13 @@ namespace Hive.Armada.Game
 
         private IEnumerator WaveTimer()
         {
-            //remind player to pickup ship before wave starts
-            if (GameObject.Find("Player").GetComponentInChildren<Player.ShipController>() == null)
-            {
-                shipReminderGO.SetActive(true);
-                yield return new WaitWhile(() => (GameObject.Find("Player").GetComponentInChildren<Player.ShipController>() == null));
-                shipReminderGO.SetActive(false);
-            }
+            ////remind player to pickup ship before wave starts
+            //if (GameObject.Find("Player").GetComponentInChildren<Player.ShipController>() == null)
+            //{
+            //    shipReminderGO.SetActive(true);
+            //    yield return new WaitWhile(() => (GameObject.Find("Player").GetComponentInChildren<Player.ShipController>() == null));
+            //    shipReminderGO.SetActive(false);
+            //}
 
             while (wave <= 8)
             {

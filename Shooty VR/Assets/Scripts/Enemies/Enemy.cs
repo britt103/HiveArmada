@@ -69,16 +69,16 @@ namespace Hive.Armada.Enemies
         /// <param name="damage"> How much damage this enemy is taking. </param>
         public virtual void Hit(int damage)
         {
+            if (!hitFlashing)
+            {
+                StartCoroutine(HitFlash());
+            }
+
             health -= damage;
             if (health <= 0 && alive)
             {
                 alive = false;
                 Kill();
-            }
-
-            if (!hitFlashing)
-            {
-                StartCoroutine(HitFlash());
             }
 
             if (untouched)
@@ -134,10 +134,6 @@ namespace Hive.Armada.Enemies
 
             yield return new WaitForSeconds(.01f);
 
-            //if (health <= 0)
-            //{
-            //    Kill();
-            //}
             //gameObject.GetComponent<Renderer>().material = material;
 
             foreach (Renderer renderer in gameObject.GetComponentsInChildren<Renderer>())

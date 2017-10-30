@@ -166,6 +166,7 @@ namespace Hive.Armada.Player
         {
             shipMode = mode;
         }
+
         public IEnumerator DamageBoost()
         {
             laserGun.damageBoost = 2;

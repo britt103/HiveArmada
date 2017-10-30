@@ -53,7 +53,6 @@ namespace Hive.Armada.Enemies
         /// <summary>
         /// Shoots a projectile at the player.
         /// </summary>
-        /// <returns> Waits until the enemy can fire again </returns>
         private IEnumerator Shoot()
         {
             canShoot = false;

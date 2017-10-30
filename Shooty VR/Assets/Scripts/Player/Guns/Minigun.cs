@@ -32,7 +32,6 @@ namespace Hive.Armada.Player.Guns
         public float radius = 0.3f;
         private bool isLeftFire = true;
 
-
         void Start()
         {
             damage = shipController.laserDamage;
@@ -49,7 +48,6 @@ namespace Hive.Armada.Player.Guns
                 Clicked();
             }
         }
-
 
         /// <summary>
         /// Gets enemy or wall aimpoint and shoots at it.
@@ -89,7 +87,6 @@ namespace Hive.Armada.Player.Guns
         /// 
         /// </summary>
         /// <param name="target">  </param>
-        /// <returns>  </returns>
         private IEnumerator Shoot(Vector3 target)
         {
             canShoot = false;
@@ -104,6 +101,7 @@ namespace Hive.Armada.Player.Guns
             {
                 bullet.transform.position = right.transform.position;
             }
+
             if (bullet.GetComponentInChildren<MinigunBullet>() != null)
                 bullet.GetComponentInChildren<MinigunBullet>().hand = shipController.hand;
 

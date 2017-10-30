@@ -81,7 +81,6 @@ namespace Hive.Armada.Enemies
                     transform.position = posA;
                     perry = true;
                 }
-                gameObject.GetComponent<Renderer>().material = material;
                 yield return new WaitForSeconds(waitTime);
             }
         }

@@ -65,7 +65,6 @@ namespace Hive.Armada.Menu
         /// <summary>
         /// Changes countdown timer texts based on time, then starts spawner
         /// </summary>
-        /// <returns></returns>
         private IEnumerator Countdown()
         {
             GameObject.Find("Title").SetActive(false);
@@ -105,7 +104,6 @@ namespace Hive.Armada.Menu
         /// <summary>
         /// Activate game over text, reloads scene
         /// </summary>
-        /// <returns></returns>
         private IEnumerator Reload()
         {
             gameOver.SetActive(true);

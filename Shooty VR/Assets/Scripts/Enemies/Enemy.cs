@@ -30,7 +30,8 @@ namespace Hive.Armada.Enemies
         protected Material material;
         protected WaveManager waveManager;
         protected bool untouched = true;
-        protected bool hit = false;
+        protected bool hitFlashing = false;
+        protected bool alive = true;
         protected List<Material> mats;
 
         public AudioSource sfx;
@@ -68,9 +69,15 @@ namespace Hive.Armada.Enemies
         /// <param name="damage"> How much damage this enemy is taking. </param>
         public virtual void Hit(int damage)
         {
-            if (!hit)
+            health -= damage;
+            if (health <= 0 && alive)
             {
-                health -= damage;
+                alive = false;
+                Kill();
+            }
+
+            if (!hitFlashing)
+            {
                 StartCoroutine(HitFlash());
             }
 
@@ -111,7 +118,7 @@ namespace Hive.Armada.Enemies
         /// <returns>  </returns>
         protected virtual IEnumerator HitFlash()
         {
-            hit = true;
+            hitFlashing = true;
 
             //gameObject.GetComponent<Renderer>().material = flashColor;
 
@@ -127,10 +134,10 @@ namespace Hive.Armada.Enemies
 
             yield return new WaitForSeconds(.01f);
 
-            if (health <= 0)
-            {
-                Kill();
-            }
+            //if (health <= 0)
+            //{
+            //    Kill();
+            //}
             //gameObject.GetComponent<Renderer>().material = material;
 
             foreach (Renderer renderer in gameObject.GetComponentsInChildren<Renderer>())
@@ -142,7 +149,7 @@ namespace Hive.Armada.Enemies
                 mats.RemoveAt(0);
             }
 
-            hit = false;
+            hitFlashing = false;
         }
     }
 }

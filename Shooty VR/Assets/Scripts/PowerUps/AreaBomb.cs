@@ -42,30 +42,25 @@ namespace Hive.Armada
 
             if (hand.controller.GetPressDown(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad))
             {
-                Vector2 touchpad = hand.controller.GetAxis(Valve.VR.EVRButtonId.k_EButton_Axis0);
-
-                if (touchpad.y < -0.7)
+                if (released)
                 {
-                    if (released)
+                    // button-based detonation
+                    foreach (Collider objectCollider in Physics.OverlapSphere(transform.position, radius))
                     {
-                        // button-based detonation
-                        foreach (Collider objectCollider in Physics.OverlapSphere(transform.position, radius))
+                        if (objectCollider.gameObject.tag == "Enemy")
                         {
-                            if (objectCollider.gameObject.tag == "Enemy")
-                            {
-                                objectCollider.gameObject.GetComponent<Enemies.Enemy>().Hit(100);
-                            }
+                            objectCollider.gameObject.GetComponent<Enemies.Enemy>().Hit(100);
                         }
-                        Instantiate(fxBomb, transform.position, transform.rotation);
-                        Destroy(gameObject);
                     }
-                    else
-                    {
-                        GameObject.Find("Player").GetComponent<PowerUpStatus>().SetAreaBomb(false);
-                        gameObject.transform.parent = null;
-                        released = true;
-                        fxTrail.SetActive(true);
-                    }
+                    Instantiate(fxBomb, transform.position, transform.rotation);
+                    Destroy(gameObject);
+                }
+                else
+                {
+                    GameObject.Find("Player").GetComponent<PowerUpStatus>().SetAreaBomb(false);
+                    gameObject.transform.parent = null;
+                    released = true;
+                    fxTrail.SetActive(true);
                 }
             }
 

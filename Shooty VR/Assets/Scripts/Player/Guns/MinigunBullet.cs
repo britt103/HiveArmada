@@ -26,7 +26,7 @@ namespace Hive.Armada.Player.Guns
 
         void Start()
         {
-            Destroy(transform.parent.gameObject, lifetime);
+            Destroy(gameObject, lifetime);
         }
 
         void OnTriggerEnter(Collider other)
@@ -45,11 +45,11 @@ namespace Hive.Armada.Player.Guns
                     if (Utility.isDebug)
                         Debug.Log("[WARNING] GameObject tagged with \"Enemy\" does NOT have EnemyBasic.cs on it!");
                 }
-                Destroy(transform.parent.gameObject);
+                Destroy(gameObject);
             }
             else if (other.CompareTag("Room"))
             {
-                Destroy(transform.parent.gameObject);
+                Destroy(gameObject);
             }
         }
     }

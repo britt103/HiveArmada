@@ -34,7 +34,9 @@ namespace Hive.Armada.Player
         public ShipMode shipMode;
         public LaserSight laserSight;
         public GameObject lasers;
+        public GameObject miniguns;
         private LaserGun laserGun;
+        private Minigun minigun;
         //public Transform pivotTransform;
         public Hand hand { get; private set; }
 
@@ -95,6 +97,7 @@ namespace Hive.Armada.Player
 
             newPosesAppliedAction = SteamVR_Events.NewPosesAppliedAction(OnNewPosesApplied);
             laserGun = lasers.GetComponentInChildren<LaserGun>();
+            minigun = miniguns.GetComponentInChildren<Minigun>();
         }
 
         void OnEnable()
@@ -140,7 +143,22 @@ namespace Hive.Armada.Player
                 {
                     if (hand.GetStandardInteractionButton())
                     {
-                        laserGun.TriggerUpdate();
+                        switch (currentGun)
+                        {
+                            case GunTypes.Laser:
+                                laserGun.TriggerUpdate();
+                                break;
+                            case GunTypes.Minigun:
+                                minigun.TriggerUpdate();
+                                break;
+                            case GunTypes.Plasma:
+                                break;
+                            case GunTypes.RocketPod:
+                                break;
+                            default:
+                                Debug.LogWarning("ShipController - currentGun is invalid.");
+                                break;
+                        }
                     }
                 }
                 else if (!canShoot && hand.GetStandardInteractionButtonUp())

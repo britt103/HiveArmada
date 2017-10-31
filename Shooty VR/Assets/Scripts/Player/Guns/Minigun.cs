@@ -11,29 +11,86 @@
 //=============================================================================
 
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Hive.Armada;
 using Hive.Armada.Enemies;
-using System;
 using UnityEngine.Rendering;
-using Valve.VR;
-using UnityEngine.UI;
-using UnityEngine.EventSystems;
 
 namespace Hive.Armada.Player.Guns
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class Minigun : Gun
     {
-        public GameObject left;
-        public GameObject right;
-        public GameObject bulletPrefab;
-        public float bulletSpeed;
+        /// <summary>
+        /// Array of points where the left minigun can shoot from.
+        /// </summary>
+        [Tooltip("Points where the left minigun can shoot from.")]
+        public GameObject[] left;
+
+        /// <summary>
+        /// Array of points where the left minigun can shoot from.
+        /// </summary>
+        [Tooltip("Points where the right minigun can shoot from.")]
+        public GameObject[] right;
+
+        /// <summary>
+        /// The prefab to use for the projectile
+        /// </summary>
+        public GameObject projectilePrefab;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public float projectileSpeed;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [Tooltip("Radius for the aim assist SphereCast")]
         public float radius = 0.3f;
+
+        /// <summary>
+        /// 
+        /// </summary>
         private bool isLeftFire = true;
+
+        public LineRenderer[] leftTracers;
+        public LineRenderer[] rightTracers;
+        [Tooltip("View makes line face camera. Local makes the line face the direction of the transform component")]
+        public LineAlignment alignment;
+        public float thickness = 0.002f;
+        public ShadowCastingMode castShadows;
+        public bool receiveShadows = false;
+        public Material tracerMaterial;
 
         void Start()
         {
+            leftTracers = new LineRenderer[left.Length];
+            rightTracers = new LineRenderer[right.Length];
+
+            for (int i = 0; i < left.Length; ++i)
+            {
+                leftTracers[i] = left[i].AddComponent<LineRenderer>();
+                leftTracers[i].material = tracerMaterial;
+                leftTracers[i].shadowCastingMode = castShadows;
+                leftTracers[i].receiveShadows = receiveShadows;
+                leftTracers[i].alignment = alignment;
+                leftTracers[i].startWidth = thickness;
+                leftTracers[i].endWidth = thickness;
+                leftTracers[i].enabled = false;
+
+                rightTracers[i] = right[i].AddComponent<LineRenderer>();
+                rightTracers[i].material = tracerMaterial;
+                rightTracers[i].shadowCastingMode = castShadows;
+                rightTracers[i].receiveShadows = receiveShadows;
+                rightTracers[i].alignment = alignment;
+                rightTracers[i].startWidth = thickness;
+                rightTracers[i].endWidth = thickness;
+                rightTracers[i].enabled = false;
+            }
+
             damage = shipController.laserDamage;
             fireRate = shipController.laserFireRate;
         }
@@ -91,25 +148,26 @@ namespace Hive.Armada.Player.Guns
         {
             canShoot = false;
 
-            GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+            GameObject bullet = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
 
             if (isLeftFire)
             {
-                bullet.transform.position = left.transform.position;
+                bullet.transform.position = left[Random.Range(0, left.Length)].transform.position;
             }
             else
             {
-                bullet.transform.position = right.transform.position;
+                bullet.transform.position = right[Random.Range(0, left.Length)].transform.position;
             }
 
             if (bullet.GetComponentInChildren<MinigunBullet>() != null)
                 bullet.GetComponentInChildren<MinigunBullet>().hand = shipController.hand;
 
+            bullet.GetComponent<MinigunBullet>().damage = shipController.minigunDamage;
             bullet.transform.LookAt(target);
 
             if (bullet.GetComponentInChildren<Rigidbody>() != null)
             {
-                bullet.GetComponentInChildren<Rigidbody>().velocity = bullet.transform.forward * bulletSpeed;
+                bullet.GetComponentInChildren<Rigidbody>().velocity = bullet.transform.forward * projectileSpeed;
             }
 
             yield return new WaitForSeconds(1.0f / fireRate);

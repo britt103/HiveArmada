@@ -2143,6 +2143,7 @@ MonoBehaviour:
   shipMode: 0
   laserSight: {fileID: 0}
   lasers: {fileID: 1069017860}
+  miniguns: {fileID: 0}
   currentGun: 0
   laserDamage: 10
   laserFireRate: 10
@@ -9367,6 +9368,10 @@ Prefab:
     - target: {fileID: 4508893774885148, guid: befb6c32ad7bfb9489aaf926a08bd52e, type: 2}
       propertyPath: m_RootOrder
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1260673260181382, guid: befb6c32ad7bfb9489aaf926a08bd52e, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: befb6c32ad7bfb9489aaf926a08bd52e, type: 2}

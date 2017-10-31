@@ -82,8 +82,6 @@ namespace Hive.Armada.Player
                 if (renderer.material.name.Equals("Laser Sight") || renderer.material.name.Equals("Laser Gun"))
                     continue;
 
-                Debug.Log(renderer.material.name);
-
                 mats.Add(renderer.material);
 
                 renderer.material = flashColor;

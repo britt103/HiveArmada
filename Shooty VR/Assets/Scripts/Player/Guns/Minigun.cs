@@ -66,8 +66,12 @@ namespace Hive.Armada.Player.Guns
         public float thickness = 0.002f;
         public Material tracerMaterial;
 
+        public int tracerFrequency = 7;
+
         private bool leftSpark = true;
-        private bool rightSpark = false;
+        private bool rightSpark;
+        private int leftTracer = 7;
+        private int rightTracer = 1;
 
         /// <summary>
         /// Initializes variables
@@ -159,35 +163,24 @@ namespace Hive.Armada.Player.Guns
         {
             canShoot = false;
 
-            //GameObject bullet = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
-
-            //if (isLeftFire)
-            //{
-            //    bullet.transform.position = left[Random.Range(0, left.Length)].transform.position;
-            //}
-            //else
-            //{
-            //    bullet.transform.position = right[Random.Range(0, left.Length)].transform.position;
-            //}
-
-            //if (bullet.GetComponentInChildren<MinigunBullet>() != null)
-            //    bullet.GetComponentInChildren<MinigunBullet>().hand = shipController.hand;
-
-            //bullet.GetComponent<MinigunBullet>().damage = shipController.minigunDamage;
-            //bullet.transform.LookAt(target);
-
-            //if (bullet.GetComponentInChildren<Rigidbody>() != null)
-            //{
-            //    bullet.GetComponentInChildren<Rigidbody>().velocity = bullet.transform.forward * projectileSpeed;
-            //}
-
             if (isLeftFire)
             {
                 // left[Random.Range(0, left.Length)].transform.position;
                 // do muzzle flash
+
+                // do tracer
+                if (--leftTracer <= 0)
+                {
+                    StartCoroutine(Tracer(left[0], position));
+
+                    if (leftTracer < 0)
+                        leftTracer = tracerFrequency;
+                }
+
+                // do hit spark
                 if (leftSpark)
                 {
-                    StartCoroutine(HitSpark(target, 0.1f));
+                    StartCoroutine(HitSpark(target, CalculateDelay(target, position)));
                 }
 
                 leftSpark = !leftSpark;
@@ -196,9 +189,20 @@ namespace Hive.Armada.Player.Guns
             {
                 // right[Random.Range(0, right.Length)].transform.position;
                 // do muzzle flash
+
+                // do tracer
+                if (--rightTracer <= 0)
+                {
+                    StartCoroutine(Tracer(right[0], position));
+
+                    if (rightTracer < 0)
+                        rightTracer = tracerFrequency;
+                }
+
+                // do hit spark
                 if (rightSpark)
                 {
-                    // do hit spark
+                    StartCoroutine(HitSpark(target, CalculateDelay(target, position)));
                 }
 
                 rightSpark = !rightSpark;
@@ -214,8 +218,10 @@ namespace Hive.Armada.Player.Guns
         /// Calculates the delay for a "bullet" to "travel"
         /// from the minigun to the target enemy.
         /// </summary>
-        /// <returns></returns>
-        private float CalculateDelay()
+        /// <param name="target"> The GameObject being shot </param>
+        /// <param name="position"> The position of the shot </param>
+        /// <returns> How long it will take for the "bullet" to hit the target </returns>
+        private float CalculateDelay(GameObject target, Vector3 position)
         {
             return 0.0f;
         }

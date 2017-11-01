@@ -20,11 +20,6 @@ namespace Hive.Armada.Menu
         public Spawner spawner;
         private bool isStarting;
 
-        void Start()
-        {
- 
-        }
-
         /// <summary>
         /// Called by start button; changes ship mode and starts countdown
         /// </summary>

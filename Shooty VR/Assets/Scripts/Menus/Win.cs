@@ -14,24 +14,18 @@ namespace Hive.Armada
 {
     public class Win : MonoBehaviour
     {
-
-        // Use this for initialization
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
-
+        /// <summary>
+        /// Run when activated
+        /// </summary>
         private void Awake()
         {
             StartCoroutine(Run());
         }
 
+        /// <summary>
+        /// Call stats printing, reloads scene
+        /// </summary>
+        /// <returns></returns>
         private IEnumerator Run()
         {
             yield return new WaitForSeconds(3);

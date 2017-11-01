@@ -10,17 +10,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class LexiconMenu : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
+    /// <summary>
+    /// Back button pressed; navigated to options menu
+    /// </summary>
     public void OnBackButton()
     {
         GameObject.Find("Main Canvas").transform.Find("Options Menu").gameObject.SetActive(true);

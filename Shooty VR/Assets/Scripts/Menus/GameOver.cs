@@ -14,19 +14,6 @@ namespace Hive.Armada
 {
     public class GameOver : MonoBehaviour
     {
-
-        // Use this for initialization
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
-
         /// <summary>
         /// Triggers gameover/reload process
         /// </summary>
@@ -46,12 +33,18 @@ namespace Hive.Armada
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
+        /// <summary>
+        /// Restart button pressed; navigates to start menu
+        /// </summary>
         public void OnRestartButton()
         {
             GameObject.Find("Main Canvas").transform.Find("Start Menu").gameObject.SetActive(true);
             gameObject.SetActive(false);
         }
 
+        /// <summary>
+        /// Quit to main menu button pressed; navigated to main manu
+        /// </summary>
         public void OnQuitMainMenuButton()
         {
             GameObject.Find("Main Canvas").transform.Find("Main Menu").gameObject.SetActive(true);

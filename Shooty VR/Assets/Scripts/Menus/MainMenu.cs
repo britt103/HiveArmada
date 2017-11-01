@@ -10,29 +10,27 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MainMenu : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
+    /// <summary>
+    /// Start button pressed; navigated to start menu
+    /// </summary>
     public void OnStartButton()
     {
         GameObject.Find("Main Canvas").transform.Find("Start Menu").gameObject.SetActive(true);
         gameObject.SetActive(false);
     }
 
+    /// <summary>
+    /// Options button pressed; navigate to options menu
+    /// </summary>
     public void OnOptionsButton()
     {
         GameObject.Find("Main Canvas").transform.Find("Options Menu").gameObject.SetActive(true);
         gameObject.SetActive(false);
     }
 
+    /// <summary>
+    /// Quit button pressed; exits application
+    /// </summary>
     public void OnQuitButton()
     {
         

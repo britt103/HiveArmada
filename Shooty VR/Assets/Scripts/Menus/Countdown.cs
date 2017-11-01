@@ -13,18 +13,10 @@ using UnityEngine.UI;
 public class Countdown : MonoBehaviour
 {
     public Text countdownText;
-    // Use this for initialization
-    void Start()
-    {
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
+    /// <summary>
+    /// Run when activated
+    /// </summary>
     private void Awake()
     {
         StartCoroutine(Run());

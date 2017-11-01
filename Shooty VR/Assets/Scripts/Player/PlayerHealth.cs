@@ -55,7 +55,7 @@ namespace Hive.Armada.Player
                 if (shipController != null)
                 {
                     Instantiate(fxDead, transform.position, transform.rotation);
-                    FindObjectOfType<StartMenu>().GameOver();
+                    GameObject.Find("Main Canvas").transform.Find("Game Over").gameObject.SetActive(true);
                     shipController.hand.DetachObject(gameObject);
                 }
             }

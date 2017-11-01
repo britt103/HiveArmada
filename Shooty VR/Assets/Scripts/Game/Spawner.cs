@@ -225,7 +225,8 @@ namespace Hive.Armada.Game
 
             if (wave == 9)
             {
-                StartCoroutine(Win());
+                //StartCoroutine(Win());
+                GameObject.Find("Main Canvas").transform.Find("Winner!").gameObject.SetActive(true);
             }
         }
 
@@ -295,14 +296,6 @@ namespace Hive.Armada.Game
             }
 
             canSpawnPowerup = true;
-        }
-
-        private IEnumerator Win()
-        {
-            winScreenGO.SetActive(true);
-            yield return new WaitForSeconds(3);
-            FindObjectOfType<PlayerStats>().PrintStats();
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 }

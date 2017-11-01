@@ -80,6 +80,9 @@ namespace Hive.Armada.Player
             {
                 pickup.SetActive(false);
             }
+
+            GameObject.Find("Main Canvas").transform.Find("Title").gameObject.SetActive(false);
+            GameObject.Find("Main Canvas").transform.Find("Main Menu").gameObject.SetActive(true);
         }
 
         void Awake()
@@ -146,6 +149,11 @@ namespace Hive.Armada.Player
                 else if (!canShoot && hand.GetStandardInteractionButtonUp())
                 {
                     canShoot = true;
+                }
+
+                if (hand.controller.GetPressDown(Valve.VR.EVRButtonId.k_EButton_ApplicationMenu))
+                {
+                    GameObject.Find("Main Canvas").transform.Find("Paused Menu").gameObject.SetActive(true);
                 }
             }
             else if (shipMode.Equals(ShipMode.Menu))

@@ -28,6 +28,10 @@ namespace Hive.Armada.Player.Guns
     /// </summary>
     public class Minigun : Gun
     {
+        public GameObject tracerPrefab;
+        public GameObject hitSparkPrefab;
+        public GameObject muzzleFlashPrefab;
+
         /// <summary>
         /// Array of points where the left minigun can shoot from.
         /// </summary>
@@ -61,10 +65,12 @@ namespace Hive.Armada.Player.Guns
         /// </summary>
         private bool isLeftFire = true;
 
-        private LineRenderer[] leftTracers;
-        private LineRenderer[] rightTracers;
-        public float thickness = 0.002f;
-        public Material tracerMaterial;
+        //private LineRenderer[] leftTracers;
+        //private LineRenderer[] rightTracers;
+        //public float thickness = 0.002f;
+        //public Material tracerMaterial;
+
+        private GameObject[] tracers;
 
         public int tracerFrequency = 7;
 
@@ -72,35 +78,36 @@ namespace Hive.Armada.Player.Guns
         private bool rightSpark;
         private int leftTracer = 7;
         private int rightTracer = 1;
+        private float tracerSpeed = 100.0f;
 
         /// <summary>
         /// Initializes variables
         /// </summary>
         void Start()
         {
-            leftTracers = new LineRenderer[left.Length];
-            rightTracers = new LineRenderer[right.Length];
+            //leftTracers = new LineRenderer[left.Length];
+            //rightTracers = new LineRenderer[right.Length];
 
-            for (int i = 0; i < left.Length; ++i)
-            {
-                leftTracers[i] = left[i].AddComponent<LineRenderer>();
-                leftTracers[i].material = tracerMaterial;
-                leftTracers[i].shadowCastingMode = ShadowCastingMode.Off;
-                leftTracers[i].receiveShadows = false;
-                leftTracers[i].alignment = LineAlignment.View;
-                leftTracers[i].startWidth = thickness;
-                leftTracers[i].endWidth = thickness;
-                leftTracers[i].enabled = false;
+            //for (int i = 0; i < left.Length; ++i)
+            //{
+            //    leftTracers[i] = left[i].AddComponent<LineRenderer>();
+            //    leftTracers[i].material = tracerMaterial;
+            //    leftTracers[i].shadowCastingMode = ShadowCastingMode.Off;
+            //    leftTracers[i].receiveShadows = false;
+            //    leftTracers[i].alignment = LineAlignment.View;
+            //    leftTracers[i].startWidth = thickness;
+            //    leftTracers[i].endWidth = thickness;
+            //    leftTracers[i].enabled = false;
 
-                rightTracers[i] = right[i].AddComponent<LineRenderer>();
-                rightTracers[i].material = tracerMaterial;
-                rightTracers[i].shadowCastingMode = ShadowCastingMode.Off;
-                rightTracers[i].receiveShadows = false;
-                rightTracers[i].alignment = LineAlignment.View;
-                rightTracers[i].startWidth = thickness;
-                rightTracers[i].endWidth = thickness;
-                rightTracers[i].enabled = false;
-            }
+            //    rightTracers[i] = right[i].AddComponent<LineRenderer>();
+            //    rightTracers[i].material = tracerMaterial;
+            //    rightTracers[i].shadowCastingMode = ShadowCastingMode.Off;
+            //    rightTracers[i].receiveShadows = false;
+            //    rightTracers[i].alignment = LineAlignment.View;
+            //    rightTracers[i].startWidth = thickness;
+            //    rightTracers[i].endWidth = thickness;
+            //    rightTracers[i].enabled = false;
+            //}
 
             damage = shipController.laserDamage;
             fireRate = shipController.laserFireRate;
@@ -166,12 +173,15 @@ namespace Hive.Armada.Player.Guns
             if (isLeftFire)
             {
                 // left[Random.Range(0, left.Length)].transform.position;
+                GameObject barrel = left[Random.Range(0, left.Length)];
+
                 // do muzzle flash
+                Instantiate(muzzleFlashPrefab, barrel.transform);
 
                 // do tracer
                 if (--leftTracer <= 0)
                 {
-                    StartCoroutine(Tracer(left[0], position));
+                    StartCoroutine(Tracer(barrel, position));
 
                     if (leftTracer < 0)
                         leftTracer = tracerFrequency;
@@ -180,7 +190,7 @@ namespace Hive.Armada.Player.Guns
                 // do hit spark
                 if (leftSpark)
                 {
-                    StartCoroutine(HitSpark(target, CalculateDelay(target, position)));
+                    StartCoroutine(HitSpark(target, position, CalculateDelay(position)));
                 }
 
                 leftSpark = !leftSpark;
@@ -188,12 +198,15 @@ namespace Hive.Armada.Player.Guns
             else
             {
                 // right[Random.Range(0, right.Length)].transform.position;
+                GameObject barrel = right[Random.Range(0, left.Length)];
+
                 // do muzzle flash
+                Instantiate(muzzleFlashPrefab, barrel.transform);
 
                 // do tracer
                 if (--rightTracer <= 0)
                 {
-                    StartCoroutine(Tracer(right[0], position));
+                    StartCoroutine(Tracer(barrel, position));
 
                     if (rightTracer < 0)
                         rightTracer = tracerFrequency;
@@ -202,7 +215,7 @@ namespace Hive.Armada.Player.Guns
                 // do hit spark
                 if (rightSpark)
                 {
-                    StartCoroutine(HitSpark(target, CalculateDelay(target, position)));
+                    StartCoroutine(HitSpark(target, position, CalculateDelay(position)));
                 }
 
                 rightSpark = !rightSpark;
@@ -218,24 +231,35 @@ namespace Hive.Armada.Player.Guns
         /// Calculates the delay for a "bullet" to "travel"
         /// from the minigun to the target enemy.
         /// </summary>
-        /// <param name="target"> The GameObject being shot </param>
         /// <param name="position"> The position of the shot </param>
         /// <returns> How long it will take for the "bullet" to hit the target </returns>
-        private float CalculateDelay(GameObject target, Vector3 position)
+        private float CalculateDelay(Vector3 position)
         {
-            return 0.0f;
+            float distance = Vector3.Distance(shipController.gameObject.transform.position, position);
+
+            return distance/tracerSpeed;
         }
 
         /// <summary>
         /// Spawns a hit spark on target after a delay to emulate bullet travel.
         /// </summary>
         /// <param name="target"> The GameObject that is being hit </param>
+        /// <param name="position"> The position of the hit </param>
         /// <param name="delay"> How long to wait before spawning the hit spark </param>
-        private IEnumerator HitSpark(GameObject target, float delay)
+        private IEnumerator HitSpark(GameObject target, Vector3 position, float delay)
         {
             yield return new WaitForSeconds(delay);
 
-            // spawn the spark on target
+            Instantiate(hitSparkPrefab, position, Quaternion.identity, target.transform);
+
+            //if (target.CompareTag("Enemy"))
+            //{
+            //    Instantiate(hitSparkPrefab, position, Quaternion.identity, target.transform);
+            //}
+            //else if (target.CompareTag("Room"))
+            //{
+            //    Instantiate(hitSparkPrefab, position, Quaternion.identity, target.transform);
+            //}
         }
 
         /// <summary>
@@ -245,7 +269,12 @@ namespace Hive.Armada.Player.Guns
         /// <param name="target"> Where to aim the tracer </param>
         private IEnumerator Tracer(GameObject barrel, Vector3 target)
         {
+            // Enable tracer
+
+            // wait however long the tracer takes
             yield return new WaitForSeconds(0.1f);
+
+            // Disable tracer
         }
     }
 }

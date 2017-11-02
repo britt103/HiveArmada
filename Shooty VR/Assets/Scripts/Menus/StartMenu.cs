@@ -48,5 +48,14 @@ namespace Hive.Armada.Menu
                 }  
             }
         }
+
+        /// <summary>
+        /// Back button pressed; navigates to main menu
+        /// </summary>
+        public void OnBackButton()
+        {
+            GameObject.Find("Main Canvas").transform.Find("Main Menu").gameObject.SetActive(true);
+            gameObject.SetActive(false);
+        }
     }
 }

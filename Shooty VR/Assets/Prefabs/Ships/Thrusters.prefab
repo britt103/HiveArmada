@@ -5698,6 +5698,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shipController: {fileID: 114387485106083888}
+  tracerPrefab: {fileID: 0}
+  hitSparkPrefab: {fileID: 0}
+  muzzleFlashPrefab: {fileID: 0}
   left:
   - {fileID: 1374893109327928}
   - {fileID: 1174810512116378}
@@ -5712,6 +5715,8 @@ MonoBehaviour:
     type: 2}
   projectileSpeed: 100
   radius: 0.3
+  tracerPoolCount: 20
+  tracerFrequency: 7
 --- !u!136 &136807103204981110
 CapsuleCollider:
   m_ObjectHideFlags: 1

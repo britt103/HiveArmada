@@ -20,6 +20,8 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using Hive.Armada;
 using Hive.Armada.Enemies;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Hive.Armada.Player.Guns
 {
@@ -70,8 +72,9 @@ namespace Hive.Armada.Player.Guns
         //public float thickness = 0.002f;
         //public Material tracerMaterial;
 
-        private GameObject[] tracers;
-
+        private List<GameObject> tracers;
+        private List<GameObject> activeTracers;
+        public int tracerPoolCount;
         public int tracerFrequency = 7;
 
         private bool leftSpark = true;
@@ -111,6 +114,18 @@ namespace Hive.Armada.Player.Guns
 
             damage = shipController.laserDamage;
             fireRate = shipController.laserFireRate;
+        }
+
+        void Awake()
+        {
+            tracers = new List<GameObject>();
+            activeTracers = new List<GameObject>();
+
+            for (int i = 0; i < tracerPoolCount; ++i)
+            {
+                tracers.Add(Instantiate(tracerPrefab, gameObject.transform));
+                tracers.Last().SetActive(false);
+            }
         }
 
         /// <summary>

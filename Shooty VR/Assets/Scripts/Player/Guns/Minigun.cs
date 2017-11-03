@@ -112,8 +112,8 @@ namespace Hive.Armada.Player.Guns
             //    rightTracers[i].enabled = false;
             //}
 
-            damage = shipController.laserDamage;
-            fireRate = shipController.laserFireRate;
+            damage = shipController.minigunDamage;
+            fireRate = shipController.minigunFireRate;
         }
 
         void Awake()
@@ -133,8 +133,11 @@ namespace Hive.Armada.Player.Guns
         /// </summary>
         public override void TriggerUpdate()
         {
+
             if (canShoot)
             {
+                tracers.First().GetComponent<ParticleSystem>().Clear();
+                tracers.First().GetComponent<ParticleSystem>().Play();
                 Clicked();
             }
         }
@@ -147,7 +150,7 @@ namespace Hive.Armada.Player.Guns
             RaycastHit hit;
             if (Physics.SphereCast(transform.position, radius, transform.forward, out hit, 200.0f, Utility.enemyMask))
             {
-                StartCoroutine(Shoot(hit.collider.gameObject, hit.collider.gameObject.transform.position));
+                StartCoroutine(Shoot(hit.collider.gameObject, hit.point));
 
                 if (hit.collider.gameObject.GetComponent<Enemy>() != null)
                 {
@@ -191,7 +194,7 @@ namespace Hive.Armada.Player.Guns
                 GameObject barrel = left[Random.Range(0, left.Length)];
 
                 // do muzzle flash
-                Instantiate(muzzleFlashPrefab, barrel.transform);
+                //Instantiate(muzzleFlashPrefab, barrel.transform);
 
                 // do tracer
                 if (--leftTracer <= 0)
@@ -203,12 +206,12 @@ namespace Hive.Armada.Player.Guns
                 }
 
                 // do hit spark
-                if (leftSpark)
+                if (leftSpark && target.CompareTag("Enemy"))
                 {
                     StartCoroutine(HitSpark(target, position, CalculateDelay(position)));
                 }
 
-                leftSpark = !leftSpark;
+                //leftSpark = !leftSpark;
             }
             else
             {
@@ -216,7 +219,7 @@ namespace Hive.Armada.Player.Guns
                 GameObject barrel = right[Random.Range(0, left.Length)];
 
                 // do muzzle flash
-                Instantiate(muzzleFlashPrefab, barrel.transform);
+                //Instantiate(muzzleFlashPrefab, barrel.transform);
 
                 // do tracer
                 if (--rightTracer <= 0)
@@ -228,12 +231,12 @@ namespace Hive.Armada.Player.Guns
                 }
 
                 // do hit spark
-                if (rightSpark)
+                if (rightSpark && target.CompareTag("Enemy"))
                 {
                     StartCoroutine(HitSpark(target, position, CalculateDelay(position)));
                 }
 
-                rightSpark = !rightSpark;
+                //rightSpark = !rightSpark;
             }
 
             yield return new WaitForSeconds(1.0f / fireRate);
@@ -265,7 +268,8 @@ namespace Hive.Armada.Player.Guns
         {
             yield return new WaitForSeconds(delay);
 
-            Instantiate(hitSparkPrefab, position, Quaternion.identity, target.transform);
+            GameObject spark = Instantiate(hitSparkPrefab, position, Quaternion.identity, target.transform);
+            spark.transform.Rotate(0.0f, 180.0f, 0.0f);
 
             //if (target.CompareTag("Enemy"))
             //{

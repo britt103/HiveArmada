@@ -161,7 +161,9 @@ namespace Hive.Armada.Player
             else if (shipMode.Equals(ShipMode.Menu))
             {
                 if (hand.GetStandardInteractionButtonDown())
+                {
                     laserSight.TriggerUpdate();
+                }
             }
 
             //// Update handedness guess

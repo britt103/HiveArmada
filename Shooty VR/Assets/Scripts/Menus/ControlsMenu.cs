@@ -10,6 +10,20 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ControlsMenu : MonoBehaviour {
+    private ControlsHighlighter[] chs;
+
+    /// <summary>
+    /// Activate controller highlighting
+    /// </summary>
+    private void Awake()
+    {
+        chs = FindObjectsOfType<ControlsHighlighter>();
+        foreach(ControlsHighlighter ch in chs)
+        {
+            ch.TriggerOn();
+            ch.AreaBombOn();
+        }
+    }
 
     /// <summary>
     /// Back button pressed; navigates to options menu
@@ -17,6 +31,12 @@ public class ControlsMenu : MonoBehaviour {
     public void OnBackButton()
     {
         GameObject.Find("Main Canvas").transform.Find("Options Menu").gameObject.SetActive(true);
+
+        foreach (ControlsHighlighter ch in chs)
+        {
+            ch.AllOff();
+        }
+
         gameObject.SetActive(false);
     }
 }

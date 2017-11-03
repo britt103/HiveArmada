@@ -127,6 +127,8 @@ namespace Hive.Armada.Player.Guns
                 {
                     hit.collider.gameObject.GetComponent<Enemy>().Hit(damage);
                 }
+
+                shipController.hand.controller.TriggerHapticPulse(2500);
             }
             else if (Physics.Raycast(transform.position, transform.forward, out hit, 200.0f, Utility.roomMask))
             {
@@ -186,7 +188,7 @@ namespace Hive.Armada.Player.Guns
             if (target.CompareTag("Enemy"))
             {
                 //StartCoroutine(HitSpark(position, CalculateDelay(position)));
-                StartCoroutine(HitSpark(position));
+                HitSpark(position);
             }
 
             yield return new WaitForSeconds(1.0f / fireRate);

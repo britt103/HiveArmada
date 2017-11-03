@@ -17,7 +17,7 @@ namespace Hive.Armada
         {
             //hand = gameObject.GetComponentInParent<Hand>();
             StartCoroutine(GameObject.FindGameObjectWithTag("Player").GetComponent<ShipController>().DamageBoost());
-            GameObject.Find("Player").GetComponent<PowerUpStatus>().SetDamageBoost(false);
+            //GameObject.Find("Player").GetComponent<PowerUpStatus>().SetDamageBoost(false);
             Destroy(gameObject);
 
         }

@@ -49,6 +49,7 @@ namespace Hive.Armada.Menu
                 if (spawner != null)
                 {
                     gameObject.GetComponentInChildren<Button>().enabled = false;
+                    FindObjectOfType<PowerUpStatus>().BeginTracking();
                     StartCoroutine(Countdown());
                 }
                 else

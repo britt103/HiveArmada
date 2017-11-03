@@ -6,6 +6,7 @@
 //Purpose: Tracks powerups in use
 
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace Hive.Armada
 {
@@ -16,8 +17,13 @@ namespace Hive.Armada
         private bool clearState = false;
         private bool allyState = false;
         private bool damageBoostState = false;
+        private Queue<GameObject> powerups = new Queue<GameObject>();
 
         private PlayerStats stats;
+
+        private Valve.VR.InteractionSystem.Hand hand;
+
+        public bool tracking = false;
 
         // Use this for initialization
         void Start()
@@ -26,10 +32,43 @@ namespace Hive.Armada
         }
 
         //// Update is called once per frame
-        //void Update()
-        //{
+        void Update()
+        {
+            //Debug.Log(tracking);
 
-        //}
+            if (tracking)
+            {
+                if (hand.controller.GetPressDown(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad) && powerups.Count > 0)
+                {
+                    GameObject powerup = powerups.Dequeue();
+
+                    switch (powerup.name)
+                    {
+                        case "Shield":
+                            shieldState = false;
+                            break;
+
+                        case "Area Bomb":
+                            areaBombState = false;
+                            break;
+
+                        case "Clear":
+                            clearState = false;
+                            break;
+
+                        case "Ally":
+                            allyState = false;
+                            break;
+
+                        case "Damage Boost":
+                            damageBoostState = false;
+                            break;
+                    }
+
+                    Instantiate(powerup, gameObject.GetComponentInChildren<Player.ShipController>().transform.Find("Thrusters").transform);
+                }
+            }
+        }
 
         public bool GetShield()
         {
@@ -98,6 +137,17 @@ namespace Hive.Armada
                 stats.DamageBoostCount();
             }
             damageBoostState = newState;
+        }
+
+        public void BeginTracking()
+        {
+            tracking = true;
+            hand = FindObjectOfType<Player.ShipController>().GetComponentInParent<Valve.VR.InteractionSystem.Hand>();
+        }
+
+        public void StorePowerup(GameObject powerupPrefab)
+        {
+            powerups.Enqueue(powerupPrefab);
         }
     }
 }

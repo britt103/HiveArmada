@@ -14,12 +14,13 @@ namespace Hive.Armada
     {
         //prefab to use for instantiation
         public GameObject powerUpPrefab;
-        //public GameObject fxAlly;
+        public GameObject fxAwake;
         private PowerUpStatus status;
-        private float lifeTime = 10.0f;
+        public float lifeTime = 20.0f;
 
         private void Start()
         {
+            Instantiate(fxAwake, transform.position, transform.rotation);
             status = GameObject.Find("Player").GetComponent<PowerUpStatus>();
             Destroy(gameObject, lifeTime);
         }
@@ -37,16 +38,16 @@ namespace Hive.Armada
                     case "Shield":
                         if (!status.GetShield())
                         {
-                            Instantiate(powerUpPrefab, other.gameObject.transform.Find("Thrusters").transform);
+                            status.StorePowerup(powerUpPrefab);
                             status.SetShield(true);
                             Destroy(gameObject);
                         }
                         break;
 
                     case "Area Bomb":
-                        if (!status.GetAreaBomb() && !status.GetClear())
+                        if (!status.GetAreaBomb())
                         {
-                            Instantiate(powerUpPrefab, other.gameObject.transform.Find("BombPoint").transform);
+                            status.StorePowerup(powerUpPrefab);
                             status.SetAreaBomb(true);
                             Destroy(gameObject);
 
@@ -54,9 +55,9 @@ namespace Hive.Armada
                         break;
 
                     case "Clear":
-                        if (!status.GetClear() && !status.GetAreaBomb())
+                        if (!status.GetClear())
                         {
-                            Instantiate(powerUpPrefab, other.gameObject.transform.Find("BombPoint").transform);
+                            status.StorePowerup(powerUpPrefab);
                             status.SetClear(true);
                             Destroy(gameObject);
                         }
@@ -65,9 +66,7 @@ namespace Hive.Armada
                     case "Ally":
                         if (!status.GetAlly())
                         {
-                            
-                            Instantiate(powerUpPrefab, other.gameObject.transform.Find("Thrusters").transform);
-                            //Instantiate(fxAlly, other.gameObject.transform.Find("Ally").transform);
+                            status.StorePowerup(powerUpPrefab);
                             status.SetAlly(true);
                             Destroy(gameObject);
                         }
@@ -75,7 +74,7 @@ namespace Hive.Armada
                     case "Damage Boost":
                         if (!status.GetDamageBoost())
                         {
-                            Instantiate(powerUpPrefab, other.gameObject.transform.Find("Thrusters").transform);
+                            status.StorePowerup(powerUpPrefab);
                             status.SetDamageBoost(true);
                             Destroy(gameObject);
                         }
@@ -84,5 +83,4 @@ namespace Hive.Armada
             }
         }
     }
-
 }

@@ -245,8 +245,9 @@ namespace Hive.Armada.Player.Guns
             activeTracers.Add(tracer);
 
             // Enable tracer
-            tracer.transform.position = barrel.transform.position;
-            tracer.transform.rotation = barrel.transform.rotation;
+            tracer.transform.position = barrel.transform.position + barrel.transform.forward * - 0.3f;
+            //tracer.transform.rotation = barrel.transform.rotation;
+            tracer.transform.LookAt(target);
             tracer.SetActive(true);
 
             try

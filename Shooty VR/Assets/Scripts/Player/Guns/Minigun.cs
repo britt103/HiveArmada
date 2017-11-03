@@ -15,6 +15,7 @@
 // 
 //=============================================================================
 
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -67,11 +68,6 @@ namespace Hive.Armada.Player.Guns
         /// </summary>
         private bool isLeftFire = true;
 
-        //private LineRenderer[] leftTracers;
-        //private LineRenderer[] rightTracers;
-        //public float thickness = 0.002f;
-        //public Material tracerMaterial;
-
         private List<GameObject> tracers;
         private List<GameObject> activeTracers;
         public int tracerPoolCount;
@@ -90,6 +86,9 @@ namespace Hive.Armada.Player.Guns
             fireRate = shipController.minigunFireRate;
         }
 
+        /// <summary>
+        /// Initializes the tracer pool
+        /// </summary>
         void Awake()
         {
             tracers = new List<GameObject>();
@@ -97,7 +96,7 @@ namespace Hive.Armada.Player.Guns
 
             for (int i = 0; i < tracerPoolCount; ++i)
             {
-                tracers.Add(Instantiate(tracerPrefab, gameObject.transform));
+                tracers.Add(Instantiate(tracerPrefab, new Vector3(0.0f, -100.0f, 0.0f), Quaternion.identity));
                 tracers.Last().SetActive(false);
             }
         }
@@ -110,8 +109,6 @@ namespace Hive.Armada.Player.Guns
 
             if (canShoot)
             {
-                tracers.First().GetComponent<ParticleSystem>().Clear();
-                tracers.First().GetComponent<ParticleSystem>().Play();
                 Clicked();
             }
         }
@@ -131,18 +128,6 @@ namespace Hive.Armada.Player.Guns
                     hit.collider.gameObject.GetComponent<Enemy>().Hit(damage);
                 }
             }
-
-            //else if (Physics.SphereCast(transform.position, radius, transform.forward, out hit, 200.0F, Utility.uiMask))
-            //{
-            //    StartCoroutine(Shoot(hit.collider.gameObject.transform.position, hit.collider.gameObject));
-            //    if (hit.collider.gameObject.GetComponent<ShootableUI>() != null)
-            //    {
-            //        hit.collider.gameObject.GetComponent<ShootableUI>().shot();
-            //    }
-
-            //}
-
-
             else if (Physics.Raycast(transform.position, transform.forward, out hit, 200.0f, Utility.roomMask))
             {
                 StartCoroutine(Shoot(hit.collider.gameObject, hit.point));
@@ -165,7 +150,7 @@ namespace Hive.Armada.Player.Guns
             if (isLeftFire)
             {
                 // left[Random.Range(0, left.Length)].transform.position;
-                GameObject barrel = left[Random.Range(0, left.Length)];
+                GameObject barrel = left[UnityEngine.Random.Range(0, left.Length)];
 
                 // do muzzle flash
                 //Instantiate(muzzleFlashPrefab, barrel.transform);
@@ -178,17 +163,11 @@ namespace Hive.Armada.Player.Guns
                     if (leftTracer < 0)
                         leftTracer = tracerFrequency;
                 }
-
-                // do hit spark
-                if (target.CompareTag("Enemy"))
-                {
-                    StartCoroutine(HitSpark(target, position, CalculateDelay(position)));
-                }
             }
             else
             {
                 // right[Random.Range(0, right.Length)].transform.position;
-                GameObject barrel = right[Random.Range(0, left.Length)];
+                GameObject barrel = right[UnityEngine.Random.Range(0, left.Length)];
 
                 // do muzzle flash
                 //Instantiate(muzzleFlashPrefab, barrel.transform);
@@ -201,12 +180,13 @@ namespace Hive.Armada.Player.Guns
                     if (rightTracer < 0)
                         rightTracer = tracerFrequency;
                 }
+            }
 
-                // do hit spark
-                if (target.CompareTag("Enemy"))
-                {
-                    StartCoroutine(HitSpark(target, position, CalculateDelay(position)));
-                }
+            // do hit spark
+            if (target.CompareTag("Enemy"))
+            {
+                //StartCoroutine(HitSpark(position, CalculateDelay(position)));
+                StartCoroutine(HitSpark(position));
             }
 
             yield return new WaitForSeconds(1.0f / fireRate);
@@ -231,24 +211,24 @@ namespace Hive.Armada.Player.Guns
         /// <summary>
         /// Spawns a hit spark on target after a delay to emulate bullet travel.
         /// </summary>
-        /// <param name="target"> The GameObject that is being hit </param>
         /// <param name="position"> The position of the hit </param>
         /// <param name="delay"> How long to wait before spawning the hit spark </param>
-        private IEnumerator HitSpark(GameObject target, Vector3 position, float delay)
+        private IEnumerator HitSpark(Vector3 position, float delay)
         {
             yield return new WaitForSeconds(delay);
 
-            GameObject spark = Instantiate(hitSparkPrefab, position, Quaternion.identity, target.transform);
+            GameObject spark = Instantiate(hitSparkPrefab, position, Quaternion.identity);
             spark.transform.Rotate(0.0f, 180.0f, 0.0f);
+        }
 
-            //if (target.CompareTag("Enemy"))
-            //{
-            //    Instantiate(hitSparkPrefab, position, Quaternion.identity, target.transform);
-            //}
-            //else if (target.CompareTag("Room"))
-            //{
-            //    Instantiate(hitSparkPrefab, position, Quaternion.identity, target.transform);
-            //}
+        /// <summary>
+        /// Spawns a hit spark on target after a delay to emulate bullet travel.
+        /// </summary>
+        /// <param name="position"> The position of the hit </param>
+        private void HitSpark(Vector3 position)
+        {
+            GameObject spark = Instantiate(hitSparkPrefab, position, Quaternion.identity);
+            spark.transform.Rotate(0.0f, 180.0f, 0.0f);
         }
 
         /// <summary>
@@ -258,12 +238,32 @@ namespace Hive.Armada.Player.Guns
         /// <param name="target"> Where to aim the tracer </param>
         private IEnumerator Tracer(GameObject barrel, Vector3 target)
         {
+            GameObject tracer = tracers.First();
+            tracers.Remove(tracer);
+            activeTracers.Add(tracer);
+
             // Enable tracer
+            tracer.transform.position = barrel.transform.position;
+            tracer.transform.rotation = barrel.transform.rotation;
+            tracer.SetActive(true);
+
+            try
+            {
+                tracer.GetComponent<ParticleSystem>().Clear();
+                tracer.GetComponent<ParticleSystem>().Play();
+            }
+            catch (Exception)
+            {
+                Debug.LogError("Minigun.cs - CAN'T GET TRACER PARTICLE SYSTEM");
+            }
 
             // wait however long the tracer takes
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.5f);
 
             // Disable tracer
+            tracer.SetActive(false);
+            tracers.Add(tracer);
+            activeTracers.Remove(tracer);
         }
     }
 }

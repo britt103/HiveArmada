@@ -77,8 +77,6 @@ namespace Hive.Armada.Player.Guns
         public int tracerPoolCount;
         public int tracerFrequency = 7;
 
-        private bool leftSpark = true;
-        private bool rightSpark;
         private int leftTracer = 7;
         private int rightTracer = 1;
         private float tracerSpeed = 100.0f;
@@ -88,30 +86,6 @@ namespace Hive.Armada.Player.Guns
         /// </summary>
         void Start()
         {
-            //leftTracers = new LineRenderer[left.Length];
-            //rightTracers = new LineRenderer[right.Length];
-
-            //for (int i = 0; i < left.Length; ++i)
-            //{
-            //    leftTracers[i] = left[i].AddComponent<LineRenderer>();
-            //    leftTracers[i].material = tracerMaterial;
-            //    leftTracers[i].shadowCastingMode = ShadowCastingMode.Off;
-            //    leftTracers[i].receiveShadows = false;
-            //    leftTracers[i].alignment = LineAlignment.View;
-            //    leftTracers[i].startWidth = thickness;
-            //    leftTracers[i].endWidth = thickness;
-            //    leftTracers[i].enabled = false;
-
-            //    rightTracers[i] = right[i].AddComponent<LineRenderer>();
-            //    rightTracers[i].material = tracerMaterial;
-            //    rightTracers[i].shadowCastingMode = ShadowCastingMode.Off;
-            //    rightTracers[i].receiveShadows = false;
-            //    rightTracers[i].alignment = LineAlignment.View;
-            //    rightTracers[i].startWidth = thickness;
-            //    rightTracers[i].endWidth = thickness;
-            //    rightTracers[i].enabled = false;
-            //}
-
             damage = shipController.minigunDamage;
             fireRate = shipController.minigunFireRate;
         }
@@ -206,12 +180,10 @@ namespace Hive.Armada.Player.Guns
                 }
 
                 // do hit spark
-                if (leftSpark && target.CompareTag("Enemy"))
+                if (target.CompareTag("Enemy"))
                 {
                     StartCoroutine(HitSpark(target, position, CalculateDelay(position)));
                 }
-
-                //leftSpark = !leftSpark;
             }
             else
             {
@@ -231,12 +203,10 @@ namespace Hive.Armada.Player.Guns
                 }
 
                 // do hit spark
-                if (rightSpark && target.CompareTag("Enemy"))
+                if (target.CompareTag("Enemy"))
                 {
                     StartCoroutine(HitSpark(target, position, CalculateDelay(position)));
                 }
-
-                //rightSpark = !rightSpark;
             }
 
             yield return new WaitForSeconds(1.0f / fireRate);

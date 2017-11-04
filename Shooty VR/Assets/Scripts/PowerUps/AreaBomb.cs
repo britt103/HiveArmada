@@ -80,6 +80,7 @@ namespace Hive.Armada
                 }
             }
             Instantiate(fxBomb, transform.position, transform.rotation);
+            FindObjectOfType<PowerUpStatus>().areaBombActive = false;
             Destroy(gameObject);
         }
 
@@ -99,6 +100,7 @@ namespace Hive.Armada
                     }
                 }
                 Instantiate(fxBomb, transform.position, transform.rotation);
+                FindObjectOfType<PowerUpStatus>().areaBombActive = false;
                 Destroy(gameObject);
             }
         }

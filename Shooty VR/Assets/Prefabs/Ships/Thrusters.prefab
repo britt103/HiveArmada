@@ -5625,11 +5625,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0f93fd932201a14f8d38f1d5776112c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shipController: {fileID: 0}
+  shipController: {fileID: 114387485106083888}
   maxHealth: 30
   fxHit: {fileID: 1055841953223108, guid: 0d57f6e2384c7034888dccc749fac7f4, type: 2}
   fxHurt: {fileID: 1055841953223108, guid: 34575683d8e1fb5438fc406df5227ce5, type: 2}
-  fxDead: {fileID: 1110594293534486, guid: 816e672531c51d649993a326eac379f8, type: 2}
+  fxDead: {fileID: 1110594293534486, guid: a5ffbf29c124fdd4b9a26ba22878897e, type: 2}
   flashColor: {fileID: 2100000, guid: 1db15971033ba594294b4f0c035f7da8, type: 2}
 --- !u!114 &114150575784695996
 MonoBehaviour:
@@ -5780,6 +5780,7 @@ MonoBehaviour:
   radius: 0.3
   tracerPoolCount: 40
   tracerFrequency: 1
+  damageBoost: 1
 --- !u!136 &136807103204981110
 CapsuleCollider:
   m_ObjectHideFlags: 1

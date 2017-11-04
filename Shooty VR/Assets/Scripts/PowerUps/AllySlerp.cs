@@ -49,6 +49,7 @@ namespace Hive.Armada
             if (timeLimit < 0.0F)
             {
                 //GameObject.Find("Player").GetComponent<PowerUpStatus>().SetAlly(false);
+                FindObjectOfType<PowerUpStatus>().allyActive = false;
                 Destroy(gameObject);
             }
 

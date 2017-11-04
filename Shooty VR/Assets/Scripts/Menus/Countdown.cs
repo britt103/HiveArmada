@@ -17,7 +17,7 @@ public class Countdown : MonoBehaviour
     /// <summary>
     /// Run when activated
     /// </summary>
-    private void Awake()
+    private void OnEnable()
     {
         StartCoroutine(Run());
     }

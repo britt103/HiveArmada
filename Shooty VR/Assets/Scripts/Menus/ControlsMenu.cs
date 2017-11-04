@@ -10,19 +10,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ControlsMenu : MonoBehaviour {
-    private ControlsHighlighter[] chs;
+    private ControlsHighlighter ch;
 
     /// <summary>
     /// Activate controller highlighting
     /// </summary>
-    private void Awake()
+    private void OnEnable()
     {
-        chs = FindObjectsOfType<ControlsHighlighter>();
-        foreach(ControlsHighlighter ch in chs)
-        {
-            ch.FireOn();
-            ch.PowerupOn();
-        }
+        ch = FindObjectOfType<Hive.Armada.Player.ShipController>().transform.parent.GetComponentInChildren<ControlsHighlighter>();
+        ch.FireOn();
+        ch.PowerupOn();
+        ch.PauseOn();
     }
 
     /// <summary>
@@ -32,11 +30,8 @@ public class ControlsMenu : MonoBehaviour {
     {
         GameObject.Find("Main Canvas").transform.Find("Options Menu").gameObject.SetActive(true);
 
-        foreach (ControlsHighlighter ch in chs)
-        {
-            ch.AllOff();
-        }
-
+        ch.AllOff();
+ 
         gameObject.SetActive(false);
     }
 }

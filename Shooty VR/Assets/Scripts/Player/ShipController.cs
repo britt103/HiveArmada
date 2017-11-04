@@ -189,11 +189,15 @@ namespace Hive.Armada.Player
         {
             shipMode = mode;
         }
-        public IEnumerator DamageBoost()
+
+        /// <summary>
+        /// Sets the damage boost on all weapons
+        /// </summary>
+        /// <param name="boost"> The damage boost multiplier </param>
+        public void SetDamageBoost(int boost)
         {
-            laserGun.damageBoost = 2;
-            yield return new WaitForSeconds(10.0f);
-            laserGun.damageBoost = 1;
+            laserGun.damageBoost = boost;
+            minigun.damageBoost = boost;
         }
 
         //private void EvaluateHandedness()

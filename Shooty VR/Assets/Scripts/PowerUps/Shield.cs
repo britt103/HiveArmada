@@ -31,6 +31,7 @@ namespace Hive.Armada
             if (timeLimit <= 0.0F)
             {
                 //status.SetShield(false);
+                FindObjectOfType<PowerUpStatus>().shieldActive = false;
                 Destroy(gameObject);
             }
 

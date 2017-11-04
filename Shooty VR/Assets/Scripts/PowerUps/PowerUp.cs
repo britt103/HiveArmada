@@ -44,46 +44,46 @@ namespace Hive.Armada
                 switch (powerupPrefab.name)
                 {
                     case "Shield":
-                        if (!status.GetShield())
+                        if (!status.shieldStored)
                         {
-                            status.StorePowerup(powerupPrefab, powerupIconPrehab);
-                            status.SetShield(true);
+                            status.StorePowerup(powerupPrefab, powerupIconPrefab);
+                            status.shieldStored = true;
                             Destroy(gameObject);
                         }
                         break;
 
                     case "Area Bomb":
-                        if (!status.GetAreaBomb())
+                        if (!status.areaBombStored)
                         {
-                            status.StorePowerup(powerupPrefab, powerupIconPrehab);
-                            status.SetAreaBomb(true);
+                            status.StorePowerup(powerupPrefab, powerupIconPrefab);
+                            status.areaBombStored = true;
                             Destroy(gameObject);
 
                         }
                         break;
 
                     case "Clear":
-                        if (!status.GetClear())
+                        if (!status.clearStored)
                         {
-                            status.StorePowerup(powerupPrefab, powerupIconPrehab);
-                            status.SetClear(true);
+                            status.StorePowerup(powerupPrefab, powerupIconPrefab);
+                            status.clearStored = true;
                             Destroy(gameObject);
                         }
                         break;
 
                     case "Ally":
-                        if (!status.GetAlly())
+                        if (!status.allyStored)
                         {
-                            status.StorePowerup(powerupPrefab, powerupIconPrehab);
-                            status.SetAlly(true);
+                            status.StorePowerup(powerupPrefab, powerupIconPrefab);
+                            status.allyStored = true;
                             Destroy(gameObject);
                         }
                         break;
                     case "Damage Boost":
-                        if (!status.GetDamageBoost())
+                        if (!status.damageBoostStored)
                         {
-                            status.StorePowerup(powerupPrefab, powerupIconPrehab);
-                            status.SetDamageBoost(true);
+                            status.StorePowerup(powerupPrefab, powerupIconPrefab);
+                            status.damageBoostStored = true;
                             Destroy(gameObject);
                         }
                         break;

@@ -23,6 +23,7 @@ namespace Hive.Armada
             {
                 Destroy(bullet);
             }
+            FindObjectOfType<PowerUpStatus>().clearActive = false;
             Destroy(gameObject);
         }
 

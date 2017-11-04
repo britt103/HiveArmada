@@ -8,27 +8,28 @@ namespace Hive.Armada
 {
     public class DamageBoost : MonoBehaviour
     {
-
-        private Hand hand;
+        public float boostLength;
         public int boost;
         public GameObject fxAwake;
 
         // Use this for initialization
         void Start()
         {
-            //hand = gameObject.GetComponentInParent<Hand>();
             Instantiate(fxAwake, GameObject.FindGameObjectWithTag("Player").transform);
-            StartCoroutine(GameObject.FindGameObjectWithTag("Player").GetComponent<ShipController>().DamageBoost());
-            //GameObject.Find("Player").GetComponent<PowerUpStatus>().SetDamageBoost(false);
-            Destroy(gameObject);
+            StartCoroutine(Run());
 
         }
-       
-        //// Update is called once per frame
-        //void Update()
-        //{
-            
-        //}
-       
+
+        private IEnumerator Run()
+        {
+            GameObject.FindGameObjectWithTag("Player").GetComponent<ShipController>().SetDamageBoost(boost);
+
+            yield return new WaitForSeconds(boostLength);
+
+            GameObject.FindGameObjectWithTag("Player").GetComponent<ShipController>().SetDamageBoost(1);
+            FindObjectOfType<PowerUpStatus>().damageBoostActive = false;
+            Destroy(gameObject);
+        }
+
     }
 }

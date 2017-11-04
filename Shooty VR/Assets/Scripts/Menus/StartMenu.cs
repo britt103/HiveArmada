@@ -30,6 +30,7 @@ namespace Hive.Armada.Menu
                 isStarting = true;
 
                 GameObject ship = GameObject.FindGameObjectWithTag("Player");
+
                 if (ship != null)
                 {
                     if (ship.GetComponent<ShipController>() != null)
@@ -40,6 +41,7 @@ namespace Hive.Armada.Menu
                 {
                     //gameObject.GetComponentInChildren<Button>().enabled = false;
                     GameObject.Find("Main Canvas").transform.Find("Countdown").gameObject.SetActive(true);
+                    gameObject.transform.parent.Find("Ambient FX").gameObject.SetActive(false);
                     gameObject.SetActive(false);
                 }
                 else

@@ -44,6 +44,8 @@ namespace Hive.Armada.Game
         public GameObject waveCountGO;
         public GameObject winScreenGO;
 
+        public AudioSource music;
+
         public int startWave;
 
         private PlayerStats stats;
@@ -61,6 +63,8 @@ namespace Hive.Armada.Game
         public void Run()
         {
             StartCoroutine(WaveTimer());
+            GameObject.Find("Game Music");
+            music.Play();
         }
 
         private IEnumerator WaveTimer()
@@ -85,6 +89,7 @@ namespace Hive.Armada.Game
                     Debug.Log("BEGINNING WAVE " + waveNum);
                     waveCountGO.SetActive(true);
                     waveCountGO.GetComponent<Text>().text = "Wave: " + waveNum;
+                    StartCoroutine(waves.playWave(waveNum));
 
                     yield return new WaitForSeconds(2);
 

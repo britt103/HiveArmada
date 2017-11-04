@@ -10,6 +10,8 @@
 // 
 //=============================================================================
 
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VR.WSA.Persistence;
 
@@ -19,6 +21,9 @@ namespace Hive.Armada.Game
     {
         public GameObject[] enemies;
         public int[][] waveSpawns;
+        public AudioSource source;
+        public AudioClip[] sounds;
+
         private readonly int[] enemyCap =
         {
             1,
@@ -131,6 +136,13 @@ namespace Hive.Armada.Game
         public float[] GetPowerupChances(int wave)
         {
             return wavePowerupChances[wave];
+        }
+
+        public IEnumerator playWave(int waveNumber)
+        {
+            source.PlayOneShot(sounds[0]);
+            yield return new WaitForSeconds(0.9f);
+            source.PlayOneShot(sounds[waveNumber]);
         }
     }
 }

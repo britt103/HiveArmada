@@ -61,8 +61,17 @@ namespace Hive.Armada.Enemies
         /// Used to tell spawner that it can spawn more enemies.
         /// </summary>
         protected bool untouched = true;
+<<<<<<< HEAD
+=======
         protected bool hitFlashing = false;
         protected bool alive = true;
+        protected List<Material> mats;
+>>>>>>> feature/wave-fix-powerup-vfx
+
+        /// <summary>
+        /// The list of materials on this enemy.
+        /// Used for resetting materials after the hit flash.
+        /// </summary>
         protected List<Material> mats;
 
         /// <summary>
@@ -145,10 +154,14 @@ namespace Hive.Armada.Enemies
         /// </summary>
         protected virtual IEnumerator HitFlash()
         {
+<<<<<<< HEAD
+            // skip particles, save materials, and flash material
+=======
             hitFlashing = true;
 
             //gameObject.GetComponent<Renderer>().material = flashColor;
 
+>>>>>>> feature/wave-fix-powerup-vfx
             foreach (Renderer renderer in gameObject.GetComponentsInChildren<Renderer>())
             {
                 if (renderer.gameObject.CompareTag("FX"))
@@ -161,6 +174,14 @@ namespace Hive.Armada.Enemies
 
             yield return new WaitForSeconds(0.01f);
 
+<<<<<<< HEAD
+            if (health <= 0)
+            {
+                Kill();
+            }
+=======
+            //gameObject.GetComponent<Renderer>().material = material;
+>>>>>>> feature/wave-fix-powerup-vfx
 
             // reset materials
             foreach (Renderer renderer in gameObject.GetComponentsInChildren<Renderer>())

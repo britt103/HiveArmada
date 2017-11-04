@@ -13,25 +13,16 @@ namespace Hive.Armada
     public class PowerUp : MonoBehaviour
     {
         //prefab to use for instantiation
-        public GameObject powerupPrefab;
-        public GameObject powerupIconPrehab;
-        public GameObject fxAwake;
+        public GameObject powerUpPrefab;
+        //public GameObject fxAlly;
         private PowerUpStatus status;
-        //private Transform head;
-        public float lifeTime = 20.0f;
+        public float lifeTime = 10.0f;
 
         private void Start()
         {
-            Instantiate(fxAwake, transform.position, transform.rotation);
-            status = FindObjectOfType<PowerUpStatus>();
-            //head = GameObject.Find("Player").transform.Find("SteamVRObjects").transform.Find("FollowHead").transform;
+            status = GameObject.Find("Player").GetComponent<PowerUpStatus>();
             Destroy(gameObject, lifeTime);
         }
-
-        //private void Update()
-        //{
-        //    gameObject.transform.LookAt(head);
-        //}
 
         /// <summary>
         /// handles collision with player
@@ -39,23 +30,23 @@ namespace Hive.Armada
         /// <param name="other">object powerup collided with</param>
         void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.tag == "Player" && status.HasRoom())
+            if (other.gameObject.tag == "Player")
             {
-                switch (powerupPrefab.name)
+                switch (powerUpPrefab.name)
                 {
                     case "Shield":
                         if (!status.GetShield())
                         {
-                            status.StorePowerup(powerupPrefab, powerupIconPrehab);
+                            Instantiate(powerUpPrefab, other.gameObject.transform.Find("Thrusters").transform);
                             status.SetShield(true);
                             Destroy(gameObject);
                         }
                         break;
 
                     case "Area Bomb":
-                        if (!status.GetAreaBomb())
+                        if (!status.GetAreaBomb() && !status.GetClear())
                         {
-                            status.StorePowerup(powerupPrefab, powerupIconPrehab);
+                            Instantiate(powerUpPrefab, other.gameObject.transform.Find("BombPoint").transform);
                             status.SetAreaBomb(true);
                             Destroy(gameObject);
 
@@ -63,9 +54,9 @@ namespace Hive.Armada
                         break;
 
                     case "Clear":
-                        if (!status.GetClear())
+                        if (!status.GetClear() && !status.GetAreaBomb())
                         {
-                            status.StorePowerup(powerupPrefab, powerupIconPrehab);
+                            Instantiate(powerUpPrefab, other.gameObject.transform.Find("BombPoint").transform);
                             status.SetClear(true);
                             Destroy(gameObject);
                         }
@@ -74,7 +65,9 @@ namespace Hive.Armada
                     case "Ally":
                         if (!status.GetAlly())
                         {
-                            status.StorePowerup(powerupPrefab, powerupIconPrehab);
+                            
+                            Instantiate(powerUpPrefab, other.gameObject.transform.Find("Thrusters").transform);
+                            //Instantiate(fxAlly, other.gameObject.transform.Find("Ally").transform);
                             status.SetAlly(true);
                             Destroy(gameObject);
                         }
@@ -82,7 +75,7 @@ namespace Hive.Armada
                     case "Damage Boost":
                         if (!status.GetDamageBoost())
                         {
-                            status.StorePowerup(powerupPrefab, powerupIconPrehab);
+                            Instantiate(powerUpPrefab, other.gameObject.transform.Find("Thrusters").transform);
                             status.SetDamageBoost(true);
                             Destroy(gameObject);
                         }
@@ -91,4 +84,5 @@ namespace Hive.Armada
             }
         }
     }
+
 }

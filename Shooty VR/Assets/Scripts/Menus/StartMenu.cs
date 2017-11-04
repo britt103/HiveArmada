@@ -3,7 +3,7 @@
 //Email: johns428@mail.chapman.edu
 //Course: CPSC 340-01, CPSC-344-01
 //Assignment: Group Project
-//Purpose: Control interactions with start menu, primarily start button
+//Purpose: Control interactions and navigation with start game menu
 
 using System.Collections;
 using System.Collections.Generic;
@@ -18,22 +18,12 @@ namespace Hive.Armada.Menu
     public class StartMenu : MonoBehaviour
     {
         public Spawner spawner;
-        public GameObject[] countdownTimers;
-        public GameObject gameOver;
         private bool isStarting;
-
-        void Start()
-        {
-            foreach (GameObject countdownTimer in countdownTimers)
-            {
-                countdownTimer.SetActive(false);
-            }
-        }
 
         /// <summary>
         /// Called by start button; changes ship mode and starts countdown
         /// </summary>
-        public void ButtonClicked()
+        public void ButtonSoloNormalClicked()
         {
             if (!isStarting)
             {
@@ -44,72 +34,28 @@ namespace Hive.Armada.Menu
                 {
                     if (ship.GetComponent<ShipController>() != null)
                         ship.GetComponent<ShipController>().SetShipMode(ShipController.ShipMode.Game);
-                    else
-                    {
-                        Debug.LogError("STARTMENU - SHIP IS NULL!");
-                    }
                 }
 
                 if (spawner != null)
                 {
-                    gameObject.GetComponentInChildren<Button>().enabled = false;
-                    FindObjectOfType<PowerUpStatus>().BeginTracking();
-                    StartCoroutine(Countdown());
+                    //gameObject.GetComponentInChildren<Button>().enabled = false;
+                    GameObject.Find("Main Canvas").transform.Find("Countdown").gameObject.SetActive(true);
+                    gameObject.SetActive(false);
                 }
                 else
                 {
-                    Debug.LogError("CRITICAL - MENU'S REFERENCE TO SPAWNER IS NULL");
+                    Debug.Log("CRITICAL - MENU'S REFERENCE TO SPAWNER IS NULL");
                 }  
             }
         }
 
         /// <summary>
-        /// Changes countdown timer texts based on time, then starts spawner
+        /// Back button pressed; navigates to main menu
         /// </summary>
-        private IEnumerator Countdown()
+        public void OnBackButton()
         {
-            GameObject.Find("Title").SetActive(false);
-            GameObject.Find("Start Button").SetActive(false);
-
-            foreach (GameObject timer in countdownTimers)
-            {
-                timer.SetActive(true);
-            }
-
-            for (int i = 5; i > 0; i--)
-            {
-                foreach (GameObject timer in countdownTimers)
-                {
-                    timer.GetComponentInChildren<Text>().text = i.ToString();
-                }
-                yield return new WaitForSeconds(1.0f);
-            }
-
-            foreach (GameObject timer in countdownTimers)
-            {
-                timer.SetActive(false);
-            }
-
-            spawner.Run();
-        }
-
-        /// <summary>
-        /// Triggers gameover/reload process
-        /// </summary>
-        public void GameOver()
-        {
-            StartCoroutine(Reload());
-            FindObjectOfType<PlayerStats>().PrintStats();
-        }
-
-        /// <summary>
-        /// Activate game over text, reloads scene
-        /// </summary>
-        private IEnumerator Reload()
-        {
-            gameOver.SetActive(true);
-            yield return new WaitForSeconds(3.0f);
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            GameObject.Find("Main Canvas").transform.Find("Main Menu").gameObject.SetActive(true);
+            gameObject.SetActive(false);
         }
     }
 }

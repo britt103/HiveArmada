@@ -24,7 +24,7 @@ namespace Hive.Armada.Player
     {
         //public enum Handedness { Left, Right };
         public enum ShipMode { Menu, Game };
-        public enum GunTypes { Laser, Minigun, Plasma, RocketPod };
+        public enum GunTypes { Lasers, Miniguns, Railguns, Launchers };
 
         //public Handedness currentHandGuess = Handedness.Left;
         //private float timeOfPossibleHandSwitch = 0f;
@@ -34,13 +34,11 @@ namespace Hive.Armada.Player
         public ShipMode shipMode;
         public LaserSight laserSight;
         public GameObject lasers;
-        public GameObject miniguns;
         private LaserGun laserGun;
-        private Minigun minigun;
-        //public Transform pivotTransform;
+        public Transform pivotTransform;
         public Hand hand { get; private set; }
 
-        public GunTypes currentGun = GunTypes.Laser;
+        public GunTypes currentGun = GunTypes.Lasers;
 
         // Gun base stats
         public const int LASER_BASE_DAMAGE = 10;
@@ -83,7 +81,8 @@ namespace Hive.Armada.Player
                 pickup.SetActive(false);
             }
 
-            FindObjectOfType<PowerUpStatus>().BeginTracking();
+            GameObject.Find("Main Canvas").transform.Find("Title").gameObject.SetActive(false);
+            GameObject.Find("Main Canvas").transform.Find("Main Menu").gameObject.SetActive(true);
         }
 
         void Awake()
@@ -99,7 +98,6 @@ namespace Hive.Armada.Player
 
             newPosesAppliedAction = SteamVR_Events.NewPosesAppliedAction(OnNewPosesApplied);
             laserGun = lasers.GetComponentInChildren<LaserGun>();
-            minigun = miniguns.GetComponentInChildren<Minigun>();
         }
 
         void OnEnable()
@@ -145,33 +143,27 @@ namespace Hive.Armada.Player
                 {
                     if (hand.GetStandardInteractionButton())
                     {
-                        switch (currentGun)
-                        {
-                            case GunTypes.Laser:
-                                laserGun.TriggerUpdate();
-                                break;
-                            case GunTypes.Minigun:
-                                minigun.TriggerUpdate();
-                                break;
-                            case GunTypes.Plasma:
-                                break;
-                            case GunTypes.RocketPod:
-                                break;
-                            default:
-                                Debug.LogWarning("ShipController - currentGun is invalid.");
-                                break;
-                        }
+                        laserGun.TriggerUpdate();
                     }
                 }
                 else if (!canShoot && hand.GetStandardInteractionButtonUp())
                 {
                     canShoot = true;
                 }
+
+                //press menu button
+                if (hand.controller.GetPressDown(Valve.VR.EVRButtonId.k_EButton_ApplicationMenu))
+                {
+                    GameObject.Find("Main Canvas").transform.Find("Paused Menu").gameObject.SetActive(
+                        !GameObject.Find("Main Canvas").transform.Find("Paused Menu").gameObject.activeSelf);
+                }
             }
             else if (shipMode.Equals(ShipMode.Menu))
             {
                 if (hand.GetStandardInteractionButtonDown())
+                {
                     laserSight.TriggerUpdate();
+                }
             }
 
             //// Update handedness guess
@@ -186,7 +178,6 @@ namespace Hive.Armada.Player
         {
             shipMode = mode;
         }
-
         public IEnumerator DamageBoost()
         {
             laserGun.damageBoost = 2;

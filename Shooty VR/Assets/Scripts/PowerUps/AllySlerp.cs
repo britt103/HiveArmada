@@ -48,7 +48,7 @@ namespace Hive.Armada
             timeLimit -= Time.deltaTime;
             if (timeLimit < 0.0F)
             {
-                GameObject.Find("Player").GetComponent<PowerUpStatus>().SetAlly(false);
+                //GameObject.Find("Player").GetComponent<PowerUpStatus>().SetAlly(false);
                 Destroy(gameObject);
             }
 

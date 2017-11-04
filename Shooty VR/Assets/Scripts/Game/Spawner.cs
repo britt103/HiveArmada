@@ -291,7 +291,7 @@ namespace Hive.Armada.Game
             {
                 if (chance <= chances[i])
                 {
-                    Instantiate(powerups[i], position, Quaternion.Euler(0, 180.0f, 0));
+                    Instantiate(powerups[i], position, Quaternion.Euler(90.0f, 90.0f, -90.0f));
                     break;
                 }
             }

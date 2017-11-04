@@ -82,6 +82,8 @@ namespace Hive.Armada.Player
             {
                 pickup.SetActive(false);
             }
+
+            FindObjectOfType<PowerUpStatus>().BeginTracking();
         }
 
         void Awake()

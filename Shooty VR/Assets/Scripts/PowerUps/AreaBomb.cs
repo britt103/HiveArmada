@@ -18,6 +18,7 @@ namespace Hive.Armada
     {
         public float radius;
         public float acceleration;
+        public float startingZ;
 
         private float currentSpeed;
         //private Hand hand;
@@ -26,9 +27,10 @@ namespace Hive.Armada
         // Use this for initialization
         void Start()
         {
-            //hand = gameObject.GetComponentInParent<Hand>();
             StartCoroutine(Detonate());
             fxTrail.SetActive(true);
+
+            transform.localPosition = new Vector3(0, 0, startingZ);
             gameObject.transform.parent = null;
         }
 
@@ -63,6 +65,10 @@ namespace Hive.Armada
 
         }
 
+        /// <summary>
+        /// Damage nearby enemies and destroy self after certain amount of time
+        /// </summary>
+        /// <returns>IEnumerator for coroutine</returns>
         private IEnumerator Detonate()
         {
             yield return new WaitForSeconds(2);
@@ -77,6 +83,10 @@ namespace Hive.Armada
             Destroy(gameObject);
         }
 
+        /// <summary>
+        /// Trigger detonation on impact with enemy
+        /// </summary>
+        /// <param name="other">collider of object this collided with</param>
         void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Enemy"))

@@ -13,17 +13,25 @@ namespace Hive.Armada
     public class PowerUp : MonoBehaviour
     {
         //prefab to use for instantiation
-        public GameObject powerUpPrefab;
+        public GameObject powerupPrefab;
+        public GameObject powerupIconPrehab;
         public GameObject fxAwake;
         private PowerUpStatus status;
+        //private Transform head;
         public float lifeTime = 20.0f;
 
         private void Start()
         {
             Instantiate(fxAwake, transform.position, transform.rotation);
-            status = GameObject.Find("Player").GetComponent<PowerUpStatus>();
+            status = FindObjectOfType<PowerUpStatus>();
+            //head = GameObject.Find("Player").transform.Find("SteamVRObjects").transform.Find("FollowHead").transform;
             Destroy(gameObject, lifeTime);
         }
+
+        //private void Update()
+        //{
+        //    gameObject.transform.LookAt(head);
+        //}
 
         /// <summary>
         /// handles collision with player
@@ -31,14 +39,14 @@ namespace Hive.Armada
         /// <param name="other">object powerup collided with</param>
         void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.tag == "Player")
+            if (other.gameObject.tag == "Player" && status.HasRoom())
             {
-                switch (powerUpPrefab.name)
+                switch (powerupPrefab.name)
                 {
                     case "Shield":
                         if (!status.GetShield())
                         {
-                            status.StorePowerup(powerUpPrefab);
+                            status.StorePowerup(powerupPrefab, powerupIconPrehab);
                             status.SetShield(true);
                             Destroy(gameObject);
                         }
@@ -47,7 +55,7 @@ namespace Hive.Armada
                     case "Area Bomb":
                         if (!status.GetAreaBomb())
                         {
-                            status.StorePowerup(powerUpPrefab);
+                            status.StorePowerup(powerupPrefab, powerupIconPrehab);
                             status.SetAreaBomb(true);
                             Destroy(gameObject);
 
@@ -57,7 +65,7 @@ namespace Hive.Armada
                     case "Clear":
                         if (!status.GetClear())
                         {
-                            status.StorePowerup(powerUpPrefab);
+                            status.StorePowerup(powerupPrefab, powerupIconPrehab);
                             status.SetClear(true);
                             Destroy(gameObject);
                         }
@@ -66,7 +74,7 @@ namespace Hive.Armada
                     case "Ally":
                         if (!status.GetAlly())
                         {
-                            status.StorePowerup(powerUpPrefab);
+                            status.StorePowerup(powerupPrefab, powerupIconPrehab);
                             status.SetAlly(true);
                             Destroy(gameObject);
                         }
@@ -74,7 +82,7 @@ namespace Hive.Armada
                     case "Damage Boost":
                         if (!status.GetDamageBoost())
                         {
-                            status.StorePowerup(powerUpPrefab);
+                            status.StorePowerup(powerupPrefab, powerupIconPrehab);
                             status.SetDamageBoost(true);
                             Destroy(gameObject);
                         }

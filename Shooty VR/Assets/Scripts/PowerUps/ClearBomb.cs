@@ -13,11 +13,12 @@ namespace Hive.Armada
     public class ClearBomb : MonoBehaviour
     {
         private Hand hand;
+        public GameObject fxAwake;
         // Use this for initialization
         void Start()
         {
             //hand = gameObject.GetComponentInParent<Hand>();
-
+            Instantiate(fxAwake, transform.position, transform.rotation);
             foreach (GameObject bullet in GameObject.FindGameObjectsWithTag("bullet"))
             {
                 Destroy(bullet);

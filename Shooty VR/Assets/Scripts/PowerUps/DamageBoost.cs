@@ -11,11 +11,13 @@ namespace Hive.Armada
 
         private Hand hand;
         public int boost;
+        public GameObject fxAwake;
 
         // Use this for initialization
         void Start()
         {
             //hand = gameObject.GetComponentInParent<Hand>();
+            Instantiate(fxAwake, GameObject.FindGameObjectWithTag("Player").transform);
             StartCoroutine(GameObject.FindGameObjectWithTag("Player").GetComponent<ShipController>().DamageBoost());
             //GameObject.Find("Player").GetComponent<PowerUpStatus>().SetDamageBoost(false);
             Destroy(gameObject);

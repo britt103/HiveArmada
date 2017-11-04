@@ -35,6 +35,7 @@ namespace Hive.Armada.Player
         public LaserSight laserSight;
         public GameObject lasers;
         private LaserGun laserGun;
+        public Minigun minigun;
         public Transform pivotTransform;
         public Hand hand { get; private set; }
 
@@ -83,6 +84,8 @@ namespace Hive.Armada.Player
 
             GameObject.Find("Main Canvas").transform.Find("Title").gameObject.SetActive(false);
             GameObject.Find("Main Canvas").transform.Find("Main Menu").gameObject.SetActive(true);
+
+            FindObjectOfType<PowerUpStatus>().BeginTracking();
         }
 
         void Awake()
@@ -143,7 +146,15 @@ namespace Hive.Armada.Player
                 {
                     if (hand.GetStandardInteractionButton())
                     {
-                        laserGun.TriggerUpdate();
+                        switch (currentGun)
+                        {
+                            case GunTypes.Lasers:
+                                laserGun.TriggerUpdate();
+                                break;
+                            case GunTypes.Miniguns:
+                                minigun.TriggerUpdate();
+                                break;
+                        }
                     }
                 }
                 else if (!canShoot && hand.GetStandardInteractionButtonUp())

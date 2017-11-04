@@ -988,7 +988,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1638558932890708
 GameObject:
   m_ObjectHideFlags: 1
@@ -1098,7 +1098,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4364681041950062}
   m_Layer: 0
-  m_Name: BombPoint
+  m_Name: Powerup Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1466,6 +1466,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1898253258569498
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4950462459402528}
+  m_Layer: 0
+  m_Name: Powerup Icon Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1898544543187972
 GameObject:
   m_ObjectHideFlags: 1
@@ -1482,7 +1497,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1898949741456746
 GameObject:
   m_ObjectHideFlags: 1
@@ -1954,7 +1969,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1701740524767852}
   m_LocalRotation: {x: 0.46174863, y: -0, z: -0, w: 0.8870109}
-  m_LocalPosition: {x: 0, y: 0.015, z: 0.02}
+  m_LocalPosition: {x: 0, y: -0.0246, z: 0.0172}
   m_LocalScale: {x: 0.08, y: 0.08, z: 0.08}
   m_Children: []
   m_Father: {fileID: 4508893774885148}
@@ -2084,11 +2099,12 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1260673260181382}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 3.7729483, y: -7.6400003, z: 16.847876}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4596740828718180}
   - {fileID: 4364681041950062}
+  - {fileID: 4950462459402528}
   - {fileID: 4938952490226832}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -2804,7 +2820,7 @@ Transform:
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 4508893774885148}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4949940218710248
 Transform:
@@ -2818,6 +2834,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4202311906321284}
   m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4950462459402528
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1898253258569498}
+  m_LocalRotation: {x: 0.46174863, y: -0, z: -0, w: 0.8870109}
+  m_LocalPosition: {x: 0, y: 0.0208, z: 0.063}
+  m_LocalScale: {x: 0.08, y: 0.08, z: 0.08}
+  m_Children: []
+  m_Father: {fileID: 4508893774885148}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4964378689288168
 Transform:
@@ -5651,8 +5680,9 @@ MonoBehaviour:
   shipMode: 0
   laserSight: {fileID: 114693560361633878}
   lasers: {fileID: 1629746874275404}
-  miniguns: {fileID: 1898544543187972}
-  currentGun: 1
+  minigun: {fileID: 114737157421707460}
+  pivotTransform: {fileID: 0}
+  currentGun: 0
   laserDamage: 10
   laserFireRate: 8
   minigunDamage: 3

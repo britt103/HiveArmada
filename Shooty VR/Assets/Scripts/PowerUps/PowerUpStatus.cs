@@ -161,8 +161,8 @@ namespace Hive.Armada
 
             shipGO = gameObject.GetComponentInChildren<Player.ShipController>().gameObject;
             hand = shipGO.GetComponentInParent<Valve.VR.InteractionSystem.Hand>();
-            powerupPoint = shipGO.transform.Find("Thrusters").gameObject.transform;
-            iconPoint = powerupPoint.Find("Powerup Icon Point").gameObject.transform;
+            powerupPoint = shipGO.transform.Find("Powerup Point");
+            iconPoint = shipGO.transform.Find("Powerup Icon Point");
         }
 
         /// <summary>

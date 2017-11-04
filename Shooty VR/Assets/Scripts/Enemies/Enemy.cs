@@ -6,9 +6,8 @@
 // CPSC-340-01 & CPSC-344-01
 // Group Project
 // 
-// This abstract class is the base for all enemies.
-// It handles all fields and methods related to
-// health and taking damage.
+// This abstract class is the base for all enemies. It handles all fields
+// and methods related tohealth and taking damage.
 // 
 //=============================================================================
 
@@ -20,22 +19,59 @@ using UnityEngine;
 
 namespace Hive.Armada.Enemies
 {
+    /// <summary>
+    /// The base class for all enemies.
+    /// </summary>
     public abstract class Enemy : MonoBehaviour
     {
+        /// <summary>
+        /// Reference to the wave spawner.
+        /// TODO: Remove this reference, make Reference Manager
+        /// </summary>
         public Spawner spawner;
+
+        /// <summary>
+        /// How much health the enemy spawns with.
+        /// TODO: Move this to EnemyStats script
+        /// </summary>
         public int maxHealth;
+
+        /// <summary>
+        /// Current health. Nothing can access this.
+        /// </summary>
         protected int health;
+
+        /// <summary>
+        /// The color the ship flashes when it is hit.
+        /// </summary>
         public Material flashColor;
-        public GameObject fxSpawn, fxKill;
-        protected Material material;
-        protected WaveManager waveManager;
+
+        /// <summary>
+        /// The particle effect on spawn.
+        /// </summary>
+        public GameObject fxSpawn;
+
+        /// <summary>
+        /// The particle effect on death.
+        /// </summary>
+        public GameObject fxKill;
+
+        /// <summary>
+        /// Changes to false on first hit.
+        /// Used to tell spawner that it can spawn more enemies.
+        /// </summary>
         protected bool untouched = true;
+
+        /// <summary>
+        /// The list of materials on this enemy.
+        /// Used for resetting materials after the hit flash.
+        /// </summary>
         protected List<Material> mats;
 
-        public AudioSource sfx;
-        public AudioClip clip;
-
-        private PlayerStats stats;
+        /// <summary>
+        /// Reference to the PlayerStats script for tracking kills.
+        /// </summary>
+        protected PlayerStats stats;
 
         /// <summary>
         /// Initializes variables for the enemy when it loads.
@@ -44,8 +80,6 @@ namespace Hive.Armada.Enemies
         {
             mats = new List<Material>();
             health = maxHealth;
-            material = gameObject.GetComponentInChildren<Renderer>().material;
-            waveManager = GameObject.FindGameObjectWithTag("Wave").GetComponent<WaveManager>();
             spawner = GameObject.FindGameObjectWithTag("Wave").GetComponent<Spawner>();
             Instantiate(fxSpawn, transform.position, transform.rotation, transform);
 
@@ -94,7 +128,6 @@ namespace Hive.Armada.Enemies
         {
             Instantiate(fxKill, transform.position, transform.rotation);
             spawner.AddKill();
-            waveManager.currDead++;
             stats.EnemyKilled();
 
             Destroy(gameObject);
@@ -104,11 +137,9 @@ namespace Hive.Armada.Enemies
         /// Visual feedback when the enemy is hit. Flashes the material using flashColor.
         /// Calls Kill() if the enemy is out of health. Adds to the score via GameManager.
         /// </summary>
-        /// <returns>  </returns>
         protected virtual IEnumerator HitFlash()
         {
-            //gameObject.GetComponent<Renderer>().material = flashColor;
-
+            // skip particles, save materials, and flash material
             foreach (Renderer renderer in gameObject.GetComponentsInChildren<Renderer>())
             {
                 if (renderer.gameObject.CompareTag("FX"))
@@ -119,14 +150,14 @@ namespace Hive.Armada.Enemies
                 renderer.material = flashColor;
             }
 
-            yield return new WaitForSeconds(.01f);
+            yield return new WaitForSeconds(0.01f);
 
             if (health <= 0)
             {
                 Kill();
             }
-            //gameObject.GetComponent<Renderer>().material = material;
 
+            // reset materials
             foreach (Renderer renderer in gameObject.GetComponentsInChildren<Renderer>())
             {
                 if (renderer.gameObject.CompareTag("FX"))

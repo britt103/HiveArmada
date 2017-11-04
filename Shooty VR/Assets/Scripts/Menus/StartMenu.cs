@@ -44,6 +44,10 @@ namespace Hive.Armada.Menu
                 {
                     if (ship.GetComponent<ShipController>() != null)
                         ship.GetComponent<ShipController>().SetShipMode(ShipController.ShipMode.Game);
+                    else
+                    {
+                        Debug.LogError("STARTMENU - SHIP IS NULL!");
+                    }
                 }
 
                 if (spawner != null)
@@ -53,7 +57,7 @@ namespace Hive.Armada.Menu
                 }
                 else
                 {
-                    Debug.Log("CRITICAL - MENU'S REFERENCE TO SPAWNER IS NULL");
+                    Debug.LogError("CRITICAL - MENU'S REFERENCE TO SPAWNER IS NULL");
                 }  
             }
         }
@@ -61,7 +65,6 @@ namespace Hive.Armada.Menu
         /// <summary>
         /// Changes countdown timer texts based on time, then starts spawner
         /// </summary>
-        /// <returns></returns>
         private IEnumerator Countdown()
         {
             GameObject.Find("Title").SetActive(false);
@@ -101,7 +104,6 @@ namespace Hive.Armada.Menu
         /// <summary>
         /// Activate game over text, reloads scene
         /// </summary>
-        /// <returns></returns>
         private IEnumerator Reload()
         {
             gameOver.SetActive(true);

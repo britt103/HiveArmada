@@ -133,7 +133,6 @@ namespace Hive.Armada.Player.Guns
         /// </summary>
         /// <param name="target">  </param>
         /// <param name="enemy">  </param>
-        /// <returns>  </returns>
         private IEnumerator Shoot(Vector3 target, GameObject enemy)
         {
             canShoot = false;
@@ -144,7 +143,7 @@ namespace Hive.Armada.Player.Guns
             rightLaser.SetPosition(1, target);
             StartCoroutine(FlashLaser(isLeftFire));
 
-            float r = UnityEngine.Random.Range(0.0f, 1.0f);
+            //--float r = UnityEngine.Random.Range(0.0f, 1.0f);
 
             //if(r <= 0.9)
             //{
@@ -152,10 +151,10 @@ namespace Hive.Armada.Player.Guns
             //}
             //else
             //{
-            //    //sfx.PlayOneShot(clips[UnityEngine.Random.Range(1, clips.Length)]);
-            //    sfx.pitch = 1.0f + UnityEngine.Random.Range(-0.15f, 0.15f);
-            //    sfx.PlayOneShot(clips[0]);
-            //    //sfx.pitch = 1.0f;
+            //    //source.PlayOneShot(clips[UnityEngine.Random.Range(1, clips.Length)]);
+            //    source.pitch = 1.0f + UnityEngine.Random.Range(-0.15f, 0.15f);
+            //    source.PlayOneShot(clips[0]);
+            //    //source.pitch = 1.0f;
             //}
 
             stats.isFiring = true;
@@ -173,7 +172,6 @@ namespace Hive.Armada.Player.Guns
         /// 
         /// </summary>
         /// <param name="isLeft">  </param>
-        /// <returns>  </returns>
         private IEnumerator FlashLaser(bool isLeft)
         {
             if (isLeft)

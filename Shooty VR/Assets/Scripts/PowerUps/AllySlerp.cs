@@ -150,7 +150,6 @@ namespace Hive.Armada
         /// Instantiates bullet according to firerate
         /// </summary>
         /// <param name="target">Enemy bullet is "aimed" at</param>
-        /// <returns>IEnumerator for StartCoroutine in Update()</returns>
         private IEnumerator Fire(Vector3 target)
         {
             canFire = false;

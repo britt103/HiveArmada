@@ -30,14 +30,14 @@ namespace Hive.Armada
         /// <param name="other">object powerup collided with</param>
         void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.tag == "Player")
+            if (other.CompareTag("Player"))
             {
                 switch (powerUpPrefab.name)
                 {
                     case "Shield":
                         if (!status.GetShield())
                         {
-                            Instantiate(powerUpPrefab, other.gameObject.transform.Find("Thrusters").transform);
+                            Instantiate(powerUpPrefab, other.gameObject.transform.Find("Model").transform);
                             status.SetShield(true);
                             Destroy(gameObject);
                         }
@@ -66,7 +66,7 @@ namespace Hive.Armada
                         if (!status.GetAlly())
                         {
                             
-                            Instantiate(powerUpPrefab, other.gameObject.transform.Find("Thrusters").transform);
+                            Instantiate(powerUpPrefab, other.gameObject.transform.Find("Model").transform);
                             //Instantiate(fxAlly, other.gameObject.transform.Find("Ally").transform);
                             status.SetAlly(true);
                             Destroy(gameObject);
@@ -75,7 +75,7 @@ namespace Hive.Armada
                     case "Damage Boost":
                         if (!status.GetDamageBoost())
                         {
-                            Instantiate(powerUpPrefab, other.gameObject.transform.Find("Thrusters").transform);
+                            Instantiate(powerUpPrefab, other.gameObject.transform.Find("Model").transform);
                             status.SetDamageBoost(true);
                             Destroy(gameObject);
                         }

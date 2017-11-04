@@ -6,39 +6,46 @@
 // CPSC-340-01 & CPSC-344-01
 // Group Project
 // 
-// [DESCRIPTION]
+// This class handles the health for the player ship. If the player
+// dies, it tells the hand to drop the ship (which destroys it).
 // 
 //=============================================================================
 
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-using Hive.Armada;
 using Hive.Armada.Menu;
-using UnityEngine.SceneManagement;
 
 namespace Hive.Armada.Player
 {
+    /// <summary>
+    /// Handles the player ship's health.
+    /// </summary>
     public class PlayerHealth : MonoBehaviour
     {
         public ShipController shipController;
-        public int maxHealth = 100;
+        public int maxHealth = 30;
         private int currentHealth;
-        public bool isAlive { get; private set; }
-        public GameObject fxHit, fxHurt, fxDead;
-        private Material material;
+        public GameObject fxHit;
+        public GameObject fxHurt;
+        public GameObject fxDead;
+        protected List<Material> mats;
         public Material flashColor;
 
-        public AudioSource sfx;
-        public AudioClip clip;
-
+        /// <summary>
+        /// Initializes variables
+        /// </summary>
         void Start()
         {
+            mats = new List<Material>();
             currentHealth = maxHealth;
-            isAlive = true;
-            material = gameObject.GetComponentInChildren<Renderer>().material;
         }
 
+        /// <summary>
+        /// Deals damage to the player ship
+        /// </summary>
+        /// <param name="damage"> How much damage to deal </param>
         public void Hit(int damage)
         {
             Instantiate(fxHit, transform);
@@ -47,11 +54,11 @@ namespace Hive.Armada.Player
             if (Utility.isDebug)
                 Debug.Log("Hit for " + damage + " damage! Remaining health = " + currentHealth);
 
-            if (currentHealth <= 10) fxHurt.SetActive(true);
+            if (currentHealth <= 10)
+                fxHurt.SetActive(true);
 
             if (currentHealth <= 0)
             {
-                sfx.PlayOneShot(clip);
                 if (shipController != null)
                 {
                     Instantiate(fxDead, transform.position, transform.rotation);
@@ -60,15 +67,22 @@ namespace Hive.Armada.Player
                 }
             }
 
-            //StartCoroutine(HitFlash());
+            StartCoroutine(HitFlash());
         }
 
+        /// <summary>
+        /// Flashes the playership when hit
+        /// </summary>
         private IEnumerator HitFlash()
         {
             foreach (Renderer renderer in gameObject.GetComponentsInChildren<Renderer>())
             {
                 if (renderer.gameObject.CompareTag("FX"))
                     continue;
+                if (renderer.material.name.Equals("Laser Sight") || renderer.material.name.Equals("Laser Gun"))
+                    continue;
+
+                mats.Add(renderer.material);
 
                 renderer.material = flashColor;
             }
@@ -79,8 +93,11 @@ namespace Hive.Armada.Player
             {
                 if (renderer.gameObject.CompareTag("FX"))
                     continue;
+                if (renderer.material.name.Equals("Laser Sight") || renderer.material.name.Equals("Laser Gun"))
+                    continue;
 
-                renderer.material = material;
+                renderer.material = mats.First();
+                mats.RemoveAt(0);
             }
         }
     }

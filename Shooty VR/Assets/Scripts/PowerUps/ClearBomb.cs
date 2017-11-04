@@ -24,18 +24,13 @@ namespace Hive.Armada
         {
             if (hand.controller.GetPressDown(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad))
             {
-                Vector2 touchpad = hand.controller.GetAxis(Valve.VR.EVRButtonId.k_EButton_Axis0);
+                GameObject.Find("Player").GetComponent<PowerUpStatus>().SetClear(false);
 
-                if (touchpad.y < -0.7)
+                foreach (GameObject bullet in GameObject.FindGameObjectsWithTag("bullet"))
                 {
-                    GameObject.Find("Player").GetComponent<PowerUpStatus>().SetClear(false);
-
-                    foreach (GameObject bullet in GameObject.FindGameObjectsWithTag("bullet"))
-                    {
-                        Destroy(bullet);
-                    }
-                    Destroy(gameObject);
+                    Destroy(bullet);
                 }
+                Destroy(gameObject);
             }
         }
     }

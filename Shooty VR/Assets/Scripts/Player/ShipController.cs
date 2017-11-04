@@ -24,7 +24,7 @@ namespace Hive.Armada.Player
     {
         //public enum Handedness { Left, Right };
         public enum ShipMode { Menu, Game };
-        public enum GunTypes { Lasers, Miniguns, Railguns, Launchers };
+        public enum GunTypes { Laser, Minigun, Plasma, RocketPod };
 
         //public Handedness currentHandGuess = Handedness.Left;
         //private float timeOfPossibleHandSwitch = 0f;
@@ -34,11 +34,13 @@ namespace Hive.Armada.Player
         public ShipMode shipMode;
         public LaserSight laserSight;
         public GameObject lasers;
+        public GameObject miniguns;
         private LaserGun laserGun;
-        public Transform pivotTransform;
+        private Minigun minigun;
+        //public Transform pivotTransform;
         public Hand hand { get; private set; }
 
-        public GunTypes currentGun = GunTypes.Lasers;
+        public GunTypes currentGun = GunTypes.Laser;
 
         // Gun base stats
         public const int LASER_BASE_DAMAGE = 10;
@@ -95,6 +97,7 @@ namespace Hive.Armada.Player
 
             newPosesAppliedAction = SteamVR_Events.NewPosesAppliedAction(OnNewPosesApplied);
             laserGun = lasers.GetComponentInChildren<LaserGun>();
+            minigun = miniguns.GetComponentInChildren<Minigun>();
         }
 
         void OnEnable()
@@ -140,7 +143,22 @@ namespace Hive.Armada.Player
                 {
                     if (hand.GetStandardInteractionButton())
                     {
-                        laserGun.TriggerUpdate();
+                        switch (currentGun)
+                        {
+                            case GunTypes.Laser:
+                                laserGun.TriggerUpdate();
+                                break;
+                            case GunTypes.Minigun:
+                                minigun.TriggerUpdate();
+                                break;
+                            case GunTypes.Plasma:
+                                break;
+                            case GunTypes.RocketPod:
+                                break;
+                            default:
+                                Debug.LogWarning("ShipController - currentGun is invalid.");
+                                break;
+                        }
                     }
                 }
                 else if (!canShoot && hand.GetStandardInteractionButtonUp())
@@ -166,6 +184,7 @@ namespace Hive.Armada.Player
         {
             shipMode = mode;
         }
+
         public IEnumerator DamageBoost()
         {
             laserGun.damageBoost = 2;

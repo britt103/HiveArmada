@@ -20,8 +20,8 @@ public class ControlsMenu : MonoBehaviour {
         chs = FindObjectsOfType<ControlsHighlighter>();
         foreach(ControlsHighlighter ch in chs)
         {
-            ch.TriggerOn();
-            ch.AreaBombOn();
+            ch.FireOn();
+            ch.PowerupOn();
         }
     }
 

@@ -12,9 +12,8 @@ using Valve.VR;
 using Valve.VR.InteractionSystem;
 
 public class ControlsHighlighter : MonoBehaviour {
-    public string triggerTooltip = "Hold to Fire";
-    public string areaBombTooltip = "Press to Launch, Again to Detonate";
-    public string clearTooltip = "Press to Detonate";
+    public string fireTooltip = "Hold to Fire";
+    public string powerupTooltip = "Press to Activate Powerup";
 
     EVRButtonId trigger = EVRButtonId.k_EButton_SteamVR_Trigger;
     EVRButtonId touchpad = EVRButtonId.k_EButton_SteamVR_Touchpad;
@@ -26,19 +25,14 @@ public class ControlsHighlighter : MonoBehaviour {
         hand = GetComponentInParent<Hand>();
 	}
 
-    public void TriggerOn()
+    public void FireOn()
     {
-        ControllerButtonHints.ShowTextHint(hand, trigger, triggerTooltip);
+        ControllerButtonHints.ShowTextHint(hand, trigger, fireTooltip);
     }
 
-    public void AreaBombOn()
+    public void PowerupOn()
     {
-        ControllerButtonHints.ShowTextHint(hand, touchpad, areaBombTooltip);
-    }
-
-    public void ClearOn()
-    {
-        ControllerButtonHints.ShowTextHint(hand, touchpad, clearTooltip);
+        ControllerButtonHints.ShowTextHint(hand, touchpad, powerupTooltip);
     }
 
     public void AllOff()

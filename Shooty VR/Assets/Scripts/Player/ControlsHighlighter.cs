@@ -14,9 +14,11 @@ using Valve.VR.InteractionSystem;
 public class ControlsHighlighter : MonoBehaviour {
     public string fireTooltip = "Hold to Fire";
     public string powerupTooltip = "Press to Activate Powerup";
+    public string pauseTooltip = "Press to Pause";
 
     EVRButtonId trigger = EVRButtonId.k_EButton_SteamVR_Trigger;
     EVRButtonId touchpad = EVRButtonId.k_EButton_SteamVR_Touchpad;
+    EVRButtonId menuButton = EVRButtonId.k_EButton_ApplicationMenu;
 
     Hand hand;
 
@@ -33,6 +35,11 @@ public class ControlsHighlighter : MonoBehaviour {
     public void PowerupOn()
     {
         ControllerButtonHints.ShowTextHint(hand, touchpad, powerupTooltip);
+    }
+
+    public void PauseOn()
+    {
+        ControllerButtonHints.ShowTextHint(hand, menuButton, pauseTooltip);
     }
 
     public void AllOff()

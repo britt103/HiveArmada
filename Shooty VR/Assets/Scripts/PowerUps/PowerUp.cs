@@ -5,7 +5,7 @@
 //Assignment: Group Project
 //Purpose: Handles collision with Player, instantiates powerups
 
-using UnityEngine; 
+using UnityEngine;
 using Valve.VR.InteractionSystem;
 
 namespace Hive.Armada
@@ -13,15 +13,24 @@ namespace Hive.Armada
     public class PowerUp : MonoBehaviour
     {
         //prefab to use for instantiation
-        public GameObject powerUpPrefab;
-        //public GameObject fxAlly;
+        public GameObject powerupPrefab;
+        public GameObject powerupIconPrefab;
+        public GameObject fxAwake;
         private PowerUpStatus status;
-        public float lifeTime = 10.0f;
+        //private Transform head;
+        public float lifeTime = 20.0f;
 
         private void Start()
         {
-            status = GameObject.Find("Player").GetComponent<PowerUpStatus>();
+            Instantiate(fxAwake, transform.position, transform.localRotation);
+            status = FindObjectOfType<PowerUpStatus>();
+            //head = GameObject.Find("Player").transform.Find("SteamVRObjects").transform.Find("FollowHead").transform;
             Destroy(gameObject, lifeTime);
+        }
+
+        private void Update()
+        {
+            //gameObject.transform.LookAt(GameObject.Find("FollowHead").transform);
         }
 
         /// <summary>
@@ -30,53 +39,51 @@ namespace Hive.Armada
         /// <param name="other">object powerup collided with</param>
         void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.tag == "Player")
+            if (other.gameObject.tag == "Player" && status.HasRoom())
             {
-                switch (powerUpPrefab.name)
+                switch (powerupPrefab.name)
                 {
                     case "Shield":
-                        if (!status.GetShield())
+                        if (!status.shieldStored)
                         {
-                            Instantiate(powerUpPrefab, other.gameObject.transform.Find("Thrusters").transform);
-                            status.SetShield(true);
+                            status.StorePowerup(powerupPrefab, powerupIconPrefab);
+                            status.shieldStored = true;
                             Destroy(gameObject);
                         }
                         break;
 
                     case "Area Bomb":
-                        if (!status.GetAreaBomb() && !status.GetClear())
+                        if (!status.areaBombStored)
                         {
-                            Instantiate(powerUpPrefab, other.gameObject.transform.Find("BombPoint").transform);
-                            status.SetAreaBomb(true);
+                            status.StorePowerup(powerupPrefab, powerupIconPrefab);
+                            status.areaBombStored = true;
                             Destroy(gameObject);
 
                         }
                         break;
 
                     case "Clear":
-                        if (!status.GetClear() && !status.GetAreaBomb())
+                        if (!status.clearStored)
                         {
-                            Instantiate(powerUpPrefab, other.gameObject.transform.Find("BombPoint").transform);
-                            status.SetClear(true);
+                            status.StorePowerup(powerupPrefab, powerupIconPrefab);
+                            status.clearStored = true;
                             Destroy(gameObject);
                         }
                         break;
 
                     case "Ally":
-                        if (!status.GetAlly())
+                        if (!status.allyStored)
                         {
-                            
-                            Instantiate(powerUpPrefab, other.gameObject.transform.Find("Thrusters").transform);
-                            //Instantiate(fxAlly, other.gameObject.transform.Find("Ally").transform);
-                            status.SetAlly(true);
+                            status.StorePowerup(powerupPrefab, powerupIconPrefab);
+                            status.allyStored = true;
                             Destroy(gameObject);
                         }
                         break;
                     case "Damage Boost":
-                        if (!status.GetDamageBoost())
+                        if (!status.damageBoostStored)
                         {
-                            Instantiate(powerUpPrefab, other.gameObject.transform.Find("Thrusters").transform);
-                            status.SetDamageBoost(true);
+                            status.StorePowerup(powerupPrefab, powerupIconPrefab);
+                            status.damageBoostStored = true;
                             Destroy(gameObject);
                         }
                         break;
@@ -84,5 +91,4 @@ namespace Hive.Armada
             }
         }
     }
-
 }

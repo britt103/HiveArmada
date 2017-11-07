@@ -10,6 +10,8 @@
 // 
 //=============================================================================
 
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VR.WSA.Persistence;
 
@@ -19,6 +21,9 @@ namespace Hive.Armada.Game
     {
         public GameObject[] enemies;
         public int[][] waveSpawns;
+        public AudioSource source;
+        public AudioClip[] sounds;
+
         private readonly int[] enemyCap =
         {
             1,
@@ -30,7 +35,12 @@ namespace Hive.Armada.Game
             2,
             3,
             4,
-            3
+            3,
+            1,
+            3,
+            4,
+            4,
+            7
         };
         private readonly float[] spawnTime =
         {
@@ -43,14 +53,19 @@ namespace Hive.Armada.Game
             3.0f,
             2.0f,
             2.0f,
-            2.0f
+            2.0f,
+            2.0f,
+            2.0f,
+            2.0f,
+            1.8f,
+            1.8f
         };
 
         public float[][] wavePowerupChances;
 
         void Awake()
         {
-            waveSpawns = new int[10][];
+            waveSpawns = new int[15][];
 
             // 1-5
             waveSpawns[0] = new[] { 2, 0, 0, 0 };
@@ -64,17 +79,15 @@ namespace Hive.Armada.Game
             waveSpawns[7] = new[] { 0, 0, 6, 0 };
             waveSpawns[8] = new[] { 4, 2, 4, 0 };
             waveSpawns[9] = new[] { 2, 0, 0, 1 };
-            ;
-            //=
-            //{
-            //    { 2, 0, 0, 0 },
-            //    { 4, 0, 0, 0 },
-            //    { 8, 0, 0, 0 },
-            //    { 4, 1, 0, 0 },
-            //    { 0, 3, 0, 0 }
-            //};
 
-            wavePowerupChances = new float[10][];
+            // 11-15
+            waveSpawns[10] = new[] { 0, 0, 0, 3 };
+            waveSpawns[11] = new[] { 1, 2, 2, 1 };
+            waveSpawns[12] = new[] { 3, 2, 2, 3 };
+            waveSpawns[13] = new[] { 5, 0, 5, 4 };
+            waveSpawns[14] = new[] { 8, 5, 2, 5 };
+
+            wavePowerupChances = new float[15][];
 
             //currently shield, ally, damage, area, clear
             //1-5
@@ -89,6 +102,12 @@ namespace Hive.Armada.Game
             wavePowerupChances[7] = new[] { 0.2f, 0.4f, 0.6f, 0.8f, 1.0f };
             wavePowerupChances[8] = new[] { 0.2f, 0.4f, 0.6f, 0.8f, 1.0f };
             wavePowerupChances[9] = new[] { 0.2f, 0.4f, 0.6f, 0.8f, 1.0f };
+            //11-15
+            wavePowerupChances[10] = new[] { 0.2f, 0.4f, 0.6f, 0.8f, 1.0f };
+            wavePowerupChances[11] = new[] { 0.2f, 0.4f, 0.6f, 0.8f, 1.0f };
+            wavePowerupChances[12] = new[] { 0.2f, 0.4f, 0.6f, 0.8f, 1.0f };
+            wavePowerupChances[13] = new[] { 0.2f, 0.4f, 0.6f, 0.8f, 1.0f };
+            wavePowerupChances[14] = new[] { 0.2f, 0.4f, 0.6f, 0.8f, 1.0f };
         }
 
         /// <summary>
@@ -131,6 +150,13 @@ namespace Hive.Armada.Game
         public float[] GetPowerupChances(int wave)
         {
             return wavePowerupChances[wave];
+        }
+
+        public IEnumerator playWave(int waveNumber)
+        {
+            source.PlayOneShot(sounds[0]);
+            yield return new WaitForSeconds(0.9f);
+            source.PlayOneShot(sounds[waveNumber]);
         }
     }
 }

@@ -13,11 +13,12 @@ using UnityEngine.UI;
 public class Countdown : MonoBehaviour
 {
     public Text countdownText;
+    public AudioSource sfx;
 
     /// <summary>
     /// Run when activated
     /// </summary>
-    private void Awake()
+    private void OnEnable()
     {
         StartCoroutine(Run());
     }
@@ -28,6 +29,8 @@ public class Countdown : MonoBehaviour
     /// <returns></returns>
     private IEnumerator Run()
     {
+        GameObject.Find("Red Alert");
+        sfx.Play();
         for (int i = 5; i > 0; i--)
         {
             countdownText.text = i.ToString();

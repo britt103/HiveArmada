@@ -17,13 +17,12 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Rendering;
 using Hive.Armada;
 using Hive.Armada.Enemies;
-using System.Collections.Generic;
-using System.Linq;
-using NUnit.Framework.Constraints;
 
 namespace Hive.Armada.Player.Guns
 {

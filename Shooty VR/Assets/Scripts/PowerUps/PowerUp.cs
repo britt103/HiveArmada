@@ -17,20 +17,23 @@ namespace Hive.Armada
         public GameObject powerupIconPrefab;
         public GameObject fxAwake;
         private PowerUpStatus status;
-        //private Transform head;
+        private Transform head;
         public float lifeTime = 20.0f;
 
         private void Start()
         {
-            Instantiate(fxAwake, transform.position, transform.localRotation);
+            head = GameObject.Find("FollowHead").transform;
+            Instantiate(fxAwake, transform.position, transform.localRotation).transform.rotation = 
+                Quaternion.FromToRotation(Vector3.up, head.position - gameObject.transform.position);
+
             status = FindObjectOfType<PowerUpStatus>();
-            //head = GameObject.Find("Player").transform.Find("SteamVRObjects").transform.Find("FollowHead").transform;
+            
             Destroy(gameObject, lifeTime);
         }
 
         private void Update()
         {
-            //gameObject.transform.LookAt(GameObject.Find("FollowHead").transform);
+            gameObject.transform.parent.LookAt(head);
         }
 
         /// <summary>

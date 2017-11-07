@@ -39,6 +39,8 @@ namespace Hive.Armada
 
         private Valve.VR.InteractionSystem.Hand hand;
 
+        private ControlsHighlighter ch;
+
         public bool tracking = false;
 
         // Use this for initialization
@@ -50,16 +52,44 @@ namespace Hive.Armada
         //// Update is called once per frame
         void Update()
         {
-            //Debug.Log(tracking);
-
-            if (tracking)
+            if (tracking && powerups.Count > 0)
             {
-                if (hand.controller.GetPressDown(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad) && powerups.Count > 0)
+                if (hand.controller.GetTouch(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad))
                 {
-                    GameObject powerup = powerups.Dequeue();
+                    switch (powerups.Peek().name)
+                    {
+                        case "Shield":
+                            ch.ShieldOn();
+                            break;
+
+                        case "Area Bomb":
+                            ch.AreaBombOn();
+                            break;
+
+                        case "Clear":
+                            ch.ClearOn();
+                            break;
+
+                        case "Ally":
+                            ch.AllyOn();
+                            break;
+
+                        case "Damage Boost":
+                            ch.DamageBoostOn();
+                            break;
+                    }
+                }
+
+                if (hand.controller.GetTouchUp(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad))
+                {
+                    ch.AllOff();
+                }
+
+                if (hand.controller.GetPressDown(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad))
+                {
                     bool canActivate = true;
 
-                    switch (powerup.name)
+                    switch (powerups.Peek().name)
                     {
                         case "Shield":
                             if (shieldActive)
@@ -134,10 +164,12 @@ namespace Hive.Armada
 
                     if (canActivate)
                     {
-                        Instantiate(powerup, powerupPoint);
+                        Instantiate(powerups.Dequeue(), powerupPoint);
 
                         RemoveDisplayIcon();
                     }
+
+                    ch.AllOff();
                 }
             }
         }
@@ -222,6 +254,7 @@ namespace Hive.Armada
 
             shipGO = gameObject.GetComponentInChildren<Player.ShipController>().gameObject;
             hand = shipGO.GetComponentInParent<Valve.VR.InteractionSystem.Hand>();
+            ch = hand.GetComponentInChildren<ControlsHighlighter>();
             powerupPoint = shipGO.transform.Find("Powerup Point");
             iconPoint = shipGO.transform.Find("Powerup Icon Point");
         }

@@ -16,6 +16,7 @@ using System.Security.Cryptography;
 using UnityEngine;
 using Valve.VR.InteractionSystem;
 using Hive.Armada.Player.Guns;
+using Valve.VR;
 
 namespace Hive.Armada.Player
 {
@@ -32,6 +33,10 @@ namespace Hive.Armada.Player
         //private bool possibleHandSwitch = false;
 
         public ShipMode shipMode;
+
+        public GameObject[] guns;
+        private int currGun;
+
         public LaserSight laserSight;
         public GameObject lasers;
         private LaserGun laserGun;
@@ -41,31 +46,31 @@ namespace Hive.Armada.Player
 
         public GunTypes currentGun = GunTypes.Lasers;
 
-        // Gun base stats
-        public const int LASER_BASE_DAMAGE = 10;
-        public const float LASER_BASE_FIRE_RATE = 10.0f;
-        public const int MINIGUN_BASE_DAMAGE = 1;
-        public const float MINIGUN_BASE_FIRE_RATE = 110.0f;
-        public const int RAILGUN_BASE_DAMAGE = 1;
-        public const float RAILGUN_BASE_FIRE_RATE = 1.0f;
-        public const int LAUNCHER_BASE_DAMAGE = 1;
-        public const float LAUNCHER_BASE_FIRE_RATE = 1.0f;
+        //// Gun base stats
+        //public const int LASER_BASE_DAMAGE = 10;
+        //public const float LASER_BASE_FIRE_RATE = 10.0f;
+        //public const int MINIGUN_BASE_DAMAGE = 1;
+        //public const float MINIGUN_BASE_FIRE_RATE = 110.0f;
+        //public const int RAILGUN_BASE_DAMAGE = 1;
+        //public const float RAILGUN_BASE_FIRE_RATE = 1.0f;
+        //public const int LAUNCHER_BASE_DAMAGE = 1;
+        //public const float LAUNCHER_BASE_FIRE_RATE = 1.0f;
 
         // Gun current stats
-        public int laserDamage = 10;
-        public float laserFireRate = 10.0f;
-        public int minigunDamage = 1;
-        public float minigunFireRate = 110.0f;
-        public int railgunDamage = 1;
-        public float railgunFireRate = 10.0f;
-        public int launcherDamage = 1;
-        public float launcherFireRate = 10.0f;
+        public int laserDamage;
+        public float laserFireRate;
+        public int minigunDamage;
+        public float minigunFireRate;
+        public int railgunDamage;
+        public float railgunFireRate;
+        public int launcherDamage;
+        public float launcherFireRate;
 
-        private bool deferNewPoses = false;
+        private bool deferNewPoses;
         private Vector3 lateUpdatePos;
         private Quaternion lateUpdateRot;
 
-        SteamVR_Events.Action newPosesAppliedAction;
+        private SteamVR_Events.Action newPosesAppliedAction;
 
         public SoundPlayOneshot engineSound;
         public GameObject deathExplosion;
@@ -98,6 +103,11 @@ namespace Hive.Armada.Player
             //railgunFireRate = RAILGUN_BASE_FIRE_RATE;
             //launcherDamage = LAUNCHER_BASE_DAMAGE;
             //launcherFireRate = LAUNCHER_BASE_FIRE_RATE;
+
+            if (guns.Length > 0)
+            {
+                currGun = 0;
+            }
 
             newPosesAppliedAction = SteamVR_Events.NewPosesAppliedAction(OnNewPosesApplied);
             laserGun = lasers.GetComponentInChildren<LaserGun>();
@@ -146,20 +156,27 @@ namespace Hive.Armada.Player
                 {
                     if (hand.GetStandardInteractionButton())
                     {
-                        switch (currentGun)
-                        {
-                            case GunTypes.Lasers:
-                                laserGun.TriggerUpdate();
-                                break;
-                            case GunTypes.Miniguns:
-                                minigun.TriggerUpdate();
-                                break;
-                        }
+                        guns[currGun].SendMessage("TriggerUpdate");
+                        //switch (currentGun)
+                        //{
+                        //    case GunTypes.Lasers:
+                        //        laserGun.TriggerUpdate();
+                        //        break;
+                        //    case GunTypes.Miniguns:
+                        //        minigun.TriggerUpdate();
+                        //        break;
+                        //}
                     }
                 }
                 else if (!canShoot && hand.GetStandardInteractionButtonUp())
                 {
                     canShoot = true;
+                }
+
+                // Switch guns
+                if (!hand.GetStandardInteractionButton() && hand.controller.GetPressDown(EVRButtonId.k_EButton_Grip))
+                {
+                    SwitchGun(currGun);
                 }
 
                 //press menu button
@@ -179,6 +196,30 @@ namespace Hive.Armada.Player
 
             //// Update handedness guess
             //EvaluateHandedness();
+        }
+
+        private void SwitchGun(int previous)
+        {
+            ++currGun;
+            if (currGun >= guns.Length)
+            {
+                currGun = 0;
+            }
+
+            if (currGun == previous)
+                return;
+
+            if (guns[currGun].GetComponent<Minigun>())
+                guns[currGun].GetComponent<Minigun>().ResetTracers();
+
+            if (guns[previous].GetComponent<Minigun>())
+                guns[previous].GetComponent<Minigun>().ResetTracers();
+
+            guns[previous].SetActive(false);
+            guns[currGun].SetActive(true);
+
+            if (hand.GetStandardInteractionButton())
+                canShoot = false;
         }
 
         /// <summary>

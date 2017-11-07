@@ -77,7 +77,7 @@ namespace Hive.Armada.Game
             //    shipReminderGO.SetActive(false);
             //}
 
-            while (wave <= 8)
+            while (wave <= waves.waveSpawns.Length - 2)
             {
                 if (waveSpawn == null)
                 {
@@ -228,7 +228,7 @@ namespace Hive.Armada.Game
             stats.WaveComplete();
             waveSpawn = null;
 
-            if (wave == 9)
+            if (wave == waves.waveSpawns.Length - 1)
             {
                 //StartCoroutine(Win());
                 GameObject.Find("Main Canvas").transform.Find("Winner!").gameObject.SetActive(true);
@@ -245,13 +245,19 @@ namespace Hive.Armada.Game
             canSpawnEnemy = false;
             yield return new WaitForSeconds(enemySpawnTime);
 
-            // SPAWN THAT SHIT HERE
             Vector3 lower = enemyBounds[0].transform.position;
             Vector3 upper = enemyBounds[1].transform.position;
             Vector3 position = new Vector3(
                 Random.Range(lower.x, upper.x),
                 Random.Range(lower.y, upper.y),
                 Random.Range(lower.z, upper.z));
+
+            if (prefab.name.Contains("Splitter"))
+            {
+                if (position.y < 1)
+                    position.y += Random.Range(1.0f, 2.0f);
+            }
+
             Instantiate(prefab, position, Quaternion.identity);
 
             ++alive;
@@ -277,7 +283,6 @@ namespace Hive.Armada.Game
             canSpawnPowerup = false;
             yield return new WaitForSeconds(powerupSpawnTime);
 
-            // SPAWN THAT OTHER SHIT HERE
             Vector3 lower = powerupBounds[0].transform.position;
             Vector3 upper = powerupBounds[1].transform.position;
 

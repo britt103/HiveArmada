@@ -6,6 +6,7 @@
 //Purpose: Tracks powerups in use
 
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace Hive.Armada
 {
@@ -16,8 +17,22 @@ namespace Hive.Armada
         private bool clearState = false;
         private bool allyState = false;
         private bool damageBoostState = false;
+        private Queue<GameObject> powerups = new Queue<GameObject>();
+        private Queue<GameObject> powerupIcons = new Queue<GameObject>();
+        public int maxStoredPowerups = 3;
+
+        public float iconSpacing = 1f;
+        public float alphaDelta = 30f;
+
+        private GameObject shipGO;
+        private Transform powerupPoint;
+        private Transform iconPoint;
 
         private PlayerStats stats;
+
+        private Valve.VR.InteractionSystem.Hand hand;
+
+        public bool tracking = false;
 
         // Use this for initialization
         void Start()
@@ -26,10 +41,47 @@ namespace Hive.Armada
         }
 
         //// Update is called once per frame
-        //void Update()
-        //{
+        void Update()
+        {
+            //Debug.Log(tracking);
 
-        //}
+            if (tracking)
+            {
+                if (hand.controller.GetPressDown(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad) && powerups.Count > 0)
+                {
+                    GameObject powerup = powerups.Dequeue();
+
+                    switch (powerup.name)
+                    {
+                        case "Shield":
+                            shieldState = false;
+                            break;
+
+                        case "Area Bomb":
+                            areaBombState = false;
+                            break;
+
+                        case "Clear":
+                            clearState = false;
+                            break;
+
+                        case "Ally":
+                            allyState = false;
+                            break;
+
+                        case "Damage Boost":
+                            damageBoostState = false;
+                            break;
+                    }
+
+                    Instantiate(powerup, powerupPoint);
+
+                    RemoveDisplayIcon();
+                }
+            }
+        }
+
+        //Getters and setters for powerup states
 
         public bool GetShield()
         {
@@ -98,6 +150,79 @@ namespace Hive.Armada
                 stats.DamageBoostCount();
             }
             damageBoostState = newState;
+        }
+
+        /// <summary>
+        /// Trigger status to start tracking and find necessary gameobjects and transforms
+        /// </summary>
+        public void BeginTracking()
+        {
+            tracking = true;
+
+            shipGO = gameObject.GetComponentInChildren<Player.ShipController>().gameObject;
+            hand = shipGO.GetComponentInParent<Valve.VR.InteractionSystem.Hand>();
+            powerupPoint = shipGO.transform.Find("Thrusters").gameObject.transform;
+            iconPoint = powerupPoint.Find("Powerup Icon Point").gameObject.transform;
+        }
+
+        /// <summary>
+        /// Add powerup to queues
+        /// </summary>
+        /// <param name="powerupPrefab">gameobject to powerup</param>
+        /// <param name="powerupIconPrefab">gameobject of powerup icon</param>
+        public void StorePowerup(GameObject powerupPrefab, GameObject powerupIconPrefab)
+        {
+            powerups.Enqueue(powerupPrefab);
+
+            GameObject newIcon = Instantiate(powerupIconPrefab, iconPoint);
+            powerupIcons.Enqueue(newIcon);
+            UpdateDisplayIcon(newIcon);
+        }
+
+        /// <summary>
+        /// Adjust attributes of newly added icon based on queue count
+        /// </summary>
+        /// <param name="newIcon"></param>
+        private void UpdateDisplayIcon(GameObject newIcon)
+        {
+            //position
+            newIcon.transform.localPosition = new Vector3(iconSpacing * (powerupIcons.Count - 1), 0, 0);
+
+            //scale
+            //newIcon.transform.localScale *= (powerupIcons.Count / maxStoredPowerups);
+
+            //transparency
+            //Color color = newIcon.GetComponent<MeshRenderer>().material.color;
+            //color.a = (255 * (float)(powerupIcons.Count / maxStoredPowerups));
+            //color.a -= (alphaDelta * (powerupIcons.Count - 1));
+            //newIcon.GetComponent<MeshRenderer>().material.color = color;
+        }
+
+        /// <summary>
+        /// Removce icon, shift remaining icons
+        /// </summary>
+        private void RemoveDisplayIcon()
+        {
+            Destroy(powerupIcons.Dequeue());
+            foreach(GameObject icon in powerupIcons)
+            {
+                icon.transform.localPosition -= new Vector3(iconSpacing, 0, 0);
+
+                //icon.transform.localScale += new Vector3((1 / maxStoredPowerups), (1 / maxStoredPowerups), (1 / maxStoredPowerups));
+
+                //Color color = icon.GetComponent<MeshRenderer>().material.color;
+                //color.a += alphaDelta;
+                //icon.GetComponent<MeshRenderer>().material.color = color;
+            }
+        }
+
+        /// <summary>
+        /// Return status of queue capacity
+        /// </summary>
+        /// <returns>bool: True if there is room left in queue</returns>
+        public bool HasRoom()
+        {
+            return (powerups.Count < maxStoredPowerups);
         }
     }
 }

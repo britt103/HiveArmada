@@ -16,7 +16,7 @@ namespace Hive.Armada
         public GameObject powerUpPrefab;
         //public GameObject fxAlly;
         private PowerUpStatus status;
-        private float lifeTime = 10.0f;
+        public float lifeTime = 10.0f;
 
         private void Start()
         {

@@ -17,11 +17,11 @@ namespace Hive.Armada
         private float flashTimer = 0.0F;
         private bool flashState = false;
         public Vector3 rotation = new Vector3(0.0F, 0.0F, 0.0F);
-        private PowerUpStatus status;
+        //private PowerUpStatus status;
 
         private void Start()
         {
-            status = GameObject.Find("Player").GetComponent<PowerUpStatus>();
+            //status = GameObject.Find("Player").GetComponent<PowerUpStatus>();
         }
 
         // Update is called once per frame
@@ -30,7 +30,7 @@ namespace Hive.Armada
             timeLimit -= Time.deltaTime;
             if (timeLimit <= 0.0F)
             {
-                status.SetShield(false);
+                //status.SetShield(false);
                 Destroy(gameObject);
             }
 

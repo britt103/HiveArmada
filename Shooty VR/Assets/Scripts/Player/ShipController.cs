@@ -80,6 +80,9 @@ namespace Hive.Armada.Player
             {
                 pickup.SetActive(false);
             }
+
+            GameObject.Find("Main Canvas").transform.Find("Title").gameObject.SetActive(false);
+            GameObject.Find("Main Canvas").transform.Find("Main Menu").gameObject.SetActive(true);
         }
 
         void Awake()
@@ -147,11 +150,20 @@ namespace Hive.Armada.Player
                 {
                     canShoot = true;
                 }
+
+                //press menu button
+                if (hand.controller.GetPressDown(Valve.VR.EVRButtonId.k_EButton_ApplicationMenu))
+                {
+                    GameObject.Find("Main Canvas").transform.Find("Paused Menu").gameObject.SetActive(
+                        !GameObject.Find("Main Canvas").transform.Find("Paused Menu").gameObject.activeSelf);
+                }
             }
             else if (shipMode.Equals(ShipMode.Menu))
             {
                 if (hand.GetStandardInteractionButtonDown())
+                {
                     laserSight.TriggerUpdate();
+                }
             }
 
             //// Update handedness guess

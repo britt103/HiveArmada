@@ -23,6 +23,7 @@ using Hive.Armada;
 using Hive.Armada.Enemies;
 using System.Collections.Generic;
 using System.Linq;
+using NUnit.Framework.Constraints;
 
 namespace Hive.Armada.Player.Guns
 {
@@ -76,12 +77,14 @@ namespace Hive.Armada.Player.Guns
         private int leftTracer = 7;
         private int rightTracer = 1;
         private float tracerSpeed = 100.0f;
+        public int damageBoost = 1;
 
         /// <summary>
         /// Initializes variables
         /// </summary>
         void Start()
         {
+            damageBoost = 1;
             damage = shipController.minigunDamage;
             fireRate = shipController.minigunFireRate;
         }
@@ -125,7 +128,7 @@ namespace Hive.Armada.Player.Guns
 
                 if (hit.collider.gameObject.GetComponent<Enemy>() != null)
                 {
-                    hit.collider.gameObject.GetComponent<Enemy>().Hit(damage);
+                    hit.collider.gameObject.GetComponent<Enemy>().Hit(damage * damageBoost);
                 }
 
                 shipController.hand.controller.TriggerHapticPulse(2500);
@@ -197,31 +200,31 @@ namespace Hive.Armada.Player.Guns
             canShoot = true;
         }
 
-        /// <summary>
-        /// Calculates the delay for a "bullet" to "travel"
-        /// from the minigun to the target enemy.
-        /// </summary>
-        /// <param name="position"> The position of the shot </param>
-        /// <returns> How long it will take for the "bullet" to hit the target </returns>
-        private float CalculateDelay(Vector3 position)
-        {
-            float distance = Vector3.Distance(shipController.gameObject.transform.position, position);
+        ///// <summary>
+        ///// Calculates the delay for a "bullet" to "travel"
+        ///// from the minigun to the target enemy.
+        ///// </summary>
+        ///// <param name="position"> The position of the shot </param>
+        ///// <returns> How long it will take for the "bullet" to hit the target </returns>
+        //private float CalculateDelay(Vector3 position)
+        //{
+        //    float distance = Vector3.Distance(shipController.gameObject.transform.position, position);
 
-            return distance/tracerSpeed;
-        }
+        //    return distance/tracerSpeed;
+        //}
 
-        /// <summary>
-        /// Spawns a hit spark on target after a delay to emulate bullet travel.
-        /// </summary>
-        /// <param name="position"> The position of the hit </param>
-        /// <param name="delay"> How long to wait before spawning the hit spark </param>
-        private IEnumerator HitSpark(Vector3 position, float delay)
-        {
-            yield return new WaitForSeconds(delay);
+        ///// <summary>
+        ///// Spawns a hit spark on target after a delay to emulate bullet travel.
+        ///// </summary>
+        ///// <param name="position"> The position of the hit </param>
+        ///// <param name="delay"> How long to wait before spawning the hit spark </param>
+        //private IEnumerator HitSpark(Vector3 position, float delay)
+        //{
+        //    yield return new WaitForSeconds(delay);
 
-            GameObject spark = Instantiate(hitSparkPrefab, position, Quaternion.identity);
-            spark.transform.Rotate(0.0f, 180.0f, 0.0f);
-        }
+        //    GameObject spark = Instantiate(hitSparkPrefab, position, Quaternion.identity);
+        //    spark.transform.Rotate(0.0f, 180.0f, 0.0f);
+        //}
 
         /// <summary>
         /// Spawns a hit spark on target after a delay to emulate bullet travel.
@@ -245,7 +248,7 @@ namespace Hive.Armada.Player.Guns
             activeTracers.Add(tracer);
 
             // Enable tracer
-            tracer.transform.position = barrel.transform.position + barrel.transform.forward * - 0.3f;
+            tracer.transform.position = barrel.transform.position + barrel.transform.forward * -0.3f;
             //tracer.transform.rotation = barrel.transform.rotation;
             tracer.transform.LookAt(target);
             tracer.SetActive(true);
@@ -267,6 +270,38 @@ namespace Hive.Armada.Player.Guns
             tracer.SetActive(false);
             tracers.Add(tracer);
             activeTracers.Remove(tracer);
+        }
+
+        /// <summary>
+        /// Deactivates and resets all tracers. Removes all from activeTracers.
+        /// </summary>
+        public void ResetTracers()
+        {
+            try
+            {
+                for (int i = activeTracers.Count - 1; i >= 0; i--)
+                {
+                    tracers.Add(activeTracers.ElementAt(i));
+                    activeTracers.RemoveAt(i);
+                }
+
+                foreach (GameObject tracer in tracers)
+                {
+                    tracer.SetActive(false);
+                    try
+                    {
+                        tracer.GetComponent<ParticleSystem>().Clear();
+                    }
+                    catch (Exception)
+                    {
+                        // do nothing
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                // do nothing
+            }
         }
     }
 }

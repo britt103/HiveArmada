@@ -12,11 +12,18 @@ namespace Hive.Armada
 {
     public class PowerUpStatus : MonoBehaviour
     {
-        private bool shieldState = false;
-        private bool areaBombState = false;
-        private bool clearState = false;
-        private bool allyState = false;
-        private bool damageBoostState = false;
+        public bool shieldStored = false;
+        public bool areaBombStored = false;
+        public bool clearStored = false;
+        public bool allyStored = false;
+        public bool damageBoostStored = false;
+
+        public bool shieldActive = false;
+        public bool areaBombActive = false;
+        public bool clearActive = false;
+        public bool allyActive = false;
+        public bool damageBoostActive = false;
+
         private Queue<GameObject> powerups = new Queue<GameObject>();
         private Queue<GameObject> powerupIcons = new Queue<GameObject>();
         public int maxStoredPowerups = 3;
@@ -50,107 +57,161 @@ namespace Hive.Armada
                 if (hand.controller.GetPressDown(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad) && powerups.Count > 0)
                 {
                     GameObject powerup = powerups.Dequeue();
+                    bool canActivate = true;
 
                     switch (powerup.name)
                     {
                         case "Shield":
-                            shieldState = false;
+                            if (shieldActive)
+                            {
+                                canActivate = false;
+                            }
+                            else
+                            {
+                                shieldStored = false;
+                                shieldActive = true;
+                                stats.ShieldCount();
+                            }
+
                             break;
 
                         case "Area Bomb":
-                            areaBombState = false;
+                            if (areaBombActive)
+                            {
+                                canActivate = false;
+                            }
+                            else
+                            {
+                                areaBombStored = false;
+                                areaBombActive = true;
+                                stats.AreaBombCount();
+                            }
+
                             break;
 
                         case "Clear":
-                            clearState = false;
+                            if (clearActive)
+                            {
+                                canActivate = false;
+                            }
+                            else
+                            {
+                                clearStored = false;
+                                clearActive = true;
+                                stats.ClearCount();
+                            }
+
                             break;
 
                         case "Ally":
-                            allyState = false;
+                            if (allyActive)
+                            {
+                                canActivate = false;
+                            }
+                            else
+                            {
+                                allyStored = false;
+                                allyActive = true;
+                                stats.AllyCount();
+                            }
+
                             break;
 
                         case "Damage Boost":
-                            damageBoostState = false;
+                            if (damageBoostActive)
+                            {
+                                canActivate = false;
+                            }
+                            else
+                            {
+                                damageBoostStored = false;
+                                damageBoostActive = true;
+                                stats.DamageBoostCount();
+                            }
+
                             break;
                     }
 
-                    Instantiate(powerup, powerupPoint);
+                    if (canActivate)
+                    {
+                        Instantiate(powerup, powerupPoint);
 
-                    RemoveDisplayIcon();
+                        RemoveDisplayIcon();
+                    }
                 }
             }
         }
 
         //Getters and setters for powerup states
 
-        public bool GetShield()
-        {
-            return shieldState;
-        }
+        //public bool GetShield()
+        //{
+        //    return shieldState;
+        //}
 
-        public void SetShield(bool newState)
-        {
-            if (newState)
-            {
-                stats.ShieldCount();
-            }
-            shieldState = newState;
-        }
+        //public void SetShield(bool newState)
+        //{
+        //    if (newState)
+        //    {
+        //        stats.ShieldCount();
+        //    }
+        //    shieldState = newState;
+        //}
 
-        public bool GetAreaBomb()
-        {
-            return areaBombState;
-        }
+        //public bool GetAreaBomb()
+        //{
+        //    return areaBombState;
+        //}
 
-        public void SetAreaBomb(bool newState)
-        {
-            if (newState)
-            {
-                stats.AreaBombCount();
-            }
-            areaBombState = newState;
-        }
+        //public void SetAreaBomb(bool newState)
+        //{
+        //    if (newState)
+        //    {
+        //        stats.AreaBombCount();
+        //    }
+        //    areaBombState = newState;
+        //}
 
-        public bool GetClear()
-        {
-            return clearState;
-        }
+        //public bool GetClear()
+        //{
+        //    return clearState;
+        //}
 
-        public void SetClear(bool newState)
-        {
-            if (newState)
-            {
-                stats.ClearCount();
-            }
-            clearState = newState;
-        }
+        //public void SetClear(bool newState)
+        //{
+        //    if (newState)
+        //    {
+        //        stats.ClearCount();
+        //    }
+        //    clearState = newState;
+        //}
 
-        public bool GetAlly()
-        {
-            return allyState;
-        }
+        //public bool GetAlly()
+        //{
+        //    return allyState;
+        //}
 
-        public void SetAlly(bool newState)
-        {
-            if (newState)
-            {
-                stats.AllyCount();
-            }
-            allyState = newState;
-        }
-        public bool GetDamageBoost()
-        {
-            return damageBoostState;
-        }
+        //public void SetAlly(bool newState)
+        //{
+        //    if (newState)
+        //    {
+        //        stats.AllyCount();
+        //    }
+        //    allyState = newState;
+        //}
+        //public bool GetDamageBoost()
+        //{
+        //    return damageBoostState;
+        //}
 
-        public void SetDamageBoost(bool newState)
-        {
-            if (newState)
-            {
-                stats.DamageBoostCount();
-            }
-            damageBoostState = newState;
-        }
+        //public void SetDamageBoost(bool newState)
+        //{
+        //    if (newState)
+        //    {
+        //        stats.DamageBoostCount();
+        //    }
+        //    damageBoostState = newState;
+        //}
 
         /// <summary>
         /// Trigger status to start tracking and find necessary gameobjects and transforms
@@ -161,8 +222,8 @@ namespace Hive.Armada
 
             shipGO = gameObject.GetComponentInChildren<Player.ShipController>().gameObject;
             hand = shipGO.GetComponentInParent<Valve.VR.InteractionSystem.Hand>();
-            powerupPoint = shipGO.transform.Find("Thrusters").gameObject.transform;
-            iconPoint = powerupPoint.Find("Powerup Icon Point").gameObject.transform;
+            powerupPoint = shipGO.transform.Find("Powerup Point");
+            iconPoint = shipGO.transform.Find("Powerup Icon Point");
         }
 
         /// <summary>

@@ -2346,7 +2346,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &436018657
 GameObject:
@@ -3799,7 +3799,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4675679322741028, guid: d9f2a9ef87214aa4e9c338464a9a76c4, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 114310602746051822, guid: d9f2a9ef87214aa4e9c338464a9a76c4,
         type: 2}
@@ -4028,7 +4028,7 @@ Transform:
   m_Children:
   - {fileID: 32977713}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &936767481
 GameObject:
@@ -5382,7 +5382,7 @@ Transform:
   m_Children:
   - {fileID: 106629177}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1128639793
 GameObject:
@@ -9789,7 +9789,7 @@ Transform:
   - {fileID: 1414931094}
   - {fileID: 128077517}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1934855099
 GameObject:
@@ -10099,6 +10099,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f514efbfd23fbb842aedecea24e35161, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &1992532010
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4171577122755712, guid: 84ef68ef9a4ce5843979557b53e1d8ed, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 5.0104275
+      objectReference: {fileID: 0}
+    - target: {fileID: 4171577122755712, guid: 84ef68ef9a4ce5843979557b53e1d8ed, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 3.652
+      objectReference: {fileID: 0}
+    - target: {fileID: 4171577122755712, guid: 84ef68ef9a4ce5843979557b53e1d8ed, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 4.7751365
+      objectReference: {fileID: 0}
+    - target: {fileID: 4171577122755712, guid: 84ef68ef9a4ce5843979557b53e1d8ed, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4171577122755712, guid: 84ef68ef9a4ce5843979557b53e1d8ed, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4171577122755712, guid: 84ef68ef9a4ce5843979557b53e1d8ed, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4171577122755712, guid: 84ef68ef9a4ce5843979557b53e1d8ed, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4171577122755712, guid: 84ef68ef9a4ce5843979557b53e1d8ed, type: 2}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 84ef68ef9a4ce5843979557b53e1d8ed, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &2033719005
 GameObject:
   m_ObjectHideFlags: 0
@@ -10142,6 +10184,11 @@ MonoBehaviour:
   fireTooltip: Hold to Fire
   powerupTooltip: Press to Activate Powerup
   pauseTooltip: Press to Pause
+  allyTooltip: Helper Ally Ship
+  areaBombTooltip: Launch Timed Explosive
+  clearTooltip: Destroy Enemy Projectiles
+  damageBoostTooltip: Increase Weapon Damage
+  shieldTooltip: Protective Barrier
 --- !u!1 &2070555432
 GameObject:
   m_ObjectHideFlags: 0
@@ -10270,6 +10317,11 @@ MonoBehaviour:
   fireTooltip: Hold to Fire
   powerupTooltip: Press to Activate Powerup
   pauseTooltip: Press to Pause
+  allyTooltip: Helper Ally Ship
+  areaBombTooltip: Launch Timed Explosive
+  clearTooltip: Destroy Enemy Projectiles
+  damageBoostTooltip: Increase Weapon Damage
+  shieldTooltip: Protective Barrier
 --- !u!1 &2084524600
 GameObject:
   m_ObjectHideFlags: 0

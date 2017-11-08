@@ -180,11 +180,11 @@ namespace Hive.Armada.Player
                 }
 
                 //press menu button
-                if (hand.controller.GetPressDown(Valve.VR.EVRButtonId.k_EButton_ApplicationMenu))
-                {
-                    GameObject.Find("Main Canvas").transform.Find("Paused Menu").gameObject.SetActive(
-                        !GameObject.Find("Main Canvas").transform.Find("Paused Menu").gameObject.activeSelf);
-                }
+                //if (hand.controller.GetPressDown(Valve.VR.EVRButtonId.k_EButton_ApplicationMenu))
+                //{
+                //    GameObject.Find("Main Canvas").transform.Find("Paused Menu").gameObject.SetActive(
+                //        !GameObject.Find("Main Canvas").transform.Find("Paused Menu").gameObject.activeSelf);
+                //}
             }
             else if (shipMode.Equals(ShipMode.Menu))
             {

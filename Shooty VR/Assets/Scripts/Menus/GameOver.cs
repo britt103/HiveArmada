@@ -11,15 +11,17 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Hive.Armada.Player;
 
-namespace Hive.Armada
+namespace Hive.Armada.Game
 {
     public class GameOver : MonoBehaviour
     {
+        public Spawner spawner;
         /// <summary>
         /// Triggers gameover/reload process
         /// </summary>
         public void OnEnable()
         {
+            StartCoroutine(spawner.loseSound());
             StartCoroutine(Reload());
             FindObjectOfType<PlayerStats>().PrintStats();
         }
@@ -30,6 +32,7 @@ namespace Hive.Armada
         /// <returns></returns>
         private IEnumerator Reload()
         {
+
             yield return new WaitForSeconds(10.0f);
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }

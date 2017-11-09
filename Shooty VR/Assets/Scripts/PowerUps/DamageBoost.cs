@@ -1,5 +1,5 @@
 ﻿using Hive.Armada.Player;
-using Hive.Armada.Player.Guns;
+using Hive.Armada.Player.Weapons;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

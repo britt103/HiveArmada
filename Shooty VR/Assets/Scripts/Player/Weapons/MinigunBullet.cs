@@ -16,7 +16,7 @@ using UnityEngine;
 using Hive.Armada.Enemies;
 using Valve.VR.InteractionSystem;
 
-namespace Hive.Armada.Player.Guns
+namespace Hive.Armada.Player.Weapons
 {
     public class MinigunBullet : MonoBehaviour
     {

@@ -5740,14 +5740,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shipMode: 0
-  guns:
+  weapons:
   - {fileID: 1629746874275404}
   - {fileID: 1898544543187972}
   laserSight: {fileID: 114693560361633878}
-  lasers: {fileID: 1629746874275404}
-  minigun: {fileID: 114737157421707460}
   pivotTransform: {fileID: 0}
-  currentGun: 0
   laserDamage: 10
   laserFireRate: 8
   minigunDamage: 3
@@ -5782,6 +5779,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shipController: {fileID: 114387485106083888}
+  damageBoost: 0
   left: {fileID: 1342840622184698}
   right: {fileID: 1178781355733306}
   laserMaterial: {fileID: 2100000, guid: fb4863ba36a8e134791cc6e1bbb1efeb, type: 2}
@@ -5790,7 +5788,6 @@ MonoBehaviour:
   thickness: 0.002
   castShadows: 0
   receiveShadows: 0
-  damageBoost: 0
   sfx: {fileID: 82047103537182748}
   clips:
   - {fileID: 8300000, guid: f2d364ae7c1470d4897f89953d19dff2, type: 3}
@@ -5824,6 +5821,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shipController: {fileID: 114387485106083888}
+  damageBoost: 1
   tracerPrefab: {fileID: 1119082080290300, guid: 84ef68ef9a4ce5843979557b53e1d8ed,
     type: 2}
   hitSparkPrefab: {fileID: 1170983697632442, guid: b9264ac9610fac64396312a2bd67e309,
@@ -5845,7 +5843,8 @@ MonoBehaviour:
   radius: 0.3
   tracerPoolCount: 40
   tracerFrequency: 1
-  damageBoost: 1
+  thickness: 0.001
+  material: {fileID: 2100000, guid: fb4863ba36a8e134791cc6e1bbb1efeb, type: 2}
 --- !u!136 &136807103204981110
 CapsuleCollider:
   m_ObjectHideFlags: 1

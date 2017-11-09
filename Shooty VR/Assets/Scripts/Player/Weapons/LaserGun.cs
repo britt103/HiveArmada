@@ -21,9 +21,9 @@ using Valve.VR;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-namespace Hive.Armada.Player.Guns
+namespace Hive.Armada.Player.Weapons
 {
-    public class LaserGun : Gun
+    public class LaserGun : Weapon
     {
         public GameObject left;
         public GameObject right;
@@ -37,7 +37,6 @@ namespace Hive.Armada.Player.Guns
         public ShadowCastingMode castShadows;
         public bool receiveShadows = false;
         private bool isLeftFire = true;
-        public int damageBoost;
 
         public AudioSource sfx;
         public AudioClip[] clips;
@@ -72,21 +71,21 @@ namespace Hive.Armada.Player.Guns
             stats = FindObjectOfType<PlayerStats>();
         }
 
-        /// <summary>
-        /// Sent every frame while the trigger is pressed
-        /// </summary>
-        public override void TriggerUpdate()
-        {
-            if (canShoot)
-            {
-                Clicked();
-            }
-        }
+        ///// <summary>
+        ///// Sent every frame while the trigger is pressed
+        ///// </summary>
+        //public override void TriggerUpdate()
+        //{
+        //    if (canShoot)
+        //    {
+        //        Clicked();
+        //    }
+        //}
 
         /// <summary>
         /// Gets enemy or wall aimpoint and shoots at it. Will damage enemies.
         /// </summary>
-        private void Clicked()
+        protected override void Clicked()
         {
             RaycastHit hit;
             if (Physics.SphereCast(transform.position, radius, transform.forward, out hit, 200.0f, Utility.enemyMask))
@@ -97,35 +96,26 @@ namespace Hive.Armada.Player.Guns
 
                 StartCoroutine(Shoot(hit.collider.gameObject.transform.position, hit.collider.gameObject));
 
-                //if (shipController.hand != null)
-                //{
-                //    shipController.hand.controller.TriggerHapticPulse();
-                //}
                 if (hit.collider.gameObject.GetComponent<Enemy>() != null)
                 {
-                    hit.collider.gameObject.GetComponent<Enemy>().Hit(damage*damageBoost);
+                    hit.collider.gameObject.GetComponent<Enemy>().Hit(damage * damageBoost);
                 }
 
                 shipController.hand.controller.TriggerHapticPulse(2500);
             }
-
-
-            //else if (Physics.SphereCast(transform.position, radius, transform.forward, out hit, 200.0F, Utility.uiMask))
-            //{
-            //    StartCoroutine(Shoot(hit.collider.gameObject.transform.position, hit.collider.gameObject));
-            //    if (hit.collider.gameObject.GetComponent<ShootableUI>() != null)
-            //    {
-            //        hit.collider.gameObject.GetComponent<ShootableUI>().shot();
-            //    }
-
-            //}
-
-
             else if (Physics.Raycast(transform.position, transform.forward, out hit, 200.0f, Utility.roomMask))
             {
                 StartCoroutine(Shoot(hit.point, hit.collider.gameObject));
             }
 
+        }
+
+        private void LaserWidth(Vector3 endpoint)
+        {
+            float distance = Vector3.Distance(transform.position, endpoint);
+
+            leftLaser.endWidth = thickness * Mathf.Max(1.0f, distance);
+            rightLaser.endWidth = thickness * Mathf.Max(1.0f, distance);
         }
 
         /// <summary>
@@ -147,7 +137,7 @@ namespace Hive.Armada.Player.Guns
 
             //if(r <= 0.9)
             //{
-                sfx.PlayOneShot(clips[0]);
+            sfx.PlayOneShot(clips[0]);
             //}
             //else
             //{

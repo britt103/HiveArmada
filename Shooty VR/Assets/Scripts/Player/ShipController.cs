@@ -15,7 +15,7 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using UnityEngine;
 using Valve.VR.InteractionSystem;
-using Hive.Armada.Player.Guns;
+using Hive.Armada.Player.Weapons;
 using Valve.VR;
 
 namespace Hive.Armada.Player
@@ -25,7 +25,6 @@ namespace Hive.Armada.Player
     {
         //public enum Handedness { Left, Right };
         public enum ShipMode { Menu, Game };
-        public enum GunTypes { Lasers, Miniguns, Railguns, Launchers };
 
         //public Handedness currentHandGuess = Handedness.Left;
         //private float timeOfPossibleHandSwitch = 0f;
@@ -34,17 +33,12 @@ namespace Hive.Armada.Player
 
         public ShipMode shipMode;
 
-        public GameObject[] guns;
-        private int currGun;
+        public GameObject[] weapons;
+        private int currentWeapon;
 
         public LaserSight laserSight;
-        public GameObject lasers;
-        private LaserGun laserGun;
-        public Minigun minigun;
         public Transform pivotTransform;
         public Hand hand { get; private set; }
-
-        public GunTypes currentGun = GunTypes.Lasers;
 
         //// Gun base stats
         //public const int LASER_BASE_DAMAGE = 10;
@@ -104,13 +98,12 @@ namespace Hive.Armada.Player
             //launcherDamage = LAUNCHER_BASE_DAMAGE;
             //launcherFireRate = LAUNCHER_BASE_FIRE_RATE;
 
-            if (guns.Length > 0)
+            if (weapons.Length > 0)
             {
-                currGun = 0;
+                currentWeapon = 0;
             }
 
             newPosesAppliedAction = SteamVR_Events.NewPosesAppliedAction(OnNewPosesApplied);
-            laserGun = lasers.GetComponentInChildren<LaserGun>();
         }
 
         void OnEnable()
@@ -156,16 +149,16 @@ namespace Hive.Armada.Player
                 {
                     if (hand.GetStandardInteractionButton())
                     {
-                        guns[currGun].SendMessage("TriggerUpdate");
-                        //switch (currentGun)
-                        //{
-                        //    case GunTypes.Lasers:
-                        //        laserGun.TriggerUpdate();
-                        //        break;
-                        //    case GunTypes.Miniguns:
-                        //        minigun.TriggerUpdate();
-                        //        break;
-                        //}
+                        if (weapons[currentWeapon].GetComponent<Weapon>())
+                        {
+                            weapons[currentWeapon].GetComponent<Weapon>().TriggerUpdate();
+                        }
+                        else
+                        {
+                            if (Utility.isDebug)
+                                Debug.LogError(weapons[currentWeapon].name + " does NOT have Weapon.cs!!!");
+                        }
+                        //weapons[currentWeapon].SendMessage("TriggerUpdate");
                     }
                 }
                 else if (!canShoot && hand.GetStandardInteractionButtonUp())
@@ -173,10 +166,10 @@ namespace Hive.Armada.Player
                     canShoot = true;
                 }
 
-                // Switch guns
+                // Switch weapons
                 if (!hand.GetStandardInteractionButton() && hand.controller.GetPressDown(EVRButtonId.k_EButton_Grip))
                 {
-                    SwitchGun(currGun);
+                    SwitchWeapon(currentWeapon);
                 }
 
                 //press menu button
@@ -198,25 +191,29 @@ namespace Hive.Armada.Player
             //EvaluateHandedness();
         }
 
-        private void SwitchGun(int previous)
+        /// <summary>
+        /// Switches to the next weapon, if possible.
+        /// </summary>
+        /// <param name="current"> The current weapon index </param>
+        private void SwitchWeapon(int current)
         {
-            ++currGun;
-            if (currGun >= guns.Length)
+            ++currentWeapon;
+            if (currentWeapon >= weapons.Length)
             {
-                currGun = 0;
+                currentWeapon = 0;
             }
 
-            if (currGun == previous)
+            if (currentWeapon == current)
                 return;
 
-            if (guns[currGun].GetComponent<Minigun>())
-                guns[currGun].GetComponent<Minigun>().ResetTracers();
+            //if (weapons[currentWeapon].GetComponent<Minigun>())
+            //    weapons[currentWeapon].GetComponent<Minigun>().ResetTracers();
 
-            if (guns[previous].GetComponent<Minigun>())
-                guns[previous].GetComponent<Minigun>().ResetTracers();
+            //if (weapons[current].GetComponent<Minigun>())
+            //    weapons[current].GetComponent<Minigun>().ResetTracers();
 
-            guns[previous].SetActive(false);
-            guns[currGun].SetActive(true);
+            weapons[current].SetActive(false);
+            weapons[currentWeapon].SetActive(true);
 
             if (hand.GetStandardInteractionButton())
                 canShoot = false;
@@ -237,8 +234,13 @@ namespace Hive.Armada.Player
         /// <param name="boost"> The damage boost multiplier </param>
         public void SetDamageBoost(int boost)
         {
-            laserGun.damageBoost = boost;
-            minigun.damageBoost = boost;
+            foreach (GameObject obj in weapons)
+            {
+                if (obj.GetComponent<Weapon>())
+                {
+                    obj.GetComponent<Weapon>().damageBoost = boost;
+                }
+            }
         }
 
         //private void EvaluateHandedness()

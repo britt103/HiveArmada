@@ -47,9 +47,8 @@ namespace Hive.Armada.Enemies
                     }
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-            //    //Debug.Log("Player is dead");
             }
         }
 

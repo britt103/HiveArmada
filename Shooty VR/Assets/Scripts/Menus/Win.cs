@@ -14,10 +14,13 @@ namespace Hive.Armada
 {
     public class Win : MonoBehaviour
     {
+        public AudioSource Roy;
+        public AudioClip[] winAudio;
+
         /// <summary>
         /// Run when activated
         /// </summary>
-        private void Awake()
+        private void OnEnable()
         {
             StartCoroutine(Run());
         }
@@ -28,9 +31,16 @@ namespace Hive.Armada
         /// <returns></returns>
         private IEnumerator Run()
         {
+            winSound();
             yield return new WaitForSeconds(3);
             FindObjectOfType<PlayerStats>().PrintStats();
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+
+        public void winSound()
+        {
+            int winNumber = Random.Range(0, winAudio.Length);
+            Roy.PlayOneShot(winAudio[winNumber]);
         }
     }
 }

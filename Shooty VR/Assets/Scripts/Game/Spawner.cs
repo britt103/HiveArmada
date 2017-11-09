@@ -46,10 +46,6 @@ namespace Hive.Armada.Game
 
         public AudioSource music;
 
-        public AudioSource ROY;
-        public AudioClip[] winAudio;
-        public AudioClip[] loseAudio;
-
         public int startWave;
 
         private PlayerStats stats;
@@ -236,7 +232,6 @@ namespace Hive.Armada.Game
             {
                 //StartCoroutine(Win());
                 GameObject.Find("Main Canvas").transform.Find("Winner!").gameObject.SetActive(true);
-                StartCoroutine(winSound());
             }
         }
 
@@ -311,20 +306,6 @@ namespace Hive.Armada.Game
             }
 
             canSpawnPowerup = true;
-        }
-
-        public IEnumerator winSound()
-        {
-            int winNumber = Random.Range(0, 3);
-            ROY.PlayOneShot(winAudio[winNumber]);
-            yield return new WaitForSeconds(0);
-        }
-
-        public IEnumerator loseSound()
-        {
-            int loseNumber = Random.Range(0, 6);
-            ROY.PlayOneShot(loseAudio[loseNumber]);
-            yield return new WaitForSeconds(0);
         }
     }
 }

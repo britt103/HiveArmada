@@ -32,6 +32,7 @@ namespace Hive.Armada.Player
         public GameObject fxDead;
         protected List<Material> mats;
         public Material flashColor;
+        private Coroutine flash;
 
         /// <summary>
         /// Initializes variables
@@ -67,7 +68,10 @@ namespace Hive.Armada.Player
                 }
             }
 
-            StartCoroutine(HitFlash());
+            if (flash == null)
+            {
+                flash = StartCoroutine(HitFlash());
+            }
         }
 
         /// <summary>
@@ -99,6 +103,8 @@ namespace Hive.Armada.Player
                 renderer.material = mats.First();
                 mats.RemoveAt(0);
             }
+
+            flash = null;
         }
     }
 }

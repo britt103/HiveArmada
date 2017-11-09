@@ -11,17 +11,18 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Hive.Armada.Player;
 
-namespace Hive.Armada.Game
+namespace Hive.Armada
 {
     public class GameOver : MonoBehaviour
     {
-        public Spawner spawner;
+        public AudioSource Roy;
+        public AudioClip[] loseAudio;
+        
         /// <summary>
         /// Triggers gameover/reload process
         /// </summary>
         public void OnEnable()
         {
-            StartCoroutine(spawner.loseSound());
             StartCoroutine(Reload());
             FindObjectOfType<PlayerStats>().PrintStats();
         }
@@ -32,7 +33,7 @@ namespace Hive.Armada.Game
         /// <returns></returns>
         private IEnumerator Reload()
         {
-
+            loseSound();
             yield return new WaitForSeconds(10.0f);
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
@@ -53,6 +54,12 @@ namespace Hive.Armada.Game
         {
             GameObject.Find("Main Canvas").transform.Find("Main Menu").gameObject.SetActive(true);
             gameObject.SetActive(false);
+        }
+
+        public void loseSound()
+        {
+            int loseNumber = Random.Range(0, loseAudio.Length);
+            Roy.PlayOneShot(loseAudio[loseNumber]);
         }
     }
 }

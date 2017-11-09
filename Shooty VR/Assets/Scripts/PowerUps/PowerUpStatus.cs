@@ -61,16 +61,16 @@ namespace Hive.Armada
 
                     switch (powerup.name)
                     {
-                        case "Shield":
-                            if (shieldActive)
+                        case "Ally":
+                            if (allyActive)
                             {
                                 canActivate = false;
                             }
                             else
                             {
-                                shieldStored = false;
-                                shieldActive = true;
-                                stats.ShieldCount();
+                                allyStored = false;
+                                allyActive = true;
+                                stats.P1Used();
                             }
 
                             break;
@@ -84,7 +84,7 @@ namespace Hive.Armada
                             {
                                 areaBombStored = false;
                                 areaBombActive = true;
-                                stats.AreaBombCount();
+                                stats.P2Used();
                             }
 
                             break;
@@ -98,21 +98,7 @@ namespace Hive.Armada
                             {
                                 clearStored = false;
                                 clearActive = true;
-                                stats.ClearCount();
-                            }
-
-                            break;
-
-                        case "Ally":
-                            if (allyActive)
-                            {
-                                canActivate = false;
-                            }
-                            else
-                            {
-                                allyStored = false;
-                                allyActive = true;
-                                stats.AllyCount();
+                                stats.P3Used();
                             }
 
                             break;
@@ -126,7 +112,21 @@ namespace Hive.Armada
                             {
                                 damageBoostStored = false;
                                 damageBoostActive = true;
-                                stats.DamageBoostCount();
+                                stats.P4Used();
+                            }
+
+                            break;
+
+                        case "Shield":
+                            if (shieldActive)
+                            {
+                                canActivate = false;
+                            }
+                            else
+                            {
+                                shieldStored = false;
+                                shieldActive = true;
+                                stats.P5Used();
                             }
 
                             break;

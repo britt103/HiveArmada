@@ -97,7 +97,7 @@ namespace Hive.Armada.Game
 
                     waveSpawn = StartCoroutine(SpawnWave(spawns));
 
-                    stats.isAlive = true;
+                    stats.Alive();
                 }
                 else
                 {

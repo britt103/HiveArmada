@@ -78,6 +78,8 @@ namespace Hive.Armada.Player.Guns
         private float tracerSpeed = 100.0f;
         public int damageBoost = 1;
 
+        private PlayerStats stats;
+
         /// <summary>
         /// Initializes variables
         /// </summary>
@@ -86,6 +88,8 @@ namespace Hive.Armada.Player.Guns
             damageBoost = 1;
             damage = shipController.minigunDamage;
             fireRate = shipController.minigunFireRate;
+
+            stats = FindObjectOfType<PlayerStats>();
         }
 
         /// <summary>
@@ -193,10 +197,15 @@ namespace Hive.Armada.Player.Guns
                 HitSpark(position);
             }
 
+            stats.Firing();
+            stats.W2Fired(1);
+
             yield return new WaitForSeconds(1.0f / fireRate);
 
             isLeftFire = !isLeftFire;
             canShoot = true;
+
+            stats.NotFiring();
         }
 
         ///// <summary>

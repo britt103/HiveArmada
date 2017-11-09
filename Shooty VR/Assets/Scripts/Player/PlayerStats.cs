@@ -11,60 +11,78 @@
 using UnityEngine;
 using System;
 using System.IO;
-using System.Xml.Serialization;
 
 namespace Hive.Armada
 {
     public class PlayerStats : MonoBehaviour
     {
         //tracking
-        public string dateTime;
+        private string dateTime;
 
         //time alive
         [NonSerialized]
-        public double aliveTime = 0;
-        public double totalAliveTime = 0;
+        private double aliveTime = 0;
+        private double totalAliveTime = 0;
         [NonSerialized]
-        public bool isAlive = false;
-        public int waves = 0;
+        private bool isAlive = false;
+        private int waves = 0;
 
         //combat
         [NonSerialized]
-        public int enemiesKilled = 0;
-        public int totalEnemiesKilled = 0;
+        private int enemiesKilled = 0;
+        private int totalEnemiesKilled = 0;
         [NonSerialized]
-        public double firingTime = 0;
-        public double totalFiringTime = 0;
+        private double firingTime = 0;
+        private double totalFiringTime = 0;
         [NonSerialized]
-        public int score = 0;
-        public int totalScore = 0;
+        private int score = 0;
+        private int totalScore = 0;
         [NonSerialized]
-        public bool isFiring = false;
+        private bool isFiring = false;
+
+        //weapons
         [NonSerialized]
-        public int shotsFired = 0;
-        public int totalShotsFired = 0;
+        public string w1Name = "";
+        [NonSerialized]
+        private int w1ShotsFired = 0;
+        private int w1TotalShotsFired = 0;
+        [NonSerialized]
+        public string w2Name = "";
+        [NonSerialized]
+        private int w2ShotsFired = 0;
+        private int w2TotalShotsFired = 0;
 
         //powerups
         [NonSerialized]
-        public int shieldCount = 0;
-        public int totalShieldCount = 0;
+        public string p1Name = "";
         [NonSerialized]
-        public int areaBombCount = 0;
-        public int totalAreaBombCount = 0;
+        private int p1Count = 0;
+        private int p1TotalCount = 0;
         [NonSerialized]
-        public int clearCount = 0;
-        public int totalClearCount = 0;
+        public string p2Name = "";
         [NonSerialized]
-        public int allyCount = 0;
-        public int totalAllyCount = 0;
+        private int p2Count = 0;
+        private int p2TotalCount = 0;
         [NonSerialized]
-        public int damageBoostCount = 0;
-        public int totalDamageBoostCount = 0;
+        public string p3Name = "";
+        [NonSerialized]
+        private int p3Count = 0;
+        private int p3TotalCount = 0;
+        [NonSerialized]
+        public string p4Name = "";
+        [NonSerialized]
+        private int p4Count = 0;
+        private int p4TotalCount = 0;
+        [NonSerialized]
+        public string p5Name = "";
+        [NonSerialized]
+        private int p5Count = 0;
+        private int p5TotalCount = 0;
 
         //currency
         [NonSerialized]
-        public int currencyCollected = 0;
-        public int totalCurrencyCollected = 0;
+        private int currencyCollected = 0;
+        private int totalCurrencyCollected = 0;
 
         // Use this for initialization
         private void Start()
@@ -110,15 +128,16 @@ namespace Hive.Armada
                       "Total Score: " + totalScore + "\n" +
                       "Total Enemies Killed: " + totalEnemiesKilled + "\n" +
                       "Total Time Holding Down Trigger: " + totalFiringTime + "\n" +
-                      "Total Shots Fired: " + totalShotsFired + "\n" +
+                      "Total Shots Fired w/" + w1Name + ": " + w1TotalShotsFired + "\n" +
+                      "Total Shots Fired w/" + w2Name + ": " + w2TotalShotsFired + "\n" +
                       "Total Time Alive: " + totalAliveTime + "\n" +
                       "Total Currency Collected: " + totalCurrencyCollected + "\n" +
-                      "Total Shields Used: " + totalShieldCount + "\n" +
-                      "Total Area Bombs Used: " + totalAreaBombCount + "\n" +
-                      "Total Clears Used: " + totalClearCount + "\n" +
-                      "Total Allies Used: " + totalAllyCount + "\n" +
-                      "Total Damage Boosts Used: " + totalDamageBoostCount;
-
+                      "Total " + p1Name + " Use: " + p1TotalCount + "\n" +
+                      "Total " + p2Name + " Use: " + p2TotalCount + "\n" +
+                      "Total " + p3Name + " Use: " + p3TotalCount + "\n" +
+                      "Total " + p4Name + " Use: " + p4TotalCount + "\n" +
+                      "Total " + p5Name + " Use: " + p5TotalCount;
+   
             Debug.Log(output);
 
             File.AppendAllText(@"PlayerStatsJson.txt", JsonUtility.ToJson(this, true) + "\n\n");
@@ -137,15 +156,16 @@ namespace Hive.Armada
                       "Current Score: " + score + "\n" +
                       "Enemies Killed: " + enemiesKilled + "\n" +
                       "Time Holding Down Trigger: " + firingTime + "\n" +
-                      "Shots Fired: " + shotsFired + "\n" +
+                      "Shots Fired w/" + w1Name + ": " + w1ShotsFired + "\n" +
+                      "Shots Fired w/" + w2Name + ": " + w2ShotsFired + "\n" +
                       "Time Alive: " + aliveTime + "\n" +
                       "Currency Collected: " + currencyCollected + "\n" +
-                      "Shields Used: " + shieldCount + "\n" +
-                      "Area Bombs Used: " + areaBombCount + "\n" +
-                      "Clears Used: " + clearCount + "\n" +
-                      "Allies Used: " + allyCount + "\n" +
-                      "Damage Boosts Used: " + damageBoostCount;
-
+                      p1Name + " Use: " + p1Count + "\n" +
+                      p2Name + " Use: " + p2Count + "\n" +
+                      p3Name + " Used: " + p3Count + "\n" +
+                      p4Name + " Used: " + p4Count + "\n" +
+                      p5Name + " Used: " + p5Count;
+                      
             Debug.Log(output);
 
             totalEnemiesKilled += enemiesKilled;
@@ -154,23 +174,60 @@ namespace Hive.Armada
             firingTime = 0;
             totalScore += score;
             score = 0;
-            totalShotsFired += shotsFired;
-            shotsFired = 0;
-            totalShieldCount += shieldCount;
-            shieldCount = 0;
-            totalAreaBombCount += areaBombCount;
-            areaBombCount = 0;
-            totalClearCount += clearCount;
-            clearCount = 0;
-            totalAllyCount += allyCount;
-            allyCount = 0;
-            totalDamageBoostCount += damageBoostCount;
-            damageBoostCount = 0;
+
+            w1TotalShotsFired += w1ShotsFired;
+            w1ShotsFired = 0;
+            w2TotalShotsFired += w2ShotsFired;
+            w2ShotsFired = 0;
+
+            p1TotalCount += p1Count;
+            p1Count = 0;
+            p2TotalCount += p2Count;
+            p2Count = 0;
+            p3TotalCount += p3Count;
+            p3Count = 0;
+            p4TotalCount += p4Count;
+            p4Count = 0;
+            p5TotalCount += p5Count;
+            p5Count = 0;
+
             totalCurrencyCollected += currencyCollected;
             currencyCollected = 0;
             totalAliveTime += aliveTime;
             aliveTime = 0;
             isAlive = false;
+        }
+
+        /// <summary>
+        /// Set isAlive to true
+        /// </summary>
+        public void Alive()
+        {
+            isAlive = true;
+        }
+
+        /// <summary>
+        /// Set isAlive to false
+        /// </summary>
+        public void NotAlive()
+        {
+            isAlive = false;
+        }
+
+        /// <summary>
+        /// Set isFiring to true
+        /// </summary>
+        public void Firing()
+        {
+            isFiring = true;
+        }
+
+        /// <summary>
+        /// Set isFiring to false
+        /// </summary>
+        public void NotFiring()
+        {
+            isFiring = false;
         }
 
         /// <summary>
@@ -200,52 +257,61 @@ namespace Hive.Armada
         }
 
         /// <summary>
-        /// Add to shieldCount
+        /// Add to 
         /// </summary>
-        public void ShieldCount()
+        public void P1Used()
         {
-            shieldCount++;
+            p1Count++;
         }
 
         /// <summary>
-        /// Add to areaBombCount
+        /// Add to 
         /// </summary>
-        public void AreaBombCount()
+        public void P2Used()
         {
-            areaBombCount++;
+            p2Count++;
         }
 
         /// <summary>
-        /// Add to clearCount
+        /// Add to 
         /// </summary>
-        public void ClearCount()
+        public void P3Used()
         {
-            clearCount++;
+            p3Count++;
         }
 
         /// <summary>
-        /// Add to allyCount
+        /// Add to 
         /// </summary>
-        public void AllyCount()
+        public void P4Used()
         {
-            allyCount++;
+            p4Count++;
         }
 
         /// <summary>
-        /// Add to damageBoostCount
+        /// Add to 
         /// </summary>
-        public void DamageBoostCount()
+        public void P5Used()
         {
-            damageBoostCount++;
+            p5Count++;
         }
 
         /// <summary>
-        /// Add to shotsFired
+        /// Add to 
         /// </summary>
         /// <param name="shots"></param>
-        public void ShotsFired(int shots)
+        public void W1Fired(int shots)
         {
-            shotsFired += shots;
+            w1ShotsFired += shots;
+        }
+
+        /// <summary>
+        /// Add to 
+        /// </summary>
+        /// <param name="shots"></param>
+        public void W2Fired(int shots)
+        {
+            w2ShotsFired += shots;
         }
 
         /// <summary>

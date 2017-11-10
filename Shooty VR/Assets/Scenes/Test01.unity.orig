@@ -118,7 +118,7 @@ GameObject:
   m_Component:
   - component: {fileID: 11372848}
   m_Layer: 0
-  m_Name: ROY Audio
+  m_Name: Roy Audio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2053,7 +2053,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 9453567c6aa4d88479679f1c188c843c, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.75
+  m_Volume: 0.35
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -3045,7 +3045,7 @@ GameObject:
   - component: {fileID: 480148872}
   - component: {fileID: 480148871}
   m_Layer: 0
-  m_Name: ROY Audio
+  m_Name: Roy Audio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4966,6 +4966,16 @@ Prefab:
       propertyPath: ROY
       value: 
       objectReference: {fileID: 480148871}
+    - target: {fileID: 114958452454179628, guid: d9f2a9ef87214aa4e9c338464a9a76c4,
+        type: 2}
+      propertyPath: Roy
+      value: 
+      objectReference: {fileID: 480148871}
+    - target: {fileID: 114958452454179628, guid: d9f2a9ef87214aa4e9c338464a9a76c4,
+        type: 2}
+      propertyPath: startWave
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 1030734940671854, guid: d9f2a9ef87214aa4e9c338464a9a76c4, type: 2}
       propertyPath: m_IsActive
       value: 0
@@ -10213,7 +10223,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1db2101d5884aab4193ba8c86ac94e7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawner: {fileID: 0}
+  Roy: {fileID: 480148871}
+  loseAudio:
+  - {fileID: 8300000, guid: 86b68ea16e9440744a11d2d6073f0e64, type: 3}
+  - {fileID: 8300000, guid: 69f2195a7c3efa84a8ef7f74b3db601a, type: 3}
+  - {fileID: 8300000, guid: 7c84401958a8cab4da03a27bc8e7e271, type: 3}
+  - {fileID: 8300000, guid: 7070e5fe4060b7043833c7607a8d2d73, type: 3}
+  - {fileID: 8300000, guid: f125c0e380e2fe14dace87fe6bfe5751, type: 3}
+  - {fileID: 8300000, guid: 45bc78c66bca002499dc86fe58b992a7, type: 3}
 --- !u!1 &1786702094
 GameObject:
   m_ObjectHideFlags: 0
@@ -12357,6 +12374,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f514efbfd23fbb842aedecea24e35161, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Roy: {fileID: 480148871}
+  winAudio:
+  - {fileID: 8300000, guid: 0190ee7b26bbfab4bbfc5b3b2b8d1da4, type: 3}
+  - {fileID: 8300000, guid: 13b8f9813a38d9a40b45eeddd6781033, type: 3}
+  - {fileID: 8300000, guid: 80a66c877ec8bc14d8fea2ae53739800, type: 3}
 --- !u!1 &2033719005
 GameObject:
   m_ObjectHideFlags: 0

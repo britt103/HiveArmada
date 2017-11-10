@@ -88,13 +88,18 @@ namespace Hive.Armada.Enemies
         /// </summary>
         private float startTime;
 
-		public AudioSource source;
-		public AudioClip[] clips;
-
+<<<<<<< HEAD
         /// <summary>
         /// Finds the player. Runs when this enemy spawns.
         /// </summary>
         private void Start()
+=======
+        public AudioSource sfx;
+        public AudioClip[] clips;
+
+        // Use this for initialization
+        void Start()
+>>>>>>> add sounds to enemies and other stuff
         {
             startTime = Time.time;
             player = GameObject.FindGameObjectWithTag("Player");
@@ -146,6 +151,7 @@ namespace Hive.Armada.Enemies
                 }
             }
 
+<<<<<<< HEAD
 
         }
 
@@ -167,11 +173,18 @@ namespace Hive.Armada.Enemies
             projectile.GetComponent<Rigidbody>().velocity =
                 projectile.transform.forward * projectileSpeed;
 
-			source.PlayOneShot(clips[0]);
-
             yield return new WaitForSeconds(fireRate);
 
             canShoot = true;
+=======
+            if (Time.time > fireNext)
+            {                                                                                       //Basic firerate calculation that determines
+                fireNext = Time.time + fireRate;                                                    //how many projectiles shoot out of the turret
+                var shoot = Instantiate(bullet, spawn.position, spawn.rotation);                    //within a certain duration. The turret then
+                shoot.GetComponent<Rigidbody>().velocity = shoot.transform.forward * fireSpeed;     //instantiates a bullet and shoots it forward
+                sfx.PlayOneShot(clips[0]);                                                          //in the direction of the player.
+            }
+>>>>>>> add sounds to enemies and other stuff
         }
 
         /// <summary>

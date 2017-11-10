@@ -1,12 +1,13 @@
 ﻿//=============================================================================
 //
-// Ryan Britton
-// 1849351
-// britt103@mail.chapman.edu
+// Perry Sidler
+// 1831784
+// sidle104@mail.chapman.edu
 // CPSC-340-01 & CPSC-344-01
 // Group Project
 //
-// Enemy that shoots at the player while moving between two points
+// Basic enemy that is spawned when the Splitter dies. Simply looks at the
+// player and shoots.
 //
 //=============================================================================
 
@@ -17,9 +18,9 @@ using Random = UnityEngine.Random;
 namespace Hive.Armada.Enemies
 {
     /// <summary>
-    /// Moving turret Enemy
+    /// Splitter child enemy
     /// </summary>
-    public class MovingTurret : Enemy
+    public class SplitterChild : Enemy
     {
         /// <summary>
         /// Type identifier for this enemy's projectiles in objectPoolManager
@@ -48,32 +49,6 @@ namespace Hive.Armada.Enemies
         private float spread;
 
         /// <summary>
-        /// How fast this enemy can move.
-        /// </summary>
-        public float movingSpeed;
-
-        /// <summary>
-        /// Distance on the X axis this enemy will move.
-        /// </summary>
-        public float xMax;
-
-        /// <summary>
-        /// Distance on the Y axis this enemy will move.
-        /// </summary>
-        public float yMax;
-
-        /// <summary>
-        /// Initial position of this enemy.
-        /// </summary>
-        private Vector3 posA;
-
-        /// <summary>
-        /// Secondary position this enemy will move between.
-        /// Based on xMax and yMax.
-        /// </summary>
-        private Vector3 posB;
-
-        /// <summary>
         /// The player's ship.
         /// </summary>
         private GameObject player;
@@ -83,50 +58,18 @@ namespace Hive.Armada.Enemies
         /// </summary>
         private bool canShoot = true;
 
+<<<<<<< HEAD
         /// <summary>
-        /// When this enemy was created.
-        /// </summary>
-        private float startTime;
-
-		public AudioSource source;
-		public AudioClip[] clips;
-
-        /// <summary>
-        /// Finds the player. Runs when this enemy spawns.
-        /// </summary>
-        private void Start()
-        {
-            startTime = Time.time;
-            player = GameObject.FindGameObjectWithTag("Player");
-            if (player != null)
-            {
-                transform.LookAt(player.transform);
-            }
-            SetPosition();
-        }
-
-        /// <summary>
-        /// Sets the two positions this enemy moves between.
-        /// </summary>
-        private void SetPosition()
-        {
-            posA = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-            posB = new Vector3(transform.localPosition.x + xMax, transform.localPosition.y + yMax,
-                transform.position.z);
-
-            //posCenter = new Vector3(posA.x + posB.x, posA.y + posB.y) / 2.0f;
-            //transform.position = posCenter;
-        }
-
-        /// <summary>
-        /// Moves the enemy between posA and posB, and tries to look at the player and shoot at it when possible.
-        /// Runs every Frame.
+        /// Tries to look at the player and shoot at it when possible. Runs every frame.
         /// </summary>
         private void Update()
-        {
-            transform.position = Vector3.Lerp(posA, posB,
-                (Mathf.Sin(movingSpeed * (Time.time + startTime)) + 1.0f) / 2.0f);
+=======
+        public AudioSource sfx;
+        public AudioClip[] clips;
 
+        void Update()
+>>>>>>> add sounds to enemies and other stuff
+        {
             if (player != null)
             {
                 transform.LookAt(player.transform);
@@ -145,8 +88,6 @@ namespace Hive.Armada.Enemies
                     transform.LookAt(new Vector3(0.0f, 2.0f, 0.0f));
                 }
             }
-
-
         }
 
         /// <summary>
@@ -167,7 +108,7 @@ namespace Hive.Armada.Enemies
             projectile.GetComponent<Rigidbody>().velocity =
                 projectile.transform.forward * projectileSpeed;
 
-			source.PlayOneShot(clips[0]);
+            sfx.PlayOneShot(clips[0]);
 
             yield return new WaitForSeconds(fireRate);
 

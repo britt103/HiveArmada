@@ -58,6 +58,9 @@ namespace Hive.Armada.Enemies
         /// </summary>
         private bool canShoot = true;
 
+		public AudioSource source;
+        public AudioClip[] clips;
+
         /// <summary>
         /// Tries to look at the player and shoot at it when possible. Runs every frame.
         /// </summary>
@@ -100,6 +103,8 @@ namespace Hive.Armada.Enemies
 
             projectile.GetComponent<Rigidbody>().velocity =
                 projectile.transform.forward * projectileSpeed;
+
+			source.PlayOneShot(clips[0]);
 
             yield return new WaitForSeconds(fireRate);
 

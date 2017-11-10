@@ -6,7 +6,8 @@
 // CPSC-340-01 & CPSC-344-01
 // Group Project
 //
-// Enemy that shoots at the player while moving between two points
+// Enemy that shoots at the player and that spawns 4 more enemies
+// when destroyed.
 //
 //=============================================================================
 
@@ -17,9 +18,9 @@ using Random = UnityEngine.Random;
 namespace Hive.Armada.Enemies
 {
     /// <summary>
-    /// Moving turret Enemy
+    /// Splitter turret enemy
     /// </summary>
-    public class MovingTurret : Enemy
+    public class SplitterTurret : Enemy
     {
         /// <summary>
         /// Type identifier for this enemy's projectiles in objectPoolManager
@@ -48,92 +49,55 @@ namespace Hive.Armada.Enemies
         private float spread;
 
         /// <summary>
-        /// How fast this enemy can move.
-        /// </summary>
-        public float movingSpeed;
-
-        /// <summary>
-        /// Distance on the X axis this enemy will move.
-        /// </summary>
-        public float xMax;
-
-        /// <summary>
-        /// Distance on the Y axis this enemy will move.
-        /// </summary>
-        public float yMax;
-
-        /// <summary>
-        /// Initial position of this enemy.
-        /// </summary>
-        private Vector3 posA;
-
-        /// <summary>
-        /// Secondary position this enemy will move between.
-        /// Based on xMax and yMax.
-        /// </summary>
-        private Vector3 posB;
-
-        /// <summary>
         /// The player's ship.
         /// </summary>
         private GameObject player;
 
+        /// <summary>
+        /// The enemy to spawn when this enemy dies
+        /// </summary>
+        public GameObject childTurret; 
+        
+        /// <summary>
+        /// Distance each child enemy will move when this enemy is destroyed
+        /// </summary>
+        public float splitDir;
+
+<<<<<<< HEAD
         /// <summary>
         /// Whether this enemy can shoot or not. Toggles when firing every 1/fireRate seconds.
         /// </summary>
         private bool canShoot = true;
 
         /// <summary>
-        /// When this enemy was created.
-        /// </summary>
-        private float startTime;
-
-		public AudioSource source;
-		public AudioClip[] clips;
-
-        /// <summary>
-        /// Finds the player. Runs when this enemy spawns.
-        /// </summary>
-        private void Start()
-        {
-            startTime = Time.time;
-            player = GameObject.FindGameObjectWithTag("Player");
-            if (player != null)
-            {
-                transform.LookAt(player.transform);
-            }
-            SetPosition();
-        }
-
-        /// <summary>
-        /// Sets the two positions this enemy moves between.
-        /// </summary>
-        private void SetPosition()
-        {
-            posA = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-            posB = new Vector3(transform.localPosition.x + xMax, transform.localPosition.y + yMax,
-                transform.position.z);
-
-            //posCenter = new Vector3(posA.x + posB.x, posA.y + posB.y) / 2.0f;
-            //transform.position = posCenter;
-        }
-
-        /// <summary>
-        /// Moves the enemy between posA and posB, and tries to look at the player and shoot at it when possible.
-        /// Runs every Frame.
+        /// Tries to look at the player and shoot at it when possible. Runs every frame.
         /// </summary>
         private void Update()
-        {
-            transform.position = Vector3.Lerp(posA, posB,
-                (Mathf.Sin(movingSpeed * (Time.time + startTime)) + 1.0f) / 2.0f);
+=======
+        public AudioSource sfx;
+        public AudioClip[] clips;
 
+        ///Constantly tracks the player position
+        ///While shooting bullets using the formula below
+        void Update()
+>>>>>>> add sounds to enemies and other stuff
+        {
             if (player != null)
             {
                 transform.LookAt(player.transform);
 
+<<<<<<< HEAD
                 if (canShoot)
                 {
                     StartCoroutine(Shoot());
+=======
+                if (Time.time > fireNext)
+                {                                                                                       //Basic firerate calculation that determines
+                    fireNext = Time.time + fireRate;                                                    //how many projectiles shoot out of the turret
+                    var shoot = Instantiate(bullet, spawn.position, spawn.rotation);                    //within a certain duration. The turret then
+                    shoot.GetComponent<Rigidbody>().velocity = shoot.transform.forward * fireSpeed;     //instantiates a bullet and shoots it forward
+                    sfx.PlayOneShot(clips[0]);
+>>>>>>> add sounds to enemies and other stuff
                 }
             }
             else
@@ -145,8 +109,6 @@ namespace Hive.Armada.Enemies
                     transform.LookAt(new Vector3(0.0f, 2.0f, 0.0f));
                 }
             }
-
-
         }
 
         /// <summary>
@@ -167,11 +129,33 @@ namespace Hive.Armada.Enemies
             projectile.GetComponent<Rigidbody>().velocity =
                 projectile.transform.forward * projectileSpeed;
 
-			source.PlayOneShot(clips[0]);
-
             yield return new WaitForSeconds(fireRate);
 
             canShoot = true;
+        }
+
+        /// <summary>
+        /// Spawns 4 'childTurret' enemies when this enemy is destroyed
+        /// </summary>
+        protected override void Kill()
+        {
+            reference.spawner.AddKill();
+            if (childTurret != null)
+            {
+                Vector3 splitDir1 = new Vector3(transform.localPosition.x, transform.localPosition.y + splitDir, transform.localPosition.z);
+                Vector3 splitDir2 = new Vector3(transform.localPosition.x, transform.localPosition.y - splitDir, transform.localPosition.z);
+                Vector3 splitDir3 = new Vector3(transform.localPosition.x + splitDir, transform.localPosition.y, transform.localPosition.z);
+                Vector3 splitDir4 = new Vector3(transform.localPosition.x - splitDir, transform.localPosition.y, transform.localPosition.z);
+
+                Instantiate(childTurret, splitDir1, transform.rotation); 
+                Instantiate(childTurret, splitDir2, transform.rotation);
+                Instantiate(childTurret, splitDir3, transform.rotation);
+                Instantiate(childTurret, splitDir4, transform.rotation);
+                
+            }
+
+            Destroy(gameObject);
+
         }
 
         /// <summary>
@@ -180,7 +164,7 @@ namespace Hive.Armada.Enemies
         protected override void Reset()
         {
             projectileTypeIdentifier =
-                enemyAttributes.EnemyProjectileTypeIdentifiers[TypeIdentifier];
+                            enemyAttributes.EnemyProjectileTypeIdentifiers[TypeIdentifier];
             maxHealth = enemyAttributes.enemyHealthValues[TypeIdentifier];
             Health = maxHealth;
             fireRate = enemyAttributes.enemyFireRate[TypeIdentifier];

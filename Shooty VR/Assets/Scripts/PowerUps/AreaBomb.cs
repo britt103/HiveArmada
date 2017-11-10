@@ -19,6 +19,7 @@ namespace Hive.Armada
         public float radius;
         public float acceleration;
         public float startingZ;
+        public float detonationTime = 2.0f;
 
         private float currentSpeed;
         //private Hand hand;
@@ -71,7 +72,7 @@ namespace Hive.Armada
         /// <returns>IEnumerator for coroutine</returns>
         private IEnumerator Detonate()
         {
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(detonationTime);
             foreach (Collider objectCollider in Physics.OverlapSphere(transform.position, radius))
             {
                 if (objectCollider.gameObject.tag == "Enemy")
@@ -90,7 +91,7 @@ namespace Hive.Armada
         /// <param name="other">collider of object this collided with</param>
         void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Enemy"))
+            if (other.CompareTag("Enemy") || other.CompareTag("Room"))
             {
                 foreach (Collider objectCollider in Physics.OverlapSphere(transform.position, radius))
                 {

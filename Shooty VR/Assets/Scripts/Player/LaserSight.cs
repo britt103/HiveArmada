@@ -17,6 +17,7 @@
 //
 //=============================================================================
 
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
@@ -91,7 +92,15 @@ namespace Hive.Armada.Player
                                 isButton = true;
                                 if (shipController != null)
                                 {
-                                    shipController.hand.controller.TriggerHapticPulse();
+                                    try
+                                    {
+                                        shipController.hand.controller.TriggerHapticPulse();
+                                    }
+                                    catch (Exception)
+                                    {
+                                        
+                                    }
+                                    
                                 }
                             }
                         }

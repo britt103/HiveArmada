@@ -25,6 +25,9 @@ namespace Hive.Armada.Enemies
         bool canFire;
         public float splitDir;
 
+        public AudioSource sfx;
+        public AudioClip[] clips;
+
         ///Constantly tracks the player position
         ///While shooting bullets using the formula below
         void Update()
@@ -38,6 +41,7 @@ namespace Hive.Armada.Enemies
                     fireNext = Time.time + fireRate;                                                    //how many projectiles shoot out of the turret
                     var shoot = Instantiate(bullet, spawn.position, spawn.rotation);                    //within a certain duration. The turret then
                     shoot.GetComponent<Rigidbody>().velocity = shoot.transform.forward * fireSpeed;     //instantiates a bullet and shoots it forward
+                    sfx.PlayOneShot(clips[0]);
                 }
             }
             else

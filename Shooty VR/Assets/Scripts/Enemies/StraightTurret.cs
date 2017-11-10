@@ -28,6 +28,9 @@ namespace Hive.Armada.Enemies
         private float randY;
         private float randZ;
 
+        public AudioSource sfx;
+        public AudioClip[] clips;
+
         // Update is called once per frame
         void Update()
         {
@@ -47,7 +50,8 @@ namespace Hive.Armada.Enemies
                     var shoot = Instantiate(bullet, spawn.position, spawn.rotation);                    //within a certain duration. The turret then
                     shoot.GetComponent<Transform>().Rotate(randX, randY, randZ);
                     shoot.GetComponent<Rigidbody>().velocity = shoot.transform.forward * fireSpeed;     //instantiates a bullet and shoots it forward
-                }                                                                                       //in the direction of the player.
+                    sfx.PlayOneShot(clips[0]);                                                          //in the direction of the player.
+                }
             }
             else
             {

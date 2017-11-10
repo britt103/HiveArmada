@@ -78,6 +78,9 @@ namespace Hive.Armada.Player.Guns
         private float tracerSpeed = 100.0f;
         public int damageBoost = 1;
 
+        public AudioSource sfx;
+        public AudioClip[] clips;
+
         /// <summary>
         /// Initializes variables
         /// </summary>
@@ -150,6 +153,8 @@ namespace Hive.Armada.Player.Guns
         private IEnumerator Shoot(GameObject target, Vector3 position)
         {
             canShoot = false;
+
+            sfx.PlayOneShot(clips[0]);
 
             if (isLeftFire)
             {

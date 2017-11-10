@@ -50,9 +50,10 @@ namespace Hive.Armada.Enemies
                 }
             }
         }
+
         protected override void Kill()
         {
-            spawner.AddKill();
+            reference.spawner.AddKill();
             if (turret != null)
             {
                 Vector3 splitDir1 = new Vector3(transform.localPosition.x, transform.localPosition.y + splitDir, transform.localPosition.z);

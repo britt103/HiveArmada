@@ -10,107 +10,110 @@
 // 
 //=============================================================================
 
-using System.Collections;
 using System.Collections.Generic;
-using System.Security.Cryptography;
 using UnityEngine;
-using Valve.VR.InteractionSystem;
-using Hive.Armada.Player.Guns;
 using Valve.VR;
+using Valve.VR.InteractionSystem;
+using Hive.Armada.Game;
+using Hive.Armada.Player.Guns;
+using SubjectNerd.Utilities;
 
 namespace Hive.Armada.Player
 {
+    /// <summary>
+    /// The controller for the player ship.
+    /// </summary>
     [RequireComponent(typeof(Interactable))]
     public class ShipController : MonoBehaviour
     {
-        //public enum Handedness { Left, Right };
-        public enum ShipMode { Menu, Game };
-        public enum GunTypes { Lasers, Miniguns, Railguns, Launchers };
-
+        public enum ShipMode { Menu, Game }
         //public Handedness currentHandGuess = Handedness.Left;
         //private float timeOfPossibleHandSwitch = 0f;
         //private float timeBeforeConfirmingHandSwitch = 1.5f;
         //private bool possibleHandSwitch = false;
+        //public enum Handedness { Left, Right };
+        //public Transform pivotTransform;
 
+        /// <summary>
+        /// Manager with all references we might need.
+        /// </summary>
+        private ReferenceManager reference;
+
+        /// <summary>
+        /// Which mode is the ship currently in.
+        /// </summary>
         public ShipMode shipMode;
 
+        
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private LaserSight laserSight;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [HideInInspector]
+        public Hand hand;
+
+        /// <summary>
+        /// Array of the weapons available to the player.
+        /// </summary>
+        [Header("Weapon Attributes")]
+        [Reorderable("Weapon", false)]
         public GameObject[] guns;
+
+        /// <summary>
+        /// Index of the currently activated weapon
+        /// </summary>
         private int currGun;
 
-        public LaserSight laserSight;
-        public GameObject lasers;
-        private LaserGun laserGun;
-        public Minigun minigun;
-        public Transform pivotTransform;
-        public Hand hand { get; private set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        [Reorderable("Weapon", false)]
+        public int[] weaponDamage;
 
-        public GunTypes currentGun = GunTypes.Lasers;
+        /// <summary>
+        /// 
+        /// </summary>
+        [Reorderable("Weapon", false)]
+        public float[] weaponFireRate;
 
-        //// Gun base stats
-        //public const int LASER_BASE_DAMAGE = 10;
-        //public const float LASER_BASE_FIRE_RATE = 10.0f;
-        //public const int MINIGUN_BASE_DAMAGE = 1;
-        //public const float MINIGUN_BASE_FIRE_RATE = 110.0f;
-        //public const int RAILGUN_BASE_DAMAGE = 1;
-        //public const float RAILGUN_BASE_FIRE_RATE = 1.0f;
-        //public const int LAUNCHER_BASE_DAMAGE = 1;
-        //public const float LAUNCHER_BASE_FIRE_RATE = 1.0f;
-
-        // Gun current stats
-        public int laserDamage;
-        public float laserFireRate;
-        public int minigunDamage;
-        public float minigunFireRate;
-        public int railgunDamage;
-        public float railgunFireRate;
-        public int launcherDamage;
-        public float launcherFireRate;
-
-        private bool deferNewPoses;
-        private Vector3 lateUpdatePos;
-        private Quaternion lateUpdateRot;
-
-        private SteamVR_Events.Action newPosesAppliedAction;
-
+        [Space(10)]
         public SoundPlayOneshot engineSound;
         public GameObject deathExplosion;
         public bool canShoot;
+
+        //--------------------
+        // SteamVR
+        //--------------------
+        private bool deferNewPoses;
+        private Vector3 lateUpdatePos;
+        private Quaternion lateUpdateRot;
+        private SteamVR_Events.Action newPosesAppliedAction;
+
+        void Awake()
+        {
+            reference = GameObject.Find("Reference Manager").GetComponent<ReferenceManager>();
+
+            if (reference == null)
+                Debug.LogError(GetType().Name + " - Could not find Reference Manager!");
+
+            reference.playerShip = gameObject;
+            laserSight = transform.Find("Model").Find("Laser Sight").GetComponent<LaserSight>();
+            newPosesAppliedAction = SteamVR_Events.NewPosesAppliedAction(OnNewPosesApplied);
+        }
 
         private void OnAttachedToHand(Hand attachedHand)
         {
             hand = attachedHand;
 
-            GameObject pickup = GameObject.FindGameObjectWithTag("ShipPickup");
-
-            if (pickup)
-            {
-                pickup.SetActive(false);
-            }
-
-            GameObject.Find("Main Canvas").transform.Find("Title").gameObject.SetActive(false);
-            GameObject.Find("Main Canvas").transform.Find("Main Menu").gameObject.SetActive(true);
-
-            FindObjectOfType<PowerUpStatus>().BeginTracking();
-        }
-
-        void Awake()
-        {
-            //laserDamage = LASER_BASE_DAMAGE;
-            //laserFireRate = LASER_BASE_FIRE_RATE;
-            //minigunDamage = MINIGUN_BASE_DAMAGE;
-            //minigunFireRate = MINIGUN_BASE_FIRE_RATE;
-            //railgunDamage = RAILGUN_BASE_DAMAGE;
-            //railgunFireRate = RAILGUN_BASE_FIRE_RATE;
-            //launcherDamage = LAUNCHER_BASE_DAMAGE;
-            //launcherFireRate = LAUNCHER_BASE_FIRE_RATE;
-
-            if (guns.Length > 0)
-            {
-                currGun = 0;
-            }
-
-            newPosesAppliedAction = SteamVR_Events.NewPosesAppliedAction(OnNewPosesApplied);
-            laserGun = lasers.GetComponentInChildren<LaserGun>();
+            reference.shipPickup.SetActive(false);
+            reference.menuTitle.SetActive(false);
+            reference.menuMain.SetActive(true);
+            reference.powerUpStatus.BeginTracking();
         }
 
         void OnEnable()
@@ -150,48 +153,37 @@ namespace Hive.Armada.Player
             transform.localPosition = Vector3.zero;
             transform.localRotation = Quaternion.identity;
 
-            if (shipMode.Equals(ShipMode.Game))
+            switch (shipMode)
             {
-                if (canShoot)
-                {
-                    if (hand.GetStandardInteractionButton())
+                case ShipMode.Game:
+                    if (canShoot)
                     {
-                        guns[currGun].SendMessage("TriggerUpdate");
-                        //switch (currentGun)
-                        //{
-                        //    case GunTypes.Lasers:
-                        //        laserGun.TriggerUpdate();
-                        //        break;
-                        //    case GunTypes.Miniguns:
-                        //        minigun.TriggerUpdate();
-                        //        break;
-                        //}
+                        if (hand.GetStandardInteractionButton())
+                        {
+                            guns[currGun].SendMessage("TriggerUpdate");
+                        }
                     }
-                }
-                else if (!canShoot && hand.GetStandardInteractionButtonUp())
-                {
-                    canShoot = true;
-                }
+                    else if (!canShoot && hand.GetStandardInteractionButtonUp())
+                    {
+                        canShoot = true;
+                    }
 
-                // Switch guns
-                if (!hand.GetStandardInteractionButton() && hand.controller.GetPressDown(EVRButtonId.k_EButton_Grip))
-                {
-                    SwitchGun(currGun);
-                }
+                    // Switch guns
+                    if (!hand.GetStandardInteractionButton() && hand.controller.GetPressDown(EVRButtonId.k_EButton_Grip))
+                    {
+                        SwitchGun(currGun);
+                    }
 
-                //press menu button
-                if (hand.controller.GetPressDown(Valve.VR.EVRButtonId.k_EButton_ApplicationMenu))
-                {
-                    GameObject.Find("Main Canvas").transform.Find("Paused Menu").gameObject.SetActive(
-                        !GameObject.Find("Main Canvas").transform.Find("Paused Menu").gameObject.activeSelf);
-                }
-            }
-            else if (shipMode.Equals(ShipMode.Menu))
-            {
-                if (hand.GetStandardInteractionButtonDown())
-                {
-                    laserSight.TriggerUpdate();
-                }
+                    break;
+                case ShipMode.Menu:
+                    if (hand.GetStandardInteractionButtonDown())
+                    {
+                        laserSight.TriggerUpdate();
+                    }
+                    break;
+                default:
+                    Debug.LogError("ShipController - ShipMode is not Menu or Game!");
+                    break;
             }
 
             //// Update handedness guess
@@ -222,6 +214,8 @@ namespace Hive.Armada.Player
                 canShoot = false;
         }
 
+
+
         /// <summary>
         /// Sets the ship to switch to either Game or Menu mode.
         /// </summary>
@@ -237,8 +231,13 @@ namespace Hive.Armada.Player
         /// <param name="boost"> The damage boost multiplier </param>
         public void SetDamageBoost(int boost)
         {
-            laserGun.damageBoost = boost;
-            minigun.damageBoost = boost;
+            foreach (GameObject obj in guns)
+            {
+                if (obj.GetComponent<Gun>())
+                {
+                    obj.GetComponent<Gun>().damageBoost = boost;
+                }
+            }
         }
 
         //private void EvaluateHandedness()

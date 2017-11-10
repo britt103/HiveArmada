@@ -7,7 +7,7 @@
 // Group Project
 // 
 // This abstract class is the base for all enemies. It handles all fields
-// and methods related tohealth and taking damage.
+// and methods related to health and taking damage.
 // 
 //=============================================================================
 
@@ -19,21 +19,23 @@ using UnityEngine;
 
 namespace Hive.Armada.Enemies
 {
+    /// <inheritdoc />
     /// <summary>
     /// The base class for all enemies.
     /// </summary>
     public abstract class Enemy : MonoBehaviour
     {
         /// <summary>
-        /// Reference to the wave spawner.
-        /// TODO: Remove this reference, make Reference Manager
+        /// Reference manager that holds all needed references
+        /// (e.g. spawner, game manager, etc.)
         /// </summary>
-        public Spawner spawner;
+        protected ReferenceManager reference;
 
         /// <summary>
         /// How much health the enemy spawns with.
         /// TODO: Move this to EnemyStats script
         /// </summary>
+        [Tooltip("How much health the enemy spawns with.")]
         public int maxHealth;
 
         /// <summary>
@@ -42,45 +44,60 @@ namespace Hive.Armada.Enemies
         protected int health;
 
         /// <summary>
+        /// How many points this enemy is worth when killed.
+        /// </summary>
+        [Tooltip("How many points this enemy is worth when killed.")]
+        public int pointValue;
+
+        /// <summary>
         /// The color the ship flashes when it is hit.
         /// </summary>
+        [Tooltip("The color the ship flashes when it is hit.")]
         public Material flashColor;
 
         /// <summary>
-        /// The particle effect on spawn.
+        /// The particle emitter for enemy spawn.
         /// </summary>
-        public GameObject fxSpawn;
+        [Tooltip("The particle emitter for enemy spawn.")]
+        public GameObject spawnEmitter;
 
         /// <summary>
-        /// The particle effect on death.
+        /// The particle emitter for enemy death.
         /// </summary>
-        public GameObject fxKill;
+        [Tooltip("The particle emitter for enemy death.")]
+        public GameObject deathEmitter;
 
         /// <summary>
         /// Changes to false on first hit.
         /// Used to tell spawner that it can spawn more enemies.
         /// </summary>
         protected bool untouched = true;
-        protected bool hitFlashing = false;
-        protected bool alive = true;
-        protected List<Material> mats;
 
         /// <summary>
-        /// Reference to the PlayerStats script for tracking kills.
+        /// Used to prevent HitFlash() from being called a
+        /// second time before it is done flashing
         /// </summary>
-        protected PlayerStats stats;
+        protected Coroutine hitFlash;
+
+        /// <summary>
+        /// List of Materials of all pieces of the enemy model.
+        /// Used to reset Materials after flashing.
+        /// </summary>
+        protected List<Material> mats;
 
         /// <summary>
         /// Initializes variables for the enemy when it loads.
         /// </summary>
         public virtual void Awake()
         {
+            reference = GameObject.Find("Reference Manager").GetComponent<ReferenceManager>();
+
+            if (reference == null)
+                Debug.LogError(GetType().Name + " - Could not find Reference Manager!");
+
             mats = new List<Material>();
             health = maxHealth;
-            spawner = GameObject.FindGameObjectWithTag("Wave").GetComponent<Spawner>();
-            Instantiate(fxSpawn, transform.position, transform.rotation, transform);
-
-            stats = FindObjectOfType<PlayerStats>();
+            Instantiate(spawnEmitter, transform.position, transform.rotation, transform);
         }
 
         /// <summary>
@@ -98,33 +115,22 @@ namespace Hive.Armada.Enemies
         /// <param name="damage"> How much damage this enemy is taking. </param>
         public virtual void Hit(int damage)
         {
-            if (!hitFlashing)
-            {
-                StartCoroutine(HitFlash());
-            }
-
             health -= damage;
-            if (health <= 0 && alive)
+
+            if (hitFlash == null)
             {
-                alive = false;
+                hitFlash = StartCoroutine(HitFlash());
+            }
+
+            if (health <= 0)
                 Kill();
-            }
 
-            if (untouched)
-            {
-                untouched = false;
-                if (spawner != null)
-                    spawner.EnemyHit();
-            }
-        }
+            if (!untouched) return;
 
-        /// <summary>
-        /// Currently unused. Flashes and destroys the enemy when it collides with the player.
-        /// </summary>
-        public virtual void Collide()
-        {
-            health = 0;
-            StartCoroutine(HitFlash());
+            untouched = false;
+
+            if (reference.spawner != null)
+                reference.spawner.EnemyHit();
         }
 
         /// <summary>
@@ -132,9 +138,10 @@ namespace Hive.Armada.Enemies
         /// </summary>
         protected virtual void Kill()
         {
-            Instantiate(fxKill, transform.position, transform.rotation);
-            spawner.AddKill();
-            stats.EnemyKilled();
+            reference.scoringSystem.AddScore(pointValue);
+            reference.spawner.AddKill();
+            reference.statistics.EnemyKilled();
+            Instantiate(deathEmitter, transform.position, transform.rotation);
 
             Destroy(gameObject);
         }
@@ -145,34 +152,29 @@ namespace Hive.Armada.Enemies
         /// </summary>
         protected virtual IEnumerator HitFlash()
         {
-            hitFlashing = true;
-
-            //gameObject.GetComponent<Renderer>().material = flashColor;
-
-            foreach (Renderer renderer in gameObject.GetComponentsInChildren<Renderer>())
+            foreach (Renderer r in gameObject.GetComponentsInChildren<Renderer>())
             {
-                if (renderer.gameObject.CompareTag("FX"))
+                if (r.gameObject.CompareTag("Emitter") || r.transform.parent.CompareTag("Emitter"))
                     continue;
 
-                mats.Add(renderer.material);
+                mats.Add(r.material);
 
-                renderer.material = flashColor;
+                r.material = flashColor;
             }
 
             yield return new WaitForSeconds(0.01f);
 
-
             // reset materials
-            foreach (Renderer renderer in gameObject.GetComponentsInChildren<Renderer>())
+            foreach (Renderer r in gameObject.GetComponentsInChildren<Renderer>())
             {
-                if (renderer.gameObject.CompareTag("FX"))
+                if (r.gameObject.CompareTag("Emitter") || r.transform.parent.CompareTag("Emitter"))
                     continue;
 
-                renderer.material = mats.First();
+                r.material = mats.First();
                 mats.RemoveAt(0);
             }
 
-            hitFlashing = false;
+            hitFlash = null;
         }
     }
 }

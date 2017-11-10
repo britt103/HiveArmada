@@ -76,7 +76,6 @@ namespace Hive.Armada.Player.Guns
         private int leftTracer = 7;
         private int rightTracer = 1;
         private float tracerSpeed = 100.0f;
-        public int damageBoost = 1;
 
         /// <summary>
         /// Initializes variables
@@ -84,8 +83,8 @@ namespace Hive.Armada.Player.Guns
         void Start()
         {
             damageBoost = 1;
-            damage = shipController.minigunDamage;
-            fireRate = shipController.minigunFireRate;
+            damage = shipController.weaponDamage[1];
+            fireRate = shipController.weaponFireRate[1];
         }
 
         /// <summary>

@@ -37,7 +37,6 @@ namespace Hive.Armada.Player.Guns
         public ShadowCastingMode castShadows;
         public bool receiveShadows = false;
         private bool isLeftFire = true;
-        public int damageBoost;
 
         public AudioSource sfx;
         public AudioClip[] clips;
@@ -47,8 +46,8 @@ namespace Hive.Armada.Player.Guns
         void Start()
         {
             canShoot = true;
-            damage = shipController.laserDamage;
-            fireRate = shipController.laserFireRate;
+            damage = shipController.weaponDamage[0];
+            fireRate = shipController.weaponFireRate[0];
             damageBoost = 1;
 
             leftLaser = left.gameObject.AddComponent<LineRenderer>();

@@ -82,6 +82,12 @@ namespace Hive.Armada.Enemies
         private float randZ;
 
 <<<<<<< HEAD
+		public AudioSource source;
+=======
+        public AudioSource source;
+>>>>>>> add more sounds
+        public AudioClip[] clips;
+
         /// <summary>
         /// On start, select enemy behavior based on value fireMode
         /// </summary>
@@ -95,12 +101,6 @@ namespace Hive.Armada.Enemies
         /// swayed via the spread value set by user. If player is not found automatically
         /// finds player, otherwise do nothing.
         /// </summary>
-=======
-        public AudioSource sfx;
-        public AudioClip[] clips;
-
-        // Update is called once per frame
->>>>>>> add sounds to enemies and other stuff
         void Update()
         {
             if (player != null)
@@ -113,14 +113,15 @@ namespace Hive.Armada.Enemies
                 {
                     fireNext = Time.time + (1 / fireRate);
                     StartCoroutine(FireBullet());
+					source.PlayOneShot(clips[0]);
 =======
                 {                                                                                       //Basic firerate calculation that determines
                     fireNext = Time.time + (1 / fireRate);                                              //how many projectiles shoot out of the turret
                     var shoot = Instantiate(bullet, spawn.position, spawn.rotation);                    //within a certain duration. The turret then
                     shoot.GetComponent<Transform>().Rotate(randX, randY, randZ);
                     shoot.GetComponent<Rigidbody>().velocity = shoot.transform.forward * fireSpeed;     //instantiates a bullet and shoots it forward
-                    sfx.PlayOneShot(clips[0]);                                                          //in the direction of the player.
->>>>>>> add sounds to enemies and other stuff
+                    source.PlayOneShot(clips[0]);                                                          //in the direction of the player.
+>>>>>>> add more sounds
                 }
             }
             else

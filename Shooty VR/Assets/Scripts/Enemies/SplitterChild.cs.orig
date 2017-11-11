@@ -59,16 +59,16 @@ namespace Hive.Armada.Enemies
         private bool canShoot = true;
 
 <<<<<<< HEAD
+		public AudioSource source;
+=======
+        public AudioSource source;
+>>>>>>> add more sounds
+        public AudioClip[] clips;
+
         /// <summary>
         /// Tries to look at the player and shoot at it when possible. Runs every frame.
         /// </summary>
         private void Update()
-=======
-        public AudioSource sfx;
-        public AudioClip[] clips;
-
-        void Update()
->>>>>>> add sounds to enemies and other stuff
         {
             if (player != null)
             {
@@ -105,10 +105,14 @@ namespace Hive.Armada.Enemies
                                                         Random.Range(-spread, spread),
                                                         Random.Range(-spread, spread));
 
+<<<<<<< HEAD
             projectile.GetComponent<Rigidbody>().velocity =
                 projectile.transform.forward * projectileSpeed;
 
-            sfx.PlayOneShot(clips[0]);
+			source.PlayOneShot(clips[0]);
+=======
+            source.PlayOneShot(clips[0]);
+>>>>>>> add more sounds
 
             yield return new WaitForSeconds(fireRate);
 

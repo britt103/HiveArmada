@@ -2268,7 +2268,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1260673260181382}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.14833377, y: 0.31532973, z: 0.38894105}
+  m_LocalPosition: {x: -0.06538057, y: 0.31532973, z: 0.32476676}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4596740828718180}
@@ -5859,6 +5859,9 @@ MonoBehaviour:
   fxHurt: {fileID: 1055841953223108, guid: 34575683d8e1fb5438fc406df5227ce5, type: 2}
   fxDead: {fileID: 1121042957686670, guid: a1bfa5497fc24df4ab1d22001dc533da, type: 2}
   flashColor: {fileID: 2100000, guid: 1db15971033ba594294b4f0c035f7da8, type: 2}
+  source: {fileID: 82183694413675744}
+  clips:
+  - {fileID: 8300000, guid: 5df1acdc56b861a439fd30c800f753e9, type: 3}
 --- !u!114 &114150575784695996
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5914,6 +5917,7 @@ MonoBehaviour:
   weaponFireRate:
   - 8
   - 40
+  clip: {fileID: 8300000, guid: 4c1871e13e00392438aedf7c2d0791b4, type: 3}
 --- !u!114 &114455474106140256
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5938,13 +5942,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shipController: {fileID: 114387485106083888}
   damageMultiplier: 0
-  radius: 0.3
-  laserMaterial: {fileID: 2100000, guid: fb4863ba36a8e134791cc6e1bbb1efeb, type: 2}
-  laserSounds: []
   left: {fileID: 1342840622184698}
   right: {fileID: 1178781355733306}
-  source: {fileID: 0}
+  laserMaterial: {fileID: 2100000, guid: fb4863ba36a8e134791cc6e1bbb1efeb, type: 2}
+  laserSounds: []
+  radius: 0.3
   thickness: 0.002
+  source: {fileID: 82047103537182748}
 --- !u!114 &114693560361633878
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5990,7 +5994,7 @@ MonoBehaviour:
   thickness: 0.003
   material: {fileID: 2100000, guid: 94b83a265507fa64c97d2039f9b11189, type: 2}
   radius: 0.3
-  sfx: {fileID: 82118614352496922}
+  source: {fileID: 82118614352496922}
   clips:
   - {fileID: 8300000, guid: 01ddb69a33ae13b4483552cf5040f22b, type: 3}
 --- !u!136 &136807103204981110

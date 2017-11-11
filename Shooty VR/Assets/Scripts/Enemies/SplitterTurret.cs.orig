@@ -64,6 +64,12 @@ namespace Hive.Armada.Enemies
         public float splitDir;
 
 <<<<<<< HEAD
+		public AudioSource source;
+=======
+        public AudioSource source;
+>>>>>>> add more sounds
+        public AudioClip[] clips;
+
         /// <summary>
         /// Whether this enemy can shoot or not. Toggles when firing every 1/fireRate seconds.
         /// </summary>
@@ -73,31 +79,26 @@ namespace Hive.Armada.Enemies
         /// Tries to look at the player and shoot at it when possible. Runs every frame.
         /// </summary>
         private void Update()
-=======
-        public AudioSource sfx;
-        public AudioClip[] clips;
-
-        ///Constantly tracks the player position
-        ///While shooting bullets using the formula below
-        void Update()
->>>>>>> add sounds to enemies and other stuff
         {
             if (player != null)
             {
+<<<<<<< HEAD
                 transform.LookAt(player.transform);
 
-<<<<<<< HEAD
                 if (canShoot)
                 {
                     StartCoroutine(Shoot());
+					source.PlayOneShot(clips[0]);
 =======
+                transform.LookAt(player.transform.position);                  //makes the transform look at the player's position
+
                 if (Time.time > fireNext)
                 {                                                                                       //Basic firerate calculation that determines
                     fireNext = Time.time + fireRate;                                                    //how many projectiles shoot out of the turret
                     var shoot = Instantiate(bullet, spawn.position, spawn.rotation);                    //within a certain duration. The turret then
                     shoot.GetComponent<Rigidbody>().velocity = shoot.transform.forward * fireSpeed;     //instantiates a bullet and shoots it forward
-                    sfx.PlayOneShot(clips[0]);
->>>>>>> add sounds to enemies and other stuff
+                    source.PlayOneShot(clips[0]);
+>>>>>>> add more sounds
                 }
             }
             else

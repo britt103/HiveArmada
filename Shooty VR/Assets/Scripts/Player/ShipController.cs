@@ -72,7 +72,8 @@ namespace Hive.Armada.Player
 
         private SteamVR_Events.Action newPosesAppliedAction;
 
-        public SoundPlayOneshot engineSound;
+        public AudioSource engineSound;
+        public AudioClip clip;
         public GameObject deathExplosion;
         public bool canShoot;
 
@@ -81,6 +82,7 @@ namespace Hive.Armada.Player
             hand = attachedHand;
 
             GameObject pickup = GameObject.FindGameObjectWithTag("ShipPickup");
+            engineSound.PlayOneShot(clip);
 
             if (pickup)
             {

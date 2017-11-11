@@ -34,6 +34,9 @@ namespace Hive.Armada.Player
         public Material flashColor;
         private Coroutine flash;
 
+        public AudioSource source;
+        public AudioClip[] clips;
+
         /// <summary>
         /// Initializes variables
         /// </summary>
@@ -51,6 +54,7 @@ namespace Hive.Armada.Player
         {
             Instantiate(fxHit, transform);
             currentHealth -= damage;
+            source.PlayOneShot(clips[0]);
 
             if (Utility.isDebug)
                 Debug.Log("Hit for " + damage + " damage! Remaining health = " + currentHealth);

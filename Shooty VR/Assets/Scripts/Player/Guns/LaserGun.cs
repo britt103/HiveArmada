@@ -39,7 +39,7 @@ namespace Hive.Armada.Player.Guns
         private bool isLeftFire = true;
         public int damageBoost;
 
-        public AudioSource sfx;
+        public AudioSource source;
         public AudioClip[] clips;
 
         private PlayerStats stats;
@@ -147,7 +147,7 @@ namespace Hive.Armada.Player.Guns
 
             //if(r <= 0.9)
             //{
-                sfx.PlayOneShot(clips[0]);
+                source.PlayOneShot(clips[0]);
             //}
             //else
             //{

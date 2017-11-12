@@ -1,38 +1,51 @@
-﻿//Name: Chad Johnson
-//Student ID: 1763718
-//Email: johns428@mail.chapman.edu
-//Course: CPSC 340-01, CPSC-344-01
-//Assignment: Group Project
-//Purpose: Control interactions and navigation with main menu
+﻿//=============================================================================
+//
+// Chad Johnson
+// 1763718
+// johns428@mail.chapman.edu
+// CPSC-340-01 & CPSC-344-01
+// Group Project
+//
+// MainMenu controls interactions with the Main Menu.
+//
+//=============================================================================
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class MainMenu : MonoBehaviour {
+namespace Hive.Armada.Menu
+{
     /// <summary>
-    /// Start button pressed; navigated to start menu
+    /// Contains navigation functions for the Start and Options menu and prompting of applcation 
+    /// exit on Main Menu.
     /// </summary>
-    public void OnStartButton()
+    public class MainMenu : MonoBehaviour
     {
-        GameObject.Find("Main Canvas").transform.Find("Start Menu").gameObject.SetActive(true);
-        gameObject.SetActive(false);
-    }
+        /// <summary>
+        /// Start button pressed. Navigate to Start Menu.
+        /// </summary>
+        public void PressStart()
+        {
+            GameObject.Find("Main Canvas").transform.Find("Start Menu").gameObject
+                    .SetActive(true);
+            gameObject.SetActive(false);
+        }
 
-    /// <summary>
-    /// Options button pressed; navigate to options menu
-    /// </summary>
-    public void OnOptionsButton()
-    {
-        GameObject.Find("Main Canvas").transform.Find("Options Menu").gameObject.SetActive(true);
-        gameObject.SetActive(false);
-    }
+        /// <summary>
+        /// Options button pressed. Navigate to Options Menu.
+        /// </summary>
+        public void PressOptions()
+        {
+            GameObject.Find("Main Canvas").transform.Find("Options Menu").gameObject
+                    .SetActive(true);
+            gameObject.SetActive(false);
+        }
 
-    /// <summary>
-    /// Quit button pressed; exits application
-    /// </summary>
-    public void OnQuitButton()
-    {
-        
+        /// <summary>
+        /// Quit button pressed. Exit application.
+        /// </summary>
+        public void PressQuit()
+        {
+
+        }
     }
 }

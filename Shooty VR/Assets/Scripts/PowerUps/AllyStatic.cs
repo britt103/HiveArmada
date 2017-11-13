@@ -17,7 +17,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace Hive.Armada.Powerup
+namespace Hive.Armada.Powerups
 {
     /// <summary>
     /// Ally powerup with static movement.
@@ -62,7 +62,7 @@ namespace Hive.Armada.Powerup
             timeLimit -= Time.deltaTime;
             if (timeLimit < 0.0F)
             {
-                FindObjectOfType<PowerupStatus>().p1Active = false;
+                FindObjectOfType<PowerupStatus>().powerupTypeActive[0] = false;
                 Destroy(gameObject);
             }
 
@@ -88,10 +88,14 @@ namespace Hive.Armada.Powerup
             GameObject nearestEnemy = null;
             foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
             {
-                positionDifference = enemy.transform.position - transform.parent.transform.position;
+                positionDifference = enemy.transform.position - 
+                        transform.parent.transform.position;
+
                 //faster than non-squared magnitude
                 distance = positionDifference.sqrMagnitude;
-                enemyLocalZ = transform.parent.transform.InverseTransformPoint(enemy.transform.position).z;
+                enemyLocalZ = transform.parent.transform
+                        .InverseTransformPoint(enemy.transform.position).z;
+
                 //for static, want enemy to be in front of ally
                 if (distance < shortestDistance && enemyLocalZ > localPosition.z)
                 {

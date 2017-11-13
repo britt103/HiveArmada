@@ -17,7 +17,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace Hive.Armada.Powerup
+namespace Hive.Armada.Powerups
 {
     /// <summary>
     /// Ally powerup with slerp movement. 
@@ -63,7 +63,7 @@ namespace Hive.Armada.Powerup
         public GameObject bulletPrefab;
 
         /// <summary>
-        /// FX instantiation in Start().
+        /// FX instanted in Start().
         /// </summary>
         public GameObject fxSpawn;
 
@@ -95,7 +95,7 @@ namespace Hive.Armada.Powerup
             timeLimit -= Time.deltaTime;
             if (timeLimit < 0.0F)
             {
-                FindObjectOfType<PowerupStatus>().p1Active = false;
+                FindObjectOfType<PowerupStatus>().powerupTypeActive[0] = false;
                 Destroy(gameObject);
             }
 
@@ -119,7 +119,9 @@ namespace Hive.Armada.Powerup
             GameObject nearestEnemy = null;
             foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
             {
-                positionDifference = enemy.transform.position - transform.parent.transform.position;
+                positionDifference = enemy.transform.position - 
+                        transform.parent.transform.position;
+
                 //faster than non-squared magnitude
                 distance = positionDifference.sqrMagnitude;
                 if (distance < shortestDistance)
@@ -161,9 +163,14 @@ namespace Hive.Armada.Powerup
                 }
             }
 
-            Quaternion rotation = Quaternion.LookRotation((currentTarget.transform.position - transform.position).normalized);
-            Vector3 enemyLocalPosition = transform.parent.transform.InverseTransformPoint(currentTarget.transform.position);
-            Vector3 localTranslation = new Vector3(enemyLocalPosition.x, enemyLocalPosition.y, 0).normalized * distance;
+            Quaternion rotation = Quaternion.LookRotation((currentTarget.transform.position - 
+                    transform.position).normalized);
+
+            Vector3 enemyLocalPosition = transform.parent.transform
+                    .InverseTransformPoint(currentTarget.transform.position);
+
+            Vector3 localTranslation = new Vector3(enemyLocalPosition.x, enemyLocalPosition.y, 0)
+                .normalized * distance;
 
             slerpFraction = slerpTimer / slerpTime;
 
@@ -171,7 +178,8 @@ namespace Hive.Armada.Powerup
             if (slerpFraction < 1.0F)
             {
                 transform.rotation = Quaternion.Slerp(transform.rotation, rotation, slerpFraction);
-                transform.localPosition = Vector3.Slerp(transform.localPosition, localTranslation, slerpFraction);
+                transform.localPosition = Vector3
+                        .Slerp(transform.localPosition, localTranslation, slerpFraction);
 
                 slerpTimer += Time.deltaTime;
             }
@@ -185,7 +193,8 @@ namespace Hive.Armada.Powerup
                 //if(Physics.SphereCast(transform.position, sphereCastRadius, transform.forward, out hit, sphereCastMaxDistance))
                 //if(Physics.SphereCast(transform.position, sphereCastRadius, transform.forward, out hit, sphereCastMaxDistance, LayerMask.GetMask("Player")))
                 {
-                    if (hit.collider.gameObject.CompareTag("Player") || hit.collider.gameObject.GetComponent<Shield>() != null)
+                    if (hit.collider.gameObject.CompareTag("Player") || 
+                            hit.collider.gameObject.GetComponent<Shield>() != null)
                     {
                         slerpTimer = 0.0F;
                     }
@@ -200,7 +209,8 @@ namespace Hive.Armada.Powerup
         private IEnumerator Fire(Vector3 target)
         {
             canFire = false;
-            var bullet = Instantiate(bulletPrefab, transform.Find("BulletPoint").transform.position, transform.rotation);
+            var bullet = Instantiate(bulletPrefab, transform.Find("BulletPoint")
+                    .transform.position, transform.rotation);
 
             bullet.transform.LookAt(target);
             bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * bulletSpeed;

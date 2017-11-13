@@ -90,7 +90,7 @@ namespace Hive.Armada.Player
             GameObject.Find("Main Canvas").transform.Find("Title").gameObject.SetActive(false);
             GameObject.Find("Main Canvas").transform.Find("Main Menu").gameObject.SetActive(true);
 
-            FindObjectOfType<Powerup.PowerupStatus>().BeginTracking();
+            FindObjectOfType<Powerups.PowerupStatus>().BeginTracking();
         }
 
         void Awake()

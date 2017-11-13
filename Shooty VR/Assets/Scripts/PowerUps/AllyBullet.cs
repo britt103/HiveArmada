@@ -12,7 +12,7 @@
 
 using UnityEngine;
 
-namespace Hive.Armada.Powerup
+namespace Hive.Armada.Powerups
 {
     /// <summary>
     /// Ally powerup projectile.

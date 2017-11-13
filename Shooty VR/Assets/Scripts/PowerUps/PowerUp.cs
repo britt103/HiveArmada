@@ -15,7 +15,7 @@
 
 using UnityEngine;
 
-namespace Hive.Armada.Powerup
+namespace Hive.Armada.Powerups
 {
     public class Powerup : MonoBehaviour
     {
@@ -80,47 +80,47 @@ namespace Hive.Armada.Powerup
                 switch (powerupPrefab.name)
                 {
                     case "Ally":
-                        if (!status.p1Stored)
+                        if (!status.powerupTypeStored[0])
                         {
                             status.StorePowerup(powerupPrefab, powerupIconPrefab);
-                            status.p1Stored = true;
+                            status.powerupTypeStored[0] = true;
                             Destroy(gameObject);
                         }
                         break;
 
                     case "Area Bomb":
-                        if (!status.p2Stored)
+                        if (!status.powerupTypeStored[1])
                         {
                             status.StorePowerup(powerupPrefab, powerupIconPrefab);
-                            status.p2Stored = true;
+                            status.powerupTypeStored[1] = true;
                             Destroy(gameObject);
 
                         }
                         break;
 
                     case "Clear":
-                        if (!status.p3Stored)
+                        if (!status.powerupTypeStored[2])
                         {
                             status.StorePowerup(powerupPrefab, powerupIconPrefab);
-                            status.p3Stored = true;
+                            status.powerupTypeStored[2] = true;
                             Destroy(gameObject);
                         }
                         break;
 
                     case "Damage Boost":
-                        if (!status.p4Stored)
+                        if (!status.powerupTypeStored[3])
                         {
                             status.StorePowerup(powerupPrefab, powerupIconPrefab);
-                            status.p4Stored = true;
+                            status.powerupTypeStored[3] = true;
                             Destroy(gameObject);
                         }
                         break;
 
                     case "Shield":
-                        if (!status.p5Stored)
+                        if (!status.powerupTypeStored[4])
                         {
                             status.StorePowerup(powerupPrefab, powerupIconPrefab);
-                            status.p5Stored = true;
+                            status.powerupTypeStored[4] = true;
                             Destroy(gameObject);
                         }
                         break;

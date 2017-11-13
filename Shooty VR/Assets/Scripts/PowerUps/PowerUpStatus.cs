@@ -16,7 +16,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR.InteractionSystem;
 
-namespace Hive.Armada.Powerup
+namespace Hive.Armada.Powerups
 {
     /// <summary>
     /// Tracks stored powerups and activations.
@@ -24,54 +24,14 @@ namespace Hive.Armada.Powerup
     public class PowerupStatus : MonoBehaviour
     {
         /// <summary>
-        /// State of whether Powerup 1 is queued.
+        /// Array of states of whether each type of powerup is currently stored.
         /// </summary>
-        public bool p1Stored = false;
+        public bool[] powerupTypeStored;
 
         /// <summary>
-        /// State of whether Powerup 2 is queued.
+        /// Array of states of whether each type of powerup is currently active.
         /// </summary>
-        public bool p2Stored = false;
-
-        /// <summary>
-        /// State of whether Powerup 3 is queued.
-        /// </summary>
-        public bool p3Stored = false;
-
-        /// <summary>
-        /// State of whether Powerup 4 is queued.
-        /// </summary>
-        public bool p4Stored = false;
-
-        /// <summary>
-        /// State of whether Powerup 5 is queued.
-        /// </summary>
-        public bool p5Stored = false;
-
-        /// <summary>
-        /// State of whether Powerup 1 is active.
-        /// </summary>
-        public bool p1Active = false;
-
-        /// <summary>
-        /// State of whether Powerup 1 is active.
-        /// </summary>
-        public bool p2Active = false;
-
-        /// <summary>
-        /// State of whether Powerup 1 is active.
-        /// </summary>
-        public bool p3Active = false;
-
-        /// <summary>
-        /// State of whether Powerup 1 is active.
-        /// </summary>
-        public bool p4Active = false;
-
-        /// <summary>
-        /// State of whether Powerup 1 is active.
-        /// </summary>
-        public bool p5Active = false;
+        public bool[] powerupTypeActive;
 
         /// <summary>
         /// Queue containing powerup prefabs.
@@ -183,70 +143,70 @@ namespace Hive.Armada.Powerup
                     switch (powerups.Peek().name)
                     {
                         case "Ally":
-                            if (p1Active)
+                            if (powerupTypeActive[0])
                             {
                                 canActivate = false;
                             }
                             else
                             {
-                                p1Stored = false;
-                                p1Active = true;
+                                powerupTypeStored[0] = false;
+                                powerupTypeActive[0] = true;
                                 stats.AllyCount();
                             }
 
                             break;
 
                         case "Area Bomb":
-                            if (p2Active)
+                            if (powerupTypeActive[1])
                             {
                                 canActivate = false;
                             }
                             else
                             {
-                                p2Stored = false;
-                                p2Active = true;
+                                powerupTypeStored[1] = false;
+                                powerupTypeActive[1] = true;
                                 stats.AreaBombCount();
                             }
 
                             break;
 
                         case "Clear":
-                            if (p3Active)
+                            if (powerupTypeActive[2])
                             {
                                 canActivate = false;
                             }
                             else
                             {
-                                p3Stored = false;
-                                p3Active = true;
+                                powerupTypeStored[2] = false;
+                                powerupTypeActive[2] = true;
                                 stats.ClearCount();
                             }
 
                             break;
 
                         case "Damage Boost":
-                            if (p4Active)
+                            if (powerupTypeActive[3])
                             {
                                 canActivate = false;
                             }
                             else
                             {
-                                p4Stored = false;
-                                p4Active = true;
+                                powerupTypeStored[3] = false;
+                                powerupTypeActive[3] = true;
                                 stats.DamageBoostCount();
                             }
 
                             break;
 
                         case "Shield":
-                            if (p5Active)
+                            if (powerupTypeActive[4])
                             {
                                 canActivate = false;
                             }
                             else
                             {
-                                p5Stored = false;
-                                p5Active = true;
+                                powerupTypeStored[4] = false;
+                                powerupTypeActive[4] = true;
                                 stats.ShieldCount();
                             }
 
@@ -369,7 +329,8 @@ namespace Hive.Armada.Powerup
         private void UpdateDisplayIcon(GameObject newIcon)
         {
             //position
-            newIcon.transform.localPosition = new Vector3(iconSpacing * (powerupIcons.Count - 1), 0, 0);
+            newIcon.transform.localPosition = new Vector3
+                    (iconSpacing * (powerupIcons.Count - 1), 0, 0);
 
             //scale
             //newIcon.transform.localScale *= (powerupIcons.Count / maxStoredPowerups);

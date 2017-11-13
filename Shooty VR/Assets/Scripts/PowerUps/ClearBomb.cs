@@ -13,7 +13,7 @@
 
 using UnityEngine;
 
-namespace Hive.Armada.Powerup
+namespace Hive.Armada.Powerups
 {
     /// <summary>
     /// Clear powerup.
@@ -33,7 +33,7 @@ namespace Hive.Armada.Powerup
             {
                 Destroy(bullet);
             }
-            FindObjectOfType<PowerupStatus>().p3Active = false;
+            FindObjectOfType<PowerupStatus>().powerupTypeActive[2] = false;
             Destroy(gameObject);
         }
 

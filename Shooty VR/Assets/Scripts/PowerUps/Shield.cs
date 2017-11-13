@@ -15,7 +15,7 @@
 
 using UnityEngine;
 
-namespace Hive.Armada.Powerup
+namespace Hive.Armada.Powerups
 {
     /// <summary>
     /// Shield powerup.
@@ -60,7 +60,7 @@ namespace Hive.Armada.Powerup
             timeLimit -= Time.deltaTime;
             if (timeLimit <= 0.0F)
             {
-                FindObjectOfType<PowerupStatus>().p5Active = false;
+                FindObjectOfType<PowerupStatus>().powerupTypeActive[4] = false;
                 Destroy(gameObject);
             }
 

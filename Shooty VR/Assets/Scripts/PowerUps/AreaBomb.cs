@@ -17,7 +17,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace Hive.Armada.Powerup
+namespace Hive.Armada.Powerups
 {
     /// <summary>
     /// Area Bomb powerup.
@@ -130,7 +130,7 @@ namespace Hive.Armada.Powerup
                 }
             }
             Instantiate(fxBomb, transform.position, transform.rotation);
-            FindObjectOfType<PowerupStatus>().p2Active = false;
+            FindObjectOfType<PowerupStatus>().powerupTypeActive[1] = false;
             Destroy(gameObject);
         }
     }

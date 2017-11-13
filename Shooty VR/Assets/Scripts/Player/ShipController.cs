@@ -6,13 +6,12 @@
 // CPSC-340-01 & CPSC-344-01
 // Group Project
 // 
-// [DESCRIPTION]
+// This class handles the ship that the player picks up. It includes all
+// functions needed for SteamVR's Player prefab to interact with it. It handles
+// firing and switching weapons.
 // 
 //=============================================================================
 
-using System.Collections;
-using System.Collections.Generic;
-using System.Security.Cryptography;
 using UnityEngine;
 using Valve.VR.InteractionSystem;
 using Hive.Armada.Player.Weapons;

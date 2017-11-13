@@ -19,127 +19,144 @@
 
 using System;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using Valve.VR.InteractionSystem;
 using UnityEngine.Rendering;
 
 namespace Hive.Armada.Player
 {
+    /// <summary>
+    /// Laser sight for the player. Also handles UI interaction.
+    /// </summary>
     public class LaserSight : MonoBehaviour
     {
+        /// <summary>
+        /// Reference to the ship controller
+        /// </summary>
         public ShipController shipController;
+
+        /// <summary>
+        /// Which mode the ship is in
+        /// </summary>
         public ShipController.ShipMode mode;
+
+        /// <summary>
+        /// The laser sight itself
+        /// </summary>
         private LineRenderer laser;
+        
+        /// <summary>
+        /// Material for the laser sight
+        /// </summary>
         public Material laserMaterial;
-        [Tooltip("View makes line face camera. Local makes the line face the direction of the transform component")]
-        public LineAlignment alignment;
+
+        /// <summary>
+        /// How thick the laser should be
+        /// </summary>
         public float thickness = 0.002f;
-        public ShadowCastingMode castShadows;
-        public bool receiveShadows = false;
+
+        /// <summary>
+        /// The object the laser sight is hitting while in Menu mode
+        /// </summary>
         private GameObject aimObject;
+
+        /// <summary>
+        /// If the aimObject is tagged as button
+        /// </summary>
         private bool isButton;
 
-        // Use this for initialization
-        void Start()
+        /// <summary>
+        /// Initializes the laser sight's LineRenderer and ship controller reference.
+        /// </summary>
+        private void Start()
         {
+            shipController = GameObject.FindGameObjectWithTag("Player").GetComponent<ShipController>();
+
             laser = gameObject.AddComponent<LineRenderer>();
             laser.material = laserMaterial;
-            laser.shadowCastingMode = castShadows;
-            laser.receiveShadows = receiveShadows;
-            laser.alignment = alignment;
+            laser.shadowCastingMode = ShadowCastingMode.Off;
+            laser.receiveShadows = false;
+            laser.alignment = LineAlignment.View;
             laser.startWidth = thickness;
             laser.endWidth = thickness;
         }
 
-        void Awake()
-        {
-            shipController = GameObject.FindGameObjectWithTag("Player").GetComponent<ShipController>();
-        }
-
         // Update is called once per frame
-        void Update()
+        private void Update()
         {
             RaycastHit hit;
 
-            switch (mode)
+            if (mode == ShipController.ShipMode.Game)
             {
-                case ShipController.ShipMode.Game:
-                    if (Physics.Raycast(transform.position, transform.forward, out hit, Mathf.Infinity, Utility.roomMask))
-                    {
-                        aimObject = hit.collider.gameObject;
-                        isButton = hit.collider.gameObject.CompareTag("Button");
+                if (Physics.Raycast(transform.position, transform.forward,
+                    out hit,Mathf.Infinity, Utility.roomMask))
+                {
+                    laser.SetPosition(0, transform.position);
+                    laser.SetPosition(1, hit.point);
 
-                        laser.SetPosition(0, transform.position);
-                        laser.SetPosition(1, hit.point);
-
-                        float mag = (transform.position - hit.point).magnitude;
-                        laser.endWidth = thickness * Mathf.Max(mag, 1.0f);
-                    }
-                    else
+                    float mag = (transform.position - hit.point).magnitude;
+                    laser.endWidth = thickness * Mathf.Max(mag, 1.0f);
+                }
+                else
+                {
+                    isButton = false;
+                }
+            } // end if Game mode
+            else if (mode == ShipController.ShipMode.Menu)
+            {
+                if (Physics.Raycast(transform.position, transform.forward,
+                    out hit, Mathf.Infinity, Utility.uiMask))
+                {
+                    if (hit.collider.gameObject.CompareTag("Button"))
                     {
-                        aimObject = null;
-                        isButton = false;
-                    }
-                    break;
-                case ShipController.ShipMode.Menu:
-                    if (Physics.Raycast(transform.position, transform.forward, out hit, Mathf.Infinity, Utility.uiMask))
-                    {
-                        if (hit.collider.gameObject.CompareTag("Button"))
+                        if (!isButton)
                         {
-                            if (!isButton)
+                            isButton = true;
+                            if (shipController != null)
                             {
-                                isButton = true;
-                                if (shipController != null)
+                                try
                                 {
-                                    try
-                                    {
-                                        shipController.hand.controller.TriggerHapticPulse();
-                                    }
-                                    catch (Exception)
-                                    {
-                                        
-                                    }
-                                    
+                                    shipController.hand.controller.TriggerHapticPulse();
+                                }
+                                catch (Exception)
+                                {
+                                    // Do nothing
                                 }
                             }
                         }
-                        else
-                        {
-                            isButton = false;
-                        }
-
-                        aimObject = hit.collider.gameObject;
-                        isButton = hit.collider.gameObject.CompareTag("Button");
-
-                        laser.SetPosition(0, transform.position);
-                        laser.SetPosition(1, hit.point);
-
-                        float mag = (transform.position - hit.point).magnitude;
-                        laser.endWidth = thickness * Mathf.Max(mag, 1.0f);
-                    }
-                    else if (Physics.Raycast(transform.position, transform.forward, out hit, Mathf.Infinity, Utility.roomMask))
-                    {
-                        aimObject = null;
-                        isButton = false;
-
-                        laser.SetPosition(0, transform.position);
-                        laser.SetPosition(1, hit.point);
-
-                        float mag = (transform.position - hit.point).magnitude;
-                        laser.endWidth = thickness * Mathf.Max(mag, 1.0f);
                     }
                     else
                     {
-                        aimObject = null;
                         isButton = false;
                     }
-                    break;
 
+                    aimObject = hit.collider.gameObject;
+                    isButton = hit.collider.gameObject.CompareTag("Button");
 
-            }
-            
+                    laser.SetPosition(0, transform.position);
+                    laser.SetPosition(1, hit.point);
 
+                    float mag = (transform.position - hit.point).magnitude;
+                    laser.endWidth = thickness * Mathf.Max(mag, 1.0f);
+                }
+                else if (Physics.Raycast(transform.position, transform.forward,
+                    out hit, Mathf.Infinity,
+                    Utility.roomMask))
+                {
+                    aimObject = null;
+                    isButton = false;
+
+                    laser.SetPosition(0, transform.position);
+                    laser.SetPosition(1, hit.point);
+
+                    float mag = (transform.position - hit.point).magnitude;
+                    laser.endWidth = thickness * Mathf.Max(mag, 1.0f);
+                }
+                else
+                {
+                    aimObject = null;
+                    isButton = false;
+                }
+            } // end if Menu mode
         }
 
         /// <summary>
@@ -149,7 +166,8 @@ namespace Hive.Armada.Player
         {
             if (mode.Equals(ShipController.ShipMode.Menu) && isButton)
             {
-                ExecuteEvents.Execute(aimObject, new PointerEventData(EventSystem.current), ExecuteEvents.submitHandler);
+                ExecuteEvents.Execute(aimObject,
+                    new PointerEventData(EventSystem.current), ExecuteEvents.submitHandler);
             }
         }
 

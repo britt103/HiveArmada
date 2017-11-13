@@ -46,8 +46,8 @@ namespace Hive.Armada.Player.Weapons
         void Start()
         {
             canShoot = true;
-            damage = shipController.laserDamage;
-            fireRate = shipController.laserFireRate;
+            damage = shipController.weaponDamage[0];
+            fireRate = shipController.weaponFireRate[0];
             damageBoost = 1;
 
             leftLaser = left.gameObject.AddComponent<LineRenderer>();

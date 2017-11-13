@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 4849397163952148}
   - component: {fileID: 114693560361633878}
   m_Layer: 0
-  m_Name: LaserSight
+  m_Name: Laser Sight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5825,19 +5825,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shipMode: 0
+  hand: {fileID: 0}
   weapons:
   - {fileID: 1629746874275404}
   - {fileID: 1898544543187972}
-  laserSight: {fileID: 114693560361633878}
-  pivotTransform: {fileID: 0}
-  laserDamage: 10
-  laserFireRate: 8
-  minigunDamage: 3
-  minigunFireRate: 40
-  railgunDamage: 1
-  railgunFireRate: 10
-  launcherDamage: 1
-  launcherFireRate: 10
+  weaponDamage: 0a00000003000000
+  weaponFireRate:
+  - 8
+  - 40
   engineSound: {fileID: 0}
   deathExplosion: {fileID: 0}
   canShoot: 0
@@ -5864,7 +5859,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shipController: {fileID: 114387485106083888}
-  damageBoost: 0
   left: {fileID: 1342840622184698}
   right: {fileID: 1178781355733306}
   laserMaterial: {fileID: 2100000, guid: fb4863ba36a8e134791cc6e1bbb1efeb, type: 2}
@@ -5873,6 +5867,7 @@ MonoBehaviour:
   thickness: 0.002
   castShadows: 0
   receiveShadows: 0
+  damageBoost: 0
   sfx: {fileID: 82047103537182748}
   clips:
   - {fileID: 8300000, guid: f2d364ae7c1470d4897f89953d19dff2, type: 3}
@@ -5906,7 +5901,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shipController: {fileID: 114387485106083888}
-  damageBoost: 1
   tracerPrefab: {fileID: 1119082080290300, guid: 84ef68ef9a4ce5843979557b53e1d8ed,
     type: 2}
   hitSparkPrefab: {fileID: 1170983697632442, guid: b9264ac9610fac64396312a2bd67e309,
@@ -5926,14 +5920,14 @@ MonoBehaviour:
   - {fileID: 1525843566762762}
   - {fileID: 1489126751794572}
   - {fileID: 1225101292643998}
-  projectilePrefab: {fileID: 1379568404883288, guid: 95e6d40568c90044fab23f248ed27621,
-    type: 2}
+  projectilePrefab: {fileID: 0}
   projectileSpeed: 100
   radius: 0.3
   tracerPoolCount: 40
   tracerFrequency: 1
   thickness: 0.003
   material: {fileID: 2100000, guid: 94b83a265507fa64c97d2039f9b11189, type: 2}
+  damageBoost: 1
 --- !u!136 &136807103204981110
 CapsuleCollider:
   m_ObjectHideFlags: 1

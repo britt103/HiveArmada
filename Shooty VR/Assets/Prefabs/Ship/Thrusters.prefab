@@ -5824,7 +5824,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e23030c77dd034d4ab463f488c746cc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shipMode: 0
+  shipMode: 1
   hand: {fileID: 0}
   weapons:
   - {fileID: 1629746874275404}
@@ -5833,9 +5833,6 @@ MonoBehaviour:
   weaponFireRate:
   - 8
   - 40
-  engineSound: {fileID: 0}
-  deathExplosion: {fileID: 0}
-  canShoot: 0
 --- !u!114 &114455474106140256
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5859,18 +5856,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shipController: {fileID: 114387485106083888}
+  damageBoost: 0
+  radius: 0.3
   left: {fileID: 1342840622184698}
   right: {fileID: 1178781355733306}
   laserMaterial: {fileID: 2100000, guid: fb4863ba36a8e134791cc6e1bbb1efeb, type: 2}
-  radius: 0.3
-  alignment: 0
   thickness: 0.002
-  castShadows: 0
-  receiveShadows: 0
-  damageBoost: 0
-  sfx: {fileID: 82047103537182748}
-  clips:
-  - {fileID: 8300000, guid: f2d364ae7c1470d4897f89953d19dff2, type: 3}
+  source: {fileID: 0}
+  laserSounds: []
 --- !u!114 &114693560361633878
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5883,12 +5876,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shipController: {fileID: 114387485106083888}
-  mode: 0
+  mode: 1
   laserMaterial: {fileID: 2100000, guid: 52fd0a2d4a02c4e46af843e393a6ec28, type: 2}
-  alignment: 0
   thickness: 0.001
-  castShadows: 0
-  receiveShadows: 0
 --- !u!114 &114737157421707460
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5901,11 +5891,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shipController: {fileID: 114387485106083888}
-  tracerPrefab: {fileID: 1119082080290300, guid: 84ef68ef9a4ce5843979557b53e1d8ed,
-    type: 2}
-  hitSparkPrefab: {fileID: 1170983697632442, guid: b9264ac9610fac64396312a2bd67e309,
-    type: 2}
-  muzzleFlashPrefab: {fileID: 0}
+  damageBoost: 1
+  radius: 0.3
   left:
   - {fileID: 1878302441711834}
   - {fileID: 1659665359080586}
@@ -5920,14 +5907,8 @@ MonoBehaviour:
   - {fileID: 1525843566762762}
   - {fileID: 1489126751794572}
   - {fileID: 1225101292643998}
-  projectilePrefab: {fileID: 0}
-  projectileSpeed: 100
-  radius: 0.3
-  tracerPoolCount: 40
-  tracerFrequency: 1
   thickness: 0.003
   material: {fileID: 2100000, guid: 94b83a265507fa64c97d2039f9b11189, type: 2}
-  damageBoost: 1
 --- !u!136 &136807103204981110
 CapsuleCollider:
   m_ObjectHideFlags: 1

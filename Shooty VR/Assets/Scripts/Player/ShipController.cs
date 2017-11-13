@@ -6,16 +6,17 @@
 // CPSC-340-01 & CPSC-344-01
 // Group Project
 // 
-// [DESCRIPTION]
+// This class handles the ship that the player picks up. It includes all
+// functions needed for SteamVR's Player prefab to interact with it. It handles
+// firing and switching weapons.
 // 
 //=============================================================================
 
-using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR;
 using Valve.VR.InteractionSystem;
 using Hive.Armada.Game;
-using Hive.Armada.Player.Guns;
+using Hive.Armada.Player.Weapons;
 using SubjectNerd.Utilities;
 
 namespace Hive.Armada.Player
@@ -26,13 +27,63 @@ namespace Hive.Armada.Player
     [RequireComponent(typeof(Interactable))]
     public class ShipController : MonoBehaviour
     {
-        public enum ShipMode { Menu, Game }
-        //public Handedness currentHandGuess = Handedness.Left;
-        //private float timeOfPossibleHandSwitch = 0f;
-        //private float timeBeforeConfirmingHandSwitch = 1.5f;
-        //private bool possibleHandSwitch = false;
-        //public enum Handedness { Left, Right };
-        //public Transform pivotTransform;
+        /// <summary>
+        /// Modes the ship can be in.
+        /// </summary>
+        public enum ShipMode
+        {
+            /// <summary>
+            /// Ship can shoot and switch guns in Game mode. Laser Sight is purely for aiming.
+            /// </summary>
+            Game,
+
+            /// <summary>
+            /// Ship can't shoot in Menu mode. The Laser Sight acts as a UI interaction pointer.
+            /// </summary>
+            Menu
+        }
+
+        /// <summary>
+        /// Whether or not the player can shoot right now.
+        /// </summary>
+        [Space(10)]
+        private bool canShoot;
+
+        /// <summary>
+        /// Index of the currently activated weapon.
+        /// </summary>
+        private int currentWeapon;
+
+        /// <summary>
+        /// If we should wait until LateUpdate to update poses
+        /// </summary>
+        private bool deferNewPoses;
+
+        /// <summary>
+        /// The hand the ship is attached to
+        /// </summary>
+        [HideInInspector]
+        public Hand hand;
+
+        /// <summary>
+        /// The Laser Sight on the ship. Reference to switch it between Game and Menu mode.
+        /// </summary>
+        private LaserSight laserSight;
+
+        /// <summary>
+        /// The deferred update position
+        /// </summary>
+        private Vector3 lateUpdatePos;
+
+        /// <summary>
+        /// The deferred update rotation
+        /// </summary>
+        private Quaternion lateUpdateRot;
+
+        /// <summary>
+        /// SteamVR event for applying deferred update poses.
+        /// </summary>
+        private SteamVR_Events.Action newPosesAppliedAction;
 
         /// <summary>
         /// Manager with all references we might need.
@@ -44,68 +95,63 @@ namespace Hive.Armada.Player
         /// </summary>
         public ShipMode shipMode;
 
-        
+        /// <summary>
+        /// Array of the damage for each weapon.
+        /// </summary>
+        [Reorderable("Weapon", false)]
+        public int[] weaponDamage;
 
         /// <summary>
-        /// 
+        /// Array of the fire rate for each weapon.
         /// </summary>
-        private LaserSight laserSight;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [HideInInspector]
-        public Hand hand;
+        [Reorderable("Weapon", false)]
+        public float[] weaponFireRate;
 
         /// <summary>
         /// Array of the weapons available to the player.
         /// </summary>
         [Header("Weapon Attributes")]
         [Reorderable("Weapon", false)]
-        public GameObject[] guns;
+        public GameObject[] weapons;
 
         /// <summary>
-        /// Index of the currently activated weapon
+        /// Initializes references to Reference Manager and Laser Sight, sets this
+        /// GameObject to the player ship reference in Reference Manager.
         /// </summary>
-        private int currGun;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [Reorderable("Weapon", false)]
-        public int[] weaponDamage;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [Reorderable("Weapon", false)]
-        public float[] weaponFireRate;
-
-        [Space(10)]
-        public SoundPlayOneshot engineSound;
-        public GameObject deathExplosion;
-        public bool canShoot;
-
-        //--------------------
-        // SteamVR
-        //--------------------
-        private bool deferNewPoses;
-        private Vector3 lateUpdatePos;
-        private Quaternion lateUpdateRot;
-        private SteamVR_Events.Action newPosesAppliedAction;
-
-        void Awake()
+        private void Awake()
         {
             reference = GameObject.Find("Reference Manager").GetComponent<ReferenceManager>();
 
             if (reference == null)
+            {
                 Debug.LogError(GetType().Name + " - Could not find Reference Manager!");
+            }
+            else
+            {
+                reference.playerShip = gameObject;
+            }
 
-            reference.playerShip = gameObject;
             laserSight = transform.Find("Model").Find("Laser Sight").GetComponent<LaserSight>();
+            laserSight.SetMode(ShipMode.Menu);
             newPosesAppliedAction = SteamVR_Events.NewPosesAppliedAction(OnNewPosesApplied);
         }
 
+        /// <summary>
+        /// Sets the late update pose if we are deferring new poses
+        /// </summary>
+        private void LateUpdate()
+        {
+            if (deferNewPoses)
+            {
+                lateUpdatePos = transform.position;
+                lateUpdateRot = transform.rotation;
+            }
+        }
+
+        /// <summary>
+        /// Called when the ship is picked up by a hand. Enables the menus.
+        /// </summary>
+        /// <param name="attachedHand"> The hand that picked up the ship </param>
         private void OnAttachedToHand(Hand attachedHand)
         {
             hand = attachedHand;
@@ -116,25 +162,25 @@ namespace Hive.Armada.Player
             reference.powerUpStatus.BeginTracking();
         }
 
-        void OnEnable()
+        /// <summary>
+        /// Enables the new poses applied action
+        /// </summary>
+        private void OnEnable()
         {
             newPosesAppliedAction.enabled = true;
         }
 
-        void OnDisable()
+        /// <summary>
+        /// Disables the new poses applied action
+        /// </summary>
+        private void OnDisable()
         {
             newPosesAppliedAction.enabled = false;
         }
 
-        void LateUpdate()
-        {
-            if (deferNewPoses)
-            {
-                lateUpdatePos = transform.position;
-                lateUpdateRot = transform.rotation;
-            }
-        }
-
+        /// <summary>
+        /// Updates to the late update pose if we are deferring new poses
+        /// </summary>
         private void OnNewPosesApplied()
         {
             if (deferNewPoses)
@@ -147,6 +193,11 @@ namespace Hive.Armada.Player
             }
         }
 
+        /// <summary>
+        /// Checks if the ship is shooting or interacting with UI
+        /// every frame it is attached to a hand.
+        /// </summary>
+        /// <param name="hand"> The attached hand </param>
         private void HandAttachedUpdate(Hand hand)
         {
             // Reset transform since we cheated it right after getting poses on previous frame
@@ -160,7 +211,7 @@ namespace Hive.Armada.Player
                     {
                         if (hand.GetStandardInteractionButton())
                         {
-                            guns[currGun].SendMessage("TriggerUpdate");
+                            weapons[currentWeapon].SendMessage("TriggerUpdate");
                         }
                     }
                     else if (!canShoot && hand.GetStandardInteractionButtonUp())
@@ -168,12 +219,12 @@ namespace Hive.Armada.Player
                         canShoot = true;
                     }
 
-                    // Switch guns
-                    if (!hand.GetStandardInteractionButton() && hand.controller.GetPressDown(EVRButtonId.k_EButton_Grip))
+                    // Switch weapons
+                    if (!hand.GetStandardInteractionButton() &&
+                        hand.controller.GetPressDown(EVRButtonId.k_EButton_Grip))
                     {
-                        SwitchGun(currGun);
+                        SwitchGun();
                     }
-
                     break;
                 case ShipMode.Menu:
                     if (hand.GetStandardInteractionButtonDown())
@@ -182,7 +233,7 @@ namespace Hive.Armada.Player
                     }
                     break;
                 default:
-                    Debug.LogError("ShipController - ShipMode is not Menu or Game!");
+                    Debug.LogError(GetType().Name + " - ShipMode is not Menu or Game!");
                     break;
             }
 
@@ -190,31 +241,30 @@ namespace Hive.Armada.Player
             //EvaluateHandedness();
         }
 
-        private void SwitchGun(int previous)
+        /// <summary>
+        /// Switches the currently activated gun to the next in the array
+        /// </summary>
+        private void SwitchGun()
         {
-            ++currGun;
-            if (currGun >= guns.Length)
+            int previous = currentWeapon++;
+            if (currentWeapon >= weapons.Length)
             {
-                currGun = 0;
+                currentWeapon = 0;
             }
 
-            if (currGun == previous)
+            if (currentWeapon == previous)
+            {
                 return;
+            }
 
-            if (guns[currGun].GetComponent<Minigun>())
-                guns[currGun].GetComponent<Minigun>().ResetTracers();
-
-            if (guns[previous].GetComponent<Minigun>())
-                guns[previous].GetComponent<Minigun>().ResetTracers();
-
-            guns[previous].SetActive(false);
-            guns[currGun].SetActive(true);
+            weapons[previous].SetActive(false);
+            weapons[currentWeapon].SetActive(true);
 
             if (hand.GetStandardInteractionButton())
+            {
                 canShoot = false;
+            }
         }
-
-
 
         /// <summary>
         /// Sets the ship to switch to either Game or Menu mode.
@@ -223,6 +273,7 @@ namespace Hive.Armada.Player
         public void SetShipMode(ShipMode mode)
         {
             shipMode = mode;
+            laserSight.SetMode(mode);
         }
 
         /// <summary>
@@ -231,112 +282,41 @@ namespace Hive.Armada.Player
         /// <param name="boost"> The damage boost multiplier </param>
         public void SetDamageBoost(int boost)
         {
-            foreach (GameObject obj in guns)
+            foreach (GameObject obj in weapons)
             {
-                if (obj.GetComponent<Gun>())
+                if (obj.GetComponent<Weapon>())
                 {
-                    obj.GetComponent<Gun>().damageBoost = boost;
+                    obj.GetComponent<Weapon>().damageMultiplier = boost;
                 }
             }
         }
 
-        //private void EvaluateHandedness()
-        //{
-        //    Hand.HandType handType = hand.GuessCurrentHandType();
-
-        //    if (handType == Hand.HandType.Left)// Bow hand is further left than arrow hand.
-        //    {
-        //        // We were considering a switch, but the current controller orientation matches our currently assigned handedness, so no longer consider a switch
-        //        if (possibleHandSwitch && currentHandGuess == Handedness.Left)
-        //        {
-        //            possibleHandSwitch = false;
-        //        }
-
-        //        // If we previously thought the bow was right-handed, and were not already considering switching, start considering a switch
-        //        if (!possibleHandSwitch && currentHandGuess == Handedness.Right)
-        //        {
-        //            possibleHandSwitch = true;
-        //            timeOfPossibleHandSwitch = Time.time;
-        //        }
-
-        //        // If we are considering a handedness switch, and it's been this way long enough, switch
-        //        if (possibleHandSwitch && Time.time > (timeOfPossibleHandSwitch + timeBeforeConfirmingHandSwitch))
-        //        {
-        //            currentHandGuess = Handedness.Left;
-        //            possibleHandSwitch = false;
-        //        }
-        //    }
-        //    else // Bow hand is further right than arrow hand
-        //    {
-        //        // We were considering a switch, but the current controller orientation matches our currently assigned handedness, so no longer consider a switch
-        //        if (possibleHandSwitch && currentHandGuess == Handedness.Right)
-        //        {
-        //            possibleHandSwitch = false;
-        //        }
-
-        //        // If we previously thought the bow was right-handed, and were not already considering switching, start considering a switch
-        //        if (!possibleHandSwitch && currentHandGuess == Handedness.Left)
-        //        {
-        //            possibleHandSwitch = true;
-        //            timeOfPossibleHandSwitch = Time.time;
-        //        }
-
-        //        // If we are considering a handedness switch, and it's been this way long enough, switch
-        //        if (possibleHandSwitch && Time.time > (timeOfPossibleHandSwitch + timeBeforeConfirmingHandSwitch))
-        //        {
-        //            currentHandGuess = Handedness.Right;
-        //            possibleHandSwitch = false;
-        //        }
-        //    }
-        //}
-
-        //private void DoHandednessCheck()
-        //{
-        //    // Based on our current best guess about hand, switch bow orientation and arrow lerp direction
-        //    if (currentHandGuess == Handedness.Left)
-        //    {
-        //        pivotTransform.localScale = new Vector3(1f, 1f, 1f);
-        //    }
-        //    else
-        //    {
-        //        pivotTransform.localScale = new Vector3(1f, -1f, 1f);
-        //    }
-        //}
-
-        private void ShutDown()
-        {
-            //hand.DetachObject(gameObject);
-            //if (hand != null && hand.otherHand.currentAttachedObject != null)
-            //{
-            //    if (hand.otherHand.currentAttachedObject.GetComponent<ItemPackageReference>() != null)
-            //    {
-            //        if (hand.otherHand.currentAttachedObject.GetComponent<ItemPackageReference>().itemPackage == arrowHandItemPackage)
-            //        {
-            //            hand.otherHand.DetachObject(hand.otherHand.currentAttachedObject);
-            //        }
-            //    }
-            //}
-        }
-
+        /// <summary>
+        /// Deactivates the ship when the hand grabs another object.
+        /// </summary>
+        /// <param name="hand"> The attached hand </param>
         private void OnHandFocusLost(Hand hand)
         {
             gameObject.SetActive(false);
         }
 
+        /// <summary>
+        /// Enables the ship when the ship regains focus by the attached hand.
+        /// </summary>
+        /// <param name="hand"> The attached hand </param>
         private void OnHandFocusAcquired(Hand hand)
         {
             gameObject.SetActive(true);
             OnAttachedToHand(hand);
         }
 
+        /// <summary>
+        /// Destroys the ship when it is dropped.
+        /// </summary>
+        /// <param name="hand"> The detaching hand </param>
         private void OnDetachedFromHand(Hand hand)
         {
             Destroy(gameObject);
-        }
-
-        void OnDestroy()
-        {
-            ShutDown();
         }
     }
 }

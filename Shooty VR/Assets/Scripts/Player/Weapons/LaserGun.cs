@@ -6,64 +6,97 @@
 // CPSC-340-01 & CPSC-344-01
 // Group Project
 // 
-// [DESCRIPTION]
+// This is the player laser gun. It has two barrels and shoots alternating
+// lasers using LineRenderers.
 // 
 //=============================================================================
 
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using Hive.Armada;
-using System;
-using Hive.Armada.Enemies;
 using UnityEngine.Rendering;
-using Valve.VR;
-using UnityEngine.UI;
-using UnityEngine.EventSystems;
+using Hive.Armada.Enemies;
 
 namespace Hive.Armada.Player.Weapons
 {
+    /// <summary>
+    /// Player laser gun
+    /// </summary>
     public class LaserGun : Weapon
     {
-        public GameObject left;
-        public GameObject right;
-        public Material laserMaterial;
-        private LineRenderer leftLaser;
-        private LineRenderer rightLaser;
-        public float radius = 0.3f;
-        [Tooltip("View makes line face camera. Local makes the line face the direction of the transform component")]
-        public LineAlignment alignment;
-        public float thickness = 0.002f;
-        public ShadowCastingMode castShadows;
-        public bool receiveShadows = false;
+        /// <summary>
+        /// Alternates between firing the left and right laser
+        /// </summary>
         private bool isLeftFire = true;
 
-        public AudioSource sfx;
-        public AudioClip[] clips;
+        /// <summary>
+        /// Material for the lasers
+        /// </summary>
+        public Material laserMaterial;
 
+        /// <summary>
+        /// Array of all laser gun sounds
+        /// </summary>
+        public AudioClip[] laserSounds;
+
+        /// <summary>
+        /// Left gun
+        /// </summary>
+        public GameObject left;
+
+        /// <summary>
+        /// The left laser's LineRenderer
+        /// </summary>
+        private LineRenderer leftLaser;
+
+        /// <summary>
+        /// Right gun
+        /// </summary>
+        public GameObject right;
+
+        /// <summary>
+        /// The right laser's LineRenderer
+        /// </summary>
+        private LineRenderer rightLaser;
+
+        /// <summary>
+        /// The audio source for the laser gun sounds
+        /// </summary>
+        public AudioSource source;
+
+        /// <summary>
+        /// Used to update number of shots and time firing
+        /// </summary>
         private PlayerStats stats;
 
-        void Start()
+        /// <summary>
+        /// Thickness of the lasers
+        /// </summary>
+        public float thickness = 0.002f;
+
+        /// <summary>
+        /// Initializes weapon attributes and the lasers' LineRenderers
+        /// </summary>
+        private void Start()
         {
             canShoot = true;
             damage = shipController.weaponDamage[0];
             fireRate = shipController.weaponFireRate[0];
-            damageBoost = 1;
+            damageMultiplier = 1;
 
             leftLaser = left.gameObject.AddComponent<LineRenderer>();
             leftLaser.material = laserMaterial;
-            leftLaser.shadowCastingMode = castShadows;
-            leftLaser.receiveShadows = receiveShadows;
-            leftLaser.alignment = alignment;
+            leftLaser.shadowCastingMode = ShadowCastingMode.Off;
+            leftLaser.receiveShadows = false;
+            leftLaser.alignment = LineAlignment.View;
             leftLaser.startWidth = thickness;
             leftLaser.endWidth = thickness;
             leftLaser.enabled = false;
 
             rightLaser = right.gameObject.AddComponent<LineRenderer>();
             rightLaser.material = laserMaterial;
-            rightLaser.shadowCastingMode = castShadows;
-            rightLaser.receiveShadows = receiveShadows;
-            rightLaser.alignment = alignment;
+            rightLaser.shadowCastingMode = ShadowCastingMode.Off;
+            rightLaser.receiveShadows = false;
+            rightLaser.alignment = LineAlignment.View;
             rightLaser.startWidth = thickness;
             rightLaser.endWidth = thickness;
             rightLaser.enabled = false;
@@ -71,81 +104,62 @@ namespace Hive.Armada.Player.Weapons
             stats = FindObjectOfType<PlayerStats>();
         }
 
-        ///// <summary>
-        ///// Sent every frame while the trigger is pressed
-        ///// </summary>
-        //public override void TriggerUpdate()
-        //{
-        //    if (canShoot)
-        //    {
-        //        Clicked();
-        //    }
-        //}
-
         /// <summary>
         /// Gets enemy or wall aimpoint and shoots at it. Will damage enemies.
         /// </summary>
         protected override void Clicked()
         {
             RaycastHit hit;
-            if (Physics.SphereCast(transform.position, radius, transform.forward, out hit, 200.0f, Utility.enemyMask))
+            if (Physics.SphereCast(transform.position, radius, transform.forward, out hit, 200.0f,
+                Utility.enemyMask))
             {
-                float mag = (transform.position - hit.point).magnitude;
-                leftLaser.endWidth = thickness * Mathf.Max(mag, 1.0f);
-                rightLaser.endWidth = thickness * Mathf.Max(mag, 1.0f);
+                if (isLeftFire)
+                {
+                    leftLaser.endWidth = thickness *
+                                         Mathf.Max(
+                                             Vector3.Magnitude(left.transform.position - hit.point),
+                                             1.0f);
+                }
+                else
+                {
+                    rightLaser.endWidth = thickness *
+                                          Mathf.Max(
+                                              Vector3.Magnitude(
+                                                  right.transform.position - hit.point), 1.0f);
+                }
 
-                StartCoroutine(Shoot(hit.collider.gameObject.transform.position, hit.collider.gameObject));
+                StartCoroutine(Shoot(hit.collider.gameObject.transform.position));
 
                 if (hit.collider.gameObject.GetComponent<Enemy>() != null)
                 {
-                    hit.collider.gameObject.GetComponent<Enemy>().Hit(damage * damageBoost);
+                    hit.collider.gameObject.GetComponent<Enemy>().Hit(damage * damageMultiplier);
                 }
 
                 shipController.hand.controller.TriggerHapticPulse(2500);
             }
-            else if (Physics.Raycast(transform.position, transform.forward, out hit, 200.0f, Utility.roomMask))
+            else if (Physics.Raycast(transform.position, transform.forward, out hit, 200.0f,
+                Utility.roomMask))
             {
-                StartCoroutine(Shoot(hit.point, hit.collider.gameObject));
+                StartCoroutine(Shoot(hit.point));
             }
-
-        }
-
-        private void LaserWidth(Vector3 endpoint)
-        {
-            float distance = Vector3.Distance(transform.position, endpoint);
-
-            leftLaser.endWidth = thickness * Mathf.Max(1.0f, distance);
-            rightLaser.endWidth = thickness * Mathf.Max(1.0f, distance);
         }
 
         /// <summary>
-        /// 
+        /// Blocks the gun from shooting based on fire rate, updates LineRenderers, starts the FlashLaser
+        /// coroutine.
         /// </summary>
-        /// <param name="target">  </param>
-        /// <param name="enemy">  </param>
-        private IEnumerator Shoot(Vector3 target, GameObject enemy)
+        /// <param name="position"> The position of the target being shot </param>
+        private IEnumerator Shoot(Vector3 position)
         {
             canShoot = false;
 
             leftLaser.SetPosition(0, left.transform.position);
-            leftLaser.SetPosition(1, target);
+            leftLaser.SetPosition(1, position);
             rightLaser.SetPosition(0, right.transform.position);
-            rightLaser.SetPosition(1, target);
+            rightLaser.SetPosition(1, position);
             StartCoroutine(FlashLaser(isLeftFire));
 
-            //--float r = UnityEngine.Random.Range(0.0f, 1.0f);
-
-            //if(r <= 0.9)
-            //{
-            sfx.PlayOneShot(clips[0]);
-            //}
-            //else
-            //{
-            //    //source.PlayOneShot(clips[UnityEngine.Random.Range(1, clips.Length)]);
-            //    source.pitch = 1.0f + UnityEngine.Random.Range(-0.15f, 0.15f);
-            //    source.PlayOneShot(clips[0]);
-            //    //source.pitch = 1.0f;
-            //}
+            //source.PlayOneShot(laserSounds[0]);
 
             stats.isFiring = true;
             stats.ShotsFired(1);
@@ -159,9 +173,9 @@ namespace Hive.Armada.Player.Weapons
         }
 
         /// <summary>
-        /// 
+        /// Flashes the appropriate laser LineRenderer.
         /// </summary>
-        /// <param name="isLeft">  </param>
+        /// <param name="isLeft"> If the left laser is the one to flash </param>
         private IEnumerator FlashLaser(bool isLeft)
         {
             if (isLeft)

@@ -43,7 +43,7 @@ namespace Hive.Armada.Player
         /// The laser sight itself
         /// </summary>
         private LineRenderer laser;
-        
+
         /// <summary>
         /// Material for the laser sight
         /// </summary>
@@ -69,7 +69,8 @@ namespace Hive.Armada.Player
         /// </summary>
         private void Start()
         {
-            shipController = GameObject.FindGameObjectWithTag("Player").GetComponent<ShipController>();
+            shipController = GameObject.FindGameObjectWithTag("Player")
+                .GetComponent<ShipController>();
 
             laser = gameObject.AddComponent<LineRenderer>();
             laser.material = laserMaterial;
@@ -88,7 +89,7 @@ namespace Hive.Armada.Player
             if (mode == ShipController.ShipMode.Game)
             {
                 if (Physics.Raycast(transform.position, transform.forward,
-                    out hit,Mathf.Infinity, Utility.roomMask))
+                    out hit, Mathf.Infinity, Utility.roomMask))
                 {
                     laser.SetPosition(0, transform.position);
                     laser.SetPosition(1, hit.point);

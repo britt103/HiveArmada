@@ -18,9 +18,9 @@ public class ControlsMenu : MonoBehaviour {
     private void OnEnable()
     {
         ch = FindObjectOfType<Hive.Armada.Player.ShipController>().transform.parent.GetComponentInChildren<ControlsHighlighter>();
-        ch.FireOn();
-        ch.PowerupOn();
-        ch.PauseOn();
+        ch.ShowFire();
+        ch.ShowPowerup();
+        ch.ShowPause();
     }
 
     /// <summary>
@@ -30,7 +30,7 @@ public class ControlsMenu : MonoBehaviour {
     {
         GameObject.Find("Main Canvas").transform.Find("Options Menu").gameObject.SetActive(true);
 
-        ch.AllOff();
+        ch.HideAll();
  
         gameObject.SetActive(false);
     }

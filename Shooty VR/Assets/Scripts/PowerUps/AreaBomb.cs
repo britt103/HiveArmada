@@ -130,7 +130,7 @@ namespace Hive.Armada.Powerups
                 }
             }
             Instantiate(fxBomb, transform.position, transform.rotation);
-            FindObjectOfType<PowerupStatus>().powerupTypeActive[1] = false;
+            //FindObjectOfType<PowerupStatus>().powerupTypeActive[1] = false;
             Destroy(gameObject);
         }
     }

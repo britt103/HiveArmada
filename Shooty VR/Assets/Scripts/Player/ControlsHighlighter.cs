@@ -14,11 +14,13 @@ public class ControlsHighlighter : MonoBehaviour {
     public string powerupTooltip = "Press to Activate Powerup";
     public string pauseTooltip = "Press to Pause";
 
-    public string allyTooltip = "Helper Ally Ship";
-    public string areaBombTooltip = "Launch Timed Explosive";
-    public string clearTooltip = "Destroy Enemy Projectiles";
-    public string damageBoostTooltip = "Increase Weapon Damage";
-    public string shieldTooltip = "Protective Barrier";
+    //public string powerup1Tooltip = "Helper Ally Ship";
+    //public string powerup2Tooltip = "Launch Timed Explosive";
+    //public string powerup3Tooltip = "Destroy Enemy Projectiles";
+    //public string powerup4Tooltip = "Increase Weapon Damage";
+    //public string powerup5Tooltip = "Protective Barrier";
+
+    public string[] powerupTooltips;
 
     EVRButtonId trigger = EVRButtonId.k_EButton_SteamVR_Trigger;
     EVRButtonId touchpad = EVRButtonId.k_EButton_SteamVR_Touchpad;
@@ -31,47 +33,47 @@ public class ControlsHighlighter : MonoBehaviour {
         hand = GetComponentInParent<Hand>();
 	}
 
-    public void FireOn()
+    public void ShowFire()
     {
         ControllerButtonHints.ShowTextHint(hand, trigger, fireTooltip);
     }
 
-    public void PowerupOn()
+    public void ShowPowerup()
     {
         ControllerButtonHints.ShowTextHint(hand, touchpad, powerupTooltip);
     }
 
-    public void PauseOn()
+    public void ShowPause()
     {
         ControllerButtonHints.ShowTextHint(hand, menuButton, pauseTooltip);
     }
 
-    public void AllyOn()
+    public void ShowPowerup1()
     {
-        ControllerButtonHints.ShowTextHint(hand, touchpad, allyTooltip);
+        ControllerButtonHints.ShowTextHint(hand, touchpad, powerupTooltips[0]);
     }
 
-    public void AreaBombOn()
+    public void ShowPowerup2()
     {
-        ControllerButtonHints.ShowTextHint(hand, touchpad, areaBombTooltip);
+        ControllerButtonHints.ShowTextHint(hand, touchpad, powerupTooltips[1]);
     }
 
-    public void ClearOn()
+    public void ShowPowerup3()
     {
-        ControllerButtonHints.ShowTextHint(hand, touchpad, clearTooltip);
+        ControllerButtonHints.ShowTextHint(hand, touchpad, powerupTooltips[2]);
     }
 
-    public void DamageBoostOn()
+    public void ShowPowerup4()
     {
-        ControllerButtonHints.ShowTextHint(hand, touchpad, damageBoostTooltip);
+        ControllerButtonHints.ShowTextHint(hand, touchpad, powerupTooltips[3]);
     }
 
-    public void ShieldOn()
+    public void ShowPowerup5()
     {
-        ControllerButtonHints.ShowTextHint(hand, touchpad, shieldTooltip);
+        ControllerButtonHints.ShowTextHint(hand, touchpad, powerupTooltips[4]);
     }
 
-    public void AllOff()
+    public void HideAll()
     {
         ControllerButtonHints.HideAllTextHints(hand);
     }

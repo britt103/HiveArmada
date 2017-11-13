@@ -70,61 +70,63 @@ namespace Hive.Armada.Powerups
         }
 
         /// <summary>
-        /// Give player powerup upon collision.
+        /// Give player powerup upon collision, then self-destruct.
         /// </summary>
         /// <param name="other">Collider of object with which this collided.</param>
         void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.tag == "Player" && status.HasRoom())
             {
-                switch (powerupPrefab.name)
-                {
-                    case "Ally":
-                        if (!status.powerupTypeStored[0])
-                        {
-                            status.StorePowerup(powerupPrefab, powerupIconPrefab);
-                            status.powerupTypeStored[0] = true;
-                            Destroy(gameObject);
-                        }
-                        break;
+                //switch (powerupPrefab.name)
+                //{
+                //case "Ally":
+                //    if (!status.powerupTypeStored[0])
+                //    {
+                //        status.StorePowerup(powerupPrefab, powerupIconPrefab);
+                //        status.powerupTypeStored[0] = true;
+                //        Destroy(gameObject);
+                //    }
+                //    break;
 
-                    case "Area Bomb":
-                        if (!status.powerupTypeStored[1])
-                        {
-                            status.StorePowerup(powerupPrefab, powerupIconPrefab);
-                            status.powerupTypeStored[1] = true;
-                            Destroy(gameObject);
+                //case "Area Bomb":
+                //    if (!status.powerupTypeStored[1])
+                //    {
+                //        status.StorePowerup(powerupPrefab, powerupIconPrefab);
+                //        status.powerupTypeStored[1] = true;
+                //        Destroy(gameObject);
 
-                        }
-                        break;
+                //    }
+                //    break;
 
-                    case "Clear":
-                        if (!status.powerupTypeStored[2])
-                        {
-                            status.StorePowerup(powerupPrefab, powerupIconPrefab);
-                            status.powerupTypeStored[2] = true;
-                            Destroy(gameObject);
-                        }
-                        break;
+                //case "Clear":
+                //    if (!status.powerupTypeStored[2])
+                //    {
+                //        status.StorePowerup(powerupPrefab, powerupIconPrefab);
+                //        status.powerupTypeStored[2] = true;
+                //        Destroy(gameObject);
+                //    }
+                //    break;
 
-                    case "Damage Boost":
-                        if (!status.powerupTypeStored[3])
-                        {
-                            status.StorePowerup(powerupPrefab, powerupIconPrefab);
-                            status.powerupTypeStored[3] = true;
-                            Destroy(gameObject);
-                        }
-                        break;
+                //case "Damage Boost":
+                //    if (!status.powerupTypeStored[3])
+                //    {
+                //        status.StorePowerup(powerupPrefab, powerupIconPrefab);
+                //        status.powerupTypeStored[3] = true;
+                //        Destroy(gameObject);
+                //    }
+                //    break;
 
-                    case "Shield":
-                        if (!status.powerupTypeStored[4])
-                        {
-                            status.StorePowerup(powerupPrefab, powerupIconPrefab);
-                            status.powerupTypeStored[4] = true;
-                            Destroy(gameObject);
-                        }
-                        break;
-                }
+                //case "Shield":
+                //    if (!status.powerupTypeStored[4])
+                //    {
+                //        status.StorePowerup(powerupPrefab, powerupIconPrefab);
+                //        status.powerupTypeStored[4] = true;
+                //        Destroy(gameObject);
+                //    }
+                //    break;
+                //}
+                status.StorePowerup(powerupPrefab, powerupIconPrefab);
+                Destroy(gameObject);
             }
         }
     }

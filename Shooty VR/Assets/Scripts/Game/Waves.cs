@@ -88,25 +88,25 @@ namespace Hive.Armada.Game
 
             wavePowerupChances = new float[15][];
 
-            //currently shield, ally, damage, area, clear
+            //currently ally, area bomb, clear, damage boost, shield
             //1-5
-            wavePowerupChances[0] = new[] { 0.2f, 0.4f, 0.6f, 0.8f, 1.0f };
-            wavePowerupChances[1] = new[] { 0.2f, 0.4f, 0.6f, 0.8f, 1.0f };
-            wavePowerupChances[2] = new[] { 0.2f, 0.4f, 0.6f, 0.8f, 1.0f };
-            wavePowerupChances[3] = new[] { 0.2f, 0.4f, 0.6f, 0.8f, 1.0f };
-            wavePowerupChances[4] = new[] { 0.2f, 0.4f, 0.6f, 0.8f, 1.0f };
+            wavePowerupChances[0] = new[] { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f };
+            wavePowerupChances[1] = new[] { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f };
+            wavePowerupChances[2] = new[] { 0.0f, 0.0f, 0.0f, 0.0f, 1.0f };
+            wavePowerupChances[3] = new[] { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f };
+            wavePowerupChances[4] = new[] { 0.0f, 0.0f, 0.0f, 1.0f, 0.0f };
             //6-10
-            wavePowerupChances[5] = new[] { 0.2f, 0.4f, 0.6f, 0.8f, 1.0f };
-            wavePowerupChances[6] = new[] { 0.2f, 0.4f, 0.6f, 0.8f, 1.0f };
-            wavePowerupChances[7] = new[] { 0.2f, 0.4f, 0.6f, 0.8f, 1.0f };
-            wavePowerupChances[8] = new[] { 0.2f, 0.4f, 0.6f, 0.8f, 1.0f };
-            wavePowerupChances[9] = new[] { 0.2f, 0.4f, 0.6f, 0.8f, 1.0f };
+            wavePowerupChances[5] = new[] { 0.0f, 1.0f, 0.0f, 0.0f, 0.0f };
+            wavePowerupChances[6] = new[] { 0.0f, 0.0f, 0.0f, 0.5f, 1.0f };
+            wavePowerupChances[7] = new[] { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f };
+            wavePowerupChances[8] = new[] { 0.0f, 1.0f, 0.0f, 0.0f, 0.0f };
+            wavePowerupChances[9] = new[] { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f };
             //11-15
-            wavePowerupChances[10] = new[] { 0.2f, 0.4f, 0.6f, 0.8f, 1.0f };
-            wavePowerupChances[11] = new[] { 0.2f, 0.4f, 0.6f, 0.8f, 1.0f };
-            wavePowerupChances[12] = new[] { 0.2f, 0.4f, 0.6f, 0.8f, 1.0f };
-            wavePowerupChances[13] = new[] { 0.2f, 0.4f, 0.6f, 0.8f, 1.0f };
-            wavePowerupChances[14] = new[] { 0.2f, 0.4f, 0.6f, 0.8f, 1.0f };
+            wavePowerupChances[10] = new[] { 0.0f, 0.0f, 0.0f, 0.0f, 1.0f };
+            wavePowerupChances[11] = new[] { 0.0f, 0.0f, 0.0f, 1.0f, 0.0f };
+            wavePowerupChances[12] = new[] { 0.0f, 0.5f, 0.0f, 0.0f, 1.0f };
+            wavePowerupChances[13] = new[] { 0.0f, 0.0f, 0.0f, 0.5f, 1.0f };
+            wavePowerupChances[14] = new[] { 0.0f, 0.33f, 0.0f, 0.66f, 1.0f };
         }
 
         /// <summary>

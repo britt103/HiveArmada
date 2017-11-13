@@ -60,7 +60,7 @@ namespace Hive.Armada.Powerups
             timeLimit -= Time.deltaTime;
             if (timeLimit <= 0.0F)
             {
-                FindObjectOfType<PowerupStatus>().powerupTypeActive[4] = false;
+                //FindObjectOfType<PowerupStatus>().powerupTypeActive[4] = false;
                 Destroy(gameObject);
             }
 

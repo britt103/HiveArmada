@@ -26,12 +26,12 @@ namespace Hive.Armada.Powerups
         /// <summary>
         /// Array of states of whether each type of powerup is currently stored.
         /// </summary>
-        public bool[] powerupTypeStored;
+        //public bool[] powerupTypeStored;
 
         /// <summary>
         /// Array of states of whether each type of powerup is currently active.
         /// </summary>
-        public bool[] powerupTypeActive;
+        //public bool[] powerupTypeActive;
 
         /// <summary>
         /// Queue containing powerup prefabs.
@@ -42,6 +42,11 @@ namespace Hive.Armada.Powerups
         /// Queue containing powerup icons.
         /// </summary>
         private Queue<GameObject> powerupIcons = new Queue<GameObject>();
+
+        /// <summary>
+        /// Array containing names of powerups
+        /// </summary>
+        public string[] powerupNames;
 
         /// <summary>
         /// Maximum number of allowed stored powerups.
@@ -105,196 +110,138 @@ namespace Hive.Armada.Powerups
         {
             if (tracking && powerups.Count > 0)
             {
-                if (hand.controller.GetTouch(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad))
-                {
-                    switch (powerups.Peek().name)
-                    {
-                        case "Ally":
-                            ch.AllyOn();
-                            break;
+                //if (hand.controller.GetTouch(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad))
+                //{
+                //    //switch (powerups.Peek().name)
+                //    //{
+                //    //    case "Ally":
+                //    //        ch.ShowPowerup1();
+                //    //        break;
 
-                        case "Area Bomb":
-                            ch.AreaBombOn();
-                            break;
+                //    //    case "Area Bomb":
+                //    //        ch.ShowPowerup2();
+                //    //        break;
 
-                        case "Clear":
-                            ch.ClearOn();
-                            break;
+                //    //    case "Clear":
+                //    //        ch.ShowPowerup3();
+                //    //        break;
 
-                        case "Damage Boost":
-                            ch.DamageBoostOn();
-                            break;
+                //    //    case "Damage Boost":
+                //    //        ch.ShowPowerup4();
+                //    //        break;
 
-                        case "Shield":
-                            ch.ShieldOn();
-                            break;
-                    }
-                }
+                //    //    case "Shield":
+                //    //        ch.ShowPowerup5();
+                //    //        break;
+                //    //}
 
-                if (hand.controller.GetTouchUp(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad))
-                {
-                    ch.AllOff();
-                }
+                //    string nextPowerupName = powerups.Peek().name;
+
+                //    for(int i = 0; i < powerupNames.Length; ++i)
+                //    {
+                //        if(nextPowerupName == powerupNames[i])
+                //        {
+                //            ch.Invoke("ShowPowerup" + (i + 1), 0);
+                //            break;
+                //        }
+                //    }
+                //}
+
+                //if (hand.controller.GetTouchUp(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad))
+                //{
+                //    ch.HideAll();
+                //}
 
                 if (hand.controller.GetPressDown(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad))
                 {
-                    bool canActivate = true;
+                    //bool canActivate = true;
 
-                    switch (powerups.Peek().name)
-                    {
-                        case "Ally":
-                            if (powerupTypeActive[0])
-                            {
-                                canActivate = false;
-                            }
-                            else
-                            {
-                                powerupTypeStored[0] = false;
-                                powerupTypeActive[0] = true;
-                                stats.AllyCount();
-                            }
+                    //switch (powerups.Peek().name)
+                    //{
+                    //    case "Ally":
+                    //        if (powerupTypeActive[0])
+                    //        {
+                    //            canActivate = false;
+                    //        }
+                    //        else
+                    //        {
+                    //            powerupTypeStored[0] = false;
+                    //            powerupTypeActive[0] = true;
+                    //            stats.AllyCount();
+                    //        }
 
-                            break;
+                    //        break;
 
-                        case "Area Bomb":
-                            if (powerupTypeActive[1])
-                            {
-                                canActivate = false;
-                            }
-                            else
-                            {
-                                powerupTypeStored[1] = false;
-                                powerupTypeActive[1] = true;
-                                stats.AreaBombCount();
-                            }
+                    //    case "Area Bomb":
+                    //        if (powerupTypeActive[1])
+                    //        {
+                    //            canActivate = false;
+                    //        }
+                    //        else
+                    //        {
+                    //            powerupTypeStored[1] = false;
+                    //            powerupTypeActive[1] = true;
+                    //            stats.AreaBombCount();
+                    //        }
 
-                            break;
+                    //        break;
 
-                        case "Clear":
-                            if (powerupTypeActive[2])
-                            {
-                                canActivate = false;
-                            }
-                            else
-                            {
-                                powerupTypeStored[2] = false;
-                                powerupTypeActive[2] = true;
-                                stats.ClearCount();
-                            }
+                    //    case "Clear":
+                    //        if (powerupTypeActive[2])
+                    //        {
+                    //            canActivate = false;
+                    //        }
+                    //        else
+                    //        {
+                    //            powerupTypeStored[2] = false;
+                    //            powerupTypeActive[2] = true;
+                    //            stats.ClearCount();
+                    //        }
 
-                            break;
+                    //        break;
 
-                        case "Damage Boost":
-                            if (powerupTypeActive[3])
-                            {
-                                canActivate = false;
-                            }
-                            else
-                            {
-                                powerupTypeStored[3] = false;
-                                powerupTypeActive[3] = true;
-                                stats.DamageBoostCount();
-                            }
+                    //    case "Damage Boost":
+                    //        if (powerupTypeActive[3])
+                    //        {
+                    //            canActivate = false;
+                    //        }
+                    //        else
+                    //        {
+                    //            powerupTypeStored[3] = false;
+                    //            powerupTypeActive[3] = true;
+                    //            stats.DamageBoostCount();
+                    //        }
 
-                            break;
+                    //        break;
 
-                        case "Shield":
-                            if (powerupTypeActive[4])
-                            {
-                                canActivate = false;
-                            }
-                            else
-                            {
-                                powerupTypeStored[4] = false;
-                                powerupTypeActive[4] = true;
-                                stats.ShieldCount();
-                            }
+                    //    case "Shield":
+                    //        if (powerupTypeActive[4])
+                    //        {
+                    //            canActivate = false;
+                    //        }
+                    //        else
+                    //        {
+                    //            powerupTypeStored[4] = false;
+                    //            powerupTypeActive[4] = true;
+                    //            stats.ShieldCount();
+                    //        }
 
-                            break;
-                    }
+                    //        break;
+                    //}
 
-                    if (canActivate)
-                    {
-                        Instantiate(powerups.Dequeue(), powerupPoint);
+                    //if (canActivate)
+                    //{
+                    //    Instantiate(powerups.Dequeue(), powerupPoint);
 
-                        RemoveDisplayIcon();
-                    }
+                    //    RemoveDisplayIcon();
+                    //}
 
-                    ch.AllOff();
+                    Instantiate(powerups.Dequeue(), powerupPoint);
+                    RemoveDisplayIcon();
+                    //ch.HideAll();
                 }
             }
         }
-
-        //Getters and setters for powerup states
-
-        //public bool GetShield()
-        //{
-        //    return shieldState;
-        //}
-
-        //public void SetShield(bool newState)
-        //{
-        //    if (newState)
-        //    {
-        //        stats.ShieldCount();
-        //    }
-        //    shieldState = newState;
-        //}
-
-        //public bool GetAreaBomb()
-        //{
-        //    return areaBombState;
-        //}
-
-        //public void SetAreaBomb(bool newState)
-        //{
-        //    if (newState)
-        //    {
-        //        stats.AreaBombCount();
-        //    }
-        //    areaBombState = newState;
-        //}
-
-        //public bool GetClear()
-        //{
-        //    return clearState;
-        //}
-
-        //public void SetClear(bool newState)
-        //{
-        //    if (newState)
-        //    {
-        //        stats.ClearCount();
-        //    }
-        //    clearState = newState;
-        //}
-
-        //public bool GetAlly()
-        //{
-        //    return allyState;
-        //}
-
-        //public void SetAlly(bool newState)
-        //{
-        //    if (newState)
-        //    {
-        //        stats.AllyCount();
-        //    }
-        //    allyState = newState;
-        //}
-        //public bool GetDamageBoost()
-        //{
-        //    return damageBoostState;
-        //}
-
-        //public void SetDamageBoost(bool newState)
-        //{
-        //    if (newState)
-        //    {
-        //        stats.DamageBoostCount();
-        //    }
-        //    damageBoostState = newState;
-        //}
 
         /// <summary>
         /// Trigger PowerupStatus to start tracking and find references.
@@ -358,6 +305,19 @@ namespace Hive.Armada.Powerups
                 //color.a += alphaDelta;
                 //icon.GetComponent<MeshRenderer>().material.color = color;
             }
+        }
+
+        /// <summary>
+        /// Clear powerup queues and remove all icons. Meant to be used between waves. 
+        /// </summary>
+        public void RemoveStoredPowerups()
+        {
+            powerups.Clear();
+            foreach(GameObject icon in powerupIcons)
+            {
+                Destroy(icon);
+            }
+            powerupIcons.Clear();
         }
 
         /// <summary>

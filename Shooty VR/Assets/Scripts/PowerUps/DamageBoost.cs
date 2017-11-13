@@ -27,7 +27,7 @@ namespace Hive.Armada
             yield return new WaitForSeconds(boostLength);
 
             GameObject.FindGameObjectWithTag("Player").GetComponent<ShipController>().SetDamageBoost(1);
-            FindObjectOfType<PowerUpStatus>().damageBoostActive = false;
+            //FindObjectOfType<PowerUpStatus>().damageBoostActive = false;
             Destroy(gameObject);
         }
 

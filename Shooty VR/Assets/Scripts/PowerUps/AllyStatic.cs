@@ -1,47 +1,72 @@
-﻿//Name: Chad Johnson
-//Student ID: 1763718
-//Email: johns428@mail.chapman.edu
-//Course: CPSC 340-01, CPSC-344-01
-//Assignment: Group Project
-//Purpose: Script ally powerup movement, behavior
-
-//http://answers.unity3d.com/questions/496463/find-nearest-object.html
-//https://docs.unity3d.com/ScriptReference/Vector3-sqrMagnitude.html
+﻿//=============================================================================
+//
+// Chad Johnson
+// 1763718
+// johns428@mail.champan.edu
+// CPSC-340-01 & CPSC-344-01
+// Group Project
+//
+// AllyStatic controls the Ally powerup. The standard Ally fires projectiles
+// at the nearest enemy until that enemy's death and self-destructs after a
+// certain time. The AllyStatic version of this remains stationary and
+// rotates to fire at the nearest enemy in front of the player ship.
+// Currently not in use.
+//
+//=============================================================================
 
 using System.Collections;
 using UnityEngine;
 
-namespace Hive.Armada
+namespace Hive.Armada.Powerup
 {
+    /// <summary>
+    /// Ally powerup with static movement.
+    /// </summary>
     public class AllyStatic : MonoBehaviour
     {
-        //distance between ally and player ship
+        /// <summary>
+        /// Position relative to player ship.
+        /// </summary>
         public Vector3 localPosition;
+
+        /// <summary>
+        /// Time until self-destruct.
+        /// </summary>
         public float timeLimit;
 
+        //Projectile prefab.
         public GameObject bullet;
-        //public Transform bulletSpawn;
+
+        /// <summary>
+        /// Projectile speed.
+        /// </summary>
         public float bulletSpeed;
+
+        //Number of projectiles fired per second.
         public float firerate;
+
+        /// <summary>
+        /// State controllering when ally can fire.
+        /// </summary>
         private bool canFire = true;
 
-        // Use this for initialization
+        // Set transform.localPosition.
         void Start()
         {
             transform.localPosition = localPosition;
         }
 
-        // Update is called once per frame
+        // Subtract from and check timeLimit. Rotate to face target. Start Fire coroutine.
         void Update()
         {
             timeLimit -= Time.deltaTime;
             if (timeLimit < 0.0F)
             {
-                //GameObject.FindGameObjectWithTag("Player").GetComponent<PowerUpStatus>().SetAlly(false);
+                FindObjectOfType<PowerupStatus>().p1Active = false;
                 Destroy(gameObject);
             }
 
-            Transform target = NearestEnemy();
+            Transform target = GetNearestEnemy();
             transform.LookAt(target);
 
             if (canFire)
@@ -50,10 +75,11 @@ namespace Hive.Armada
             }
         }
 
-
-
-        //determine nearest enemy to player ship, return its transform
-        private Transform NearestEnemy()
+        /// <summary>
+        /// Determine transform of enemy nearest to player ship.
+        /// </summary>
+        /// <returns>Transform of nearest enemy ship.</returns>
+        private Transform GetNearestEnemy()
         {
             Vector3 positionDifference;
             float distance;
@@ -76,6 +102,10 @@ namespace Hive.Armada
             return nearestEnemy.transform;
         }
 
+        /// <summary>
+        /// Instantiate bullet according to firerate.
+        /// </summary>
+        /// <param name="target">Enemy bullet is "aimed" at</param>
         private IEnumerator Fire(Vector3 target)
         {
             canFire = false;

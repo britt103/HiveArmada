@@ -1,33 +1,42 @@
-﻿//Name: Chad Johnson
-//Student ID: 1763718
-//Email: johns428@mail.chapman.edu
-//Course: CPSC 340-01, CPSC-344-01
-//Assignment: Group Project
-//Purpose: Script clear bomb powerup bahavior
+﻿//=============================================================================
+//
+// Chad Johnson
+// 1763718
+// johns428@mail.champan.edu
+// CPSC-340-01 & CPSC-344-01
+// Group Project
+//
+// Clear controls the Clear powerup. The Clear destroys all enemy projectiles
+// currently in the scene. Currently assigned as Powerup 3.
+//
+//=============================================================================
 
 using UnityEngine;
-using Valve.VR.InteractionSystem;
 
-namespace Hive.Armada
+namespace Hive.Armada.Powerup
 {
+    /// <summary>
+    /// Clear powerup.
+    /// </summary>
     public class ClearBomb : MonoBehaviour
     {
-        private Hand hand;
+        /// <summary>
+        /// FX of Clear activation.
+        /// </summary>
         public GameObject fxAwake;
-        // Use this for initialization
+
+        // Instantiate activation FX. Destroy enemy projectiles. Self-destruct.
         void Start()
         {
-            //hand = gameObject.GetComponentInParent<Hand>();
             Instantiate(fxAwake, transform.position, transform.rotation);
             foreach (GameObject bullet in GameObject.FindGameObjectsWithTag("bullet"))
             {
                 Destroy(bullet);
             }
-            FindObjectOfType<PowerUpStatus>().clearActive = false;
+            FindObjectOfType<PowerupStatus>().p3Active = false;
             Destroy(gameObject);
         }
 
-        // Update is called once per frame
         //void Update()
         //{
         //    if (hand.controller.GetPressDown(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad))

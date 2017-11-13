@@ -61,8 +61,12 @@ namespace Hive.Armada.Enemies
         /// Used to tell spawner that it can spawn more enemies.
         /// </summary>
         protected bool untouched = true;
-        protected bool hitFlashing = false;
+        protected bool hitFlashing;
         protected bool alive = true;
+
+        /// <summary>
+        /// List of materials for all parts of the model.
+        /// </summary>
         protected List<Material> mats;
 
         /// <summary>

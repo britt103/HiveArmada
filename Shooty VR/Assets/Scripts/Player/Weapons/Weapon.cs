@@ -14,15 +14,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Hive.Armada.Player.Guns
+namespace Hive.Armada.Player.Weapons
 {
-    public abstract class Gun : MonoBehaviour
+    public abstract class Weapon : MonoBehaviour
     {
         public ShipController shipController;
+        public int damageBoost;
         protected int damage;
         protected float fireRate;
         protected bool canShoot = true;
 
-        public abstract void TriggerUpdate();
+        public virtual void TriggerUpdate()
+        {
+            if (canShoot)
+            {
+                Clicked();
+            }
+        }
+
+        protected abstract void Clicked();
     }
 }

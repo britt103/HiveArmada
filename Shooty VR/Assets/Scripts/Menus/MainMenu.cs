@@ -12,7 +12,7 @@
 
 using UnityEngine;
 
-namespace Hive.Armada.Menu
+namespace Hive.Armada.Menus
 {
     /// <summary>
     /// Contains navigation functions for the Start and Options menu and prompting of applcation 

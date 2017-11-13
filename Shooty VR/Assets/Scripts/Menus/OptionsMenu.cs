@@ -12,7 +12,7 @@
 
 using UnityEngine;
 
-namespace Hive.Armada.Menu
+namespace Hive.Armada.Menus
 {
     /// <summary>
     /// Controls interations with Options Menu.

@@ -12,7 +12,7 @@
 
 using UnityEngine;
 
-namespace Hive.Armada.Menu
+namespace Hive.Armada.Menus
 {
     /// <summary>
     /// Controls interactions with Sound Menu.

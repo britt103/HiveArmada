@@ -10,12 +10,11 @@
 //
 //=============================================================================
 
-
 using UnityEngine;
 using Hive.Armada.Game;
 using Hive.Armada.Player;
 
-namespace Hive.Armada.Menu
+namespace Hive.Armada.Menus
 {
     /// <summary>
     /// Controls interactions with Start Menu;

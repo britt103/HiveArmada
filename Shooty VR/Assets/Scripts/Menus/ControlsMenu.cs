@@ -13,7 +13,7 @@
 using UnityEngine;
 using Hive.Armada.Player;
 
-namespace Hive.Armada.Menu
+namespace Hive.Armada.Menus
 {
     /// <summary>
     /// Controls interactions with Controls Menu and ControlsHighlighter activation. 

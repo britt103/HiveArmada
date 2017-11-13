@@ -18,7 +18,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.Rendering;
 using Valve.VR.InteractionSystem;
 
-namespace Hive.Armada.Menu
+namespace Hive.Armada.Menus
 {
     /// <summary>
     /// Allows UI interactions using controller with LineRenderer.

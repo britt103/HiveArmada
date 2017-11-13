@@ -15,7 +15,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Hive.Armada.Game;
 
-namespace Hive.Armada.Menu
+namespace Hive.Armada.Menus
 {
     /// <summary>
     /// Controls visual and audio wave start countdown.

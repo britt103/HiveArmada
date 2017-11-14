@@ -28,17 +28,12 @@ namespace Hive.Armada.Game
         /// If this object is currently activated.
         /// Note: This is not the same as gameObject.activeSelf or gameObject.activeInHierarchy
         /// </summary>
-        protected bool isActive;
+        public bool IsActive { get; private set; }
 
         /// <summary>
-        /// If this object is currently activated.
-        /// Note: This is not the same as gameObject.activeSelf or gameObject.activeInHierarchy
+        /// Identifies this object's type to the pool.
         /// </summary>
-        /// <returns> If this poolable object is active </returns>
-        public virtual bool GetActive()
-        {
-            return isActive;
-        }
+        protected int TypeIdentifier { get; private set; }
 
         /// <summary>
         /// Initializes all attributes to this object's defaults and disables it.
@@ -51,7 +46,7 @@ namespace Hive.Armada.Game
         public virtual void Activate()
         {
             Initialize();
-            isActive = true;
+            IsActive = true;
             gameObject.SetActive(true);
         }
 
@@ -60,7 +55,7 @@ namespace Hive.Armada.Game
         /// </summary>
         public virtual void Deactivate()
         {
-            isActive = false;
+            IsActive = false;
             gameObject.SetActive(false);
         }
 

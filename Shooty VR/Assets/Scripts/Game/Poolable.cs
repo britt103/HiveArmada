@@ -1,0 +1,72 @@
+﻿//=============================================================================
+//
+// Perry Sidler
+// 1831784
+// sidle104@mail.chapman.edu
+// CPSC-340-01 & CPSC-344-01
+// Group Project
+//
+// This class defines all standard functions for poolable objects. Every object
+// that can be pooled will be able to receive messages from ObjectPool telling
+// it when it needs to activate or deactivate itself. Activate also calls
+// Reset() which will reset all object variables/attributes to their
+// default values. This is useful for replaying the game after a win or loss
+// without having to reload the scene.
+//
+//=============================================================================
+
+using UnityEngine;
+
+namespace Hive.Armada.Game
+{
+    /// <summary>
+    /// Define functions for all Poolable objects.
+    /// </summary>
+    public abstract class Poolable : MonoBehaviour
+    {
+        /// <summary>
+        /// If this object is currently activated.
+        /// Note: This is not the same as gameObject.activeSelf or gameObject.activeInHierarchy
+        /// </summary>
+        protected bool isActive;
+
+        /// <summary>
+        /// If this object is currently activated.
+        /// Note: This is not the same as gameObject.activeSelf or gameObject.activeInHierarchy
+        /// </summary>
+        /// <returns> If this poolable object is active </returns>
+        public virtual bool GetActive()
+        {
+            return isActive;
+        }
+
+        /// <summary>
+        /// Initializes all attributes to this object's defaults and disables it.
+        /// </summary>
+        public abstract void Initialize();
+
+        /// <summary>
+        /// Re-initializes the object and activates it.
+        /// </summary>
+        public virtual void Activate()
+        {
+            Initialize();
+            isActive = true;
+            gameObject.SetActive(true);
+        }
+
+        /// <summary>
+        /// Deactivates the object
+        /// </summary>
+        public virtual void Deactivate()
+        {
+            isActive = false;
+            gameObject.SetActive(false);
+        }
+
+        /// <summary>
+        /// Resets all attributes to this object's defaults.
+        /// </summary>
+        protected abstract void Reset();
+    }
+}

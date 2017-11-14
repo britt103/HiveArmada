@@ -8,19 +8,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Hive.Armada.Player;
 
 public class ControlsMenu : MonoBehaviour {
-    private ControlsHighlighter ch;
+    private Tooltip tooltip;
 
     /// <summary>
     /// Activate controller highlighting
     /// </summary>
     private void OnEnable()
     {
-        ch = FindObjectOfType<Hive.Armada.Player.ShipController>().transform.parent.GetComponentInChildren<ControlsHighlighter>();
-        ch.ShowFire();
-        ch.ShowPowerup();
-        ch.ShowPause();
+        tooltip = FindObjectOfType<Hive.Armada.Player.ShipController>().transform.parent.GetComponentInChildren<Tooltip>();
+        tooltip.ShowFire();
+        tooltip.ShowPowerup();
+        tooltip.ShowPause();
     }
 
     /// <summary>
@@ -30,7 +31,7 @@ public class ControlsMenu : MonoBehaviour {
     {
         GameObject.Find("Main Canvas").transform.Find("Options Menu").gameObject.SetActive(true);
 
-        ch.HideAll();
+        tooltip.HideAll();
  
         gameObject.SetActive(false);
     }

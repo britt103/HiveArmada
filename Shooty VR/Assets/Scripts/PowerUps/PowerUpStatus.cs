@@ -14,6 +14,7 @@
 
 using System.Collections.Generic;
 using UnityEngine;
+using Hive.Armada.Player;
 using Valve.VR.InteractionSystem;
 
 namespace Hive.Armada.Powerups
@@ -86,9 +87,9 @@ namespace Hive.Armada.Powerups
         private Hand hand;
 
         /// <summary>
-        /// References to ControlsHighlighter on active hand.
+        /// References to Tooltip on active hand.
         /// </summary>
-        private ControlsHighlighter ch;
+        private Tooltip tooltip;
 
         /// <summary>
         /// State of whether PowerupStatus is tracking inputs. 
@@ -110,47 +111,47 @@ namespace Hive.Armada.Powerups
         {
             if (tracking && powerups.Count > 0)
             {
-                //if (hand.controller.GetTouch(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad))
-                //{
-                //    //switch (powerups.Peek().name)
-                //    //{
-                //    //    case "Ally":
-                //    //        ch.ShowPowerup1();
-                //    //        break;
+                if (hand.controller.GetTouch(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad))
+                {
+                    //    //switch (powerups.Peek().name)
+                    //    //{
+                    //    //    case "Ally":
+                    //    //        ch.ShowPowerup1();
+                    //    //        break;
 
-                //    //    case "Area Bomb":
-                //    //        ch.ShowPowerup2();
-                //    //        break;
+                    //    //    case "Area Bomb":
+                    //    //        ch.ShowPowerup2();
+                    //    //        break;
 
-                //    //    case "Clear":
-                //    //        ch.ShowPowerup3();
-                //    //        break;
+                    //    //    case "Clear":
+                    //    //        ch.ShowPowerup3();
+                    //    //        break;
 
-                //    //    case "Damage Boost":
-                //    //        ch.ShowPowerup4();
-                //    //        break;
+                    //    //    case "Damage Boost":
+                    //    //        ch.ShowPowerup4();
+                    //    //        break;
 
-                //    //    case "Shield":
-                //    //        ch.ShowPowerup5();
-                //    //        break;
-                //    //}
+                    //    //    case "Shield":
+                    //    //        ch.ShowPowerup5();
+                    //    //        break;
+                    //    //}
 
-                //    string nextPowerupName = powerups.Peek().name;
+                    string nextPowerupName = powerups.Peek().name;
 
-                //    for(int i = 0; i < powerupNames.Length; ++i)
-                //    {
-                //        if(nextPowerupName == powerupNames[i])
-                //        {
-                //            ch.Invoke("ShowPowerup" + (i + 1), 0);
-                //            break;
-                //        }
-                //    }
-                //}
+                    for (int i = 0; i < powerupNames.Length; ++i)
+                    {
+                        if (nextPowerupName == powerupNames[i])
+                        {
+                            tooltip.Invoke("ShowPowerup" + (i + 1), 0);
+                            break;
+                        }
+                    }
+                }
 
-                //if (hand.controller.GetTouchUp(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad))
-                //{
-                //    ch.HideAll();
-                //}
+                if (hand.controller.GetTouchUp(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad))
+                {
+                    tooltip.HideAll();
+                }
 
                 if (hand.controller.GetPressDown(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad))
                 {
@@ -238,7 +239,7 @@ namespace Hive.Armada.Powerups
 
                     Instantiate(powerups.Dequeue(), powerupPoint);
                     RemoveDisplayIcon();
-                    //ch.HideAll();
+                    //tooltip.HideAll();
                 }
             }
         }
@@ -249,9 +250,9 @@ namespace Hive.Armada.Powerups
         public void BeginTracking()
         {
             tracking = true;
-            shipGO = gameObject.GetComponentInChildren<Player.ShipController>().gameObject;
+            shipGO = gameObject.GetComponentInChildren<ShipController>().gameObject;
             hand = shipGO.GetComponentInParent<Hand>();
-            ch = hand.GetComponentInChildren<ControlsHighlighter>();
+            tooltip = hand.GetComponentInChildren<Tooltip>();
             powerupPoint = shipGO.transform.Find("Powerup Point");
             iconPoint = shipGO.transform.Find("Powerup Icon Point");
         }

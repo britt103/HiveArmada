@@ -157,15 +157,15 @@ namespace Hive.Armada.Player.Guns
             //    //source.pitch = 1.0f;
             //}
 
-            stats.Firing();
-            stats.W1Fired(1);
+            stats.IsFiring();
+            stats.WeaponFired("Laser Gun", 1);
 
             yield return new WaitForSeconds(1.0f / fireRate);
 
             isLeftFire = !isLeftFire;
             canShoot = true;
 
-            stats.NotFiring();
+            stats.IsNotFiring();
         }
 
         /// <summary>

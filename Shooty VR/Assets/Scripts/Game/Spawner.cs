@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Hive.Armada.Game;
+using Hive.Armada.Player;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
@@ -97,7 +98,7 @@ namespace Hive.Armada.Game
 
                     waveSpawn = StartCoroutine(SpawnWave(spawns));
 
-                    stats.Alive();
+                    stats.IsAlive();
                 }
                 else
                 {

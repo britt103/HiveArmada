@@ -7,6 +7,7 @@
 
 using UnityEngine;
 using System.Collections.Generic;
+using Hive.Armada.Player;
 
 namespace Hive.Armada
 {
@@ -70,7 +71,7 @@ namespace Hive.Armada
                             {
                                 allyStored = false;
                                 allyActive = true;
-                                stats.P1Used();
+                                stats.PowerupUsed("Ally");
                             }
 
                             break;
@@ -84,7 +85,7 @@ namespace Hive.Armada
                             {
                                 areaBombStored = false;
                                 areaBombActive = true;
-                                stats.P2Used();
+                                stats.PowerupUsed("Area Bomb");
                             }
 
                             break;
@@ -98,7 +99,7 @@ namespace Hive.Armada
                             {
                                 clearStored = false;
                                 clearActive = true;
-                                stats.P3Used();
+                                stats.PowerupUsed("Clear");
                             }
 
                             break;
@@ -112,7 +113,7 @@ namespace Hive.Armada
                             {
                                 damageBoostStored = false;
                                 damageBoostActive = true;
-                                stats.P4Used();
+                                stats.PowerupUsed("Damage Boost");
                             }
 
                             break;
@@ -126,7 +127,7 @@ namespace Hive.Armada
                             {
                                 shieldStored = false;
                                 shieldActive = true;
-                                stats.P5Used();
+                                stats.PowerupUsed("Shield");
                             }
 
                             break;

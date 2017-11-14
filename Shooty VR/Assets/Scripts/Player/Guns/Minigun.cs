@@ -197,15 +197,15 @@ namespace Hive.Armada.Player.Guns
                 HitSpark(position);
             }
 
-            stats.Firing();
-            stats.W2Fired(1);
+            stats.IsFiring();
+            stats.WeaponFired("Minigun", 1);
 
             yield return new WaitForSeconds(1.0f / fireRate);
 
             isLeftFire = !isLeftFire;
             canShoot = true;
 
-            stats.NotFiring();
+            stats.IsNotFiring();
         }
 
         ///// <summary>

@@ -1,96 +1,205 @@
-﻿//Name: Chad Johnson
-//Student ID: 1763718
-//Email: johns428@mail.chapman.edu
-//Course: CPSC 340-01, CPSC-344-01
-//Assignment: Group Project
-//Purpose: Tracks player statistics
+﻿//=============================================================================
+//
+// Chad Johnson
+// 1763718
+// johns428@mail.chapman.edu
+// CPSC-340-01 & CPSC-344-01
+// Group Project
+//
+// PlayerStats tracks various player metrics including powerup use, time alive, 
+// wave completion, and score. Data is output both to the editor console and
+// to a JSON text file.
+//
+//=============================================================================
 
-//PlayerStats is referenced in multiple classes for tracking player data for individual waves and whole runs. Data is output both 
-//to the editor console and to a file in our project folder, currently PlayerStats.txt.
-
-using UnityEngine;
 using System;
 using System.IO;
+using UnityEngine;
 
-namespace Hive.Armada
+namespace Hive.Armada.Player
 {
+    /// <summary>
+    /// Tracks player metrics.
+    /// </summary>
     public class PlayerStats : MonoBehaviour
     {
-        //tracking
+        /// <summary>
+        /// String of the datetime when PlayerStats starts.
+        /// </summary>
         private string dateTime;
 
-        //time alive
+        /// <summary>
+        /// Time player has been alive in the current wave.
+        /// </summary>
         [NonSerialized]
         private double aliveTime = 0;
+
+        /// <summary>
+        /// Time player has been alive in the current run.
+        /// </summary>
         private double totalAliveTime = 0;
+
+        /// <summary>
+        /// State of whether player is alive.
+        /// </summary>
         [NonSerialized]
         private bool isAlive = false;
+
+        /// <summary>
+        /// Number of completed waves.
+        /// </summary>
         private int waves = 0;
 
-        //combat
+        /// <summary>
+        /// Number of enemies killed in the current wave.
+        /// </summary>
         [NonSerialized]
         private int enemiesKilled = 0;
+
+        /// <summary>
+        /// Number of enemies killed in the current run.
+        /// </summary>
         private int totalEnemiesKilled = 0;
+
+        /// <summary>
+        /// Time player has been firing in the current wave.
+        /// </summary>
         [NonSerialized]
         private double firingTime = 0;
+
+        /// <summary>
+        /// Time player has been firing in the current run.
+        /// </summary>
         private double totalFiringTime = 0;
+
+        /// <summary>
+        /// Score player has earned in the current wave.
+        /// </summary>
         [NonSerialized]
         private int score = 0;
+
+        /// <summary>
+        /// Score player has earned in the current run.
+        /// </summary>
         private int totalScore = 0;
+
+        /// <summary>
+        /// State of whether player is currently firing.
+        /// </summary>
         [NonSerialized]
         private bool isFiring = false;
 
         //weapons
+        //[NonSerialized]
+        //public string w1Name = "";
+        //[NonSerialized]
+        //private int w1ShotsFired = 0;
+        //private int w1TotalShotsFired = 0;
+        //[NonSerialized]
+        //public string w2Name = "";
+        //[NonSerialized]
+        //private int w2ShotsFired = 0;
+        //private int w2TotalShotsFired = 0;
+
+        /// <summary>
+        /// Array of the names of the weapons.
+        /// </summary>
+        public string[] weaponNames;
+
+        /// <summary>
+        /// Array of the number of shots fired by each weapon in the current wave.
+        /// </summary>
         [NonSerialized]
-        public string w1Name = "";
-        [NonSerialized]
-        private int w1ShotsFired = 0;
-        private int w1TotalShotsFired = 0;
-        [NonSerialized]
-        public string w2Name = "";
-        [NonSerialized]
-        private int w2ShotsFired = 0;
-        private int w2TotalShotsFired = 0;
+        private int[] weaponShotsFired;
+
+        /// <summary>
+        /// Array of the number of shots fired by each weapon in the current run.
+        /// </summary>
+        private int[] weaponTotalShotsFired;
 
         //powerups
-        [NonSerialized]
-        public string p1Name = "";
-        [NonSerialized]
-        private int p1Count = 0;
-        private int p1TotalCount = 0;
-        [NonSerialized]
-        public string p2Name = "";
-        [NonSerialized]
-        private int p2Count = 0;
-        private int p2TotalCount = 0;
-        [NonSerialized]
-        public string p3Name = "";
-        [NonSerialized]
-        private int p3Count = 0;
-        private int p3TotalCount = 0;
-        [NonSerialized]
-        public string p4Name = "";
-        [NonSerialized]
-        private int p4Count = 0;
-        private int p4TotalCount = 0;
-        [NonSerialized]
-        public string p5Name = "";
-        [NonSerialized]
-        private int p5Count = 0;
-        private int p5TotalCount = 0;
+        //[NonSerialized]
+        //public string p1Name = "";
+        //[NonSerialized]
+        //private int p1Count = 0;
+        //private int p1TotalCount = 0;
+        //[NonSerialized]
+        //public string p2Name = "";
+        //[NonSerialized]
+        //private int p2Count = 0;
+        //private int p2TotalCount = 0;
+        //[NonSerialized]
+        //public string p3Name = "";
+        //[NonSerialized]
+        //private int p3Count = 0;
+        //private int p3TotalCount = 0;
+        //[NonSerialized]
+        //public string p4Name = "";
+        //[NonSerialized]
+        //private int p4Count = 0;
+        //private int p4TotalCount = 0;
+        //[NonSerialized]
+        //public string p5Name = "";
+        //[NonSerialized]
+        //private int p5Count = 0;
+        //private int p5TotalCount = 0;
 
-        //currency
+        /// <summary>
+        /// Array of the names of the powerups.
+        /// </summary>
+        public string[] powerupNames;
+
+        /// <summary>
+        /// Array of the number of times each powerup has been used in the current wave.
+        /// </summary>
+        [NonSerialized]
+        private int[] powerupCount;
+
+        /// <summary>
+        /// Array of the number of times each powerup has been used in the current run.
+        /// </summary>
+        private int[] powerupTotalCount;
+
+        /// <summary>
+        /// Amount of currency the player has collected in the current wave.
+        /// </summary>
         [NonSerialized]
         private int currencyCollected = 0;
+
+        /// <summary>
+        /// Amount of currency the player has collected in the current run.
+        /// </summary>
         private int totalCurrencyCollected = 0;
 
-        // Use this for initialization
+        /// <summary>
+        /// Set initial values for weapons and powerups. Set dateTime.
+        /// </summary>
         private void Start()
         {
+            int numWeapons = weaponNames.Length;
+            weaponShotsFired = new int[numWeapons];
+            weaponTotalShotsFired = new int[numWeapons];
+            for (int i = 0; i < weaponNames.Length; ++i)
+            {
+                weaponShotsFired[i] = 0;
+                weaponTotalShotsFired[i] = 0;
+            }
+
+            int numPowerups = powerupNames.Length;
+            powerupCount = new int[numPowerups];
+            powerupTotalCount = new int[numPowerups];
+            for (int i = 0; i < powerupNames.Length; ++i)
+            {
+                powerupCount[i] = 0;
+                powerupTotalCount[i] = 0;
+            }
+
             dateTime = DateTime.Now.ToString();
         }
 
-        // Update is called once per frame
+        /// <summary>
+        /// Add to firingTime and aliveTime when applicable.
+        /// </summary>
         void Update()
         {
             if (isFiring)
@@ -105,7 +214,7 @@ namespace Hive.Armada
         }
 
         /// <summary>
-        /// Append data to file when application it closed; only does so when waves have started
+        /// Append data to file when application it closed. Only does so when waves have started.
         /// </summary>
         private void OnApplicationQuit()
         {
@@ -116,27 +225,33 @@ namespace Hive.Armada
         }
 
         /// <summary>
-        /// Output player run data to console and to file
+        /// Output player run data to console and to file.
         /// </summary>
         public void PrintStats()
         {
             //totalFiringTime = Math.Round(totalFiringTime, 2);
             //totalAliveTime = Math.Round(totalAliveTime, 2);
 
+            string weaponsOutput = "";
+            for(int i = 0; i < weaponNames.Length; ++i)
+            {
+                weaponsOutput += "Total Shots Fired w/" + weaponNames[i] + ": " + weaponTotalShotsFired[i] + "\n";
+            }
+
+            string powerupsOutput = "";
+            for(int i = 0; i < powerupNames.Length; ++i)
+            {
+                powerupsOutput += "Total " + powerupNames[i] + " Use: " + powerupTotalCount[i] + "\n";
+            }
+
             String output = dateTime + "\n" +
                       "Waves Finished: " + waves + "\n" +
                       "Total Score: " + totalScore + "\n" +
                       "Total Enemies Killed: " + totalEnemiesKilled + "\n" +
                       "Total Time Holding Down Trigger: " + totalFiringTime + "\n" +
-                      "Total Shots Fired w/" + w1Name + ": " + w1TotalShotsFired + "\n" +
-                      "Total Shots Fired w/" + w2Name + ": " + w2TotalShotsFired + "\n" +
+                      weaponsOutput + powerupsOutput +
                       "Total Time Alive: " + totalAliveTime + "\n" +
-                      "Total Currency Collected: " + totalCurrencyCollected + "\n" +
-                      "Total " + p1Name + " Use: " + p1TotalCount + "\n" +
-                      "Total " + p2Name + " Use: " + p2TotalCount + "\n" +
-                      "Total " + p3Name + " Use: " + p3TotalCount + "\n" +
-                      "Total " + p4Name + " Use: " + p4TotalCount + "\n" +
-                      "Total " + p5Name + " Use: " + p5TotalCount;
+                      "Total Currency Collected: " + totalCurrencyCollected + "\n";
    
             Debug.Log(output);
 
@@ -144,28 +259,34 @@ namespace Hive.Armada
         }
 
         /// <summary>
-        /// Output player wave data to console, reset wave values and add to run values.
+        /// Output player wave data to console. Reset wave values and add to run values.
         /// </summary>
         public void PrintWaveStats()
         {
             firingTime = Math.Round(firingTime, 2);
             aliveTime = Math.Round(aliveTime, 2);
 
+            string weaponsOutput = "";
+            for (int i = 0; i < weaponNames.Length; ++i)
+            {
+                weaponsOutput += "Shots Fired w/" + weaponNames[i] + ": " + weaponShotsFired[i] + "\n";
+            }
+
+            string powerupsOutput = "";
+            for (int i = 0; i < powerupNames.Length; ++i)
+            {
+                powerupsOutput += powerupNames[i] + " Use: " + powerupCount[i] + "\n";
+            }
+
             String output = DateTime.Now.ToString() + "\n" +
                       "Wave: " + waves + "\n" +
                       "Current Score: " + score + "\n" +
                       "Enemies Killed: " + enemiesKilled + "\n" +
                       "Time Holding Down Trigger: " + firingTime + "\n" +
-                      "Shots Fired w/" + w1Name + ": " + w1ShotsFired + "\n" +
-                      "Shots Fired w/" + w2Name + ": " + w2ShotsFired + "\n" +
+                      weaponsOutput + powerupsOutput +
                       "Time Alive: " + aliveTime + "\n" +
-                      "Currency Collected: " + currencyCollected + "\n" +
-                      p1Name + " Use: " + p1Count + "\n" +
-                      p2Name + " Use: " + p2Count + "\n" +
-                      p3Name + " Used: " + p3Count + "\n" +
-                      p4Name + " Used: " + p4Count + "\n" +
-                      p5Name + " Used: " + p5Count;
-                      
+                      "Currency Collected: " + currencyCollected + "\n";
+
             Debug.Log(output);
 
             totalEnemiesKilled += enemiesKilled;
@@ -175,21 +296,33 @@ namespace Hive.Armada
             totalScore += score;
             score = 0;
 
-            w1TotalShotsFired += w1ShotsFired;
-            w1ShotsFired = 0;
-            w2TotalShotsFired += w2ShotsFired;
-            w2ShotsFired = 0;
+            for(int i = 0; i < weaponNames.Length; ++i)
+            {
+                weaponTotalShotsFired[i] += weaponShotsFired[i];
+                weaponShotsFired[i] = 0;
+            }
 
-            p1TotalCount += p1Count;
-            p1Count = 0;
-            p2TotalCount += p2Count;
-            p2Count = 0;
-            p3TotalCount += p3Count;
-            p3Count = 0;
-            p4TotalCount += p4Count;
-            p4Count = 0;
-            p5TotalCount += p5Count;
-            p5Count = 0;
+            for (int i = 0; i < powerupNames.Length; ++i)
+            {
+                powerupTotalCount[i] += powerupCount[i];
+                powerupCount[i] = 0;
+            }
+
+            //w1TotalShotsFired += w1ShotsFired;
+            //w1ShotsFired = 0;
+            //w2TotalShotsFired += w2ShotsFired;
+            //w2ShotsFired = 0;
+
+            //p1TotalCount += p1Count;
+            //p1Count = 0;
+            //p2TotalCount += p2Count;
+            //p2Count = 0;
+            //p3TotalCount += p3Count;
+            //p3Count = 0;
+            //p4TotalCount += p4Count;
+            //p4Count = 0;
+            //p5TotalCount += p5Count;
+            //p5Count = 0;
 
             totalCurrencyCollected += currencyCollected;
             currencyCollected = 0;
@@ -201,7 +334,7 @@ namespace Hive.Armada
         /// <summary>
         /// Set isAlive to true
         /// </summary>
-        public void Alive()
+        public void IsAlive()
         {
             isAlive = true;
         }
@@ -209,7 +342,7 @@ namespace Hive.Armada
         /// <summary>
         /// Set isAlive to false
         /// </summary>
-        public void NotAlive()
+        public void IsNotAlive()
         {
             isAlive = false;
         }
@@ -217,7 +350,7 @@ namespace Hive.Armada
         /// <summary>
         /// Set isFiring to true
         /// </summary>
-        public void Firing()
+        public void IsFiring()
         {
             isFiring = true;
         }
@@ -225,7 +358,7 @@ namespace Hive.Armada
         /// <summary>
         /// Set isFiring to false
         /// </summary>
-        public void NotFiring()
+        public void IsNotFiring()
         {
             isFiring = false;
         }
@@ -241,7 +374,7 @@ namespace Hive.Armada
         /// <summary>
         /// Add to currencyCollected
         /// </summary>
-        /// <param name="amount"></param>
+        /// <param name="amount">amount of currency to add</param>
         public void CurrencyCollected(int amount)
         {
             currencyCollected += amount;
@@ -250,72 +383,103 @@ namespace Hive.Armada
         /// <summary>
         /// Add to score
         /// </summary>
-        /// <param name="points"></param>
+        /// <param name="points">number of points to add</param>
         public void Score(int points)
         {
             score += points;
         }
 
         /// <summary>
-        /// Add to 
+        /// Record powerup use.
         /// </summary>
-        public void P1Used()
+        /// <param name="name">name of powerup used</param>
+        public void PowerupUsed(string name)
         {
-            p1Count++;
+            for(int i = 0; i < powerupNames.Length; ++i)
+            {
+                if(name == powerupNames[i])
+                {
+                    powerupCount[i]++;
+                }
+            }
         }
 
-        /// <summary>
-        /// Add to 
-        /// </summary>
-        public void P2Used()
-        {
-            p2Count++;
-        }
+        ///// <summary>
+        ///// Add to 
+        ///// </summary>
+        //public void Powerup1Used()
+        //{
+        //    p1Count++;
+        //}
+
+        ///// <summary>
+        ///// Add to 
+        ///// </summary>
+        //public void P2Used()
+        //{
+        //    p2Count++;
+        //}
+
+        ///// <summary>
+        ///// Add to 
+        ///// </summary>
+        //public void P3Used()
+        //{
+        //    p3Count++;
+        //}
+
+        ///// <summary>
+        ///// Add to 
+        ///// </summary>
+        //public void P4Used()
+        //{
+        //    p4Count++;
+        //}
+
+        ///// <summary>
+        ///// Add to 
+        ///// </summary>
+        //public void P5Used()
+        //{
+        //    p5Count++;
+        //}
 
         /// <summary>
-        /// Add to 
+        /// Record weapon shots.
         /// </summary>
-        public void P3Used()
+        /// <param name="name">name of the weapon fired</param>
+        /// <param name="shots">number of shots fired</param>
+        public void WeaponFired(string name, int shots)
         {
-            p3Count++;
+            for (int i = 0; i < weaponNames.Length; ++i)
+            {
+                if (name == weaponNames[i])
+                {
+                    weaponShotsFired[i] += shots;
+                }
+            }
         }
 
-        /// <summary>
-        /// Add to 
-        /// </summary>
-        public void P4Used()
-        {
-            p4Count++;
-        }
+        ///// <summary>
+        ///// Add to 
+        ///// </summary>
+        ///// <param name="shots"></param>
+        //public void W1Fired(int shots)
+        //{
+        //    w1ShotsFired += shots;
+        //}
+
+        ///// <summary>
+        ///// Add to 
+        ///// </summary>
+        ///// <param name="shots"></param>
+        //public void W2Fired(int shots)
+        //{
+        //    w2ShotsFired += shots;
+        //}
 
         /// <summary>
-        /// Add to 
-        /// </summary>
-        public void P5Used()
-        {
-            p5Count++;
-        }
-
-        /// <summary>
-        /// Add to 
-        /// </summary>
-        /// <param name="shots"></param>
-        public void W1Fired(int shots)
-        {
-            w1ShotsFired += shots;
-        }
-
-        /// <summary>
-        /// Add to 
-        /// </summary>
-        /// <param name="shots"></param>
-        public void W2Fired(int shots)
-        {
-            w2ShotsFired += shots;
-        }
-
-        /// <summary>
-        /// Increment waves, print wave data to console
+        /// Increment waves. Print wave data to console.
         /// </summary>
         public void WaveComplete()
         {
@@ -323,5 +487,4 @@ namespace Hive.Armada
             PrintWaveStats();
         }
     }
-
 }

@@ -3158,19 +3158,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48022b2851c23ad43906fe6bcddd8b51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dateTime: 
-  totalAliveTime: 0
-  waves: 0
-  totalEnemiesKilled: 0
-  totalFiringTime: 0
-  totalScore: 0
-  totalShotsFired: 0
-  totalShieldCount: 0
-  totalAreaBombCount: 0
-  totalClearCount: 0
-  totalAllyCount: 0
-  totalDamageBoostCount: 0
-  totalCurrencyCollected: 0
+  weaponNames:
+  - Laser Gun
+  - Minigun
+  powerupNames:
+  - Ally
+  - Area Bomb
+  - Clear
+  - Damage Boost
+  - Shield
 --- !u!114 &606397240
 MonoBehaviour:
   m_ObjectHideFlags: 0

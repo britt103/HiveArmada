@@ -38,14 +38,15 @@ namespace Hive.Armada.Game
         /// <summary>
         /// Initializes all attributes to this object's defaults and disables it.
         /// </summary>
-        public abstract void Initialize();
+        /// <param name="typeIdentifier"> The type identifier for this object. </param>
+        public abstract void Initialize(int typeIdentifier);
 
         /// <summary>
         /// Re-initializes the object and activates it.
         /// </summary>
         public virtual void Activate()
         {
-            Initialize();
+            Reset();
             IsActive = true;
             gameObject.SetActive(true);
         }

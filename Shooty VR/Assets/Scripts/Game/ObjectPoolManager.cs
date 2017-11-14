@@ -24,6 +24,12 @@ namespace Hive.Armada.Game
     public class ObjectPoolManager : MonoBehaviour
     {
         /// <summary>
+        /// Prefab of empty game object that is the parent of each object type in the pool.
+        /// </summary>
+        [Tooltip("Prefab of empty game object to use as the parent for each object type in the pool.")]
+        public GameObject poolParentPrefab;
+
+        /// <summary>
         /// Array of all objects that should have pools created for them.
         /// </summary>
         [Tooltip("Array of all objects that should have pools created for them.")]
@@ -79,9 +85,11 @@ namespace Hive.Armada.Game
                             continue;
                         }
 
+                        GameObject parent = Instantiate(poolParentPrefab, gameObject.transform);
+
                         for (int n = 0; n < initialPools[i]; ++n)
                         {
-                            GameObject pooled = Instantiate(objectsToPool[i], gameObject.transform);
+                            GameObject pooled = Instantiate(objectsToPool[i], parent.transform);
                             pooled.GetComponent<Poolable>().Initialize(i);
                             readyPools[i].Enqueue(pooled);
                         }

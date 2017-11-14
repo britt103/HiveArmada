@@ -13,7 +13,7 @@
 
 using UnityEngine;
 
-namespace Hive.Armada.Powerups
+namespace Hive.Armada.PowerUps
 {
     /// <summary>
     /// Clear powerup.

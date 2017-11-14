@@ -17,7 +17,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace Hive.Armada.Powerups
+namespace Hive.Armada.PowerUps
 {
     /// <summary>
     /// Ally powerup with static movement.

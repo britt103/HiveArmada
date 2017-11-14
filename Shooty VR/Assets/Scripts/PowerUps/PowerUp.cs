@@ -15,9 +15,9 @@
 
 using UnityEngine;
 
-namespace Hive.Armada.Powerups
+namespace Hive.Armada.PowerUps
 {
-    public class Powerup : MonoBehaviour
+    public class PowerUp : MonoBehaviour
     {
         /// <summary>
         /// Reference to pickup prefab.
@@ -37,7 +37,7 @@ namespace Hive.Armada.Powerups
         /// <summary>
         /// Reference to PowerUpStatus.
         /// </summary>
-        private PowerupStatus status;
+        private PowerUpStatus status;
 
         //Reference to player head transform.
         private Transform head;
@@ -57,7 +57,7 @@ namespace Hive.Armada.Powerups
             fx.transform.rotation = Quaternion
                     .FromToRotation(Vector3.up, head.position - gameObject.transform.position);
 
-            status = FindObjectOfType<PowerupStatus>();
+            status = FindObjectOfType<PowerUpStatus>();
             Destroy(gameObject, lifeTime);
         }
 

@@ -17,12 +17,12 @@ using UnityEngine;
 using Hive.Armada.Player;
 using Valve.VR.InteractionSystem;
 
-namespace Hive.Armada.Powerups
+namespace Hive.Armada.PowerUps
 {
     /// <summary>
     /// Tracks stored powerups and activations.
     /// </summary>
-    public class PowerupStatus : MonoBehaviour
+    public class PowerUpStatus : MonoBehaviour
     {
         /// <summary>
         /// Array of states of whether each type of powerup is currently stored.

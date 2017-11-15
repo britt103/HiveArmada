@@ -20,7 +20,7 @@ namespace Hive.Armada.Game
     /// <summary>
     /// 
     /// </summary>
-    public class NewWaveManager : MonoBehaviour
+    public class WaveManager : MonoBehaviour
     {
         /// <summary>
         /// Array of all waves that will be run.

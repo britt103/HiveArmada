@@ -22,7 +22,7 @@ namespace Hive.Armada.Game
         /// </summary>
         [Tooltip("All subwaves that will run during this wave in the order they will run.")]
         [Reorderable("Subwave", false)]
-        public Subwaves[] subwaves;
+        public Subwave[] subwaves;
 
         private int currentSubwave;
 
@@ -68,7 +68,7 @@ namespace Hive.Armada.Game
         /// <param name="subwave"> The index of the subwave to run </param>
         private void RunSubwave(int subwave)
         {
-            subwaves[subwave].RunSubwave();
+            this.subwaves[subwave].RunSubwave();
         }
 
         /// <summary>
@@ -77,12 +77,12 @@ namespace Hive.Armada.Game
         /// <param name="subwave"> The index of the subwave that completed </param>
         public void SubwaveComplete(int subwave)
         {
-            if (!subwaves[currentSubwave].IsComplete || subwaves[currentSubwave].IsRunning)
+            if (!this.subwaves[currentSubwave].IsComplete || this.subwaves[currentSubwave].IsRunning)
             {
                 Debug.LogError("Wave " + waveNumber + " - subwave " + currentSubwave + " says it is complete, but it isn't!");
             }
 
-            if (subwaves.Length > ++currentSubwave)
+            if (this.subwaves.Length > ++currentSubwave)
             {
                 RunSubwave(currentSubwave);
             }
@@ -90,7 +90,7 @@ namespace Hive.Armada.Game
             {
                 IsRunning = false;
                 IsComplete = true;
-                reference.newWaveManager.WaveComplete(waveNumber);
+                reference.waveManager.WaveComplete(waveNumber);
             }
         }
     }

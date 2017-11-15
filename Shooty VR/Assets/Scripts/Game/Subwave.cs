@@ -7,7 +7,7 @@ namespace Hive.Armada.Game
     /// <summary>
     /// 
     /// </summary>
-    public class Subwaves : MonoBehaviour
+    public class Subwave : MonoBehaviour
     {
         public bool IsRunning { get; private set; }
 

@@ -14,8 +14,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Hive.Armada.Game;
 using UnityEngine;
+using Hive.Armada.Game;
 
 namespace Hive.Armada.Enemies
 {
@@ -23,7 +23,7 @@ namespace Hive.Armada.Enemies
     /// <summary>
     /// The base class for all enemies.
     /// </summary>
-    public abstract class Enemy : MonoBehaviour
+    public abstract class Enemy : Poolable
     {
         /// <summary>
         /// Reference manager that holds all needed references
@@ -36,7 +36,7 @@ namespace Hive.Armada.Enemies
         /// TODO: Move this to EnemyStats script
         /// </summary>
         [Tooltip("How much health the enemy spawns with.")]
-        public int maxHealth;
+        protected int maxHealth;
 
         /// <summary>
         /// Current health. Nothing can access this.
@@ -47,7 +47,7 @@ namespace Hive.Armada.Enemies
         /// How many points this enemy is worth when killed.
         /// </summary>
         [Tooltip("How many points this enemy is worth when killed.")]
-        public int pointValue;
+        protected int pointValue;
 
         /// <summary>
         /// The color the ship flashes when it is hit.
@@ -72,6 +72,7 @@ namespace Hive.Armada.Enemies
         /// Used to tell spawner that it can spawn more enemies.
         /// </summary>
         protected bool untouched = true;
+
         protected bool hitFlashing;
 
         /// <summary>
@@ -84,7 +85,7 @@ namespace Hive.Armada.Enemies
         /// List of Materials of all pieces of the enemy model.
         /// Used to reset Materials after flashing.
         /// </summary>
-        protected List<Material> mats;
+        protected List<Material> materials;
 
         /// <summary>
         /// Initializes variables for the enemy when it loads.
@@ -94,9 +95,11 @@ namespace Hive.Armada.Enemies
             reference = GameObject.Find("Reference Manager").GetComponent<ReferenceManager>();
 
             if (reference == null)
+            {
                 Debug.LogError(GetType().Name + " - Could not find Reference Manager!");
+            }
 
-            mats = new List<Material>();
+            materials = new List<Material>();
             health = maxHealth;
             Instantiate(spawnEmitter, transform.position, transform.rotation, transform);
         }
@@ -124,14 +127,21 @@ namespace Hive.Armada.Enemies
             }
 
             if (health <= 0)
+            {
                 Kill();
+            }
 
-            if (!untouched) return;
+            if (!untouched)
+            {
+                return;
+            }
 
             untouched = false;
 
             if (reference.spawner != null)
+            {
                 reference.spawner.EnemyHit();
+            }
         }
 
         /// <summary>
@@ -156,9 +166,11 @@ namespace Hive.Armada.Enemies
             foreach (Renderer r in gameObject.GetComponentsInChildren<Renderer>())
             {
                 if (r.gameObject.CompareTag("Emitter") || r.transform.parent.CompareTag("Emitter"))
+                {
                     continue;
+                }
 
-                mats.Add(r.material);
+                materials.Add(r.material);
 
                 r.material = flashColor;
             }
@@ -169,10 +181,12 @@ namespace Hive.Armada.Enemies
             foreach (Renderer r in gameObject.GetComponentsInChildren<Renderer>())
             {
                 if (r.gameObject.CompareTag("Emitter") || r.transform.parent.CompareTag("Emitter"))
+                {
                     continue;
+                }
 
-                r.material = mats.First();
-                mats.RemoveAt(0);
+                r.material = materials.First();
+                materials.RemoveAt(0);
             }
 
             hitFlash = null;

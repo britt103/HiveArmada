@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 //Name: Miguel Luis Gotao
 //Student ID: 2264941
@@ -58,6 +60,11 @@ namespace Hive.Armada.Enemies
                     transform.LookAt(new Vector3(0.0f, 0.0f, 0.0f));
                 }
             }
+        }
+
+        protected override void Reset()
+        {
+            throw new NotImplementedException();
         }
     }
 }

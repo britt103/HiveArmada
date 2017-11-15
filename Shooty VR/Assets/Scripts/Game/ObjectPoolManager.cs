@@ -26,8 +26,20 @@ namespace Hive.Armada.Game
         /// <summary>
         /// Prefab of empty game object that is the parent of each object type in the pool.
         /// </summary>
-        [Tooltip("Prefab of empty game object to use as the parent for each object type in the pool.")]
+        [Tooltip(
+            "Prefab of empty game object to use as the parent for each object type in the pool.")]
         public GameObject poolParentPrefab;
+
+        /// <summary>
+        /// Parents for each of the object types in the pool.
+        /// </summary>
+        private GameObject[] poolParents;
+
+        /// <summary>
+        /// The names of the pool parents. Used to easily update the number of pooled enemies withoutregenerating the name.
+        /// E.g. "Enemy_Standard Parent: "
+        /// </summary>
+        private string[] parentNames;
 
         /// <summary>
         /// Array of all objects that should have pools created for them.
@@ -73,6 +85,8 @@ namespace Hive.Armada.Game
                 }
                 else
                 {
+                    poolParents = new GameObject[objectsToPool.Length];
+                    parentNames = new string[objectsToPool.Length];
                     readyPools = new Queue<GameObject>[objectsToPool.Length];
                     runningPools = new Queue<GameObject>[objectsToPool.Length];
 
@@ -85,11 +99,17 @@ namespace Hive.Armada.Game
                             continue;
                         }
 
-                        GameObject parent = Instantiate(poolParentPrefab, gameObject.transform);
+                        readyPools[i] = new Queue<GameObject>();
+                        runningPools[i] = new Queue<GameObject>();
+
+                        poolParents[i] = Instantiate(poolParentPrefab, gameObject.transform);
+                        parentNames[i] = objectsToPool[i].name + " Parent: ";
+                        poolParents[i].name = parentNames[i] + initialPools[i];
 
                         for (int n = 0; n < initialPools[i]; ++n)
                         {
-                            GameObject pooled = Instantiate(objectsToPool[i], parent.transform);
+                            GameObject pooled = Instantiate(objectsToPool[i],
+                                poolParents[i].transform);
                             pooled.GetComponent<Poolable>().Initialize(i);
                             readyPools[i].Enqueue(pooled);
                         }

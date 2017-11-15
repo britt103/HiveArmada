@@ -36,10 +36,15 @@ namespace Hive.Armada.Game
         protected int TypeIdentifier { get; private set; }
 
         /// <summary>
-        /// Initializes all attributes to this object's defaults and disables it.
+        /// Initializes all attributes to this object's defaults with Reset() and disables it.
         /// </summary>
         /// <param name="typeIdentifier"> The type identifier for this object. </param>
-        public abstract void Initialize(int typeIdentifier);
+        public virtual void Initialize(int typeIdentifier)
+        {
+            TypeIdentifier = typeIdentifier;
+            Reset();
+            gameObject.SetActive(false);
+        }
 
         /// <summary>
         /// Re-initializes the object and activates it.

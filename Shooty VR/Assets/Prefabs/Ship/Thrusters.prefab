@@ -436,10 +436,10 @@ GameObject:
   - component: {fileID: 4508893774885148}
   - component: {fileID: 114150575784695996}
   - component: {fileID: 114387485106083888}
+  - component: {fileID: 114042732716805254}
   - component: {fileID: 114182523759914442}
   - component: {fileID: 114303390910709940}
   - component: {fileID: 114455474106140256}
-  - component: {fileID: 114042732716805254}
   - component: {fileID: 136807103204981110}
   - component: {fileID: 82183694413675744}
   m_Layer: 0
@@ -5824,8 +5824,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e23030c77dd034d4ab463f488c746cc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shipMode: 1
   hand: {fileID: 0}
+  shipMode: 1
   weapons:
   - {fileID: 1629746874275404}
   - {fileID: 1898544543187972}
@@ -5856,14 +5856,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shipController: {fileID: 114387485106083888}
-  damageBoost: 0
+  damageMultiplier: 0
   radius: 0.3
+  laserMaterial: {fileID: 2100000, guid: fb4863ba36a8e134791cc6e1bbb1efeb, type: 2}
+  laserSounds: []
   left: {fileID: 1342840622184698}
   right: {fileID: 1178781355733306}
-  laserMaterial: {fileID: 2100000, guid: fb4863ba36a8e134791cc6e1bbb1efeb, type: 2}
-  thickness: 0.002
   source: {fileID: 0}
-  laserSounds: []
+  thickness: 0.002
 --- !u!114 &114693560361633878
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5891,7 +5891,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shipController: {fileID: 114387485106083888}
-  damageBoost: 1
+  damageMultiplier: 0
   radius: 0.3
   left:
   - {fileID: 1878302441711834}

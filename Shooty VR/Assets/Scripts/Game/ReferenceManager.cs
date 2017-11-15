@@ -15,7 +15,7 @@ using System.Collections.Generic;
 using Hive.Armada.Player;
 using UnityEngine;
 
-namespace  Hive.Armada.Game
+namespace Hive.Armada.Game
 {
     /// <summary>
     /// Holds references to all prefabs and important objects.
@@ -27,8 +27,13 @@ namespace  Hive.Armada.Game
         //--------------------
         [Header("Systems & Managers")]
         public GameManager gameManager;
+
         public Spawner spawner;
+
+        public EnemyAttributes enemyAttributes;
+
         public ScoringSystem scoringSystem;
+
         public PlayerStats statistics;
 
         //--------------------
@@ -36,7 +41,9 @@ namespace  Hive.Armada.Game
         //--------------------
         [Header("Player")]
         public GameObject playerShip;
+
         public GameObject shipPickup;
+
         public PowerUpStatus powerUpStatus;
 
         //--------------------
@@ -44,7 +51,7 @@ namespace  Hive.Armada.Game
         //--------------------
         [Header("Menus")]
         public GameObject menuMain;
+
         public GameObject menuTitle;
     }
 }
-

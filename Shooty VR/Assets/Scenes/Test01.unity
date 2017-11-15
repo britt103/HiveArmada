@@ -2118,7 +2118,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 421848038}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &331214256
 MonoBehaviour:
@@ -2385,6 +2385,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2047074951}
+  - {fileID: 898325482}
   - {fileID: 331214255}
   m_Father: {fileID: 0}
   m_RootOrder: 4
@@ -3768,6 +3769,52 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d9f2a9ef87214aa4e9c338464a9a76c4, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &898325480
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 898325482}
+  - component: {fileID: 898325481}
+  m_Layer: 0
+  m_Name: Object Pool Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &898325481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 898325480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51f1c59fd1067cb4d830f1a57eace4aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolParentPrefab: {fileID: 1863223209720578, guid: 1843794a394e58641ab13ce356f29cc2,
+    type: 2}
+  objectsToPool:
+  - {fileID: 1618603837932422, guid: 9a594f50db7a6b347af3019acb9f591b, type: 2}
+  - {fileID: 1590670541974036, guid: 0f837641c26eee64eaa72bd67b35506d, type: 2}
+  initialPools: 32000000e8030000
+--- !u!4 &898325482
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 898325480}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 10, y: 2, z: 10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 421848038}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &908330519
 GameObject:
   m_ObjectHideFlags: 0
@@ -6034,6 +6081,59 @@ GameObject:
   m_PrefabParentObject: {fileID: 1229903990448498, guid: 8ab0f7de59750d34fb60a1ce261af7e4,
     type: 2}
   m_PrefabInternal: {fileID: 1287213001}
+--- !u!1 &1351179623
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1351179624}
+  - component: {fileID: 1351179625}
+  m_Layer: 0
+  m_Name: Enemy Attributes
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1351179624
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1351179623}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2047074951}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1351179625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1351179623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd6c37d73f3d330439ad4e3db0d075a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyHealthValues: 50000000
+  enemyScoreValues: 0a000000
+  enemyProjectilePrefab:
+  - {fileID: 1590670541974036, guid: 0f837641c26eee64eaa72bd67b35506d, type: 2}
+  enemyFireRate:
+  - 0.8
+  enemySpread:
+  - 2
+  enemySpawnEmitters: []
+  enemyDeathEmitters: []
+  projectileDamage: 10
+  projectileSpeed: 1.5
+  projectileLifetime: 10
 --- !u!1 &1362497685
 GameObject:
   m_ObjectHideFlags: 0
@@ -10069,7 +10169,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1351179624}
   m_Father: {fileID: 421848038}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -10086,6 +10187,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameManager: {fileID: 421848037}
   spawner: {fileID: 1490104826}
+  enemyAttributes: {fileID: 1351179625}
   scoringSystem: {fileID: 331214256}
   statistics: {fileID: 606397239}
   playerShip: {fileID: 0}

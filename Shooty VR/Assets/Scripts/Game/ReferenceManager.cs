@@ -30,6 +30,7 @@ namespace  Hive.Armada.Game
         public Spawner spawner;
         public ScoringSystem scoringSystem;
         public PlayerStats statistics;
+        public NewWaveManager newWaveManager;
 
         //--------------------
         // Player

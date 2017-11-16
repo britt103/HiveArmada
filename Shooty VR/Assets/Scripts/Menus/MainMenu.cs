@@ -10,11 +10,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MainMenu : MonoBehaviour {
+    public AudioSource source;
+    public AudioClip[] clips;
     /// <summary>
     /// Start button pressed; navigated to start menu
     /// </summary>
     public void OnStartButton()
     {
+        StartCoroutine(playMenuSound());
         GameObject.Find("Main Canvas").transform.Find("Start Menu").gameObject.SetActive(true);
         gameObject.SetActive(false);
     }
@@ -24,6 +27,7 @@ public class MainMenu : MonoBehaviour {
     /// </summary>
     public void OnOptionsButton()
     {
+        StartCoroutine(playMenuSound());
         GameObject.Find("Main Canvas").transform.Find("Options Menu").gameObject.SetActive(true);
         gameObject.SetActive(false);
     }
@@ -34,5 +38,11 @@ public class MainMenu : MonoBehaviour {
     public void OnQuitButton()
     {
         
+    }
+
+    IEnumerator playMenuSound()
+    {
+        source.PlayOneShot(clips[0]);
+        yield return new WaitForSeconds(1);
     }
 }

@@ -11,6 +11,8 @@ using UnityEngine;
 
 public class ControlsMenu : MonoBehaviour {
     private ControlsHighlighter ch;
+    public AudioSource source;
+    public AudioClip[] clips;
 
     /// <summary>
     /// Activate controller highlighting
@@ -28,10 +30,17 @@ public class ControlsMenu : MonoBehaviour {
     /// </summary>
     public void OnBackButton()
     {
+        StartCoroutine(playBackSound());
         GameObject.Find("Main Canvas").transform.Find("Options Menu").gameObject.SetActive(true);
 
         ch.AllOff();
- 
+
         gameObject.SetActive(false);
+    }
+
+    IEnumerator playBackSound()
+    {
+        source.PlayOneShot(clips[0]);
+        yield return new WaitForSeconds(1);
     }
 }

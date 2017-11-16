@@ -20,11 +20,15 @@ namespace Hive.Armada.Menu
         public Spawner spawner;
         private bool isStarting;
 
+        public AudioSource source;
+        public AudioClip[] clips;
+
         /// <summary>
         /// Called by start button; changes ship mode and starts countdown
         /// </summary>
         public void ButtonSoloNormalClicked()
         {
+            StartCoroutine(playMenuOptionSound());
             if (!isStarting)
             {
                 isStarting = true;
@@ -56,8 +60,21 @@ namespace Hive.Armada.Menu
         /// </summary>
         public void OnBackButton()
         {
+            StartCoroutine(playMenuBackSound());
             GameObject.Find("Main Canvas").transform.Find("Main Menu").gameObject.SetActive(true);
             gameObject.SetActive(false);
+        }
+
+        IEnumerator playMenuOptionSound()
+        {
+            source.PlayOneShot(clips[0]);
+            yield return new WaitForSeconds(1);
+        }
+
+        IEnumerator playMenuBackSound()
+        {
+            source.PlayOneShot(clips[1]);
+            yield return new WaitForSeconds(1);
         }
     }
 }

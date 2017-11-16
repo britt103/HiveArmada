@@ -10,11 +10,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class OptionsMenu : MonoBehaviour {
+
+    public AudioSource source;
+    public AudioClip[] clips;
     /// <summary>
     /// Controls button pressed; navigates to controls menu
     /// </summary>
     public void OnControlsButton()
     {
+        StartCoroutine(playOptionSound());
         GameObject.Find("Main Canvas").transform.Find("Controls Menu").gameObject.SetActive(true);
         gameObject.SetActive(false);
     }
@@ -24,6 +28,7 @@ public class OptionsMenu : MonoBehaviour {
     /// </summary>
     public void OnDisplayButton()
     {
+        StartCoroutine(playOptionSound());
         GameObject.Find("Main Canvas").transform.Find("Display Menu").gameObject.SetActive(true);
         gameObject.SetActive(false);
     }
@@ -33,6 +38,7 @@ public class OptionsMenu : MonoBehaviour {
     /// </summary>
     public void OnSoundButton()
     {
+        StartCoroutine(playOptionSound());
         GameObject.Find("Main Canvas").transform.Find("Sound Menu").gameObject.SetActive(true);
         gameObject.SetActive(false);
     }
@@ -42,6 +48,7 @@ public class OptionsMenu : MonoBehaviour {
     /// </summary>
     public void OnLexiconButton()
     {
+        StartCoroutine(playOptionSound());
         GameObject.Find("Main Canvas").transform.Find("Lexicon Menu").gameObject.SetActive(true);
         gameObject.SetActive(false);
     }
@@ -51,6 +58,7 @@ public class OptionsMenu : MonoBehaviour {
     /// </summary>
     public void OnIntroButton()
     {
+        StartCoroutine(playOptionSound());
         Debug.Log("Intro button pressed");
     }
 
@@ -59,6 +67,7 @@ public class OptionsMenu : MonoBehaviour {
     /// </summary>
     public void OnCreditsButton()
     {
+        StartCoroutine(playOptionSound());
         Debug.Log("Credits button pressed");
     }
 
@@ -67,7 +76,20 @@ public class OptionsMenu : MonoBehaviour {
     /// </summary>
     public void OnBackButton()
     {
+        StartCoroutine(playBackSound());
         GameObject.Find("Main Canvas").transform.Find("Main Menu").gameObject.SetActive(true);
         gameObject.SetActive(false);
+    }
+
+    IEnumerator playOptionSound()
+    {
+        source.PlayOneShot(clips[0]);
+        yield return new WaitForSeconds(1);
+    }
+
+    IEnumerator playBackSound()
+    {
+        source.PlayOneShot(clips[1]);
+        yield return new WaitForSeconds(1);
     }
 }

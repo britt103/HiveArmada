@@ -83,9 +83,6 @@ namespace Hive.Armada.Enemies
 
 <<<<<<< HEAD
 		public AudioSource source;
-=======
-        public AudioSource source;
->>>>>>> add more sounds
         public AudioClip[] clips;
 
         /// <summary>
@@ -101,6 +98,9 @@ namespace Hive.Armada.Enemies
         /// swayed via the spread value set by user. If player is not found automatically
         /// finds player, otherwise do nothing.
         /// </summary>
+=======
+        // Update is called once per frame
+>>>>>>> Add more sounds
         void Update()
         {
             if (player != null)
@@ -120,8 +120,8 @@ namespace Hive.Armada.Enemies
                     var shoot = Instantiate(bullet, spawn.position, spawn.rotation);                    //within a certain duration. The turret then
                     shoot.GetComponent<Transform>().Rotate(randX, randY, randZ);
                     shoot.GetComponent<Rigidbody>().velocity = shoot.transform.forward * fireSpeed;     //instantiates a bullet and shoots it forward
-                    source.PlayOneShot(clips[0]);                                                          //in the direction of the player.
->>>>>>> add more sounds
+                                                                                                        //in the direction of the player.
+>>>>>>> Add more sounds
                 }
             }
             else

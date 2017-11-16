@@ -63,12 +63,6 @@ namespace Hive.Armada.Game
         public int[] amountsToPool;
 
         /// <summary>
-        /// Array of latest identifier given to each object. ID is issued as consecutive numbers per pool.
-        /// Used to remove specific instances of objects from the activePools.
-        /// </summary>
-        public int[] lastObjectIdentifiers;
-
-        /// <summary>
         /// Array of queues for each object to pool.
         /// These queues will hold the objects that are currently deactivated in the scene.
         /// </summary>
@@ -100,7 +94,6 @@ namespace Hive.Armada.Game
                 {
                     poolParents = new GameObject[objectsToPool.Length];
                     parentNames = new string[objectsToPool.Length];
-                    lastObjectIdentifiers = new int[objectsToPool.Length];
                     inactivePools = new LinkedList<GameObject>[objectsToPool.Length];
                     activePools = new LinkedList<GameObject>[objectsToPool.Length];
 
@@ -344,14 +337,12 @@ namespace Hive.Armada.Game
             Poolable objectPoolable = objectToDespawn.GetComponent<Poolable>();
             if (objectPoolable)
             {
-                int identifier = objectPoolable.Identifier;
                 int typeIdentifier = objectPoolable.TypeIdentifier;
 
                 objectPoolable.Deactivate();
 
                 // Find objectToDespawn in the activePools
-                if (activePools[objectPoolable.TypeIdentifier].First.Value
-                        .GetComponent<Poolable>().Identifier == identifier)
+                if (activePools[objectPoolable.TypeIdentifier].First.Value == objectToDespawn)
                 {
                     // objectToDespawn is first in the list
                     LinkedListNode<GameObject> despawnNode =
@@ -359,8 +350,7 @@ namespace Hive.Armada.Game
                     activePools[typeIdentifier].RemoveFirst();
                     inactivePools[typeIdentifier].AddLast(despawnNode);
                 }
-                else if (activePools[objectPoolable.TypeIdentifier].Last.Value
-                             .GetComponent<Poolable>().Identifier == identifier)
+                else if (activePools[objectPoolable.TypeIdentifier].Last.Value == objectToDespawn)
                 {
                     // objectToDespawn is last in the list
                     LinkedListNode<GameObject> despawnNode =
@@ -371,11 +361,11 @@ namespace Hive.Armada.Game
                 else
                 {
                     // objectToDespawn is somewhere in the middle of the list
-                    LinkedListNode<GameObject> despawnNode = activePools[typeIdentifier].First;
+                    LinkedListNode<GameObject> despawnNode = activePools[typeIdentifier].First.Next;
 
                     while (despawnNode != null)
                     {
-                        if (despawnNode.Value.GetComponent<Poolable>().Identifier == identifier)
+                        if (despawnNode.Value == objectToDespawn)
                         {
                             break;
                         }
@@ -392,7 +382,7 @@ namespace Hive.Armada.Game
                     {
                         Debug.LogError(GetType().Name +
                                        " - Cannot Despawn() because object is not in the activePool! \"" +
-                                       objectToDespawn.name + "\" identifier = " + identifier);
+                                       objectToDespawn.name + "\" InstanceID = " + objectToDespawn.GetInstanceID());
                     }
                 }
             }
@@ -461,7 +451,7 @@ namespace Hive.Armada.Game
             GameObject pooled = Instantiate(objectsToPool[typeIdentifier],
                 poolParents[typeIdentifier].transform);
             pooled.GetComponent<Poolable>()
-                .Initialize(typeIdentifier, lastObjectIdentifiers[typeIdentifier]++);
+                .Initialize(typeIdentifier);
             inactivePools[typeIdentifier].AddLast(pooled);
         }
     }

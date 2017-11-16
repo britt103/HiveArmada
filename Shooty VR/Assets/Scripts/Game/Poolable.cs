@@ -36,18 +36,12 @@ namespace Hive.Armada.Game
         public int TypeIdentifier { get; private set; }
 
         /// <summary>
-        /// Identifies this object in its own pool. Used to remove it from the activePool.
-        /// </summary>
-        public int Identifier { get; private set; }
-
-        /// <summary>
         /// Initializes all attributes to this object's defaults with Reset() and disables it.
         /// </summary>
         /// <param name="typeIdentifier"> The type identifier for this object. </param>
-        public virtual void Initialize(int typeIdentifier, int identifier)
+        public virtual void Initialize(int typeIdentifier)
         {
             TypeIdentifier = typeIdentifier;
-            Identifier = identifier;
             Reset();
             gameObject.SetActive(false);
         }

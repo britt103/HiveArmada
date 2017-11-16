@@ -24,6 +24,9 @@ namespace Hive.Armada
         //private Hand hand;
         public GameObject fxTrail, fxBomb;
 
+        public AudioSource source;
+        public AudioClip[] clips;
+
         // Use this for initialization
         void Start()
         {
@@ -77,6 +80,7 @@ namespace Hive.Armada
                 if (objectCollider.gameObject.tag == "Enemy")
                 {
                     objectCollider.gameObject.GetComponent<Enemies.Enemy>().Hit(100);
+                    StartCoroutine(playExplosion());
                 }
             }
             Instantiate(fxBomb, transform.position, transform.rotation);
@@ -97,12 +101,18 @@ namespace Hive.Armada
                     if (objectCollider.gameObject.tag == "Enemy")
                     {
                         objectCollider.gameObject.GetComponent<Enemies.Enemy>().Hit(100);
+                        StartCoroutine(playExplosion());
                     }
                 }
                 Instantiate(fxBomb, transform.position, transform.rotation);
                 FindObjectOfType<PowerUpStatus>().areaBombActive = false;
                 Destroy(gameObject);
             }
+        }
+        IEnumerator playExplosion()
+        {
+            source.PlayOneShot(clips[0]);
+            yield return new WaitForSeconds(2);
         }
     }
 }

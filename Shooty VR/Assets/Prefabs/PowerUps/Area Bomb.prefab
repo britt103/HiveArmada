@@ -70,7 +70,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1499271545386294}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalPosition: {x: -0, y: 0.36, z: 1.4}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children:
   - {fileID: 4303120934899364}
@@ -175,6 +175,9 @@ MonoBehaviour:
   startingZ: 1
   fxTrail: {fileID: 1424821901350050}
   fxBomb: {fileID: 1060095275791766, guid: e592d55d98210764b8e20e2bb6b6b492, type: 2}
+  source: {fileID: 0}
+  clips:
+  - {fileID: 8300000, guid: e972c4e9f448e774eaf9d37ed141564a, type: 3}
 --- !u!135 &135581259128785744
 SphereCollider:
   m_ObjectHideFlags: 1

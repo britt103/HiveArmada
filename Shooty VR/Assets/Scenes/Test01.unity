@@ -3796,12 +3796,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51f1c59fd1067cb4d830f1a57eace4aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canExpand: 1
   poolParentPrefab: {fileID: 1863223209720578, guid: 1843794a394e58641ab13ce356f29cc2,
     type: 2}
   objectsToPool:
   - {fileID: 1618603837932422, guid: 9a594f50db7a6b347af3019acb9f591b, type: 2}
   - {fileID: 1590670541974036, guid: 0f837641c26eee64eaa72bd67b35506d, type: 2}
-  initialPools: 32000000e8030000
+  amountsToPool: 0a00000014000000
 --- !u!4 &898325482
 Transform:
   m_ObjectHideFlags: 0
@@ -5318,7 +5319,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1126867849
 Transform:
   m_ObjectHideFlags: 0
@@ -10190,6 +10191,7 @@ MonoBehaviour:
   enemyAttributes: {fileID: 1351179625}
   scoringSystem: {fileID: 331214256}
   statistics: {fileID: 606397239}
+  objectPoolManager: {fileID: 898325481}
   playerShip: {fileID: 0}
   shipPickup: {fileID: 1287213002}
   powerUpStatus: {fileID: 606397240}

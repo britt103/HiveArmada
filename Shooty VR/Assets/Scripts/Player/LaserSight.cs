@@ -140,7 +140,15 @@ namespace Hive.Armada.Player
         {
             if (mode.Equals(ShipController.ShipMode.Menu) && isButton)
             {
-                ExecuteEvents.Execute(aimObject, new PointerEventData(EventSystem.current), ExecuteEvents.submitHandler);
+                if (aimObject.GetComponent<Slider>())
+                {
+                    ExecuteEvents.Execute(aimObject, new PointerEventData(EventSystem.current), ExecuteEvents.dragHandler);
+                    Debug.Log("Slider");
+                }
+                else
+                {
+                    ExecuteEvents.Execute(aimObject, new PointerEventData(EventSystem.current), ExecuteEvents.submitHandler);
+                }
             }
         }
 

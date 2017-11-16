@@ -190,7 +190,12 @@ namespace Hive.Armada.Player
             {
                 if (hand.GetStandardInteractionButtonDown())
                 {
-                    laserSight.TriggerUpdate();
+                    laserSight.TriggerUpdate(false);
+                }
+
+                else if (hand.GetStandardInteractionButton())
+                {
+                    laserSight.TriggerUpdate(true);
                 }
             }
 

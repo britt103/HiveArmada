@@ -33,7 +33,6 @@ namespace Hive.Armada.Menus
             ch = FindObjectOfType<ShipController>().transform.parent.GetComponentInChildren<ControlsHighlighter>();
             ch.FireOn();
             ch.PowerupOn();
-            ch.PauseOn();
         }
 
         /// <summary>

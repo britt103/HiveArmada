@@ -32,11 +32,12 @@ namespace Hive.Armada.Menus
         private GameObject cameraGO;
 
         /// <summary>
-        /// Add listener to toggle. Find references.
+        /// Find references. Set initial UI values;
         /// </summary>
         private void Awake()
         {
             cameraGO = GameObject.Find("Player").GetComponentInChildren<Camera>().gameObject;
+            bloomToggle.isOn = cameraGO.GetComponent<PostProcessingBehaviour>().profile.bloom.enabled;
         }
 
         /// <summary>

@@ -13,7 +13,7 @@ namespace Hive.Armada
     /// <summary>
     /// Script in charge of wave spawning in the scene.
     /// </summary>
-    public class WaveManager : MonoBehaviour
+    public class OldWaveManager : MonoBehaviour
     {
         /// <summary>
         /// Values in charge of keeping track of:

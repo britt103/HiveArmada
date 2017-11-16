@@ -36,6 +36,8 @@ namespace Hive.Armada.Game
 
         public PlayerStats statistics;
 
+        public ObjectPoolManager objectPoolManager;
+
         //--------------------
         // Player
         //--------------------

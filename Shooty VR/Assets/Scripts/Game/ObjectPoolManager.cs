@@ -27,7 +27,7 @@ namespace Hive.Armada.Game
         /// If a pool runs out, should it Instantiate() more objects?
         /// </summary>
         [Tooltip("If a pool runs out, should it Instantiate() more objects?")]
-        public bool canExpand;
+        public bool canExpand = true;
 
         /// <summary>
         /// Prefab of empty game object that is the parent of each object type in the pool.
@@ -231,6 +231,41 @@ namespace Hive.Armada.Game
         /// <summary>
         /// Spawns a pooled object.
         /// </summary>
+        /// <param name="objectType"> the type of object to spawn </param>
+        /// <param name="position"> The position to spawn the object at </param>
+        /// <param name="rotation"> The rotation to spawn the object with </param>
+        /// <returns> The spawned object </returns>
+        public GameObject Spawn(GameObject objectType, Vector3 position, Quaternion rotation)
+        {
+            int typeIdentifier = GetTypeIdentifier(objectType);
+
+            if (typeIdentifier == -1)
+            {
+                Debug.LogError(GetType().Name + " - Unable to find object \"" + objectType.name +
+                               "\" in pool!");
+                return null;
+            }
+
+            if (inactivePools[typeIdentifier].Count == 0)
+            {
+                ExpandPool(typeIdentifier);
+            }
+
+            LinkedListNode<GameObject> spawnedNode = inactivePools[typeIdentifier].Last;
+            GameObject spawned = spawnedNode.Value;
+            inactivePools[typeIdentifier].RemoveLast();
+            activePools[typeIdentifier].AddLast(spawnedNode);
+
+            spawned.GetComponent<Poolable>().Activate();
+            spawned.transform.position = position;
+            spawned.transform.rotation = rotation;
+
+            return spawned;
+        }
+
+        /// <summary>
+        /// Spawns a pooled object.
+        /// </summary>
         /// <param name="typeIdentifier"> The identifier (index) of the object to spawn </param>
         /// <param name="position"> The position to spawn the object at </param>
         /// <returns> The spawned object </returns>
@@ -322,6 +357,39 @@ namespace Hive.Armada.Game
 
             spawned.GetComponent<Poolable>().Activate();
             spawned.transform.parent = parent;
+            spawned.transform.position = position;
+            spawned.transform.rotation = rotation;
+
+            return spawned;
+        }
+
+        /// <summary>
+        /// Spawns a pooled object.
+        /// </summary>
+        /// <param name="typeIdentifier"> The identifier (index) of the object to spawn </param>
+        /// <param name="position"> The position to spawn the object at </param>
+        /// <param name="rotation"> The rotation to spawn the object with </param>
+        /// <returns> The spawned object </returns>
+        public GameObject Spawn(int typeIdentifier, Vector3 position, Quaternion rotation)
+        {
+            if (typeIdentifier < 0 || typeIdentifier >= objectsToPool.Length)
+            {
+                Debug.LogError(GetType().Name + " - Invalid type identifier \"" + typeIdentifier +
+                               "\"!");
+                return null;
+            }
+
+            if (inactivePools[typeIdentifier].Count == 0)
+            {
+                ExpandPool(typeIdentifier);
+            }
+
+            LinkedListNode<GameObject> spawnedNode = inactivePools[typeIdentifier].Last;
+            GameObject spawned = spawnedNode.Value;
+            inactivePools[typeIdentifier].RemoveLast();
+            activePools[typeIdentifier].AddLast(spawnedNode);
+
+            spawned.GetComponent<Poolable>().Activate();
             spawned.transform.position = position;
             spawned.transform.rotation = rotation;
 

@@ -25,7 +25,7 @@ namespace Hive.Armada.Enemies
     /// </summary>
     public class SplitterChild : Enemy
     {
-        private GameObject projectilePrefab;
+        private int projectileTypeIdentifier;
 
         public Transform shootPoint;
 
@@ -82,7 +82,7 @@ namespace Hive.Armada.Enemies
             canShoot = false;
 
             GameObject projectile =
-                Instantiate(projectilePrefab, shootPoint.position, shootPoint.rotation);
+                reference.objectPoolManager.Spawn(projectileTypeIdentifier, shootPoint.position, shootPoint.rotation);
             projectile.GetComponent<Transform>().Rotate(Random.Range(-spread, spread),
                 Random.Range(-spread, spread),
                 Random.Range(-spread, spread));
@@ -96,6 +96,7 @@ namespace Hive.Armada.Enemies
 
         protected override void Reset()
         {
+            projectileTypeIdentifier = reference.enemyAttributes.EnemyProjectileTypeIdentifiers[TypeIdentifier];
             maxHealth = reference.enemyAttributes.enemyHealthValues[TypeIdentifier];
             health = maxHealth;
             fireRate = reference.enemyAttributes.enemyFireRate[TypeIdentifier];

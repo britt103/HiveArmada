@@ -24,6 +24,12 @@ namespace Hive.Armada.Game
     public class EnemyAttributes : MonoBehaviour
     {
         /// <summary>
+        /// Reference manager that holds all needed references
+        /// (e.g. spawner, game manager, etc.)
+        /// </summary>
+        private ReferenceManager reference;
+
+        /// <summary>
         /// Starting health for each enemy type.
         /// </summary>
         [Header("Enemy - General")]
@@ -41,6 +47,11 @@ namespace Hive.Armada.Game
         /// </summary>
         [Reorderable("Enemy", false)]
         public GameObject[] enemyProjectilePrefab;
+
+        /// <summary>
+        /// Type identifiers for each enemy's projectile prefab.
+        /// </summary>
+        public int[] EnemyProjectileTypeIdentifiers { get; private set; }
 
         /// <summary>
         /// Fire rate for each enemy type.
@@ -83,5 +94,25 @@ namespace Hive.Armada.Game
         /// How long projectiles should 
         /// </summary>
         public float projectileLifetime;
+
+        /// <summary>
+        /// Gets the type identifiers for each enemy's projectile prefabs
+        /// </summary>
+        private void Start()
+        {
+            EnemyProjectileTypeIdentifiers = new int[enemyProjectilePrefab.Length];
+
+            for (int i = 0; i < enemyProjectilePrefab.Length; ++i)
+            {
+                for (int j = 0; j < reference.objectPoolManager.objectsToPool.Length; ++j)
+                {
+                    if (reference.objectPoolManager.objectsToPool[i].name.Equals(enemyProjectilePrefab[i].name))
+                    {
+                        EnemyProjectileTypeIdentifiers[i] = j;
+                        break;
+                    }
+                }
+            }
+        }
     }
 }

@@ -10,12 +10,22 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class LexiconMenu : MonoBehaviour {
+
+    public AudioSource source;
+    public AudioClip[] clips;
     /// <summary>
     /// Back button pressed; navigated to options menu
     /// </summary>
     public void OnBackButton()
     {
+        StartCoroutine(playBackSound());
         GameObject.Find("Main Canvas").transform.Find("Options Menu").gameObject.SetActive(true);
         gameObject.SetActive(false);
+    }
+
+    IEnumerator playBackSound()
+    {
+        source.PlayOneShot(clips[0]);
+        yield return new WaitForSeconds(1);
     }
 }

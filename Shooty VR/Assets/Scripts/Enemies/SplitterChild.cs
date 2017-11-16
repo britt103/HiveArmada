@@ -28,9 +28,6 @@ namespace Hive.Armada.Enemies
         private GameObject player;
         private bool canShoot = true;
 
-        public AudioSource source;
-        public AudioClip[] clips;
-
         void Update()
         {
             if (player != null)
@@ -65,8 +62,6 @@ namespace Hive.Armada.Enemies
                                                         Random.Range(-spread, spread),
                                                         Random.Range(-spread, spread));
             projectile.GetComponent<Rigidbody>().velocity = projectile.transform.forward * projectileSpeed;
-
-            source.PlayOneShot(clips[0]);
 
             yield return new WaitForSeconds(fireRate);
 

@@ -921,11 +921,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: bb382f04fef5e244d81689ede21caeb6, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -961,7 +961,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 2
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -1031,9 +1031,6 @@ MonoBehaviour:
   fireRate: 0.8
   projectileSpeed: 1.5
   spread: 2
-  source: {fileID: 82747368214572024}
-  clips:
-  - {fileID: 8300000, guid: cfc54f4b220fd264085a25a31f4265f7, type: 3}
 --- !u!136 &136941660410051782
 CapsuleCollider:
   m_ObjectHideFlags: 1

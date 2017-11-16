@@ -5,6 +5,7 @@
 //Assignment: Group Project
 //Purpose: Script shield powerup behavior
 
+using System.Collections;
 using UnityEngine;
 
 namespace Hive.Armada
@@ -17,6 +18,9 @@ namespace Hive.Armada
         private float flashTimer = 0.0F;
         private bool flashState = false;
         public Vector3 rotation = new Vector3(0.0F, 0.0F, 0.0F);
+
+        public AudioSource source;
+        public AudioClip[] clips;
         //private PowerUpStatus status;
 
         private void Start()
@@ -31,6 +35,7 @@ namespace Hive.Armada
             if (timeLimit <= 0.0F)
             {
                 //status.SetShield(false);
+                StartCoroutine(shieldDeactivateSound());
                 FindObjectOfType<PowerUpStatus>().shieldActive = false;
                 Destroy(gameObject);
             }
@@ -68,6 +73,10 @@ namespace Hive.Armada
                 flashTimer = 0.0F;
             }
         }
+        IEnumerator shieldDeactivateSound()
+        {
+            source.PlayOneShot(clips[0]);
+            yield return new WaitForSeconds(1);
+        }
     }
-
 }

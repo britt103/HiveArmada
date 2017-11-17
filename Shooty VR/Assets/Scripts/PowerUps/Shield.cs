@@ -18,14 +18,18 @@ namespace Hive.Armada
         private float flashTimer = 0.0F;
         private bool flashState = false;
         public Vector3 rotation = new Vector3(0.0F, 0.0F, 0.0F);
+        private GameObject powerupAudio;
 
-        public AudioSource source;
+        private AudioSource source;
         public AudioClip[] clips;
         //private PowerUpStatus status;
 
         private void Start()
         {
             //status = GameObject.Find("Player").GetComponent<PowerUpStatus>();
+            powerupAudio = GameObject.Find("Powerup Audio");
+            source = powerupAudio.GetComponent<AudioSource>();
+            StartCoroutine(shieldActivateSound());
         }
 
         // Update is called once per frame
@@ -74,6 +78,12 @@ namespace Hive.Armada
             }
         }
         IEnumerator shieldDeactivateSound()
+        {
+            source.PlayOneShot(clips[1]);
+            yield return new WaitForSeconds(1);
+        }
+
+        IEnumerator shieldActivateSound()
         {
             source.PlayOneShot(clips[0]);
             yield return new WaitForSeconds(1);

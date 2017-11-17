@@ -60,6 +60,8 @@ namespace Hive.Armada.Enemies
                 Vector3 splitDir3 = new Vector3(transform.localPosition.x + splitDir, transform.localPosition.y, transform.localPosition.z);
                 Vector3 splitDir4 = new Vector3(transform.localPosition.x - splitDir, transform.localPosition.y, transform.localPosition.z);
 
+                Instantiate(fxKill, transform.position, transform.rotation);
+
                 //Instantiate("Explosion.name", transform.position, transform.rotation); Placeholder for destroy effect
                 Instantiate(turret, splitDir1, transform.rotation); //Creates 4 instances of the Turret prefab set in Inspector
                 Instantiate(turret, splitDir2, transform.rotation);

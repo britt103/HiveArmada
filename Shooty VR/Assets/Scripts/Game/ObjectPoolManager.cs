@@ -75,10 +75,23 @@ namespace Hive.Armada.Game
         private LinkedList<GameObject>[] activePools;
 
         /// <summary>
+        /// If Initialize() has been run yet.
+        /// </summary>
+        private bool isInitialized;
+
+        /// <summary>
         /// Generates all pools
         /// </summary>
-        private void Start()
+        public void Initialize()
         {
+            if (isInitialized)
+            {
+                Debug.LogWarning(GetType().Name + " - This has already initialized!");
+                return;
+            }
+
+            isInitialized = true;
+
             if (objectsToPool.Length == 0)
             {
                 Debug.LogError(GetType().Name + " - has no objects to pool!");

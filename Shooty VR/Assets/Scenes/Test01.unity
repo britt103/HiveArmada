@@ -2354,7 +2354,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 421848038}
-  - component: {fileID: 421848037}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: GameManager
@@ -2362,18 +2361,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &421848037
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 421848036}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1162fc50210a5a449ae98ed86dfb6d2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startMenu: {fileID: 106629173}
 --- !u!4 &421848038
 Transform:
   m_ObjectHideFlags: 0
@@ -3766,7 +3753,8 @@ Prefab:
       propertyPath: music
       value: 
       objectReference: {fileID: 257247245}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114228279168218446, guid: d9f2a9ef87214aa4e9c338464a9a76c4, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: d9f2a9ef87214aa4e9c338464a9a76c4, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &898325480
@@ -10187,7 +10175,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96344db242c329340b6f578548877384, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameManager: {fileID: 421848037}
+  gameManager: {fileID: 0}
   spawner: {fileID: 1490104826}
   enemyAttributes: {fileID: 1351179625}
   scoringSystem: {fileID: 331214256}

@@ -11,12 +11,9 @@
 //
 //=============================================================================
 
-using System;
 using System.Collections;
 using UnityEngine;
-using Hive.Armada.Game;
 using Random = UnityEngine.Random;
-using System.Collections.Generic;
 
 namespace Hive.Armada.Enemies
 {
@@ -25,33 +22,45 @@ namespace Hive.Armada.Enemies
     /// </summary>
     public class SplitterChild : Enemy
     {
+        /// <summary>
+        /// Type identifier for this enemy's projectiles in objectPoolManager
+        /// </summary>
         private int projectileTypeIdentifier;
 
+        /// <summary>
+        /// The point where this enemy shoots from.
+        /// </summary>
         public Transform shootPoint;
 
+        /// <summary>
+        /// How many time per second this enemy can shoot.
+        /// </summary>
         private float fireRate;
 
+        /// <summary>
+        /// How fast the projectiles move.
+        /// </summary>
         private float projectileSpeed;
 
+        /// <summary>
+        /// Degrees that the projectile can be randomly rotated.
+        /// Randomly picks in the range of [-spread, spread] for all 3 axes.
+        /// </summary>
         private float spread;
 
+        /// <summary>
+        /// The player's ship.
+        /// </summary>
         private GameObject player;
 
+        /// <summary>
+        /// Whether this enemy can shoot or not. Toggles when firing every 1/fireRate seconds.
+        /// </summary>
         private bool canShoot = true;
 
-        public override void Awake()
-        {
-            reference = GameObject.Find("Reference Manager").GetComponent<ReferenceManager>();
-
-            if (reference == null)
-            {
-                Debug.LogError(GetType().Name + " - Could not find Reference Manager!");
-            }
-
-            materials = new List<Material>();
-            health = maxHealth;
-        }
-
+        /// <summary>
+        /// Tries to look at the player and shoot at it when possible. Runs every frame.
+        /// </summary>
         private void Update()
         {
             if (player != null)
@@ -65,11 +74,11 @@ namespace Hive.Armada.Enemies
             }
             else
             {
-                player = GameObject.FindGameObjectWithTag("Player");
+                player = reference.playerShip;
 
                 if (player == null)
                 {
-                    transform.LookAt(new Vector3(0.0f, 0.0f, 0.0f));
+                    transform.LookAt(new Vector3(0.0f, 2.0f, 0.0f));
                 }
             }
         }
@@ -82,10 +91,13 @@ namespace Hive.Armada.Enemies
             canShoot = false;
 
             GameObject projectile =
-                reference.objectPoolManager.Spawn(projectileTypeIdentifier, shootPoint.position, shootPoint.rotation);
+                objectPoolManager.Spawn(projectileTypeIdentifier, shootPoint.position,
+                                        shootPoint.rotation);
+
             projectile.GetComponent<Transform>().Rotate(Random.Range(-spread, spread),
-                Random.Range(-spread, spread),
-                Random.Range(-spread, spread));
+                                                        Random.Range(-spread, spread),
+                                                        Random.Range(-spread, spread));
+
             projectile.GetComponent<Rigidbody>().velocity =
                 projectile.transform.forward * projectileSpeed;
 
@@ -94,15 +106,19 @@ namespace Hive.Armada.Enemies
             canShoot = true;
         }
 
+        /// <summary>
+        /// Resets attributes to this enemy's defaults from enemyAttributes.
+        /// </summary>
         protected override void Reset()
         {
-            projectileTypeIdentifier = reference.enemyAttributes.EnemyProjectileTypeIdentifiers[TypeIdentifier];
-            maxHealth = reference.enemyAttributes.enemyHealthValues[TypeIdentifier];
-            health = maxHealth;
-            fireRate = reference.enemyAttributes.enemyFireRate[TypeIdentifier];
-            projectileSpeed = reference.enemyAttributes.projectileSpeed;
-            spread = reference.enemyAttributes.enemySpread[TypeIdentifier];
-            pointValue = reference.enemyAttributes.enemyScoreValues[TypeIdentifier];
+            projectileTypeIdentifier =
+                enemyAttributes.EnemyProjectileTypeIdentifiers[TypeIdentifier];
+            maxHealth = enemyAttributes.enemyHealthValues[TypeIdentifier];
+            Health = maxHealth;
+            fireRate = enemyAttributes.enemyFireRate[TypeIdentifier];
+            projectileSpeed = enemyAttributes.projectileSpeed;
+            spread = enemyAttributes.enemySpread[TypeIdentifier];
+            pointValue = enemyAttributes.enemyScoreValues[TypeIdentifier];
         }
     }
 }

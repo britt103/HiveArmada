@@ -22,6 +22,7 @@ namespace Hive.Armada.Game
 {
     public class Spawner : MonoBehaviour
     {
+        private ReferenceManager reference;
         public int multiplier;
         public Waves waves;
         [Tooltip("Powerup prefabs in order: Shield, Ally, Area, Clear")]
@@ -50,8 +51,48 @@ namespace Hive.Armada.Game
 
         private PlayerStats stats;
 
+        private List<GameObject> objectPoolTestObjects;
+
+        void Start()
+        {
+            StartCoroutine(PoolSpawnTest());
+        }
+
+        private IEnumerator PoolSpawnTest()
+        {
+            //yield return new WaitForSeconds(2.0f);
+
+            for (int i = 0; i < 50; ++i)
+            {
+                Vector3 pos = new Vector3(Random.Range(reference.spawner.enemyBounds[0].transform.position.x, reference.spawner.enemyBounds[1].transform.position.x),
+                    Random.Range(reference.spawner.enemyBounds[0].transform.position.y, reference.spawner.enemyBounds[1].transform.position.y),
+                    Random.Range(reference.spawner.enemyBounds[0].transform.position.z, reference.spawner.enemyBounds[1].transform.position.z));
+
+                objectPoolTestObjects.Add(reference.objectPoolManager.Spawn(0, pos));
+                yield return new WaitForSeconds(0.1f);
+            }
+
+            StartCoroutine(PoolDespawnTest());
+        }
+
+        private IEnumerator PoolDespawnTest()
+        {
+            yield return new WaitForSeconds(1.0f);
+
+            for (int i = 0; i < 50; ++i)
+            {
+                reference.objectPoolManager.Despawn(objectPoolTestObjects.First());
+                objectPoolTestObjects.RemoveAt(0);
+                yield return new WaitForSeconds(0.1f);
+            }
+
+            StartCoroutine(PoolSpawnTest());
+        }
+
         void Awake()
         {
+            reference = GameObject.Find("Reference Manager").GetComponent<ReferenceManager>();
+            objectPoolTestObjects = new List<GameObject>();
             wave = startWave - 2;
 
             waveCountGO.SetActive(false);

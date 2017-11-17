@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Hive.Armada.Enemies;
+
 /// <summary>
 /// /// Ryan Britton
 /// britt103
@@ -16,26 +18,40 @@ namespace Hive.Armada.Enemies
     public class JumperTurret : Enemy
     {
         public float xMax;
+
         public float yMax;
+
         public float zMax;
+
         private Vector3 posA;
+
         private Vector3 posB;
+
         public Transform spawn;
-        bool perry;
+
+        private bool perry;
+
         private IEnumerator coroutine;
+
         public float timer;
+
         //public float timer;
         public GameObject bullet;
+
         private GameObject player;
+
         public Vector3 pos;
+
         public float fireRate, fireSpeed;
+
         private float fireNext;
-        bool canFire;
+
+        private bool canFire;
+
         private float distance;
 
-
         // Use this for initialization
-        void Start()
+        private void Start()
         {
             player = GameObject.FindGameObjectWithTag("Player");
             SetPosition();
@@ -44,26 +60,34 @@ namespace Hive.Armada.Enemies
             StartCoroutine(coroutine);
         }
 
-        void SetPosition()
+        private void SetPosition()
         {
             //This sets the starting position and the 2 points the turrets teleports between
-            pos = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z);
+            pos = new Vector3(player.transform.position.x, player.transform.position.y,
+                player.transform.position.z);
             posA = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-            posB = new Vector3(transform.position.x + xMax, transform.position.y + yMax, transform.position.z + zMax);
-
+            posB = new Vector3(transform.position.x + xMax, transform.position.y + yMax,
+                transform.position.z + zMax);
         }
+
         private void Update()
         {
-            pos = player.transform.position;        //tracks the player position
-            transform.LookAt(pos);                  //and makes the transform look at said position
+            pos = player.transform.position; //tracks the player position
+            transform.LookAt(pos); //and makes the transform look at said position
 
             if (Time.time > fireNext)
-            {                                                                                       //Basic firerate calculation that determines
-                fireNext = Time.time + fireRate;                                                    //how many projectiles shoot out of the turret
-                var shoot = Instantiate(bullet, spawn.position, spawn.rotation);                    //within a certain duration. The turret then
-                shoot.GetComponent<Rigidbody>().velocity = shoot.transform.forward * fireSpeed;     //instantiates a bullet and shoots it forward
-            }                                                                                    //in the direction of the player.
+            {
+                //Basic firerate calculation that determines
+                fireNext = Time.time + fireRate; //how many projectiles shoot out of the turret
+                GameObject
+                    shoot = Instantiate(bullet, spawn.position,
+                        spawn.rotation); //within a certain duration. The turret then
+                shoot.GetComponent<Rigidbody>().velocity =
+                    shoot.transform.forward *
+                    fireSpeed; //instantiates a bullet and shoots it forward
+            } //in the direction of the player.
         }
+
         private IEnumerator JumpFlash(float waitTime)
         {
             while (true)
@@ -71,7 +95,7 @@ namespace Hive.Armada.Enemies
                 gameObject.GetComponent<Renderer>().material = flashColor;
                 yield return new WaitForSeconds(1.0f);
 
-                if (perry == true)
+                if (perry)
                 {
                     transform.position = posB;
                     perry = false;
@@ -85,5 +109,9 @@ namespace Hive.Armada.Enemies
             }
         }
 
+        protected override void Reset()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

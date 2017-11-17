@@ -93,7 +93,14 @@ namespace Hive.Armada.Player
         /// <summary>
         /// Which mode is the ship currently in.
         /// </summary>
-        public ShipMode shipMode;
+        public ShipMode shipMode = ShipMode.Menu;
+
+        /// <summary>
+        /// Array of the weapons available to the player.
+        /// </summary>
+        [Header("Weapon Attributes")]
+        [Reorderable("Weapon", false)]
+        public GameObject[] weapons;
 
         /// <summary>
         /// Array of the damage for each weapon.
@@ -106,13 +113,6 @@ namespace Hive.Armada.Player
         /// </summary>
         [Reorderable("Weapon", false)]
         public float[] weaponFireRate;
-
-        /// <summary>
-        /// Array of the weapons available to the player.
-        /// </summary>
-        [Header("Weapon Attributes")]
-        [Reorderable("Weapon", false)]
-        public GameObject[] weapons;
 
         /// <summary>
         /// Initializes references to Reference Manager and Laser Sight, sets this

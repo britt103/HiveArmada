@@ -10,15 +10,13 @@
 //
 //=============================================================================
 
-using System.Collections;
-using System.Collections.Generic;
-using SubjectNerd.Utilities;
 using UnityEngine;
+using SubjectNerd.Utilities;
 
 namespace Hive.Armada.Game
 {
     /// <summary>
-    /// 
+    /// The manager for waves and spawning.
     /// </summary>
     public class WaveManager : MonoBehaviour
     {
@@ -28,10 +26,19 @@ namespace Hive.Armada.Game
         [Reorderable("Wave", false)]
         public Wave[] waves;
 
+        /// <summary>
+        /// The index for the wave that is currently running.
+        /// </summary>
         private int currentWave;
 
+        /// <summary>
+        /// If there are currently waves running.
+        /// </summary>
         public bool IsRunning { get; private set; }
 
+        /// <summary>
+        /// If all waves have been run and completed.
+        /// </summary>
         public bool IsComplete { get; private set; }
 
         /// <summary>
@@ -52,7 +59,7 @@ namespace Hive.Armada.Game
         /// <param name="wave"> The index of the wave to run </param>
         private void RunWave(int wave)
         {
-            waves[wave].Run();
+            waves[wave].Run(wave);
         }
 
         /// <summary>

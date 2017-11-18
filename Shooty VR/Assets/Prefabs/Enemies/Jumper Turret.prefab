@@ -52,7 +52,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1623460175563282}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -3.0675755, y: 1.4757469, z: 4.0898767}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4540787320719708}
@@ -122,20 +122,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9493f13b22fe9b0488270f42fcc0011e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawner: {fileID: 0}
-  maxHealth: 100
   flashColor: {fileID: 2100000, guid: 1db15971033ba594294b4f0c035f7da8, type: 2}
-  fxSpawn: {fileID: 1986916411221482, guid: c22c489c25fedaa41a77630cc26e3c53, type: 2}
-  fxKill: {fileID: 1110594293534486, guid: 2cb25da53015f534a920f821d2fb89cb, type: 2}
+  spawnEmitter: {fileID: 1986916411221482, guid: c22c489c25fedaa41a77630cc26e3c53,
+    type: 2}
+  deathEmitter: {fileID: 1110594293534486, guid: a5ffbf29c124fdd4b9a26ba22878897e,
+    type: 2}
+  shootPoint: {fileID: 4540787320719708}
   xMax: 5
   yMax: 0
   zMax: 0
-  spawn: {fileID: 4540787320719708}
   timer: 5
-  bullet: {fileID: 1751136267563060, guid: a3e97b332c7c7484eb0cf0632e2a5e94, type: 2}
-  pos: {x: 0, y: 0, z: 0}
-  fireRate: 1
-  fireSpeed: 3
 --- !u!135 &135610522683511446
 SphereCollider:
   m_ObjectHideFlags: 1

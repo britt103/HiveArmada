@@ -10,16 +10,14 @@
 //
 //=============================================================================
 
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace Hive.Armada.Enemies
 {
     /// <summary>
-    /// Moving Turret Enemy
+    /// Moving turret Enemy
     /// </summary>
     public class MovingTurret : Enemy
     {
@@ -50,32 +48,33 @@ namespace Hive.Armada.Enemies
         private float spread;
 
         /// <summary>
-        /// How fast this enemy can move
+        /// How fast this enemy can move.
         /// </summary>
         public float movingSpeed;
 
         /// <summary>
-        /// Distance in the X direction this enemy will move
+        /// Distance on the X axis this enemy will move.
         /// </summary>
         public float xMax;
 
         /// <summary>
-        /// Distance in the Y direction this enemy will move
+        /// Distance on the Y axis this enemy will move.
         /// </summary>
         public float yMax;
 
         /// <summary>
-        /// Initial position of this enemy
+        /// Initial position of this enemy.
         /// </summary>
         private Vector3 posA;
 
         /// <summary>
-        /// Secondary position this enemy will move between
+        /// Secondary position this enemy will move between.
+        /// Based on xMax and yMax.
         /// </summary>
         private Vector3 posB;
 
         /// <summary>
-        /// The player's ship
+        /// The player's ship.
         /// </summary>
         private GameObject player;
 
@@ -85,12 +84,12 @@ namespace Hive.Armada.Enemies
         private bool canShoot = true;
 
         /// <summary>
-        /// When this enemy was created
+        /// When this enemy was created.
         /// </summary>
         private float startTime;
 
         /// <summary>
-        /// Finds the player
+        /// Finds the player. Runs when this enemy spawns.
         /// </summary>
         private void Start()
         {
@@ -104,7 +103,7 @@ namespace Hive.Armada.Enemies
         }
 
         /// <summary>
-        /// Sets the two positions the enemy moves between
+        /// Sets the two positions this enemy moves between.
         /// </summary>
         private void SetPosition()
         {
@@ -117,7 +116,8 @@ namespace Hive.Armada.Enemies
         }
 
         /// <summary>
-        /// Moves the enemy between posA and posB, and shoot a projectile at the player
+        /// Moves the enemy between posA and posB, and tries to look at the player and shoot at it when possible.
+        /// Runs every Frame.
         /// </summary>
         private void Update()
         {

@@ -8,6 +8,7 @@ namespace Hive.Armada.Game
     /// <summary>
     /// 
     /// </summary>
+    [DisallowMultipleComponent]
     public class Wave : MonoBehaviour
     {
         /// <summary>
@@ -75,7 +76,7 @@ namespace Hive.Armada.Game
         /// <param name="subwave"> The index of the subwave to run </param>
         private void RunSubwave(int subwave)
         {
-            this.subwaves[subwave].RunSubwave(WaveNumber, subwave);
+            this.subwaves[subwave].Run(WaveNumber, subwave);
         }
 
         /// <summary>

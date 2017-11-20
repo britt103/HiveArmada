@@ -14,21 +14,25 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-/// <summary>
-/// Penalizes player for leaving play area.
-/// </summary>
-public class DeathBounds : MonoBehaviour
+namespace Hive.Armada
 {
     /// <summary>
-    /// Penalize player when FollowHead collides with bounds.
+    /// Penalizes player for leaving play area.
     /// </summary>
-    /// <param name="other">Collider of object with which this collided.</param>
-    private void OnTriggerEnter(Collider other)
+    public class DeathBounds : MonoBehaviour
     {
-        if(other.gameObject.name == "FollowHead")
+        /// <summary>
+        /// Penalize player when FollowHead collides with bounds.
+        /// </summary>
+        /// <param name="other">Collider of object with which this collided.</param>
+        private void OnTriggerEnter(Collider other)
         {
-            Debug.Log("Out of Bounds.");
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            if (other.gameObject.name == "FollowHead")
+            {
+                Debug.Log("Out of Bounds.");
+                //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                
+            }
         }
     }
 }

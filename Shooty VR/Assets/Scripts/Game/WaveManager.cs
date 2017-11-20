@@ -10,6 +10,7 @@
 //
 //=============================================================================
 
+using System;
 using UnityEngine;
 using SubjectNerd.Utilities;
 
@@ -20,6 +21,23 @@ namespace Hive.Armada.Game
     /// </summary>
     public class WaveManager : MonoBehaviour
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        [Serializable]
+        public struct SpawnZone
+        {
+            public GameObject lowerBound;
+
+            public GameObject upperBound;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [Reorderable("Spawn Zone", false)]
+        public SpawnZone[] spawnZones;
+
         /// <summary>
         /// Array of all waves that will be run.
         /// </summary>

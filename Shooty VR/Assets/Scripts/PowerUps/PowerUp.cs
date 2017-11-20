@@ -35,6 +35,11 @@ namespace Hive.Armada.PowerUps
         public GameObject fxAwake;
 
         /// <summary>
+        /// FX of powerup on collision with player.
+        /// </summary>
+        public GameObject fxPickup;
+
+        /// <summary>
         /// Reference to PowerUpStatus.
         /// </summary>
         private PowerUpStatus status;
@@ -125,6 +130,7 @@ namespace Hive.Armada.PowerUps
                 //    }
                 //    break;
                 //}
+                Instantiate(fxPickup, transform.position, transform.localRotation);
                 status.StorePowerup(powerupPrefab, powerupIconPrefab);
                 Destroy(gameObject);
             }

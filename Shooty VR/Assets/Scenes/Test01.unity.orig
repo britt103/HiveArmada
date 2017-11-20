@@ -6873,6 +6873,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1542376575}
   - component: {fileID: 1542376576}
+  - component: {fileID: 1542376577}
   m_Layer: 0
   m_Name: WaveManager
   m_TagString: Untagged
@@ -6905,6 +6906,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waves: []
+--- !u!114 &1542376577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1542376574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0468c59ffb6e56b43ad9f4ef88e473ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnsGroup:
+  - spawnZone: 0
+    spawnDelay: 0
+    enemyTypes: []
+    enemyCounts: 
 --- !u!1 &1544772440
 GameObject:
   m_ObjectHideFlags: 0

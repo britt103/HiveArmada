@@ -48,6 +48,12 @@ namespace Hive.Armada.Enemies
         protected ObjectPoolManager objectPoolManager;
 
         /// <summary>
+        /// Reference to the subwave that spawned this enemy. Used to inform it
+        /// when this enemy is hit for the first time and when it is killed.
+        /// </summary>
+        protected Subwave subwave;
+
+        /// <summary>
         /// How much health the enemy spawns with.
         /// TODO: Move this to EnemyStats script
         /// </summary>
@@ -164,6 +170,8 @@ namespace Hive.Armada.Enemies
 
             untouched = false;
 
+            subwave.EnemyHit();
+
             if (reference.spawner != null)
             {
                 reference.spawner.EnemyHit();
@@ -175,6 +183,7 @@ namespace Hive.Armada.Enemies
         /// </summary>
         protected virtual void Kill()
         {
+            subwave.EnemyDead();
             scoringSystem.AddScore(pointValue);
             reference.spawner.AddKill();
             reference.statistics.EnemyKilled();
@@ -203,6 +212,15 @@ namespace Hive.Armada.Enemies
             }
 
             hitFlash = null;
+        }
+
+        /// <summary>
+        /// Used to set the subwave reference.
+        /// </summary>
+        /// <param name="subwave"> The subwave that spawned this enemy </param>
+        public virtual void SetSubwave(Subwave subwave)
+        {
+            this.subwave = subwave;
         }
     }
 }

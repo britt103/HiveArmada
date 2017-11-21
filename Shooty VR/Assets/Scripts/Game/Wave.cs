@@ -1,18 +1,36 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿//=============================================================================
+//
+// Perry Sidler
+// 1831784
+// sidle104@mail.chapman.edu
+// CPSC-340-01 & CPSC-344-01
+// Group Project
+//
+// This file contains the Wave class which has an array of subwaves that it
+// will spawn. Subwaves can be reused in the both the same and different waves.
+// This allows us to have more control over spawning and also simplifies the
+// wave design process by letting us reuse subwaves.
+// 
+// The logic inside of Wave is very simple. It keeps track of what subwaves it
+// has and tells the next one to start when the previous tells it that it has
+// completed. Once the wave is done it tells WaveManager that it has completed.
+//
+//=============================================================================
+
 using SubjectNerd.Utilities;
 using UnityEngine;
 
 namespace Hive.Armada.Game
 {
     /// <summary>
-    /// 
+    /// Contains all logic for a Wave.
     /// </summary>
     [DisallowMultipleComponent]
     public class Wave : MonoBehaviour
     {
         /// <summary>
-        /// 
+        /// Reference manager that holds all needed references
+        /// (e.g. spawner, game manager, etc.)
         /// </summary>
         private ReferenceManager reference;
 
@@ -28,6 +46,9 @@ namespace Hive.Armada.Game
         [Reorderable("Subwave", false)]
         public Subwave[] subwaves;
 
+        /// <summary>
+        /// Index of the subwave that is currently running.
+        /// </summary>
         private int currentSubwave;
 
         /// <summary>
@@ -41,9 +62,10 @@ namespace Hive.Armada.Game
         public bool IsComplete { get; private set; }
 
         /// <summary>
-        /// 
+        /// Initializes the Wave and begins spawning its subwaves.
         /// </summary>
-        private void Awake()
+        /// <param name="wave"> The wave's number </param>
+        public void Run(int wave)
         {
             reference = GameObject.Find("Reference Manager").GetComponent<ReferenceManager>();
 
@@ -51,14 +73,7 @@ namespace Hive.Armada.Game
             {
                 Debug.LogError(GetType().Name + " - Could not find Reference Manager!");
             }
-        }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="wave"> The wave's number </param>
-        public void Run(int wave)
-        {
             if (subwaves.Length == 0)
             {
                 Debug.LogError("Wave " + WaveNumber + " has no subwaves!");
@@ -76,7 +91,7 @@ namespace Hive.Armada.Game
         /// <param name="subwave"> The index of the subwave to run </param>
         private void RunSubwave(int subwave)
         {
-            this.subwaves[subwave].Run(WaveNumber, subwave);
+            subwaves[subwave].Run(WaveNumber, subwave);
         }
 
         /// <summary>
@@ -85,12 +100,13 @@ namespace Hive.Armada.Game
         /// <param name="subwave"> The index of the subwave that completed </param>
         public void SubwaveComplete(int subwave)
         {
-            if (!this.subwaves[currentSubwave].IsComplete || this.subwaves[currentSubwave].IsRunning)
+            if (!subwaves[currentSubwave].IsComplete || subwaves[currentSubwave].IsRunning)
             {
-                Debug.LogError("Wave " + WaveNumber + " - subwave " + currentSubwave + " says it is complete, but it isn't!");
+                Debug.LogError("Wave " + WaveNumber + " - subwave " + currentSubwave +
+                               " says it is complete, but it isn't!");
             }
 
-            if (this.subwaves.Length > ++currentSubwave)
+            if (subwaves.Length > ++currentSubwave)
             {
                 RunSubwave(currentSubwave);
             }

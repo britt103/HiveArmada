@@ -6,7 +6,7 @@
 // CPSC-340-01 & CPSC-344-01
 // Group Project
 //
-// [DESCRIPTION]
+// This is the wave manager for the main game mode.
 //
 //=============================================================================
 
@@ -22,18 +22,24 @@ namespace Hive.Armada.Game
     public class WaveManager : MonoBehaviour
     {
         /// <summary>
-        /// 
+        /// Structure with 2 game objects that define the lower and upper bounds of a spawn zone.
         /// </summary>
         [Serializable]
         public struct SpawnZone
         {
+            /// <summary>
+            /// Game object representing the lower bound of the spawn zone.
+            /// </summary>
             public GameObject lowerBound;
 
+            /// <summary>
+            /// Game object representing the upper bound of the spawn zone.
+            /// </summary>
             public GameObject upperBound;
         }
 
         /// <summary>
-        /// 
+        /// Array of all available spawn zones in the scene.
         /// </summary>
         [Reorderable("Spawn Zone", false)]
         public SpawnZone[] spawnZones;
@@ -60,7 +66,7 @@ namespace Hive.Armada.Game
         public bool IsComplete { get; private set; }
 
         /// <summary>
-        /// 
+        /// Runs the wave spawning for the game.
         /// </summary>
         public void Run()
         {

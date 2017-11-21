@@ -63,6 +63,11 @@ namespace Hive.Armada.Game
         /// </summary>
         private void Awake()
         {
+            if (enemyAttributes)
+            {
+                enemyAttributes.Initialize();
+            }
+
             if (objectPoolManager)
             {
                 objectPoolManager.Initialize();

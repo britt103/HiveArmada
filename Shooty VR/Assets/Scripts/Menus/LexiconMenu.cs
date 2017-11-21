@@ -169,7 +169,7 @@ namespace Hive.Armada.Menus
         {
             for(int i = 0; i < numPages; ++i)
             {
-                if(name == pageNames[i])
+                if(name == pageNames[i] && pagesLocked[i])
                 {
                     pagesLocked[i] = false;
                 }

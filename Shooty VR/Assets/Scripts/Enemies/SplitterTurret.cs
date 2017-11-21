@@ -57,17 +57,19 @@ namespace Hive.Armada.Enemies
             reference.spawner.AddKill();
             if (turret != null)
             {
-                Vector3 splitDir1 = new Vector3(transform.localPosition.x, transform.localPosition.y + splitDir, transform.localPosition.z);
-                Vector3 splitDir2 = new Vector3(transform.localPosition.x, transform.localPosition.y - splitDir, transform.localPosition.z);
-                Vector3 splitDir3 = new Vector3(transform.localPosition.x + splitDir, transform.localPosition.y, transform.localPosition.z);
-                Vector3 splitDir4 = new Vector3(transform.localPosition.x - splitDir, transform.localPosition.y, transform.localPosition.z);
 
                 //Instantiate("Explosion.name", transform.position, transform.rotation); Placeholder for destroy effect
-                Instantiate(turret, splitDir1, transform.rotation); //Creates 4 instances of the Turret prefab set in Inspector
-                Instantiate(turret, splitDir2, transform.rotation);
-                Instantiate(turret, splitDir3, transform.rotation);
-                Instantiate(turret, splitDir4, transform.rotation);
-                
+                GameObject child1 = Instantiate(turret, transform.position, transform.rotation);
+                GameObject child2 = Instantiate(turret, transform.position, transform.rotation);
+                GameObject child3 = Instantiate(turret, transform.position, transform.rotation);
+                GameObject child4 = Instantiate(turret, transform.position, transform.rotation);
+
+                iTween.MoveTo(child1, iTween.Hash("x", transform.localPosition.x + (splitDir), "y", transform.localPosition.y + (splitDir), "z", transform.localPosition.z, "time", 3.0f));
+                iTween.MoveTo(child2, iTween.Hash("x", transform.localPosition.x + (splitDir), "y", transform.localPosition.y - (splitDir), "z", transform.localPosition.z, "time", 3.0f));
+                iTween.MoveTo(child3, iTween.Hash("x", transform.localPosition.x - (splitDir), "y", transform.localPosition.y + (splitDir), "z", transform.localPosition.z, "time", 3.0f));
+                iTween.MoveTo(child4, iTween.Hash("x", transform.localPosition.x - (splitDir), "y", transform.localPosition.y - (splitDir), "z", transform.localPosition.z, "time", 3.0f));
+
+
             }
 
             Destroy(gameObject);

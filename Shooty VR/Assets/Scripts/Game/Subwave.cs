@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using SubjectNerd.Utilities;
 using UnityEngine;
 using Valve.VR;
@@ -221,6 +222,7 @@ namespace Hive.Armada.Game
                 yield return new WaitForSeconds(spawnGroups[currentSpawnGroup].spawnGroupDelay);
             }
 
+            // spawn all enemies in the spawn group
             for (int i = 0; i < spawns[currentSpawnGroup].Count; ++i)
             {
                 if (Math.Abs(spawnGroups[currentSpawnGroup].spawnDelay) > 0.001f)
@@ -238,11 +240,26 @@ namespace Hive.Armada.Game
 
                 if (spawnGroups[currentSpawnGroup].spawnZone != SpawnZone.Introduction)
                 {
+                    // spawn position is random point in its zone
                     Vector3 lower = spawnZones[(int) spawnGroups[currentSpawnGroup].spawnZone]
                         .lowerBound.transform.position;
                     Vector3 upper = spawnZones[(int) spawnGroups[currentSpawnGroup].spawnZone]
                         .upperBound.transform.position;
+
+                    position = new Vector3(UnityEngine.Random.Range(lower.x, upper.x),
+                                           UnityEngine.Random.Range(lower.y, upper.y),
+                                           UnityEngine.Random.Range(lower.z, upper.z));
                 }
+                else
+                {
+                    // spawn position is the introduction point
+                    position = spawnZones[0].lowerBound.transform.position;
+                }
+
+                GameObject spawnPrefab = spawns[currentSpawnGroup][0];
+
+
+                GameObject spawned = Instantiate(spawnPrefab, position, Quaternion.identity);
             }
         }
 

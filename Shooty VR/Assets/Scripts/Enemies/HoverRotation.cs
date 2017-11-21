@@ -13,6 +13,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Hive.Armada.Enemies
 {
@@ -21,35 +22,29 @@ namespace Hive.Armada.Enemies
     /// </summary>
     public class HoverRotation : MonoBehaviour
     {
+        float randomZ;
+        float timer = 3.0f;
+        Vector3 Target;
+        float angle;
+
         /// <summary>
         /// Sets the rotation angle and begins movement
         /// </summary>
         void Start()
         {
-            iTween.RotateAdd(gameObject, iTween.Hash("name", "Xplane", "amount",
-                                                  new Vector3(transform.localPosition.x + 60f, transform.localPosition.y, transform.localPosition.z),
-                                                  "time", 1.0f, "easetype", iTween.EaseType.linear,
-                                                  "looptype", iTween.LoopType.pingPong, "oncomplete", "PauseTween", "oncompletetarget", gameObject));
+            iTween.RotateBy(gameObject, iTween.Hash("y", 1.0f,"speed", 100.0f, "easetype", "linear", "islocal",true, "looptype", iTween.LoopType.loop));
+            //new Vector3(transform.localPosition.x, transform.localPosition.y + 0.5f, transform.localPosition.z)
         }
-
-        /// <summary>
-        /// Calls PauseTween() 
-        /// </summary>
-        private void PauseTween()
+        private void Update()
         {
-            StartCoroutine(PauseTween(0.1f));
+            //iTween.RotateUpdate(gameObject, iTween.Hash("y", 1.0f, "speed", 3.0f, "easetype", "linear", "islocal", true));
         }
+        
 
-        /// <summary>
-        /// Pauses movement for 'waitTime' seconds.
-        /// </summary>
-        /// <param name="waitTime"> How many seconds to pause for.</param>
-        private IEnumerator PauseTween(float waitTime)
-        {
-            iTween.Pause(gameObject);
-            yield return new WaitForSeconds(waitTime);
-
-            iTween.Resume(gameObject);
-        }
     }
+
+   
+
 }
+
+

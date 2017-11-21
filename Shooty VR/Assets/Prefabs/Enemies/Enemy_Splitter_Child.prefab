@@ -54,7 +54,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4930210303104310}
   m_Layer: 9
-  m_Name: Shoot
+  m_Name: ShootPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1020,17 +1020,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba249d09f93812549b0d5ed3b4409c92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawner: {fileID: 0}
-  maxHealth: 100
   flashColor: {fileID: 2100000, guid: 1db15971033ba594294b4f0c035f7da8, type: 2}
-  fxSpawn: {fileID: 1986916411221482, guid: c22c489c25fedaa41a77630cc26e3c53, type: 2}
-  fxKill: {fileID: 1110594293534486, guid: a5ffbf29c124fdd4b9a26ba22878897e, type: 2}
-  projectilePrefab: {fileID: 1751136267563060, guid: a3e97b332c7c7484eb0cf0632e2a5e94,
+  spawnEmitter: {fileID: 1986916411221482, guid: c22c489c25fedaa41a77630cc26e3c53,
+    type: 2}
+  deathEmitter: {fileID: 1110594293534486, guid: a5ffbf29c124fdd4b9a26ba22878897e,
     type: 2}
   shootPoint: {fileID: 4930210303104310}
-  fireRate: 0.8
-  projectileSpeed: 1.5
-  spread: 2
 --- !u!136 &136941660410051782
 CapsuleCollider:
   m_ObjectHideFlags: 1

@@ -8,6 +8,7 @@
 /// This script handles the splitter turret that spawns 4 regular turret enemies when it is destroyed
 /// </summary>
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -50,9 +51,10 @@ namespace Hive.Armada.Enemies
                 }
             }
         }
+
         protected override void Kill()
         {
-            spawner.AddKill();
+            reference.spawner.AddKill();
             if (turret != null)
             {
                 Vector3 splitDir1 = new Vector3(transform.localPosition.x, transform.localPosition.y + splitDir, transform.localPosition.z);
@@ -72,5 +74,9 @@ namespace Hive.Armada.Enemies
 
         }
 
+        protected override void Reset()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

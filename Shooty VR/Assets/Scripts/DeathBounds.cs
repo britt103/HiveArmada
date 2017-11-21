@@ -6,32 +6,46 @@
 // CPSC-340-01 & CPSC-344-01
 // Group Project
 //
-// DeathBounds penalizes the player for colliding with the Death Bounds
-// GameObject. 
+// DeathBounds triggers the Game Over condition when the player has moved
+// beyond the play area.
 //
 //=============================================================================
 
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using Hive.Armada.Game;
+using Hive.Armada.Player;
 
 namespace Hive.Armada
 {
     /// <summary>
-    /// Penalizes player for leaving play area.
+    /// Penalize player upon collision.
     /// </summary>
     public class DeathBounds : MonoBehaviour
     {
         /// <summary>
-        /// Penalize player when FollowHead collides with bounds.
+        /// ReferenceManager reference.
         /// </summary>
-        /// <param name="other">Collider of object with which this collided.</param>
-        private void OnTriggerEnter(Collider other)
+        private ReferenceManager reference;
+
+        // Find ReferenceManager.
+        void Start()
         {
-            if (other.gameObject.name == "FollowHead")
+            reference = FindObjectOfType<ReferenceManager>();
+        }
+
+        /// <summary>
+        /// Trigger Game Over upon collision with player head.
+        /// </summary>
+        /// <param name="other">Collider with which this is colliding.</param>
+        private void OnTriggerStay(Collider other)
+        {
+            if(other.gameObject.name == "FollowHead" && reference.statistics.isAlive
+                && !reference.spawner.waveCountGO.activeSelf)
             {
-                Debug.Log("Out of Bounds.");
-                //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-                
+                Debug.Log("Out of Bounds");
+                reference.statistics.isAlive = false;
+                PlayerHealth playerHealth = FindObjectOfType<PlayerHealth>();
+                playerHealth.Hit(playerHealth.maxHealth);
             }
         }
     }

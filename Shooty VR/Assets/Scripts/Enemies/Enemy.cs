@@ -7,89 +7,136 @@
 // Group Project
 // 
 // This abstract class is the base for all enemies. It handles all fields
-// and methods related tohealth and taking damage.
+// and methods related to health and taking damage.
 // 
 //=============================================================================
 
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Hive.Armada.Game;
 using UnityEngine;
+using Hive.Armada.Game;
 
 namespace Hive.Armada.Enemies
 {
+    /// <inheritdoc />
     /// <summary>
     /// The base class for all enemies.
     /// </summary>
-    public abstract class Enemy : MonoBehaviour
+    public abstract class Enemy : Poolable
     {
         /// <summary>
-        /// Reference to the wave spawner.
-        /// TODO: Remove this reference, make Reference Manager
+        /// Reference manager that holds all needed references
+        /// (e.g. spawner, game manager, etc.)
         /// </summary>
-        public Spawner spawner;
+        protected ReferenceManager reference;
+
+        /// <summary>
+        /// Reference to enemy attributes to initialize/reset this enemy's attributes.
+        /// </summary>
+        protected EnemyAttributes enemyAttributes;
+
+        /// <summary>
+        /// Reference to the scoring system for adding score when this enemy dies.
+        /// </summary>
+        protected ScoringSystem scoringSystem;
+
+        /// <summary>
+        /// Reference to the object pool manager. Used for easy access to spawning projectiles
+        /// and despawning this enemy when it dies.
+        /// </summary>
+        protected ObjectPoolManager objectPoolManager;
 
         /// <summary>
         /// How much health the enemy spawns with.
         /// TODO: Move this to EnemyStats script
         /// </summary>
-        public int maxHealth;
+        [Tooltip("How much health the enemy spawns with.")]
+        protected int maxHealth;
 
         /// <summary>
-        /// Current health. Nothing can access this.
+        /// Current health. Cannot be publicly changed.
         /// </summary>
-        protected int health;
+        public int Health { get; protected set; }
+
+        /// <summary>
+        /// How many points this enemy is worth when killed.
+        /// </summary>
+        [Tooltip("How many points this enemy is worth when killed.")]
+        protected int pointValue;
 
         /// <summary>
         /// The color the ship flashes when it is hit.
         /// </summary>
+        [Tooltip("The color the ship flashes when it is hit.")]
         public Material flashColor;
 
         /// <summary>
-        /// The particle effect on spawn.
+        /// The particle emitter for enemy spawn.
         /// </summary>
-        public GameObject fxSpawn;
+        [Tooltip("The particle emitter for enemy spawn.")]
+        public GameObject spawnEmitter;
 
         /// <summary>
-        /// The particle effect on death.
+        /// The particle emitter for enemy death.
         /// </summary>
-        public GameObject fxKill;
+        [Tooltip("The particle emitter for enemy death.")]
+        public GameObject deathEmitter;
 
         /// <summary>
         /// Changes to false on first hit.
         /// Used to tell spawner that it can spawn more enemies.
         /// </summary>
         protected bool untouched = true;
-        protected bool hitFlashing = false;
-        protected bool alive = true;
-        protected List<Material> mats;
 
         /// <summary>
-        /// Reference to the PlayerStats script for tracking kills.
+        /// Used to prevent HitFlash() from being called a
+        /// second time before it is done flashing
         /// </summary>
-        protected PlayerStats stats;
+        protected Coroutine hitFlash;
+
+        protected List<Renderer> renderers;
 
         /// <summary>
-        /// Initializes variables for the enemy when it loads.
+        /// List of Materials of all pieces of the enemy model.
+        /// Used to reset Materials after flashing.
+        /// </summary>
+        protected List<Material> materials;
+
+        /// <summary>
+        /// Initializes references to ReferenceManager and other managers.
         /// </summary>
         public virtual void Awake()
         {
-            mats = new List<Material>();
-            health = maxHealth;
-            spawner = GameObject.FindGameObjectWithTag("Wave").GetComponent<Spawner>();
-            Instantiate(fxSpawn, transform.position, transform.rotation, transform);
+            reference = GameObject.Find("Reference Manager").GetComponent<ReferenceManager>();
 
-            stats = FindObjectOfType<PlayerStats>();
-        }
+            if (reference == null)
+            {
+                Debug.LogError(GetType().Name + " - Could not find Reference Manager!");
+            }
 
-        /// <summary>
-        /// The current health for the enemy.
-        /// </summary>
-        /// <returns> Integer health value </returns>
-        public virtual int GetHealth()
-        {
-            return health;
+            enemyAttributes = reference.enemyAttributes;
+            scoringSystem = reference.scoringSystem;
+            objectPoolManager = reference.objectPoolManager;
+
+            renderers = new List<Renderer>();
+            materials = new List<Material>();
+
+            foreach (Renderer r in gameObject.GetComponentsInChildren<Renderer>())
+            {
+                if (r.gameObject.CompareTag("Emitter") ||
+                    r.transform.parent.CompareTag("Emitter") ||
+                    r.gameObject.CompareTag("FX") ||
+                    r.transform.parent.CompareTag("FX"))
+                {
+                    continue;
+                }
+
+                renderers.Add(r);
+                materials.Add(r.material);
+            }
+
+            Instantiate(spawnEmitter, transform.position, transform.rotation, transform);
         }
 
         /// <summary>
@@ -98,33 +145,29 @@ namespace Hive.Armada.Enemies
         /// <param name="damage"> How much damage this enemy is taking. </param>
         public virtual void Hit(int damage)
         {
-            if (!hitFlashing)
+            Health -= damage;
+
+            if (hitFlash == null)
             {
-                StartCoroutine(HitFlash());
+                hitFlash = StartCoroutine(HitFlash());
             }
 
-            health -= damage;
-            if (health <= 0 && alive)
+            if (Health <= 0)
             {
-                alive = false;
                 Kill();
             }
 
-            if (untouched)
+            if (!untouched)
             {
-                untouched = false;
-                if (spawner != null)
-                    spawner.EnemyHit();
+                return;
             }
-        }
 
-        /// <summary>
-        /// Currently unused. Flashes and destroys the enemy when it collides with the player.
-        /// </summary>
-        public virtual void Collide()
-        {
-            health = 0;
-            StartCoroutine(HitFlash());
+            untouched = false;
+
+            if (reference.spawner != null)
+            {
+                reference.spawner.EnemyHit();
+            }
         }
 
         /// <summary>
@@ -132,47 +175,34 @@ namespace Hive.Armada.Enemies
         /// </summary>
         protected virtual void Kill()
         {
-            Instantiate(fxKill, transform.position, transform.rotation);
-            spawner.AddKill();
-            stats.EnemyKilled();
+            scoringSystem.AddScore(pointValue);
+            reference.spawner.AddKill();
+            reference.statistics.EnemyKilled();
+            Instantiate(deathEmitter, transform.position, transform.rotation);
 
             Destroy(gameObject);
         }
 
         /// <summary>
         /// Visual feedback when the enemy is hit. Flashes the material using flashColor.
-        /// Calls Kill() if the enemy is out of health. Adds to the score via GameManager.
         /// </summary>
         protected virtual IEnumerator HitFlash()
         {
-            hitFlashing = true;
-
-            //gameObject.GetComponent<Renderer>().material = flashColor;
-
-            foreach (Renderer renderer in gameObject.GetComponentsInChildren<Renderer>())
+            // "flash" materials to flashColor
+            foreach (Renderer r in renderers)
             {
-                if (renderer.gameObject.CompareTag("FX"))
-                    continue;
-
-                mats.Add(renderer.material);
-
-                renderer.material = flashColor;
+                r.material = flashColor;
             }
 
             yield return new WaitForSeconds(0.01f);
 
-
             // reset materials
-            foreach (Renderer renderer in gameObject.GetComponentsInChildren<Renderer>())
+            for (int i = 0; i < renderers.Count; ++i)
             {
-                if (renderer.gameObject.CompareTag("FX"))
-                    continue;
-
-                renderer.material = mats.First();
-                mats.RemoveAt(0);
+                renderers.ElementAt(i).material = materials.ElementAt(i);
             }
 
-            hitFlashing = false;
+            hitFlash = null;
         }
     }
 }

@@ -11,22 +11,33 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using Hive.Armada.Game;
 using UnityEngine;
 using Hive.Armada.Player;
 
 namespace Hive.Armada.Enemies
 {
-    public class Projectile : MonoBehaviour
+    /// <summary>
+    /// 
+    /// </summary>
+    public class Projectile : Poolable
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public int damage;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public float lifetime;
 
-        void Start()
+        private void Start()
         {
-            Destroy(gameObject, lifetime);
+            //Destroy(gameObject, lifetime);
         }
 
-        void OnTriggerEnter(Collider other)
+        private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Player"))
             {
@@ -37,7 +48,10 @@ namespace Hive.Armada.Enemies
                 else
                 {
                     if (Utility.isDebug)
-                        Debug.Log("[WARNING] GameObject tagged with \"Player\" does NOT have PlayerHealth.cs on it!");
+                    {
+                        Debug.Log(
+                            "[WARNING] GameObject tagged with \"Player\" does NOT have PlayerHealth.cs on it!");
+                    }
                 }
                 Destroy(gameObject);
             }
@@ -45,6 +59,12 @@ namespace Hive.Armada.Enemies
             {
                 Destroy(gameObject);
             }
+        }
+
+        protected override void Reset()
+        {
+            damage = 10;
+            lifetime = 10.0f;
         }
     }
 }

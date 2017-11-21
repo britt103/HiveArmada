@@ -135,146 +135,146 @@ namespace Hive.Armada.Game
             }
         }
 
-        /// <summary>
-        /// Spawns a pooled object.
-        /// </summary>
-        /// <param name="objectType"> The type of object to spawn </param>
-        /// <param name="position"> The position to spawn the object at </param>
-        /// <returns> The spawned object </returns>
-        public GameObject Spawn(GameObject objectType, Vector3 position)
-        {
-            int typeIdentifier = GetTypeIdentifier(objectType);
+        ///// <summary>
+        ///// Spawns a pooled object.
+        ///// </summary>
+        ///// <param name="objectType"> The type of object to spawn </param>
+        ///// <param name="position"> The position to spawn the object at </param>
+        ///// <returns> The spawned object </returns>
+        //public GameObject Spawn(GameObject objectType, Vector3 position)
+        //{
+        //    int typeIdentifier = GetTypeIdentifier(objectType);
 
-            if (typeIdentifier == -1)
-            {
-                Debug.LogError(GetType().Name + " - Unable to find object \"" + objectType.name +
-                               "\" in pool!");
-                return null;
-            }
+        //    if (typeIdentifier == -1)
+        //    {
+        //        Debug.LogError(GetType().Name + " - Unable to find object \"" + objectType.name +
+        //                       "\" in pool!");
+        //        return null;
+        //    }
 
-            if (inactivePools[typeIdentifier].Count == 0)
-            {
-                ExpandPool(typeIdentifier);
-            }
+        //    if (inactivePools[typeIdentifier].Count == 0)
+        //    {
+        //        ExpandPool(typeIdentifier);
+        //    }
 
-            LinkedListNode<GameObject> spawnedNode = inactivePools[typeIdentifier].Last;
-            GameObject spawned = spawnedNode.Value;
-            inactivePools[typeIdentifier].RemoveLast();
-            activePools[typeIdentifier].AddLast(spawnedNode);
+        //    LinkedListNode<GameObject> spawnedNode = inactivePools[typeIdentifier].Last;
+        //    GameObject spawned = spawnedNode.Value;
+        //    inactivePools[typeIdentifier].RemoveLast();
+        //    activePools[typeIdentifier].AddLast(spawnedNode);
 
-            spawned.GetComponent<Poolable>().Activate();
-            spawned.transform.position = position;
+        //    spawned.GetComponent<Poolable>().Activate();
+        //    spawned.transform.position = position;
 
-            return spawned;
-        }
+        //    return spawned;
+        //}
 
-        /// <summary>
-        /// Spawns a pooled object.
-        /// </summary>
-        /// <param name="objectType"> the type of object to spawn </param>
-        /// <param name="position"> The position to spawn the object at </param>
-        /// <param name="parent"> New parent for the spawned object </param>
-        /// <returns> The spawned object </returns>
-        public GameObject Spawn(GameObject objectType, Vector3 position, Transform parent)
-        {
-            int typeIdentifier = GetTypeIdentifier(objectType);
+        ///// <summary>
+        ///// Spawns a pooled object.
+        ///// </summary>
+        ///// <param name="objectType"> the type of object to spawn </param>
+        ///// <param name="position"> The position to spawn the object at </param>
+        ///// <param name="parent"> New parent for the spawned object </param>
+        ///// <returns> The spawned object </returns>
+        //public GameObject Spawn(GameObject objectType, Vector3 position, Transform parent)
+        //{
+        //    int typeIdentifier = GetTypeIdentifier(objectType);
 
-            if (typeIdentifier == -1)
-            {
-                Debug.LogError(GetType().Name + " - Unable to find object \"" + objectType.name +
-                               "\" in pool!");
-                return null;
-            }
+        //    if (typeIdentifier == -1)
+        //    {
+        //        Debug.LogError(GetType().Name + " - Unable to find object \"" + objectType.name +
+        //                       "\" in pool!");
+        //        return null;
+        //    }
 
-            if (inactivePools[typeIdentifier].Count == 0)
-            {
-                ExpandPool(typeIdentifier);
-            }
+        //    if (inactivePools[typeIdentifier].Count == 0)
+        //    {
+        //        ExpandPool(typeIdentifier);
+        //    }
 
-            LinkedListNode<GameObject> spawnedNode = inactivePools[typeIdentifier].Last;
-            GameObject spawned = spawnedNode.Value;
-            inactivePools[typeIdentifier].RemoveLast();
-            activePools[typeIdentifier].AddLast(spawnedNode);
+        //    LinkedListNode<GameObject> spawnedNode = inactivePools[typeIdentifier].Last;
+        //    GameObject spawned = spawnedNode.Value;
+        //    inactivePools[typeIdentifier].RemoveLast();
+        //    activePools[typeIdentifier].AddLast(spawnedNode);
 
-            spawned.GetComponent<Poolable>().Activate();
-            spawned.transform.position = position;
-            spawned.transform.parent = parent;
+        //    spawned.GetComponent<Poolable>().Activate();
+        //    spawned.transform.position = position;
+        //    spawned.transform.parent = parent;
 
-            return spawned;
-        }
+        //    return spawned;
+        //}
 
-        /// <summary>
-        /// Spawns a pooled object.
-        /// </summary>
-        /// <param name="objectType"> the type of object to spawn </param>
-        /// <param name="position"> The position to spawn the object at </param>
-        /// <param name="rotation"> The rotation to spawn the object with </param>
-        /// <returns> The spawned object </returns>
-        public GameObject Spawn(GameObject objectType, Vector3 position, Quaternion rotation)
-        {
-            int typeIdentifier = GetTypeIdentifier(objectType);
+        ///// <summary>
+        ///// Spawns a pooled object.
+        ///// </summary>
+        ///// <param name="objectType"> the type of object to spawn </param>
+        ///// <param name="position"> The position to spawn the object at </param>
+        ///// <param name="rotation"> The rotation to spawn the object with </param>
+        ///// <returns> The spawned object </returns>
+        //public GameObject Spawn(GameObject objectType, Vector3 position, Quaternion rotation)
+        //{
+        //    int typeIdentifier = GetTypeIdentifier(objectType);
 
-            if (typeIdentifier == -1)
-            {
-                Debug.LogError(GetType().Name + " - Unable to find object \"" + objectType.name +
-                               "\" in pool!");
-                return null;
-            }
+        //    if (typeIdentifier == -1)
+        //    {
+        //        Debug.LogError(GetType().Name + " - Unable to find object \"" + objectType.name +
+        //                       "\" in pool!");
+        //        return null;
+        //    }
 
-            if (inactivePools[typeIdentifier].Count == 0)
-            {
-                ExpandPool(typeIdentifier);
-            }
+        //    if (inactivePools[typeIdentifier].Count == 0)
+        //    {
+        //        ExpandPool(typeIdentifier);
+        //    }
 
-            LinkedListNode<GameObject> spawnedNode = inactivePools[typeIdentifier].Last;
-            GameObject spawned = spawnedNode.Value;
-            inactivePools[typeIdentifier].RemoveLast();
-            activePools[typeIdentifier].AddLast(spawnedNode);
+        //    LinkedListNode<GameObject> spawnedNode = inactivePools[typeIdentifier].Last;
+        //    GameObject spawned = spawnedNode.Value;
+        //    inactivePools[typeIdentifier].RemoveLast();
+        //    activePools[typeIdentifier].AddLast(spawnedNode);
 
-            spawned.GetComponent<Poolable>().Activate();
-            spawned.transform.position = position;
-            spawned.transform.rotation = rotation;
+        //    spawned.GetComponent<Poolable>().Activate();
+        //    spawned.transform.position = position;
+        //    spawned.transform.rotation = rotation;
 
-            return spawned;
-        }
+        //    return spawned;
+        //}
 
-        /// <summary>
-        /// Spawns a pooled object.
-        /// </summary>
-        /// <param name="objectType"> the type of object to spawn </param>
-        /// <param name="position"> The position to spawn the object at </param>
-        /// <param name="rotation"> The rotation to spawn the object with </param>
-        /// <param name="parent"> New parent for the spawned object </param>
-        /// <returns> The spawned object </returns>
-        public GameObject Spawn(GameObject objectType, Vector3 position, Quaternion rotation,
-                                Transform parent)
-        {
-            int typeIdentifier = GetTypeIdentifier(objectType);
+        ///// <summary>
+        ///// Spawns a pooled object.
+        ///// </summary>
+        ///// <param name="objectType"> the type of object to spawn </param>
+        ///// <param name="position"> The position to spawn the object at </param>
+        ///// <param name="rotation"> The rotation to spawn the object with </param>
+        ///// <param name="parent"> New parent for the spawned object </param>
+        ///// <returns> The spawned object </returns>
+        //public GameObject Spawn(GameObject objectType, Vector3 position, Quaternion rotation,
+        //                        Transform parent)
+        //{
+        //    int typeIdentifier = GetTypeIdentifier(objectType);
 
-            if (typeIdentifier == -1)
-            {
-                Debug.LogError(GetType().Name + " - Unable to find object \"" + objectType.name +
-                               "\" in pool!");
-                return null;
-            }
+        //    if (typeIdentifier == -1)
+        //    {
+        //        Debug.LogError(GetType().Name + " - Unable to find object \"" + objectType.name +
+        //                       "\" in pool!");
+        //        return null;
+        //    }
 
-            if (inactivePools[typeIdentifier].Count == 0)
-            {
-                ExpandPool(typeIdentifier);
-            }
+        //    if (inactivePools[typeIdentifier].Count == 0)
+        //    {
+        //        ExpandPool(typeIdentifier);
+        //    }
 
-            LinkedListNode<GameObject> spawnedNode = inactivePools[typeIdentifier].Last;
-            GameObject spawned = spawnedNode.Value;
-            inactivePools[typeIdentifier].RemoveLast();
-            activePools[typeIdentifier].AddLast(spawnedNode);
+        //    LinkedListNode<GameObject> spawnedNode = inactivePools[typeIdentifier].Last;
+        //    GameObject spawned = spawnedNode.Value;
+        //    inactivePools[typeIdentifier].RemoveLast();
+        //    activePools[typeIdentifier].AddLast(spawnedNode);
 
-            spawned.GetComponent<Poolable>().Activate();
-            spawned.transform.parent = parent;
-            spawned.transform.position = position;
-            spawned.transform.rotation = rotation;
+        //    spawned.GetComponent<Poolable>().Activate();
+        //    spawned.transform.parent = parent;
+        //    spawned.transform.position = position;
+        //    spawned.transform.rotation = rotation;
 
-            return spawned;
-        }
+        //    return spawned;
+        //}
 
         /// <summary>
         /// Spawns a pooled object.
@@ -467,6 +467,8 @@ namespace Hive.Armada.Game
                                        objectToDespawn.GetInstanceID());
                     }
                 }
+
+                objectToDespawn.transform.parent = poolParents[objectPoolable.TypeIdentifier].transform;
             }
             else
             {
@@ -481,7 +483,7 @@ namespace Hive.Armada.Game
         /// </summary>
         /// <param name="objectType"> The object to identify </param>
         /// <returns> </returns>
-        private int GetTypeIdentifier(GameObject objectType)
+        public int GetTypeIdentifier(GameObject objectType)
         {
             for (int i = 0; i < objectsToPool.Length; ++i)
             {

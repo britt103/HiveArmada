@@ -92,6 +92,11 @@ namespace Hive.Armada.Game
         private ReferenceManager reference;
 
         /// <summary>
+        /// The ObjectPoolManager for Spawning and Despawning enemies.
+        /// </summary>
+        private ObjectPoolManager objectPoolManager;
+
+        /// <summary>
         /// </summary>
         private Random random;
 
@@ -118,9 +123,9 @@ namespace Hive.Armada.Game
         private int currentSpawnGroup;
 
         /// <summary>
-        /// Each list in this array is every enemy that will be spawned in a spawn group.
+        /// Each list in this array is the type identifier for every enemy that will be spawned in a spawn group.
         /// </summary>
-        private List<GameObject>[] spawns;
+        private List<int>[] spawns;
 
         /// <summary>
         /// Count of how many of the enemies from this subwave are still alive.
@@ -153,7 +158,8 @@ namespace Hive.Armada.Game
         /// </summary>
         private void Awake()
         {
-            reference = transform.parent.GetComponent<ReferenceManager>();
+            reference = GameObject.Find("Reference Manager").GetComponent<ReferenceManager>();
+            objectPoolManager = reference.objectPoolManager;
 
             spawnZones = reference.waveManager.spawnZones;
         }
@@ -187,17 +193,21 @@ namespace Hive.Armada.Game
         {
             if (spawnGroups.Length > 0)
             {
-                spawns = new List<GameObject>[spawnGroups.Length];
+                spawns = new List<int>[spawnGroups.Length];
 
                 for (int group = 0; group < spawnGroups.Length; ++group)
                 {
-                    spawns[group] = new List<GameObject>();
+                    spawns[group] = new List<int>();
 
                     for (int type = 0; type < spawnGroups[group].enemyTypes.Length; ++type)
                     {
                         for (int count = 0; count < spawnGroups[group].enemyCounts[type]; ++count)
                         {
-                            spawns[group].Add(spawnGroups[group].enemyTypes[type]);
+                            int typeIdentifier =
+                                objectPoolManager.GetTypeIdentifier(
+                                    spawnGroups[group].enemyTypes[type]);
+
+                            spawns[group].Add(typeIdentifier);
                         }
                     }
 
@@ -256,10 +266,9 @@ namespace Hive.Armada.Game
                     position = spawnZones[0].lowerBound.transform.position;
                 }
 
-                GameObject spawnPrefab = spawns[currentSpawnGroup][0];
+                int typeIdentifier = spawns[currentSpawnGroup][0];
 
-
-                GameObject spawned = Instantiate(spawnPrefab, position, Quaternion.identity);
+                GameObject spawned = objectPoolManager.Spawn(typeIdentifier, position);
             }
         }
 
@@ -267,12 +276,12 @@ namespace Hive.Armada.Game
         /// Shuffles a list of game objects using the Fisher-Yates shuffle algorithm
         /// </summary>
         /// <param name="list"> The list to shuffle </param>
-        private void Shuffle(List<GameObject> list)
+        private void Shuffle(List<int> list)
         {
             for (int i = 0; i < list.Count; ++i)
             {
                 int j = random.Next(i, list.Count);
-                GameObject value = list[i];
+                int value = list[i];
                 list[i] = list[j];
                 list[j] = value;
             }

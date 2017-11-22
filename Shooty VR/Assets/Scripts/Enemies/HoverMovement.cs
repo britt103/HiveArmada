@@ -28,7 +28,7 @@ namespace Hive.Armada.Enemies
         {
             iTween.MoveTo(gameObject, iTween.Hash("name", "Xplane", "position",
                                                   new Vector3(transform.localPosition.x, transform.localPosition.y + 0.5f, transform.localPosition.z),
-                                                  "speed", 0.5f, "islocal", true, "easetype", iTween.EaseType.linear,
+                                                  "speed", 0.2f, "islocal", true, "easetype", iTween.EaseType.linear,
                                                   "looptype", iTween.LoopType.pingPong, "oncomplete", "PauseTween", "oncompletetarget", gameObject));
         }
 

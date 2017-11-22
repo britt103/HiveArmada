@@ -35,39 +35,136 @@ using Random = System.Random;
 namespace Hive.Armada.Game
 {
     /// <summary>
-    /// All spawn zones in the scene.
+    /// Defines an enemy prefab, how many to spawn, and what attack pattern to use.
     /// </summary>
-    public enum SpawnZone
+    [Serializable]
+    public struct SetupEnemySpawn
     {
         /// <summary>
-        /// The introduction spawn point that is right in front of the player's view.
+        /// The prefab of the enemy to spawn.
         /// </summary>
-        Introduction = 0,
+        public GameObject enemyPrefab;
 
         /// <summary>
-        /// The main spawn region in front of the player.
+        /// How many of enemyPrefab to spawn.
         /// </summary>
-        Center = 1,
+        public int spawnCount;
 
         /// <summary>
-        /// The spawn region that is in the front left.
+        /// What attack pattern this enemy should use.
         /// </summary>
-        FrontLeft = 2,
+        [Tooltip("Each enemy has different patterns of how they either shoot at the player" +
+                 " or how they move throughout the scene.")]
+        public AttackPattern attackPattern;
+    }
+
+    /// <summary>
+    /// Includes all variables needed to define a group of enemies including how many to spawn,
+    /// what type to spawn, where to spawn, when to spawn, and what attack pattern they should use.
+    /// </summary>
+    [Serializable]
+    public struct SetupSpawnGroup
+    {
+        /// <summary>
+        /// The zone that this group will spawn in.
+        /// </summary>
+        [Tooltip("Which spawn zone will this group spawn in?")]
+        public SpawnZone spawnZone;
 
         /// <summary>
-        /// The spawn region that is in the front right.
+        /// If true, this group spawns with the previous and ignores spawnGroupDelay.
         /// </summary>
-        FrontRight = 3,
+        [Tooltip("If true, this spawn group will spawn with the previous" +
+                 " group and ignore Spawn Group Delay.")]
+        public bool spawnWithPrevious;
 
         /// <summary>
-        /// The spawn region that is up in the back left.
+        /// Delay before this group is spawned.
         /// </summary>
-        BackLeft = 4,
+        [Tooltip("Time delay between this spawn group and the previous.")]
+        [Range(0.0f, 100.0f)]
+        public float spawnGroupDelay;
 
         /// <summary>
-        /// The spawn region that is up in the back right.
+        /// Time delay between individual spawns in this group.
         /// </summary>
-        BackRight = 5
+        [Tooltip("Time delay between individual spawns in this group.")]
+        [Range(0.0f, 20.0f)]
+        public float spawnDelay;
+
+        /// <summary>
+        /// Array of enemy types to spawn, with options.
+        /// </summary>
+        [Tooltip("Array of enemy types to spawn, with options. Duplicate types are valid.")]
+        [Reorderable("Enemy Spawn", false)]
+        public SetupEnemySpawn[] setupEnemySpawns;
+    }
+
+    /// <summary>
+    /// Defines a type identifier for an enemy, which zone
+    /// to spawn it in, and what attack pattern to use.
+    /// </summary>
+    public struct EnemySpawn
+    {
+        /// <summary>
+        /// The type identifier for the enemy prefab to spawn.
+        /// </summary>
+        public int typeIdentifier;
+
+        /// <summary>
+        /// The zone to spawn the enemy in.
+        /// </summary>
+        public SpawnZone spawnZone;
+
+        public AttackPattern attackPattern;
+
+        /// <summary>
+        /// Spawn constructor.
+        /// </summary>
+        /// <param name="typeIdentifier"> The type identifier for theenemy prefab to spawn </param>
+        /// <param name="spawnZone"> The zone to spawn the enemy in </param>
+        /// <param name="attackPattern"> The attack pattern for this enemy to use </param>
+        public EnemySpawn(int typeIdentifier, SpawnZone spawnZone, AttackPattern attackPattern)
+        {
+            this.typeIdentifier = typeIdentifier;
+            this.spawnZone = spawnZone;
+            this.attackPattern = attackPattern;
+        }
+    }
+
+    /// <summary>
+    /// Converted version of SetupSpawnGroup that merges groups that spawn together
+    /// and swaps GameObject references to enemies with type identifiers.
+    /// </summary>
+    public struct SpawnGroup
+    {
+        /// <summary>
+        /// Time delay before this group is spawned.
+        /// </summary>
+        public float spawnGroupDelay;
+
+        /// <summary>
+        /// Time delay between individual spawns in this group.
+        /// </summary>
+        public float spawnDelay;
+
+        /// <summary>
+        /// List of individual spawns for this group.
+        /// </summary>
+        public List<EnemySpawn> spawns;
+
+        /// <summary>
+        /// SpawnGroup constructor.
+        /// </summary>
+        /// <param name="spawnGroupDelay"> Time delay before this group is spawned </param>
+        /// <param name="spawnDelay"> Time delay between individual spawns </param>
+        /// <param name="spawns"> List of individual spawns </param>
+        public SpawnGroup(float spawnGroupDelay, float spawnDelay, List<EnemySpawn> spawns)
+        {
+            this.spawnGroupDelay = spawnGroupDelay;
+            this.spawnDelay = spawnDelay;
+            this.spawns = spawns;
+        }
     }
 
     /// <summary>
@@ -76,124 +173,6 @@ namespace Hive.Armada.Game
     [DisallowMultipleComponent]
     public class Subwave : MonoBehaviour
     {
-        /// <summary>
-        /// Defines a type identifier for an enemy to spawn and which zone to spawn that enemy.
-        /// </summary>
-        public struct Spawn
-        {
-            /// <summary>
-            /// The type identifier for the enemy prefab to spawn.
-            /// </summary>
-            public int typeIdentifier;
-
-            /// <summary>
-            /// The zone to spawn the enemy in.
-            /// </summary>
-            public SpawnZone spawnZone;
-
-            /// <summary>
-            /// Spawn constructor.
-            /// </summary>
-            /// <param name="typeIdentifier"> The type identifier for the enemy prefab to spawn </param>
-            /// <param name="spawnZone"> The zone to spawn the enemy in </param>
-            public Spawn(int typeIdentifier, SpawnZone spawnZone)
-            {
-                this.typeIdentifier = typeIdentifier;
-                this.spawnZone = spawnZone;
-            }
-        }
-
-        /// <summary>
-        /// Merged SpawnGroup based on SpawnGroup's boolean spawnWithPrevious.
-        /// </summary>
-        public struct MergedSpawnGroup
-        {
-            /// <summary>
-            /// Time delay before this group is spawned.
-            /// </summary>
-            public float spawnGroupDelay;
-
-            /// <summary>
-            /// Time delay between individual spawns in this group.
-            /// </summary>
-            public float spawnDelay;
-
-            /// <summary>
-            /// List of individual spawns for this group.
-            /// </summary>
-            public List<Spawn> spawns;
-
-            /// <summary>
-            /// MergedSpawnGroup constructor.
-            /// </summary>
-            /// <param name="spawnGroupDelay"> Time delay before this group is spawned </param>
-            /// <param name="spawnDelay"> Time delay between individual spawns </param>
-            /// <param name="spawns"> List of individual spawns </param>
-            public MergedSpawnGroup(float spawnGroupDelay, float spawnDelay, List<Spawn> spawns)
-            {
-                this.spawnGroupDelay = spawnGroupDelay;
-                this.spawnDelay = spawnDelay;
-                this.spawns = spawns;
-            }
-        }
-
-        /// <summary>
-        /// Defines an enemy prefab and how many of it to spawn.
-        /// </summary>
-        [Serializable]
-        public struct EnemySpawn
-        {
-            /// <summary>
-            /// The prefab of the enemy to spawn.
-            /// </summary>
-            public GameObject enemyPrefab;
-
-            /// <summary>
-            /// How many of enemyPrefab to spawn.
-            /// </summary>
-            public int spawnCount;
-        }
-
-        /// <summary>
-        /// Includes all variables needed to define a group of enemies including how many, where to, and what type to spawn.
-        /// </summary>
-        [Serializable]
-        public struct SpawnGroup
-        {
-            /// <summary>
-            /// The zone that this group will spawn in.
-            /// </summary>
-            [Tooltip("Which spawn zone will this group spawn in?")]
-            public SpawnZone spawnZone;
-
-            /// <summary>
-            /// If true, this group spawns with the previous and ignores spawnGroupDelay.
-            /// </summary>
-            [Tooltip(
-                "If true, this spawn group will spawn with the previous group and ignore Spawn Group Delay.")]
-            public bool spawnWithPrevious;
-
-            /// <summary>
-            /// Delay before this group is spawned.
-            /// </summary>
-            [Tooltip("Time delay between this spawn group and the previous.")]
-            [Range(0.0f, 100.0f)]
-            public float spawnGroupDelay;
-
-            /// <summary>
-            /// Time delay between individual spawns in this group.
-            /// </summary>
-            [Tooltip("Time delay between individual spawns in this group.")]
-            [Range(0.0f, 20.0f)]
-            public float spawnDelay;
-
-            /// <summary>
-            /// </summary>
-            [Tooltip("Array of enemy prefabs and number to spawn.")]
-            [Reorderable("Enemy Spawn", false)]
-            public EnemySpawn[] enemySpawns;
-        }
-
         /// <summary>
         /// Reference manager that holds all needed references
         /// (e.g. spawner, game manager, etc.)
@@ -221,23 +200,23 @@ namespace Hive.Armada.Game
         public int SubwaveNumber { get; private set; }
 
         /// <summary>
-        /// 
+        /// Maximum enemies to spawn until the player begins shooting them.
         /// </summary>
         [Tooltip("The most enemies that will be spawned if the player isn't shooting them." +
                  " Once the player shoots them, more will be spawned.")]
         public int enemyCap;
 
         /// <summary>
-        /// Array of all spawn groups for this subwave.
+        /// Array of all setup spawn groups for this subwave.
         /// </summary>
         [Tooltip("Array of all spawn groups for this subwave, in order.")]
         [Reorderable("Spawn Group", false)]
-        public SpawnGroup[] spawnGroups;
+        public SetupSpawnGroup[] setupSpawnGroups;
 
         /// <summary>
-        /// 
+        /// List of the finalized spawn groups for this subwave.
         /// </summary>
-        private List<MergedSpawnGroup> mergedSpawnGroups;
+        private List<SpawnGroup> spawnGroups;
 
         /// <summary>
         /// Count of how many of the enemies from this subwave are still alive.
@@ -264,7 +243,7 @@ namespace Hive.Armada.Game
         /// <summary>
         /// Array of the spawn zone bounds from WaveManager.
         /// </summary>
-        private WaveManager.SpawnZone[] spawnZones;
+        private SpawnZoneBounds[] spawnZones;
 
         /// <summary>
         /// If this subwave is currently running and still has spawn groups
@@ -285,7 +264,7 @@ namespace Hive.Armada.Game
             reference = GameObject.Find("Reference Manager").GetComponent<ReferenceManager>();
             objectPoolManager = reference.objectPoolManager;
 
-            spawnZones = reference.waveManager.spawnZones;
+            spawnZones = reference.waveManager.spawnZonesBounds;
         }
 
         /// <summary>
@@ -311,8 +290,8 @@ namespace Hive.Armada.Game
             }
             else
             {
-                Debug.LogWarning("Wave " + WaveNumber + " Subwave " + SubwaveNumber +
-                                 " is already running!");
+                Debug.LogWarning("Wave " + WaveNumber + " Subwave " +
+                                 SubwaveNumber + " is already running!");
             }
         }
 
@@ -321,27 +300,27 @@ namespace Hive.Armada.Game
         /// </summary>
         private void SetupSubwave()
         {
-            if (spawnGroups.Length > 0)
+            if (setupSpawnGroups.Length > 0)
             {
                 enemyCapCount = enemyCap;
-                mergedSpawnGroups = new List<MergedSpawnGroup>();
+                spawnGroups = new List<SpawnGroup>();
 
-                List<Spawn> spawns = new List<Spawn>();
+                List<EnemySpawn> spawns = new List<EnemySpawn>();
                 float groupDelay = -10.0f;
                 float spawnDelay = -10.0f;
 
-                for (int group = 0; group < spawnGroups.Length; ++group)
+                for (int group = 0; group < setupSpawnGroups.Length; ++group)
                 {
                     /**
                      * If this group doesn't spawn with the previous and it isn't the first
-                     *  group, we shuffle the spawns and add a new MergedSpawnGroup
+                     *  group, we shuffle the spawns and add a new SpawnGroup
                      *  to the list. Then, reset our intermediate variables.
                      */
-                    if (!spawnGroups[group].spawnWithPrevious && group > 0)
+                    if (!setupSpawnGroups[group].spawnWithPrevious && group > 0)
                     {
                         Shuffle(spawns);
-                        mergedSpawnGroups.Add(
-                            new MergedSpawnGroup(groupDelay, spawnDelay, new List<Spawn>(spawns)));
+                        spawnGroups.Add(
+                            new SpawnGroup(groupDelay, spawnDelay, new List<EnemySpawn>(spawns)));
 
                         // reset these, -10.0f just to be safe
                         spawns.Clear();
@@ -353,21 +332,27 @@ namespace Hive.Armada.Game
                     // so we know when to get the current spawnGroup's values
                     if (groupDelay <= -1.0f || spawnDelay <= -1.0f)
                     {
-                        groupDelay = spawnGroups[group].spawnGroupDelay;
-                        spawnDelay = spawnGroups[group].spawnDelay;
+                        groupDelay = setupSpawnGroups[group].spawnGroupDelay;
+                        spawnDelay = setupSpawnGroups[group].spawnDelay;
                     }
 
-                    for (int type = 0; type < spawnGroups[group].enemySpawns.Length; ++type)
+                    for (int type = 0;
+                         type < setupSpawnGroups[group].setupEnemySpawns.Length;
+                         ++type)
                     {
                         for (int count = 0;
-                             count < spawnGroups[group].enemySpawns[type].spawnCount;
+                             count < setupSpawnGroups[group].setupEnemySpawns[type].spawnCount;
                              ++count)
                         {
                             int typeIdentifier =
                                 objectPoolManager.GetTypeIdentifier(
-                                    spawnGroups[group].enemySpawns[type].enemyPrefab);
+                                    setupSpawnGroups[group].setupEnemySpawns[type].enemyPrefab);
 
-                            spawns.Add(new Spawn(typeIdentifier, spawnGroups[group].spawnZone));
+                            SpawnZone spawnZone = setupSpawnGroups[group].spawnZone;
+
+                            AttackPattern attackPattern = setupSpawnGroups[group].setupEnemySpawns[type].attackPattern;
+
+                            spawns.Add(new EnemySpawn(typeIdentifier, spawnZone, attackPattern));
 
                             ++enemiesToSpawn;
                         }
@@ -377,13 +362,13 @@ namespace Hive.Armada.Game
                 // The last group wasn't added because the for logic for
                 // that is at the top of the for loop, so we add it here.
                 Shuffle(spawns);
-                mergedSpawnGroups.Add(
-                    new MergedSpawnGroup(groupDelay, spawnDelay, new List<Spawn>(spawns)));
+                spawnGroups.Add(
+                    new SpawnGroup(groupDelay, spawnDelay, new List<EnemySpawn>(spawns)));
             }
             else
             {
-                Debug.LogError("Wave " + WaveNumber + " Subwave " + SubwaveNumber +
-                               " does not have any spawn groups!");
+                Debug.LogError("Wave " + WaveNumber + " Subwave " +
+                               SubwaveNumber + " does not have any spawn groups!");
             }
         }
 
@@ -392,16 +377,16 @@ namespace Hive.Armada.Game
         /// </summary>
         private IEnumerator SpawnSubwave()
         {
-            for (int group = 0; group < mergedSpawnGroups.Count; ++group)
+            for (int group = 0; group < spawnGroups.Count; ++group)
             {
-                if (Math.Abs(mergedSpawnGroups[group].spawnGroupDelay) > 0.001f)
+                if (Math.Abs(spawnGroups[group].spawnGroupDelay) > 0.001f)
                 {
                     // wait the group delay time
-                    yield return new WaitForSeconds(mergedSpawnGroups[group].spawnGroupDelay);
+                    yield return new WaitForSeconds(spawnGroups[group].spawnGroupDelay);
                 }
 
                 // spawn all enemies in the spawn group
-                for (int i = 0; i < mergedSpawnGroups[group].spawns.Count; ++i)
+                for (int i = 0; i < spawnGroups[group].spawns.Count; ++i)
                 {
                     // wait until we can spawn a new enemy
                     while (!canSpawn)
@@ -409,10 +394,10 @@ namespace Hive.Armada.Game
                         yield return new WaitForSeconds(0.1f);
                     }
 
-                    if (Math.Abs(mergedSpawnGroups[group].spawnDelay) > 0.001f)
+                    if (Math.Abs(spawnGroups[group].spawnDelay) > 0.001f)
                     {
                         // wait the delay time
-                        yield return new WaitForSeconds(mergedSpawnGroups[group].spawnDelay);
+                        yield return new WaitForSeconds(spawnGroups[group].spawnDelay);
                     }
                     else
                     {
@@ -422,9 +407,9 @@ namespace Hive.Armada.Game
 
                     Vector3 position;
 
-                    if (mergedSpawnGroups[group].spawns[i].spawnZone != SpawnZone.Introduction)
+                    if (spawnGroups[group].spawns[i].spawnZone != SpawnZone.Introduction)
                     {
-                        SpawnZone zone = mergedSpawnGroups[group].spawns[i].spawnZone;
+                        SpawnZone zone = spawnGroups[group].spawns[i].spawnZone;
 
                         // spawn position is random point in its zone
                         Vector3 lower = spawnZones[(int) zone].lowerBound.transform.position;
@@ -440,7 +425,7 @@ namespace Hive.Armada.Game
                         position = spawnZones[0].lowerBound.transform.position;
                     }
 
-                    int typeIdentifier = mergedSpawnGroups[group].spawns[i].typeIdentifier;
+                    int typeIdentifier = spawnGroups[group].spawns[i].typeIdentifier;
 
                     // wait until we can spawn a new enemy
                     while (!canSpawn)
@@ -448,6 +433,7 @@ namespace Hive.Armada.Game
                         yield return new WaitForSeconds(0.1f);
                     }
 
+                    // TODO - ADD ATTACK PATTERN TO ENEMY
                     GameObject spawned = objectPoolManager.Spawn(typeIdentifier, position);
                     spawned.GetComponent<Enemy>().SetSubwave(this);
 
@@ -465,8 +451,8 @@ namespace Hive.Armada.Game
 
             if (enemiesToSpawn > 0)
             {
-                Debug.LogWarning(GetType().Name + " #" + SubwaveNumber + " - enemiesToSpawn = " +
-                                 enemiesToSpawn);
+                Debug.LogWarning(GetType().Name + " #" + SubwaveNumber +
+                                 " - enemiesToSpawn = " + enemiesToSpawn);
             }
 
             StartCoroutine(WaitForSubwaveEnd());
@@ -512,12 +498,12 @@ namespace Hive.Armada.Game
         /// Shuffles a list of game objects using the Fisher-Yates shuffle algorithm
         /// </summary>
         /// <param name="list"> The list to shuffle </param>
-        private void Shuffle(IList<Spawn> list)
+        private void Shuffle(IList<EnemySpawn> list)
         {
             for (int i = 0; i < list.Count; ++i)
             {
                 int j = random.Next(i, list.Count);
-                Spawn value = list[i];
+                EnemySpawn value = list[i];
                 list[i] = list[j];
                 list[j] = value;
             }

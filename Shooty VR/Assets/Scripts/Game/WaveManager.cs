@@ -17,32 +17,68 @@ using SubjectNerd.Utilities;
 namespace Hive.Armada.Game
 {
     /// <summary>
+    /// All spawn zones in the scene.
+    /// </summary>
+    public enum SpawnZone
+    {
+        /// <summary>
+        /// The introduction spawn point that is right in front of the player's view.
+        /// </summary>
+        Introduction = 0,
+
+        /// <summary>
+        /// The main spawn region in front of the player.
+        /// </summary>
+        Center = 1,
+
+        /// <summary>
+        /// The spawn region that is in the front left.
+        /// </summary>
+        FrontLeft = 2,
+
+        /// <summary>
+        /// The spawn region that is in the front right.
+        /// </summary>
+        FrontRight = 3,
+
+        /// <summary>
+        /// The spawn region that is up in the back left.
+        /// </summary>
+        BackLeft = 4,
+
+        /// <summary>
+        /// The spawn region that is up in the back right.
+        /// </summary>
+        BackRight = 5
+    }
+
+    /// <summary>
+    /// Structure with 2 game objects that define the lower and upper bounds of a spawn zone.
+    /// </summary>
+    [Serializable]
+    public struct SpawnZoneBounds
+    {
+        /// <summary>
+        /// Game object representing the lower bound of the spawn zone.
+        /// </summary>
+        public GameObject lowerBound;
+
+        /// <summary>
+        /// Game object representing the upper bound of the spawn zone.
+        /// </summary>
+        public GameObject upperBound;
+    }
+
+    /// <summary>
     /// The manager for waves and spawning.
     /// </summary>
     public class WaveManager : MonoBehaviour
     {
         /// <summary>
-        /// Structure with 2 game objects that define the lower and upper bounds of a spawn zone.
-        /// </summary>
-        [Serializable]
-        public struct SpawnZone
-        {
-            /// <summary>
-            /// Game object representing the lower bound of the spawn zone.
-            /// </summary>
-            public GameObject lowerBound;
-
-            /// <summary>
-            /// Game object representing the upper bound of the spawn zone.
-            /// </summary>
-            public GameObject upperBound;
-        }
-
-        /// <summary>
         /// Array of all available spawn zones in the scene.
         /// </summary>
         [Reorderable("Spawn Zone", false)]
-        public SpawnZone[] spawnZones;
+        public SpawnZoneBounds[] spawnZonesBounds;
 
         /// <summary>
         /// Array of all waves that will be run.

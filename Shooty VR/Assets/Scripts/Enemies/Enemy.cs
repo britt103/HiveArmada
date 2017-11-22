@@ -19,6 +19,32 @@ using Hive.Armada.Game;
 
 namespace Hive.Armada.Enemies
 {
+    /// <summary>
+    /// Varying attack patterns for this enemy.
+    /// </summary>
+    public enum AttackPattern
+    {
+        /// <summary>
+        /// Attack pattern one.
+        /// </summary>
+        One,
+
+        /// <summary>
+        /// Attack pattern two.
+        /// </summary>
+        Two,
+
+        /// <summary>
+        /// Attack pattern three.
+        /// </summary>
+        Three,
+
+        /// <summary>
+        /// Attack pattern four.
+        /// </summary>
+        Four
+    }
+
     /// <inheritdoc />
     /// <summary>
     /// The base class for all enemies.

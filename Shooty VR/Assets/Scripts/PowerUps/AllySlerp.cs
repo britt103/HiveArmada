@@ -34,6 +34,9 @@ namespace Hive.Armada
 
         private bool canFire = true;
 
+        public AudioSource source;
+        public AudioClip[] clips;
+
         // Use this for initialization
         void Start()
         {
@@ -46,6 +49,10 @@ namespace Hive.Armada
         void Update()
         {
             timeLimit -= Time.deltaTime;
+            if (timeLimit > 0.0F)
+            {
+                source.PlayOneShot(clips[1]);
+            }
             if (timeLimit < 0.0F)
             {
                 //GameObject.Find("Player").GetComponent<PowerUpStatus>().SetAlly(false);
@@ -155,6 +162,7 @@ namespace Hive.Armada
         {
             canFire = false;
             var bullet = Instantiate(bulletPrefab, transform.Find("BulletPoint").transform.position, transform.rotation);
+            source.PlayOneShot(clips[0]);
 
             bullet.transform.LookAt(target);
             bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * bulletSpeed;

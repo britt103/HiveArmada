@@ -38,6 +38,11 @@ namespace Hive.Armada
         public static LayerMask uiMask = LayerMask.GetMask("UI");
 
         /// <summary>
+        /// Layer mask for the Shootable layer
+        /// </summary>
+        public static LayerMask shootableMask = LayerMask.GetMask("Shootable");
+
+        /// <summary>
         /// Layer mask for the UI and Room layer. Used for the laser when in Menu mode.
         /// </summary>
         public static LayerMask laserMenuMask = LayerMask.GetMask("UI", "Room");

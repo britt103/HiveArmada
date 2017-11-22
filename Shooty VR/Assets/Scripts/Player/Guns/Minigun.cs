@@ -132,6 +132,20 @@ namespace Hive.Armada.Player.Guns
 
                 shipController.hand.controller.TriggerHapticPulse(2500);
             }
+
+            else if(Physics.Raycast(transform.position, transform.forward, out hit, 200.0f, Utility.shootableMask))
+            {
+                StartCoroutine(Shoot(hit.collider.gameObject, hit.point));
+
+                if(hit.collider.gameObject.GetComponent<Shootable>() != null 
+                    && hit.collider.gameObject.GetComponent<Shootable>().isShootable)
+                {
+                    hit.collider.gameObject.GetComponent<Shootable>().Shot();
+                }
+
+                shipController.hand.controller.TriggerHapticPulse(2500);
+            }
+
             else if (Physics.Raycast(transform.position, transform.forward, out hit, 200.0f, Utility.roomMask))
             {
                 StartCoroutine(Shoot(hit.collider.gameObject, hit.point));

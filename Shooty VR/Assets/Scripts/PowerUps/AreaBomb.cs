@@ -22,7 +22,7 @@ namespace Hive.Armada.PowerUps
     /// <summary>
     /// Area Bomb powerup.
     /// </summary>
-    public class AreaBomb : MonoBehaviour
+    public class AreaBomb : Shootable
     {
         /// <summary>
         /// Radius of Physics Sphere used for detonation damage. 
@@ -33,6 +33,11 @@ namespace Hive.Armada.PowerUps
         /// Acceleration affecting the Area Bomb's speed.
         /// </summary>
         public float acceleration;
+
+        /// <summary>
+        /// Time when game object stops accelerating and starts decelerating.
+        /// </summary>
+        public float accelerationSwitchTime;
 
         /// <summary>
         /// Forward distance from player ship.
@@ -49,21 +54,32 @@ namespace Hive.Armada.PowerUps
         /// </summary>
         public GameObject fxTrail;
 
+        ///// <summary>
+        ///// FX of Area Bomb detonation.
+        ///// </summary>
+        //public GameObject fxBomb;
+
         /// <summary>
-        /// FX of Area Bomb detonation.
+        /// Time until detonation without player interaction.
         /// </summary>
-        public GameObject fxBomb;
+        public float detonationTime;
+
+        /// <summary>
+        /// Time when game object becomes shootable.
+        /// </summary>
+        public float isShootableTime;
 
         /// <summary>
         /// Start TimeDetonate countdown. Activate trail FX. Set transform.
         /// </summary>
-        void Start()
+        protected override void Awake()
         {
             StartCoroutine(TimeDetonate());
             fxTrail.SetActive(true);
-
             transform.localPosition = new Vector3(0, 0, startingZ);
             gameObject.transform.parent = null;
+            isShootable = false;
+            StartCoroutine(MakeShootable());
         }
 
         /// <summary>
@@ -71,8 +87,35 @@ namespace Hive.Armada.PowerUps
         /// </summary>
         void Update()
         {
-            currentSpeed += acceleration * Time.deltaTime;
-            transform.Translate(Vector3.forward * currentSpeed);
+            accelerationSwitchTime -= Time.deltaTime;
+
+            if(accelerationSwitchTime > 0)
+            {
+                currentSpeed += acceleration * Time.deltaTime;
+            }
+            else
+            {
+                currentSpeed -= acceleration * Time.deltaTime;
+            }
+
+            transform.Translate(Vector3.forward * Mathf.Max(currentSpeed, 0.0f));
+        }
+
+        /// <summary>
+        /// Change isShootable state after set amount of time;
+        /// </summary>
+        private IEnumerator MakeShootable()
+        {
+            yield return new WaitForSeconds(isShootableTime);
+            isShootable = true;
+        }
+
+        /// <summary>
+        /// Trigger detonation when shot by player. 
+        /// </summary>
+        public override void Shot()
+        {
+            Detonate();
         }
 
         /// <summary>
@@ -92,7 +135,7 @@ namespace Hive.Armada.PowerUps
         /// </summary>
         private IEnumerator TimeDetonate()
         {
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(detonationTime);
             Detonate();
         }
 
@@ -108,7 +151,7 @@ namespace Hive.Armada.PowerUps
                     objectCollider.gameObject.GetComponent<Enemies.Enemy>().Hit(100);
                 }
             }
-            Instantiate(fxBomb, transform.position, transform.rotation);
+            Instantiate(fxShot, transform.position, transform.rotation);
             Destroy(gameObject);
         }
     }

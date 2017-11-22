@@ -6,7 +6,7 @@
 // CPSC-340-01 & CPSC-344-01
 // Group Project
 //
-// Shootable is an abstract class and a base for non-enemy object that can be
+// Shootable is an abstract class and a base for non-enemy objects that can be
 // hit by the player.
 //
 //=============================================================================
@@ -18,6 +18,11 @@ namespace Hive.Armada
     public abstract class Shootable : MonoBehaviour
     {
         /// <summary>
+        /// State of whether game object can be shot by player.
+        /// </summary>
+        public bool isShootable = true;
+
+        /// <summary>
         /// FX to be instantiated when spawned.
         /// </summary>
         public GameObject fxSpawn;
@@ -25,12 +30,12 @@ namespace Hive.Armada
         /// <summary>
         /// FX to be instantiated when hit.
         /// </summary>
-        public GameObject fxHit;
+        public GameObject fxShot;
 
         /// <summary>
         /// Instantiate spawn fx.
         /// </summary>
-        public virtual void Awake()
+        protected virtual void Awake()
         {
             Instantiate(fxSpawn, transform.position, transform.rotation, transform);
         }
@@ -38,9 +43,9 @@ namespace Hive.Armada
         /// <summary>
         /// Instantiate hit fx. Self-destruct.
         /// </summary>
-        public virtual void Hit()
+        public virtual void Shot()
         {
-            Instantiate(fxHit, transform.position, transform.rotation);
+            Instantiate(fxShot, transform.position, transform.rotation);
             Destroy(gameObject);
         }
     }

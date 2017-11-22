@@ -6,7 +6,7 @@
 // CPSC-340-01 & CPSC-344-01
 // Group Project
 //
-// Hover effect for enemies that rotates their bodies
+// Hover effect for enemies that rotates their bodies randomly.
 //
 //=============================================================================
 
@@ -22,24 +22,38 @@ namespace Hive.Armada.Enemies
     /// </summary>
     public class HoverRotation : MonoBehaviour
     {
-        float randomZ;
-        float timer = 3.0f;
-        Vector3 Target;
-        float angle;
-
+        private Vector3 targetAngle;
+        private Vector3 startAngle;
+        private Quaternion newAngle;
+        private float randX;
+        private float randZ;
         /// <summary>
         /// Sets the rotation angle and begins movement
         /// </summary>
         void Start()
         {
-            iTween.RotateBy(gameObject, iTween.Hash("y", 1.0f,"speed", 100.0f, "easetype", "linear", "islocal",true, "looptype", iTween.LoopType.loop));
-            //new Vector3(transform.localPosition.x, transform.localPosition.y + 0.5f, transform.localPosition.z)
+            startAngle = transform.localEulerAngles;
+            StartCoroutine(SetPoints());
         }
         private void Update()
         {
-            //iTween.RotateUpdate(gameObject, iTween.Hash("y", 1.0f, "speed", 3.0f, "easetype", "linear", "islocal", true));
+            transform.rotation = Quaternion.Lerp(transform.rotation, newAngle, 3.0f * Time.deltaTime);
+
         }
-        
+        public IEnumerator SetPoints()
+        {
+            
+            newAngle = Quaternion.Euler(startAngle.x + Random.Range(-15f, 15), 0, startAngle.z + Random.Range(-10f, 10f));
+            Debug.LogError("set the points");
+            yield return new WaitForSeconds(0.1f);
+            StartCoroutine(Cooldown());           
+        }
+        public IEnumerator Cooldown()
+        {
+            yield return new WaitForSeconds(3.0f);
+            Debug.LogError("cooldown");
+            StartCoroutine(SetPoints());
+        }
 
     }
 

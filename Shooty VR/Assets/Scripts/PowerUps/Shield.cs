@@ -30,17 +30,22 @@ namespace Hive.Armada.PowerUps
         /// <summary>
         /// Time at which warning flashes start.
         /// </summary>
-        public float warningTime;
+        public float startFlashingTime;
 
         /// <summary>
         /// Duration of individual flashes.
         /// </summary>
-        public float warningFlashIntervalTime;
+        public float flashDuration;
 
         /// <summary>
         /// Duration of current flash.
         /// </summary>
-        private float flashTimer = 0.0F;
+        private float currentFlashDuration = 0.0F;
+
+        /// <summary>
+        /// Multiplied with flashDuration to accelerate flash interval duration.
+        /// </summary>
+        public float flashAcceleration = 0.9f;
 
         /// <summary>
         /// State of whether Shield is currently flashing or not.
@@ -50,7 +55,7 @@ namespace Hive.Armada.PowerUps
         /// <summary>
         /// Rotation Shield uses to spin.
         /// </summary>
-        public Vector3 rotation = new Vector3(0.0F, 0.0F, 0.0F);
+        public Vector3 rotationVector = new Vector3(0.0F, 0.0F, 0.0F);
 
         /// <summary>
         /// Subtract from and check timeLimit. Start flashing when warningTime is reached. Rotate.
@@ -60,16 +65,15 @@ namespace Hive.Armada.PowerUps
             timeLimit -= Time.deltaTime;
             if (timeLimit <= 0.0F)
             {
-                //FindObjectOfType<PowerupStatus>().powerupTypeActive[4] = false;
                 Destroy(gameObject);
             }
 
-            if (timeLimit <= warningTime)
+            if (timeLimit <= startFlashingTime)
             {
                 Flash();
             }
 
-            transform.Rotate(rotation);
+            transform.Rotate(rotationVector);
         }
 
         /// <summary>
@@ -89,12 +93,13 @@ namespace Hive.Armada.PowerUps
         /// </summary>
         private void Flash()
         {
-            flashTimer += Time.deltaTime;
-            if (flashTimer >= warningFlashIntervalTime)
+            currentFlashDuration += Time.deltaTime;
+            if (currentFlashDuration >= flashDuration)
             {
                 gameObject.GetComponent<MeshRenderer>().enabled = flashState;
                 flashState = !flashState;
-                flashTimer = 0.0F;
+                flashDuration *= flashAcceleration;
+                currentFlashDuration = 0.0F;
             }
         }
     }

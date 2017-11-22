@@ -112,9 +112,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeLimit: 12
-  warningTime: 3
-  warningFlashIntervalTime: 0.25
-  rotation: {x: 0.1, y: 0.1, z: 0}
+  startFlashingTime: 4
+  flashDuration: 0.5
+  flashAcceleration: 0.9
+  rotationVector: {x: 0.1, y: 0.1, z: 0}
 --- !u!135 &135373833219534116
 SphereCollider:
   m_ObjectHideFlags: 1

@@ -73,27 +73,6 @@ namespace Hive.Armada.PowerUps
         {
             currentSpeed += acceleration * Time.deltaTime;
             transform.Translate(Vector3.forward * currentSpeed);
-
-            //if (hand.controller.GetPressDown(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad))
-            //{
-            //    Vector2 touchpad = hand.controller.GetAxis(Valve.VR.EVRButtonId.k_EButton_Axis0);
-
-            //    if (touchpad.y < -0.7)
-            //    {
-            //        if (released)
-            //        {
-            //            // button-based detonation
-
-            //        }
-            //        else
-            //        {
-            //            GameObject.Find("Player").GetComponent<PowerUpStatus>().SetAreaBomb(false);
-            //            gameObject.transform.parent = null;
-            //            released = true;
-            //            fxTrail.SetActive(true);
-            //        }
-            //    }
-            //}
         }
 
         /// <summary>
@@ -130,7 +109,6 @@ namespace Hive.Armada.PowerUps
                 }
             }
             Instantiate(fxBomb, transform.position, transform.rotation);
-            //FindObjectOfType<PowerupStatus>().powerupTypeActive[1] = false;
             Destroy(gameObject);
         }
     }

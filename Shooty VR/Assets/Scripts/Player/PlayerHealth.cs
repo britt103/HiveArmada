@@ -60,7 +60,12 @@ namespace Hive.Armada.Player
                 Debug.Log("Hit for " + damage + " damage! Remaining health = " + currentHealth);
 
             if (currentHealth <= 10)
+            {
                 fxHurt.SetActive(true);
+                source.PlayOneShot(clips[1]);
+                source.PlayOneShot(clips[1]);
+                source.PlayOneShot(clips[1]);
+            }
 
             if (currentHealth <= 0)
             {

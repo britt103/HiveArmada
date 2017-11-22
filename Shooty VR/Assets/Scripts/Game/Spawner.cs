@@ -45,6 +45,11 @@ namespace Hive.Armada.Game
         public GameObject winScreenGO;
 
         public AudioSource music;
+        public AudioSource sparks1;
+        public AudioSource sparks2;
+        public AudioSource sparks3;
+        public AudioSource sparks4;
+        public AudioClip[] sparks;
 
         public int startWave;
 
@@ -63,7 +68,7 @@ namespace Hive.Armada.Game
         public void Run()
         {
             StartCoroutine(WaveTimer());
-            GameObject.Find("Game Music");
+            //GameObject.Find("Game Music"); //This line should not be doing anything.  need to test to see if it actually is
             music.Play();
         }
 
@@ -81,6 +86,7 @@ namespace Hive.Armada.Game
             {
                 if (waveSpawn == null)
                 {
+                    StartCoroutine(playSparks());
                     Debug.Log("Kills: " + kills + ", Enemy Spawn Count: " + enemySpawnCount);
                     List<GameObject> spawns = SetupWave();
 
@@ -306,6 +312,20 @@ namespace Hive.Armada.Game
             }
 
             canSpawnPowerup = true;
+        }
+
+        private IEnumerator playSparks()
+        {
+            int sparkNumber = Random.Range(0, sparks.Length);
+            yield return new WaitForSeconds(10);
+            sparks1.PlayOneShot(sparks[sparkNumber]);
+            yield return new WaitForSeconds(10);
+            sparks2.PlayOneShot(sparks[sparkNumber]);
+            yield return new WaitForSeconds(10);
+            sparks3.PlayOneShot(sparks[sparkNumber]);
+            yield return new WaitForSeconds(10);
+            sparks4.PlayOneShot(sparks[sparkNumber]);
+            yield return new WaitForSeconds(10);
         }
     }
 }

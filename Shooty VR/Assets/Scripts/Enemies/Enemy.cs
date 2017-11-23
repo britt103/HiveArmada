@@ -136,6 +136,11 @@ namespace Hive.Armada.Enemies
         protected List<Material> materials;
 
         /// <summary>
+        /// The spawn information for this enemy. Used for respawning after self-destruction.
+        /// </summary>
+        protected EnemySpawn enemySpawn;
+
+        /// <summary>
         /// Initializes references to ReferenceManager and other managers.
         /// </summary>
         public virtual void Awake()
@@ -247,6 +252,15 @@ namespace Hive.Armada.Enemies
         public virtual void SetSubwave(Subwave subwave)
         {
             this.subwave = subwave;
+        }
+
+        /// <summary>
+        /// Sets the enemySpawn which is used to respawn this enemy after self-destructing.
+        /// </summary>
+        /// <param name="enemySpawn"> This enemy's spawn information </param>
+        public virtual void SetEnemySpawn(EnemySpawn enemySpawn)
+        {
+            this.enemySpawn = enemySpawn;
         }
     }
 }

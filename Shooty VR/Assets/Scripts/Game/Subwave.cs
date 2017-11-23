@@ -435,7 +435,9 @@ namespace Hive.Armada.Game
 
                     // TODO - ADD ATTACK PATTERN TO ENEMY
                     GameObject spawned = objectPoolManager.Spawn(typeIdentifier, position);
-                    spawned.GetComponent<Enemy>().SetSubwave(this);
+                    Enemy spawnedEnemyScript = spawned.GetComponent<Enemy>();
+                    spawnedEnemyScript.SetSubwave(this);
+                    spawnedEnemyScript.SetEnemySpawn(spawnGroups[group].spawns[i]);
 
                     --enemyCapCount;
 

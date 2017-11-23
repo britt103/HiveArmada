@@ -25,16 +25,6 @@ namespace Hive.Armada.PowerUps
     public class PowerUpStatus : MonoBehaviour
     {
         /// <summary>
-        /// Array of states of whether each type of powerup is currently stored.
-        /// </summary>
-        //public bool[] powerupTypeStored;
-
-        /// <summary>
-        /// Array of states of whether each type of powerup is currently active.
-        /// </summary>
-        //public bool[] powerupTypeActive;
-
-        /// <summary>
         /// Queue containing powerup prefabs.
         /// </summary>
         private Queue<GameObject> powerups = new Queue<GameObject>();
@@ -58,8 +48,6 @@ namespace Hive.Armada.PowerUps
         /// Distance between icons.
         /// </summary>
         public float iconSpacing = 1f;
-
-        //public float alphaDelta = 30f;
 
         /// <summary>
         /// Reference to player ship.
@@ -113,133 +101,29 @@ namespace Hive.Armada.PowerUps
             {
                 if (hand.controller.GetTouch(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad))
                 {
-                    //    //switch (powerups.Peek().name)
-                    //    //{
-                    //    //    case "Ally":
-                    //    //        ch.ShowPowerup1();
-                    //    //        break;
-
-                    //    //    case "Area Bomb":
-                    //    //        ch.ShowPowerup2();
-                    //    //        break;
-
-                    //    //    case "Clear":
-                    //    //        ch.ShowPowerup3();
-                    //    //        break;
-
-                    //    //    case "Damage Boost":
-                    //    //        ch.ShowPowerup4();
-                    //    //        break;
-
-                    //    //    case "Shield":
-                    //    //        ch.ShowPowerup5();
-                    //    //        break;
-                    //    //}
-
                     string nextPowerupName = powerups.Peek().name;
 
                     for (int i = 0; i < powerupNames.Length; ++i)
                     {
                         if (nextPowerupName == powerupNames[i])
                         {
-                            tooltip.Invoke("ShowPowerup" + (i + 1), 0);
+                            //tooltip.Invoke("ShowPowerup" + (i + 1), 0);
+                            tooltip.ShowPowerup(nextPowerupName);
                             break;
                         }
                     }
                 }
 
-                if (hand.controller.GetTouchUp(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad))
+                else if (hand.controller.GetTouchUp(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad))
                 {
                     tooltip.HideAll();
                 }
 
                 if (hand.controller.GetPressDown(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad))
                 {
-                    //bool canActivate = true;
-
-                    //switch (powerups.Peek().name)
-                    //{
-                    //    case "Ally":
-                    //        if (powerupTypeActive[0])
-                    //        {
-                    //            canActivate = false;
-                    //        }
-                    //        else
-                    //        {
-                    //            powerupTypeStored[0] = false;
-                    //            powerupTypeActive[0] = true;
-                    //            stats.AllyCount();
-                    //        }
-
-                    //        break;
-
-                    //    case "Area Bomb":
-                    //        if (powerupTypeActive[1])
-                    //        {
-                    //            canActivate = false;
-                    //        }
-                    //        else
-                    //        {
-                    //            powerupTypeStored[1] = false;
-                    //            powerupTypeActive[1] = true;
-                    //            stats.AreaBombCount();
-                    //        }
-
-                    //        break;
-
-                    //    case "Clear":
-                    //        if (powerupTypeActive[2])
-                    //        {
-                    //            canActivate = false;
-                    //        }
-                    //        else
-                    //        {
-                    //            powerupTypeStored[2] = false;
-                    //            powerupTypeActive[2] = true;
-                    //            stats.ClearCount();
-                    //        }
-
-                    //        break;
-
-                    //    case "Damage Boost":
-                    //        if (powerupTypeActive[3])
-                    //        {
-                    //            canActivate = false;
-                    //        }
-                    //        else
-                    //        {
-                    //            powerupTypeStored[3] = false;
-                    //            powerupTypeActive[3] = true;
-                    //            stats.DamageBoostCount();
-                    //        }
-
-                    //        break;
-
-                    //    case "Shield":
-                    //        if (powerupTypeActive[4])
-                    //        {
-                    //            canActivate = false;
-                    //        }
-                    //        else
-                    //        {
-                    //            powerupTypeStored[4] = false;
-                    //            powerupTypeActive[4] = true;
-                    //            stats.ShieldCount();
-                    //        }
-
-                    //        break;
-                    //}
-
-                    //if (canActivate)
-                    //{
-                    //    Instantiate(powerups.Dequeue(), powerupPoint);
-
-                    //    RemoveDisplayIcon();
-                    //}
-
                     Instantiate(powerups.Dequeue(), powerupPoint);
                     RemoveDisplayIcon();
-                    //tooltip.HideAll();
+                    tooltip.HideAll();
                 }
             }
         }

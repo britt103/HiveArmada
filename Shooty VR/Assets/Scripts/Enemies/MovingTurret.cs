@@ -1,54 +1,96 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿//=============================================================================
+//
+// Ryan Britton
+// 1849351
+// britt103@mail.chapman.edu
+// CPSC-340-01 & CPSC-344-01
+// Group Project
+//
+// Enemy that shoots at the player while moving between two points
+//
+//=============================================================================
 
-/// <summary>
-/// /// Ryan Britton
-/// britt103
-/// #1849351
-/// CPSC-340-01, CPSC-344-01
-/// Group Project
-/// 
-/// This script handles the logic of a turret moving between two points
-/// </summary>
+using System.Collections;
+using UnityEngine;
+using Random = UnityEngine.Random;
+
 namespace Hive.Armada.Enemies
 {
+    /// <summary>
+    /// Moving turret Enemy
+    /// </summary>
     public class MovingTurret : Enemy
     {
+        /// <summary>
+        /// Type identifier for this enemy's projectiles in objectPoolManager
+        /// </summary>
+        private int projectileTypeIdentifier;
+
+        /// <summary>
+        /// The point where this enemy shoots from.
+        /// </summary>
+        public Transform shootPoint;
+
+        /// <summary>
+        /// How many time per second this enemy can shoot.
+        /// </summary>
+        private float fireRate;
+
+        /// <summary>
+        /// How fast the projectiles move.
+        /// </summary>
+        private float projectileSpeed;
+
+        /// <summary>
+        /// Degrees that the projectile can be randomly rotated.
+        /// Randomly picks in the range of [-spread, spread] for all 3 axes.
+        /// </summary>
+        private float spread;
+
+        /// <summary>
+        /// How fast this enemy can move.
+        /// </summary>
         public float movingSpeed;
 
+        /// <summary>
+        /// Distance on the X axis this enemy will move.
+        /// </summary>
         public float xMax;
 
+        /// <summary>
+        /// Distance on the Y axis this enemy will move.
+        /// </summary>
         public float yMax;
 
+        /// <summary>
+        /// Initial position of this enemy.
+        /// </summary>
         private Vector3 posA;
 
+        /// <summary>
+        /// Secondary position this enemy will move between.
+        /// Based on xMax and yMax.
+        /// </summary>
         private Vector3 posB;
 
-        private Vector3 posCenter;
-
-        public Transform spawn;
-
-        private float xEnd;
-
-        public GameObject bullet;
-
+        /// <summary>
+        /// The player's ship.
+        /// </summary>
         private GameObject player;
 
-        public Vector3 pos;
+        /// <summary>
+        /// Whether this enemy can shoot or not. Toggles when firing every 1/fireRate seconds.
+        /// </summary>
+        private bool canShoot = true;
 
-        public float fireRate, fireSpeed;
-
-        private float fireNext;
-
-        private bool canFire;
-
-        private float distance;
-
+        /// <summary>
+        /// When this enemy was created.
+        /// </summary>
         private float startTime;
 
-        // Use this for initialization
+        /// <summary>
+        /// Finds the player. Runs when this enemy spawns.
+        /// </summary>
         private void Start()
         {
             startTime = Time.time;
@@ -60,11 +102,11 @@ namespace Hive.Armada.Enemies
             SetPosition();
         }
 
+        /// <summary>
+        /// Sets the two positions this enemy moves between.
+        /// </summary>
         private void SetPosition()
         {
-            //This sets the starting position and the 2 points the turrets moves between
-            pos = new Vector3(player.transform.position.x, player.transform.position.y,
-                player.transform.position.z);
             posA = new Vector3(transform.position.x, transform.position.y, transform.position.z);
             posB = new Vector3(transform.localPosition.x + xMax, transform.localPosition.y + yMax,
                 transform.position.z);
@@ -73,6 +115,10 @@ namespace Hive.Armada.Enemies
             //transform.position = posCenter;
         }
 
+        /// <summary>
+        /// Moves the enemy between posA and posB, and tries to look at the player and shoot at it when possible.
+        /// Runs every Frame.
+        /// </summary>
         private void Update()
         {
             transform.position = Vector3.Lerp(posA, posB,
@@ -80,35 +126,62 @@ namespace Hive.Armada.Enemies
 
             if (player != null)
             {
-                transform.LookAt(player.transform
-                    .position); //and makes the transform look at said position
+                transform.LookAt(player.transform);
+
+                if (canShoot)
+                {
+                    StartCoroutine(Shoot());
+                }
             }
             else
             {
-                player = GameObject.FindGameObjectWithTag("Player");
+                player = reference.playerShip;
 
                 if (player == null)
                 {
-                    transform.LookAt(new Vector3(0.0f, 0.0f, 0.0f));
+                    transform.LookAt(new Vector3(0.0f, 2.0f, 0.0f));
                 }
             }
 
-            if (Time.time > fireNext)
-            {
-                //Basic firerate calculation that determines
-                fireNext = Time.time + fireRate; //how many projectiles shoot out of the turret
-                GameObject
-                    shoot = Instantiate(bullet, spawn.position,
-                        spawn.rotation); //within a certain duration. The turret then
-                shoot.GetComponent<Rigidbody>().velocity =
-                    shoot.transform.forward *
-                    fireSpeed; //instantiates a bullet and shoots it forward
-            } //in the direction of the player.
+
         }
 
+        /// <summary>
+        /// Shoots a projectile at the player.
+        /// </summary>
+        private IEnumerator Shoot()
+        {
+            canShoot = false;
+
+            GameObject projectile =
+                objectPoolManager.Spawn(projectileTypeIdentifier, shootPoint.position,
+                                        shootPoint.rotation);
+
+            projectile.GetComponent<Transform>().Rotate(Random.Range(-spread, spread),
+                                                        Random.Range(-spread, spread),
+                                                        Random.Range(-spread, spread));
+
+            projectile.GetComponent<Rigidbody>().velocity =
+                projectile.transform.forward * projectileSpeed;
+
+            yield return new WaitForSeconds(fireRate);
+
+            canShoot = true;
+        }
+
+        /// <summary>
+        /// Resets attributes to this enemy's defaults from enemyAttributes.
+        /// </summary>
         protected override void Reset()
         {
-            throw new NotImplementedException();
+            projectileTypeIdentifier =
+                enemyAttributes.EnemyProjectileTypeIdentifiers[TypeIdentifier];
+            maxHealth = enemyAttributes.enemyHealthValues[TypeIdentifier];
+            Health = maxHealth;
+            fireRate = enemyAttributes.enemyFireRate[TypeIdentifier];
+            projectileSpeed = enemyAttributes.projectileSpeed;
+            spread = enemyAttributes.enemySpread[TypeIdentifier];
+            pointValue = enemyAttributes.enemyScoreValues[TypeIdentifier];
         }
     }
 }

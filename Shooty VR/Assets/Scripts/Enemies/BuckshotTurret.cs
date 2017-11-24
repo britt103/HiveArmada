@@ -1,14 +1,19 @@
-﻿using System;
+﻿//=============================================================================
+//
+// Miguel Gotao
+// 2264941
+// gotao100@mail.chapman.edu
+// CPSC-340-01 & CPSC-344-01
+// Group Project
+//
+// Enemy behavior that shoots a shotgun-like buckshot
+//
+//=============================================================================
+
+using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
-
-//Name: Miguel Luis Gotao
-//Student ID: 2264941
-//Email: gotao100@mail.chapman.edu
-//Course: CPSC340-01
-//Game Development Project 01
 
 namespace Hive.Armada.Enemies
 {
@@ -17,32 +22,66 @@ namespace Hive.Armada.Enemies
     /// </summary>
     public class BuckshotTurret : Enemy
     {
-        public GameObject bullet;
+        /// <summary>
+        /// Type identifier for object pooling purposes
+        /// </summary>
+        private int projectileTypeIdentifier;
 
-        public Transform spawn;
+        /// <summary>
+        /// Projectile that the turret shoots out
+        /// </summary>
+        public GameObject fireProjectile;
 
+        /// <summary>
+        /// Position from which bullets are initially shot from
+        /// </summary>
+        public Transform fireSpawn;
+
+        /// <summary>
+        /// Variable that finds the player GameObject
+        /// </summary>
         private GameObject player;
 
+        /// <summary>
+        /// Vector3 that holds the player's position
+        /// </summary>
         private Vector3 pos;
 
+        /// <summary>
+        /// How fast the turret shoots at a given rate
+        /// </summary>
         public float fireRate;
 
+        /// <summary>
+        /// The rate at which enemy projectiles travel
+        /// </summary>
         public float fireSpeed;
 
+        /// <summary>
+        /// Size of conical spread the bullets travel within
+        /// </summary>
         public float fireCone;
 
+        /// <summary>
+        /// Number of projectiles that the bullet shoots out at once
+        /// </summary>
         public float firePellet;
 
+        /// <summary>
+        /// Value that calculates the next time at which the enemy is able to shoot again
+        /// </summary>
         private float fireNext;
 
+        /// <summary>
+        /// Spread values determined by fireCone on each axis
+        /// </summary>
         private float randX;
-
         private float randY;
-
         private float randZ;
 
-        private bool canFire;
-
+        /// <summary>
+        /// Finds the player and instantiates pos for position holding
+        /// </summary>
         private void Start()
         {
             player = GameObject.FindGameObjectWithTag("Player");
@@ -50,6 +89,10 @@ namespace Hive.Armada.Enemies
                 player.transform.position.z);
         }
 
+        /// <summary>
+        /// Have the enemy track the player position and
+        /// calculate when it can fire projectiles
+        /// </summary>
         private void Update()
         {
             try
@@ -73,9 +116,14 @@ namespace Hive.Armada.Enemies
             }
         }
 
-        private IEnumerator fireBullet()
+        /// <summary>
+        /// Spawn bullets and shoot them in accordance to set spread value
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerator FireBullet()
         {
-            GameObject shoot = Instantiate(bullet, spawn.position, spawn.rotation);
+            GameObject shoot = objectPoolManager.Spawn(projectileTypeIdentifier, fireSpawn.position,
+                                        fireSpawn.rotation);
             randX = Random.Range(-fireCone, fireCone);
             randY = Random.Range(-fireCone, fireCone);
             randZ = Random.Range(-fireCone, fireCone);
@@ -87,7 +135,14 @@ namespace Hive.Armada.Enemies
 
         protected override void Reset()
         {
-            throw new NotImplementedException();
+            projectileTypeIdentifier =
+                enemyAttributes.EnemyProjectileTypeIdentifiers[TypeIdentifier];
+            maxHealth = enemyAttributes.enemyHealthValues[TypeIdentifier];
+            Health = maxHealth;
+            fireRate = enemyAttributes.enemyFireRate[TypeIdentifier];
+            fireSpeed = enemyAttributes.projectileSpeed;
+            fireCone = enemyAttributes.enemySpread[TypeIdentifier];
+            pointValue = enemyAttributes.enemyScoreValues[TypeIdentifier];
         }
     }
 }

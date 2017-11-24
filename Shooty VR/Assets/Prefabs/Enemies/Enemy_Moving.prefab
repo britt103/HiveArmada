@@ -474,7 +474,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1657808963477230}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -3.305604, y: 2.4044948, z: 4.067134}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children:
   - {fileID: 4011350475808412}
@@ -1176,21 +1176,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da2fdb81a7f47694984e439602d7750a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
-  pointValue: 0
   flashColor: {fileID: 2100000, guid: 1db15971033ba594294b4f0c035f7da8, type: 2}
   spawnEmitter: {fileID: 1986916411221482, guid: c22c489c25fedaa41a77630cc26e3c53,
     type: 2}
   deathEmitter: {fileID: 1110594293534486, guid: a5ffbf29c124fdd4b9a26ba22878897e,
     type: 2}
+  shootPoint: {fileID: 4384603577406190}
   movingSpeed: 1
   xMax: 5
   yMax: 0
-  spawn: {fileID: 4384603577406190}
-  bullet: {fileID: 1751136267563060, guid: a3e97b332c7c7484eb0cf0632e2a5e94, type: 2}
-  pos: {x: 0, y: 0, z: 0}
-  fireRate: 0.6
-  fireSpeed: 1.5
 --- !u!136 &136533660940216798
 CapsuleCollider:
   m_ObjectHideFlags: 1

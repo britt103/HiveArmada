@@ -141,6 +141,11 @@ namespace Hive.Armada.Enemies
         protected EnemySpawn enemySpawn;
 
         /// <summary>
+        /// The attack pattern number that this enemy should use.
+        /// </summary>
+        protected AttackPattern attackPattern;
+
+        /// <summary>
         /// Initializes references to ReferenceManager and other managers.
         /// </summary>
         public virtual void Awake()
@@ -255,12 +260,21 @@ namespace Hive.Armada.Enemies
         }
 
         /// <summary>
-        /// Sets the enemySpawn which is used to respawn this enemy after self-destructing.
+        /// Sets the enemy spawn which is used to respawn this enemy after self-destructing.
         /// </summary>
         /// <param name="enemySpawn"> This enemy's spawn information </param>
         public virtual void SetEnemySpawn(EnemySpawn enemySpawn)
         {
             this.enemySpawn = enemySpawn;
+        }
+
+        /// <summary>
+        /// Sets the attack pattern that this enemy will use against the player.
+        /// </summary>
+        /// <param name="attackPattern"> The attack pattern to use </param>
+        public virtual void SetAttackPattern(AttackPattern attackPattern)
+        {
+            this.attackPattern = attackPattern;
         }
     }
 }

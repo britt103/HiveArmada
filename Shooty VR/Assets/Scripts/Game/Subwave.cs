@@ -27,6 +27,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Hive.Armada.Enemies;
 using SubjectNerd.Utilities;
@@ -56,6 +57,36 @@ namespace Hive.Armada.Game
         [Tooltip("Each enemy has different patterns of how they either shoot at the player" +
                  " or how they move throughout the scene.")]
         public AttackPattern attackPattern;
+    }
+
+    /// <summary>
+    /// Defines a powerup to spawn after a random time defined by a base and range value.
+    /// </summary>
+    [Serializable]
+    public struct SetupPowerupSpawn
+    {
+        /// <summary>
+        /// The prefab of the powerup to spawn.
+        /// </summary>
+        public GameObject powerupPrefab;
+
+        /// <summary>
+        /// Base time for the powerup to spawn.
+        /// </summary>
+        [Tooltip("Base time for the powerup to spawn.")]
+        [Range(0.0f, 100.0f)]
+        public float spawnTimeDelayBase;
+
+        /// <summary>
+        /// Range that the powerup can spawn within. A random number is generated between 0 and
+        /// this value. That time is then added to the base to give the final spawn time for the
+        /// powerup.
+        /// </summary>
+        [Tooltip("A random number is generated between 0 and Spawn Time Delay Range. That value" +
+                 " is then added to Spawn Time Delay Base to give the final spawn time for the" +
+                 " powerup.")]
+        [Range(0.0f, 100.0f)]
+        public float spawnTimeDelayRange;
     }
 
     /// <summary>
@@ -96,8 +127,14 @@ namespace Hive.Armada.Game
         /// Array of enemy types to spawn, with options.
         /// </summary>
         [Tooltip("Array of enemy types to spawn, with options. Duplicate types are valid.")]
-        [Reorderable("Enemy Spawn", false)]
         public SetupEnemySpawn[] setupEnemySpawns;
+
+        /// <summary>
+        /// Array of powerups to spawn using base and range times.
+        /// </summary>
+        [Tooltip("Array of powerups to spawn using base and range times." +
+                 " Duplicate types are valid.")]
+        public SetupPowerupSpawn[] setupPowerupSpawns;
     }
 
     /// <summary>
@@ -116,12 +153,15 @@ namespace Hive.Armada.Game
         /// </summary>
         public SpawnZone spawnZone;
 
+        /// <summary>
+        /// The attack pattern this enemy will use.
+        /// </summary>
         public AttackPattern attackPattern;
 
         /// <summary>
-        /// Spawn constructor.
+        /// Enemy spawn constructor.
         /// </summary>
-        /// <param name="typeIdentifier"> The type identifier for theenemy prefab to spawn </param>
+        /// <param name="typeIdentifier"> The type identifier for the enemy prefab to spawn </param>
         /// <param name="spawnZone"> The zone to spawn the enemy in </param>
         /// <param name="attackPattern"> The attack pattern for this enemy to use </param>
         public EnemySpawn(int typeIdentifier, SpawnZone spawnZone, AttackPattern attackPattern)
@@ -129,6 +169,33 @@ namespace Hive.Armada.Game
             this.typeIdentifier = typeIdentifier;
             this.spawnZone = spawnZone;
             this.attackPattern = attackPattern;
+        }
+    }
+
+    /// <summary>
+    /// Defines a type identifier for a powerup and how long into the wave it will start.
+    /// </summary>
+    public struct PowerupSpawn
+    {
+        /// <summary>
+        /// The type identifier for the powerup prefab to spawn.
+        /// </summary>
+        public int typeIdentifier;
+
+        /// <summary>
+        /// How long into the wave this powerup will be spawned, in seconds.
+        /// </summary>
+        public float spawnTime;
+
+        /// <summary>
+        /// Powerup spawn constructor.
+        /// </summary>
+        /// <param name="typeIdentifier"> The type identifier for the powerup prefab to spawn </param>
+        /// <param name="spawnTime"> How long into the wave this powerup will spawn, in seconds </param>
+        public PowerupSpawn(int typeIdentifier, float spawnTime)
+        {
+            this.typeIdentifier = typeIdentifier;
+            this.spawnTime = spawnTime;
         }
     }
 
@@ -151,19 +218,26 @@ namespace Hive.Armada.Game
         /// <summary>
         /// List of individual spawns for this group.
         /// </summary>
-        public List<EnemySpawn> spawns;
+        public List<EnemySpawn> enemySpawns;
+
+        /// <summary>
+        /// List of powerups to spawn and when.
+        /// </summary>
+        public List<PowerupSpawn> powerupSpawns;
 
         /// <summary>
         /// SpawnGroup constructor.
         /// </summary>
         /// <param name="spawnGroupDelay"> Time delay before this group is spawned </param>
         /// <param name="spawnDelay"> Time delay between individual spawns </param>
-        /// <param name="spawns"> List of individual spawns </param>
-        public SpawnGroup(float spawnGroupDelay, float spawnDelay, List<EnemySpawn> spawns)
+        /// <param name="enemySpawns"> List of individual spawns </param>
+        public SpawnGroup(float spawnGroupDelay, float spawnDelay, List<EnemySpawn> enemySpawns,
+                          List<PowerupSpawn> powerupSpawns)
         {
             this.spawnGroupDelay = spawnGroupDelay;
             this.spawnDelay = spawnDelay;
-            this.spawns = spawns;
+            this.enemySpawns = enemySpawns;
+            this.powerupSpawns = powerupSpawns;
         }
     }
 
@@ -257,6 +331,16 @@ namespace Hive.Armada.Game
         public bool IsComplete { get; private set; }
 
         /// <summary>
+        /// Reference to the coroutine that spawns powerups.
+        /// </summary>
+        private Coroutine powerupCoroutine;
+
+        /// <summary>
+        /// Wave timer used to spawn powerups.
+        /// </summary>
+        private float powerupTimer;
+
+        /// <summary>
         /// Initializes the reference to the Reference Manager
         /// </summary>
         private void Awake()
@@ -302,12 +386,15 @@ namespace Hive.Armada.Game
         {
             if (setupSpawnGroups.Length > 0)
             {
+                UnityEngine.Random.InitState((int) Time.time);
                 enemyCapCount = enemyCap;
                 spawnGroups = new List<SpawnGroup>();
 
-                List<EnemySpawn> spawns = new List<EnemySpawn>();
+                List<EnemySpawn> enemySpawns = new List<EnemySpawn>();
                 float groupDelay = -10.0f;
                 float spawnDelay = -10.0f;
+
+                List<PowerupSpawn> powerupSpawns = new List<PowerupSpawn>();
 
                 for (int group = 0; group < setupSpawnGroups.Length; ++group)
                 {
@@ -318,14 +405,18 @@ namespace Hive.Armada.Game
                      */
                     if (!setupSpawnGroups[group].spawnWithPrevious && group > 0)
                     {
-                        Shuffle(spawns);
-                        spawnGroups.Add(
-                            new SpawnGroup(groupDelay, spawnDelay, new List<EnemySpawn>(spawns)));
+                        Shuffle(enemySpawns);
+                        powerupSpawns.Sort((p1, p2) => p1.spawnTime.CompareTo(p2.spawnTime));
+                        spawnGroups.Add(new SpawnGroup(groupDelay,
+                                                       spawnDelay,
+                                                       new List<EnemySpawn>(enemySpawns),
+                                                       powerupSpawns));
 
                         // reset these, -10.0f just to be safe
-                        spawns.Clear();
+                        enemySpawns.Clear();
                         groupDelay = -10.0f;
                         spawnDelay = -10.0f;
+                        powerupSpawns.Clear();
                     }
 
                     // these are set to negative when they are "uninitialized"
@@ -350,20 +441,44 @@ namespace Hive.Armada.Game
 
                             SpawnZone spawnZone = setupSpawnGroups[group].spawnZone;
 
-                            AttackPattern attackPattern = setupSpawnGroups[group].setupEnemySpawns[type].attackPattern;
+                            AttackPattern attackPattern = setupSpawnGroups[group]
+                                .setupEnemySpawns[type].attackPattern;
 
-                            spawns.Add(new EnemySpawn(typeIdentifier, spawnZone, attackPattern));
+                            enemySpawns.Add(
+                                new EnemySpawn(typeIdentifier, spawnZone, attackPattern));
 
                             ++enemiesToSpawn;
+                        }
+                    }
+
+                    for (int powerup = 0;
+                         powerup < setupSpawnGroups[group].setupPowerupSpawns.Length; ++powerup)
+                    {
+                        GameObject powerupPrefab = setupSpawnGroups[group]
+                            .setupPowerupSpawns[powerup].powerupPrefab;
+                        float spawnTimeDelayBase = setupSpawnGroups[group]
+                            .setupPowerupSpawns[powerup].spawnTimeDelayBase;
+                        float spawnTimeDelayRange = setupSpawnGroups[group]
+                            .setupPowerupSpawns[powerup].spawnTimeDelayRange;
+
+                        int typeIdentifier = objectPoolManager.GetTypeIdentifier(powerupPrefab);
+                        float spawnTime = spawnTimeDelayBase +
+                                          UnityEngine.Random.Range(0.0f, spawnTimeDelayRange);
+
+                        if (typeIdentifier >= 0)
+                        {
+                            powerupSpawns.Add(new PowerupSpawn(typeIdentifier, spawnTime));
                         }
                     }
                 }
 
                 // The last group wasn't added because the for logic for
                 // that is at the top of the for loop, so we add it here.
-                Shuffle(spawns);
+                Shuffle(enemySpawns);
+                powerupSpawns.Sort((p1, p2) => p1.spawnTime.CompareTo(p2.spawnTime));
                 spawnGroups.Add(
-                    new SpawnGroup(groupDelay, spawnDelay, new List<EnemySpawn>(spawns)));
+                    new SpawnGroup(groupDelay, spawnDelay, new List<EnemySpawn>(enemySpawns),
+                                   powerupSpawns));
             }
             else
             {
@@ -379,6 +494,29 @@ namespace Hive.Armada.Game
         {
             for (int group = 0; group < spawnGroups.Count; ++group)
             {
+                if (spawnGroups[group].powerupSpawns.Count > 0)
+                {
+                    // try to stop the coroutine if the previous ran over.
+                    try
+                    {
+                        StopCoroutine(powerupCoroutine);
+
+                        if (group > 0)
+                        {
+                            Debug.LogWarning("Wave " + WaveNumber + " Subwave " + SubwaveNumber +
+                                             " Spawn Group " + (group - 1) +
+                                             " powerupCoroutine ran over!");
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        // Do nothing
+                    }
+
+                    powerupCoroutine =
+                        StartCoroutine(PowerupSpawn(spawnGroups[group].powerupSpawns));
+                }
+
                 if (Math.Abs(spawnGroups[group].spawnGroupDelay) > 0.001f)
                 {
                     // wait the group delay time
@@ -386,7 +524,7 @@ namespace Hive.Armada.Game
                 }
 
                 // spawn all enemies in the spawn group
-                for (int i = 0; i < spawnGroups[group].spawns.Count; ++i)
+                for (int i = 0; i < spawnGroups[group].enemySpawns.Count; ++i)
                 {
                     // wait until we can spawn a new enemy
                     while (!canSpawn)
@@ -407,9 +545,9 @@ namespace Hive.Armada.Game
 
                     Vector3 position;
 
-                    if (spawnGroups[group].spawns[i].spawnZone != SpawnZone.Introduction)
+                    if (spawnGroups[group].enemySpawns[i].spawnZone != SpawnZone.Introduction)
                     {
-                        SpawnZone zone = spawnGroups[group].spawns[i].spawnZone;
+                        SpawnZone zone = spawnGroups[group].enemySpawns[i].spawnZone;
 
                         // spawn position is random point in its zone
                         Vector3 lower = spawnZones[(int) zone].lowerBound.transform.position;
@@ -425,7 +563,7 @@ namespace Hive.Armada.Game
                         position = spawnZones[0].lowerBound.transform.position;
                     }
 
-                    int typeIdentifier = spawnGroups[group].spawns[i].typeIdentifier;
+                    int typeIdentifier = spawnGroups[group].enemySpawns[i].typeIdentifier;
 
                     // wait until we can spawn a new enemy
                     while (!canSpawn)
@@ -433,11 +571,14 @@ namespace Hive.Armada.Game
                         yield return new WaitForSeconds(0.1f);
                     }
 
-                    // TODO - ADD ATTACK PATTERN TO ENEMY
                     GameObject spawned = objectPoolManager.Spawn(typeIdentifier, position);
+
+                    // set info for the enemy
                     Enemy spawnedEnemyScript = spawned.GetComponent<Enemy>();
                     spawnedEnemyScript.SetSubwave(this);
-                    spawnedEnemyScript.SetEnemySpawn(spawnGroups[group].spawns[i]);
+                    spawnedEnemyScript.SetEnemySpawn(spawnGroups[group].enemySpawns[i]);
+                    spawnedEnemyScript.SetAttackPattern(
+                        spawnGroups[group].enemySpawns[i].attackPattern);
 
                     --enemyCapCount;
 
@@ -461,6 +602,52 @@ namespace Hive.Armada.Game
         }
 
         /// <summary>
+        /// Counts
+        /// </summary>
+        private IEnumerator PowerupSpawn(List<PowerupSpawn> powerupSpawns)
+        {
+            powerupTimer = 0.0f;
+
+            int typeIdentifier = powerupSpawns[0].typeIdentifier;
+            float spawnTime = powerupSpawns[0].spawnTime;
+
+            while (powerupSpawns.Count > 0)
+            {
+                powerupTimer += 0.1f;
+                yield return new WaitForSeconds(0.1f);
+
+                if (spawnTime > powerupTimer)
+                {
+                    // spawn position is random point in the powerup zone
+                    Vector3 lower = reference
+                        .waveManager.powerupSpawnZone.lowerBound.transform.position;
+                    Vector3 upper = reference
+                        .waveManager.powerupSpawnZone.upperBound.transform.position;
+
+                    Vector3 position = new Vector3(UnityEngine.Random.Range(lower.x, upper.x),
+                                                   UnityEngine.Random.Range(lower.y, upper.y),
+                                                   UnityEngine.Random.Range(lower.z, upper.z));
+
+                    objectPoolManager.Spawn(typeIdentifier, position, Quaternion.identity);
+
+                    powerupSpawns.RemoveAt(0);
+
+                    if (powerupSpawns.Count > 0)
+                    {
+                        typeIdentifier = powerupSpawns[0].typeIdentifier;
+                        spawnTime = powerupSpawns[0].spawnTime;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+            }
+
+            powerupCoroutine = null;
+        }
+
+        /// <summary>
         /// Waits until all enemies for this subwave has been killed,
         /// then informs the Wave that this subwave has completed.
         /// </summary>
@@ -469,6 +656,15 @@ namespace Hive.Armada.Game
             while (enemiesRemaining > 0)
             {
                 yield return new WaitForSeconds(0.1f);
+            }
+
+            try
+            {
+                StopCoroutine(powerupCoroutine);
+            }
+            catch (Exception)
+            {
+                // Do nothing
             }
 
             IsRunning = false;

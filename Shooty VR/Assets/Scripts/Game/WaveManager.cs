@@ -81,6 +81,11 @@ namespace Hive.Armada.Game
         public SpawnZoneBounds[] spawnZonesBounds;
 
         /// <summary>
+        /// The lower and upper bounds of the powerup spawn zone.
+        /// </summary>
+        public SpawnZoneBounds powerupSpawnZone;
+
+        /// <summary>
         /// Array of all waves that will be run.
         /// </summary>
         [Reorderable("Wave", false)]
@@ -130,7 +135,8 @@ namespace Hive.Armada.Game
         {
             if (!waves[currentWave].IsComplete || waves[currentWave].IsRunning)
             {
-                Debug.LogError(GetType().Name + " - wave" + currentWave + " says it is complete, but it isn't!");
+                Debug.LogError(GetType().Name + " - wave" + currentWave +
+                               " says it is complete, but it isn't!");
             }
 
             if (waves.Length > ++currentWave)

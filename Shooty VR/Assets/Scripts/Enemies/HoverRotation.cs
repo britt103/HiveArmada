@@ -22,11 +22,17 @@ namespace Hive.Armada.Enemies
     /// </summary>
     public class HoverRotation : MonoBehaviour
     {
-        private Vector3 targetAngle;
+        /// <summary>
+        /// Direction body starts facing
+        /// </summary>
         private Vector3 startAngle;
+
+        /// <summary>
+        /// Angle to move body towards
+        /// </summary>
         private Quaternion newAngle;
-        private float randX;
-        private float randZ;
+        
+
         /// <summary>
         /// Sets the rotation angle and begins movement
         /// </summary>
@@ -35,23 +41,32 @@ namespace Hive.Armada.Enemies
             startAngle = transform.localEulerAngles;
             StartCoroutine(SetPoints());
         }
+
+        /// <summary>
+        /// Rotates the body of this enemy randomly. Called every frame.
+        /// </summary>
         private void Update()
         {
             transform.rotation = Quaternion.Lerp(transform.rotation, newAngle, 3.0f * Time.deltaTime);
 
         }
+
+        /// <summary>
+        /// Selects an angle to rotate to.
+        /// </summary>
         public IEnumerator SetPoints()
         {
             
             newAngle = Quaternion.Euler(startAngle.x + Random.Range(-10f, 10f), 0, startAngle.z + Random.Range(-10f, 10f));
-            Debug.LogError("set the points");
             yield return new WaitForSeconds(0.1f);
             StartCoroutine(Cooldown());           
         }
+        /// <summary>
+        /// 3 second wait timer for selecting a new angle.
+        /// </summary>
         public IEnumerator Cooldown()
         {
             yield return new WaitForSeconds(3.0f);
-            Debug.LogError("cooldown");
             StartCoroutine(SetPoints());
         }
 

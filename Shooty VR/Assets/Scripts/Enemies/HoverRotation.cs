@@ -43,7 +43,7 @@ namespace Hive.Armada.Enemies
         public IEnumerator SetPoints()
         {
             
-            newAngle = Quaternion.Euler(startAngle.x + Random.Range(-15f, 15), 0, startAngle.z + Random.Range(-10f, 10f));
+            newAngle = Quaternion.Euler(startAngle.x + Random.Range(-10f, 10f), 0, startAngle.z + Random.Range(-10f, 10f));
             Debug.LogError("set the points");
             yield return new WaitForSeconds(0.1f);
             StartCoroutine(Cooldown());           

@@ -104,12 +104,19 @@ namespace Hive.Armada.Player.Weapons
                 ? left[Random.Range(0, left.Length)]
                 : right[Random.Range(0, right.Length)];
 
+
+
             StartCoroutine(FlashShot(barrel, position, barrel.GetComponent<LineRenderer>()));
+
+            reference.statistics.IsFiring();
+            reference.statistics.WeaponFired("Minigun", 1);
 
             yield return new WaitForSeconds(1.0f / fireRate);
 
             isLeftFire = !isLeftFire;
             canShoot = true;
+
+            reference.statistics.IsNotFiring();
         }
 
         /// <summary>

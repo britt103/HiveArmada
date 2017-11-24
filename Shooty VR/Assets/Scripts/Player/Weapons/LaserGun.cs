@@ -64,11 +64,6 @@ namespace Hive.Armada.Player.Weapons
         public AudioSource source;
 
         /// <summary>
-        /// Used to update number of shots and time firing
-        /// </summary>
-        private PlayerStats stats;
-
-        /// <summary>
         /// Thickness of the lasers
         /// </summary>
         public float thickness = 0.002f;
@@ -100,8 +95,6 @@ namespace Hive.Armada.Player.Weapons
             rightLaser.startWidth = thickness;
             rightLaser.endWidth = thickness;
             rightLaser.enabled = false;
-
-            stats = FindObjectOfType<PlayerStats>();
         }
 
         /// <summary>
@@ -161,15 +154,15 @@ namespace Hive.Armada.Player.Weapons
 
             //source.PlayOneShot(laserSounds[0]);
 
-            stats.isFiring = true;
-            stats.ShotsFired(1);
+            reference.statistics.IsFiring();
+            reference.statistics.WeaponFired("Laser Gun", 1);
 
             yield return new WaitForSeconds(1.0f / fireRate);
 
             isLeftFire = !isLeftFire;
             canShoot = true;
 
-            stats.isFiring = false;
+            reference.statistics.IsNotFiring();
         }
 
         /// <summary>

@@ -14,6 +14,7 @@
 // 
 //=============================================================================
 
+using Hive.Armada.Player;
 using UnityEngine;
 
 namespace Hive.Armada.Game

@@ -11,6 +11,7 @@
 // 
 //=============================================================================
 
+using Hive.Armada.Game;
 using UnityEngine;
 
 namespace Hive.Armada.Player.Weapons
@@ -20,6 +21,12 @@ namespace Hive.Armada.Player.Weapons
     /// </summary>
     public abstract class Weapon : MonoBehaviour
     {
+        /// <summary>
+        /// Reference manager that holds all needed references
+        /// (e.g. spawner, game manager, etc.)
+        /// </summary>
+        protected ReferenceManager reference;
+
         /// <summary>
         /// The shipController. Used to send haptic feedback and set damage and fire rate.
         /// </summary>
@@ -50,6 +57,16 @@ namespace Hive.Armada.Player.Weapons
         /// If this weapon can shoot or not. Used for the firing Coroutine
         /// </summary>
         protected bool canShoot = true;
+
+        protected virtual void Awake()
+        {
+            reference = GameObject.Find("Reference Manager").GetComponent<ReferenceManager>();
+
+            if (reference == null)
+            {
+                Debug.LogError(GetType().Name + " - Could not find Reference Manager!");
+            }
+        }
 
         /// <summary>
         /// Called every frame that the controller's trigger is down.

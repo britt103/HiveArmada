@@ -7,6 +7,7 @@
 
 using UnityEngine;
 using System.Collections.Generic;
+using Hive.Armada.Player;
 
 namespace Hive.Armada
 {
@@ -61,16 +62,16 @@ namespace Hive.Armada
 
                     switch (powerup.name)
                     {
-                        case "Shield":
-                            if (shieldActive)
+                        case "Ally":
+                            if (allyActive)
                             {
                                 canActivate = false;
                             }
                             else
                             {
-                                shieldStored = false;
-                                shieldActive = true;
-                                stats.ShieldCount();
+                                allyStored = false;
+                                allyActive = true;
+                                stats.PowerupUsed("Ally");
                             }
 
                             break;
@@ -84,7 +85,7 @@ namespace Hive.Armada
                             {
                                 areaBombStored = false;
                                 areaBombActive = true;
-                                stats.AreaBombCount();
+                                stats.PowerupUsed("Area Bomb");
                             }
 
                             break;
@@ -98,21 +99,7 @@ namespace Hive.Armada
                             {
                                 clearStored = false;
                                 clearActive = true;
-                                stats.ClearCount();
-                            }
-
-                            break;
-
-                        case "Ally":
-                            if (allyActive)
-                            {
-                                canActivate = false;
-                            }
-                            else
-                            {
-                                allyStored = false;
-                                allyActive = true;
-                                stats.AllyCount();
+                                stats.PowerupUsed("Clear");
                             }
 
                             break;
@@ -126,7 +113,21 @@ namespace Hive.Armada
                             {
                                 damageBoostStored = false;
                                 damageBoostActive = true;
-                                stats.DamageBoostCount();
+                                stats.PowerupUsed("Damage Boost");
+                            }
+
+                            break;
+
+                        case "Shield":
+                            if (shieldActive)
+                            {
+                                canActivate = false;
+                            }
+                            else
+                            {
+                                shieldStored = false;
+                                shieldActive = true;
+                                stats.PowerupUsed("Shield");
                             }
 
                             break;

@@ -29,7 +29,9 @@ namespace Hive.Armada.Game
             reference = GameObject.Find("Reference Manager").GetComponent<ReferenceManager>();
 
             if (reference == null)
+            {
                 Debug.LogError(GetType().Name + " - Could not find Reference Manager!");
+            }
         }
 
         public void AddScore(int points)

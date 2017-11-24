@@ -98,7 +98,7 @@ namespace Hive.Armada.Game
         /// <summary>
         /// Gets the type identifiers for each enemy's projectile prefabs
         /// </summary>
-        private void Awake()
+        public void Initialize()
         {
             reference = transform.parent.GetComponent<ReferenceManager>();
 
@@ -108,7 +108,7 @@ namespace Hive.Armada.Game
             {
                 for (int j = 0; j < reference.objectPoolManager.objectsToPool.Length; ++j)
                 {
-                    if (reference.objectPoolManager.objectsToPool[i].name.Equals(enemyProjectilePrefab[i].name))
+                    if (reference.objectPoolManager.objectsToPool[j].name.Equals(enemyProjectilePrefab[i].name))
                     {
                         EnemyProjectileTypeIdentifiers[i] = j;
                         break;

@@ -19,6 +19,32 @@ using Hive.Armada.Game;
 
 namespace Hive.Armada.Enemies
 {
+    /// <summary>
+    /// Varying attack patterns for this enemy.
+    /// </summary>
+    public enum AttackPattern
+    {
+        /// <summary>
+        /// Attack pattern one.
+        /// </summary>
+        One,
+
+        /// <summary>
+        /// Attack pattern two.
+        /// </summary>
+        Two,
+
+        /// <summary>
+        /// Attack pattern three.
+        /// </summary>
+        Three,
+
+        /// <summary>
+        /// Attack pattern four.
+        /// </summary>
+        Four
+    }
+
     /// <inheritdoc />
     /// <summary>
     /// The base class for all enemies.
@@ -46,6 +72,12 @@ namespace Hive.Armada.Enemies
         /// and despawning this enemy when it dies.
         /// </summary>
         protected ObjectPoolManager objectPoolManager;
+
+        /// <summary>
+        /// Reference to the subwave that spawned this enemy. Used to inform it
+        /// when this enemy is hit for the first time and when it is killed.
+        /// </summary>
+        protected Subwave subwave;
 
         /// <summary>
         /// How much health the enemy spawns with.
@@ -102,6 +134,16 @@ namespace Hive.Armada.Enemies
         /// Used to reset Materials after flashing.
         /// </summary>
         protected List<Material> materials;
+
+        /// <summary>
+        /// The spawn information for this enemy. Used for respawning after self-destruction.
+        /// </summary>
+        protected EnemySpawn enemySpawn;
+
+        /// <summary>
+        /// The attack pattern number that this enemy should use.
+        /// </summary>
+        protected AttackPattern attackPattern;
 
         /// <summary>
         /// Initializes references to ReferenceManager and other managers.
@@ -164,6 +206,8 @@ namespace Hive.Armada.Enemies
 
             untouched = false;
 
+            subwave.EnemyHit();
+
             if (reference.spawner != null)
             {
                 reference.spawner.EnemyHit();
@@ -175,6 +219,7 @@ namespace Hive.Armada.Enemies
         /// </summary>
         protected virtual void Kill()
         {
+            subwave.EnemyDead();
             scoringSystem.AddScore(pointValue);
             reference.spawner.AddKill();
             reference.statistics.EnemyKilled();
@@ -203,6 +248,33 @@ namespace Hive.Armada.Enemies
             }
 
             hitFlash = null;
+        }
+
+        /// <summary>
+        /// Used to set the subwave reference.
+        /// </summary>
+        /// <param name="subwave"> The subwave that spawned this enemy </param>
+        public virtual void SetSubwave(Subwave subwave)
+        {
+            this.subwave = subwave;
+        }
+
+        /// <summary>
+        /// Sets the enemy spawn which is used to respawn this enemy after self-destructing.
+        /// </summary>
+        /// <param name="enemySpawn"> This enemy's spawn information </param>
+        public virtual void SetEnemySpawn(EnemySpawn enemySpawn)
+        {
+            this.enemySpawn = enemySpawn;
+        }
+
+        /// <summary>
+        /// Sets the attack pattern that this enemy will use against the player.
+        /// </summary>
+        /// <param name="attackPattern"> The attack pattern to use </param>
+        public virtual void SetAttackPattern(AttackPattern attackPattern)
+        {
+            this.attackPattern = attackPattern;
         }
     }
 }

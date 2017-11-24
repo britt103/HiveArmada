@@ -37,8 +37,11 @@ namespace Hive.Armada.Game
 
         public PlayerStats statistics;
         public WaveManager waveManager;
+<<<<<<< HEAD
 
         public ObjectPoolManager objectPoolManager;
+=======
+>>>>>>> a4c630bb105f03268cd9997837e3019ae27f0375
 
         //--------------------
         // Player
@@ -63,11 +66,6 @@ namespace Hive.Armada.Game
         /// </summary>
         private void Awake()
         {
-            if (enemyAttributes)
-            {
-                enemyAttributes.Initialize();
-            }
-
             if (objectPoolManager)
             {
                 objectPoolManager.Initialize();

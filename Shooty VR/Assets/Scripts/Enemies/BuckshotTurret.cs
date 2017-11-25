@@ -106,7 +106,7 @@ namespace Hive.Armada.Enemies
 
                     for (int i = 0; i < firePellet; ++i)
                     {
-                        StartCoroutine(fireBullet());
+                        StartCoroutine(FireBullet());
                     }
                 }
             }

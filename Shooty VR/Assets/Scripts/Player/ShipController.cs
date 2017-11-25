@@ -129,7 +129,6 @@ namespace Hive.Armada.Player
             else
             {
                 reference.playerShip = gameObject;
-                reference.waveManager.Run();
             }
 
             laserSight = transform.Find("Model").Find("Laser Sight").GetComponent<LaserSight>();

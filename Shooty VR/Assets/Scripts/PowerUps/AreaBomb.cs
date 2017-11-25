@@ -13,7 +13,6 @@ using System.Collections;
 
 namespace Hive.Armada
 {
-    [RequireComponent(typeof(Interactable))]
     public class AreaBomb : MonoBehaviour
     {
         public float radius;
@@ -24,6 +23,11 @@ namespace Hive.Armada
         private float currentSpeed;
         //private Hand hand;
         public GameObject fxTrail, fxBomb;
+
+        /// <summary>
+        /// State of whether bomb should be moving.
+        /// </summary>
+        private bool isMoving = true;
 
         // Use this for initialization
         void Start()
@@ -40,8 +44,11 @@ namespace Hive.Armada
         {
             // accelerating forward
 
-            currentSpeed += acceleration * Time.deltaTime;
-            transform.Translate(Vector3.forward * currentSpeed);
+            if (isMoving)
+            {
+                currentSpeed += acceleration * Time.deltaTime;
+                transform.Translate(Vector3.forward * currentSpeed);
+            }
 
             //if (hand.controller.GetPressDown(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad))
             //{
@@ -86,7 +93,7 @@ namespace Hive.Armada
         }
 
         /// <summary>
-        /// Trigger detonation on impact with enemy
+        /// Trigger detonation on impact with enemy or stop movement on impact with room.
         /// </summary>
         /// <param name="other">collider of object this collided with</param>
         void OnTriggerEnter(Collider other)
@@ -104,6 +111,19 @@ namespace Hive.Armada
                 FindObjectOfType<PowerUpStatus>().areaBombActive = false;
                 Destroy(gameObject);
             }
+            else if (other.CompareTag("Room"))
+            {
+                currentSpeed = 0.0f;
+                acceleration = 0.0f;
+            }
+        }
+
+        /// <summary>
+        /// Cease movement.
+        /// </summary>
+        public void Stop()
+        {
+            isMoving = false;
         }
     }
 }

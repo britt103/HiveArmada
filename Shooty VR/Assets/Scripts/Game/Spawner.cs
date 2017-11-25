@@ -17,6 +17,7 @@ using UnityEngine;
 using Hive.Armada.Game;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Hive.Armada.Player;
 
 namespace Hive.Armada.Game
 {
@@ -50,12 +51,13 @@ namespace Hive.Armada.Game
         public int startWave;
 
         private PlayerStats stats;
+        private PlayerIdleTimer playerIdleTimer;
 
         private List<GameObject> objectPoolTestObjects;
 
         void Start()
         {
-            StartCoroutine(PoolSpawnTest());
+            //StartCoroutine(PoolSpawnTest());
         }
 
         private IEnumerator PoolSpawnTest()
@@ -99,6 +101,7 @@ namespace Hive.Armada.Game
             winScreenGO.SetActive(false);
 
             stats = FindObjectOfType<PlayerStats>();
+            playerIdleTimer = FindObjectOfType<PlayerIdleTimer>();
         }
 
         public void Run()
@@ -135,10 +138,10 @@ namespace Hive.Armada.Game
                     yield return new WaitForSeconds(2);
 
                     waveCountGO.SetActive(false);
-
                     waveSpawn = StartCoroutine(SpawnWave(spawns));
 
                     stats.isAlive = true;
+                    playerIdleTimer.SetIsTracking(true);
                 }
                 else
                 {
@@ -268,6 +271,7 @@ namespace Hive.Armada.Game
 
             stats.WaveComplete();
             waveSpawn = null;
+            playerIdleTimer.SetIsTracking(false);
 
             if (wave == waves.waveSpawns.Length - 1)
             {

@@ -69,6 +69,11 @@ namespace Hive.Armada.Player.Weapons
         private PlayerStats stats;
 
         /// <summary>
+        /// Used to update state value of PlayerIdleTimer
+        /// </summary>
+        private PlayerIdleTimer playerIdleTimer;
+
+        /// <summary>
         /// Thickness of the lasers
         /// </summary>
         public float thickness = 0.002f;
@@ -102,6 +107,7 @@ namespace Hive.Armada.Player.Weapons
             rightLaser.enabled = false;
 
             stats = FindObjectOfType<PlayerStats>();
+            playerIdleTimer = FindObjectOfType<PlayerIdleTimer>();
         }
 
         /// <summary>
@@ -163,6 +169,7 @@ namespace Hive.Armada.Player.Weapons
 
             stats.isFiring = true;
             stats.ShotsFired(1);
+            playerIdleTimer.SetIsIdle(false);
 
             yield return new WaitForSeconds(1.0f / fireRate);
 
@@ -170,6 +177,7 @@ namespace Hive.Armada.Player.Weapons
             canShoot = true;
 
             stats.isFiring = false;
+            playerIdleTimer.SetIsIdle(true);
         }
 
         /// <summary>

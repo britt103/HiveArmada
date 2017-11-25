@@ -53,6 +53,16 @@ namespace Hive.Armada.Player.Weapons
         public Material material;
 
         /// <summary>
+        /// Used to update number of shots and time firing
+        /// </summary>
+        private PlayerStats stats;
+
+        /// <summary>
+        /// Used to update state value of PlayerIdleTimer
+        /// </summary>
+        private PlayerIdleTimer playerIdleTimer;
+
+        /// <summary>
         /// Initializes variables
         /// </summary>
         private void Start()
@@ -61,6 +71,9 @@ namespace Hive.Armada.Player.Weapons
             damageMultiplier = 1;
             damage = shipController.weaponDamage[1];
             fireRate = shipController.weaponFireRate[1];
+
+            stats = FindObjectOfType<PlayerStats>();
+            playerIdleTimer = FindObjectOfType<PlayerIdleTimer>();
         }
 
         /// <summary>
@@ -106,10 +119,17 @@ namespace Hive.Armada.Player.Weapons
 
             StartCoroutine(FlashShot(barrel, position, barrel.GetComponent<LineRenderer>()));
 
+            stats.isFiring = true;
+            stats.ShotsFired(1);
+            playerIdleTimer.SetIsIdle(false);
+
             yield return new WaitForSeconds(1.0f / fireRate);
 
             isLeftFire = !isLeftFire;
             canShoot = true;
+
+            stats.isFiring = false;
+            playerIdleTimer.SetIsIdle(true);
         }
 
         /// <summary>

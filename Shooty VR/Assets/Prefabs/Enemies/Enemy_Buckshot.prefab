@@ -1316,15 +1316,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48e3b33a330b13149906889e4c9842a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
-  pointValue: 0
   flashColor: {fileID: 2100000, guid: 1db15971033ba594294b4f0c035f7da8, type: 2}
   spawnEmitter: {fileID: 1986916411221482, guid: c22c489c25fedaa41a77630cc26e3c53,
     type: 2}
   deathEmitter: {fileID: 1110594293534486, guid: a5ffbf29c124fdd4b9a26ba22878897e,
     type: 2}
-  bullet: {fileID: 1751136267563060, guid: a3e97b332c7c7484eb0cf0632e2a5e94, type: 2}
-  spawn: {fileID: 4320416853268668}
+  fireProjectile: {fileID: 0}
+  fireSpawn: {fileID: 4320416853268668}
   fireRate: 1.5
   fireSpeed: 1
   fireCone: 7.5

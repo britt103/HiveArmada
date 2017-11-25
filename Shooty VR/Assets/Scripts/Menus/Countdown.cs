@@ -7,6 +7,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using Hive.Armada.Game;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -37,7 +38,7 @@ public class Countdown : MonoBehaviour
             yield return new WaitForSeconds(1.0f);
         }
 
-        FindObjectOfType<Hive.Armada.Game.Spawner>().Run();
+        FindObjectOfType<WaveManager>().Run();
         gameObject.SetActive(false);
     }
 }

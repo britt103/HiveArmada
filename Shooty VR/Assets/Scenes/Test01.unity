@@ -2867,7 +2867,11 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: [{fileID: 2047074951}, {fileID: 898325482}, {fileID: 331214255}, {fileID: 1542376575}]
+  m_Children:
+  - {fileID: 2047074951}
+  - {fileID: 898325482}
+  - {fileID: 331214255}
+  - {fileID: 1542376575}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4717,8 +4721,8 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: [{fileID: 114228279168218446, guid: d9f2a9ef87214aa4e9c338464a9a76c4,
-        type: 2}]
+    m_RemovedComponents:
+    - {fileID: 114228279168218446, guid: d9f2a9ef87214aa4e9c338464a9a76c4, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: d9f2a9ef87214aa4e9c338464a9a76c4, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &898325480
@@ -4752,9 +4756,13 @@ MonoBehaviour:
   poolParentPrefab: {fileID: 1863223209720578, guid: 1843794a394e58641ab13ce356f29cc2,
     type: 2}
   objectsToPool:
+  - {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c, type: 2}
+  - {fileID: 1320547421668860, guid: 7b44f96ffc1d34448bbb3dfb12c72d56, type: 2}
+  - {fileID: 1657808963477230, guid: 9d5bf18c82748ee4eab848b404bb835f, type: 2}
+  - {fileID: 1591170296302446, guid: 77949b1a806d5134791075a88b606d98, type: 2}
   - {fileID: 1618603837932422, guid: 9a594f50db7a6b347af3019acb9f591b, type: 2}
   - {fileID: 1590670541974036, guid: 0f837641c26eee64eaa72bd67b35506d, type: 2}
-  amountsToPool: 0a00000014000000
+  amountsToPool: 140000001400000014000000140000001400000014000000
 --- !u!4 &898325482
 Transform:
   m_ObjectHideFlags: 0
@@ -6435,7 +6443,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1126867849
 Transform:
   m_ObjectHideFlags: 0
@@ -7379,17 +7387,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd6c37d73f3d330439ad4e3db0d075a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyHealthValues: 50000000
-  enemyScoreValues: 0a000000
+  enemyHealthValues: 640000007800000064000000c800000050000000
+  enemyScoreValues: 0a0000000a0000000a0000000a0000000a000000
   enemyProjectilePrefab:
   - {fileID: 1590670541974036, guid: 0f837641c26eee64eaa72bd67b35506d, type: 2}
   - {fileID: 1590670541974036, guid: 0f837641c26eee64eaa72bd67b35506d, type: 2}
+  - {fileID: 1590670541974036, guid: 0f837641c26eee64eaa72bd67b35506d, type: 2}
+  - {fileID: 1590670541974036, guid: 0f837641c26eee64eaa72bd67b35506d, type: 2}
+  - {fileID: 1590670541974036, guid: 0f837641c26eee64eaa72bd67b35506d, type: 2}
   enemyFireRate:
+  - 0.6
+  - 1.5
+  - 0.8
+  - 0.8
   - 0.8
   enemySpread:
   - 2
-  enemySpawnEmitters: []
-  enemyDeathEmitters: []
+  - 7.5
+  - 2
+  - 2
+  - 2
+  enemySpawnEmitters:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  enemyDeathEmitters:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   projectileDamage: 10
   projectileSpeed: 1.5
   projectileLifetime: 10
@@ -7514,16 +7543,21 @@ MonoBehaviour:
     spawnGroupDelay: 0
     spawnDelay: 0
     setupEnemySpawns:
-    - enemyPrefab: {fileID: 0}
-      spawnCount: 0
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 1
       attackPattern: 0
-    setupPowerupSpawns:
-    - powerupPrefab: {fileID: 0}
-      spawnTimeDelayBase: 0
-      spawnTimeDelayRange: 0
-    - powerupPrefab: {fileID: 0}
-      spawnTimeDelayBase: 0
-      spawnTimeDelayRange: 0
+    setupPowerupSpawns: []
+  - spawnZone: 1
+    spawnWithPrevious: 0
+    spawnGroupDelay: 3
+    spawnDelay: 1
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 4
+      attackPattern: 0
+    setupPowerupSpawns: []
 --- !u!1 &1382501977
 GameObject:
   m_ObjectHideFlags: 0
@@ -8560,7 +8594,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3d90499657332545b7792f018b1dea4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnZonesBounds: []
+  spawnZonesBounds:
+  - lowerBound: {fileID: 1154570314}
+    upperBound: {fileID: 1154570314}
+  - lowerBound: {fileID: 145340781}
+    upperBound: {fileID: 620348168}
+  - lowerBound: {fileID: 1383060072}
+    upperBound: {fileID: 85382078}
+  - lowerBound: {fileID: 1410365403}
+    upperBound: {fileID: 1382501977}
+  - lowerBound: {fileID: 795157132}
+    upperBound: {fileID: 1815597745}
+  - lowerBound: {fileID: 1504924759}
+    upperBound: {fileID: 1926940244}
   powerupSpawnZone:
     lowerBound: {fileID: 638139814}
     upperBound: {fileID: 297754652}

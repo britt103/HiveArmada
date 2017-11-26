@@ -11,6 +11,7 @@
 //=============================================================================
 
 using System;
+using System.Collections;
 using UnityEngine;
 using SubjectNerd.Utilities;
 
@@ -74,6 +75,12 @@ namespace Hive.Armada.Game
     /// </summary>
     public class WaveManager : MonoBehaviour
     {
+        /// <summary>
+        /// Reference manager that holds all needed references
+        /// (e.g. spawner, game manager, etc.)
+        /// </summary>
+        public ReferenceManager reference;
+
         /// <summary>
         /// Array of all available spawn zones in the scene.
         /// </summary>
@@ -160,7 +167,7 @@ namespace Hive.Armada.Game
         /// <param name="wave"> The index of the wave to run </param>
         private void RunWave(int wave)
         {
-            waves[wave].Run(wave, 0);
+            StartCoroutine(WaveNumberDisplay(wave, 0));
         }
 
         /// <summary>
@@ -170,6 +177,23 @@ namespace Hive.Armada.Game
         /// <param name="subwave"> The index of the subwave to start on </param>
         private void RunWave(int wave, int subwave)
         {
+            StartCoroutine(WaveNumberDisplay(wave, subwave));
+        }
+
+        /// <summary>
+        /// Shows the wave number before starting the wave.
+        /// </summary>
+        /// <param name="wave"> The index of the wave being run </param>
+        /// <param name="subwave"> The index of the starting subwave </param>
+        private IEnumerator WaveNumberDisplay(int wave, int subwave)
+        {
+            reference.menuWaveNumberDisplay.gameObject.SetActive(true);
+            reference.menuWaveNumberDisplay.text = "Wave: " + (wave+1);
+
+            yield return new WaitForSeconds(2.0f);
+
+            reference.menuWaveNumberDisplay.gameObject.SetActive(false);
+
             waves[wave].Run(wave, subwave);
         }
 

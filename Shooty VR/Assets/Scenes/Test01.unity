@@ -109,6 +109,90 @@ NavMeshSettings:
     tileSize: 256
     accuratePlacement: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &1164240
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1164241}
+  - component: {fileID: 1164242}
+  m_Layer: 0
+  m_Name: Subwave - Straight Buckshot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1164241
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1164240}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 909140649}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1164242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1164240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0468c59ffb6e56b43ad9f4ef88e473ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyCap: 6
+  setupSpawnGroups:
+  - spawnZone: 1
+    spawnWithPrevious: 0
+    spawnGroupDelay: 1
+    spawnDelay: 2.5
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 4
+      attackPattern: 0
+    - enemyPrefab: {fileID: 1320547421668860, guid: 7b44f96ffc1d34448bbb3dfb12c72d56,
+        type: 2}
+      spawnCount: 2
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 2
+    spawnWithPrevious: 0
+    spawnGroupDelay: 2
+    spawnDelay: 2.5
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 4
+      attackPattern: 0
+    - enemyPrefab: {fileID: 1320547421668860, guid: 7b44f96ffc1d34448bbb3dfb12c72d56,
+        type: 2}
+      spawnCount: 2
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 3
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 4
+      attackPattern: 0
+    - enemyPrefab: {fileID: 1320547421668860, guid: 7b44f96ffc1d34448bbb3dfb12c72d56,
+        type: 2}
+      spawnCount: 2
+      attackPattern: 0
+    setupPowerupSpawns: []
 --- !u!1 &1550000
 GameObject:
   m_ObjectHideFlags: 0
@@ -378,6 +462,68 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 38865152}
+--- !u!1 &49946940
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 49946941}
+  - component: {fileID: 49946942}
+  m_Layer: 0
+  m_Name: Subwave - Buckshot 02
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &49946941
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 49946940}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1753923241}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &49946942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 49946940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0468c59ffb6e56b43ad9f4ef88e473ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyCap: 4
+  setupSpawnGroups:
+  - spawnZone: 2
+    spawnWithPrevious: 0
+    spawnGroupDelay: 3
+    spawnDelay: 2.75
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1320547421668860, guid: 7b44f96ffc1d34448bbb3dfb12c72d56,
+        type: 2}
+      spawnCount: 2
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 3
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1320547421668860, guid: 7b44f96ffc1d34448bbb3dfb12c72d56,
+        type: 2}
+      spawnCount: 2
+      attackPattern: 0
+    setupPowerupSpawns: []
 --- !u!1 &50354627
 GameObject:
   m_ObjectHideFlags: 0
@@ -806,6 +952,88 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 85382078}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &101275703
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 101275704}
+  - component: {fileID: 101275705}
+  m_Layer: 0
+  m_Name: Subwave - Straight 12
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &101275704
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 101275703}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1705096647}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &101275705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 101275703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0468c59ffb6e56b43ad9f4ef88e473ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyCap: 4
+  setupSpawnGroups:
+  - spawnZone: 2
+    spawnWithPrevious: 0
+    spawnGroupDelay: 2
+    spawnDelay: 2.5
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 5
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 3
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 5
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 4
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 3
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 5
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 3
+      attackPattern: 0
+    setupPowerupSpawns: []
 --- !u!1 &106629173
 GameObject:
   m_ObjectHideFlags: 0
@@ -1423,6 +1651,118 @@ Transform:
   m_Father: {fileID: 1668929406}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &161315596
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 161315597}
+  - component: {fileID: 161315598}
+  m_Layer: 0
+  m_Name: Subwave - Straight Buckshot Moving
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &161315597
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 161315596}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 909140649}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &161315598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 161315596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0468c59ffb6e56b43ad9f4ef88e473ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyCap: 6
+  setupSpawnGroups:
+  - spawnZone: 1
+    spawnWithPrevious: 0
+    spawnGroupDelay: 1
+    spawnDelay: 2.75
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1320547421668860, guid: 7b44f96ffc1d34448bbb3dfb12c72d56,
+        type: 2}
+      spawnCount: 2
+      attackPattern: 0
+    - enemyPrefab: {fileID: 1657808963477230, guid: 9d5bf18c82748ee4eab848b404bb835f,
+        type: 2}
+      spawnCount: 6
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 2
+    spawnWithPrevious: 0
+    spawnGroupDelay: 2
+    spawnDelay: 2.75
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 4
+      attackPattern: 0
+    - enemyPrefab: {fileID: 1320547421668860, guid: 7b44f96ffc1d34448bbb3dfb12c72d56,
+        type: 2}
+      spawnCount: 2
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 3
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 4
+      attackPattern: 0
+    - enemyPrefab: {fileID: 1320547421668860, guid: 7b44f96ffc1d34448bbb3dfb12c72d56,
+        type: 2}
+      spawnCount: 2
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 4
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 3
+      attackPattern: 0
+    - enemyPrefab: {fileID: 1657808963477230, guid: 9d5bf18c82748ee4eab848b404bb835f,
+        type: 2}
+      spawnCount: 3
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 5
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 3
+      attackPattern: 0
+    - enemyPrefab: {fileID: 1657808963477230, guid: 9d5bf18c82748ee4eab848b404bb835f,
+        type: 2}
+      spawnCount: 3
+      attackPattern: 0
+    setupPowerupSpawns: []
 --- !u!1 &167317817
 GameObject:
   m_ObjectHideFlags: 0
@@ -1558,36 +1898,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 167317817}
---- !u!1 &177050297
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 177050298}
-  m_Layer: 0
-  m_Name: Subwaves
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &177050298
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 177050297}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1362859337}
-  - {fileID: 1977890254}
-  m_Father: {fileID: 1542376575}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &199272458
 GameObject:
   m_ObjectHideFlags: 0
@@ -2238,7 +2548,7 @@ GameObject:
   - component: {fileID: 289352697}
   - component: {fileID: 289352698}
   m_Layer: 0
-  m_Name: Wave 01
+  m_Name: Wave 1 - Straight Turret Introduction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2253,7 +2563,12 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1362859337}
+  - {fileID: 1872407264}
+  - {fileID: 1955424687}
+  - {fileID: 1832390895}
+  - {fileID: 1977890254}
   m_Father: {fileID: 1762624838}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2270,6 +2585,116 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   subwaves:
   - {fileID: 1362859338}
+  - {fileID: 1872407265}
+  - {fileID: 1955424688}
+  - {fileID: 1832390896}
+  - {fileID: 1977890255}
+--- !u!1 &290167510
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 290167511}
+  - component: {fileID: 290167512}
+  m_Layer: 0
+  m_Name: Subwave - Buckshot & Moving 02
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &290167511
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 290167510}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1318970513}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &290167512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 290167510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0468c59ffb6e56b43ad9f4ef88e473ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyCap: 4
+  setupSpawnGroups:
+  - spawnZone: 1
+    spawnWithPrevious: 0
+    spawnGroupDelay: 1
+    spawnDelay: 2.5
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1320547421668860, guid: 7b44f96ffc1d34448bbb3dfb12c72d56,
+        type: 2}
+      spawnCount: 2
+      attackPattern: 0
+    - enemyPrefab: {fileID: 1657808963477230, guid: 9d5bf18c82748ee4eab848b404bb835f,
+        type: 2}
+      spawnCount: 2
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 4
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1657808963477230, guid: 9d5bf18c82748ee4eab848b404bb835f,
+        type: 2}
+      spawnCount: 3
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 5
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1657808963477230, guid: 9d5bf18c82748ee4eab848b404bb835f,
+        type: 2}
+      spawnCount: 3
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 2
+    spawnWithPrevious: 0
+    spawnGroupDelay: 1
+    spawnDelay: 2.5
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1320547421668860, guid: 7b44f96ffc1d34448bbb3dfb12c72d56,
+        type: 2}
+      spawnCount: 2
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 3
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1320547421668860, guid: 7b44f96ffc1d34448bbb3dfb12c72d56,
+        type: 2}
+      spawnCount: 2
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 1
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1657808963477230, guid: 9d5bf18c82748ee4eab848b404bb835f,
+        type: 2}
+      spawnCount: 4
+      attackPattern: 0
+    setupPowerupSpawns: []
 --- !u!1 &297754652
 GameObject:
   m_ObjectHideFlags: 0
@@ -2730,6 +3155,130 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45b8addb6981c584f9d3759f2c59370e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &356637105
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 356637106}
+  - component: {fileID: 356637107}
+  m_Layer: 0
+  m_Name: Subwave - Straight 06
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &356637106
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 356637105}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1560648343}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &356637107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 356637105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0468c59ffb6e56b43ad9f4ef88e473ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyCap: 4
+  setupSpawnGroups:
+  - spawnZone: 1
+    spawnWithPrevious: 0
+    spawnGroupDelay: 1
+    spawnDelay: 2.75
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 6
+      attackPattern: 0
+    setupPowerupSpawns: []
+--- !u!1 &368772568
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 368772569}
+  - component: {fileID: 368772570}
+  m_Layer: 0
+  m_Name: Subwave - Splitter 01
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &368772569
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 368772568}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1705096647}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &368772570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 368772568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0468c59ffb6e56b43ad9f4ef88e473ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyCap: 3
+  setupSpawnGroups:
+  - spawnZone: 1
+    spawnWithPrevious: 0
+    spawnGroupDelay: 3
+    spawnDelay: 4
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1591170296302446, guid: 77949b1a806d5134791075a88b606d98,
+        type: 2}
+      spawnCount: 1
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 2
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1591170296302446, guid: 77949b1a806d5134791075a88b606d98,
+        type: 2}
+      spawnCount: 1
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 3
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1591170296302446, guid: 77949b1a806d5134791075a88b606d98,
+        type: 2}
+      spawnCount: 1
+      attackPattern: 0
+    setupPowerupSpawns: []
 --- !u!1 &398551405
 GameObject:
   m_ObjectHideFlags: 0
@@ -2843,6 +3392,98 @@ Transform:
   m_Father: {fileID: 1668929406}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &419445308
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 419445309}
+  - component: {fileID: 419445310}
+  m_Layer: 0
+  m_Name: Subwave - Standard Buckshot & Moving 01
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &419445309
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 419445308}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1044829743}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &419445310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 419445308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0468c59ffb6e56b43ad9f4ef88e473ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyCap: 4
+  setupSpawnGroups:
+  - spawnZone: 1
+    spawnWithPrevious: 0
+    spawnGroupDelay: 2
+    spawnDelay: 3
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1320547421668860, guid: 7b44f96ffc1d34448bbb3dfb12c72d56,
+        type: 2}
+      spawnCount: 4
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 2
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 3
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 3
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 3
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 4
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1657808963477230, guid: 9d5bf18c82748ee4eab848b404bb835f,
+        type: 2}
+      spawnCount: 3
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 5
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1657808963477230, guid: 9d5bf18c82748ee4eab848b404bb835f,
+        type: 2}
+      spawnCount: 3
+      attackPattern: 0
+    setupPowerupSpawns: []
 --- !u!1 &421848036
 GameObject:
   m_ObjectHideFlags: 0
@@ -3010,6 +3651,174 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 475, y: 225, z: 0.05}
   m_Center: {x: 237.5, y: -112.5, z: 0}
+--- !u!1 &470496265
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 470496266}
+  - component: {fileID: 470496267}
+  m_Layer: 0
+  m_Name: Subwave - Splitter & Friends 01
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &470496266
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 470496265}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2026130639}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &470496267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 470496265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0468c59ffb6e56b43ad9f4ef88e473ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyCap: 3
+  setupSpawnGroups:
+  - spawnZone: 2
+    spawnWithPrevious: 0
+    spawnGroupDelay: 2
+    spawnDelay: 2.75
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1657808963477230, guid: 9d5bf18c82748ee4eab848b404bb835f,
+        type: 2}
+      spawnCount: 3
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 3
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1657808963477230, guid: 9d5bf18c82748ee4eab848b404bb835f,
+        type: 2}
+      spawnCount: 3
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 4
+    spawnWithPrevious: 0
+    spawnGroupDelay: 1
+    spawnDelay: 2.75
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1320547421668860, guid: 7b44f96ffc1d34448bbb3dfb12c72d56,
+        type: 2}
+      spawnCount: 2
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 5
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1320547421668860, guid: 7b44f96ffc1d34448bbb3dfb12c72d56,
+        type: 2}
+      spawnCount: 2
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 1
+    spawnWithPrevious: 0
+    spawnGroupDelay: 1
+    spawnDelay: 2.5
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 4
+      attackPattern: 0
+    - enemyPrefab: {fileID: 1591170296302446, guid: 77949b1a806d5134791075a88b606d98,
+        type: 2}
+      spawnCount: 1
+      attackPattern: 0
+    setupPowerupSpawns: []
+--- !u!1 &471461871
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 471461872}
+  - component: {fileID: 471461873}
+  m_Layer: 0
+  m_Name: Subwave - Straight & Buckshot 03
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &471461872
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 471461871}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1753923241}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &471461873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 471461871}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0468c59ffb6e56b43ad9f4ef88e473ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyCap: 2
+  setupSpawnGroups:
+  - spawnZone: 1
+    spawnWithPrevious: 0
+    spawnGroupDelay: 3
+    spawnDelay: 3
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1320547421668860, guid: 7b44f96ffc1d34448bbb3dfb12c72d56,
+        type: 2}
+      spawnCount: 2
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 4
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 3
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 5
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 3
+      attackPattern: 0
+    setupPowerupSpawns: []
 --- !u!1 &482024128
 GameObject:
   m_ObjectHideFlags: 0
@@ -3232,6 +4041,118 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 488140080}
+--- !u!1 &530857105
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 530857106}
+  - component: {fileID: 530857107}
+  m_Layer: 0
+  m_Name: Subwave - All Enemies Galore
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &530857106
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 530857105}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 909140649}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &530857107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 530857105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0468c59ffb6e56b43ad9f4ef88e473ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyCap: 6
+  setupSpawnGroups:
+  - spawnZone: 1
+    spawnWithPrevious: 1
+    spawnGroupDelay: 1
+    spawnDelay: 2
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 8
+      attackPattern: 0
+    - enemyPrefab: {fileID: 1591170296302446, guid: 77949b1a806d5134791075a88b606d98,
+        type: 2}
+      spawnCount: 2
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 2
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1657808963477230, guid: 9d5bf18c82748ee4eab848b404bb835f,
+        type: 2}
+      spawnCount: 5
+      attackPattern: 0
+    - enemyPrefab: {fileID: 1591170296302446, guid: 77949b1a806d5134791075a88b606d98,
+        type: 2}
+      spawnCount: 2
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 3
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1657808963477230, guid: 9d5bf18c82748ee4eab848b404bb835f,
+        type: 2}
+      spawnCount: 5
+      attackPattern: 0
+    - enemyPrefab: {fileID: 1591170296302446, guid: 77949b1a806d5134791075a88b606d98,
+        type: 2}
+      spawnCount: 2
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 4
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 4
+      attackPattern: 0
+    - enemyPrefab: {fileID: 1320547421668860, guid: 7b44f96ffc1d34448bbb3dfb12c72d56,
+        type: 2}
+      spawnCount: 4
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 5
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 4
+      attackPattern: 0
+    - enemyPrefab: {fileID: 1320547421668860, guid: 7b44f96ffc1d34448bbb3dfb12c72d56,
+        type: 2}
+      spawnCount: 4
+      attackPattern: 0
+    setupPowerupSpawns: []
 --- !u!1 &549308194
 GameObject:
   m_ObjectHideFlags: 0
@@ -3449,6 +4370,58 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 552813970}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &564407106
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 564407107}
+  - component: {fileID: 564407108}
+  m_Layer: 0
+  m_Name: Subwave - Splitter Introduction
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &564407107
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 564407106}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1705096647}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &564407108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 564407106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0468c59ffb6e56b43ad9f4ef88e473ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyCap: 1
+  setupSpawnGroups:
+  - spawnZone: 0
+    spawnWithPrevious: 0
+    spawnGroupDelay: 4
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1591170296302446, guid: 77949b1a806d5134791075a88b606d98,
+        type: 2}
+      spawnCount: 1
+      attackPattern: 0
+    setupPowerupSpawns: []
 --- !u!1 &577461737
 GameObject:
   m_ObjectHideFlags: 0
@@ -3946,6 +4919,88 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 638139814}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &646961433
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 646961434}
+  - component: {fileID: 646961435}
+  m_Layer: 0
+  m_Name: Subwave - Straight 10
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &646961434
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 646961433}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1044829743}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &646961435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 646961433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0468c59ffb6e56b43ad9f4ef88e473ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyCap: 3
+  setupSpawnGroups:
+  - spawnZone: 2
+    spawnWithPrevious: 0
+    spawnGroupDelay: 2
+    spawnDelay: 2.5
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 3
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 3
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 3
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 4
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 3
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 5
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 3
+      attackPattern: 0
+    setupPowerupSpawns: []
 --- !u!1 &674851609
 GameObject:
   m_ObjectHideFlags: 0
@@ -4011,6 +5066,108 @@ Transform:
   m_Father: {fileID: 1925747329}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &762097180
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 762097181}
+  - component: {fileID: 762097182}
+  m_Layer: 0
+  m_Name: Subwave - Buckshot Moving & Splitter 01
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &762097181
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 762097180}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2089717407}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &762097182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 762097180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0468c59ffb6e56b43ad9f4ef88e473ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyCap: 4
+  setupSpawnGroups:
+  - spawnZone: 2
+    spawnWithPrevious: 0
+    spawnGroupDelay: 1
+    spawnDelay: 3
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1591170296302446, guid: 77949b1a806d5134791075a88b606d98,
+        type: 2}
+      spawnCount: 1
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 1
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1320547421668860, guid: 7b44f96ffc1d34448bbb3dfb12c72d56,
+        type: 2}
+      spawnCount: 3
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 4
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1657808963477230, guid: 9d5bf18c82748ee4eab848b404bb835f,
+        type: 2}
+      spawnCount: 3
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 3
+    spawnWithPrevious: 0
+    spawnGroupDelay: 2
+    spawnDelay: 3
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1591170296302446, guid: 77949b1a806d5134791075a88b606d98,
+        type: 2}
+      spawnCount: 1
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 1
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1320547421668860, guid: 7b44f96ffc1d34448bbb3dfb12c72d56,
+        type: 2}
+      spawnCount: 3
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 5
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1657808963477230, guid: 9d5bf18c82748ee4eab848b404bb835f,
+        type: 2}
+      spawnCount: 3
+      attackPattern: 0
+    setupPowerupSpawns: []
 --- !u!1 &771068966
 GameObject:
   m_ObjectHideFlags: 0
@@ -4376,6 +5533,150 @@ Transform:
   m_Father: {fileID: 32961389}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &830957236
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 830957237}
+  - component: {fileID: 830957238}
+  m_Layer: 0
+  m_Name: Subwave - Buckshot & Splitter 01
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &830957237
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 830957236}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2026130639}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &830957238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 830957236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0468c59ffb6e56b43ad9f4ef88e473ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyCap: 4
+  setupSpawnGroups:
+  - spawnZone: 2
+    spawnWithPrevious: 0
+    spawnGroupDelay: 2
+    spawnDelay: 3
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1320547421668860, guid: 7b44f96ffc1d34448bbb3dfb12c72d56,
+        type: 2}
+      spawnCount: 2
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 3
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1320547421668860, guid: 7b44f96ffc1d34448bbb3dfb12c72d56,
+        type: 2}
+      spawnCount: 2
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 4
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1591170296302446, guid: 77949b1a806d5134791075a88b606d98,
+        type: 2}
+      spawnCount: 1
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 5
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1591170296302446, guid: 77949b1a806d5134791075a88b606d98,
+        type: 2}
+      spawnCount: 1
+      attackPattern: 0
+    setupPowerupSpawns: []
+--- !u!1 &834306132
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 834306133}
+  - component: {fileID: 834306134}
+  m_Layer: 0
+  m_Name: Subwave - Straight 08
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &834306133
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 834306132}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1753923241}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &834306134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 834306132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0468c59ffb6e56b43ad9f4ef88e473ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyCap: 3
+  setupSpawnGroups:
+  - spawnZone: 2
+    spawnWithPrevious: 0
+    spawnGroupDelay: 2
+    spawnDelay: 3
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 2
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 3
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 2
+      attackPattern: 0
+    setupPowerupSpawns: []
 --- !u!1 &834788112
 GameObject:
   m_ObjectHideFlags: 0
@@ -4658,6 +5959,58 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 852275775}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &861649639
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 861649640}
+  - component: {fileID: 861649641}
+  m_Layer: 0
+  m_Name: Subwave - Moving Introduction
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &861649640
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 861649639}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1813525211}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &861649641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 861649639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0468c59ffb6e56b43ad9f4ef88e473ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyCap: 1
+  setupSpawnGroups:
+  - spawnZone: 0
+    spawnWithPrevious: 0
+    spawnGroupDelay: 4
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1657808963477230, guid: 9d5bf18c82748ee4eab848b404bb835f,
+        type: 2}
+      spawnCount: 1
+      attackPattern: 0
+    setupPowerupSpawns: []
 --- !u!1001 &891891018
 Prefab:
   m_ObjectHideFlags: 0
@@ -4911,6 +6264,57 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 908330519}
+--- !u!1 &909140648
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 909140649}
+  - component: {fileID: 909140650}
+  m_Layer: 0
+  m_Name: Wave 10
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &909140649
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 909140648}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1055860728}
+  - {fileID: 1164241}
+  - {fileID: 161315597}
+  - {fileID: 1429974424}
+  - {fileID: 530857106}
+  m_Father: {fileID: 1762624838}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &909140650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 909140648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306da536319f2464fb5f36695b193d43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  subwaves:
+  - {fileID: 1055860729}
+  - {fileID: 1164242}
+  - {fileID: 161315598}
+  - {fileID: 1429974425}
+  - {fileID: 530857107}
 --- !u!1 &925378508
 GameObject:
   m_ObjectHideFlags: 0
@@ -4940,6 +6344,110 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &929002862
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 929002863}
+  - component: {fileID: 929002864}
+  m_Layer: 0
+  m_Name: Subwave - Straight Moving & Splitter 02
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &929002863
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 929002862}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2089717407}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &929002864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 929002862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0468c59ffb6e56b43ad9f4ef88e473ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyCap: 4
+  setupSpawnGroups:
+  - spawnZone: 2
+    spawnWithPrevious: 0
+    spawnGroupDelay: 1
+    spawnDelay: 2.5
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 3
+      attackPattern: 0
+    - enemyPrefab: {fileID: 1657808963477230, guid: 9d5bf18c82748ee4eab848b404bb835f,
+        type: 2}
+      spawnCount: 2
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 3
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 3
+      attackPattern: 0
+    - enemyPrefab: {fileID: 1657808963477230, guid: 9d5bf18c82748ee4eab848b404bb835f,
+        type: 2}
+      spawnCount: 2
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 4
+    spawnWithPrevious: 0
+    spawnGroupDelay: 1
+    spawnDelay: 2.5
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 4
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 5
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 4
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 1
+    spawnWithPrevious: 0
+    spawnGroupDelay: 1
+    spawnDelay: 3
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1657808963477230, guid: 9d5bf18c82748ee4eab848b404bb835f,
+        type: 2}
+      spawnCount: 6
+      attackPattern: 0
+    - enemyPrefab: {fileID: 1591170296302446, guid: 77949b1a806d5134791075a88b606d98,
+        type: 2}
+      spawnCount: 1
+      attackPattern: 0
+    setupPowerupSpawns: []
 --- !u!1 &936767481
 GameObject:
   m_ObjectHideFlags: 0
@@ -5254,6 +6762,170 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 963053536}
+--- !u!1 &963129188
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 963129189}
+  - component: {fileID: 963129190}
+  m_Layer: 0
+  m_Name: Subwave - Standard Buckshot & Moving 02
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &963129189
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 963129188}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1044829743}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &963129190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 963129188}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0468c59ffb6e56b43ad9f4ef88e473ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyCap: 4
+  setupSpawnGroups:
+  - spawnZone: 1
+    spawnWithPrevious: 0
+    spawnGroupDelay: 2
+    spawnDelay: 3
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1657808963477230, guid: 9d5bf18c82748ee4eab848b404bb835f,
+        type: 2}
+      spawnCount: 6
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 2
+    spawnWithPrevious: 0
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1320547421668860, guid: 7b44f96ffc1d34448bbb3dfb12c72d56,
+        type: 2}
+      spawnCount: 2
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 3
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1320547421668860, guid: 7b44f96ffc1d34448bbb3dfb12c72d56,
+        type: 2}
+      spawnCount: 2
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 4
+    spawnWithPrevious: 0
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 3
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 5
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 3
+      attackPattern: 0
+    setupPowerupSpawns: []
+--- !u!1 &967011857
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 967011858}
+  - component: {fileID: 967011859}
+  m_Layer: 0
+  m_Name: Subwave - Buckshot 03
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &967011858
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 967011857}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1318970513}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &967011859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 967011857}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0468c59ffb6e56b43ad9f4ef88e473ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyCap: 4
+  setupSpawnGroups:
+  - spawnZone: 1
+    spawnWithPrevious: 0
+    spawnGroupDelay: 2
+    spawnDelay: 2.75
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1320547421668860, guid: 7b44f96ffc1d34448bbb3dfb12c72d56,
+        type: 2}
+      spawnCount: 4
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 2
+    spawnWithPrevious: 0
+    spawnGroupDelay: 3
+    spawnDelay: 2.5
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1320547421668860, guid: 7b44f96ffc1d34448bbb3dfb12c72d56,
+        type: 2}
+      spawnCount: 3
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 3
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1320547421668860, guid: 7b44f96ffc1d34448bbb3dfb12c72d56,
+        type: 2}
+      spawnCount: 3
+      attackPattern: 0
+    setupPowerupSpawns: []
 --- !u!1 &972712673
 GameObject:
   m_ObjectHideFlags: 0
@@ -5362,6 +7034,172 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   profile: {fileID: 11400000, guid: 71dce651fb2da5b4580371ce14af7725, type: 2}
+--- !u!1 &992731158
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 992731159}
+  - component: {fileID: 992731160}
+  m_Layer: 0
+  m_Name: Subwave - Splitter & Friends 02
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &992731159
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 992731158}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2026130639}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &992731160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 992731158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0468c59ffb6e56b43ad9f4ef88e473ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyCap: 3
+  setupSpawnGroups:
+  - spawnZone: 1
+    spawnWithPrevious: 1
+    spawnGroupDelay: 2
+    spawnDelay: 3
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1591170296302446, guid: 77949b1a806d5134791075a88b606d98,
+        type: 2}
+      spawnCount: 1
+      attackPattern: 0
+    - enemyPrefab: {fileID: 1320547421668860, guid: 7b44f96ffc1d34448bbb3dfb12c72d56,
+        type: 2}
+      spawnCount: 2
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 2
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1591170296302446, guid: 77949b1a806d5134791075a88b606d98,
+        type: 2}
+      spawnCount: 1
+      attackPattern: 0
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 2
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 3
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1591170296302446, guid: 77949b1a806d5134791075a88b606d98,
+        type: 2}
+      spawnCount: 1
+      attackPattern: 0
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 2
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 4
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1657808963477230, guid: 9d5bf18c82748ee4eab848b404bb835f,
+        type: 2}
+      spawnCount: 3
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 5
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1657808963477230, guid: 9d5bf18c82748ee4eab848b404bb835f,
+        type: 2}
+      spawnCount: 3
+      attackPattern: 0
+    setupPowerupSpawns: []
+--- !u!1 &994001601
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 994001602}
+  - component: {fileID: 994001603}
+  m_Layer: 0
+  m_Name: Subwave - Straight & Buckshot 01
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &994001602
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 994001601}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1560648343}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &994001603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 994001601}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0468c59ffb6e56b43ad9f4ef88e473ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyCap: 3
+  setupSpawnGroups:
+  - spawnZone: 1
+    spawnWithPrevious: 0
+    spawnGroupDelay: 3
+    spawnDelay: 3.5
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 8
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 1
+    spawnWithPrevious: 0
+    spawnGroupDelay: 2
+    spawnDelay: 3.5
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1320547421668860, guid: 7b44f96ffc1d34448bbb3dfb12c72d56,
+        type: 2}
+      spawnCount: 2
+      attackPattern: 0
+    setupPowerupSpawns: []
 --- !u!1 &997904648
 GameObject:
   m_ObjectHideFlags: 0
@@ -6062,6 +7900,98 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 475, y: 225, z: 0.05}
   m_Center: {x: 237.5, y: -112.5, z: 0}
+--- !u!1 &1035371659
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1035371660}
+  - component: {fileID: 1035371661}
+  m_Layer: 0
+  m_Name: Subwave - Straight & Buckshot 07
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1035371660
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1035371659}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2026130639}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1035371661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1035371659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0468c59ffb6e56b43ad9f4ef88e473ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyCap: 4
+  setupSpawnGroups:
+  - spawnZone: 1
+    spawnWithPrevious: 0
+    spawnGroupDelay: 2
+    spawnDelay: 3
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1320547421668860, guid: 7b44f96ffc1d34448bbb3dfb12c72d56,
+        type: 2}
+      spawnCount: 2
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 2
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1320547421668860, guid: 7b44f96ffc1d34448bbb3dfb12c72d56,
+        type: 2}
+      spawnCount: 2
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 3
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1320547421668860, guid: 7b44f96ffc1d34448bbb3dfb12c72d56,
+        type: 2}
+      spawnCount: 2
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 4
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 3
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 5
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 3
+      attackPattern: 0
+    setupPowerupSpawns: []
 --- !u!1 &1041609342
 GameObject:
   m_ObjectHideFlags: 0
@@ -6138,6 +8068,169 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1041609342}
+--- !u!1 &1044829742
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1044829743}
+  - component: {fileID: 1044829744}
+  m_Layer: 0
+  m_Name: Wave 5 - Standard Buckshot & Moving Practice
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1044829743
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1044829742}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 646961434}
+  - {fileID: 1592053423}
+  - {fileID: 1792104532}
+  - {fileID: 419445309}
+  - {fileID: 963129189}
+  m_Father: {fileID: 1762624838}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1044829744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1044829742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306da536319f2464fb5f36695b193d43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  subwaves:
+  - {fileID: 646961435}
+  - {fileID: 1592053424}
+  - {fileID: 1792104533}
+  - {fileID: 419445310}
+  - {fileID: 963129190}
+--- !u!1 &1055860727
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1055860728}
+  - component: {fileID: 1055860729}
+  m_Layer: 0
+  m_Name: Subwave - Straight
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1055860728
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1055860727}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 909140649}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1055860729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1055860727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0468c59ffb6e56b43ad9f4ef88e473ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyCap: 6
+  setupSpawnGroups:
+  - spawnZone: 1
+    spawnWithPrevious: 0
+    spawnGroupDelay: 1
+    spawnDelay: 2.5
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 6
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 2
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 4
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 3
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 4
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 2
+    spawnWithPrevious: 0
+    spawnGroupDelay: 2
+    spawnDelay: 2
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 4
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 3
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 4
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 4
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 4
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 5
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 4
+      attackPattern: 0
+    setupPowerupSpawns: []
 --- !u!1 &1057586406
 GameObject:
   m_ObjectHideFlags: 0
@@ -6429,6 +8522,88 @@ Transform:
   m_Father: {fileID: 1668929406}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1099377530
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1099377531}
+  - component: {fileID: 1099377532}
+  m_Layer: 0
+  m_Name: Subwave - Straight & Buckshot 05
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1099377531
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1099377530}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1813525211}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1099377532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1099377530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0468c59ffb6e56b43ad9f4ef88e473ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyCap: 2
+  setupSpawnGroups:
+  - spawnZone: 4
+    spawnWithPrevious: 0
+    spawnGroupDelay: 1
+    spawnDelay: 2.75
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 2
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 5
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 2
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 2
+    spawnWithPrevious: 0
+    spawnGroupDelay: 2
+    spawnDelay: 2.75
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1320547421668860, guid: 7b44f96ffc1d34448bbb3dfb12c72d56,
+        type: 2}
+      spawnCount: 2
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 3
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1320547421668860, guid: 7b44f96ffc1d34448bbb3dfb12c72d56,
+        type: 2}
+      spawnCount: 2
+      attackPattern: 0
+    setupPowerupSpawns: []
 --- !u!1 &1126867848
 GameObject:
   m_ObjectHideFlags: 0
@@ -7218,6 +9393,68 @@ Transform:
   m_Father: {fileID: 578566973}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1267816683
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1267816684}
+  - component: {fileID: 1267816685}
+  m_Layer: 0
+  m_Name: Subwave - Straight 11
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1267816684
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1267816683}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1705096647}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1267816685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1267816683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0468c59ffb6e56b43ad9f4ef88e473ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyCap: 2
+  setupSpawnGroups:
+  - spawnZone: 2
+    spawnWithPrevious: 0
+    spawnGroupDelay: 2
+    spawnDelay: 2.5
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 4
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 3
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 4
+      attackPattern: 0
+    setupPowerupSpawns: []
 --- !u!1001 &1287213001
 Prefab:
   m_ObjectHideFlags: 0
@@ -7265,6 +9502,145 @@ GameObject:
   m_PrefabParentObject: {fileID: 1229903990448498, guid: 8ab0f7de59750d34fb60a1ce261af7e4,
     type: 2}
   m_PrefabInternal: {fileID: 1287213001}
+--- !u!1 &1300132655
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1300132656}
+  - component: {fileID: 1300132657}
+  m_Layer: 0
+  m_Name: Subwave - Straight Moving Splitter 01
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1300132656
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1300132655}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1318970513}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1300132657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1300132655}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0468c59ffb6e56b43ad9f4ef88e473ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyCap: 3
+  setupSpawnGroups:
+  - spawnZone: 1
+    spawnWithPrevious: 0
+    spawnGroupDelay: 2
+    spawnDelay: 3
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 6
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 2
+    spawnWithPrevious: 0
+    spawnGroupDelay: 2
+    spawnDelay: 3
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1657808963477230, guid: 9d5bf18c82748ee4eab848b404bb835f,
+        type: 2}
+      spawnCount: 4
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 3
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1657808963477230, guid: 9d5bf18c82748ee4eab848b404bb835f,
+        type: 2}
+      spawnCount: 4
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 4
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1591170296302446, guid: 77949b1a806d5134791075a88b606d98,
+        type: 2}
+      spawnCount: 1
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 5
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1591170296302446, guid: 77949b1a806d5134791075a88b606d98,
+        type: 2}
+      spawnCount: 1
+      attackPattern: 0
+    setupPowerupSpawns: []
+--- !u!1 &1318970512
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1318970513}
+  - component: {fileID: 1318970514}
+  m_Layer: 0
+  m_Name: Wave 8
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1318970513
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1318970512}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1300132656}
+  - {fileID: 967011858}
+  - {fileID: 290167511}
+  m_Father: {fileID: 1762624838}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1318970514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1318970512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306da536319f2464fb5f36695b193d43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  subwaves:
+  - {fileID: 1300132657}
+  - {fileID: 967011859}
+  - {fileID: 290167512}
 --- !u!1 &1349796692
 GameObject:
   m_ObjectHideFlags: 0
@@ -7387,7 +9763,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd6c37d73f3d330439ad4e3db0d075a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyHealthValues: 640000007800000064000000c800000050000000
+  enemyHealthValues: 640000009600000078000000fa00000050000000
   enemyScoreValues: 0a0000000a0000000a0000000a0000000a000000
   enemyProjectilePrefab:
   - {fileID: 1590670541974036, guid: 0f837641c26eee64eaa72bd67b35506d, type: 2}
@@ -7422,6 +9798,78 @@ MonoBehaviour:
   projectileDamage: 10
   projectileSpeed: 1.5
   projectileLifetime: 10
+--- !u!1 &1351598645
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1351598646}
+  - component: {fileID: 1351598647}
+  m_Layer: 0
+  m_Name: Subwave - Straight & Splitter 01
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1351598646
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1351598645}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1705096647}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1351598647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1351598645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0468c59ffb6e56b43ad9f4ef88e473ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyCap: 5
+  setupSpawnGroups:
+  - spawnZone: 1
+    spawnWithPrevious: 0
+    spawnGroupDelay: 2
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1591170296302446, guid: 77949b1a806d5134791075a88b606d98,
+        type: 2}
+      spawnCount: 1
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 2
+    spawnWithPrevious: 0
+    spawnGroupDelay: 1
+    spawnDelay: 2.5
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 3
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 3
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 3
+      attackPattern: 0
+    setupPowerupSpawns: []
 --- !u!1 &1362497685
 GameObject:
   m_ObjectHideFlags: 0
@@ -7506,7 +9954,7 @@ GameObject:
   - component: {fileID: 1362859337}
   - component: {fileID: 1362859338}
   m_Layer: 0
-  m_Name: Subwave 01
+  m_Name: Subwave - Straight Introduction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7518,11 +9966,11 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1362859336}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 177050298}
+  m_Father: {fileID: 289352697}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1362859338
@@ -7536,26 +9984,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0468c59ffb6e56b43ad9f4ef88e473ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyCap: 2
+  enemyCap: 1
   setupSpawnGroups:
   - spawnZone: 0
     spawnWithPrevious: 0
-    spawnGroupDelay: 0
+    spawnGroupDelay: 2
     spawnDelay: 0
     setupEnemySpawns:
     - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
         type: 2}
       spawnCount: 1
-      attackPattern: 0
-    setupPowerupSpawns: []
-  - spawnZone: 1
-    spawnWithPrevious: 0
-    spawnGroupDelay: 3
-    spawnDelay: 1
-    setupEnemySpawns:
-    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
-        type: 2}
-      spawnCount: 4
       attackPattern: 0
     setupPowerupSpawns: []
 --- !u!1 &1382501977
@@ -7878,6 +10316,78 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1410365403}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1412014271
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1412014272}
+  - component: {fileID: 1412014273}
+  m_Layer: 0
+  m_Name: Subwave - Straight 07
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1412014272
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1412014271}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1560648343}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1412014273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1412014271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0468c59ffb6e56b43ad9f4ef88e473ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyCap: 3
+  setupSpawnGroups:
+  - spawnZone: 1
+    spawnWithPrevious: 0
+    spawnGroupDelay: 2
+    spawnDelay: 2.75
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 6
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 2
+    spawnWithPrevious: 0
+    spawnGroupDelay: 2
+    spawnDelay: 3
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 2
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 3
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 2
+      attackPattern: 0
+    setupPowerupSpawns: []
 --- !u!1 &1414931093
 GameObject:
   m_ObjectHideFlags: 0
@@ -7909,6 +10419,118 @@ Transform:
   m_Father: {fileID: 1925747329}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1429974423
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1429974424}
+  - component: {fileID: 1429974425}
+  m_Layer: 0
+  m_Name: Subwave - Straight Buckshot Moving Splitter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1429974424
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1429974423}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 909140649}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1429974425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1429974423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0468c59ffb6e56b43ad9f4ef88e473ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyCap: 6
+  setupSpawnGroups:
+  - spawnZone: 2
+    spawnWithPrevious: 0
+    spawnGroupDelay: 1
+    spawnDelay: 2.5
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 4
+      attackPattern: 0
+    - enemyPrefab: {fileID: 1657808963477230, guid: 9d5bf18c82748ee4eab848b404bb835f,
+        type: 2}
+      spawnCount: 4
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 3
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 4
+      attackPattern: 0
+    - enemyPrefab: {fileID: 1657808963477230, guid: 9d5bf18c82748ee4eab848b404bb835f,
+        type: 2}
+      spawnCount: 4
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 4
+    spawnWithPrevious: 0
+    spawnGroupDelay: 1
+    spawnDelay: 2.5
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 4
+      attackPattern: 0
+    - enemyPrefab: {fileID: 1320547421668860, guid: 7b44f96ffc1d34448bbb3dfb12c72d56,
+        type: 2}
+      spawnCount: 4
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 5
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 4
+      attackPattern: 0
+    - enemyPrefab: {fileID: 1320547421668860, guid: 7b44f96ffc1d34448bbb3dfb12c72d56,
+        type: 2}
+      spawnCount: 4
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 1
+    spawnWithPrevious: 0
+    spawnGroupDelay: 2
+    spawnDelay: 2.5
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 8
+      attackPattern: 0
+    - enemyPrefab: {fileID: 1591170296302446, guid: 77949b1a806d5134791075a88b606d98,
+        type: 2}
+      spawnCount: 2
+      attackPattern: 0
+    setupPowerupSpawns: []
 --- !u!1 &1431240204
 GameObject:
   m_ObjectHideFlags: 0
@@ -8579,7 +11201,6 @@ Transform:
   m_Children:
   - {fileID: 32961389}
   - {fileID: 1762624838}
-  - {fileID: 177050298}
   m_Father: {fileID: 421848038}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8612,6 +11233,88 @@ MonoBehaviour:
     upperBound: {fileID: 297754652}
   waves:
   - {fileID: 289352698}
+  - {fileID: 1560648344}
+  - {fileID: 1753923242}
+  - {fileID: 1813525212}
+  - {fileID: 1044829744}
+  - {fileID: 1705096648}
+  - {fileID: 2026130640}
+  - {fileID: 1318970514}
+  - {fileID: 2089717408}
+  - {fileID: 2089717408}
+  - {fileID: 909140650}
+--- !u!1 &1544431080
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1544431081}
+  - component: {fileID: 1544431082}
+  m_Layer: 0
+  m_Name: Subwave - Straight & Splitter 02
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1544431081
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1544431080}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2026130639}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1544431082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1544431080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0468c59ffb6e56b43ad9f4ef88e473ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyCap: 4
+  setupSpawnGroups:
+  - spawnZone: 2
+    spawnWithPrevious: 0
+    spawnGroupDelay: 1
+    spawnDelay: 3
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1591170296302446, guid: 77949b1a806d5134791075a88b606d98,
+        type: 2}
+      spawnCount: 1
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 3
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1591170296302446, guid: 77949b1a806d5134791075a88b606d98,
+        type: 2}
+      spawnCount: 1
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 1
+    spawnWithPrevious: 0
+    spawnGroupDelay: 3
+    spawnDelay: 2.5
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 8
+      attackPattern: 0
+    setupPowerupSpawns: []
 --- !u!1 &1544772440
 GameObject:
   m_ObjectHideFlags: 0
@@ -8659,6 +11362,57 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 807ac8c48e6729746b945e72cfdba581, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1560648342
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1560648343}
+  - component: {fileID: 1560648344}
+  m_Layer: 0
+  m_Name: Wave 2 - Buckshot Introduction
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1560648343
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1560648342}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 356637106}
+  - {fileID: 1412014272}
+  - {fileID: 1768635589}
+  - {fileID: 1583533523}
+  - {fileID: 994001602}
+  m_Father: {fileID: 1762624838}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1560648344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1560648342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306da536319f2464fb5f36695b193d43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  subwaves:
+  - {fileID: 356637107}
+  - {fileID: 1412014273}
+  - {fileID: 1768635590}
+  - {fileID: 1583533524}
+  - {fileID: 994001603}
 --- !u!1 &1571775677
 GameObject:
   m_ObjectHideFlags: 0
@@ -8709,6 +11463,58 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcec6abaee44e1846889301d5ac13a89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1583533522
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1583533523}
+  - component: {fileID: 1583533524}
+  m_Layer: 0
+  m_Name: Subwave - Buckshot 01
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1583533523
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1583533522}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1560648343}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1583533524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1583533522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0468c59ffb6e56b43ad9f4ef88e473ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyCap: 1
+  setupSpawnGroups:
+  - spawnZone: 1
+    spawnWithPrevious: 0
+    spawnGroupDelay: 4
+    spawnDelay: 3.5
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1320547421668860, guid: 7b44f96ffc1d34448bbb3dfb12c72d56,
+        type: 2}
+      spawnCount: 3
+      attackPattern: 0
+    setupPowerupSpawns: []
 --- !u!1 &1584470947
 GameObject:
   m_ObjectHideFlags: 0
@@ -9044,6 +11850,180 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 475, y: 225, z: 0.05}
   m_Center: {x: 237.5, y: -112.5, z: 0}
+--- !u!1 &1592053422
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1592053423}
+  - component: {fileID: 1592053424}
+  m_Layer: 0
+  m_Name: Subwave - Straight & Buckshot 06
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1592053423
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1592053422}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1044829743}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1592053424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1592053422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0468c59ffb6e56b43ad9f4ef88e473ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyCap: 4
+  setupSpawnGroups:
+  - spawnZone: 2
+    spawnWithPrevious: 0
+    spawnGroupDelay: 2
+    spawnDelay: 2.75
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 5
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 3
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 5
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 4
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1320547421668860, guid: 7b44f96ffc1d34448bbb3dfb12c72d56,
+        type: 2}
+      spawnCount: 2
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 5
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1320547421668860, guid: 7b44f96ffc1d34448bbb3dfb12c72d56,
+        type: 2}
+      spawnCount: 2
+      attackPattern: 0
+    setupPowerupSpawns: []
+--- !u!1 &1594307790
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1594307791}
+  - component: {fileID: 1594307792}
+  m_Layer: 0
+  m_Name: Subwave - Straight 09
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1594307791
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1594307790}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1813525211}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1594307792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1594307790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0468c59ffb6e56b43ad9f4ef88e473ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyCap: 5
+  setupSpawnGroups:
+  - spawnZone: 2
+    spawnWithPrevious: 0
+    spawnGroupDelay: 2
+    spawnDelay: 2
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 4
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 3
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 4
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 3
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 4
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 3
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 4
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 3
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 4
+      attackPattern: 0
+    setupPowerupSpawns: []
 --- !u!1 &1633310424
 GameObject:
   m_ObjectHideFlags: 0
@@ -9118,6 +12098,162 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1633310424}
+--- !u!1 &1645917342
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1645917343}
+  - component: {fileID: 1645917344}
+  m_Layer: 0
+  m_Name: Subwave - Straight & Buckshot 02
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1645917343
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1645917342}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1753923241}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1645917344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1645917342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0468c59ffb6e56b43ad9f4ef88e473ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyCap: 4
+  setupSpawnGroups:
+  - spawnZone: 1
+    spawnWithPrevious: 0
+    spawnGroupDelay: 1
+    spawnDelay: 2.75
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1320547421668860, guid: 7b44f96ffc1d34448bbb3dfb12c72d56,
+        type: 2}
+      spawnCount: 3
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 2
+    spawnWithPrevious: 0
+    spawnGroupDelay: 1
+    spawnDelay: 2.75
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 4
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 3
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 4
+      attackPattern: 0
+    setupPowerupSpawns: []
+--- !u!1 &1667462831
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1667462832}
+  - component: {fileID: 1667462833}
+  m_Layer: 0
+  m_Name: Subwave - Straight & Splitter Wave
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1667462832
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1667462831}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2089717407}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1667462833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1667462831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0468c59ffb6e56b43ad9f4ef88e473ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyCap: 4
+  setupSpawnGroups:
+  - spawnZone: 2
+    spawnWithPrevious: 0
+    spawnGroupDelay: 1
+    spawnDelay: 2
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 3
+      attackPattern: 0
+    - enemyPrefab: {fileID: 1591170296302446, guid: 77949b1a806d5134791075a88b606d98,
+        type: 2}
+      spawnCount: 1
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 1
+    spawnWithPrevious: 0
+    spawnGroupDelay: 0
+    spawnDelay: 2
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 3
+      attackPattern: 0
+    - enemyPrefab: {fileID: 1591170296302446, guid: 77949b1a806d5134791075a88b606d98,
+        type: 2}
+      spawnCount: 1
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 3
+    spawnWithPrevious: 0
+    spawnGroupDelay: 0
+    spawnDelay: 2
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 3
+      attackPattern: 0
+    - enemyPrefab: {fileID: 1591170296302446, guid: 77949b1a806d5134791075a88b606d98,
+        type: 2}
+      spawnCount: 1
+      attackPattern: 0
+    setupPowerupSpawns: []
 --- !u!1 &1668929405
 GameObject:
   m_ObjectHideFlags: 0
@@ -9152,6 +12288,98 @@ Transform:
   m_Father: {fileID: 1925747329}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1681773801
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1681773802}
+  - component: {fileID: 1681773803}
+  m_Layer: 0
+  m_Name: Subwave - Straight & Buckshot 04
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1681773802
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1681773801}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1753923241}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1681773803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1681773801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0468c59ffb6e56b43ad9f4ef88e473ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyCap: 4
+  setupSpawnGroups:
+  - spawnZone: 2
+    spawnWithPrevious: 0
+    spawnGroupDelay: 4
+    spawnDelay: 3.5
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 3
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 3
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 3
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 1
+    spawnWithPrevious: 0
+    spawnGroupDelay: 3
+    spawnDelay: 2
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1320547421668860, guid: 7b44f96ffc1d34448bbb3dfb12c72d56,
+        type: 2}
+      spawnCount: 3
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 4
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 4
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 5
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 4
+      attackPattern: 0
+    setupPowerupSpawns: []
 --- !u!1 &1689367901
 GameObject:
   m_ObjectHideFlags: 0
@@ -9305,6 +12533,57 @@ Prefab:
     - {fileID: 114000012530188460, guid: dc06161b6d97feb419f45f03b62e14b9, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: dc06161b6d97feb419f45f03b62e14b9, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1705096646
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1705096647}
+  - component: {fileID: 1705096648}
+  m_Layer: 0
+  m_Name: Wave 6 - Splitter Introduction
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1705096647
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1705096646}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1267816684}
+  - {fileID: 101275704}
+  - {fileID: 564407107}
+  - {fileID: 1351598646}
+  - {fileID: 368772569}
+  m_Father: {fileID: 1762624838}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1705096648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1705096646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306da536319f2464fb5f36695b193d43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  subwaves:
+  - {fileID: 1267816685}
+  - {fileID: 101275705}
+  - {fileID: 564407108}
+  - {fileID: 1351598647}
+  - {fileID: 368772570}
 --- !u!1 &1726349557
 GameObject:
   m_ObjectHideFlags: 0
@@ -9873,6 +13152,57 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 475, y: 225, z: 0.05}
   m_Center: {x: 237.5, y: -112.5, z: 0}
+--- !u!1 &1753923240
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1753923241}
+  - component: {fileID: 1753923242}
+  m_Layer: 0
+  m_Name: Wave 3 - Standard & Buckshot Practice
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1753923241
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1753923240}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1645917343}
+  - {fileID: 834306133}
+  - {fileID: 471461872}
+  - {fileID: 1681773802}
+  - {fileID: 49946941}
+  m_Father: {fileID: 1762624838}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1753923242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1753923240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306da536319f2464fb5f36695b193d43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  subwaves:
+  - {fileID: 1645917344}
+  - {fileID: 834306134}
+  - {fileID: 471461873}
+  - {fileID: 1681773803}
+  - {fileID: 49946942}
 --- !u!1 &1762624837
 GameObject:
   m_ObjectHideFlags: 0
@@ -9899,9 +13229,80 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 289352697}
+  - {fileID: 1560648343}
+  - {fileID: 1753923241}
+  - {fileID: 1813525211}
+  - {fileID: 1044829743}
+  - {fileID: 1705096647}
+  - {fileID: 2026130639}
+  - {fileID: 1318970513}
+  - {fileID: 2089717407}
+  - {fileID: 909140649}
   m_Father: {fileID: 1542376575}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1768635588
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1768635589}
+  - component: {fileID: 1768635590}
+  m_Layer: 0
+  m_Name: Subwave - Buckshot Introduction
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1768635589
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1768635588}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1560648343}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1768635590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1768635588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0468c59ffb6e56b43ad9f4ef88e473ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyCap: 1
+  setupSpawnGroups:
+  - spawnZone: 0
+    spawnWithPrevious: 0
+    spawnGroupDelay: 4
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1320547421668860, guid: 7b44f96ffc1d34448bbb3dfb12c72d56,
+        type: 2}
+      spawnCount: 1
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 1
+    spawnWithPrevious: 0
+    spawnGroupDelay: 5
+    spawnDelay: 2.5
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 4
+      attackPattern: 0
+    setupPowerupSpawns: []
 --- !u!1 &1780728040
 GameObject:
   m_ObjectHideFlags: 0
@@ -10038,6 +13439,129 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1786702094}
+--- !u!1 &1792104531
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1792104532}
+  - component: {fileID: 1792104533}
+  m_Layer: 0
+  m_Name: Subwave - Buckshot & Moving 01
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1792104532
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1792104531}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1044829743}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1792104533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1792104531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0468c59ffb6e56b43ad9f4ef88e473ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyCap: 4
+  setupSpawnGroups:
+  - spawnZone: 1
+    spawnWithPrevious: 0
+    spawnGroupDelay: 2
+    spawnDelay: 2.75
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1657808963477230, guid: 9d5bf18c82748ee4eab848b404bb835f,
+        type: 2}
+      spawnCount: 6
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 4
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1320547421668860, guid: 7b44f96ffc1d34448bbb3dfb12c72d56,
+        type: 2}
+      spawnCount: 2
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 5
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1320547421668860, guid: 7b44f96ffc1d34448bbb3dfb12c72d56,
+        type: 2}
+      spawnCount: 2
+      attackPattern: 0
+    setupPowerupSpawns: []
+--- !u!1 &1813525210
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1813525211}
+  - component: {fileID: 1813525212}
+  m_Layer: 0
+  m_Name: Wave 4 - Moving Introduction
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1813525211
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1813525210}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1594307791}
+  - {fileID: 1099377531}
+  - {fileID: 861649640}
+  - {fileID: 1894492964}
+  - {fileID: 2043476575}
+  m_Father: {fileID: 1762624838}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1813525212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1813525210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306da536319f2464fb5f36695b193d43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  subwaves:
+  - {fileID: 1594307792}
+  - {fileID: 1099377532}
+  - {fileID: 861649641}
+  - {fileID: 1894492965}
+  - {fileID: 2043476576}
 --- !u!1001 &1813871438
 Prefab:
   m_ObjectHideFlags: 0
@@ -11080,6 +14604,58 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1825555938}
+--- !u!1 &1832390894
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1832390895}
+  - component: {fileID: 1832390896}
+  m_Layer: 0
+  m_Name: Subwave - Straight 04
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1832390895
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1832390894}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 289352697}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1832390896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1832390894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0468c59ffb6e56b43ad9f4ef88e473ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyCap: 3
+  setupSpawnGroups:
+  - spawnZone: 1
+    spawnWithPrevious: 0
+    spawnGroupDelay: 2
+    spawnDelay: 2.75
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 8
+      attackPattern: 0
+    setupPowerupSpawns: []
 --- !u!1 &1833677958
 GameObject:
   m_ObjectHideFlags: 0
@@ -11246,6 +14822,110 @@ Transform:
   m_Father: {fileID: 32961389}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 45, z: 0}
+--- !u!1 &1872407263
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1872407264}
+  - component: {fileID: 1872407265}
+  m_Layer: 0
+  m_Name: Subwave - Straight 02
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1872407264
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1872407263}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 289352697}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1872407265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1872407263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0468c59ffb6e56b43ad9f4ef88e473ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyCap: 2
+  setupSpawnGroups:
+  - spawnZone: 1
+    spawnWithPrevious: 0
+    spawnGroupDelay: 1
+    spawnDelay: 3.5
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 2
+      attackPattern: 0
+    setupPowerupSpawns: []
+--- !u!1 &1894492963
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1894492964}
+  - component: {fileID: 1894492965}
+  m_Layer: 0
+  m_Name: Subwave - Moving 01
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1894492964
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1894492963}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1813525211}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1894492965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1894492963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0468c59ffb6e56b43ad9f4ef88e473ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyCap: 2
+  setupSpawnGroups:
+  - spawnZone: 1
+    spawnWithPrevious: 0
+    spawnGroupDelay: 2
+    spawnDelay: 3
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1657808963477230, guid: 9d5bf18c82748ee4eab848b404bb835f,
+        type: 2}
+      spawnCount: 6
+      attackPattern: 0
+    setupPowerupSpawns: []
 --- !u!1 &1900224827
 GameObject:
   m_ObjectHideFlags: 0
@@ -11851,6 +15531,58 @@ Transform:
   m_Father: {fileID: 1925747329}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1955424686
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1955424687}
+  - component: {fileID: 1955424688}
+  m_Layer: 0
+  m_Name: Subwave - Straight 03
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1955424687
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1955424686}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 289352697}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1955424688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1955424686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0468c59ffb6e56b43ad9f4ef88e473ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyCap: 2
+  setupSpawnGroups:
+  - spawnZone: 1
+    spawnWithPrevious: 0
+    spawnGroupDelay: 2
+    spawnDelay: 3
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 5
+      attackPattern: 0
+    setupPowerupSpawns: []
 --- !u!1 &1956200730
 GameObject:
   m_ObjectHideFlags: 0
@@ -11988,7 +15720,7 @@ GameObject:
   - component: {fileID: 1977890254}
   - component: {fileID: 1977890255}
   m_Layer: 0
-  m_Name: Subwave 02
+  m_Name: Subwave - Straight 05
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12004,8 +15736,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 177050298}
-  m_RootOrder: 1
+  m_Father: {fileID: 289352697}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1977890255
 MonoBehaviour:
@@ -12018,8 +15750,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0468c59ffb6e56b43ad9f4ef88e473ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyCap: 0
-  setupSpawnGroups: []
+  enemyCap: 2
+  setupSpawnGroups:
+  - spawnZone: 2
+    spawnWithPrevious: 0
+    spawnGroupDelay: 2
+    spawnDelay: 3
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 3
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 3
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 3
+      attackPattern: 0
+    setupPowerupSpawns: []
 --- !u!1 &1982236521
 GameObject:
   m_ObjectHideFlags: 0
@@ -12106,6 +15858,57 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f514efbfd23fbb842aedecea24e35161, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &2026130638
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 2026130639}
+  - component: {fileID: 2026130640}
+  m_Layer: 0
+  m_Name: Wave 7 - Splitter Practice
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2026130639
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2026130638}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 470496266}
+  - {fileID: 830957237}
+  - {fileID: 1035371660}
+  - {fileID: 992731159}
+  - {fileID: 1544431081}
+  m_Father: {fileID: 1762624838}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2026130640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2026130638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306da536319f2464fb5f36695b193d43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  subwaves:
+  - {fileID: 470496267}
+  - {fileID: 830957238}
+  - {fileID: 1035371661}
+  - {fileID: 992731160}
+  - {fileID: 1544431082}
 --- !u!1 &2033719005
 GameObject:
   m_ObjectHideFlags: 0
@@ -12149,6 +15952,78 @@ MonoBehaviour:
   fireTooltip: Hold to Fire
   powerupTooltip: Press to Activate Powerup
   pauseTooltip: Press to Pause
+--- !u!1 &2043476574
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 2043476575}
+  - component: {fileID: 2043476576}
+  m_Layer: 0
+  m_Name: Subwave - Standard & Moving 01
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2043476575
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2043476574}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1813525211}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2043476576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2043476574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0468c59ffb6e56b43ad9f4ef88e473ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyCap: 4
+  setupSpawnGroups:
+  - spawnZone: 1
+    spawnWithPrevious: 0
+    spawnGroupDelay: 2
+    spawnDelay: 2.75
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1657808963477230, guid: 9d5bf18c82748ee4eab848b404bb835f,
+        type: 2}
+      spawnCount: 4
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 2
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 4
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 3
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 4
+      attackPattern: 0
+    setupPowerupSpawns: []
 --- !u!1 &2047074950
 GameObject:
   m_ObjectHideFlags: 0
@@ -12404,6 +16279,53 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2084524600}
+--- !u!1 &2089717406
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 2089717407}
+  - component: {fileID: 2089717408}
+  m_Layer: 0
+  m_Name: Wave 9
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2089717407
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2089717406}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1667462832}
+  - {fileID: 762097181}
+  - {fileID: 929002863}
+  m_Father: {fileID: 1762624838}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2089717408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2089717406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306da536319f2464fb5f36695b193d43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  subwaves:
+  - {fileID: 1667462833}
+  - {fileID: 762097182}
+  - {fileID: 929002864}
 --- !u!1 &2107001601
 GameObject:
   m_ObjectHideFlags: 0

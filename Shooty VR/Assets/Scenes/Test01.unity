@@ -6816,8 +6816,8 @@ MonoBehaviour:
     setupPowerupSpawns: []
   - spawnZone: 2
     spawnWithPrevious: 0
-    spawnGroupDelay: 0
-    spawnDelay: 0
+    spawnGroupDelay: 1
+    spawnDelay: 2
     setupEnemySpawns:
     - enemyPrefab: {fileID: 1320547421668860, guid: 7b44f96ffc1d34448bbb3dfb12c72d56,
         type: 2}
@@ -9771,6 +9771,7 @@ MonoBehaviour:
   - {fileID: 1590670541974036, guid: 0f837641c26eee64eaa72bd67b35506d, type: 2}
   - {fileID: 1590670541974036, guid: 0f837641c26eee64eaa72bd67b35506d, type: 2}
   - {fileID: 1590670541974036, guid: 0f837641c26eee64eaa72bd67b35506d, type: 2}
+  - {fileID: 1590670541974036, guid: 0f837641c26eee64eaa72bd67b35506d, type: 2}
   enemyFireRate:
   - 0.6
   - 1.5
@@ -11231,6 +11232,8 @@ MonoBehaviour:
   powerupSpawnZone:
     lowerBound: {fileID: 638139814}
     upperBound: {fileID: 297754652}
+  startingWave: 1
+  startingSubwave: 1
   waves:
   - {fileID: 289352698}
   - {fileID: 1560648344}

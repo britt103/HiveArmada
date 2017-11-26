@@ -588,6 +588,12 @@ namespace Hive.Armada.Game
                     }
 
                     ++enemiesRemaining;
+
+                    if (spawned.name.Equals("Enemy_Splitter"))
+                    {
+                        enemiesRemaining += 4;
+                    }
+
                     --enemiesToSpawn;
                 }
             }
@@ -669,6 +675,8 @@ namespace Hive.Armada.Game
 
             IsRunning = false;
             IsComplete = true;
+
+            Debug.Log("Subwave #" + WaveNumber + "-" + SubwaveNumber + " is complete");
 
             reference.waveManager.waves[WaveNumber].SubwaveComplete(SubwaveNumber);
         }

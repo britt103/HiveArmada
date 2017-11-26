@@ -86,6 +86,16 @@ namespace Hive.Armada.Game
         public SpawnZoneBounds powerupSpawnZone;
 
         /// <summary>
+        /// Which wave to start at?
+        /// </summary>
+        public int startingWave;
+
+        /// <summary>
+        /// Index of the subwave in startingWave to go first.
+        /// </summary>
+        public int startingSubwave;
+
+        /// <summary>
         /// Array of all waves that will be run.
         /// </summary>
         [Reorderable("Wave", false)]
@@ -113,8 +123,34 @@ namespace Hive.Armada.Game
         {
             if (!IsRunning)
             {
+                --startingWave;
+
+                if (startingWave <= 0)
+                {
+                    currentWave = 0;
+                }
+                else if (startingWave >= waves.Length)
+                {
+                    currentWave = 0;
+                }
+                else
+                {
+                    currentWave = startingWave;
+                }
+
+                --startingSubwave;
+
+                if (startingSubwave <= 0)
+                {
+                    startingSubwave = 0;
+                }
+                else if (startingSubwave >= waves[currentWave].subwaves.Length)
+                {
+                    startingSubwave = 0;
+                }
+
                 IsRunning = true;
-                RunWave(currentWave);
+                RunWave(currentWave, startingSubwave);
             }
         }
 
@@ -124,7 +160,17 @@ namespace Hive.Armada.Game
         /// <param name="wave"> The index of the wave to run </param>
         private void RunWave(int wave)
         {
-            waves[wave].Run(wave);
+            waves[wave].Run(wave, 0);
+        }
+
+        /// <summary>
+        /// Begins running a wave from the waves array at the given subwave
+        /// </summary>
+        /// <param name="wave"> The index of the wave to run </param>
+        /// <param name="subwave"> The index of the subwave to start on </param>
+        private void RunWave(int wave, int subwave)
+        {
+            waves[wave].Run(wave, subwave);
         }
 
         /// <summary>

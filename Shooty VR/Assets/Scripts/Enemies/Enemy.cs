@@ -148,6 +148,11 @@ namespace Hive.Armada.Enemies
         protected AttackPattern attackPattern;
 
         /// <summary>
+        /// Time until enemy self-destructs if untouched.
+        /// </summary>
+        protected float selfDestructTime;
+
+        /// <summary>
         /// Initializes references to ReferenceManager and other managers.
         /// </summary>
         public virtual void Awake()

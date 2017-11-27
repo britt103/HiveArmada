@@ -25,19 +25,19 @@ namespace Hive.Armada
         /// <summary>
         /// FX to be instantiated when spawned.
         /// </summary>
-        public GameObject fxSpawn;
+        public GameObject spawnEmitter;
 
         /// <summary>
         /// FX to be instantiated when hit.
         /// </summary>
-        public GameObject fxShot;
+        public GameObject shotEmitter;
 
         /// <summary>
         /// Instantiate spawn fx.
         /// </summary>
         protected virtual void Awake()
         {
-            Instantiate(fxSpawn, transform.position, transform.rotation, transform);
+            Instantiate(spawnEmitter, transform.position, transform.rotation, transform);
         }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace Hive.Armada
         /// </summary>
         public virtual void Shot()
         {
-            Instantiate(fxShot, transform.position, transform.rotation);
+            Instantiate(shotEmitter, transform.position, transform.rotation);
             Destroy(gameObject);
         }
     }

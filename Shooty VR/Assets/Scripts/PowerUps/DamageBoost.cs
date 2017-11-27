@@ -10,12 +10,12 @@ namespace Hive.Armada
     {
         public float boostLength;
         public int boost;
-        public GameObject fxAwake;
+        public GameObject awakeEmitter;
 
         // Use this for initialization
         void Start()
         {
-            Instantiate(fxAwake, GameObject.FindGameObjectWithTag("Player").transform);
+            Instantiate(awakeEmitter, GameObject.FindGameObjectWithTag("Player").transform);
             StartCoroutine(Run());
 
         }

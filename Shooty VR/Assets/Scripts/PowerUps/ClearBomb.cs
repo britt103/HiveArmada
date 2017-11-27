@@ -23,12 +23,12 @@ namespace Hive.Armada.PowerUps
         /// <summary>
         /// FX of Clear activation.
         /// </summary>
-        public GameObject fxAwake;
+        public GameObject awakeEmitter;
 
         // Instantiate activation FX. Destroy enemy projectiles. Self-destruct.
         void Start()
         {
-            Instantiate(fxAwake, transform.position, transform.rotation);
+            Instantiate(awakeEmitter, transform.position, transform.rotation);
             foreach (GameObject bullet in GameObject.FindGameObjectsWithTag("bullet"))
             {
                 Destroy(bullet);

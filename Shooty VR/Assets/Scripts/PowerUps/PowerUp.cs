@@ -32,12 +32,12 @@ namespace Hive.Armada.PowerUps
         /// <summary>
         /// FX of pickup instantiation.
         /// </summary>
-        public GameObject fxAwake;
+        public GameObject spawnEmitter;
 
         /// <summary>
         /// FX of powerup on collision with player.
         /// </summary>
-        public GameObject fxPickup;
+        public GameObject pickupEmitter;
 
         /// <summary>
         /// Reference to PowerUpStatus.
@@ -58,7 +58,7 @@ namespace Hive.Armada.PowerUps
         private void Start()
         {
             head = GameObject.Find("FollowHead").transform;
-            GameObject fx = Instantiate(fxAwake, transform.position, transform.localRotation);
+            GameObject fx = Instantiate(spawnEmitter, transform.position, transform.localRotation);
             fx.transform.rotation = Quaternion
                     .FromToRotation(Vector3.up, head.position - gameObject.transform.position);
 
@@ -130,7 +130,7 @@ namespace Hive.Armada.PowerUps
                 //    }
                 //    break;
                 //}
-                Instantiate(fxPickup, transform.position, transform.localRotation);
+                Instantiate(pickupEmitter, transform.position, transform.localRotation);
                 status.StorePowerup(powerupPrefab, powerupIconPrefab);
                 Destroy(gameObject);
             }

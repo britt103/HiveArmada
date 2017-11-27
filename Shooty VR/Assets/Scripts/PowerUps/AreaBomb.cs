@@ -52,12 +52,12 @@ namespace Hive.Armada.PowerUps
         /// <summary>
         /// FX of Area Bomb movement trail.
         /// </summary>
-        public GameObject fxTrail;
+        public GameObject trailEmitter;
 
         ///// <summary>
         ///// FX of Area Bomb detonation.
         ///// </summary>
-        //public GameObject fxBomb;
+        //public GameObject detonationEmitter;
 
         /// <summary>
         /// Time until detonation without player interaction.
@@ -75,7 +75,7 @@ namespace Hive.Armada.PowerUps
         protected override void Awake()
         {
             StartCoroutine(TimeDetonate());
-            fxTrail.SetActive(true);
+            trailEmitter.SetActive(true);
             transform.localPosition = new Vector3(0, 0, startingZ);
             gameObject.transform.parent = null;
             isShootable = false;
@@ -151,7 +151,7 @@ namespace Hive.Armada.PowerUps
                     objectCollider.gameObject.GetComponent<Enemies.Enemy>().Hit(100);
                 }
             }
-            Instantiate(fxShot, transform.position, transform.rotation);
+            Instantiate(shotEmitter, transform.position, transform.rotation);
             Destroy(gameObject);
         }
     }

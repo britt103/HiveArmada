@@ -65,7 +65,7 @@ namespace Hive.Armada.PowerUps
         /// <summary>
         /// FX instanted in Start().
         /// </summary>
-        public GameObject fxSpawn;
+        public GameObject spawnEmitter;
 
         /// <summary>
         /// Speed of fired projectiles.
@@ -85,7 +85,7 @@ namespace Hive.Armada.PowerUps
         // Instantiate FX and set ship at distance from player ship.
         void Start()
         {
-            Instantiate(fxSpawn, transform);
+            Instantiate(spawnEmitter, transform);
             transform.localPosition = new Vector3(0, distance, 0);
         }
 

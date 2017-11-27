@@ -20,6 +20,16 @@ namespace Hive.Armada.Menu
         public Spawner spawner;
         private bool isStarting;
 
+        private ReferenceManager reference;
+
+        /// <summary>
+        /// Find references.
+        /// </summary>
+        private void Awake()
+        {
+            reference = FindObjectOfType<ReferenceManager>();
+        }
+
         /// <summary>
         /// Called by start button; changes ship mode and starts countdown
         /// </summary>
@@ -29,25 +39,17 @@ namespace Hive.Armada.Menu
             {
                 isStarting = true;
 
-                GameObject ship = GameObject.FindGameObjectWithTag("Player");
+                //GameObject ship = GameObject.FindGameObjectWithTag("Player");
 
-                if (ship != null)
-                {
-                    if (ship.GetComponent<ShipController>() != null)
-                        ship.GetComponent<ShipController>().SetShipMode(ShipController.ShipMode.Game);
-                }
+                //if (ship != null)
+                //{
+                //    if (ship.GetComponent<ShipController>() != null)
+                //        ship.GetComponent<ShipController>().SetShipMode(ShipController.ShipMode.Game);
+                //}
 
-                if (spawner != null)
-                {
-                    //gameObject.GetComponentInChildren<Button>().enabled = false;
-                    GameObject.Find("Main Canvas").transform.Find("Countdown").gameObject.SetActive(true);
-                    //gameObject.transform.parent.Find("Ambient FX").gameObject.SetActive(false);
-                    gameObject.SetActive(false);
-                }
-                else
-                {
-                    Debug.Log("CRITICAL - MENU'S REFERENCE TO SPAWNER IS NULL");
-                }  
+                //GameObject.Find("Main Canvas").transform.Find("Countdown").gameObject.SetActive(true);
+                reference.sceneTransitionManager.TransitionTo("Test01");
+                gameObject.SetActive(false);
             }
         }
 

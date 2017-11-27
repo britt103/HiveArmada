@@ -10,16 +10,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Hive.Armada.Player;
+using Hive.Armada.Game;
 
 namespace Hive.Armada
 {
     public class GameOver : MonoBehaviour
     {
         /// <summary>
+        /// Reference to ReferenceManager.
+        /// </summary>
+        private ReferenceManager reference;
+
+        /// <summary>
         /// Triggers gameover/reload process
         /// </summary>
         public void OnEnable()
         {
+            reference = FindObjectOfType<ReferenceManager>();
             StartCoroutine(Reload());
             FindObjectOfType<PlayerStats>().PrintStats();
         }
@@ -27,11 +34,10 @@ namespace Hive.Armada
         /// <summary>
         /// Activate game over text, reloads scene
         /// </summary>
-        /// <returns></returns>
         private IEnumerator Reload()
         {
             yield return new WaitForSeconds(10.0f);
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            reference.sceneTransitionManager.TransitionTo("Menu Room");
         }
 
         /// <summary>

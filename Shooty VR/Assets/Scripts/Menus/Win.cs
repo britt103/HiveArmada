@@ -10,16 +10,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Hive.Armada.Player;
+using Hive.Armada.Game;
 
 namespace Hive.Armada
 {
     public class Win : MonoBehaviour
     {
         /// <summary>
+        /// Reference to ReferenceManager.
+        /// </summary>
+        private ReferenceManager reference;
+
+        /// <summary>
         /// Run when activated
         /// </summary>
         private void Awake()
         {
+            reference = FindObjectOfType<ReferenceManager>();
             StartCoroutine(Run());
         }
 
@@ -29,9 +36,9 @@ namespace Hive.Armada
         /// <returns></returns>
         private IEnumerator Run()
         {
-            yield return new WaitForSeconds(3);
+            yield return new WaitForSeconds(3.0f);
             FindObjectOfType<PlayerStats>().PrintStats();
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            reference.sceneTransitionManager.TransitionTo("Menu Room");
         }
     }
 }

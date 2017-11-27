@@ -41,6 +41,8 @@ namespace Hive.Armada.Game
 
         public ObjectPoolManager objectPoolManager;
 
+        public SceneTransitionManager sceneTransitionManager;
+
         //--------------------
         // Player
         //--------------------

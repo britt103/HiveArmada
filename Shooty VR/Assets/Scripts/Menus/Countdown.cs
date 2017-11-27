@@ -14,7 +14,7 @@ using UnityEngine.UI;
 public class Countdown : MonoBehaviour
 {
     public Text countdownText;
-    public AudioSource sfx;
+    public AudioSource countdownAudioSource;
 
     /// <summary>
     /// Run when activated
@@ -30,8 +30,7 @@ public class Countdown : MonoBehaviour
     /// <returns></returns>
     private IEnumerator Run()
     {
-        GameObject.Find("Red Alert");
-        sfx.Play();
+        countdownAudioSource.Play();
         for (int i = 5; i > 0; i--)
         {
             countdownText.text = i.ToString();

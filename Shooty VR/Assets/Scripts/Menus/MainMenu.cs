@@ -45,7 +45,7 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void PressQuit()
         {
-
+            Application.Quit();
         }
     }
 }

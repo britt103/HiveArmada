@@ -131,7 +131,8 @@ namespace Hive.Armada.Player
                 reference.playerShip = gameObject;
             }
 
-            laserSight = transform.Find("Model").Find("Laser Sight").GetComponent<LaserSight>();
+            //laserSight = transform.Find("Laser Sight").GetComponent<LaserSight>();
+            laserSight = transform.GetComponentInChildren<LaserSight>();
             laserSight.SetMode(ShipMode.Menu);
             newPosesAppliedAction = SteamVR_Events.NewPosesAppliedAction(OnNewPosesApplied);
         }

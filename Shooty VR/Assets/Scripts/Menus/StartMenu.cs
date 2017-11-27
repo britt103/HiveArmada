@@ -29,7 +29,15 @@ namespace Hive.Armada.Menu
             {
                 isStarting = true;
 
-                GameObject ship = GameObject.FindGameObjectWithTag("Player");
+                GameObject ship = null;
+
+                foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Player"))
+                {
+                    if (obj.GetComponent<ShipController>())
+                    {
+                        ship = obj;
+                    }
+                }
 
                 if (ship != null)
                 {

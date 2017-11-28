@@ -30,7 +30,7 @@ namespace Hive.Armada.Menus
         /// <summary>
         /// Reference to AudioSource for countdown sfx.
         /// </summary>
-        public AudioSource sfx;
+        public AudioSource countdownAudioSource;
 
         /// <summary>
         /// Start Run coroutine.
@@ -46,7 +46,7 @@ namespace Hive.Armada.Menus
         private IEnumerator Run()
         {
             GameObject.Find("Red Alert");
-            sfx.Play();
+            countdownAudioSource.Play();
             for (int i = 5; i > 0; i--)
             {
                 countdownText.text = i.ToString();

@@ -81,7 +81,6 @@ namespace Hive.Armada.Enemies
         private float randY;
         private float randZ;
 
-<<<<<<< HEAD
 		public AudioSource source;
         public AudioClip[] clips;
 
@@ -98,9 +97,6 @@ namespace Hive.Armada.Enemies
         /// swayed via the spread value set by user. If player is not found automatically
         /// finds player, otherwise do nothing.
         /// </summary>
-=======
-        // Update is called once per frame
->>>>>>> Add more sounds
         void Update()
         {
             if (player != null)
@@ -121,7 +117,7 @@ namespace Hive.Armada.Enemies
                     shoot.GetComponent<Transform>().Rotate(randX, randY, randZ);
                     shoot.GetComponent<Rigidbody>().velocity = shoot.transform.forward * fireSpeed;     //instantiates a bullet and shoots it forward
                                                                                                         //in the direction of the player.
->>>>>>> Add more sounds
+>>>>>>> 54674e049a18d07927dd300df6d9b1040a173b0d
                 }
             }
             else

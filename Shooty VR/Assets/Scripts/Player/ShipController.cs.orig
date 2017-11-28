@@ -95,7 +95,7 @@ namespace Hive.Armada.Player
         public AudioClip clip;
         public GameObject deathExplosion;
         public bool canShoot;
->>>>>>> add more sounds
+>>>>>>> 54674e049a18d07927dd300df6d9b1040a173b0d
 
         /// <summary>
         /// Which mode is the ship currently in.
@@ -122,6 +122,13 @@ namespace Hive.Armada.Player
         public float[] weaponFireRate;
 
 <<<<<<< HEAD
+		public AudioSource engineSound;
+        public AudioClip clip;
+=======
+            GameObject pickup = GameObject.FindGameObjectWithTag("ShipPickup");
+            engineSound.PlayOneShot(clip);
+>>>>>>> 54674e049a18d07927dd300df6d9b1040a173b0d
+
         /// <summary>
         /// Initializes references to Reference Manager and Laser Sight, sets this
         /// GameObject to the player ship reference in Reference Manager.
@@ -129,10 +136,6 @@ namespace Hive.Armada.Player
         private void Awake()
         {
             reference = GameObject.Find("Reference Manager").GetComponent<ReferenceManager>();
-=======
-            GameObject pickup = GameObject.FindGameObjectWithTag("ShipPickup");
-            engineSound.PlayOneShot(clip);
->>>>>>> add more sounds
 
             if (reference == null)
             {
@@ -142,6 +145,8 @@ namespace Hive.Armada.Player
             {
                 reference.playerShip = gameObject;
             }
+
+			engineSound.PlayOneShot(clip);
 
             laserSight = transform.Find("Model").Find("Laser Sight").GetComponent<LaserSight>();
             laserSight.SetMode(ShipMode.Menu);

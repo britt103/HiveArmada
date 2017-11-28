@@ -1283,7 +1283,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1344116622870008}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.591, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4605857355443392}
@@ -2809,11 +2809,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shipController: {fileID: 114805351180607888}
   maxHealth: 30
+  flashColor: {fileID: 2100000, guid: 1db15971033ba594294b4f0c035f7da8, type: 2}
+  healthPods:
+  - {fileID: 23558564860940108}
+  - {fileID: 23042317999889938}
+  - {fileID: 23686760502560410}
+  podIntactMaterial: {fileID: 2100000, guid: 07abe57a32ebdd241a8a538972e88731, type: 2}
+  podDestroyedMaterial: {fileID: 2100000, guid: b3933fbfb4da791448407e1d88b4a341,
+    type: 2}
   hitEmitter: {fileID: 1055841953223108, guid: 0d57f6e2384c7034888dccc749fac7f4, type: 2}
+  podHitEmitter: {fileID: 0}
   hurtEmitter: {fileID: 0}
   deathEmitter: {fileID: 1121042957686670, guid: a1bfa5497fc24df4ab1d22001dc533da,
     type: 2}
-  flashColor: {fileID: 2100000, guid: 1db15971033ba594294b4f0c035f7da8, type: 2}
   source: {fileID: 82855239161610398}
   hitSound: {fileID: 0}
 --- !u!114 &114041932421614952

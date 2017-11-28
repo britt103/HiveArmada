@@ -11,6 +11,7 @@
 // 
 //=============================================================================
 
+using SubjectNerd.Utilities;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,18 +40,55 @@ namespace Hive.Armada.Player
         private int currentHealth;
 
         /// <summary>
+        /// Material that the ship flashes when it is hit.
+        /// </summary>
+        [Header("Health Feedback")]
+        public Material flashColor;
+
+        /// <summary>
+        /// Renderers for the game objects on the back of the ship
+        /// that represent how many hits the player can take.
+        /// </summary>
+        [Tooltip("Health pods on the back of the ship that represent how" +
+            " many hits the player can take before losing.")]
+        [Reorderable("Health Pod", false)]
+        public Renderer[] healthPods;
+
+        /// <summary>
+        /// Material for intact health pods.
+        /// </summary>
+        [Tooltip("Material for intact health pods.")]
+        public Material podIntactMaterial;
+
+        /// <summary>
+        /// Material for destroyed health pods.
+        /// </summary>
+        [Tooltip("Material for destroyed health pods.")]
+        public Material podDestroyedMaterial;
+
+        /// <summary>
         /// Particle emitter that spawns when the ship is hit.
         /// </summary>
+        [Header("Emitters")]
+        [Tooltip("Particle emitter that spawns when the ship is hit.")]
         public GameObject hitEmitter;
+
+        /// <summary>
+        /// Particle emitter that spawns on a health pod when it blows up.
+        /// </summary>
+        [Tooltip("Particle emitter that spawns on a health pod when it blows up.")]
+        public GameObject podHitEmitter;
 
         /// <summary>
         /// Particle emitter that is activated when the ship has 1 hit left.
         /// </summary>
+        [Tooltip("Particle emitter that is activated when the ship has 1 hit left.")]
         public GameObject hurtEmitter;
 
         /// <summary>
         /// Particle emitter that spawns when the player dies.
         /// </summary>
+        [Tooltip("Particle emitter that spawns when the player dies.")]
         public GameObject deathEmitter;
 
         /// <summary>
@@ -71,13 +109,9 @@ namespace Hive.Armada.Player
         private List<Material> materials;
 
         /// <summary>
-        /// Material that the ship flashes when it is hit.
-        /// </summary>
-        public Material flashColor;
-
-        /// <summary>
         /// Audio source for playing sounds when hit.
         /// </summary>
+        [Header("Audio")]
         public AudioSource source;
 
         /// <summary>
@@ -93,12 +127,22 @@ namespace Hive.Armada.Player
             renderers = new List<Renderer>();
             materials = new List<Material>();
 
+            for (int i = 0; i < 3; ++i)
+            {
+                healthPods[i].material = podIntactMaterial;
+            }
+
             foreach (Renderer r in gameObject.GetComponentsInChildren<Renderer>())
             {
                 if (r.gameObject.CompareTag("Emitter") ||
                     r.transform.parent.CompareTag("Emitter") ||
                     r.gameObject.CompareTag("FX") ||
                     r.transform.parent.CompareTag("FX"))
+                {
+                    continue;
+                }
+
+                if (r.gameObject.name.Contains("pod_"))
                 {
                     continue;
                 }
@@ -112,11 +156,14 @@ namespace Hive.Armada.Player
 
 
         /// <summary>
-        /// Deals damage to the player ship
+        /// Deals damage to the player ship.
         /// </summary>
         /// <param name="damage"> How much damage to deal </param>
         public void Hit(int damage)
         {
+            int podIndex = (currentHealth - maxHealth) / 10;
+            healthPods[podIndex].material = podDestroyedMaterial;
+
             Instantiate(hitEmitter, transform);
             currentHealth -= damage;
 

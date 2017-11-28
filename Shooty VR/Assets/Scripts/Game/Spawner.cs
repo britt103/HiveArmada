@@ -49,8 +49,6 @@ namespace Hive.Armada.Game
         public AudioSource music;
         public AudioSource sparks1;
         public AudioSource sparks2;
-        public AudioSource sparks3;
-        public AudioSource sparks4;
         public AudioClip[] sparks;
 
         public int startWave;
@@ -363,10 +361,6 @@ namespace Hive.Armada.Game
             sparks1.PlayOneShot(sparks[sparkNumber]);
             yield return new WaitForSeconds(10);
             sparks2.PlayOneShot(sparks[sparkNumber]);
-            yield return new WaitForSeconds(10);
-            sparks3.PlayOneShot(sparks[sparkNumber]);
-            yield return new WaitForSeconds(10);
-            sparks4.PlayOneShot(sparks[sparkNumber]);
             yield return new WaitForSeconds(10);
         }
     }

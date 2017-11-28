@@ -47,6 +47,8 @@ namespace Hive.Armada.Game
         // Player
         //--------------------
         [Header("Player")]
+        public GameObject player;
+
         public GameObject playerShip;
 
         public GameObject shipPickup;
@@ -60,6 +62,8 @@ namespace Hive.Armada.Game
         public GameObject menuMain;
 
         public GameObject menuTitle;
+
+        public GameObject countdown;
 
         /// <summary>
         /// Calls any functions needed to initialize any managers.

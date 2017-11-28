@@ -13,6 +13,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Hive.Armada.Menu;
 
 namespace Hive.Armada.Game
 {
@@ -52,6 +53,7 @@ namespace Hive.Armada.Game
         private void Awake()
         {
             reference = FindObjectOfType<ReferenceManager>();
+
             TransitionIn();
         }
 
@@ -60,7 +62,7 @@ namespace Hive.Armada.Game
         /// </summary>
         public void TransitionIn()
         {
-            //transitionAudioSource.Play();
+            transitionAudioSource.Play();
 
             SteamVR_Fade.Start(Color.black, 0.0f);
             SteamVR_Fade.Start(Color.clear, fadeInLength);
@@ -72,7 +74,7 @@ namespace Hive.Armada.Game
         /// <param name="sceneName">Name of scene to load.</param>
         public void TransitionTo(string sceneName)
         {
-            //transitionAudioSource.Play();
+            transitionAudioSource.Play();
 
             SteamVR_Fade.Start(Color.clear, 0.0f);
             SteamVR_Fade.Start(Color.black, fadeOutLength);

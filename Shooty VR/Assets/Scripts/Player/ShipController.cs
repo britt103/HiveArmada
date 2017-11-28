@@ -93,7 +93,7 @@ namespace Hive.Armada.Player
         /// <summary>
         /// Which mode is the ship currently in.
         /// </summary>
-        public ShipMode shipMode = ShipMode.Menu;
+        public ShipMode shipMode = ShipMode.Game;
 
         /// <summary>
         /// Array of the weapons available to the player.
@@ -169,6 +169,10 @@ namespace Hive.Armada.Player
             if (reference.powerUpStatus)
             {
                 reference.powerUpStatus.BeginTracking();
+            }
+            if (reference.countdown)
+            {
+                reference.countdown.SetActive(true);
             }
         }
 

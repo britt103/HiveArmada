@@ -5517,10 +5517,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7d584214e819ab4489fdfd36722b3ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeValue: 1
-  fadeInLength: 2
-  fadeOutLength: 1
+  fadeColor: {r: 0, g: 0, b: 0, a: 1}
+  fadeStartTime: 5
+  fadeStartTimeBuffer: 2
   transitionAudioSource: {fileID: 1966993754}
+  transitionEmitter: {fileID: 1110594293534486, guid: a5ffbf29c124fdd4b9a26ba22878897e,
+    type: 2}
+  emitterStartTime: 3
+  emitterStartTimeBuffer: 3
 --- !u!1 &1493433540
 GameObject:
   m_ObjectHideFlags: 0
@@ -5906,6 +5910,7 @@ GameObject:
   - component: {fileID: 1611461876}
   - component: {fileID: 1611461875}
   - component: {fileID: 1611461874}
+  - component: {fileID: 1611461877}
   m_Layer: 5
   m_Name: Main Canvas
   m_TagString: Untagged
@@ -5996,6 +6001,28 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &1611461877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1611461872}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46fe9e0b23166454c8cb73040321d78c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  texture: {fileID: 0}
+  curved: 0
+  antialias: 1
+  highquality: 1
+  scale: 3
+  distance: 1.25
+  alpha: 1
+  uvOffset: {x: 0, y: 0, z: 1, w: 1}
+  mouseScale: {x: 1, y: 1}
+  curvedRange: {x: 1, y: 2}
+  inputMethod: 0
 --- !u!1 &1639617169
 GameObject:
   m_ObjectHideFlags: 0

@@ -23,19 +23,20 @@ namespace Hive.Armada.Game
     public class SceneTransitionManager : MonoBehaviour
     {
         /// <summary>
-        /// Amount of transparency camera fades.
+        /// Color used in fades.
         /// </summary>
-        public float fadeValue = 1.0f;
+        public Color fadeColor = Color.black;
 
         /// <summary>
-        /// Duration of camera fade in.
+        /// When fade starts after transition begins.
         /// </summary>
-        public float fadeInLength = 2.0f;
+        public float fadeStartTime = 5.0f;
 
         /// <summary>
-        /// Duration of camera fade out.
+        /// Time between fadeStartTime and end of audio clip if clip length is 
+        /// shorter than fadeStartTime.
         /// </summary>
-        public float fadeOutLength = 1.0f;
+        public float fadeStartTimeBuffer = 2.0f;
 
         /// <summary>
         /// AudioSource to play during scene transitions.
@@ -43,17 +44,41 @@ namespace Hive.Armada.Game
         public AudioSource transitionAudioSource;
 
         /// <summary>
+        /// Length of transition audio clip.
+        /// </summary>
+        private float audioClipLength;
+
+        /// <summary>
+        /// Partical effect during scene transitions.
+        /// </summary>
+        public GameObject transitionEmitter;
+
+        /// <summary>
+        /// When emitter starts after transition begins.
+        /// </summary>
+        public float emitterStartTime = 3.0f;
+
+        /// <summary>
+        /// Time between emitterStartTime and end of audio clip if clip length is 
+        /// shorter than emitterStartTime.
+        /// </summary>
+        public float emitterStartTimeBuffer = 3.0f;
+
+        /// <summary>
         /// Reference to ReferenceManager.
         /// </summary>
         private ReferenceManager reference;
 
         /// <summary>
-        /// Implement in transition on scene start.
+        /// Find references. Implement in transition on scene start. 
+        /// Minimize effect start times to audio clip length.
         /// </summary>
         private void Awake()
         {
             reference = FindObjectOfType<ReferenceManager>();
-
+            audioClipLength = transitionAudioSource.clip.length;
+            fadeStartTime = Mathf.Min(fadeStartTime, audioClipLength - fadeStartTimeBuffer);
+            emitterStartTime = Mathf.Min(emitterStartTime, audioClipLength - emitterStartTimeBuffer);
             TransitionIn();
         }
 
@@ -63,9 +88,7 @@ namespace Hive.Armada.Game
         public void TransitionIn()
         {
             transitionAudioSource.Play();
-
-            SteamVR_Fade.Start(Color.black, 0.0f);
-            SteamVR_Fade.Start(Color.clear, fadeInLength);
+            StartCoroutine(FadeIn());
         }
 
         /// <summary>
@@ -75,17 +98,48 @@ namespace Hive.Armada.Game
         public void TransitionTo(string sceneName)
         {
             transitionAudioSource.Play();
-
-            SteamVR_Fade.Start(Color.clear, 0.0f);
-            SteamVR_Fade.Start(Color.black, fadeOutLength);
-
+            StartCoroutine(FadeOut());
             StartCoroutine(LoadScene(sceneName));
         }
 
+        /// <summary>
+        /// Load specified scene after audio clip has finished playing.
+        /// </summary>
+        /// <param name="sceneName">Name of scene to load.</param>
         private IEnumerator LoadScene(string sceneName)
         {
-            yield return new WaitForSeconds(fadeOutLength);
+            yield return new WaitForSeconds(audioClipLength);
             SceneManager.LoadScene(sceneName);
+        }
+
+        /// <summary>
+        /// Start fade in effect when fade in set to start.
+        /// </summary>
+        private IEnumerator FadeIn()
+        {
+            yield return new WaitForSeconds(fadeStartTime);
+            SteamVR_Fade.Start(fadeColor, 0.0f);
+            SteamVR_Fade.Start(Color.clear, audioClipLength - fadeStartTime);
+        }
+
+        /// <summary>
+        /// Start fade in effect when fade is set to start.
+        /// </summary>
+        private IEnumerator FadeOut()
+        {
+            yield return new WaitForSeconds(fadeStartTime);
+            SteamVR_Fade.Start(Color.clear, 0.0f);
+            SteamVR_Fade.Start(fadeColor, audioClipLength - fadeStartTime);
+        }
+
+        /// <summary>
+        /// Start emitter effect when effect is set to start.
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerator StartEmitter()
+        {
+            yield return new WaitForSeconds(emitterStartTime);
+            Instantiate(transitionEmitter, reference.player.transform);
         }
     }
 }

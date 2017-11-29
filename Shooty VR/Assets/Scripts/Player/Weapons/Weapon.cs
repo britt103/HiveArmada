@@ -54,9 +54,19 @@ namespace Hive.Armada.Player.Weapons
         protected float fireRate;
 
         /// <summary>
+        /// This weapon's index in the ship's weapon array.
+        /// </summary>
+        protected int index;
+
+        /// <summary>
         /// If this weapon can shoot or not. Used for the firing Coroutine
         /// </summary>
         protected bool canShoot = true;
+
+        /// <summary>
+        /// Initializes weapon attributes
+        /// </summary>
+        public abstract void Initialize(int index);
 
         protected virtual void Awake()
         {

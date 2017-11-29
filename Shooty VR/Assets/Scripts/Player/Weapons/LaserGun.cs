@@ -71,11 +71,12 @@ namespace Hive.Armada.Player.Weapons
         /// <summary>
         /// Initializes weapon attributes and the lasers' LineRenderers
         /// </summary>
-        private void Start()
+        public override void Initialize(int index)
         {
+            this.index = index;
             canShoot = true;
-            damage = shipController.weaponDamage[0];
-            fireRate = shipController.weaponFireRate[0];
+            damage = shipController.weapons[index].damage;
+            fireRate = shipController.weapons[index].fireRate;
             damageMultiplier = 1;
 
             leftLaser = left.gameObject.AddComponent<LineRenderer>();

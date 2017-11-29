@@ -53,14 +53,15 @@ namespace Hive.Armada.Player.Weapons
         public Material material;
 
         /// <summary>
-        /// Initializes variables
+        /// Initializes weapon attributes and the minigun's LineRenderers
         /// </summary>
-        private void Start()
+        public override void Initialize(int index)
         {
+            this.index = index;
             SetupLineRenderers();
             damageMultiplier = 1;
-            damage = shipController.weaponDamage[1];
-            fireRate = shipController.weaponFireRate[1];
+            damage = shipController.weapons[index].damage;
+            fireRate = shipController.weapons[index].fireRate;
         }
 
         /// <summary>

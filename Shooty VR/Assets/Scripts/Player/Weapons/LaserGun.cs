@@ -68,35 +68,35 @@ namespace Hive.Armada.Player.Weapons
         /// </summary>
         public float thickness = 0.002f;
 
-        /// <summary>
-        /// Initializes weapon attributes and the lasers' LineRenderers
-        /// </summary>
-        public override void Initialize(int index)
-        {
-            this.index = index;
-            canShoot = true;
-            damage = shipController.weapons[index].damage;
-            fireRate = shipController.weapons[index].fireRate;
-            damageMultiplier = 1;
+        ///// <summary>
+        ///// Initializes weapon attributes and the lasers' LineRenderers
+        ///// </summary>
+        //public override void Initialize(int index)
+        //{
+        //    this.index = index;
+        //    canShoot = true;
+        //    damage = shipController.weapons[index].damage;
+        //    fireRate = shipController.weapons[index].fireRate;
+        //    damageMultiplier = 1;
 
-            leftLaser = left.gameObject.AddComponent<LineRenderer>();
-            leftLaser.material = laserMaterial;
-            leftLaser.shadowCastingMode = ShadowCastingMode.Off;
-            leftLaser.receiveShadows = false;
-            leftLaser.alignment = LineAlignment.View;
-            leftLaser.startWidth = thickness;
-            leftLaser.endWidth = thickness;
-            leftLaser.enabled = false;
+        //    leftLaser = left.gameObject.AddComponent<LineRenderer>();
+        //    leftLaser.material = laserMaterial;
+        //    leftLaser.shadowCastingMode = ShadowCastingMode.Off;
+        //    leftLaser.receiveShadows = false;
+        //    leftLaser.alignment = LineAlignment.View;
+        //    leftLaser.startWidth = thickness;
+        //    leftLaser.endWidth = thickness;
+        //    leftLaser.enabled = false;
 
-            rightLaser = right.gameObject.AddComponent<LineRenderer>();
-            rightLaser.material = laserMaterial;
-            rightLaser.shadowCastingMode = ShadowCastingMode.Off;
-            rightLaser.receiveShadows = false;
-            rightLaser.alignment = LineAlignment.View;
-            rightLaser.startWidth = thickness;
-            rightLaser.endWidth = thickness;
-            rightLaser.enabled = false;
-        }
+        //    rightLaser = right.gameObject.AddComponent<LineRenderer>();
+        //    rightLaser.material = laserMaterial;
+        //    rightLaser.shadowCastingMode = ShadowCastingMode.Off;
+        //    rightLaser.receiveShadows = false;
+        //    rightLaser.alignment = LineAlignment.View;
+        //    rightLaser.startWidth = thickness;
+        //    rightLaser.endWidth = thickness;
+        //    rightLaser.enabled = false;
+        //}
 
         /// <summary>
         /// Gets enemy or wall aimpoint and shoots at it. Will damage enemies.
@@ -191,6 +191,30 @@ namespace Hive.Armada.Player.Weapons
             {
                 rightLaser.enabled = false;
             }
+        }
+
+        /// <summary>
+        /// Calls the initialization of all LineRenderers
+        /// </summary>
+        protected override void SetupLineRenderers()
+        {
+            leftLaser = left.gameObject.AddComponent<LineRenderer>();
+            leftLaser.material = laserMaterial;
+            leftLaser.shadowCastingMode = ShadowCastingMode.Off;
+            leftLaser.receiveShadows = false;
+            leftLaser.alignment = LineAlignment.View;
+            leftLaser.startWidth = thickness;
+            leftLaser.endWidth = thickness;
+            leftLaser.enabled = false;
+
+            rightLaser = right.gameObject.AddComponent<LineRenderer>();
+            rightLaser.material = laserMaterial;
+            rightLaser.shadowCastingMode = ShadowCastingMode.Off;
+            rightLaser.receiveShadows = false;
+            rightLaser.alignment = LineAlignment.View;
+            rightLaser.startWidth = thickness;
+            rightLaser.endWidth = thickness;
+            rightLaser.enabled = false;
         }
     }
 }

@@ -66,7 +66,14 @@ namespace Hive.Armada.Player.Weapons
         /// <summary>
         /// Initializes weapon attributes
         /// </summary>
-        public abstract void Initialize(int index);
+        public virtual void Initialize(int index)
+        {
+            this.index = index;
+            SetupLineRenderers();
+            damageMultiplier = 1;
+            damage = shipController.weapons[index].damage;
+            fireRate = shipController.weapons[index].fireRate;
+        }
 
         protected virtual void Awake()
         {
@@ -93,5 +100,7 @@ namespace Hive.Armada.Player.Weapons
         /// Handles the logic behind shooting.
         /// </summary>
         protected abstract void Clicked();
+
+        protected abstract void SetupLineRenderers();
     }
 }

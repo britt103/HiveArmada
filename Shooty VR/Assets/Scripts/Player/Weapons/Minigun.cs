@@ -52,17 +52,17 @@ namespace Hive.Armada.Player.Weapons
         /// </summary>
         public Material material;
 
-        /// <summary>
-        /// Initializes weapon attributes and the minigun's LineRenderers
-        /// </summary>
-        public override void Initialize(int index)
-        {
-            this.index = index;
-            SetupLineRenderers();
-            damageMultiplier = 1;
-            damage = shipController.weapons[index].damage;
-            fireRate = shipController.weapons[index].fireRate;
-        }
+        ///// <summary>
+        ///// Initializes weapon attributes and the minigun's LineRenderers
+        ///// </summary>
+        //public override void Initialize(int index)
+        //{
+        //    this.index = index;
+        //    SetupLineRenderers();
+        //    damageMultiplier = 1;
+        //    damage = shipController.weapons[index].damage;
+        //    fireRate = shipController.weapons[index].fireRate;
+        //}
 
         /// <summary>
         /// Gets enemy or wall aimpoint and shoots at it.
@@ -141,7 +141,7 @@ namespace Hive.Armada.Player.Weapons
         /// <summary>
         /// Calls the initialization of all LineRenderers
         /// </summary>
-        private void SetupLineRenderers()
+        protected override void SetupLineRenderers()
         {
             for (int i = 0; i < left.Length; ++i)
             {

@@ -182,6 +182,34 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 18944486}
+--- !u!1 &19018416
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 19018417}
+  m_Layer: 0
+  m_Name: Transition Effect Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &19018417
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 19018416}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2136969585}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &48314197
 GameObject:
   m_ObjectHideFlags: 0
@@ -5143,15 +5171,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48022b2851c23ad43906fe6bcddd8b51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  totalAliveTime: 0
+  waves: 0
+  totalEnemiesKilled: 0
+  totalFiringTime: 0
+  totalScore: 0
   weaponNames:
   - Laser Gun
   - Minigun
+  weaponTotalShotsFired: 
   powerupNames:
   - Ally
   - Area Bomb
   - Clear
   - Damage Boost
   - Shield
+  powerupTotalCount: 
+  totalCurrencyCollected: 0
 --- !u!114 &1427451908
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5518,13 +5554,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeColor: {r: 0, g: 0, b: 0, a: 1}
-  fadeStartTime: 5
-  fadeStartTimeBuffer: 2
+  fadeInStartTime: 0
+  fadeOutStartTime: 5
   transitionAudioSource: {fileID: 1966993754}
-  transitionEmitter: {fileID: 1110594293534486, guid: a5ffbf29c124fdd4b9a26ba22878897e,
+  transitionEmitter: {fileID: 1723204681789840, guid: 31cfecbe0b167ca4cb2fdb50e4280194,
     type: 2}
-  emitterStartTime: 3
-  emitterStartTimeBuffer: 3
+  emitterInStartTime: 1
+  emitterOutStartTime: 4
+  emitterPoint: {fileID: 19018417}
 --- !u!1 &1493433540
 GameObject:
   m_ObjectHideFlags: 0
@@ -6871,3 +6908,7 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2057275041}
+--- !u!4 &2136969585 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 471722, guid: dc06161b6d97feb419f45f03b62e14b9, type: 2}
+  m_PrefabInternal: {fileID: 1427451900}

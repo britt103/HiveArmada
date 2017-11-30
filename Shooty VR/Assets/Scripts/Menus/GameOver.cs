@@ -8,6 +8,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Hive.Armada.Player;
 using Hive.Armada.Game;
@@ -22,13 +23,34 @@ namespace Hive.Armada
         private ReferenceManager reference;
 
         /// <summary>
-        /// Triggers gameover/reload process
+        /// Reference to Text GameObject for wave stat.
+        /// </summary>
+        public GameObject wavesTextGO;
+
+        /// <summary>
+        /// Reference to Text GameObject for time stat.
+        /// </summary>
+        public GameObject timeTextGO;
+
+        /// <summary>
+        /// Reference to Text GameObject for kills stat.
+        /// </summary>
+        public GameObject killsTextGO;
+
+        /// <summary>
+        /// Triggers gameover/reload process. Find references. Set text values.
         /// </summary>
         public void OnEnable()
         {
             reference = FindObjectOfType<ReferenceManager>();
             StartCoroutine(Reload());
-            FindObjectOfType<PlayerStats>().PrintStats();
+
+            PlayerStats stats = FindObjectOfType<PlayerStats>();
+
+            stats.PrintStats();
+            wavesTextGO.GetComponent<Text>().text = "Waves: " + stats.waves;
+            timeTextGO.GetComponent<Text>().text = "Time: " + stats.totalAliveTime;
+            killsTextGO.GetComponent<Text>().text = "Kills: " + stats.totalEnemiesKilled;
         }
 
         /// <summary>
@@ -45,7 +67,9 @@ namespace Hive.Armada
         /// </summary>
         public void OnRestartButton()
         {
-            GameObject.Find("Main Canvas").transform.Find("Start Menu").gameObject.SetActive(true);
+            //GameObject.Find("Main Canvas").transform.Find("Start Menu").gameObject.SetActive(true);
+            //gameObject.SetActive(false);
+            reference.sceneTransitionManager.TransitionTo("Test01");
             gameObject.SetActive(false);
         }
 
@@ -54,7 +78,9 @@ namespace Hive.Armada
         /// </summary>
         public void OnQuitMainMenuButton()
         {
-            GameObject.Find("Main Canvas").transform.Find("Main Menu").gameObject.SetActive(true);
+            //GameObject.Find("Main Canvas").transform.Find("Main Menu").gameObject.SetActive(true);
+            //gameObject.SetActive(false);
+            reference.sceneTransitionManager.TransitionTo("Menu Room");
             gameObject.SetActive(false);
         }
     }

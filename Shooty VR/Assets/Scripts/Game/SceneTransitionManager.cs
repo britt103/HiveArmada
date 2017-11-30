@@ -28,15 +28,14 @@ namespace Hive.Armada.Game
         public Color fadeColor = Color.black;
 
         /// <summary>
-        /// When fade starts after transition begins.
+        /// When fade starts after in transition begins.
         /// </summary>
-        public float fadeStartTime = 5.0f;
+        public float fadeInStartTime = 0.5f;
 
         /// <summary>
-        /// Time between fadeStartTime and end of audio clip if clip length is 
-        /// shorter than fadeStartTime.
+        /// When fade starts after out transition begins.
         /// </summary>
-        public float fadeStartTimeBuffer = 2.0f;
+        public float fadeOutStartTime = 0.5f;
 
         /// <summary>
         /// AudioSource to play during scene transitions.
@@ -54,15 +53,19 @@ namespace Hive.Armada.Game
         public GameObject transitionEmitter;
 
         /// <summary>
-        /// When emitter starts after transition begins.
+        /// When emitter starts after in transition begins.
         /// </summary>
-        public float emitterStartTime = 3.0f;
+        public float emitterInStartTime = 0.5f;
 
         /// <summary>
-        /// Time between emitterStartTime and end of audio clip if clip length is 
-        /// shorter than emitterStartTime.
+        /// When emitter starts after out transition begins.
         /// </summary>
-        public float emitterStartTimeBuffer = 3.0f;
+        public float emitterOutStartTime = 0.5f;
+
+        /// <summary>
+        /// Transform to use for emitter instantiation.
+        /// </summary>
+        public Transform emitterPoint;
 
         /// <summary>
         /// Reference to ReferenceManager.
@@ -77,8 +80,6 @@ namespace Hive.Armada.Game
         {
             reference = FindObjectOfType<ReferenceManager>();
             audioClipLength = transitionAudioSource.clip.length;
-            fadeStartTime = Mathf.Min(fadeStartTime, audioClipLength - fadeStartTimeBuffer);
-            emitterStartTime = Mathf.Min(emitterStartTime, audioClipLength - emitterStartTimeBuffer);
             TransitionIn();
         }
 
@@ -89,6 +90,7 @@ namespace Hive.Armada.Game
         {
             transitionAudioSource.Play();
             StartCoroutine(FadeIn());
+            StartCoroutine(StartEmitter(emitterInStartTime));
         }
 
         /// <summary>
@@ -99,6 +101,7 @@ namespace Hive.Armada.Game
         {
             transitionAudioSource.Play();
             StartCoroutine(FadeOut());
+            StartCoroutine(StartEmitter(emitterOutStartTime));
             StartCoroutine(LoadScene(sceneName));
         }
 
@@ -117,29 +120,29 @@ namespace Hive.Armada.Game
         /// </summary>
         private IEnumerator FadeIn()
         {
-            yield return new WaitForSeconds(fadeStartTime);
+            yield return new WaitForSeconds(fadeInStartTime);
             SteamVR_Fade.Start(fadeColor, 0.0f);
-            SteamVR_Fade.Start(Color.clear, audioClipLength - fadeStartTime);
+            SteamVR_Fade.Start(Color.clear, audioClipLength - fadeInStartTime);
         }
 
         /// <summary>
-        /// Start fade in effect when fade is set to start.
+        /// Start fade out effect when fade is set to start.
         /// </summary>
         private IEnumerator FadeOut()
         {
-            yield return new WaitForSeconds(fadeStartTime);
+            yield return new WaitForSeconds(fadeOutStartTime);
             SteamVR_Fade.Start(Color.clear, 0.0f);
-            SteamVR_Fade.Start(fadeColor, audioClipLength - fadeStartTime);
+            SteamVR_Fade.Start(fadeColor, audioClipLength - fadeOutStartTime);
         }
 
         /// <summary>
-        /// Start emitter effect when effect is set to start.
+        /// Start emitter effect when in or out effect is set to start.
         /// </summary>
-        /// <returns></returns>
-        private IEnumerator StartEmitter()
+        /// <param name="startTime">Time to start emitter effect.</param>
+        private IEnumerator StartEmitter(float startTime)
         {
-            yield return new WaitForSeconds(emitterStartTime);
-            Instantiate(transitionEmitter, reference.player.transform);
+            yield return new WaitForSeconds(startTime);
+            Instantiate(transitionEmitter, emitterPoint);
         }
     }
 }

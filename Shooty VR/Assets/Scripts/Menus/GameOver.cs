@@ -33,6 +33,8 @@ namespace Hive.Armada
         /// <returns></returns>
         private IEnumerator Reload()
         {
+            Roy.PlayOneShot(loseAudio[0]);
+            yield return new WaitForSeconds(1);
             loseSound();
             yield return new WaitForSeconds(10.0f);
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -58,7 +60,7 @@ namespace Hive.Armada
 
         public void loseSound()
         {
-            int loseNumber = Random.Range(0, loseAudio.Length);
+            int loseNumber = Random.Range(1, loseAudio.Length);
             Roy.PlayOneShot(loseAudio[loseNumber]);
         }
     }

@@ -24,9 +24,13 @@ namespace Hive.Armada
         //private Hand hand;
         public GameObject fxTrail, fxBomb;
 
+        public AudioSource source;
+        public AudioClip[] clips;
+
         // Use this for initialization
         void Start()
         {
+            StartCoroutine(launchBomb());
             StartCoroutine(Detonate());
             fxTrail.SetActive(true);
 
@@ -103,6 +107,12 @@ namespace Hive.Armada
                 FindObjectOfType<PowerUpStatus>().areaBombActive = false;
                 Destroy(gameObject);
             }
+        }
+
+        private IEnumerator launchBomb()
+        {
+            source.PlayOneShot(clips[0]);
+            yield return new WaitForSeconds(1);
         }
     }
 }

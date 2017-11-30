@@ -63,9 +63,6 @@ namespace Hive.Armada.Enemies
         /// </summary>
         public float splitDir;
 
-		public AudioSource source;
-        public AudioClip[] clips;
-
         /// <summary>
         /// Whether this enemy can shoot or not. Toggles when firing every 1/fireRate seconds.
         /// </summary>
@@ -83,7 +80,6 @@ namespace Hive.Armada.Enemies
                 if (canShoot)
                 {
                     StartCoroutine(Shoot());
-					source.PlayOneShot(clips[0]);
                 }
             }
             else

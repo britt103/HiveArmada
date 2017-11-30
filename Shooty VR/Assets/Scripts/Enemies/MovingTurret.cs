@@ -88,9 +88,6 @@ namespace Hive.Armada.Enemies
         /// </summary>
         private float startTime;
 
-		public AudioSource source;
-		public AudioClip[] clips;
-
         /// <summary>
         /// Finds the player. Runs when this enemy spawns.
         /// </summary>
@@ -166,8 +163,6 @@ namespace Hive.Armada.Enemies
 
             projectile.GetComponent<Rigidbody>().velocity =
                 projectile.transform.forward * projectileSpeed;
-
-			source.PlayOneShot(clips[0]);
 
             yield return new WaitForSeconds(fireRate);
 

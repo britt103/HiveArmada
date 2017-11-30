@@ -32,6 +32,8 @@ namespace Hive.Armada
         /// <returns></returns>
         private IEnumerator Run()
         {
+            Roy.PlayOneShot(winAudio[0]);
+            yield return new WaitForSeconds(1);
             winSound();
             yield return new WaitForSeconds(3);
             FindObjectOfType<PlayerStats>().PrintStats();
@@ -40,7 +42,7 @@ namespace Hive.Armada
 
         public void winSound()
         {
-            int winNumber = Random.Range(0, winAudio.Length);
+            int winNumber = Random.Range(1, winAudio.Length);
             Roy.PlayOneShot(winAudio[winNumber]);
         }
     }

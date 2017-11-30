@@ -81,9 +81,6 @@ namespace Hive.Armada.Enemies
         private float randY;
         private float randZ;
 
-		public AudioSource source;
-        public AudioClip[] clips;
-
         /// <summary>
         /// On start, select enemy behavior based on value fireMode
         /// </summary>

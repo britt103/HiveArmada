@@ -77,15 +77,16 @@ namespace Hive.Armada
                 flashTimer = 0.0F;
             }
         }
-        IEnumerator shieldDeactivateSound()
-        {
-            source.PlayOneShot(clips[1]);
-            yield return new WaitForSeconds(1);
-        }
 
         IEnumerator shieldActivateSound()
         {
             source.PlayOneShot(clips[0]);
+            yield return new WaitForSeconds(1);
+        }
+
+        IEnumerator shieldDeactivateSound()
+        {
+            source.PlayOneShot(clips[1]);
             yield return new WaitForSeconds(1);
         }
     }

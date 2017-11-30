@@ -39,7 +39,7 @@ namespace Hive.Armada.Enemies
         void Start()
         {
             startAngle = transform.eulerAngles;
-            StartCoroutine(SetPoints());
+            StartCoroutine(Cooldown());
         }
 
         /// <summary>

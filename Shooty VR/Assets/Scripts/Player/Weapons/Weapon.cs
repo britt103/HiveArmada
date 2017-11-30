@@ -35,6 +35,7 @@ namespace Hive.Armada.Player.Weapons
         /// <summary>
         /// The damage multiplier on the weapon.
         /// </summary>
+        [HideInInspector]
         public int damageMultiplier;
 
         /// <summary>

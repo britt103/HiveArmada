@@ -75,7 +75,7 @@ namespace Hive.Armada.Player
         /// <summary>
         /// Index of the currently activated weapon.
         /// </summary>
-        private int currentWeapon;
+        public int currentWeapon;
 
         /// <summary>
         /// If we should wait until LateUpdate to update poses

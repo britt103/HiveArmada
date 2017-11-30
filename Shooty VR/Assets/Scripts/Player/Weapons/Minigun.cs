@@ -46,7 +46,10 @@ namespace Hive.Armada.Player.Weapons
         /// </summary>
         private bool isLeftFire = true;
 
-        public float thickness;
+        /// <summary>
+        /// Thickness of the minigun tracers' LineRenderer's
+        /// </summary>
+        public float thickness = 0.003f;
 
         /// <summary>
         /// </summary>

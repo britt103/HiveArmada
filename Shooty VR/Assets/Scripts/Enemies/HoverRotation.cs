@@ -38,7 +38,7 @@ namespace Hive.Armada.Enemies
         /// </summary>
         void Start()
         {
-            startAngle = transform.localEulerAngles;
+            startAngle = transform.eulerAngles;
             StartCoroutine(SetPoints());
         }
 
@@ -57,7 +57,7 @@ namespace Hive.Armada.Enemies
         public IEnumerator SetPoints()
         {
             
-            newAngle = Quaternion.Euler(startAngle.x + Random.Range(-10f, 10f), 0, startAngle.z + Random.Range(-10f, 10f));
+            newAngle = Quaternion.Euler(startAngle.x + Random.Range(-10f, 10f), startAngle.y, startAngle.z + Random.Range(-10f, 10f));
             yield return new WaitForSeconds(0.1f);
             StartCoroutine(Cooldown());           
         }

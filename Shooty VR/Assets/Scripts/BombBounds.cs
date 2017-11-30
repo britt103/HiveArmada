@@ -13,6 +13,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Hive.Armada.PowerUps;
 
 namespace Hive.Armada
 {
@@ -25,7 +26,7 @@ namespace Hive.Armada
         {
             if(other.gameObject.GetComponent<AreaBomb>() != null)
             {
-                other.gameObject.GetComponent<AreaBomb>().Stop();
+                other.gameObject.GetComponent<AreaBomb>().Shot();
             }
         }
     }

@@ -14,6 +14,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Hive.Armada.Game;
 using UnityEngine;
 using Hive.Armada.Menu;
 
@@ -25,18 +26,25 @@ namespace Hive.Armada.Player
     public class PlayerHealth : MonoBehaviour
     {
         public ShipController shipController;
+
         public int maxHealth = 30;
+
         private int currentHealth;
+
         public GameObject fxHit;
+
         public GameObject fxHurt;
+
         public GameObject fxDead;
+
         protected List<Material> mats;
+
         public Material flashColor;
 
         /// <summary>
         /// Initializes variables
         /// </summary>
-        void Start()
+        private void Start()
         {
             mats = new List<Material>();
             currentHealth = maxHealth;
@@ -52,18 +60,23 @@ namespace Hive.Armada.Player
             currentHealth -= damage;
 
             if (Utility.isDebug)
+            {
                 Debug.Log("Hit for " + damage + " damage! Remaining health = " + currentHealth);
+            }
 
             if (currentHealth <= 10)
+            {
                 fxHurt.SetActive(true);
+            }
 
             if (currentHealth <= 0)
             {
                 if (shipController != null)
                 {
-                    FindObjectOfType<Game.ReferenceManager>().statistics.isAlive = false;
+                    FindObjectOfType<ReferenceManager>().statistics.IsNotAlive();
                     Instantiate(fxDead, transform.position, transform.rotation);
-                    GameObject.Find("Main Canvas").transform.Find("Game Over Menu").gameObject.SetActive(true);
+                    GameObject.Find("Main Canvas").transform.Find("Game Over Menu").gameObject
+                              .SetActive(true);
                     shipController.hand.DetachObject(gameObject);
                 }
             }
@@ -79,9 +92,14 @@ namespace Hive.Armada.Player
             foreach (Renderer renderer in gameObject.GetComponentsInChildren<Renderer>())
             {
                 if (renderer.gameObject.CompareTag("FX"))
+                {
                     continue;
-                if (renderer.material.name.Equals("Laser Sight") || renderer.material.name.Equals("Laser Gun"))
+                }
+                if (renderer.material.name.Equals("Laser Sight") ||
+                    renderer.material.name.Equals("Laser Gun"))
+                {
                     continue;
+                }
 
                 mats.Add(renderer.material);
 
@@ -93,9 +111,14 @@ namespace Hive.Armada.Player
             foreach (Renderer renderer in gameObject.GetComponentsInChildren<Renderer>())
             {
                 if (renderer.gameObject.CompareTag("FX"))
+                {
                     continue;
-                if (renderer.material.name.Equals("Laser Sight") || renderer.material.name.Equals("Laser Gun"))
+                }
+                if (renderer.material.name.Equals("Laser Sight") ||
+                    renderer.material.name.Equals("Laser Gun"))
+                {
                     continue;
+                }
 
                 renderer.material = mats.First();
                 mats.RemoveAt(0);

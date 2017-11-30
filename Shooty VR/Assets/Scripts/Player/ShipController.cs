@@ -232,7 +232,12 @@ namespace Hive.Armada.Player
                 case ShipMode.Menu:
                     if (hand.GetStandardInteractionButtonDown())
                     {
-                        laserSight.TriggerUpdate();
+                        laserSight.TriggerUpdate(false);
+                    }
+
+                    else if (hand.GetStandardInteractionButton())
+                    {
+                        laserSight.TriggerUpdate(true);
                     }
                     break;
                 default:

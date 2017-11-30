@@ -21,6 +21,7 @@ using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Rendering;
+using UnityEngine.UI;
 
 namespace Hive.Armada.Player
 {
@@ -62,7 +63,7 @@ namespace Hive.Armada.Player
         /// <summary>
         /// If the aimObject is tagged as button
         /// </summary>
-        private bool isButton;
+        private bool isInteractable;
 
         /// <summary>
         /// Initializes the laser sight's LineRenderer and ship controller reference.
@@ -99,7 +100,7 @@ namespace Hive.Armada.Player
                 }
                 else
                 {
-                    isButton = false;
+                    isInteractable = false;
                 }
             } // end if Game mode
             else if (mode == ShipController.ShipMode.Menu)
@@ -107,11 +108,11 @@ namespace Hive.Armada.Player
                 if (Physics.Raycast(transform.position, transform.forward,
                     out hit, Mathf.Infinity, Utility.uiMask))
                 {
-                    if (hit.collider.gameObject.CompareTag("Button"))
+                    if (hit.collider.gameObject.CompareTag("InteractableUI"))
                     {
-                        if (!isButton)
+                        if (!isInteractable)
                         {
-                            isButton = true;
+                            isInteractable = true;
                             if (shipController != null)
                             {
                                 try
@@ -127,11 +128,11 @@ namespace Hive.Armada.Player
                     }
                     else
                     {
-                        isButton = false;
+                        isInteractable = false;
                     }
 
                     aimObject = hit.collider.gameObject;
-                    isButton = hit.collider.gameObject.CompareTag("Button");
+                    isInteractable = hit.collider.gameObject.CompareTag("InteractableUI");
 
                     laser.SetPosition(0, transform.position);
                     laser.SetPosition(1, hit.point);
@@ -144,7 +145,7 @@ namespace Hive.Armada.Player
                     Utility.roomMask))
                 {
                     aimObject = null;
-                    isButton = false;
+                    isInteractable = false;
 
                     laser.SetPosition(0, transform.position);
                     laser.SetPosition(1, hit.point);
@@ -155,7 +156,7 @@ namespace Hive.Armada.Player
                 else
                 {
                     aimObject = null;
-                    isButton = false;
+                    isInteractable = false;
                 }
             } // end if Menu mode
         }
@@ -163,12 +164,26 @@ namespace Hive.Armada.Player
         /// <summary>
         /// Sent every frame while the trigger is pressed
         /// </summary>
-        public void TriggerUpdate()
+        public void TriggerUpdate(bool stay)
         {
-            if (mode.Equals(ShipController.ShipMode.Menu) && isButton)
+            if (mode.Equals(ShipController.ShipMode.Menu) && isInteractable)
             {
-                ExecuteEvents.Execute(aimObject,
-                    new PointerEventData(EventSystem.current), ExecuteEvents.submitHandler);
+                if (aimObject.GetComponent<Slider>())
+                {
+                    float centerX = aimObject.GetComponent<BoxCollider>().center.x;
+                    float maxX = centerX + aimObject.GetComponent<BoxCollider>().bounds.extents.x;
+                    float minX = centerX - aimObject.GetComponent<BoxCollider>().bounds.extents.x;
+                    float pointerX = laser.GetPosition(1).x;
+                    if (pointerX > minX && pointerX < maxX)
+                    {
+                        float value = (pointerX - minX) / (maxX - minX);
+                        aimObject.GetComponent<Slider>().value = value;
+                    }
+                }
+                else if (!stay)
+                {
+                    ExecuteEvents.Execute(aimObject, new PointerEventData(EventSystem.current), ExecuteEvents.submitHandler);
+                }
             }
         }
 

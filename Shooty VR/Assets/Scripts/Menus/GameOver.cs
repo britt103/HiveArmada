@@ -1,22 +1,29 @@
-﻿//Name: Chad Johnson
-//Student ID: 1763718
-//Email: johns428@mail.chapman.edu
-//Course: CPSC 340-01, CPSC-344-01
-//Assignment: Group Project
-//Purpose: Visuals and stats for game over condition; Controls buttons and navigation
+﻿//=============================================================================
+//
+// Chad Johnson
+// 1763718
+// johns428@mail.chapman.edu
+// CPSC-340-01 & CPSC-344-01
+// Group Project
+//
+// GameOver controls interactions with the Game Over Menu.
+//
+//=============================================================================
 
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Hive.Armada.Player;
 
-namespace Hive.Armada
+namespace Hive.Armada.Menus
 {
+    /// <summary>
+    /// Controls interactions with Game Over Menu.
+    /// </summary>
     public class GameOver : MonoBehaviour
     {
         /// <summary>
-        /// Triggers gameover/reload process
+        /// Start Reload coroutine and trigger PrintStats() in PlayerStats.
         /// </summary>
         public void OnEnable()
         {
@@ -25,9 +32,8 @@ namespace Hive.Armada
         }
 
         /// <summary>
-        /// Activate game over text, reloads scene
+        /// Activate game over text and reload scene.
         /// </summary>
-        /// <returns></returns>
         private IEnumerator Reload()
         {
             yield return new WaitForSeconds(10.0f);
@@ -35,18 +41,18 @@ namespace Hive.Armada
         }
 
         /// <summary>
-        /// Restart button pressed; navigates to start menu
+        /// Restart button pressed. Navigate to Start Menu.
         /// </summary>
-        public void OnRestartButton()
+        public void PressRestart()
         {
             GameObject.Find("Main Canvas").transform.Find("Start Menu").gameObject.SetActive(true);
             gameObject.SetActive(false);
         }
 
         /// <summary>
-        /// Quit to main menu button pressed; navigated to main manu
+        /// Quit to Main Menu button pressed. Navigate to Main Menu.
         /// </summary>
-        public void OnQuitMainMenuButton()
+        public void PressQuitMainMenu()
         {
             GameObject.Find("Main Canvas").transform.Find("Main Menu").gameObject.SetActive(true);
             gameObject.SetActive(false);

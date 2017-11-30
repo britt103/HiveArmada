@@ -16,7 +16,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Hive.Armada.Game;
 using UnityEngine;
-using Hive.Armada.Menu;
 
 namespace Hive.Armada.Player
 {

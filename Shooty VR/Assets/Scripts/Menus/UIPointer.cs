@@ -1,41 +1,85 @@
-﻿//Name: Chad Johnson
-//Student ID: 1763718
-//Email: johns428@mail.chapman.edu
-//Course: CPSC 340-01, CPSC-344-01
-//Assignment: Group Project
-//Purpose: UI menu pointer interaction
-
-//http://answers.unity3d.com/questions/820599/simulate-button-presses-through-code-unity-46-gui.html
+﻿//=============================================================================
+//
+// Chad Johnson
+// 1763718
+// johns428@mail.chapman.edu
+// CPSC-340-01 & CPSC-344-01
+// Group Project
+//
+// UIPointer displays a LineRenderer representing the direction in which
+// the controller is currently pointing. A Raycast determines with which UI
+// elements the player can currently interact. Pressing the trigger button
+// will activate interactable UI elements. 
+//
+//=============================================================================
 
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using Valve.VR.InteractionSystem;
 using UnityEngine.Rendering;
+using Valve.VR.InteractionSystem;
 
-namespace Hive.Armada.Menu
+namespace Hive.Armada.Menus
 {
+    /// <summary>
+    /// Allows UI interactions using controller with LineRenderer.
+    /// </summary>
     public class UIPointer : MonoBehaviour
     {
+        /// <summary>
+        /// Reference to Hand in immediate hierarchy.
+        /// </summary>
         private Hand hand;
+
+        /// <summary>
+        /// LineRenderer that represents controller direction.
+        /// </summary>
         private LineRenderer pointer;
+
+        /// <summary>
+        /// LineRenderer material.
+        /// </summary>
         public Material laserMaterial;
+
+        /// <summary>
+        /// Alignment type for LineRenderer.
+        /// </summary>
         [Tooltip("View makes line face camera. Local makes the line face the direction of the transform component")]
         public LineAlignment alignment;
+
+        /// <summary>
+        /// Color of the LineRenderer.
+        /// </summary>
         public Color color;
+
+        /// <summary>
+        /// Thickness of the LineRenderer.
+        /// </summary>
         public float thickness = 0.002f;
+
+        /// <summary>
+        /// ShadowCastingMode of the LineRenderer.
+        /// </summary>
         public ShadowCastingMode castShadows;
+
+        /// <summary>
+        /// Determines whether LineRenderer receives shadows.
+        /// </summary>
         public bool receiveShadows = false;
+
+        /// <summary>
+        /// Enabled state of LineRenderer.
+        /// </summary>
         private bool isEnabled = false;
 
-        // Use this for initialization
+        /// <summary>
+        /// Find Hand and initialize LineRenderer and parameters. 
+        /// </summary>
         void Start()
         {
             hand = gameObject.GetComponentInParent<Hand>();
 
             if (hand.controller != null)
             {
-                //pointer = gameObject.GetComponent<LineRenderer>();
                 pointer = gameObject.AddComponent<LineRenderer>();
                 Gradient gradient = new Gradient();
                 gradient.SetKeys(
@@ -51,7 +95,9 @@ namespace Hive.Armada.Menu
             }
         }
 
-        // Update is called once per frame
+        /// <summary>
+        /// Update LineRenderer end positions and execute activation of interactables.
+        /// </summary>
         void Update()
         {
             if (hand.controller != null)
@@ -91,7 +137,7 @@ namespace Hive.Armada.Menu
                         float mag = (transform.position - hit.point).magnitude;
                         pointer.endWidth = thickness * Mathf.Max(mag, 1.0f);
                     }
-                    //disapear line when ship being held
+                    
                     else
                     {
                         pointer.SetPosition(0, transform.position);
@@ -101,7 +147,6 @@ namespace Hive.Armada.Menu
                 else
                 {
                     isEnabled = true;
-                    //pointer = gameObject.GetComponent<LineRenderer>();
                     pointer = gameObject.AddComponent<LineRenderer>();
                     Gradient gradient = new Gradient();
                     gradient.SetKeys(
@@ -118,5 +163,4 @@ namespace Hive.Armada.Menu
             }
         }
     }
-
 }

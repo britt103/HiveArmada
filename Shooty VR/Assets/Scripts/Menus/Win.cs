@@ -1,32 +1,38 @@
-﻿//Name: Chad Johnson
-//Student ID: 1763718
-//Email: johns428@mail.chapman.edu
-//Course: CPSC 340-01, CPSC-344-01
-//Assignment: Group Project
-//Purpose: Visuals and stats for win condition
+﻿//=============================================================================
+//
+// Chad Johnson
+// 1763718
+// johns428@mail.chapman.edu
+// CPSC-340-01 & CPSC-344-01
+// Group Project
+//
+// Win controls interactions with the Win Menu.
+//
+//=============================================================================
 
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Hive.Armada.Player;
 
-namespace Hive.Armada
+namespace Hive.Armada.Menus
 {
+    /// <summary>
+    /// Controls interactions with Win Menu.
+    /// </summary>
     public class Win : MonoBehaviour
     {
         /// <summary>
-        /// Run when activated
+        /// Start Run coroutine.
         /// </summary>
-        private void Awake()
+        private void OnEnable()
         {
             StartCoroutine(Run());
         }
 
         /// <summary>
-        /// Call stats printing, reloads scene
+        /// Call PrintStats in PlayerStats and reload scene.
         /// </summary>
-        /// <returns></returns>
         private IEnumerator Run()
         {
             yield return new WaitForSeconds(3);

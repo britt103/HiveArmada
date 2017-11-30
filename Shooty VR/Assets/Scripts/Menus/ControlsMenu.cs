@@ -1,35 +1,49 @@
-﻿//Name: Chad Johnson
-//Student ID: 1763718
-//Email: johns428@mail.chapman.edu
-//Course: CPSC 340-01, CPSC-344-01
-//Assignment: Group Project
-//Purpose: Control interactions and navigation with controls menu
+﻿//=============================================================================
+//
+// Chad Johnson
+// 1763718
+// johns428@mail.chapman.edu
+// CPSC-340-01 & CPSC-344-01
+// Group Project
+//
+// ControlsMenu controls interactions with the Controls Menu.
+//
+//=============================================================================
 
 using UnityEngine;
 using Hive.Armada.Player;
 
-public class ControlsMenu : MonoBehaviour {
-    private Tooltip tooltip;
-
+namespace Hive.Armada.Menus
+{
     /// <summary>
-    /// Activate controller highlighting
+    /// Controls interactions with Controls Menu and ControlsHighlighter activation. 
     /// </summary>
-    private void OnEnable()
+    public class ControlsMenu : MonoBehaviour
     {
-        tooltip = FindObjectOfType<ShipController>().transform.parent.GetComponentInChildren<Tooltip>();
-        tooltip.ShowFireButton();
-        tooltip.ShowPowerupButton();
-    }
+        /// <summary>
+        /// ControlsHighlighter reference on active hand.
+        /// </summary>
+        private ControlsHighlighter ch;
 
-    /// <summary>
-    /// Back button pressed; navigates to options menu
-    /// </summary>
-    public void OnBackButton()
-    {
-        GameObject.Find("Main Canvas").transform.Find("Options Menu").gameObject.SetActive(true);
+        /// <summary>
+        /// Activate controller highlighting.
+        /// </summary>
+        private void OnEnable()
+        {
+            ch = FindObjectOfType<ShipController>().transform.parent.GetComponentInChildren<ControlsHighlighter>();
+            ch.FireOn();
+            ch.PowerupOn();
+        }
 
-        tooltip.HideAll();
- 
-        gameObject.SetActive(false);
+        /// <summary>
+        /// Back button pressed. Navigate to Options Menu.
+        /// </summary>
+        public void PressBack()
+        {
+            GameObject.Find("Main Canvas").transform.Find("Options Menu").gameObject
+                    .SetActive(true);
+            ch.AllOff();
+            gameObject.SetActive(false);
+        }
     }
 }

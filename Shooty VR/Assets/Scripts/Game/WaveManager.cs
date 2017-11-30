@@ -13,6 +13,7 @@
 using System;
 using UnityEngine;
 using SubjectNerd.Utilities;
+using System.Collections;
 
 namespace Hive.Armada.Game
 {
@@ -74,6 +75,9 @@ namespace Hive.Armada.Game
     /// </summary>
     public class WaveManager : MonoBehaviour
     {
+        public AudioSource source;
+        public AudioClip[] clips;
+
         /// <summary>
         /// Array of all available spawn zones in the scene.
         /// </summary>
@@ -124,6 +128,7 @@ namespace Hive.Armada.Game
         /// <param name="wave"> The index of the wave to run </param>
         private void RunWave(int wave)
         {
+            StartCoroutine(playWave(wave));
             waves[wave].Run(wave);
         }
 
@@ -148,6 +153,13 @@ namespace Hive.Armada.Game
                 IsRunning = false;
                 IsComplete = true;
             }
+        }
+
+        public IEnumerator playWave(int waveNumber)
+        {
+            source.PlayOneShot(clips[0]);
+            yield return new WaitForSeconds(0.9f);
+            source.PlayOneShot(clips[waveNumber + 1]);
         }
     }
 }

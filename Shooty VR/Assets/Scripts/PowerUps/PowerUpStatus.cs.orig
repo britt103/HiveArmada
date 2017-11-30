@@ -13,9 +13,13 @@
 //=============================================================================
 
 using System.Collections.Generic;
+<<<<<<< HEAD
+using Hive.Armada.Player;
+=======
 using UnityEngine;
 using Hive.Armada.Player;
 using Valve.VR.InteractionSystem;
+>>>>>>> feature/powerups
 
 namespace Hive.Armada.PowerUps
 {
@@ -105,10 +109,81 @@ namespace Hive.Armada.PowerUps
 
                     for (int i = 0; i < powerupNames.Length; ++i)
                     {
+<<<<<<< HEAD
+                        case "Ally":
+                            if (allyActive)
+                            {
+                                canActivate = false;
+                            }
+                            else
+                            {
+                                allyStored = false;
+                                allyActive = true;
+                                stats.PowerupUsed("Ally");
+                            }
+
+                            break;
+
+                        case "Area Bomb":
+                            if (areaBombActive)
+                            {
+                                canActivate = false;
+                            }
+                            else
+                            {
+                                areaBombStored = false;
+                                areaBombActive = true;
+                                stats.PowerupUsed("Area Bomb");
+                            }
+
+                            break;
+
+                        case "Clear":
+                            if (clearActive)
+                            {
+                                canActivate = false;
+                            }
+                            else
+                            {
+                                clearStored = false;
+                                clearActive = true;
+                                stats.PowerupUsed("Clear");
+                            }
+
+                            break;
+
+                        case "Damage Boost":
+                            if (damageBoostActive)
+                            {
+                                canActivate = false;
+                            }
+                            else
+                            {
+                                damageBoostStored = false;
+                                damageBoostActive = true;
+                                stats.PowerupUsed("Damage Boost");
+                            }
+
+                            break;
+
+                        case "Shield":
+                            if (shieldActive)
+                            {
+                                canActivate = false;
+                            }
+                            else
+                            {
+                                shieldStored = false;
+                                shieldActive = true;
+                                stats.PowerupUsed("Shield");
+                            }
+
+=======
                         if (nextPowerupName == powerupNames[i])
                         {
                             //tooltip.Invoke("ShowPowerup" + (i + 1), 0);
                             tooltip.ShowPowerup(nextPowerupName);
+>>>>>>> feature/powerups
                             break;
                         }
                     }

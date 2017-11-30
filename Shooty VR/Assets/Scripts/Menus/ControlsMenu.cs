@@ -5,22 +5,20 @@
 //Assignment: Group Project
 //Purpose: Control interactions and navigation with controls menu
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using Hive.Armada.Player;
 
 public class ControlsMenu : MonoBehaviour {
-    private ControlsHighlighter ch;
+    private Tooltip tooltip;
 
     /// <summary>
     /// Activate controller highlighting
     /// </summary>
     private void OnEnable()
     {
-        ch = FindObjectOfType<Hive.Armada.Player.ShipController>().transform.parent.GetComponentInChildren<ControlsHighlighter>();
-        ch.FireOn();
-        ch.PowerupOn();
-        ch.PauseOn();
+        tooltip = FindObjectOfType<ShipController>().transform.parent.GetComponentInChildren<Tooltip>();
+        tooltip.ShowFireButton();
+        tooltip.ShowPowerupButton();
     }
 
     /// <summary>
@@ -30,7 +28,7 @@ public class ControlsMenu : MonoBehaviour {
     {
         GameObject.Find("Main Canvas").transform.Find("Options Menu").gameObject.SetActive(true);
 
-        ch.AllOff();
+        tooltip.HideAll();
  
         gameObject.SetActive(false);
     }

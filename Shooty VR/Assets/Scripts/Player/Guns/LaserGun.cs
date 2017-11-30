@@ -1,0 +1,214 @@
+////=============================================================================
+//// 
+//// Perry Sidler
+//// 1831784
+//// sidle104@mail.chapman.edu
+//// CPSC-340-01 & CPSC-344-01
+//// Group Project
+//// 
+//// [DESCRIPTION]
+//// 
+////=============================================================================
+
+//using System.Collections;
+//using System.Collections.Generic;
+//using UnityEngine;
+//using Hive.Armada;
+//using System;
+//using Hive.Armada.Enemies;
+//using UnityEngine.Rendering;
+//using Valve.VR;
+//using UnityEngine.UI;
+//using UnityEngine.EventSystems;
+
+//namespace Hive.Armada.Player.Guns
+//{
+//    public class LaserGun : Gun
+//    {
+//        public GameObject left;
+//        public GameObject right;
+//        public Material laserMaterial;
+//        private LineRenderer leftLaser;
+//        private LineRenderer rightLaser;
+//        public float radius = 0.3f;
+//        [Tooltip("View makes line face camera. Local makes the line face the direction of the transform component")]
+//        public LineAlignment alignment;
+//        public float thickness = 0.002f;
+//        public ShadowCastingMode castShadows;
+//        public bool receiveShadows = false;
+//        private bool isLeftFire = true;
+//        public int damageBoost;
+
+//        public AudioSource sfx;
+//        public AudioClip[] clips;
+
+//        private PlayerStats stats;
+
+//        void Start()
+//        {
+//            canShoot = true;
+//            damage = shipController.laserDamage;
+//            fireRate = shipController.laserFireRate;
+//            damageBoost = 1;
+
+//            leftLaser = left.gameObject.AddComponent<LineRenderer>();
+//            leftLaser.material = laserMaterial;
+//            leftLaser.shadowCastingMode = castShadows;
+//            leftLaser.receiveShadows = receiveShadows;
+//            leftLaser.alignment = alignment;
+//            leftLaser.startWidth = thickness;
+//            leftLaser.endWidth = thickness;
+//            leftLaser.enabled = false;
+
+//            rightLaser = right.gameObject.AddComponent<LineRenderer>();
+//            rightLaser.material = laserMaterial;
+//            rightLaser.shadowCastingMode = castShadows;
+//            rightLaser.receiveShadows = receiveShadows;
+//            rightLaser.alignment = alignment;
+//            rightLaser.startWidth = thickness;
+//            rightLaser.endWidth = thickness;
+//            rightLaser.enabled = false;
+
+//            stats = FindObjectOfType<PlayerStats>();
+//        }
+
+//        /// <summary>
+//        /// Sent every frame while the trigger is pressed
+//        /// </summary>
+//        public override void TriggerUpdate()
+//        {
+//            if (canShoot)
+//            {
+//                Clicked();
+//            }
+//        }
+
+//        /// <summary>
+//        /// Gets enemy or wall aimpoint and shoots at it. Will damage enemies.
+//        /// </summary>
+//        private void Clicked()
+//        {
+//            RaycastHit hit;
+//            if (Physics.SphereCast(transform.position, radius, transform.forward, out hit, 200.0f, Utility.enemyMask))
+//            {
+//                float mag = (transform.position - hit.point).magnitude;
+//                leftLaser.endWidth = thickness * Mathf.Max(mag, 1.0f);
+//                rightLaser.endWidth = thickness * Mathf.Max(mag, 1.0f);
+
+//                StartCoroutine(Shoot(hit.collider.gameObject.transform.position, hit.collider.gameObject));
+
+//                //if (shipController.hand != null)
+//                //{
+//                //    shipController.hand.controller.TriggerHapticPulse();
+//                //}
+//                if (hit.collider.gameObject.GetComponent<Enemy>() != null)
+//                {
+//                    hit.collider.gameObject.GetComponent<Enemy>().Hit(damage*damageBoost);
+//                }
+
+//                shipController.hand.controller.TriggerHapticPulse(2500);
+//            }
+
+//            else if (Physics.Raycast(transform.position, transform.forward, out hit, 200.0f, Utility.shootableMask))
+//            {
+//                float mag = (transform.position - hit.point).magnitude;
+//                leftLaser.endWidth = thickness * Mathf.Max(mag, 1.0f);
+//                rightLaser.endWidth = thickness * Mathf.Max(mag, 1.0f);
+
+//                StartCoroutine(Shoot(hit.collider.gameObject.transform.position, hit.collider.gameObject));
+
+//                if (hit.collider.gameObject.GetComponent<Shootable>() != null
+//                    && hit.collider.gameObject.GetComponent<Shootable>().isShootable)
+//                {
+//                    hit.collider.gameObject.GetComponent<Shootable>().Shot();
+//                }
+
+//                shipController.hand.controller.TriggerHapticPulse(2500);
+//            }
+
+//            //else if (Physics.SphereCast(transform.position, radius, transform.forward, out hit, 200.0F, Utility.uiMask))
+//            //{
+//            //    StartCoroutine(Shoot(hit.collider.gameObject.transform.position, hit.collider.gameObject));
+//            //    if (hit.collider.gameObject.GetComponent<ShootableUI>() != null)
+//            //    {
+//            //        hit.collider.gameObject.GetComponent<ShootableUI>().shot();
+//            //    }
+
+//            //}
+
+
+//            else if (Physics.Raycast(transform.position, transform.forward, out hit, 200.0f, Utility.roomMask))
+//            {
+//                StartCoroutine(Shoot(hit.point, hit.collider.gameObject));
+//            }
+
+//        }
+
+//        /// <summary>
+//        /// 
+//        /// </summary>
+//        /// <param name="target">  </param>
+//        /// <param name="enemy">  </param>
+//        private IEnumerator Shoot(Vector3 target, GameObject enemy)
+//        {
+//            canShoot = false;
+
+//            leftLaser.SetPosition(0, left.transform.position);
+//            leftLaser.SetPosition(1, target);
+//            rightLaser.SetPosition(0, right.transform.position);
+//            rightLaser.SetPosition(1, target);
+//            StartCoroutine(FlashLaser(isLeftFire));
+
+//            //--float r = UnityEngine.Random.Range(0.0f, 1.0f);
+
+//            //if(r <= 0.9)
+//            //{
+//                sfx.PlayOneShot(clips[0]);
+//            //}
+//            //else
+//            //{
+//            //    //source.PlayOneShot(clips[UnityEngine.Random.Range(1, clips.Length)]);
+//            //    source.pitch = 1.0f + UnityEngine.Random.Range(-0.15f, 0.15f);
+//            //    source.PlayOneShot(clips[0]);
+//            //    //source.pitch = 1.0f;
+//            //}
+
+//            stats.isFiring = true;
+//            stats.ShotsFired(1);
+
+//            yield return new WaitForSeconds(1.0f / fireRate);
+
+//            isLeftFire = !isLeftFire;
+//            canShoot = true;
+
+//            stats.isFiring = false;
+//        }
+
+//        /// <summary>
+//        /// 
+//        /// </summary>
+//        /// <param name="isLeft">  </param>
+//        private IEnumerator FlashLaser(bool isLeft)
+//        {
+//            if (isLeft)
+//            {
+//                leftLaser.enabled = true;
+//            }
+//            else
+//            {
+//                rightLaser.enabled = true;
+//            }
+
+//            yield return new WaitForSeconds(0.006f);
+
+//            if (isLeft)
+//            {
+//                leftLaser.enabled = false;
+//            }
+//            else
+//            {
+//                rightLaser.enabled = false;
+//            }
+//        }
+//    }
+//}

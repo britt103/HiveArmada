@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 114100415811593928}
   - component: {fileID: 135581259128785744}
   - component: {fileID: 54415127377630178}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Area Bomb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,7 +71,7 @@ Transform:
   m_GameObject: {fileID: 1499271545386294}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalScale: {x: 12, y: 12, z: 12}
   m_Children:
   - {fileID: 4303120934899364}
   m_Father: {fileID: 0}
@@ -170,11 +170,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0be18ebb2e6bc94a9aad7fe8bafb3f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isShootable: 0
+  fxSpawn: {fileID: 0}
+  fxShot: {fileID: 1060095275791766, guid: e592d55d98210764b8e20e2bb6b6b492, type: 2}
   radius: 3
   acceleration: 0.045
-  startingZ: 1
+  accelerationSwitchTime: 1
+  startingZ: 1.2
   fxTrail: {fileID: 1424821901350050}
-  fxBomb: {fileID: 1060095275791766, guid: e592d55d98210764b8e20e2bb6b6b492, type: 2}
+  detonationTime: 8
+  isShootableTime: 1
 --- !u!135 &135581259128785744
 SphereCollider:
   m_ObjectHideFlags: 1

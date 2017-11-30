@@ -5774,9 +5774,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shipController: {fileID: 114387485106083888}
   maxHealth: 30
-  fxHit: {fileID: 1055841953223108, guid: 0d57f6e2384c7034888dccc749fac7f4, type: 2}
-  fxHurt: {fileID: 1055841953223108, guid: 34575683d8e1fb5438fc406df5227ce5, type: 2}
-  fxDead: {fileID: 1121042957686670, guid: a1bfa5497fc24df4ab1d22001dc533da, type: 2}
+  fxHit: {fileID: 0}
+  fxHurt: {fileID: 0}
+  fxDead: {fileID: 0}
   flashColor: {fileID: 2100000, guid: 1db15971033ba594294b4f0c035f7da8, type: 2}
 --- !u!114 &114150575784695996
 MonoBehaviour:
@@ -5829,9 +5829,9 @@ MonoBehaviour:
   weapons:
   - {fileID: 1629746874275404}
   - {fileID: 1898544543187972}
-  weaponDamage: 0a00000003000000
+  weaponDamage: 0500000003000000
   weaponFireRate:
-  - 8
+  - 16
   - 40
 --- !u!114 &114455474106140256
 MonoBehaviour:

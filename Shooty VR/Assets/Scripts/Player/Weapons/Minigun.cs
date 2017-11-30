@@ -70,7 +70,7 @@ namespace Hive.Armada.Player.Weapons
         {
             RaycastHit hit;
             if (Physics.SphereCast(transform.position, radius, transform.forward, out hit, 200.0f,
-                Utility.enemyMask))
+                                   Utility.enemyMask))
             {
                 StartCoroutine(Shoot(hit.collider.gameObject, hit.point));
 
@@ -82,7 +82,20 @@ namespace Hive.Armada.Player.Weapons
                 shipController.hand.controller.TriggerHapticPulse(2500);
             }
             else if (Physics.Raycast(transform.position, transform.forward, out hit, 200.0f,
-                Utility.roomMask))
+                                     Utility.shootableMask))
+            {
+                StartCoroutine(Shoot(hit.collider.gameObject, hit.point));
+
+                if (hit.collider.gameObject.GetComponent<Shootable>() != null
+                    && hit.collider.gameObject.GetComponent<Shootable>().isShootable)
+                {
+                    hit.collider.gameObject.GetComponent<Shootable>().Shot();
+                }
+
+                shipController.hand.controller.TriggerHapticPulse(2500);
+            }
+            else if (Physics.Raycast(transform.position, transform.forward, out hit, 200.0f,
+                                     Utility.roomMask))
             {
                 StartCoroutine(Shoot(hit.collider.gameObject, hit.point));
             }
@@ -101,10 +114,8 @@ namespace Hive.Armada.Player.Weapons
             canShoot = false;
 
             GameObject barrel = isLeftFire
-                ? left[Random.Range(0, left.Length)]
-                : right[Random.Range(0, right.Length)];
-
-
+                                    ? left[Random.Range(0, left.Length)]
+                                    : right[Random.Range(0, right.Length)];
 
             StartCoroutine(FlashShot(barrel, position, barrel.GetComponent<LineRenderer>()));
 
@@ -125,9 +136,13 @@ namespace Hive.Armada.Player.Weapons
         /// <param name="barrel"> The barrel GameObject to start the LineRenderer at </param>
         /// <param name="position"> The position of the target to aim the LineRenderer at </param>
         /// <param name="tracer"> The LineRenderer itself </param>
-        private static IEnumerator FlashShot(GameObject barrel, Vector3 position,
-            LineRenderer tracer)
+        private IEnumerator FlashShot(GameObject barrel, Vector3 position,
+                                      LineRenderer tracer)
         {
+            tracer.endWidth = thickness *
+                              Mathf.Max(Vector3.Magnitude(barrel.transform.position - position),
+                                        1.0f);
+
             tracer.SetPosition(0, barrel.transform.position);
             tracer.SetPosition(1, position);
             tracer.enabled = true;

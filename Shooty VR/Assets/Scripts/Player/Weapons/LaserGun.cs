@@ -104,23 +104,8 @@ namespace Hive.Armada.Player.Weapons
         {
             RaycastHit hit;
             if (Physics.SphereCast(transform.position, radius, transform.forward, out hit, 200.0f,
-                Utility.enemyMask))
+                                   Utility.enemyMask))
             {
-                if (isLeftFire)
-                {
-                    leftLaser.endWidth = thickness *
-                                         Mathf.Max(
-                                             Vector3.Magnitude(left.transform.position - hit.point),
-                                             1.0f);
-                }
-                else
-                {
-                    rightLaser.endWidth = thickness *
-                                          Mathf.Max(
-                                              Vector3.Magnitude(
-                                                  right.transform.position - hit.point), 1.0f);
-                }
-
                 StartCoroutine(Shoot(hit.collider.gameObject.transform.position));
 
                 if (hit.collider.gameObject.GetComponent<Enemy>() != null)
@@ -131,7 +116,20 @@ namespace Hive.Armada.Player.Weapons
                 shipController.hand.controller.TriggerHapticPulse(2500);
             }
             else if (Physics.Raycast(transform.position, transform.forward, out hit, 200.0f,
-                Utility.roomMask))
+                                     Utility.shootableMask))
+            {
+                StartCoroutine(Shoot(hit.collider.gameObject.transform.position));
+
+                if (hit.collider.gameObject.GetComponent<Shootable>() != null
+                    && hit.collider.gameObject.GetComponent<Shootable>().isShootable)
+                {
+                    hit.collider.gameObject.GetComponent<Shootable>().Shot();
+                }
+
+                shipController.hand.controller.TriggerHapticPulse(2500);
+            }
+            else if (Physics.Raycast(transform.position, transform.forward, out hit, 200.0f,
+                                     Utility.roomMask))
             {
                 StartCoroutine(Shoot(hit.point));
             }
@@ -145,6 +143,21 @@ namespace Hive.Armada.Player.Weapons
         private IEnumerator Shoot(Vector3 position)
         {
             canShoot = false;
+
+            if (isLeftFire)
+            {
+                leftLaser.endWidth = thickness *
+                                     Mathf.Max(
+                                         Vector3.Magnitude(left.transform.position - position),
+                                         1.0f);
+            }
+            else
+            {
+                rightLaser.endWidth = thickness *
+                                      Mathf.Max(
+                                          Vector3.Magnitude(right.transform.position - position),
+                                          1.0f);
+            }
 
             leftLaser.SetPosition(0, left.transform.position);
             leftLaser.SetPosition(1, position);

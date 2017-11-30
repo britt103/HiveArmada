@@ -15,6 +15,7 @@
 //=============================================================================
 
 using Hive.Armada.Player;
+using Hive.Armada.PowerUps;
 using UnityEngine;
 
 namespace Hive.Armada.Game

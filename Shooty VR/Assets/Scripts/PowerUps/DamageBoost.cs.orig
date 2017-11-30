@@ -39,6 +39,10 @@ namespace Hive.Armada
         /// Multiplier of how much to boost damage by.
         /// </summary>
         public int boost;
+<<<<<<< HEAD
+=======
+        public GameObject awakeEmitter;
+>>>>>>> feature/powerups
 
         /// <summary>
         /// The particle emitter to play when the boost is activated.
@@ -50,7 +54,12 @@ namespace Hive.Armada
         /// </summary>
         private void Start()
         {
+<<<<<<< HEAD
             reference = GameObject.Find("Reference Manager").GetComponent<ReferenceManager>();
+=======
+            Instantiate(awakeEmitter, GameObject.FindGameObjectWithTag("Player").transform);
+            StartCoroutine(Run());
+>>>>>>> feature/powerups
 
             Instantiate(spawnEmitter, GameObject.FindGameObjectWithTag("Player").transform);
             StartCoroutine(Run());
@@ -65,8 +74,13 @@ namespace Hive.Armada
 
             yield return new WaitForSeconds(boostLength);
 
+<<<<<<< HEAD
             reference.playerShip.GetComponent<ShipController>().SetDamageBoost(1);
+            FindObjectOfType<PowerUpStatus>().damageBoostActive = false;
+=======
+            GameObject.FindGameObjectWithTag("Player").GetComponent<ShipController>().SetDamageBoost(1);
             //FindObjectOfType<PowerUpStatus>().damageBoostActive = false;
+>>>>>>> feature/powerups
             Destroy(gameObject);
         }
     }

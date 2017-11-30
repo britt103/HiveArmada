@@ -26,7 +26,7 @@ namespace Hive.Armada.Game
         private ReferenceManager reference;
         public int multiplier;
         public Waves waves;
-        [Tooltip("Powerup prefabs in order: Shield, Ally, Area, Clear")]
+        [Tooltip("Powerup prefabs in order: Ally, Area Bomb, Clear, Damage Boost, Shield")]
         public GameObject[] powerups;
         public GameObject[] enemyBounds;
         public GameObject[] powerupBounds;

@@ -56,7 +56,7 @@ namespace Hive.Armada.Game
 
         void Start()
         {
-            StartCoroutine(PoolSpawnTest());
+            //StartCoroutine(PoolSpawnTest());
         }
 
         private IEnumerator PoolSpawnTest()

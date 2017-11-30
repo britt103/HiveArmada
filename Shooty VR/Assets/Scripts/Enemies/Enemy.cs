@@ -260,7 +260,6 @@ namespace Hive.Armada.Enemies
         {
             this.subwave = subwave;
         }
-
         /// <summary>
         /// Sets the enemy spawn which is used to respawn this enemy after self-destructing.
         /// </summary>

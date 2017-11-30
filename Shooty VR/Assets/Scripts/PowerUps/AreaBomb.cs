@@ -50,7 +50,7 @@ namespace Hive.Armada.PowerUps
         private float currentSpeed;
 
         /// <summary>
-        /// FX of Area Bomb movement trail.
+        /// Particle emitter for area bomb movement trail.
         /// </summary>
         public GameObject trailEmitter;
 

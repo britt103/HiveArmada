@@ -40,7 +40,6 @@ GameObject:
   - component: {fileID: 23829361487451674}
   - component: {fileID: 95910639149188088}
   - component: {fileID: 114906720365711610}
-  - component: {fileID: 114100415811593928}
   - component: {fileID: 135581259128785744}
   - component: {fileID: 54415127377630178}
   m_Layer: 10
@@ -148,17 +147,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114100415811593928
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1499271545386294}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b93b6a877adcbf94c89a9d6e0c0e844d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114906720365711610
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -177,8 +165,8 @@ MonoBehaviour:
   acceleration: 0.045
   accelerationSwitchTime: 1
   startingZ: 1.2
+  detonationTime: 7
   fxTrail: {fileID: 1424821901350050}
-  detonationTime: 8
   isShootableTime: 1
 --- !u!135 &135581259128785744
 SphereCollider:

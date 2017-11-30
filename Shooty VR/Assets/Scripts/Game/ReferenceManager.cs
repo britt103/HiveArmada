@@ -38,6 +38,7 @@ namespace Hive.Armada.Game
         public ScoringSystem scoringSystem;
 
         public PlayerStats statistics;
+
         public WaveManager waveManager;
 
         public ObjectPoolManager objectPoolManager;

@@ -108,7 +108,6 @@ namespace Hive.Armada.Enemies
                 {
                     fireNext = Time.time + (1 / fireRate);
                     StartCoroutine(FireBullet());
-					source.PlayOneShot(clips[0]);
                 }
             }
             else

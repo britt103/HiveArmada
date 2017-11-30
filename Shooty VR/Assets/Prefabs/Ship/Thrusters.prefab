@@ -5688,7 +5688,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -5862,6 +5862,7 @@ MonoBehaviour:
   source: {fileID: 82183694413675744}
   clips:
   - {fileID: 8300000, guid: 5df1acdc56b861a439fd30c800f753e9, type: 3}
+  - {fileID: 8300000, guid: d523087c9440f8849ac56d03ac87dea9, type: 3}
 --- !u!114 &114150575784695996
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5917,6 +5918,7 @@ MonoBehaviour:
   weaponFireRate:
   - 8
   - 40
+  engineSound: {fileID: 82183694413675744}
   clip: {fileID: 8300000, guid: 4c1871e13e00392438aedf7c2d0791b4, type: 3}
 --- !u!114 &114455474106140256
 MonoBehaviour:
@@ -5942,13 +5944,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shipController: {fileID: 114387485106083888}
   damageMultiplier: 0
+  radius: 0.3
+  laserMaterial: {fileID: 2100000, guid: fb4863ba36a8e134791cc6e1bbb1efeb, type: 2}
+  laserSounds:
+  - {fileID: 8300000, guid: f2d364ae7c1470d4897f89953d19dff2, type: 3}
   left: {fileID: 1342840622184698}
   right: {fileID: 1178781355733306}
-  laserMaterial: {fileID: 2100000, guid: fb4863ba36a8e134791cc6e1bbb1efeb, type: 2}
-  laserSounds: []
-  radius: 0.3
-  thickness: 0.002
   source: {fileID: 82047103537182748}
+  thickness: 0.002
 --- !u!114 &114693560361633878
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5977,6 +5980,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shipController: {fileID: 114387485106083888}
   damageMultiplier: 0
+  radius: 0.3
   left:
   - {fileID: 1878302441711834}
   - {fileID: 1659665359080586}
@@ -5993,10 +5997,6 @@ MonoBehaviour:
   - {fileID: 1225101292643998}
   thickness: 0.003
   material: {fileID: 2100000, guid: 94b83a265507fa64c97d2039f9b11189, type: 2}
-  radius: 0.3
-  source: {fileID: 82118614352496922}
-  clips:
-  - {fileID: 8300000, guid: 01ddb69a33ae13b4483552cf5040f22b, type: 3}
 --- !u!136 &136807103204981110
 CapsuleCollider:
   m_ObjectHideFlags: 1

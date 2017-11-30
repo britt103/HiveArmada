@@ -152,7 +152,7 @@ namespace Hive.Armada.Player.Weapons
             rightLaser.SetPosition(1, position);
             StartCoroutine(FlashLaser(isLeftFire));
 
-            //source.PlayOneShot(laserSounds[0]);
+            source.PlayOneShot(laserSounds[0]);
 
             reference.statistics.IsFiring();
             reference.statistics.WeaponFired("Laser Gun", 1);

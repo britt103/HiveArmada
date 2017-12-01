@@ -17,6 +17,7 @@
 using Hive.Armada.Player;
 using Hive.Armada.PowerUps;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Hive.Armada.Game
 {
@@ -25,9 +26,11 @@ namespace Hive.Armada.Game
     /// </summary>
     public class ReferenceManager : MonoBehaviour
     {
-        //--------------------
+        //----------------------------------------
+        // 
         // Systems & Managers
-        //--------------------
+        // 
+        //----------------------------------------
         [Header("Systems & Managers")]
         public GameManager gameManager;
 
@@ -43,9 +46,11 @@ namespace Hive.Armada.Game
 
         public ObjectPoolManager objectPoolManager;
 
-        //--------------------
+        //----------------------------------------
+        // 
         // Player
-        //--------------------
+        // 
+        //----------------------------------------
         [Header("Player")]
         public GameObject playerShip;
 
@@ -53,19 +58,52 @@ namespace Hive.Armada.Game
 
         public PowerUpStatus powerUpStatus;
 
-        //--------------------
-        // Menus
-        //--------------------
+        //----------------------------------------
+        // 
+        // Menus & UI
+        // 
+        //----------------------------------------
+
+        /// <summary>
+        /// Main menu game object
+        /// </summary>
         [Header("Menus")]
         public GameObject menuMain;
 
+        /// <summary>
+        /// Title screen game object
+        /// </summary>
         public GameObject menuTitle;
+
+        /// <summary>
+        /// Wave count Text. Shows "Wave #" where # is the current wave.
+        /// </summary>
+        public Text menuWaveNumberDisplay;
+
+        //----------------------------------------
+        // 
+        // Audio
+        // 
+        //----------------------------------------
+        [Header("Audio")]
+        public AudioSource waveCountSource;
+
+        //----------------------------------------
+        // 
+        // Methods
+        // 
+        //----------------------------------------
 
         /// <summary>
         /// Calls any functions needed to initialize any managers.
         /// </summary>
         private void Awake()
         {
+            if (waveManager)
+            {
+                waveManager.reference = this;
+            }
+
             if (enemyAttributes)
             {
                 enemyAttributes.Initialize();

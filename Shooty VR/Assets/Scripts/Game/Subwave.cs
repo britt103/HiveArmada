@@ -141,6 +141,7 @@ namespace Hive.Armada.Game
     /// Defines a type identifier for an enemy, which zone
     /// to spawn it in, and what attack pattern to use.
     /// </summary>
+    [Serializable]
     public struct EnemySpawn
     {
         /// <summary>
@@ -175,12 +176,13 @@ namespace Hive.Armada.Game
     /// <summary>
     /// Defines a type identifier for a powerup and how long into the wave it will start.
     /// </summary>
+    [Serializable]
     public struct PowerupSpawn
     {
         /// <summary>
-        /// The type identifier for the powerup prefab to spawn.
+        /// The prefab for the powerup to spawn.
         /// </summary>
-        public int typeIdentifier;
+        public GameObject powerupPrefab;
 
         /// <summary>
         /// How long into the wave this powerup will be spawned, in seconds.
@@ -190,11 +192,11 @@ namespace Hive.Armada.Game
         /// <summary>
         /// Powerup spawn constructor.
         /// </summary>
-        /// <param name="typeIdentifier"> The type identifier for the powerup prefab to spawn </param>
+        /// <param name="powerupPrefab"> The prefab for the powerup to spawn </param>
         /// <param name="spawnTime"> How long into the wave this powerup will spawn, in seconds </param>
-        public PowerupSpawn(int typeIdentifier, float spawnTime)
+        public PowerupSpawn(GameObject powerupPrefab, float spawnTime)
         {
-            this.typeIdentifier = typeIdentifier;
+            this.powerupPrefab = powerupPrefab;
             this.spawnTime = spawnTime;
         }
     }
@@ -203,6 +205,7 @@ namespace Hive.Armada.Game
     /// Converted version of SetupSpawnGroup that merges groups that spawn together
     /// and swaps GameObject references to enemies with type identifiers.
     /// </summary>
+    [Serializable]
     public struct SpawnGroup
     {
         /// <summary>
@@ -406,11 +409,10 @@ namespace Hive.Armada.Game
                     if (!setupSpawnGroups[group].spawnWithPrevious && group > 0)
                     {
                         Shuffle(enemySpawns);
-                        powerupSpawns.Sort((p1, p2) => p1.spawnTime.CompareTo(p2.spawnTime));
                         spawnGroups.Add(new SpawnGroup(groupDelay,
                                                        spawnDelay,
                                                        new List<EnemySpawn>(enemySpawns),
-                                                       powerupSpawns));
+                                                       new List<PowerupSpawn>(powerupSpawns)));
 
                         // reset these, -10.0f just to be safe
                         enemySpawns.Clear();
@@ -461,24 +463,19 @@ namespace Hive.Armada.Game
                         float spawnTimeDelayRange = setupSpawnGroups[group]
                             .setupPowerupSpawns[powerup].spawnTimeDelayRange;
 
-                        int typeIdentifier = objectPoolManager.GetTypeIdentifier(powerupPrefab);
                         float spawnTime = spawnTimeDelayBase +
                                           UnityEngine.Random.Range(0.0f, spawnTimeDelayRange);
 
-                        if (typeIdentifier >= 0)
-                        {
-                            powerupSpawns.Add(new PowerupSpawn(typeIdentifier, spawnTime));
-                        }
+                        powerupSpawns.Add(new PowerupSpawn(powerupPrefab, spawnTime));
                     }
                 }
 
                 // The last group wasn't added because the for logic for
                 // that is at the top of the for loop, so we add it here.
                 Shuffle(enemySpawns);
-                powerupSpawns.Sort((p1, p2) => p1.spawnTime.CompareTo(p2.spawnTime));
                 spawnGroups.Add(
                     new SpawnGroup(groupDelay, spawnDelay, new List<EnemySpawn>(enemySpawns),
-                                   powerupSpawns));
+                                   new List<PowerupSpawn>(powerupSpawns)));
             }
             else
             {
@@ -588,6 +585,12 @@ namespace Hive.Armada.Game
                     }
 
                     ++enemiesRemaining;
+
+                    if (spawned.name.Equals("Enemy_Splitter"))
+                    {
+                        enemiesRemaining += 4;
+                    }
+
                     --enemiesToSpawn;
                 }
             }
@@ -608,7 +611,6 @@ namespace Hive.Armada.Game
         {
             powerupTimer = 0.0f;
 
-            int typeIdentifier = powerupSpawns[0].typeIdentifier;
             float spawnTime = powerupSpawns[0].spawnTime;
 
             while (powerupSpawns.Count > 0)
@@ -628,13 +630,12 @@ namespace Hive.Armada.Game
                                                    UnityEngine.Random.Range(lower.y, upper.y),
                                                    UnityEngine.Random.Range(lower.z, upper.z));
 
-                    objectPoolManager.Spawn(typeIdentifier, position, Quaternion.identity);
+                    Instantiate(powerupSpawns[0].powerupPrefab, position, Quaternion.identity);
 
                     powerupSpawns.RemoveAt(0);
 
                     if (powerupSpawns.Count > 0)
                     {
-                        typeIdentifier = powerupSpawns[0].typeIdentifier;
                         spawnTime = powerupSpawns[0].spawnTime;
                     }
                     else
@@ -669,6 +670,8 @@ namespace Hive.Armada.Game
 
             IsRunning = false;
             IsComplete = true;
+
+            Debug.Log("Subwave #" + WaveNumber + "-" + SubwaveNumber + " is complete");
 
             reference.waveManager.waves[WaveNumber].SubwaveComplete(SubwaveNumber);
         }

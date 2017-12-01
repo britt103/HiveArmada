@@ -80,7 +80,7 @@ namespace Hive.Armada.PowerUps
         /// <param name="other">Collider of object with which this collided.</param>
         void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.tag == "Player" && status.HasRoom())
+            if (other.CompareTag("Player") && status.HasRoom())
             {
                 //switch (powerupPrefab.name)
                 //{

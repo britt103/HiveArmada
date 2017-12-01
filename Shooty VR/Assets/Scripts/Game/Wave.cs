@@ -65,7 +65,8 @@ namespace Hive.Armada.Game
         /// Initializes the Wave and begins spawning its subwaves.
         /// </summary>
         /// <param name="wave"> The wave's number </param>
-        public void Run(int wave)
+        /// <param name="subwave"> Index of the subwave to start with </param>
+        public void Run(int wave, int subwave)
         {
             reference = GameObject.Find("Reference Manager").GetComponent<ReferenceManager>();
 
@@ -80,6 +81,10 @@ namespace Hive.Armada.Game
             }
             else
             {
+                WaveNumber = wave;
+                Debug.Log("Beginning Wave #" + WaveNumber);
+
+                currentSubwave = subwave;
                 IsRunning = true;
                 RunSubwave(currentSubwave);
             }
@@ -91,6 +96,7 @@ namespace Hive.Armada.Game
         /// <param name="subwave"> The index of the subwave to run </param>
         private void RunSubwave(int subwave)
         {
+            Debug.Log("Beginning Wave #" + WaveNumber + "-" + subwave);
             subwaves[subwave].Run(WaveNumber, subwave);
         }
 
@@ -100,9 +106,9 @@ namespace Hive.Armada.Game
         /// <param name="subwave"> The index of the subwave that completed </param>
         public void SubwaveComplete(int subwave)
         {
-            if (!subwaves[currentSubwave].IsComplete || subwaves[currentSubwave].IsRunning)
+            if (!subwaves[subwave].IsComplete || subwaves[subwave].IsRunning)
             {
-                Debug.LogError("Wave " + WaveNumber + " - subwave " + currentSubwave +
+                Debug.LogError("Wave " + WaveNumber + " - subwave " + subwave +
                                " says it is complete, but it isn't!");
             }
 

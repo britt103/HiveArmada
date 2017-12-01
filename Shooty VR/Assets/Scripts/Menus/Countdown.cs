@@ -45,14 +45,13 @@ namespace Hive.Armada.Menus
         /// </summary>
         private IEnumerator Run()
         {
-            GameObject.Find("Red Alert");
             countdownAudioSource.Play();
             for (int i = 5; i > 0; i--)
             {
                 countdownText.text = i.ToString();
                 yield return new WaitForSeconds(1.0f);
             }
-            FindObjectOfType<Spawner>().Run();
+            FindObjectOfType<WaveManager>().Run();
             gameObject.SetActive(false);
         }
     }

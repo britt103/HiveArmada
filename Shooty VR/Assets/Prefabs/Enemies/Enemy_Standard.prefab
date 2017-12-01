@@ -158,8 +158,8 @@ GameObject:
   - component: {fileID: 199763761750334058}
   - component: {fileID: 198549103055244312}
   m_Layer: 0
-  m_Name: Hover FX
-  m_TagString: Untagged
+  m_Name: HoverEmitter
+  m_TagString: Emitter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -261,8 +261,8 @@ GameObject:
   - component: {fileID: 199157835445063276}
   - component: {fileID: 198913445185702922}
   m_Layer: 0
-  m_Name: Hover FX
-  m_TagString: Untagged
+  m_Name: HoverEmitter
+  m_TagString: Emitter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -528,7 +528,9 @@ Transform:
   m_LocalRotation: {x: -0.41943824, y: -0.059748173, z: -0.38286945, w: 0.8209219}
   m_LocalPosition: {x: -0.00643127, y: -0.01997319, z: 0.0056943325}
   m_LocalScale: {x: 0.49041504, y: 0.5937853, z: 0.49041492}
-  m_Children: [{fileID: 4001682187404320}, {fileID: 4082255727122282}]
+  m_Children:
+  - {fileID: 4001682187404320}
+  - {fileID: 4082255727122282}
   m_Father: {fileID: 4378844259817342}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1278,7 +1280,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1978194992
+  randomSeed: -358046453
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -4540,7 +4542,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1933673999
+  randomSeed: -585289120
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -7754,7 +7756,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 249876350
+  randomSeed: 1984200789
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -11016,7 +11018,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 512827629
+  randomSeed: -1770766650
   InitialModule:
     serializedVersion: 3
     enabled: 1

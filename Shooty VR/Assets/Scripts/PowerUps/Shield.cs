@@ -89,7 +89,7 @@ namespace Hive.Armada.PowerUps
         {
             if (other.CompareTag("bullet"))
             {
-                Instantiate(bulletHitEmitter, transform.position, transform.rotation);
+                Instantiate(bulletHitEmitter, other.transform.position, other.transform.rotation);
                 Destroy(other.gameObject);
             }
         }

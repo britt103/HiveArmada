@@ -5857,12 +5857,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shipController: {fileID: 114387485106083888}
   damageMultiplier: 0
+  radius: 0.3
+  laserMaterial: {fileID: 2100000, guid: fb4863ba36a8e134791cc6e1bbb1efeb, type: 2}
+  laserSound: {fileID: 8300000, guid: 0f789f5cd793f19469a7c23b8352f1c9, type: 3}
   left: {fileID: 1342840622184698}
   right: {fileID: 1178781355733306}
-  source: {fileID: 0}
-  laserMaterial: {fileID: 2100000, guid: fb4863ba36a8e134791cc6e1bbb1efeb, type: 2}
-  laserSounds: []
-  radius: 0.3
+  source: {fileID: 82047103537182748}
   thickness: 0.002
 --- !u!114 &114693560361633878
 MonoBehaviour:
@@ -5892,6 +5892,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shipController: {fileID: 114387485106083888}
   damageMultiplier: 0
+  radius: 0.3
   left:
   - {fileID: 1878302441711834}
   - {fileID: 1659665359080586}
@@ -5908,7 +5909,6 @@ MonoBehaviour:
   - {fileID: 1225101292643998}
   thickness: 0.003
   material: {fileID: 2100000, guid: 94b83a265507fa64c97d2039f9b11189, type: 2}
-  radius: 0.3
 --- !u!136 &136807103204981110
 CapsuleCollider:
   m_ObjectHideFlags: 1

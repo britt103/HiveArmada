@@ -80,6 +80,16 @@ namespace Hive.Armada.Game
         /// </summary>
         public Text menuWaveNumberDisplay;
 
+        /// <summary>
+        /// Game win menu with score.
+        /// </summary>
+        public GameObject menuWin;
+
+        /// <summary>
+        /// Game over menu with score.
+        /// </summary>
+        public GameObject menuGameOver;
+
         //----------------------------------------
         // 
         // Audio

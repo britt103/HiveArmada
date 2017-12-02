@@ -35,7 +35,7 @@ namespace Hive.Armada.Menus
         /// </summary>
         private IEnumerator Run()
         {
-            yield return new WaitForSeconds(3);
+            yield return new WaitForSeconds(5);
             FindObjectOfType<PlayerStats>().PrintStats();
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }

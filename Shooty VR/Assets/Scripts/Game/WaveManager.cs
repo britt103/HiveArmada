@@ -84,6 +84,7 @@ namespace Hive.Armada.Game
         /// <summary>
         /// Array of all available spawn zones in the scene.
         /// </summary>
+        [Header("Bounds")]
         [Reorderable("Spawn Zone", false)]
         public SpawnZoneBounds[] spawnZonesBounds;
 
@@ -95,6 +96,7 @@ namespace Hive.Armada.Game
         /// <summary>
         /// Which wave to start at?
         /// </summary>
+        [Header("Waves")]
         public int startingWave;
 
         /// <summary>
@@ -112,6 +114,19 @@ namespace Hive.Armada.Game
         /// The index for the wave that is currently running.
         /// </summary>
         private int currentWave;
+
+        /// <summary>
+        /// The source to play the wave count from.
+        /// </summary>
+        [Header("Audio")]
+        public AudioSource waveCountSource;
+
+        /// <summary>
+        /// The clips for "wave" and wave numbers.
+        /// </summary>
+        [Tooltip("Sounds for the wave counts. 0 is \"Wave\", 1-15 is wave number.")]
+        [Reorderable("Sound")]
+        public AudioClip[] waveCountSounds;
 
         /// <summary>
         /// If there are currently waves running.
@@ -187,6 +202,7 @@ namespace Hive.Armada.Game
         /// <param name="subwave"> The index of the starting subwave </param>
         private IEnumerator WaveNumberDisplay(int wave, int subwave)
         {
+            StartCoroutine(PlayWaveCount(wave + 1));
             reference.menuWaveNumberDisplay.gameObject.SetActive(true);
             reference.menuWaveNumberDisplay.text = "Wave: " + (wave+1);
 
@@ -217,7 +233,22 @@ namespace Hive.Armada.Game
             {
                 IsRunning = false;
                 IsComplete = true;
+
+                reference.menuWin.SetActive(true);
             }
+        }
+
+        /// <summary>
+        /// Plays "wave" and then the wave number.
+        /// </summary>
+        /// <param name="wave"> The wave number to play, not index of the wave </param>
+        private IEnumerator PlayWaveCount(int wave)
+        {
+            waveCountSource.PlayOneShot(waveCountSounds[0]);
+
+            yield return new WaitForSeconds(0.9f);
+
+            waveCountSource.PlayOneShot(waveCountSounds[wave]);
         }
     }
 }

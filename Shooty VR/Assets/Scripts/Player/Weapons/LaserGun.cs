@@ -34,9 +34,9 @@ namespace Hive.Armada.Player.Weapons
         public Material laserMaterial;
 
         /// <summary>
-        /// Array of all laser gun sounds
+        /// The sound the laser gun makes when it fires.
         /// </summary>
-        public AudioClip[] laserSounds;
+        public AudioClip laserSound;
 
         /// <summary>
         /// Left gun
@@ -171,7 +171,7 @@ namespace Hive.Armada.Player.Weapons
             rightLaser.SetPosition(1, position);
             StartCoroutine(FlashLaser(isLeftFire));
 
-            //source.PlayOneShot(laserSounds[0]);
+            source.PlayOneShot(laserSound);
 
             reference.statistics.IsFiring();
             reference.statistics.WeaponFired("Laser Gun", 1);

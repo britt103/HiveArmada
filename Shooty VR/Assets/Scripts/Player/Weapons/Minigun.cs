@@ -46,13 +46,16 @@ namespace Hive.Armada.Player.Weapons
         /// </summary>
         private bool isLeftFire = true;
 
-        public float thickness;
+        /// <summary>
+        /// Thickness of the minigun tracers' LineRenderer's
+        /// </summary>
+        public float thickness = 0.003f;
 
         /// <summary>
         /// </summary>
         public Material material;
 
-        /// <summary>
+		/// <summary>
         /// Used to update number of shots and time firing
         /// </summary>
         private PlayerStats stats;
@@ -63,18 +66,25 @@ namespace Hive.Armada.Player.Weapons
         private PlayerIdleTimer playerIdleTimer;
 
         /// <summary>
-        /// Initializes variables
+        /// Initializes player stats and idle timer references.
         /// </summary>
         private void Start()
         {
-            SetupLineRenderers();
-            damageMultiplier = 1;
-            damage = shipController.weaponDamage[1];
-            fireRate = shipController.weaponFireRate[1];
-
             stats = FindObjectOfType<PlayerStats>();
             playerIdleTimer = FindObjectOfType<PlayerIdleTimer>();
         }
+
+        ///// <summary>
+        ///// Initializes weapon attributes and the minigun's LineRenderers
+        ///// </summary>
+        //public override void Initialize(int index)
+        //{
+        //    this.index = index;
+        //    SetupLineRenderers();
+        //    damageMultiplier = 1;
+        //    damage = shipController.weapons[index].damage;
+        //    fireRate = shipController.weapons[index].fireRate;
+        //}
 
         /// <summary>
         /// Gets enemy or wall aimpoint and shoots at it.
@@ -170,7 +180,7 @@ namespace Hive.Armada.Player.Weapons
         /// <summary>
         /// Calls the initialization of all LineRenderers
         /// </summary>
-        private void SetupLineRenderers()
+        protected override void SetupLineRenderers()
         {
             for (int i = 0; i < left.Length; ++i)
             {

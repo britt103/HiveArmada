@@ -35,6 +35,7 @@ namespace Hive.Armada.Player.Weapons
         /// <summary>
         /// The damage multiplier on the weapon.
         /// </summary>
+        [HideInInspector]
         public int damageMultiplier;
 
         /// <summary>
@@ -54,9 +55,26 @@ namespace Hive.Armada.Player.Weapons
         protected float fireRate;
 
         /// <summary>
+        /// This weapon's index in the ship's weapon array.
+        /// </summary>
+        protected int index;
+
+        /// <summary>
         /// If this weapon can shoot or not. Used for the firing Coroutine
         /// </summary>
         protected bool canShoot = true;
+
+        /// <summary>
+        /// Initializes weapon attributes
+        /// </summary>
+        public virtual void Initialize(int index)
+        {
+            this.index = index;
+            SetupLineRenderers();
+            damageMultiplier = 1;
+            damage = shipController.weapons[index].damage;
+            fireRate = shipController.weapons[index].fireRate;
+        }
 
         protected virtual void Awake()
         {
@@ -83,5 +101,7 @@ namespace Hive.Armada.Player.Weapons
         /// Handles the logic behind shooting.
         /// </summary>
         protected abstract void Clicked();
+
+        protected abstract void SetupLineRenderers();
     }
 }

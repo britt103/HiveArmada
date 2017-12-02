@@ -18,6 +18,7 @@ using Valve.VR.InteractionSystem;
 using Hive.Armada.Game;
 using Hive.Armada.Player.Weapons;
 using SubjectNerd.Utilities;
+using System;
 
 namespace Hive.Armada.Player
 {
@@ -44,6 +45,28 @@ namespace Hive.Armada.Player
         }
 
         /// <summary>
+        /// Structure containing a weapon script, damage, and fire rate for a weapon.
+        /// </summary>
+        [Serializable]
+        public struct WeaponSetup
+        {
+            /// <summary>
+            /// The Weapon script on the weapon's game object.
+            /// </summary>
+            public Weapon weapon;
+
+            /// <summary>
+            /// The damage this weapon does with each hit.
+            /// </summary>
+            public int damage;
+
+            /// <summary>
+            /// The number of times this weapon can fire per second.
+            /// </summary>
+            public float fireRate;
+        }
+
+        /// <summary>
         /// Whether or not the player can shoot right now.
         /// </summary>
         [Space(10)]
@@ -52,7 +75,7 @@ namespace Hive.Armada.Player
         /// <summary>
         /// Index of the currently activated weapon.
         /// </summary>
-        private int currentWeapon;
+        public int currentWeapon;
 
         /// <summary>
         /// If we should wait until LateUpdate to update poses
@@ -96,23 +119,29 @@ namespace Hive.Armada.Player
         public ShipMode shipMode = ShipMode.Menu;
 
         /// <summary>
-        /// Array of the weapons available to the player.
+        /// Array of weapons available to the player.
         /// </summary>
-        [Header("Weapon Attributes")]
         [Reorderable("Weapon", false)]
-        public GameObject[] weapons;
+        public WeaponSetup[] weapons;
 
-        /// <summary>
-        /// Array of the damage for each weapon.
-        /// </summary>
-        [Reorderable("Weapon", false)]
-        public int[] weaponDamage;
+        ///// <summary>
+        ///// Array of the weapons available to the player.
+        ///// </summary>
+        //[Header("Weapon Attributes")]
+        //[Reorderable("Weapon", false)]
+        //public GameObject[] weapons;
 
-        /// <summary>
-        /// Array of the fire rate for each weapon.
-        /// </summary>
-        [Reorderable("Weapon", false)]
-        public float[] weaponFireRate;
+        ///// <summary>
+        ///// Array of the damage for each weapon.
+        ///// </summary>
+        //[Reorderable("Weapon", false)]
+        //public int[] weaponDamage;
+
+        ///// <summary>
+        ///// Array of the fire rate for each weapon.
+        ///// </summary>
+        //[Reorderable("Weapon", false)]
+        //public float[] weaponFireRate;
 
         /// <summary>
         /// Initializes references to Reference Manager and Laser Sight, sets this
@@ -131,12 +160,18 @@ namespace Hive.Armada.Player
                 reference.playerShip = gameObject;
             }
 
-            laserSight = transform.Find("Model").Find("Laser Sight").GetComponent<LaserSight>();
+            //laserSight = transform.Find("Laser Sight").GetComponent<LaserSight>();
+            laserSight = transform.GetComponentInChildren<LaserSight>();
             laserSight.SetMode(ShipMode.Menu);
             newPosesAppliedAction = SteamVR_Events.NewPosesAppliedAction(OnNewPosesApplied);
 
 			GameObject.Find("Main Canvas").transform.Find("Title").gameObject.SetActive(false);
             GameObject.Find("Main Canvas").transform.Find("Main Menu").gameObject.SetActive(true);
+
+            for (int i = 0; i < weapons.Length; ++i)
+            {
+                weapons[i].weapon.Initialize(i);
+            }
         }
 
         /// <summary>
@@ -214,19 +249,12 @@ namespace Hive.Armada.Player
                     {
                         if (hand.GetStandardInteractionButton())
                         {
-                            weapons[currentWeapon].SendMessage("TriggerUpdate");
+                            weapons[currentWeapon].weapon.TriggerUpdate();
                         }
                     }
                     else if (!canShoot && hand.GetStandardInteractionButtonUp())
                     {
                         canShoot = true;
-                    }
-
-                    // Switch weapons
-                    if (!hand.GetStandardInteractionButton() &&
-                        hand.controller.GetPressDown(EVRButtonId.k_EButton_Grip))
-                    {
-                        SwitchGun();
                     }
                     break;
                 case ShipMode.Menu:
@@ -265,8 +293,8 @@ namespace Hive.Armada.Player
                 return;
             }
 
-            weapons[previous].SetActive(false);
-            weapons[currentWeapon].SetActive(true);
+            //weapons[previous].weapon.gameObject.SetActive(false);
+            //weapons[currentWeapon].weapon.gameObject.SetActive(true);
 
             if (hand.GetStandardInteractionButton())
             {
@@ -290,12 +318,9 @@ namespace Hive.Armada.Player
         /// <param name="boost"> The damage boost multiplier </param>
         public void SetDamageBoost(int boost)
         {
-            foreach (GameObject obj in weapons)
+            foreach (WeaponSetup weaponSetup in weapons)
             {
-                if (obj.GetComponent<Weapon>())
-                {
-                    obj.GetComponent<Weapon>().damageMultiplier = boost;
-                }
+                weaponSetup.weapon.damageMultiplier = boost;
             }
         }
 

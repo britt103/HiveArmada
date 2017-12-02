@@ -93,11 +93,6 @@ namespace Hive.Armada.Game
             {
                 optionsValues = FindObjectOfType<OptionsValues>();
             }
-
-            if (!sceneTransitionManager)
-            {
-                sceneTransitionManager = FindObjectOfType<SceneTransitionManager>();
-            }
         }
     }
 }

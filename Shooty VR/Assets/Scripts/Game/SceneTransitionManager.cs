@@ -121,7 +121,7 @@ namespace Hive.Armada.Game
             StartCoroutine(FadeIn());
             StartCoroutine(StartAudio(audioInStartTime));
             StartCoroutine(StartEmitter(emitterInStartTime));
-            StartCoroutine(StopEffects());
+            StartCoroutine(EndTransition());
         }
 
         /// <summary>
@@ -196,12 +196,28 @@ namespace Hive.Armada.Game
 
         /// <summary>
         /// Stop audio and emitter effects after transition ends (fade ends on it own).
+        /// Activate UIPointers if in Menu Room.
         /// </summary>
-        private IEnumerator StopEffects()
+        private IEnumerator EndTransition()
         {
             yield return new WaitForSeconds(transitionLength);
             transitionAudioSource.Stop();
             Destroy(emitterGO);
+
+            string sceneName = SceneManager.GetActiveScene().name;
+
+            if (sceneName == "Menu Room")
+            {
+                foreach (UIPointer pointer in reference.player.GetComponentsInChildren<UIPointer>())
+                {
+                    pointer.gameObject.SetActive(true);
+                }
+            }
+
+            else if (sceneName == "Wave Room")
+            {
+                reference.shipPickup.SetActive(true);
+            }
         }
     }
 }

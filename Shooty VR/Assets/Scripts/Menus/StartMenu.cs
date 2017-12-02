@@ -5,21 +5,16 @@
 //Assignment: Group Project
 //Purpose: Control interactions and navigation with start game menu
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Hive.Armada.Game;
-using Hive.Armada.Player;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 namespace Hive.Armada.Menu
 {
     public class StartMenu : MonoBehaviour
     {
-        public Spawner spawner;
-        private bool isStarting;
-
+        /// <summary>
+        /// Reference to Reference Manager.
+        /// </summary>
         private ReferenceManager reference;
 
         /// <summary>
@@ -31,30 +26,17 @@ namespace Hive.Armada.Menu
         }
 
         /// <summary>
-        /// Called by start button; changes ship mode and starts countdown
+        /// Called by start button; transition to Wave Room.
         /// </summary>
         public void ButtonSoloNormalClicked()
         {
-            if (!isStarting)
-            {
-                isStarting = true;
-
-                //GameObject ship = GameObject.FindGameObjectWithTag("Player");
-
-                //if (ship != null)
-                //{
-                //    if (ship.GetComponent<ShipController>() != null)
-                //        ship.GetComponent<ShipController>().SetShipMode(ShipController.ShipMode.Game);
-                //}
-
-                //GameObject.Find("Main Canvas").transform.Find("Countdown").gameObject.SetActive(true);
-                reference.sceneTransitionManager.TransitionOut("Wave Room");
-                gameObject.SetActive(false);
-            }
+            reference.sceneTransitionManager.TransitionOut("Wave Room");
+            gameObject.SetActive(false);
+            
         }
 
         /// <summary>
-        /// Back button pressed; navigates to main menu
+        /// Back button pressed; navigates to main menu.
         /// </summary>
         public void OnBackButton()
         {

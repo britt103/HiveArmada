@@ -492,8 +492,6 @@ namespace Hive.Armada.Game
         /// </summary>
         private IEnumerator SpawnSubwave()
         {
-            reference.statistics.IsAlive();
-
             for (int group = 0; group < spawnGroups.Count; ++group)
             {
                 if (spawnGroups[group].powerupSpawns.Count > 0)
@@ -673,7 +671,6 @@ namespace Hive.Armada.Game
             IsComplete = true;
 
             reference.waveManager.waves[WaveNumber].SubwaveComplete(SubwaveNumber);
-            reference.statistics.IsNotAlive();
         }
 
         /// <summary>

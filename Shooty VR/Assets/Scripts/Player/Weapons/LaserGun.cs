@@ -64,6 +64,11 @@ namespace Hive.Armada.Player.Weapons
         public AudioSource source;
 
         /// <summary>
+        /// Used to update state value of PlayerIdleTimer
+        /// </summary>
+        private PlayerIdleTimer playerIdleTimer;
+
+        /// <summary>
         /// Thickness of the lasers
         /// </summary>
         public float thickness = 0.002f;
@@ -95,6 +100,7 @@ namespace Hive.Armada.Player.Weapons
             rightLaser.startWidth = thickness;
             rightLaser.endWidth = thickness;
             rightLaser.enabled = false;
+            playerIdleTimer = FindObjectOfType<PlayerIdleTimer>();
         }
 
         /// <summary>
@@ -169,6 +175,7 @@ namespace Hive.Armada.Player.Weapons
 
             reference.statistics.IsFiring();
             reference.statistics.WeaponFired("Laser Gun", 1);
+			playerIdleTimer.SetIsIdle(false);
 
             yield return new WaitForSeconds(1.0f / fireRate);
 
@@ -176,6 +183,7 @@ namespace Hive.Armada.Player.Weapons
             canShoot = true;
 
             reference.statistics.IsNotFiring();
+			playerIdleTimer.SetIsIdle(true);
         }
 
         /// <summary>

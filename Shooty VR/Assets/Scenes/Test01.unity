@@ -6124,6 +6124,18 @@ MonoBehaviour:
   maxStoredPowerups: 3
   iconSpacing: 1
   tracking: 0
+--- !u!114 &606397241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 606397238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 384434d262d23ce498422a4386ee94d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allowedIdleTime: 20
 --- !u!1 &620348168
 GameObject:
   m_ObjectHideFlags: 0
@@ -11512,18 +11524,8 @@ MonoBehaviour:
   - 2
   - 2
   - 2
-  enemySpawnEmitters:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  enemyDeathEmitters:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  enemySpawnEmitters: [{fileID: 0}, {fileID: 0}, {fileID: 0}, {fileID: 0}, {fileID: 0}]
+  enemyDeathEmitters: [{fileID: 0}, {fileID: 0}, {fileID: 0}, {fileID: 0}, {fileID: 0}]
   projectileDamage: 10
   projectileSpeed: 1.5
   projectileLifetime: 10
@@ -14669,18 +14671,10 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1732253805}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 582693221}
-        m_MethodName: PressQuit
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: [{m_Target: {fileID: 582693221}, m_MethodName: PressQuit, m_Mode: 1,
+          m_Arguments: {m_ObjectArgument: {fileID: 0}, m_ObjectArgumentAssemblyTypeName: 'UnityEngine.Object,
+              UnityEngine', m_IntArgument: 0, m_FloatArgument: 0, m_StringArgument: '',
+            m_BoolArgument: 0}, m_CallState: 2}]
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1732253805
@@ -19012,8 +19006,7 @@ Transform:
   m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1975595152}
+  m_Children: [{fileID: 1975595152}]
   m_Father: {fileID: 1210226623}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}

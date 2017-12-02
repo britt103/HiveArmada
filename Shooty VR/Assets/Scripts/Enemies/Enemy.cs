@@ -284,6 +284,9 @@ namespace Hive.Armada.Enemies
             this.attackPattern = attackPattern;
         }
 
+        /// <summary>
+        /// Countdowns down from selfDestructTime. Calls Kill() if untouched.
+        /// </summary>
         protected virtual void SelfDestructCountdown()
         {
             selfDestructTime -= Time.deltaTime;

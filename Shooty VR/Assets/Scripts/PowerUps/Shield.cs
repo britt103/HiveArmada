@@ -58,6 +58,11 @@ namespace Hive.Armada.PowerUps
         public Vector3 rotationVector = new Vector3(0.0F, 0.0F, 0.0F);
 
         /// <summary>
+        /// Emitter that plays when a bullet hits the shield.
+        /// </summary>
+        public GameObject bulletHitEmitter;
+
+        /// <summary>
         /// Subtract from and check timeLimit. Start flashing when warningTime is reached. Rotate.
         /// </summary>
         void Update()
@@ -84,6 +89,7 @@ namespace Hive.Armada.PowerUps
         {
             if (other.CompareTag("bullet"))
             {
+                Instantiate(bulletHitEmitter, transform.position, transform.rotation);
                 Destroy(other.gameObject);
             }
         }

@@ -75,11 +75,6 @@ namespace Hive.Armada.PowerUps
         private Hand hand;
 
         /// <summary>
-        /// References to Tooltip on active hand.
-        /// </summary>
-        private Tooltip tooltip;
-
-        /// <summary>
         /// State of whether PowerupStatus is tracking inputs. 
         /// </summary>
         public bool tracking = false;
@@ -102,28 +97,12 @@ namespace Hive.Armada.PowerUps
                 if (hand.controller.GetTouch(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad))
                 {
                     string nextPowerupName = powerups.Peek().name;
-
-                    for (int i = 0; i < powerupNames.Length; ++i)
-                    {
-                        if (nextPowerupName == powerupNames[i])
-                        {
-                            //tooltip.Invoke("ShowPowerup" + (i + 1), 0);
-                            tooltip.ShowPowerup(nextPowerupName);
-                            break;
-                        }
-                    }
-                }
-
-                else if (hand.controller.GetTouchUp(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad))
-                {
-                    tooltip.HideAll();
                 }
 
                 if (hand.controller.GetPressDown(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad))
                 {
                     Instantiate(powerups.Dequeue(), powerupPoint);
                     RemoveDisplayIcon();
-                    tooltip.HideAll();
                 }
             }
         }
@@ -136,7 +115,6 @@ namespace Hive.Armada.PowerUps
             tracking = true;
             shipGO = gameObject.GetComponentInChildren<ShipController>().gameObject;
             hand = shipGO.GetComponentInParent<Hand>();
-            tooltip = hand.GetComponentInChildren<Tooltip>();
             powerupPoint = shipGO.transform.Find("Powerup Point");
             iconPoint = shipGO.transform.Find("Powerup Icon Point");
         }

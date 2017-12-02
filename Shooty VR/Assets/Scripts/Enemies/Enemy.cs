@@ -283,5 +283,14 @@ namespace Hive.Armada.Enemies
         {
             this.attackPattern = attackPattern;
         }
+
+        protected virtual void SelfDestructCountdown()
+        {
+            selfDestructTime -= Time.deltaTime;
+            if (selfDestructTime <= 0 && untouched)
+            {
+                Kill();
+            }
+        }
     }
 }

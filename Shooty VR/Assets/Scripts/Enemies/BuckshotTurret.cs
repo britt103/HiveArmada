@@ -115,11 +115,7 @@ namespace Hive.Armada.Enemies
                 //    //Debug.Log("Player is dead");
             }
 
-            selfDestructTime -= Time.deltaTime;
-            if (selfDestructTime <= 0 && untouched)
-            {
-                Kill();
-            }
+            SelfDestructCountdown();
         }
 
         /// <summary>

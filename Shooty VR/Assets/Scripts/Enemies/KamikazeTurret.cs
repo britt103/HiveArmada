@@ -107,11 +107,12 @@ namespace Hive.Armada.Enemies
         IEnumerator InRange()
         {
             gameObject.GetComponent<Renderer>().material = flashColor;
-            yield return new WaitForSeconds(1.0f);
+            yield return new WaitForSeconds(0.5f);
             if (Vector3.Distance(transform.position, player.transform.position) < range)
             {
                 player.gameObject.GetComponent<Player.PlayerHealth>().Hit(damage);
             }
+            Destroy(gameObject);
             Kill();
         }
 

@@ -166,7 +166,7 @@ namespace Hive.Armada.Player
         /// <param name="damage"> How much damage to deal </param>
         public void Hit(int damage)
         {
-            int podIndex = (currentHealth - maxHealth) / 10;
+            int podIndex = (maxHealth - currentHealth) / 10;
             healthPods[podIndex].material = podDestroyedMaterial;
 
             Instantiate(hitEmitter, transform);

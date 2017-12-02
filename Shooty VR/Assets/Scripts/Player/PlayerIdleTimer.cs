@@ -41,13 +41,17 @@ namespace Hive.Armada.Player
         /// </summary>
         private float currentIdleTime;
 
-        // Set initial value for currentIdleTimer using ResetTimer().
+        /// <summary>
+        /// Set initial value for currentIdleTimer using ResetTimer().
+        /// </summary>
         void Start()
         {
             ResetTimer();
         }
 
-        // Decrease currentIdleTime while isIdle. Quit application when timer runs out.
+        /// <summary>
+        /// Decrease currentIdleTime while isIdle. Quit application when timer runs out.
+        /// </summary>
         void Update()
         {
             if (isIdle && isTracking)

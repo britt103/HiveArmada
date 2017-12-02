@@ -31,7 +31,15 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void PressSoloNormal()
         {
-            GameObject ship = GameObject.FindGameObjectWithTag("Player");
+            GameObject ship = null;
+
+            foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Player"))
+            {
+                if (obj.GetComponent<ShipController>())
+                {
+                    ship = obj;
+                }
+            }
 
             if (ship != null)
             {
@@ -39,38 +47,17 @@ namespace Hive.Armada.Menus
                     ship.GetComponent<ShipController>().SetShipMode(ShipController.ShipMode.Game);
             }
 
-                GameObject ship = null;
-
-                foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Player"))
-                {
-                    if (obj.GetComponent<ShipController>())
-                    {
-                        ship = obj;
-                    }
-                }
-
-                if (ship != null)
-                {
-                    if (ship.GetComponent<ShipController>() != null)
-                        ship.GetComponent<ShipController>().SetShipMode(ShipController.ShipMode.Game);
-                }
-
-                if (spawner != null)
-                {
-                    //gameObject.GetComponentInChildren<Button>().enabled = false;
-                    GameObject.Find("Main Canvas").transform.Find("Countdown").gameObject.SetActive(true);
-                    //gameObject.transform.parent.Find("Ambient FX").gameObject.SetActive(false);
-                    gameObject.SetActive(false);
-                }
-                else
-                {
-                    Debug.Log("CRITICAL - MENU'S REFERENCE TO SPAWNER IS NULL");
-                }  
+            if (spawner != null)
+            {
+                //gameObject.GetComponentInChildren<Button>().enabled = false;
+                GameObject.Find("Main Canvas").transform.Find("Countdown").gameObject.SetActive(true);
+                //gameObject.transform.parent.Find("Ambient FX").gameObject.SetActive(false);
+                gameObject.SetActive(false);
             }
             else
             {
                 Debug.Log("CRITICAL - MENU'S REFERENCE TO SPAWNER IS NULL");
-            }  
+            }
         }
 
         /// <summary>

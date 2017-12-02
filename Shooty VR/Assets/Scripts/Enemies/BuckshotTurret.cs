@@ -114,6 +114,8 @@ namespace Hive.Armada.Enemies
             {
                 //    //Debug.Log("Player is dead");
             }
+
+            SelfDestructCountdown();
         }
 
         /// <summary>
@@ -143,6 +145,7 @@ namespace Hive.Armada.Enemies
             fireSpeed = enemyAttributes.projectileSpeed;
             fireCone = enemyAttributes.enemySpread[TypeIdentifier];
             pointValue = enemyAttributes.enemyScoreValues[TypeIdentifier];
+            selfDestructTime = enemyAttributes.enemySelfDestructTimes[TypeIdentifier];
         }
     }
 }

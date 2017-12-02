@@ -148,6 +148,11 @@ namespace Hive.Armada.Enemies
         protected AttackPattern attackPattern;
 
         /// <summary>
+        /// Time until enemy self-destructs if untouched.
+        /// </summary>
+        protected float selfDestructTime;
+
+        /// <summary>
         /// Initializes references to ReferenceManager and other managers.
         /// </summary>
         public virtual void Awake()
@@ -276,6 +281,18 @@ namespace Hive.Armada.Enemies
         public virtual void SetAttackPattern(AttackPattern attackPattern)
         {
             this.attackPattern = attackPattern;
+        }
+
+        /// <summary>
+        /// Countdowns down from selfDestructTime. Calls Kill() if untouched.
+        /// </summary>
+        protected virtual void SelfDestructCountdown()
+        {
+            selfDestructTime -= Time.deltaTime;
+            if (selfDestructTime <= 0 && untouched)
+            {
+                Kill();
+            }
         }
     }
 }

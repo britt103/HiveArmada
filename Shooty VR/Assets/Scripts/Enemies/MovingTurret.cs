@@ -143,7 +143,7 @@ namespace Hive.Armada.Enemies
                 }
             }
 
-
+            SelfDestructCountdown();
         }
 
         /// <summary>
@@ -182,6 +182,7 @@ namespace Hive.Armada.Enemies
             projectileSpeed = enemyAttributes.projectileSpeed;
             spread = enemyAttributes.enemySpread[TypeIdentifier];
             pointValue = enemyAttributes.enemyScoreValues[TypeIdentifier];
+            selfDestructTime = enemyAttributes.enemySelfDestructTimes[TypeIdentifier];
         }
     }
 }

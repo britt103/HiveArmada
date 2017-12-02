@@ -116,6 +116,8 @@ namespace Hive.Armada.Enemies
                     transform.LookAt(new Vector3(0.0f, 0.0f, 0.0f));
                 }
             }
+
+            SelfDestructCountdown();
         }
 
         private IEnumerator FireBullet()
@@ -169,6 +171,7 @@ namespace Hive.Armada.Enemies
             fireSpeed = enemyAttributes.projectileSpeed;
             fireCone = enemyAttributes.enemySpread[TypeIdentifier];
             pointValue = enemyAttributes.enemyScoreValues[TypeIdentifier];
+            selfDestructTime = enemyAttributes.enemySelfDestructTimes[TypeIdentifier];
         }
     }
 }

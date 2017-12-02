@@ -34,6 +34,12 @@ namespace Hive.Armada.Game
         public int[] enemyHealthValues;
 
         /// <summary>
+        /// Self-destruct time for each enemy type.
+        /// </summary>
+        [Reorderable("Enemy", false)]
+        public float[] enemySelfDestructTimes;
+
+        /// <summary>
         /// How many points each enemy is worth.
         /// </summary>
         [Reorderable("Enemy", false)]

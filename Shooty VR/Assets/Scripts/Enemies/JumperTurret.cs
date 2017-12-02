@@ -135,6 +135,8 @@ namespace Hive.Armada.Enemies
                     transform.LookAt(new Vector3(0.0f, 2.0f, 0.0f));
                 }
             }
+
+            SelfDestructCountdown();
         }
 
         /// <summary>
@@ -200,6 +202,7 @@ namespace Hive.Armada.Enemies
             projectileSpeed = enemyAttributes.projectileSpeed;
             spread = enemyAttributes.enemySpread[TypeIdentifier];
             pointValue = enemyAttributes.enemyScoreValues[TypeIdentifier];
+            selfDestructTime = enemyAttributes.enemySelfDestructTimes[TypeIdentifier];
         }
     }
 }

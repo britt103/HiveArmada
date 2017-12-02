@@ -181,7 +181,7 @@ namespace Hive.Armada.Player
             {
                 if (shipController != null)
                 {
-					FindObjectOfType<ReferenceManager>().statistics.IsNotAlive();
+                    FindObjectOfType<ReferenceManager>().statistics.IsNotAlive();
                     Instantiate(deathEmitter, transform.position, transform.rotation);
                     GameObject.Find("Main Canvas").transform.Find("Game Over Menu").gameObject
                               .SetActive(true);
@@ -203,19 +203,7 @@ namespace Hive.Armada.Player
             // "flash" materials to flashColor
             foreach (Renderer r in renderers)
             {
-                if (renderer.gameObject.CompareTag("FX"))
-                {
-                    continue;
-                }
-                if (renderer.material.name.Equals("Laser Sight") ||
-                    renderer.material.name.Equals("Laser Gun"))
-                {
-                    continue;
-                }
-
-                mats.Add(renderer.material);
-
-                renderer.material = flashColor;
+                r.material = flashColor;
             }
 
             yield return new WaitForSeconds(0.05f);
@@ -223,15 +211,8 @@ namespace Hive.Armada.Player
             // reset materials
             for (int i = 0; i < renderers.Count; ++i)
             {
-                if (renderer.gameObject.CompareTag("FX"))
-                {
-                    continue;
-                }
-                if (renderer.material.name.Equals("Laser Sight") ||
-                    renderer.material.name.Equals("Laser Gun"))
-                {
-                    continue;
-                }
+                renderers[i].material = materials[i];
+            }
 
             hitFlash = null;
         }

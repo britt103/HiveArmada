@@ -10,7 +10,6 @@
 //=============================================================================
 
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Hive.Armada.Enemies
@@ -106,13 +105,23 @@ namespace Hive.Armada.Enemies
         /// </summary>
         IEnumerator InRange()
         {
-            gameObject.GetComponent<Renderer>().material = flashColor;
-            yield return new WaitForSeconds(0.5f);
+            foreach (Renderer r in renderers)
+            {
+                r.material = flashColor;
+            }
+
+            yield return new WaitForSeconds(1.0f);
+
+            // reset materials
+            for (int i = 0; i < renderers.Count; ++i)
+            {
+                renderers[i].material = materials[i];
+            }
+
             if (Vector3.Distance(transform.position, player.transform.position) < range)
             {
                 player.gameObject.GetComponent<Player.PlayerHealth>().Hit(damage);
             }
-            Destroy(gameObject);
             Kill();
         }
 

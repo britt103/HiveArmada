@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Hive.Armada.Menu;
+using Hive.Armada.Game;
 
 namespace Hive.Armada.Player
 {
@@ -33,6 +34,8 @@ namespace Hive.Armada.Player
         protected List<Material> mats;
         public Material flashColor;
 
+        private ReferenceManager reference;
+
         /// <summary>
         /// Initializes variables
         /// </summary>
@@ -40,6 +43,8 @@ namespace Hive.Armada.Player
         {
             mats = new List<Material>();
             currentHealth = maxHealth;
+
+            reference = FindObjectOfType<ReferenceManager>();
         }
 
         /// <summary>
@@ -62,7 +67,8 @@ namespace Hive.Armada.Player
                 if (shipController != null)
                 {
                     Instantiate(fxDead, transform.position, transform.rotation);
-                    GameObject.Find("Main Canvas").transform.Find("Game Over Menu").gameObject.SetActive(true);
+                    reference.statistics.IsNotAlive();
+                    reference.sceneTransitionManager.TransitionOut("Menu Room");
                     shipController.hand.DetachObject(gameObject);
                 }
             }

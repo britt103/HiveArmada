@@ -15,6 +15,7 @@
 //=============================================================================
 
 using Hive.Armada.Player;
+using Hive.Armada.Menu;
 using UnityEngine;
 
 namespace Hive.Armada.Game
@@ -37,11 +38,14 @@ namespace Hive.Armada.Game
         public ScoringSystem scoringSystem;
 
         public PlayerStats statistics;
+
         public WaveManager waveManager;
 
         public ObjectPoolManager objectPoolManager;
 
         public SceneTransitionManager sceneTransitionManager;
+
+        public OptionsValues optionsValues;
 
         //--------------------
         // Player
@@ -78,6 +82,21 @@ namespace Hive.Armada.Game
             if (objectPoolManager)
             {
                 objectPoolManager.Initialize();
+            }
+
+            if (!statistics)
+            {
+                statistics = FindObjectOfType<PlayerStats>();
+            }
+
+            if (!optionsValues)
+            {
+                optionsValues = FindObjectOfType<OptionsValues>();
+            }
+
+            if (!sceneTransitionManager)
+            {
+                sceneTransitionManager = FindObjectOfType<SceneTransitionManager>();
             }
         }
     }

@@ -59,7 +59,7 @@ namespace Hive.Armada
         private IEnumerator Reload()
         {
             yield return new WaitForSeconds(10.0f);
-            reference.sceneTransitionManager.TransitionTo("Menu Room");
+            reference.sceneTransitionManager.TransitionOut("Menu Room");
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace Hive.Armada
         {
             //GameObject.Find("Main Canvas").transform.Find("Start Menu").gameObject.SetActive(true);
             //gameObject.SetActive(false);
-            reference.sceneTransitionManager.TransitionTo("Test01");
+            reference.sceneTransitionManager.TransitionOut("Wave Room");
             gameObject.SetActive(false);
         }
 
@@ -80,7 +80,7 @@ namespace Hive.Armada
         {
             //GameObject.Find("Main Canvas").transform.Find("Main Menu").gameObject.SetActive(true);
             //gameObject.SetActive(false);
-            reference.sceneTransitionManager.TransitionTo("Menu Room");
+            reference.sceneTransitionManager.TransitionOut("Menu Room");
             gameObject.SetActive(false);
         }
     }

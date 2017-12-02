@@ -78,7 +78,7 @@ namespace Hive.Armada.Menu
         /// <summary>
         /// Find references, initialize pointer and pointer values.
         /// </summary>
-        void Start()
+        private void Awake()
         {
             hand = gameObject.GetComponentInParent<Hand>();
 

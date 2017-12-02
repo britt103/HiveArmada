@@ -38,7 +38,7 @@ namespace Hive.Armada
         {
             yield return new WaitForSeconds(3.0f);
             FindObjectOfType<PlayerStats>().PrintStats();
-            reference.sceneTransitionManager.TransitionTo("Menu Room");
+            reference.sceneTransitionManager.TransitionOut("Menu Room");
         }
     }
 }

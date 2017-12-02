@@ -48,7 +48,7 @@ namespace Hive.Armada.Menu
                 //}
 
                 //GameObject.Find("Main Canvas").transform.Find("Countdown").gameObject.SetActive(true);
-                reference.sceneTransitionManager.TransitionTo("Test01");
+                reference.sceneTransitionManager.TransitionOut("Wave Room");
                 gameObject.SetActive(false);
             }
         }

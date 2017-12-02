@@ -52,7 +52,7 @@ namespace Hive.Armada
 
         //public void gameOver()
         //{
-        //    UnityEngine.SceneManagement.SceneManager.LoadScene("Test01");
+        //    UnityEngine.SceneManagement.SceneManager.LoadScene("Wave Room");
 
 
         //    kills = 0;
@@ -125,7 +125,7 @@ namespace Hive.Armada
 
         //public void gameOver()
         //{
-        //    UnityEngine.SceneManagement.SceneManager.LoadScene("Test01");
+        //    UnityEngine.SceneManagement.SceneManager.LoadScene("Wave Room");
 
 
         //    kills = 0;

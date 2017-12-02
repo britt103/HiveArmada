@@ -273,7 +273,7 @@ namespace Hive.Armada.Game
             if (wave == waves.waveSpawns.Length - 1)
             {
                 //StartCoroutine(Win());
-                GameObject.Find("Main Canvas").transform.Find("Winner!").gameObject.SetActive(true);
+                reference.sceneTransitionManager.TransitionOut("Wave Room");
             }
         }
 

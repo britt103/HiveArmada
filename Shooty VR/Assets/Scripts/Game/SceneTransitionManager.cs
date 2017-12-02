@@ -88,6 +88,8 @@ namespace Hive.Armada.Game
         /// </summary>
         private ReferenceManager reference;
 
+        private UIPointer[] uiPointers;
+
         /// <summary>
         /// Find references. Implement in transition on scene start. 
         /// Minimize effect start times to audio clip length.
@@ -109,6 +111,13 @@ namespace Hive.Armada.Game
                 else
                 {
                     reference.menuMain.SetActive(true);
+                }
+
+                uiPointers = reference.player.GetComponentsInChildren<UIPointer>();
+
+                foreach (UIPointer pointer in uiPointers)
+                {
+                    pointer.gameObject.SetActive(false);
                 }
             }
         }
@@ -208,7 +217,7 @@ namespace Hive.Armada.Game
 
             if (sceneName == "Menu Room")
             {
-                foreach (UIPointer pointer in reference.player.GetComponentsInChildren<UIPointer>())
+                foreach (UIPointer pointer in uiPointers)
                 {
                     pointer.gameObject.SetActive(true);
                 }

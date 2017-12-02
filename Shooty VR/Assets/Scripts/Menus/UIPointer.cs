@@ -76,24 +76,21 @@ namespace Hive.Armada.Menu
         private bool isButton;
 
         /// <summary>
+        /// State of whether all UIPointer components have been initialized besides hand.
+        /// </summary>
+        private bool initialized = false;
+
+        /// <summary>
         /// Find references, initialize pointer and pointer values.
         /// </summary>
-        private void Awake()
+        private void OnEnable()
         {
             hand = gameObject.GetComponentInParent<Hand>();
 
-            pointer = gameObject.AddComponent<LineRenderer>();
-            Gradient gradient = new Gradient();
-            gradient.SetKeys(
-                new GradientColorKey[] { new GradientColorKey(color, 0.0f), new GradientColorKey(color, 1.0f), },
-                new GradientAlphaKey[] { new GradientAlphaKey(color.a, 0.0f), new GradientAlphaKey(color.a, 1.0f), });
-            pointer.material = laserMaterial;
-            pointer.shadowCastingMode = castShadows;
-            pointer.receiveShadows = receiveShadows;
-            pointer.alignment = alignment;
-            pointer.colorGradient = gradient;
-            pointer.startWidth = thickness;
-            pointer.endWidth = thickness;
+            if (hand.controller != null)
+            {
+                Initialize();
+            }
         }
 
         /// <summary>
@@ -103,6 +100,11 @@ namespace Hive.Armada.Menu
         {
             if(hand.controller != null)
             {
+                if (!initialized)
+                {
+                    Initialize();
+                }
+
                 RaycastHit hit;
 
                 if (Physics.Raycast(transform.position, transform.forward,
@@ -173,6 +175,27 @@ namespace Hive.Armada.Menu
                 ExecuteEvents.Execute(aimObject,
                     new PointerEventData(EventSystem.current), ExecuteEvents.submitHandler);
             }
+        }
+
+        /// <summary>
+        /// Initialize non-hand components.
+        /// </summary>
+        private void Initialize()
+        {
+            pointer = gameObject.AddComponent<LineRenderer>();
+            Gradient gradient = new Gradient();
+            gradient.SetKeys(
+                new GradientColorKey[] { new GradientColorKey(color, 0.0f), new GradientColorKey(color, 1.0f), },
+                new GradientAlphaKey[] { new GradientAlphaKey(color.a, 0.0f), new GradientAlphaKey(color.a, 1.0f), });
+            pointer.material = laserMaterial;
+            pointer.shadowCastingMode = castShadows;
+            pointer.receiveShadows = receiveShadows;
+            pointer.alignment = alignment;
+            pointer.colorGradient = gradient;
+            pointer.startWidth = thickness;
+            pointer.endWidth = thickness;
+
+            initialized = true;
         }
     }
 }

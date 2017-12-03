@@ -16,8 +16,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Hive.Armada.Game;
-using Hive.Armada.Player;
-using UnityEngine;
 
 namespace Hive.Armada.Enemies
 {
@@ -55,7 +53,7 @@ namespace Hive.Armada.Enemies
     {
         /// <summary>
         /// Reference manager that holds all needed references
-        /// (e.g. spawner, game manager, etc.)
+        /// (e.g. wave manager, game manager, etc.)
         /// </summary>
         protected ReferenceManager reference;
 
@@ -119,7 +117,7 @@ namespace Hive.Armada.Enemies
 
         /// <summary>
         /// Changes to false on first hit.
-        /// Used to tell spawner that it can spawn more enemies.
+        /// Used to tell the subwave that it can spawn more enemies.
         /// </summary>
         protected bool untouched = true;
 
@@ -214,11 +212,6 @@ namespace Hive.Armada.Enemies
             untouched = false;
 
             subwave.EnemyHit();
-
-            if (reference.spawner != null)
-            {
-                reference.spawner.EnemyHit();
-            }
         }
 
         /// <summary>
@@ -227,14 +220,21 @@ namespace Hive.Armada.Enemies
         /// </summary>
         protected virtual void Kill()
         {
+            KillSpecial();
+
             subwave.EnemyDead();
             scoringSystem.AddScore(pointValue);
-            reference.spawner.AddKill();
             reference.statistics.EnemyKilled();
             Instantiate(deathEmitter, transform.position, transform.rotation);
 
             objectPoolManager.Despawn(gameObject);
         }
+
+        /// <summary>
+        /// Enemies can override this if they have any special
+        /// functionality that happens when they are killed.
+        /// </summary>
+        protected virtual void KillSpecial() { }
 
         /// <summary>
         /// Tells the subwave to respawn this enemy.

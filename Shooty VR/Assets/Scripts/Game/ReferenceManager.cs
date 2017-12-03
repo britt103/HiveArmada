@@ -35,8 +35,6 @@ namespace Hive.Armada.Game
         [Header("Systems & Managers")]
         public GameManager gameManager;
 
-        public Spawner spawner;
-
         public EnemyAttributes enemyAttributes;
 
         public ScoringSystem scoringSystem;
@@ -50,6 +48,8 @@ namespace Hive.Armada.Game
 		public SceneTransitionManager sceneTransitionManager;
 
         public OptionsValues optionsValues;
+
+        public PlayerIdleTimer playerIdleTimer;
 
         //----------------------------------------
         // 
@@ -142,6 +142,8 @@ namespace Hive.Armada.Game
             {
                 optionsValues = FindObjectOfType<OptionsValues>();
             }
+
+
         }
     }
 }

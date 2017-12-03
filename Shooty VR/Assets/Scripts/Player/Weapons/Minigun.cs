@@ -52,39 +52,9 @@ namespace Hive.Armada.Player.Weapons
         public float thickness = 0.003f;
 
         /// <summary>
+        /// Material for the minigun's tracers.
         /// </summary>
-        public Material material;
-
-		/// <summary>
-        /// Used to update number of shots and time firing
-        /// </summary>
-        private PlayerStats stats;
-
-        /// <summary>
-        /// Used to update state value of PlayerIdleTimer
-        /// </summary>
-        private PlayerIdleTimer playerIdleTimer;
-
-        /// <summary>
-        /// Initializes player stats and idle timer references.
-        /// </summary>
-        private void Start()
-        {
-            stats = FindObjectOfType<PlayerStats>();
-            playerIdleTimer = FindObjectOfType<PlayerIdleTimer>();
-        }
-
-        ///// <summary>
-        ///// Initializes weapon attributes and the minigun's LineRenderers
-        ///// </summary>
-        //public override void Initialize(int index)
-        //{
-        //    this.index = index;
-        //    SetupLineRenderers();
-        //    damageMultiplier = 1;
-        //    damage = shipController.weapons[index].damage;
-        //    fireRate = shipController.weapons[index].fireRate;
-        //}
+        public Material tracerMaterial;
 
         /// <summary>
         /// Gets enemy or wall aimpoint and shoots at it.
@@ -144,7 +114,7 @@ namespace Hive.Armada.Player.Weapons
 
             reference.statistics.IsFiring();
             reference.statistics.WeaponFired("Minigun", 1);
-			playerIdleTimer.SetIsIdle(false);
+            reference.playerIdleTimer.SetIsIdle(false);
 
             yield return new WaitForSeconds(1.0f / fireRate);
 
@@ -152,7 +122,7 @@ namespace Hive.Armada.Player.Weapons
             canShoot = true;
 
             reference.statistics.IsNotFiring();
-			playerIdleTimer.SetIsIdle(true);
+            reference.playerIdleTimer.SetIsIdle(true);
         }
 
         /// <summary>
@@ -205,7 +175,7 @@ namespace Hive.Armada.Player.Weapons
                 r = obj.GetComponent<LineRenderer>();
             }
 
-            r.material = material;
+            r.material = tracerMaterial;
             r.shadowCastingMode = ShadowCastingMode.Off;
             r.receiveShadows = false;
             r.alignment = LineAlignment.View;

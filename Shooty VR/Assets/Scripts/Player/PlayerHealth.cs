@@ -11,13 +11,11 @@
 // 
 //=============================================================================
 
-using SubjectNerd.Utilities;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Hive.Armada.Game;
 using UnityEngine;
 using Hive.Armada.Game;
+using SubjectNerd.Utilities;
 
 namespace Hive.Armada.Player
 {
@@ -45,19 +43,16 @@ namespace Hive.Armada.Player
         /// Material that the ship flashes when it is hit.
         /// </summary>
         [Header("Health Feedback")]
-
-
-
-
         public Material flashColor;
 
         private ReferenceManager reference;
+
         /// <summary>
         /// Renderers for the game objects on the back of the ship
         /// that represent how many hits the player can take.
         /// </summary>
         [Tooltip("Health pods on the back of the ship that represent how" +
-            " many hits the player can take before losing.")]
+                 " many hits the player can take before losing.")]
         [Reorderable("Health Pod", false)]
         public Renderer[] healthPods;
 
@@ -162,7 +157,6 @@ namespace Hive.Armada.Player
 
             reference = FindObjectOfType<ReferenceManager>();
         }
-
 
         /// <summary>
         /// Deals damage to the player ship.

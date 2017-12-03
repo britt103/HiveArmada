@@ -121,9 +121,8 @@ namespace Hive.Armada.Enemies
         /// <summary>
         /// Spawns 4 'childTurret' enemies when this enemy is destroyed
         /// </summary>
-        protected override void Kill()
+        protected override void KillSpecial()
         {
-            reference.spawner.AddKill();
             if (childTurret != null)
             {
                 int typeIdentifier = objectPoolManager.GetTypeIdentifier(childTurret);
@@ -163,9 +162,10 @@ namespace Hive.Armada.Enemies
                 iTween.MoveTo(child3, iTween.Hash("x", transform.localPosition.x - (splitDir), "y", transform.localPosition.y + (splitDir), "z", transform.localPosition.z, "islocal", false, "time", 1.0f));
                 iTween.MoveTo(child4, iTween.Hash("x", transform.localPosition.x - (splitDir), "y", transform.localPosition.y - (splitDir), "z", transform.localPosition.z, "islocal", false, "time", 1.0f));
             }
-            StartCoroutine(DeathDelay());
 
+            StartCoroutine(DeathDelay());
         }
+
         private IEnumerator DeathDelay()
         {
             foreach (Renderer r in renderers)
@@ -173,8 +173,9 @@ namespace Hive.Armada.Enemies
                 r.GetComponent<Renderer>().enabled = false;
             }
             yield return new WaitForSeconds(1.0f);
-            Destroy(gameObject);
+            //Destroy(gameObject);
         }
+
         /// <summary>
         /// Resets attributes to this enemy's defaults from enemyAttributes.
         /// </summary>

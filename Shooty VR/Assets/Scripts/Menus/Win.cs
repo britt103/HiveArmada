@@ -28,6 +28,9 @@ namespace Hive.Armada.Menus
         /// </summary>
         private ReferenceManager reference;
 
+		public AudioSource Roy;
+        public AudioClip[] winAudio;
+
         /// <summary>
         /// Run when activated
         /// </summary>
@@ -42,9 +45,18 @@ namespace Hive.Armada.Menus
         /// </summary>
         private IEnumerator Run()
         {
+            Roy.PlayOneShot(winAudio[0]);
+            yield return new WaitForSeconds(1.0f);
+            winSound();
             yield return new WaitForSeconds(3.0f);
             FindObjectOfType<PlayerStats>().PrintStats();
             reference.sceneTransitionManager.TransitionOut("Menu Room");
+        }
+
+        public void winSound()
+        {
+            int winNumber = Random.Range(1, winAudio.Length);
+            Roy.PlayOneShot(winAudio[winNumber]);
         }
     }
 }

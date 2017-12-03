@@ -13,6 +13,7 @@
 //
 //=============================================================================
 
+using System.Collections;
 using UnityEngine;
 
 namespace Hive.Armada.PowerUps
@@ -51,13 +52,22 @@ namespace Hive.Armada.PowerUps
         /// State of whether Shield is currently flashing or not.
         /// </summary>
         private bool flashState = false;
+        public Vector3 rotation = new Vector3(0.0F, 0.0F, 0.0F);
 
         /// <summary>
         /// Rotation Shield uses to spin.
         /// </summary>
         public Vector3 rotationVector = new Vector3(0.0F, 0.0F, 0.0F);
 
+		public AudioSource source;
+        public AudioClip[] clips;
+
         public GameObject shieldHitEmitter;
+
+		private void OnEnable()
+		{
+			source.PlayOneShot(clips[0]);
+		}
 
         /// <summary>
         /// Subtract from and check timeLimit. Start flashing when warningTime is reached. Rotate.
@@ -67,6 +77,7 @@ namespace Hive.Armada.PowerUps
             timeLimit -= Time.deltaTime;
             if (timeLimit <= 0.0F)
             {
+				source.PlayOneShot(clips[1]);
                 Destroy(gameObject);
             }
 

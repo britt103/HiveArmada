@@ -21,6 +21,9 @@ namespace Hive.Armada.Menus
     /// </summary>
     public class DisplayMenu : MonoBehaviour
     {
+		public AudioSource source;
+    	public AudioClip[] clips;
+
         /// <summary>
         /// Reference to bloom toggle.
         /// </summary>
@@ -44,6 +47,8 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void PressBack()
         {
+			source.PlayOneShot(clips[0]);
+
             reference.optionsValues.SetDisplayPlayerPrefs();
             GameObject.Find("Main Canvas").transform.Find("Options Menu").gameObject
                     .SetActive(true);

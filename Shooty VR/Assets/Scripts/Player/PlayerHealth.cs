@@ -169,10 +169,12 @@ namespace Hive.Armada.Player
 
             Instantiate(hitEmitter, transform);
             currentHealth -= damage;
+            source.PlayOneShot(hitSound);
 
             if (Utility.isDebug)
             {
                 Debug.Log("Hit for " + damage + " damage! Remaining health = " + currentHealth);
+            {
             }
 
             if (currentHealth <= 0)

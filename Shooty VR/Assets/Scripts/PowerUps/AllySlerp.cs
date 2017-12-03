@@ -82,6 +82,9 @@ namespace Hive.Armada.PowerUps
         /// </summary>
         private bool canFire = true;
 
+		public AudioSource source;
+        public AudioClip[] clips;
+
         // Instantiate FX and set ship at distance from player ship.
         void Start()
         {
@@ -93,6 +96,10 @@ namespace Hive.Armada.PowerUps
         void Update()
         {
             timeLimit -= Time.deltaTime;
+            if (timeLimit > 0.0F)
+            {
+                source.PlayOneShot(clips[1]);
+            }
             if (timeLimit < 0.0F)
             {
                 //FindObjectOfType<PowerupStatus>().powerupTypeActive[0] = false;
@@ -211,6 +218,8 @@ namespace Hive.Armada.PowerUps
             canFire = false;
             var bullet = Instantiate(bulletPrefab, transform.Find("BulletPoint")
                     .transform.position, transform.rotation);
+
+			source.PlayOneShot(clips[0]);
 
             bullet.transform.LookAt(target);
             bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * bulletSpeed;

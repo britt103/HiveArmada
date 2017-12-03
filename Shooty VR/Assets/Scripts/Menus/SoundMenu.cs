@@ -31,6 +31,9 @@ namespace Hive.Armada.Menus
         /// </summary>
         private ReferenceManager reference;
 
+	    public AudioSource source;
+    	public AudioClip[] clips;
+
         /// <summary>
         /// Set default volume slider level.
         /// </summary>
@@ -45,6 +48,7 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void PressBack()
         {
+			source.PlayOneShot(clips[0]);
             reference.optionsValues.SetSoundPlayerPrefs();
             GameObject.Find("Main Canvas").transform.Find("Options Menu").gameObject
                     .SetActive(true);

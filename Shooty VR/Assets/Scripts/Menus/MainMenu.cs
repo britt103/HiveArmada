@@ -20,11 +20,16 @@ namespace Hive.Armada.Menus
     /// </summary>
     public class MainMenu : MonoBehaviour
     {
+		public AudioSource source;
+    	public AudioClip[] clips;
+
         /// <summary>
         /// Start button pressed. Navigate to Start Menu.
         /// </summary>
         public void PressStart()
         {
+			source.PlayOneShot(clips[0]);
+
             GameObject.Find("Main Canvas").transform.Find("Start Menu").gameObject
                     .SetActive(true);
             gameObject.SetActive(false);
@@ -35,6 +40,8 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void PressOptions()
         {
+			source.PlayOneShot(clips[0]);
+
             GameObject.Find("Main Canvas").transform.Find("Options Menu").gameObject
                     .SetActive(true);
             gameObject.SetActive(false);

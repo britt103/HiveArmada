@@ -25,6 +25,9 @@ namespace Hive.Armada.Menus
         /// </summary>
         private ReferenceManager reference;
 
+        public AudioSource source;
+        public AudioClip[] clips;
+
         /// <summary>
         /// Find references.
         /// </summary>
@@ -38,6 +41,7 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void PressSoloNormal()
         {
+            source.PlayOneShot(clips[0]);
             reference.sceneTransitionManager.TransitionOut("Wave Room");
             gameObject.SetActive(false);
             
@@ -48,6 +52,7 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void PressBack()
         {
+            source.PlayOneShot(clips[1]);
             GameObject.Find("Main Canvas").transform.Find("Main Menu").gameObject.SetActive(true);
             gameObject.SetActive(false);
         }

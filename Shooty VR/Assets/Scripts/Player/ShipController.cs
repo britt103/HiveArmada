@@ -143,6 +143,9 @@ namespace Hive.Armada.Player
         //[Reorderable("Weapon", false)]
         //public float[] weaponFireRate;
 
+		public AudioSource engineSound;
+        public AudioClip clip;
+
         /// <summary>
         /// Initializes references to Reference Manager and Laser Sight, sets this
         /// GameObject to the player ship reference in Reference Manager.
@@ -159,6 +162,8 @@ namespace Hive.Armada.Player
             {
                 reference.playerShip = gameObject;
             }
+
+			engineSound.PlayOneShot(clip);
 
             //laserSight = transform.Find("Laser Sight").GetComponent<LaserSight>();
             laserSight = transform.GetComponentInChildren<LaserSight>();

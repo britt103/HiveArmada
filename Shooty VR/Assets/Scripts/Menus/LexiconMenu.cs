@@ -85,6 +85,9 @@ namespace Hive.Armada.Menus
         /// </summary>
         public GameObject nextButtonGO;
 
+		public AudioSource source;
+    	public AudioClip[] clips;
+
         /// <summary>
         /// Load first page.
         /// </summary>
@@ -102,6 +105,8 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void PressBack()
         {
+			source.PlayOneShot(clips[0]);
+
             GameObject.Find("Main Canvas").transform.Find("Options Menu").gameObject
                     .SetActive(true);
             gameObject.SetActive(false);

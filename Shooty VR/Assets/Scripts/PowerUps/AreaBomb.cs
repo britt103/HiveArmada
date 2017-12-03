@@ -69,6 +69,9 @@ namespace Hive.Armada.PowerUps
         /// </summary>
         public float isShootableTime;
 
+		public AudioSource source;
+        public AudioClip[] clips;
+
         /// <summary>
         /// Start TimeDetonate countdown. Activate trail FX. Set transform.
         /// </summary>
@@ -76,6 +79,9 @@ namespace Hive.Armada.PowerUps
         {
             StartCoroutine(TimeDetonate());
             trailEmitter.SetActive(true);
+
+			source.PlayOneShot(clips[0]);
+
             transform.localPosition = new Vector3(0, 0, startingZ);
             gameObject.transform.parent = null;
             isShootable = false;

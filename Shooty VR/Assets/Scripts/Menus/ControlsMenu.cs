@@ -20,6 +20,9 @@ namespace Hive.Armada.Menus
     /// </summary>
     public class ControlsMenu : MonoBehaviour
     {
+		public AudioSource source;
+    	public AudioClip[] clips;
+
         /// <summary>
         /// ControlsHighlighter reference on active hand.
         /// </summary>
@@ -40,6 +43,7 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void PressBack()
         {
+			source.PlayOneShot(clips[0]);
             GameObject.Find("Main Canvas").transform.Find("Options Menu").gameObject
                     .SetActive(true);
             ch.AllOff();

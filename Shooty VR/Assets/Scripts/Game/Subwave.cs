@@ -27,6 +27,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEngine;
 using Hive.Armada.Enemies;
@@ -344,12 +345,23 @@ namespace Hive.Armada.Game
         private float powerupTimer;
 
         /// <summary>
+        /// List of enemies that need respawned.
+        /// </summary>
+        private List<EnemySpawn> respawns;
+
+        /// <summary>
+        /// Time delay between respawning enemies.
+        /// </summary>
+        private float respawnDelay = 0.0f;
+
+        /// <summary>
         /// Initializes the reference to the Reference Manager
         /// </summary>
         private void Awake()
         {
             reference = GameObject.Find("Reference Manager").GetComponent<ReferenceManager>();
             objectPoolManager = reference.objectPoolManager;
+            respawns = new List<EnemySpawn>();
 
             spawnZones = reference.waveManager.spawnZonesBounds;
         }
@@ -523,6 +535,8 @@ namespace Hive.Armada.Game
                 // spawn all enemies in the spawn group
                 for (int i = 0; i < spawnGroups[group].enemySpawns.Count; ++i)
                 {
+                    respawnDelay = spawnGroups[group].spawnDelay;
+                    
                     // wait until we can spawn a new enemy
                     while (!canSpawn)
                     {
@@ -657,6 +671,41 @@ namespace Hive.Armada.Game
             while (enemiesRemaining > 0)
             {
                 yield return new WaitForSeconds(0.1f);
+
+                if (respawns.Count > 0)
+                {
+                    yield return new WaitForSeconds(respawnDelay);
+
+                    Vector3 position;
+
+                    if (respawns[0].spawnZone != SpawnZone.Introduction)
+                    {
+                        SpawnZone zone = respawns[0].spawnZone;
+
+                        // spawn position is random point in its zone
+                        Vector3 lower = spawnZones[(int)zone].lowerBound.transform.position;
+                        Vector3 upper = spawnZones[(int)zone].upperBound.transform.position;
+
+                        position = new Vector3(UnityEngine.Random.Range(lower.x, upper.x),
+                            UnityEngine.Random.Range(lower.y, upper.y),
+                            UnityEngine.Random.Range(lower.z, upper.z));
+                    }
+                    else
+                    {
+                        // spawn position is the introduction point
+                        position = spawnZones[0].lowerBound.transform.position;
+                    }
+
+                    GameObject spawned = objectPoolManager.Spawn(respawns[0].typeIdentifier, position);
+
+                    // set info for the enemy
+                    Enemy spawnedEnemyScript = spawned.GetComponent<Enemy>();
+                    spawnedEnemyScript.SetSubwave(this);
+                    spawnedEnemyScript.SetEnemySpawn(new EnemySpawn(respawns[0].typeIdentifier, respawns[0].spawnZone, respawns[0].attackPattern));
+                    spawnedEnemyScript.SetAttackPattern(respawns[0].attackPattern);
+
+                    respawns.RemoveAt(0);
+                }
             }
 
             try
@@ -674,6 +723,15 @@ namespace Hive.Armada.Game
             Debug.Log("Subwave #" + WaveNumber + "-" + SubwaveNumber + " is complete");
 
             reference.waveManager.waves[WaveNumber].SubwaveComplete(SubwaveNumber);
+        }
+
+        /// <summary>
+        /// Adds an enemy to be respawned.
+        /// </summary>
+        /// <param name="enemySpawn"> The info for the enemy to respawn </param>
+        public void AddRespawn(EnemySpawn enemySpawn)
+        {
+            respawns.Add(enemySpawn);
         }
 
         /// <summary>

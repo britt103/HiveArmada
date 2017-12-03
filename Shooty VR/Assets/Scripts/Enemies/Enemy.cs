@@ -222,7 +222,8 @@ namespace Hive.Armada.Enemies
         }
 
         /// <summary>
-        /// Destroys this GameObject without flashing.
+        /// Notifies the subwave that this enemy has been killed, adds to the player's score
+        /// and stats, spawns the death particle emitter, and despawns itself.
         /// </summary>
         protected virtual void Kill()
         {
@@ -232,7 +233,15 @@ namespace Hive.Armada.Enemies
             reference.statistics.EnemyKilled();
             Instantiate(deathEmitter, transform.position, transform.rotation);
 
-            Destroy(gameObject);
+            objectPoolManager.Despawn(gameObject);
+        }
+
+        /// <summary>
+        /// Tells the subwave to respawn this enemy.
+        /// </summary>
+        protected virtual void SelfDestruct()
+        {
+            subwave.AddRespawn(enemySpawn);
         }
 
         /// <summary>
@@ -291,7 +300,7 @@ namespace Hive.Armada.Enemies
             selfDestructTime -= Time.deltaTime;
             if (selfDestructTime <= 0 && untouched)
             {
-                Kill();
+                SelfDestruct();
             }
         }
     }

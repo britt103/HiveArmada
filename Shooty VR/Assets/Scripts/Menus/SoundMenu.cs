@@ -12,8 +12,10 @@
 
 using UnityEngine;
 using UnityEngine.UI;
+using Hive.Armada.Game;
 
-namespace Hive.Armada.Menus { 
+namespace Hive.Armada.Menus
+{
     /// <summary>
     /// Controls interactions with Sound Menu.
     /// </summary>
@@ -25,11 +27,17 @@ namespace Hive.Armada.Menus {
         public Slider volumeSlider;
 
         /// <summary>
-        /// Set default volume level.
+        /// Reference to Reference Manager.
+        /// </summary>
+        private ReferenceManager reference;
+
+        /// <summary>
+        /// Set default volume slider level.
         /// </summary>
         private void Awake()
         {
             volumeSlider.value = AudioListener.volume;
+            reference = FindObjectOfType<ReferenceManager>();
         }
 
         /// <summary>
@@ -37,6 +45,7 @@ namespace Hive.Armada.Menus {
         /// </summary>
         public void PressBack()
         {
+            reference.optionsValues.SetSoundPlayerPrefs();
             GameObject.Find("Main Canvas").transform.Find("Options Menu").gameObject
                     .SetActive(true);
             gameObject.SetActive(false);
@@ -47,7 +56,7 @@ namespace Hive.Armada.Menus {
         /// </summary>
         public void AdjustVolume(float value)
         {
-            AudioListener.volume = volumeSlider.value;
+            reference.optionsValues.SetMasterVolume(value);
         }
     }
 }

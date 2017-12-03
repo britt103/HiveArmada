@@ -12,7 +12,6 @@
 
 using UnityEngine;
 using Hive.Armada.Game;
-using Hive.Armada.Player;
 
 namespace Hive.Armada.Menus
 {
@@ -22,46 +21,30 @@ namespace Hive.Armada.Menus
     public class StartMenu : MonoBehaviour
     {
         /// <summary>
-        /// Reference to Spawner.
+        /// Reference to Reference Manager.
         /// </summary>
-        public Spawner spawner;
+        private ReferenceManager reference;
 
         /// <summary>
-        /// Solo Normal button pressed. Begin Solo Normal game mode.
+        /// Find references.
         /// </summary>
-        public void PressSoloNormal()
+        private void Awake()
         {
-            GameObject ship = null;
-
-            foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Player"))
-            {
-                if (obj.GetComponent<ShipController>())
-                {
-                    ship = obj;
-                }
-            }
-
-            if (ship != null)
-            {
-                if (ship.GetComponent<ShipController>() != null)
-                    ship.GetComponent<ShipController>().SetShipMode(ShipController.ShipMode.Game);
-            }
-
-            if (spawner != null)
-            {
-                //gameObject.GetComponentInChildren<Button>().enabled = false;
-                GameObject.Find("Main Canvas").transform.Find("Countdown").gameObject.SetActive(true);
-                //gameObject.transform.parent.Find("Ambient FX").gameObject.SetActive(false);
-                gameObject.SetActive(false);
-            }
-            else
-            {
-                Debug.Log("CRITICAL - MENU'S REFERENCE TO SPAWNER IS NULL");
-            }
+            reference = FindObjectOfType<ReferenceManager>();
         }
 
         /// <summary>
-        /// Back button pressed. Navigate to Main Menu.
+        /// Called by start button; transition to Wave Room.
+        /// </summary>
+        public void PressSoloNormal()
+        {
+            reference.sceneTransitionManager.TransitionOut("Wave Room");
+            gameObject.SetActive(false);
+            
+        }
+
+        /// <summary>
+        /// Back button pressed; navigates to main menu.
         /// </summary>
         public void PressBack()
         {

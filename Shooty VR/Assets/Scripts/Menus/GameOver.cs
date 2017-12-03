@@ -12,8 +12,10 @@
 
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Hive.Armada.Player;
+using Hive.Armada.Game;
 
 namespace Hive.Armada.Menus
 {
@@ -23,12 +25,39 @@ namespace Hive.Armada.Menus
     public class GameOver : MonoBehaviour
     {
         /// <summary>
-        /// Start Reload coroutine and trigger PrintStats() in PlayerStats.
+        /// Reference to ReferenceManager.
+        /// </summary>
+        private ReferenceManager reference;
+
+        /// <summary>
+        /// Reference to Text GameObject for wave stat.
+        /// </summary>
+        public GameObject wavesTextGO;
+
+        /// <summary>
+        /// Reference to Text GameObject for time stat.
+        /// </summary>
+        public GameObject timeTextGO;
+
+        /// <summary>
+        /// Reference to Text GameObject for kills stat.
+        /// </summary>
+        public GameObject killsTextGO;
+
+        /// <summary>
+        /// Triggers gameover/reload process. Find references. Set text values.
         /// </summary>
         public void OnEnable()
         {
+            reference = FindObjectOfType<ReferenceManager>();
             StartCoroutine(Reload());
-            FindObjectOfType<PlayerStats>().PrintStats();
+
+            PlayerStats stats = FindObjectOfType<PlayerStats>();
+
+            stats.PrintStats();
+            wavesTextGO.GetComponent<Text>().text = "Waves: " + stats.waves;
+            timeTextGO.GetComponent<Text>().text = "Time: " + stats.totalAliveTime;
+            killsTextGO.GetComponent<Text>().text = "Kills: " + stats.totalEnemiesKilled;
         }
 
         /// <summary>
@@ -37,7 +66,7 @@ namespace Hive.Armada.Menus
         private IEnumerator Reload()
         {
             yield return new WaitForSeconds(10.0f);
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            reference.sceneTransitionManager.TransitionOut("Menu Room");
         }
 
         /// <summary>
@@ -45,7 +74,9 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void PressRestart()
         {
-            GameObject.Find("Main Canvas").transform.Find("Start Menu").gameObject.SetActive(true);
+            //GameObject.Find("Main Canvas").transform.Find("Start Menu").gameObject.SetActive(true);
+            //gameObject.SetActive(false);
+            reference.sceneTransitionManager.TransitionOut("Wave Room");
             gameObject.SetActive(false);
         }
 
@@ -54,7 +85,9 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void PressQuitMainMenu()
         {
-            GameObject.Find("Main Canvas").transform.Find("Main Menu").gameObject.SetActive(true);
+            //GameObject.Find("Main Canvas").transform.Find("Main Menu").gameObject.SetActive(true);
+            //gameObject.SetActive(false);
+            reference.sceneTransitionManager.TransitionOut("Menu Room");
             gameObject.SetActive(false);
         }
     }

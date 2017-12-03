@@ -32,12 +32,12 @@ namespace Hive.Armada.Player
         /// Time player has been alive in the current wave.
         /// </summary>
         [NonSerialized]
-        private double aliveTime = 0;
+        public double aliveTime = 0;
 
         /// <summary>
         /// Time player has been alive in the current run.
         /// </summary>
-        private double totalAliveTime = 0;
+        public double totalAliveTime = 0;
 
         /// <summary>
         /// State of whether player is alive.
@@ -48,58 +48,46 @@ namespace Hive.Armada.Player
         /// <summary>
         /// Number of completed waves.
         /// </summary>
-        private int waves = 0;
+        public int waves = 0;
 
         /// <summary>
         /// Number of enemies killed in the current wave.
         /// </summary>
         [NonSerialized]
-        private int enemiesKilled = 0;
+        public int enemiesKilled = 0;
 
         /// <summary>
         /// Number of enemies killed in the current run.
         /// </summary>
-        private int totalEnemiesKilled = 0;
+        public int totalEnemiesKilled = 0;
 
         /// <summary>
         /// Time player has been firing in the current wave.
         /// </summary>
         [NonSerialized]
-        private double firingTime = 0;
+        public double firingTime = 0;
 
         /// <summary>
         /// Time player has been firing in the current run.
         /// </summary>
-        private double totalFiringTime = 0;
+        public double totalFiringTime = 0;
 
         /// <summary>
         /// Score player has earned in the current wave.
         /// </summary>
         [NonSerialized]
-        private int score = 0;
+        public int score = 0;
 
         /// <summary>
         /// Score player has earned in the current run.
         /// </summary>
-        private int totalScore = 0;
+        public int totalScore = 0;
 
         /// <summary>
         /// State of whether player is currently firing.
         /// </summary>
         [NonSerialized]
         private bool isFiring = false;
-
-        //weapons
-        //[NonSerialized]
-        //public string w1Name = "";
-        //[NonSerialized]
-        //private int w1ShotsFired = 0;
-        //private int w1TotalShotsFired = 0;
-        //[NonSerialized]
-        //public string w2Name = "";
-        //[NonSerialized]
-        //private int w2ShotsFired = 0;
-        //private int w2TotalShotsFired = 0;
 
         /// <summary>
         /// Array of the names of the weapons.
@@ -110,39 +98,12 @@ namespace Hive.Armada.Player
         /// Array of the number of shots fired by each weapon in the current wave.
         /// </summary>
         [NonSerialized]
-        private int[] weaponShotsFired;
+        public int[] weaponShotsFired;
 
         /// <summary>
         /// Array of the number of shots fired by each weapon in the current run.
         /// </summary>
-        private int[] weaponTotalShotsFired;
-
-        //powerups
-        //[NonSerialized]
-        //public string p1Name = "";
-        //[NonSerialized]
-        //private int p1Count = 0;
-        //private int p1TotalCount = 0;
-        //[NonSerialized]
-        //public string p2Name = "";
-        //[NonSerialized]
-        //private int p2Count = 0;
-        //private int p2TotalCount = 0;
-        //[NonSerialized]
-        //public string p3Name = "";
-        //[NonSerialized]
-        //private int p3Count = 0;
-        //private int p3TotalCount = 0;
-        //[NonSerialized]
-        //public string p4Name = "";
-        //[NonSerialized]
-        //private int p4Count = 0;
-        //private int p4TotalCount = 0;
-        //[NonSerialized]
-        //public string p5Name = "";
-        //[NonSerialized]
-        //private int p5Count = 0;
-        //private int p5TotalCount = 0;
+        public int[] weaponTotalShotsFired;
 
         /// <summary>
         /// Array of the names of the powerups.
@@ -153,28 +114,28 @@ namespace Hive.Armada.Player
         /// Array of the number of times each powerup has been used in the current wave.
         /// </summary>
         [NonSerialized]
-        private int[] powerupCount;
+        public int[] powerupCount;
 
         /// <summary>
         /// Array of the number of times each powerup has been used in the current run.
         /// </summary>
-        private int[] powerupTotalCount;
+        public int[] powerupTotalCount;
 
         /// <summary>
         /// Amount of currency the player has collected in the current wave.
         /// </summary>
         [NonSerialized]
-        private int currencyCollected = 0;
+        public int currencyCollected = 0;
 
         /// <summary>
         /// Amount of currency the player has collected in the current run.
         /// </summary>
-        private int totalCurrencyCollected = 0;
+        public int totalCurrencyCollected = 0;
 
         /// <summary>
         /// Set initial values for weapons and powerups. Set dateTime.
         /// </summary>
-        private void Start()
+        private void Awake()
         {
             int numWeapons = weaponNames.Length;
             weaponShotsFired = new int[numWeapons];
@@ -229,8 +190,10 @@ namespace Hive.Armada.Player
         /// </summary>
         public void PrintStats()
         {
-            //totalFiringTime = Math.Round(totalFiringTime, 2);
-            //totalAliveTime = Math.Round(totalAliveTime, 2);
+            UpdateTotals();
+
+            totalFiringTime = Math.Round(totalFiringTime, 2);
+            totalAliveTime = Math.Round(totalAliveTime, 2);
 
             string weaponsOutput = "";
             for(int i = 0; i < weaponNames.Length; ++i)
@@ -289,14 +252,27 @@ namespace Hive.Armada.Player
 
             Debug.Log(output);
 
+            UpdateTotals();
+            ResetValues();
+        }
+
+        /// <summary>
+        /// Update totals variables using current wave values.
+        /// </summary>
+        private void UpdateTotals()
+        {
             totalEnemiesKilled += enemiesKilled;
             enemiesKilled = 0;
             totalFiringTime += firingTime;
             firingTime = 0;
             totalScore += score;
             score = 0;
+            totalCurrencyCollected += currencyCollected;
+            currencyCollected = 0;
+            totalAliveTime += aliveTime;
+            aliveTime = 0;
 
-            for(int i = 0; i < weaponNames.Length; ++i)
+            for (int i = 0; i < weaponNames.Length; ++i)
             {
                 weaponTotalShotsFired[i] += weaponShotsFired[i];
                 weaponShotsFired[i] = 0;
@@ -307,28 +283,37 @@ namespace Hive.Armada.Player
                 powerupTotalCount[i] += powerupCount[i];
                 powerupCount[i] = 0;
             }
+        }
 
-            //w1TotalShotsFired += w1ShotsFired;
-            //w1ShotsFired = 0;
-            //w2TotalShotsFired += w2ShotsFired;
-            //w2ShotsFired = 0;
-
-            //p1TotalCount += p1Count;
-            //p1Count = 0;
-            //p2TotalCount += p2Count;
-            //p2Count = 0;
-            //p3TotalCount += p3Count;
-            //p3Count = 0;
-            //p4TotalCount += p4Count;
-            //p4Count = 0;
-            //p5TotalCount += p5Count;
-            //p5Count = 0;
-
-            totalCurrencyCollected += currencyCollected;
-            currencyCollected = 0;
-            totalAliveTime += aliveTime;
+        public void ResetValues()
+        {
+            dateTime = DateTime.Now.ToString();
             aliveTime = 0;
+            totalAliveTime = 0;
             isAlive = false;
+            waves = 0;
+            enemiesKilled = 0;
+            totalEnemiesKilled = 0;
+            firingTime = 0;
+            totalFiringTime = 0;
+            score = 0;
+            totalScore = 0;
+            isFiring = false;
+
+            for (int i = 0; i < weaponShotsFired.Length; ++i)
+            {
+                weaponShotsFired[i] = 0;
+                weaponTotalShotsFired[i] = 0;
+            }
+
+            for (int i = 0; i < powerupCount.Length; ++i)
+            {
+                powerupCount[i] = 0;
+                powerupTotalCount[i] = 0;
+            }
+
+            currencyCollected = 0;
+            totalCurrencyCollected = 0;
         }
 
         /// <summary>
@@ -404,46 +389,6 @@ namespace Hive.Armada.Player
             }
         }
 
-        ///// <summary>
-        ///// Add to 
-        ///// </summary>
-        //public void Powerup1Used()
-        //{
-        //    p1Count++;
-        //}
-
-        ///// <summary>
-        ///// Add to 
-        ///// </summary>
-        //public void P2Used()
-        //{
-        //    p2Count++;
-        //}
-
-        ///// <summary>
-        ///// Add to 
-        ///// </summary>
-        //public void P3Used()
-        //{
-        //    p3Count++;
-        //}
-
-        ///// <summary>
-        ///// Add to 
-        ///// </summary>
-        //public void P4Used()
-        //{
-        //    p4Count++;
-        //}
-
-        ///// <summary>
-        ///// Add to 
-        ///// </summary>
-        //public void P5Used()
-        //{
-        //    p5Count++;
-        //}
-
         /// <summary>
         /// Record weapon shots.
         /// </summary>
@@ -459,24 +404,6 @@ namespace Hive.Armada.Player
                 }
             }
         }
-
-        ///// <summary>
-        ///// Add to 
-        ///// </summary>
-        ///// <param name="shots"></param>
-        //public void W1Fired(int shots)
-        //{
-        //    w1ShotsFired += shots;
-        //}
-
-        ///// <summary>
-        ///// Add to 
-        ///// </summary>
-        ///// <param name="shots"></param>
-        //public void W2Fired(int shots)
-        //{
-        //    w2ShotsFired += shots;
-        //}
 
         /// <summary>
         /// Increment waves. Print wave data to console.

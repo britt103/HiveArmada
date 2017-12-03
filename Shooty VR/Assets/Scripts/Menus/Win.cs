@@ -14,6 +14,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Hive.Armada.Player;
+using Hive.Armada.Game;
 
 namespace Hive.Armada.Menus
 {
@@ -23,21 +24,27 @@ namespace Hive.Armada.Menus
     public class Win : MonoBehaviour
     {
         /// <summary>
-        /// Start Run coroutine.
+        /// Reference to ReferenceManager.
+        /// </summary>
+        private ReferenceManager reference;
+
+        /// <summary>
+        /// Run when activated
         /// </summary>
         private void OnEnable()
         {
+            reference = FindObjectOfType<ReferenceManager>();
             StartCoroutine(Run());
         }
 
         /// <summary>
-        /// Call PrintStats in PlayerStats and reload scene.
+        /// Call PrintStats in PlayerStats and loads into the menu room.
         /// </summary>
         private IEnumerator Run()
         {
-            yield return new WaitForSeconds(5);
+            yield return new WaitForSeconds(3.0f);
             FindObjectOfType<PlayerStats>().PrintStats();
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            reference.sceneTransitionManager.TransitionOut("Menu Room");
         }
     }
 }

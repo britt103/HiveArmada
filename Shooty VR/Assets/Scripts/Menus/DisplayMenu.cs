@@ -12,7 +12,7 @@
 
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.PostProcessing;
+using Hive.Armada.Game;
 
 namespace Hive.Armada.Menus
 {
@@ -27,17 +27,16 @@ namespace Hive.Armada.Menus
         public Toggle bloomToggle;
 
         /// <summary>
-        /// Reference to main camera GameObject.
+        /// Reference to Reference Manager.
         /// </summary>
-        private GameObject cameraGO;
+        private ReferenceManager reference;
 
         /// <summary>
-        /// Find references. Set initial UI values;
+        /// Find references. 
         /// </summary>
         private void Awake()
         {
-            cameraGO = GameObject.Find("Player").GetComponentInChildren<Camera>().gameObject;
-            bloomToggle.isOn = cameraGO.GetComponent<PostProcessingBehaviour>().profile.bloom.enabled;
+            reference = FindObjectOfType<ReferenceManager>();
         }
 
         /// <summary>
@@ -45,17 +44,18 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void PressBack()
         {
+            reference.optionsValues.SetDisplayPlayerPrefs();
             GameObject.Find("Main Canvas").transform.Find("Options Menu").gameObject
                     .SetActive(true);
             gameObject.SetActive(false);
         }
 
         /// <summary>
-        /// Change bloom setting based on bloomToggle value;
+        /// Change bloom setting based on bloomToggle value.
         /// </summary>
         public void SetBloom(bool isOn)
         {
-            cameraGO.GetComponent<PostProcessingBehaviour>().profile.bloom.enabled = isOn;
+            reference.optionsValues.SetBloom(isOn);
         }
     }
 }

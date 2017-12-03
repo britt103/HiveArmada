@@ -86,6 +86,7 @@ namespace Hive.Armada.Game
 
                 currentSubwave = subwave;
                 IsRunning = true;
+                reference.statistics.IsAlive();
                 RunSubwave(currentSubwave);
             }
         }
@@ -121,6 +122,7 @@ namespace Hive.Armada.Game
                 IsRunning = false;
                 IsComplete = true;
                 reference.waveManager.WaveComplete(WaveNumber);
+                reference.statistics.IsNotAlive();
             }
         }
     }

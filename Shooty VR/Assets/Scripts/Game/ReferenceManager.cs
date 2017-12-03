@@ -16,6 +16,7 @@
 
 using Hive.Armada.Player;
 using Hive.Armada.PowerUps;
+using Hive.Armada.Menus;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -46,12 +47,18 @@ namespace Hive.Armada.Game
 
         public ObjectPoolManager objectPoolManager;
 
+		public SceneTransitionManager sceneTransitionManager;
+
+        public OptionsValues optionsValues;
+
         //----------------------------------------
         // 
         // Player
         // 
         //----------------------------------------
         [Header("Player")]
+        public GameObject player;
+
         public GameObject playerShip;
 
         public GameObject shipPickup;
@@ -74,6 +81,8 @@ namespace Hive.Armada.Game
         /// Title screen game object
         /// </summary>
         public GameObject menuTitle;
+
+        public GameObject countdown;
 
         /// <summary>
         /// Wave count Text. Shows "Wave #" where # is the current wave.
@@ -122,6 +131,16 @@ namespace Hive.Armada.Game
             if (objectPoolManager)
             {
                 objectPoolManager.Initialize();
+            }
+
+            if (!statistics)
+            {
+                statistics = FindObjectOfType<PlayerStats>();
+            }
+
+            if (!optionsValues)
+            {
+                optionsValues = FindObjectOfType<OptionsValues>();
             }
         }
     }

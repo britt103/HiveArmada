@@ -116,7 +116,7 @@ namespace Hive.Armada.Player
         /// <summary>
         /// Which mode is the ship currently in.
         /// </summary>
-        public ShipMode shipMode = ShipMode.Menu;
+        public ShipMode shipMode = ShipMode.Game;
 
         /// <summary>
         /// Array of weapons available to the player.
@@ -162,7 +162,7 @@ namespace Hive.Armada.Player
 
             //laserSight = transform.Find("Laser Sight").GetComponent<LaserSight>();
             laserSight = transform.GetComponentInChildren<LaserSight>();
-            laserSight.SetMode(ShipMode.Menu);
+            laserSight.SetMode(ShipMode.Game);
             newPosesAppliedAction = SteamVR_Events.NewPosesAppliedAction(OnNewPosesApplied);
 
 			GameObject.Find("Main Canvas").transform.Find("Title").gameObject.SetActive(false);
@@ -190,14 +190,28 @@ namespace Hive.Armada.Player
         /// Called when the ship is picked up by a hand. Enables the menus.
         /// </summary>
         /// <param name="attachedHand"> The hand that picked up the ship </param>
-        private void OnAttachedToHand(Hand attachedHand)
+        public void OnAttachedToHand(Hand attachedHand)
         {
             hand = attachedHand;
 
-            reference.shipPickup.SetActive(false);
-            reference.menuTitle.SetActive(false);
-            reference.menuMain.SetActive(true);
-            reference.powerUpStatus.BeginTracking();
+            if (reference.shipPickup)
+            {
+                reference.shipPickup.SetActive(false);
+            }
+
+            if(reference.menuTitle && reference.menuMain)
+            {
+                reference.menuTitle.SetActive(false);
+                reference.menuMain.SetActive(true);
+            }
+            if (reference.powerUpStatus)
+            {
+                reference.powerUpStatus.BeginTracking();
+            }
+            if (reference.countdown)
+            {
+                reference.countdown.SetActive(true);
+            }
         }
 
         /// <summary>

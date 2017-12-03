@@ -17,6 +17,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Hive.Armada.Game;
 using UnityEngine;
+using Hive.Armada.Game;
 
 namespace Hive.Armada.Player
 {
@@ -50,6 +51,7 @@ namespace Hive.Armada.Player
 
         public Material flashColor;
 
+        private ReferenceManager reference;
         /// <summary>
         /// Renderers for the game objects on the back of the ship
         /// that represent how many hits the player can take.
@@ -157,6 +159,8 @@ namespace Hive.Armada.Player
             }
 
             currentHealth = maxHealth;
+
+            reference = FindObjectOfType<ReferenceManager>();
         }
 
 
@@ -181,10 +185,9 @@ namespace Hive.Armada.Player
             {
                 if (shipController != null)
                 {
-                    FindObjectOfType<ReferenceManager>().statistics.IsNotAlive();
                     Instantiate(deathEmitter, transform.position, transform.rotation);
-                    GameObject.Find("Main Canvas").transform.Find("Game Over Menu").gameObject
-                              .SetActive(true);
+                    reference.statistics.IsNotAlive();
+                    reference.sceneTransitionManager.TransitionOut("Menu Room");
                     shipController.hand.DetachObject(gameObject);
                 }
             }

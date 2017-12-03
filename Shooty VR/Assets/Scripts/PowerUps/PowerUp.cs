@@ -71,7 +71,7 @@ namespace Hive.Armada.PowerUps
         /// </summary>
         private void Update()
         {
-            gameObject.transform.parent.LookAt(head);
+            //gameObject.transform.parent.LookAt(head);
         }
 
         /// <summary>

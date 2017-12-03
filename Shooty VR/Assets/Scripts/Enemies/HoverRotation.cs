@@ -31,14 +31,18 @@ namespace Hive.Armada.Enemies
         /// Angle to move body towards
         /// </summary>
         private Quaternion newAngle;
-        
+
+        /// <summary>
+        /// Player object to look at
+        /// </summary>
+        private GameObject player;
 
         /// <summary>
         /// Sets the rotation angle and begins movement
         /// </summary>
         void Start()
         {
-            startAngle = transform.eulerAngles;
+
             StartCoroutine(Cooldown());
         }
 
@@ -56,11 +60,12 @@ namespace Hive.Armada.Enemies
         /// </summary>
         public IEnumerator SetPoints()
         {
-            
-            newAngle = Quaternion.Euler(startAngle.x + Random.Range(-10f, 10f), startAngle.y, startAngle.z + Random.Range(-10f, 10f));
+            startAngle = transform.parent.eulerAngles;
+            newAngle = Quaternion.Euler(startAngle.x + Random.Range(-10f, 10f), startAngle.y + Random.Range(-10f, 10f), startAngle.z);
             yield return new WaitForSeconds(0.1f);
-            StartCoroutine(Cooldown());           
+            StartCoroutine(Cooldown());
         }
+
         /// <summary>
         /// 3 second wait timer for selecting a new angle.
         /// </summary>
@@ -72,8 +77,9 @@ namespace Hive.Armada.Enemies
 
     }
 
-   
+
 
 }
+
 
 

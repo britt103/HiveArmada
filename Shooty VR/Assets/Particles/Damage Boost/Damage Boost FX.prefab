@@ -55,6 +55,7 @@ GameObject:
   - component: {fileID: 4593810376666112}
   - component: {fileID: 198578306837033660}
   - component: {fileID: 199937270362908546}
+  - component: {fileID: 114814085863834382}
   m_Layer: 0
   m_Name: Damage Boost FX
   m_TagString: Emitter
@@ -134,6 +135,17 @@ Transform:
   m_Father: {fileID: 4593810376666112}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114814085863834382
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1723204681789840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92185d158b4c73943ab5df02d7a09647, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!198 &198578306837033660
 ParticleSystem:
   m_ObjectHideFlags: 1

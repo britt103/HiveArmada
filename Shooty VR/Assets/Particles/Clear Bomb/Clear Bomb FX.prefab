@@ -106,6 +106,7 @@ GameObject:
   - component: {fileID: 4792268009847978}
   - component: {fileID: 198762870631529910}
   - component: {fileID: 199270186911983030}
+  - component: {fileID: 114804312107250478}
   m_Layer: 0
   m_Name: Clear Bomb FX
   m_TagString: Emitter
@@ -196,6 +197,17 @@ Transform:
   m_Father: {fileID: 4792268009847978}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114804312107250478
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1911530011246708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92185d158b4c73943ab5df02d7a09647, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!198 &198107861312145828
 ParticleSystem:
   m_ObjectHideFlags: 1

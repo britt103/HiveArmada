@@ -123,5 +123,6 @@ namespace Hive.Armada.Enemies
             pointValue = enemyAttributes.enemyScoreValues[TypeIdentifier];
             selfDestructTime = enemyAttributes.enemySelfDestructTimes[TypeIdentifier];
         }
+        
     }
 }

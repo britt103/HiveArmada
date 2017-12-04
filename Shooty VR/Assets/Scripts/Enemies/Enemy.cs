@@ -151,6 +151,11 @@ namespace Hive.Armada.Enemies
         protected float selfDestructTime;
 
         /// <summary>
+        /// Used to shake low health enemies.
+        /// </summary>
+        protected bool shaking = false;
+
+        /// <summary>
         /// Initializes references to ReferenceManager and other managers.
         /// </summary>
         public virtual void Awake()
@@ -199,6 +204,10 @@ namespace Hive.Armada.Enemies
                 hitFlash = StartCoroutine(HitFlash());
             }
 
+            if (Health <= 20)
+            {
+                shaking = true;
+            }
             if (Health <= 0)
             {
                 Kill();

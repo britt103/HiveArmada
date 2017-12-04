@@ -116,7 +116,11 @@ namespace Hive.Armada.Enemies
                     transform.LookAt(new Vector3(0.0f, 0.0f, 0.0f));
                 }
             }
+            if (shaking)
+            {
+                iTween.ShakePosition(gameObject, new Vector3(0.1f, 0.1f, 0.1f) ,0.1f);
 
+            }
             SelfDestructCountdown();
         }
 

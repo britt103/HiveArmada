@@ -113,7 +113,11 @@ namespace Hive.Armada.Enemies
             catch (Exception)
             {
             }
+            if (shaking)
+            {
+                iTween.ShakePosition(gameObject, new Vector3(0.1f, 0.1f, 0.1f), 0.1f);
 
+            }
             SelfDestructCountdown();
         }
 

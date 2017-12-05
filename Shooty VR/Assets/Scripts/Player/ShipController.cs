@@ -170,9 +170,6 @@ namespace Hive.Armada.Player
             laserSight.SetMode(ShipMode.Game);
             newPosesAppliedAction = SteamVR_Events.NewPosesAppliedAction(OnNewPosesApplied);
 
-			GameObject.Find("Main Canvas").transform.Find("Title").gameObject.SetActive(false);
-            GameObject.Find("Main Canvas").transform.Find("Main Menu").gameObject.SetActive(true);
-
             for (int i = 0; i < weapons.Length; ++i)
             {
                 weapons[i].weapon.Initialize(i);
@@ -217,6 +214,8 @@ namespace Hive.Armada.Player
             {
                 reference.countdown.SetActive(true);
             }
+
+            reference.shipPickup.SetActive(false);
         }
 
         /// <summary>

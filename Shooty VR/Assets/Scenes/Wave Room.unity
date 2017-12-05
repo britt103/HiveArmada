@@ -931,6 +931,18 @@ Transform:
 GameObject:
   m_PrefabParentObject: {fileID: 107946, guid: dc06161b6d97feb419f45f03b62e14b9, type: 2}
   m_PrefabInternal: {fileID: 1690237207}
+--- !u!114 &606397239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 606397238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 384434d262d23ce498422a4386ee94d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allowedIdleTime: 60
 --- !u!114 &606397240
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1429,6 +1441,16 @@ Prefab:
     - target: {fileID: 4804148625377492, guid: 6503730551a61ef4ebeca6bd91b11120, type: 2}
       propertyPath: m_RootOrder
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114697823865696134, guid: 6503730551a61ef4ebeca6bd91b11120,
+        type: 2}
+      propertyPath: waveCountSource
+      value: 
+      objectReference: {fileID: 1732903678}
+    - target: {fileID: 114697823865696134, guid: 6503730551a61ef4ebeca6bd91b11120,
+        type: 2}
+      propertyPath: startingWave
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6503730551a61ef4ebeca6bd91b11120, type: 2}
@@ -2018,17 +2040,17 @@ MonoBehaviour:
   - 2
   - 2
   enemySpawnEmitters:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 1634124259471280, guid: 05a76aa8728dfe04399bb8f593dae44b, type: 2}
+  - {fileID: 1634124259471280, guid: 05a76aa8728dfe04399bb8f593dae44b, type: 2}
+  - {fileID: 1634124259471280, guid: 05a76aa8728dfe04399bb8f593dae44b, type: 2}
+  - {fileID: 1634124259471280, guid: 05a76aa8728dfe04399bb8f593dae44b, type: 2}
+  - {fileID: 1634124259471280, guid: 05a76aa8728dfe04399bb8f593dae44b, type: 2}
   enemyDeathEmitters:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 1499868298913928, guid: 81845ba2c8d08a0438e119c6dd5d2d35, type: 2}
+  - {fileID: 1499868298913928, guid: 81845ba2c8d08a0438e119c6dd5d2d35, type: 2}
+  - {fileID: 1499868298913928, guid: 81845ba2c8d08a0438e119c6dd5d2d35, type: 2}
+  - {fileID: 1499868298913928, guid: 81845ba2c8d08a0438e119c6dd5d2d35, type: 2}
+  - {fileID: 1499868298913928, guid: 81845ba2c8d08a0438e119c6dd5d2d35, type: 2}
   projectileDamage: 10
   projectileSpeed: 1.5
   projectileLifetime: 10
@@ -2430,7 +2452,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: c0110f455eec1d04b9360db18535f0a1, type: 3}
+    m_Font: {fileID: 12800000, guid: ce6a143c09a8a22489719c27a1f527d1, type: 3}
     m_FontSize: 200
     m_FontStyle: 0
     m_BestFit: 0
@@ -3913,7 +3935,7 @@ MonoBehaviour:
   objectPoolManager: {fileID: 898325481}
   sceneTransitionManager: {fileID: 1908650250}
   optionsValues: {fileID: 0}
-  playerIdleTimer: {fileID: 0}
+  playerIdleTimer: {fileID: 606397239}
   player: {fileID: 606397238}
   playerShip: {fileID: 0}
   shipPickup: {fileID: 1176633369}
@@ -3921,10 +3943,10 @@ MonoBehaviour:
   menuMain: {fileID: 0}
   menuTitle: {fileID: 0}
   countdown: {fileID: 2146153966}
-  menuWaveNumberDisplay: {fileID: 0}
+  menuWaveNumberDisplay: {fileID: 1689367903}
   menuWin: {fileID: 0}
   menuGameOver: {fileID: 0}
-  waveCountSource: {fileID: 0}
+  waveCountSource: {fileID: 1732903678}
 --- !u!1 &2071864427
 GameObject:
   m_ObjectHideFlags: 0
@@ -4026,7 +4048,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: c0110f455eec1d04b9360db18535f0a1, type: 3}
+    m_Font: {fileID: 12800000, guid: ce6a143c09a8a22489719c27a1f527d1, type: 3}
     m_FontSize: 300
     m_FontStyle: 0
     m_BestFit: 1

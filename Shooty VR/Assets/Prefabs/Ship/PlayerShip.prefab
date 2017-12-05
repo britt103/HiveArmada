@@ -5439,7 +5439,7 @@ MonoBehaviour:
   - {fileID: 1164056285220086}
   - {fileID: 1804582580838716}
   thickness: 0.003
-  material: {fileID: 2100000, guid: 94b83a265507fa64c97d2039f9b11189, type: 2}
+  tracerMaterial: {fileID: 0}
 --- !u!114 &114805351180607888
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5453,7 +5453,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentWeapon: 0
   hand: {fileID: 0}
-  shipMode: 1
+  shipMode: 0
   weapons:
   - weapon: {fileID: 114178774214985204}
     damage: 5
@@ -5461,6 +5461,8 @@ MonoBehaviour:
   - weapon: {fileID: 114783113088214496}
     damage: 3
     fireRate: 40
+  engineSound: {fileID: 0}
+  clip: {fileID: 0}
 --- !u!136 &136183901029491852
 CapsuleCollider:
   m_ObjectHideFlags: 1

@@ -257,7 +257,7 @@ Transform:
   m_GameObject: {fileID: 1591170296302446}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children:
   - {fileID: 4915913022415242}
   - {fileID: 4685176104598432}
@@ -792,10 +792,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flashColor: {fileID: 2100000, guid: 1db15971033ba594294b4f0c035f7da8, type: 2}
-  spawnEmitter: {fileID: 1986916411221482, guid: c22c489c25fedaa41a77630cc26e3c53,
-    type: 2}
-  deathEmitter: {fileID: 1110594293534486, guid: a5ffbf29c124fdd4b9a26ba22878897e,
-    type: 2}
+  spawnEmitter: {fileID: 0}
+  deathEmitter: {fileID: 0}
   shootPoint: {fileID: 4347667254384738}
   childTurret: {fileID: 1618603837932422, guid: 9a594f50db7a6b347af3019acb9f591b,
     type: 2}

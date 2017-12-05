@@ -86,7 +86,7 @@ namespace Hive.Armada.Enemies
         /// </summary>
         void Start()
         {
-            switchFireMode(fireMode);
+            //switchFireMode(fireMode);
         }
 
         /// <summary>
@@ -176,6 +176,8 @@ namespace Hive.Armada.Enemies
             fireCone = enemyAttributes.enemySpread[TypeIdentifier];
             pointValue = enemyAttributes.enemyScoreValues[TypeIdentifier];
             selfDestructTime = enemyAttributes.enemySelfDestructTimes[TypeIdentifier];
+            spawnEmitter = enemyAttributes.enemySpawnEmitters[TypeIdentifier];
+            deathEmitter = enemyAttributes.enemyDeathEmitters[TypeIdentifier];
         }
     }
 }

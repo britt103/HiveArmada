@@ -1887,7 +1887,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74f23f40fa0836145bd154317a1ec69f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawner: {fileID: 1490104826}
   source: {fileID: 450582090}
   clips:
   - {fileID: 8300000, guid: d1e46ad8dcf9df34ba9281e76b8cbad0, type: 3}
@@ -2812,6 +2811,7 @@ MonoBehaviour:
   source: {fileID: 450582090}
   clips:
   - {fileID: 8300000, guid: 080170fb7e06da1458a3bac11ee173a3, type: 3}
+  bloomToggle: {fileID: 0}
 --- !u!1 &331214254
 GameObject:
   m_ObjectHideFlags: 0
@@ -4132,6 +4132,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca63a6f8cb08f9b49a3843c6cf8296ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pageNames: []
+  pageTexts: []
+  pageImages: []
+  pagesLocked: 
+  lockedName: 
+  lockedImage: {fileID: 0}
+  pageName: {fileID: 0}
+  pageText: {fileID: 0}
+  pageImageRenderer: {fileID: 0}
+  prevButtonGO: {fileID: 0}
+  nextButtonGO: {fileID: 0}
   source: {fileID: 450582090}
   clips:
   - {fileID: 8300000, guid: 080170fb7e06da1458a3bac11ee173a3, type: 3}
@@ -4150,15 +4161,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48022b2851c23ad43906fe6bcddd8b51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  totalAliveTime: 0
+  waves: 0
+  totalEnemiesKilled: 0
+  totalFiringTime: 0
+  totalScore: 0
   weaponNames:
   - Laser Gun
   - Minigun
+  weaponTotalShotsFired: 
   powerupNames:
   - Ally
   - Area Bomb
   - Clear
   - Damage Boost
   - Shield
+  powerupTotalCount: 
+  totalCurrencyCollected: 0
 --- !u!114 &606397240
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4170,19 +4189,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ffa4c64fd85b2f4497101af9c0dbefc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shieldStored: 0
-  areaBombStored: 0
-  clearStored: 0
-  allyStored: 0
-  damageBoostStored: 0
-  shieldActive: 0
-  areaBombActive: 0
-  clearActive: 0
-  allyActive: 0
-  damageBoostActive: 0
+  powerupNames: []
   maxStoredPowerups: 5
   iconSpacing: 0.7
-  alphaDelta: 30
   tracking: 0
 --- !u!1 &620348168
 GameObject:
@@ -8242,6 +8251,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyHealthValues: 640000007800000064000000c800000050000000
+  enemySelfDestructTimes: []
   enemyScoreValues: 0a0000000a0000000a0000000a0000000a000000
   enemyProjectilePrefab:
   - {fileID: 1590670541974036, guid: 0f837641c26eee64eaa72bd67b35506d, type: 2}
@@ -9295,12 +9305,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1465403710}
---- !u!114 &1490104826 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114958452454179628, guid: d9f2a9ef87214aa4e9c338464a9a76c4,
-    type: 2}
-  m_PrefabInternal: {fileID: 891891018}
-  m_Script: {fileID: 11500000, guid: 82c414a5d53c9334ea8f280613e976c3, type: 3}
 --- !u!1 &1492635086 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100368, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
@@ -9674,24 +9678,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3d90499657332545b7792f018b1dea4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  source: {fileID: 480148871}
-  clips:
-  - {fileID: 8300000, guid: 905bd539bd10fdf49b7d5f9ce0d8347d, type: 3}
-  - {fileID: 8300000, guid: 4d7872f4ebc2f594db05f7a171ddeb3a, type: 3}
-  - {fileID: 8300000, guid: 10fc5d9c3c5f20d48843901ba5ef7e4c, type: 3}
-  - {fileID: 8300000, guid: 8d8fe7bfa2b804f47b1bea3229916056, type: 3}
-  - {fileID: 8300000, guid: 588aa5c395659d84e88e59407338c94b, type: 3}
-  - {fileID: 8300000, guid: a3f23efc3ff73594ca725ca1027ae6d4, type: 3}
-  - {fileID: 8300000, guid: cef69846bbd75784b96f6fd3d3380ef5, type: 3}
-  - {fileID: 8300000, guid: b85aeed7fff49284a99b2b746b30b477, type: 3}
-  - {fileID: 8300000, guid: 2f02dae0dbe35c44ab45804c3bbd2586, type: 3}
-  - {fileID: 8300000, guid: 95565d03a7cf09842ab484a3364ab477, type: 3}
-  - {fileID: 8300000, guid: fad5e0f069f431a4596a4e27e910e6e6, type: 3}
-  - {fileID: 8300000, guid: b65ef87b98b7a6149b4b05c5b69e9b93, type: 3}
-  - {fileID: 8300000, guid: 4c4bbae3dc65bfd49ada9627ef217d3d, type: 3}
-  - {fileID: 8300000, guid: ca244aa76235d3f4c8080527ddaafe55, type: 3}
-  - {fileID: 8300000, guid: 3f8d17e19e5c8914f811080cf7a17727, type: 3}
-  - {fileID: 8300000, guid: c721f2d2be1ad31449a46c81168bbf8c, type: 3}
+  reference: {fileID: 0}
   spawnZonesBounds:
   - lowerBound: {fileID: 1154570314}
     upperBound: {fileID: 1154570314}
@@ -9708,8 +9695,12 @@ MonoBehaviour:
   powerupSpawnZone:
     lowerBound: {fileID: 638139814}
     upperBound: {fileID: 297754652}
+  startingWave: 0
+  startingSubwave: 0
   waves:
   - {fileID: 289352698}
+  waveCountSource: {fileID: 0}
+  waveCountSounds: []
 --- !u!1 &1544772440
 GameObject:
   m_ObjectHideFlags: 0
@@ -9757,6 +9748,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 807ac8c48e6729746b945e72cfdba581, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  volumeSlider: {fileID: 0}
   source: {fileID: 450582090}
   clips:
   - {fileID: 8300000, guid: 080170fb7e06da1458a3bac11ee173a3, type: 3}
@@ -11053,7 +11045,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74f23f40fa0836145bd154317a1ec69f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawner: {fileID: 1490104826}
   source: {fileID: 0}
   clips: []
 --- !u!114 &1780728043
@@ -11074,6 +11065,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 5453070926aa13142ba14019d4b6002d, type: 3}
   - {fileID: 8300000, guid: 7bb28ed4e43f77c43935e43f6c63e044, type: 3}
   - {fileID: 8300000, guid: ec3b25e628bebd344a99a2db1b11e9db, type: 3}
+  wavesTextGO: {fileID: 0}
+  timeTextGO: {fileID: 0}
+  killsTextGO: {fileID: 0}
 --- !u!1 &1786702094
 GameObject:
   m_ObjectHideFlags: 0
@@ -12790,7 +12784,7 @@ Transform:
   - {fileID: 11372848}
   - {fileID: 188790963}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1926940244
 GameObject:
@@ -13383,9 +13377,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15ba508abc5b1dd4fb765483dfe7f692, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireTooltip: Hold to Fire
-  powerupTooltip: Press to Activate Powerup
-  pauseTooltip: Press to Pause
+  tooltipText: {fileID: 0}
+  fireButtonTooltip: Hold to Fire
+  powerupButtonTooltip: Press to Activate Powerup
+  powerupNames: []
+  powerupTooltips: []
 --- !u!1 &2047074950
 GameObject:
   m_ObjectHideFlags: 0
@@ -13428,17 +13424,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  spawner: {fileID: 1490104826}
   enemyAttributes: {fileID: 1351179625}
   scoringSystem: {fileID: 331214256}
   statistics: {fileID: 606397239}
   waveManager: {fileID: 1542376576}
   objectPoolManager: {fileID: 898325481}
+  sceneTransitionManager: {fileID: 0}
+  optionsValues: {fileID: 0}
+  playerIdleTimer: {fileID: 0}
+  player: {fileID: 0}
   playerShip: {fileID: 0}
   shipPickup: {fileID: 1287213002}
   powerUpStatus: {fileID: 606397240}
   menuMain: {fileID: 582693219}
   menuTitle: {fileID: 487748501}
+  countdown: {fileID: 0}
+  menuWaveNumberDisplay: {fileID: 0}
+  menuWin: {fileID: 0}
+  menuGameOver: {fileID: 0}
+  waveCountSource: {fileID: 0}
 --- !u!1 &2070555432
 GameObject:
   m_ObjectHideFlags: 0
@@ -13564,9 +13568,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15ba508abc5b1dd4fb765483dfe7f692, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireTooltip: Hold to Fire
-  powerupTooltip: Press to Activate Powerup
-  pauseTooltip: Press to Pause
+  tooltipText: {fileID: 0}
+  fireButtonTooltip: Hold to Fire
+  powerupButtonTooltip: Press to Activate Powerup
+  powerupNames: []
+  powerupTooltips: []
 --- !u!1 &2075945808
 GameObject:
   m_ObjectHideFlags: 0
@@ -13987,4 +13993,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   countdownText: {fileID: 2146153968}
-  sfx: {fileID: 1910466692}
+  countdownAudioSource: {fileID: 0}

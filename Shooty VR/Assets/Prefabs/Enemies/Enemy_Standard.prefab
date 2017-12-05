@@ -497,8 +497,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1509759630503974}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.117, y: 0, z: -2.73}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 4, y: 4, z: 4}
   m_Children:
   - {fileID: 4161806289122284}
   - {fileID: 4311015011303310}
@@ -528,7 +528,9 @@ Transform:
   m_LocalRotation: {x: 0.28389183, y: 0.22848123, z: -0.3129779, w: 0.877067}
   m_LocalPosition: {x: -0.029081702, y: -0.025749333, z: -0.09031725}
   m_LocalScale: {x: 2.21762, y: 2.6850524, z: 2.2176197}
-  m_Children: [{fileID: 4001682187404320}, {fileID: 4082255727122282}]
+  m_Children:
+  - {fileID: 4001682187404320}
+  - {fileID: 4082255727122282}
   m_Father: {fileID: 4148239881734344}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1202,10 +1204,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flashColor: {fileID: 2100000, guid: 1db15971033ba594294b4f0c035f7da8, type: 2}
-  spawnEmitter: {fileID: 1986916411221482, guid: c22c489c25fedaa41a77630cc26e3c53,
-    type: 2}
-  deathEmitter: {fileID: 1110594293534486, guid: a5ffbf29c124fdd4b9a26ba22878897e,
-    type: 2}
+  spawnEmitter: {fileID: 0}
+  deathEmitter: {fileID: 0}
   fireProjectile: {fileID: 0}
   projectileArray: []
   fireSpawn: {fileID: 4311015011303310}

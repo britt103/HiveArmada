@@ -151,8 +151,18 @@ namespace Hive.Armada.Enemies
         protected float selfDestructTime;
 
         /// <summary>
+        /// Used to shake low health enemies.
+        /// </summary>
+        protected bool shaking = false;
+
+        /// <summary>
         /// Initializes references to ReferenceManager and other managers.
         /// </summary>
+        /// 
+        public void OnEnable()
+        {
+            Instantiate(spawnEmitter, transform.position, transform.rotation);
+        }
         public virtual void Awake()
         {
             reference = GameObject.Find("Reference Manager").GetComponent<ReferenceManager>();
@@ -182,8 +192,6 @@ namespace Hive.Armada.Enemies
                 renderers.Add(r);
                 materials.Add(r.material);
             }
-
-            Instantiate(spawnEmitter, transform.position, transform.rotation, transform);
         }
 
         /// <summary>
@@ -199,6 +207,10 @@ namespace Hive.Armada.Enemies
                 hitFlash = StartCoroutine(HitFlash());
             }
 
+            if (Health <= 20)
+            {
+                //shaking = true;
+            }
             if (Health <= 0)
             {
                 Kill();
@@ -297,11 +309,13 @@ namespace Hive.Armada.Enemies
         /// </summary>
         protected virtual void SelfDestructCountdown()
         {
+            /*
             selfDestructTime -= Time.deltaTime;
             if (selfDestructTime <= 0 && untouched)
             {
                 SelfDestruct();
             }
+            */
         }
     }
 }

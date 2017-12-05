@@ -86,7 +86,7 @@ namespace Hive.Armada.Enemies
         /// </summary>
         void Start()
         {
-            switchFireMode(fireMode);
+            //switchFireMode(fireMode);
         }
 
         /// <summary>
@@ -116,7 +116,11 @@ namespace Hive.Armada.Enemies
                     transform.LookAt(new Vector3(0.0f, 0.0f, 0.0f));
                 }
             }
+            if (shaking)
+            {
+                iTween.ShakePosition(gameObject, new Vector3(0.1f, 0.1f, 0.1f) ,0.1f);
 
+            }
             SelfDestructCountdown();
         }
 
@@ -172,6 +176,8 @@ namespace Hive.Armada.Enemies
             fireCone = enemyAttributes.enemySpread[TypeIdentifier];
             pointValue = enemyAttributes.enemyScoreValues[TypeIdentifier];
             selfDestructTime = enemyAttributes.enemySelfDestructTimes[TypeIdentifier];
+            spawnEmitter = enemyAttributes.enemySpawnEmitters[TypeIdentifier];
+            deathEmitter = enemyAttributes.enemyDeathEmitters[TypeIdentifier];
         }
     }
 }

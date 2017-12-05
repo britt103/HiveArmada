@@ -411,7 +411,9 @@ Transform:
   m_LocalRotation: {x: 0.33254874, y: 0.24564481, z: -0.29969567, w: 0.85979795}
   m_LocalPosition: {x: -0.029081821, y: -0.025749326, z: -0.1334503}
   m_LocalScale: {x: 2.2176192, y: 2.6850529, z: 2.2176201}
-  m_Children: [{fileID: 4586248707114430}, {fileID: 4266345216216476}]
+  m_Children:
+  - {fileID: 4586248707114430}
+  - {fileID: 4266345216216476}
   m_Father: {fileID: 4878676582803702}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -502,7 +504,7 @@ Transform:
   m_GameObject: {fileID: 1618603837932422}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 4625840610744298}
   - {fileID: 4930210303104310}
@@ -585,7 +587,9 @@ Transform:
   m_LocalRotation: {x: -0.033067312, y: 0.10771242, z: -0.37223235, w: 0.921275}
   m_LocalPosition: {x: -0.029081821, y: -0.025749326, z: -0.09031726}
   m_LocalScale: {x: 2.2176194, y: 2.6850514, z: 2.2176197}
-  m_Children: [{fileID: 4929589754888848}, {fileID: 4516025492632128}]
+  m_Children:
+  - {fileID: 4929589754888848}
+  - {fileID: 4516025492632128}
   m_Father: {fileID: 4878676582803702}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1324,10 +1328,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flashColor: {fileID: 2100000, guid: 1db15971033ba594294b4f0c035f7da8, type: 2}
-  spawnEmitter: {fileID: 1986916411221482, guid: c22c489c25fedaa41a77630cc26e3c53,
-    type: 2}
-  deathEmitter: {fileID: 1110594293534486, guid: a5ffbf29c124fdd4b9a26ba22878897e,
-    type: 2}
+  spawnEmitter: {fileID: 0}
+  deathEmitter: {fileID: 0}
   shootPoint: {fileID: 4930210303104310}
 --- !u!136 &136941660410051782
 CapsuleCollider:

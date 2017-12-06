@@ -12,6 +12,7 @@
 
 using System;
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -140,6 +141,14 @@ namespace Hive.Armada.Enemies
 
         protected override void Reset()
         {
+            // reset materials
+            for (int i = 0; i < renderers.Count; ++i)
+            {
+                renderers.ElementAt(i).material = materials.ElementAt(i);
+            }
+
+            hitFlash = null;
+
             projectileTypeIdentifier =
                 enemyAttributes.EnemyProjectileTypeIdentifiers[TypeIdentifier];
             maxHealth = enemyAttributes.enemyHealthValues[TypeIdentifier];

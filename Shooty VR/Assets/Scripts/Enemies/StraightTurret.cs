@@ -11,7 +11,9 @@
 //=============================================================================
 
 using System.Collections;
+using System.Linq;
 using UnityEngine;
+
 namespace Hive.Armada.Enemies
 {
     public class StraightTurret : Enemy
@@ -170,8 +172,10 @@ namespace Hive.Armada.Enemies
             // reset materials
             for (int i = 0; i < renderers.Count; ++i)
             {
-                renderers[i].material = materials[i];
+                renderers.ElementAt(i).material = materials.ElementAt(i);
             }
+
+            hitFlash = null;
 
             projectileTypeIdentifier =
                 enemyAttributes.EnemyProjectileTypeIdentifiers[TypeIdentifier];

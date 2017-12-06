@@ -251,11 +251,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0be18ebb2e6bc94a9aad7fe8bafb3f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isShootable: 1
+  spawnEmitter: {fileID: 0}
+  shotEmitter: {fileID: 1060095275791766, guid: e592d55d98210764b8e20e2bb6b6b492,
+    type: 2}
   radius: 3
   acceleration: 0.045
+  accelerationSwitchTime: 0
   startingZ: 1
-  fxTrail: {fileID: 1424821901350050}
-  fxBomb: {fileID: 1060095275791766, guid: e592d55d98210764b8e20e2bb6b6b492, type: 2}
+  trailEmitter: {fileID: 1743563473384194, guid: b8d9dbaf8fa78834f89eec092939e735,
+    type: 2}
+  detonationTime: 0
+  isShootableTime: 0
   source: {fileID: 82425338101321092}
   clips:
   - {fileID: 8300000, guid: 7918561557fcef64b8cffc3373d6259b, type: 3}

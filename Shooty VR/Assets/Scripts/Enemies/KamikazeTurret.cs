@@ -10,6 +10,7 @@
 //=============================================================================
 
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 
 namespace Hive.Armada.Enemies
@@ -134,7 +135,14 @@ namespace Hive.Armada.Enemies
         /// </summary>
         protected override void Reset()
         {
-          
+            // reset materials
+            for (int i = 0; i < renderers.Count; ++i)
+            {
+                renderers.ElementAt(i).material = materials.ElementAt(i);
+            }
+
+            hitFlash = null;
+
             maxHealth = enemyAttributes.enemyHealthValues[TypeIdentifier];
             Health = maxHealth;
             pointValue = enemyAttributes.enemyScoreValues[TypeIdentifier];

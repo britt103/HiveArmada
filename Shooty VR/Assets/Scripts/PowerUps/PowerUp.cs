@@ -57,7 +57,7 @@ namespace Hive.Armada.PowerUps
         /// </summary>
         private void Start()
         {
-            head = GameObject.Find("FollowHead").transform;
+            head = GameObject.Find("VRCamera").transform;
             GameObject fx = Instantiate(spawnEmitter, transform.position, transform.localRotation);
             fx.transform.rotation = Quaternion
                     .FromToRotation(Vector3.up, head.position - gameObject.transform.position);
@@ -71,7 +71,7 @@ namespace Hive.Armada.PowerUps
         /// </summary>
         private void Update()
         {
-            //gameObject.transform.parent.LookAt(head);
+            gameObject.transform.parent.LookAt(head);
         }
 
         /// <summary>

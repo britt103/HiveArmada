@@ -31,12 +31,13 @@ namespace Hive.Armada.Player.Weapons
         /// <summary>
         /// Material for the lasers
         /// </summary>
+        [Header("Lasers")]
         public Material laserMaterial;
 
         /// <summary>
-        /// The sound the laser gun makes when it fires.
+        /// Thickness of the lasers
         /// </summary>
-        public AudioClip laserSound;
+        public float thickness = 0.002f;
 
         /// <summary>
         /// Left gun
@@ -59,14 +60,21 @@ namespace Hive.Armada.Player.Weapons
         private LineRenderer rightLaser;
 
         /// <summary>
+        /// Particle emitter for the hit spark effect.
+        /// </summary>
+        [Header("Emitters")]
+        public GameObject hitSparkEmitter;
+
+        /// <summary>
         /// The audio source for the laser gun sounds
         /// </summary>
+        [Header("Audio")]
         public AudioSource source;
 
         /// <summary>
-        /// Thickness of the lasers
+        /// The sound the laser gun makes when it fires.
         /// </summary>
-        public float thickness = 0.002f;
+        public AudioClip laserShootSound;
 
         /// <summary>
         /// Gets enemy or wall aimpoint and shoots at it. Will damage enemies.
@@ -84,6 +92,9 @@ namespace Hive.Armada.Player.Weapons
                     hit.collider.gameObject.GetComponent<Enemy>().Hit(damage * damageMultiplier);
                 }
 
+                Instantiate(hitSparkEmitter, hit.point, Quaternion.LookRotation(hit.point - gameObject.transform.position));
+                //Instantiate(hitSparkEmitter, hit.point, Quaternion.LookRotation(hit.normal));
+
                 shipController.hand.controller.TriggerHapticPulse(2500);
             }
             else if (Physics.Raycast(transform.position, transform.forward, out hit, 200.0f,
@@ -96,6 +107,9 @@ namespace Hive.Armada.Player.Weapons
                 {
                     hit.collider.gameObject.GetComponent<Shootable>().Shot();
                 }
+
+                Instantiate(hitSparkEmitter, hit.point, Quaternion.LookRotation(hit.point - gameObject.transform.position));
+                //Instantiate(hitSparkEmitter, hit.point, Quaternion.LookRotation(hit.normal));
 
                 shipController.hand.controller.TriggerHapticPulse(2500);
             }
@@ -121,6 +135,9 @@ namespace Hive.Armada.Player.Weapons
                                      Mathf.Max(
                                          Vector3.Magnitude(left.transform.position - position),
                                          1.0f);
+
+                leftLaser.SetPosition(0, left.transform.position);
+                leftLaser.SetPosition(1, position);
             }
             else
             {
@@ -128,15 +145,14 @@ namespace Hive.Armada.Player.Weapons
                                       Mathf.Max(
                                           Vector3.Magnitude(right.transform.position - position),
                                           1.0f);
+
+                rightLaser.SetPosition(0, right.transform.position);
+                rightLaser.SetPosition(1, position);
             }
 
-            leftLaser.SetPosition(0, left.transform.position);
-            leftLaser.SetPosition(1, position);
-            rightLaser.SetPosition(0, right.transform.position);
-            rightLaser.SetPosition(1, position);
             StartCoroutine(FlashLaser(isLeftFire));
 
-            source.PlayOneShot(laserSound);
+            source.PlayOneShot(laserShootSound);
 
             reference.statistics.IsFiring();
             reference.statistics.WeaponFired("Laser Gun", 1);

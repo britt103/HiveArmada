@@ -49,8 +49,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4463228315857846}
-  - component: {fileID: 95203113492203290}
   - component: {fileID: 114783113088214496}
+  - component: {fileID: 82705314991794640}
+  - component: {fileID: 95203113492203290}
   m_Layer: 0
   m_Name: Minigun
   m_TagString: Untagged
@@ -5104,6 +5105,86 @@ MeshCollider:
   m_InflateMesh: 0
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: d554b9034c03a0e4bbf316541928a5e4, type: 3}
+--- !u!82 &82705314991794640
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1038823858316262}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 0.2
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!82 &82855239161610398
 AudioSource:
   m_ObjectHideFlags: 1
@@ -5377,12 +5458,13 @@ MonoBehaviour:
   shipController: {fileID: 114805351180607888}
   damageMultiplier: 1
   radius: 0.3
-  laserMaterial: {fileID: 2100000, guid: fb4863ba36a8e134791cc6e1bbb1efeb, type: 2}
-  laserSound: {fileID: 0}
+  laserMaterial: {fileID: 2100000, guid: 94b83a265507fa64c97d2039f9b11189, type: 2}
+  thickness: 0.003
   left: {fileID: 1997046569454766}
   right: {fileID: 1984623238355558}
-  source: {fileID: 0}
-  thickness: 0.003
+  hitSparkEmitter: {fileID: 0}
+  source: {fileID: 82929094119297468}
+  laserShootSound: {fileID: 0}
 --- !u!114 &114541892290838296
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5420,6 +5502,8 @@ MonoBehaviour:
   shipController: {fileID: 114805351180607888}
   damageMultiplier: 1
   radius: 0.3
+  tracerMaterial: {fileID: 0}
+  thickness: 0.003
   left:
   - {fileID: 1809157147384500}
   - {fileID: 1336072188114096}
@@ -5438,8 +5522,9 @@ MonoBehaviour:
   - {fileID: 1248719630318882}
   - {fileID: 1164056285220086}
   - {fileID: 1804582580838716}
-  thickness: 0.003
-  tracerMaterial: {fileID: 0}
+  hitSparkEmitter: {fileID: 0}
+  source: {fileID: 82705314991794640}
+  minigunShootSound: {fileID: 0}
 --- !u!114 &114805351180607888
 MonoBehaviour:
   m_ObjectHideFlags: 1

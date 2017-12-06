@@ -30,6 +30,22 @@ namespace Hive.Armada.Player.Weapons
     public class Minigun : Weapon
     {
         /// <summary>
+        /// Used to alternate between left and right guns firing
+        /// </summary>
+        private bool isLeftFire = true;
+
+        /// <summary>
+        /// Material for the minigun's tracers.
+        /// </summary>
+        [Header("Tracers")]
+        public Material tracerMaterial;
+
+        /// <summary>
+        /// Thickness of the minigun tracers' LineRenderer's
+        /// </summary>
+        public float thickness = 0.003f;
+
+        /// <summary>
         /// Array of points where the left minigun can shoot from.
         /// </summary>
         [Tooltip("Points where the left minigun can shoot from.")]
@@ -42,19 +58,21 @@ namespace Hive.Armada.Player.Weapons
         public GameObject[] right;
 
         /// <summary>
-        /// Used to alternate between left and right guns firing
+        /// Particle emitter for the hit spark effect.
         /// </summary>
-        private bool isLeftFire = true;
+        [Header("Emitters")]
+        public GameObject hitSparkEmitter;
 
         /// <summary>
-        /// Thickness of the minigun tracers' LineRenderer's
+        /// The audio source for the minigun sounds
         /// </summary>
-        public float thickness = 0.003f;
+        [Header("Audio")]
+        public AudioSource source;
 
         /// <summary>
-        /// Material for the minigun's tracers.
+        /// The sound the minigun makes when it fires.
         /// </summary>
-        public Material tracerMaterial;
+        public AudioClip minigunShootSound;
 
         /// <summary>
         /// Gets enemy or wall aimpoint and shoots at it.
@@ -72,6 +90,9 @@ namespace Hive.Armada.Player.Weapons
                     hit.collider.gameObject.GetComponent<Enemy>().Hit(damage * damageMultiplier);
                 }
 
+                Instantiate(hitSparkEmitter, hit.point, Quaternion.LookRotation(hit.point - gameObject.transform.position));
+                //Instantiate(hitSparkEmitter, hit.point, Quaternion.LookRotation(hit.normal));
+
                 shipController.hand.controller.TriggerHapticPulse(2500);
             }
             else if (Physics.Raycast(transform.position, transform.forward, out hit, 200.0f,
@@ -84,6 +105,9 @@ namespace Hive.Armada.Player.Weapons
                 {
                     hit.collider.gameObject.GetComponent<Shootable>().Shot();
                 }
+
+                Instantiate(hitSparkEmitter, hit.point, Quaternion.LookRotation(hit.point - gameObject.transform.position));
+                //Instantiate(hitSparkEmitter, hit.point, Quaternion.LookRotation(hit.normal));
 
                 shipController.hand.controller.TriggerHapticPulse(2500);
             }

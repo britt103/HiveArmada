@@ -1890,6 +1890,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1485424637088420, guid: 4c832e91de62bfe43a7cc2ced38e7a68, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4c832e91de62bfe43a7cc2ced38e7a68, type: 2}
   m_IsPrefabParent: 0
@@ -2014,11 +2018,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyHealthValues: 640000009600000078000000fa00000050000000
   enemySelfDestructTimes:
-  - 10
-  - 10
-  - 10
-  - 10
-  - 10
+  - 180
+  - 180
+  - 180
+  - 180
+  - 180
   enemyScoreValues: 0a000000140000000f0000002300000005000000
   enemyProjectilePrefab:
   - {fileID: 1590670541974036, guid: 0f837641c26eee64eaa72bd67b35506d, type: 2}
@@ -3654,7 +3658,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7d584214e819ab4489fdfd36722b3ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transitionLength: 5
+  transitionLength: 3
   fadeColor: {r: 0, g: 0, b: 0, a: 1}
   fadeInStartTime: 0
   fadeOutStartTime: 0

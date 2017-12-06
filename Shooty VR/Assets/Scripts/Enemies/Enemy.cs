@@ -158,11 +158,6 @@ namespace Hive.Armada.Enemies
         /// <summary>
         /// Initializes references to ReferenceManager and other managers.
         /// </summary>
-        /// 
-        public void OnEnable()
-        {
-            Instantiate(spawnEmitter, transform.position, transform.rotation);
-        }
         public virtual void Awake()
         {
             reference = GameObject.Find("Reference Manager").GetComponent<ReferenceManager>();
@@ -211,6 +206,7 @@ namespace Hive.Armada.Enemies
             {
                 //shaking = true;
             }
+
             if (Health <= 0)
             {
                 Kill();
@@ -272,7 +268,7 @@ namespace Hive.Armada.Enemies
             // reset materials
             for (int i = 0; i < renderers.Count; ++i)
             {
-                renderers.ElementAt(i).material = materials.ElementAt(i);
+                renderers[i].material = materials[i];
             }
 
             hitFlash = null;
@@ -302,6 +298,14 @@ namespace Hive.Armada.Enemies
         public virtual void SetAttackPattern(AttackPattern attackPattern)
         {
             this.attackPattern = attackPattern;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        protected override void SpawnEffects()
+        {
+            Instantiate(spawnEmitter, transform.position, transform.rotation, transform);
         }
 
         /// <summary>

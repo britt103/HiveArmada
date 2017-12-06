@@ -54,6 +54,7 @@ namespace Hive.Armada.Game
             Reset();
             IsActive = true;
             gameObject.SetActive(true);
+            SpawnEffects();
         }
 
         /// <summary>
@@ -69,5 +70,12 @@ namespace Hive.Armada.Game
         /// Resets all attributes to this object's defaults.
         /// </summary>
         protected abstract void Reset();
+
+        /// <summary>
+        /// Runs any functionality that needs to happen when this poolable object is spawned.
+        /// </summary>
+        protected virtual void SpawnEffects()
+        {
+        }
     }
 }

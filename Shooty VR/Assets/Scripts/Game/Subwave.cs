@@ -672,40 +672,40 @@ namespace Hive.Armada.Game
             {
                 yield return new WaitForSeconds(0.1f);
 
-                if (respawns.Count > 0)
-                {
-                    yield return new WaitForSeconds(respawnDelay);
+                //if (respawns.Count > 0)
+                //{
+                //    yield return new WaitForSeconds(respawnDelay);
 
-                    Vector3 position;
+                //    Vector3 position;
 
-                    if (respawns[0].spawnZone != SpawnZone.Introduction)
-                    {
-                        SpawnZone zone = respawns[0].spawnZone;
+                //    if (respawns[0].spawnZone != SpawnZone.Introduction)
+                //    {
+                //        SpawnZone zone = respawns[0].spawnZone;
 
-                        // spawn position is random point in its zone
-                        Vector3 lower = spawnZones[(int)zone].lowerBound.transform.position;
-                        Vector3 upper = spawnZones[(int)zone].upperBound.transform.position;
+                //        // spawn position is random point in its zone
+                //        Vector3 lower = spawnZones[(int)zone].lowerBound.transform.position;
+                //        Vector3 upper = spawnZones[(int)zone].upperBound.transform.position;
 
-                        position = new Vector3(UnityEngine.Random.Range(lower.x, upper.x),
-                            UnityEngine.Random.Range(lower.y, upper.y),
-                            UnityEngine.Random.Range(lower.z, upper.z));
-                    }
-                    else
-                    {
-                        // spawn position is the introduction point
-                        position = spawnZones[0].lowerBound.transform.position;
-                    }
+                //        position = new Vector3(UnityEngine.Random.Range(lower.x, upper.x),
+                //            UnityEngine.Random.Range(lower.y, upper.y),
+                //            UnityEngine.Random.Range(lower.z, upper.z));
+                //    }
+                //    else
+                //    {
+                //        // spawn position is the introduction point
+                //        position = spawnZones[0].lowerBound.transform.position;
+                //    }
 
-                    GameObject spawned = objectPoolManager.Spawn(respawns[0].typeIdentifier, position);
+                //    GameObject spawned = objectPoolManager.Spawn(respawns[0].typeIdentifier, position);
 
-                    // set info for the enemy
-                    Enemy spawnedEnemyScript = spawned.GetComponent<Enemy>();
-                    spawnedEnemyScript.SetSubwave(this);
-                    spawnedEnemyScript.SetEnemySpawn(new EnemySpawn(respawns[0].typeIdentifier, respawns[0].spawnZone, respawns[0].attackPattern));
-                    spawnedEnemyScript.SetAttackPattern(respawns[0].attackPattern);
+                //    // set info for the enemy
+                //    Enemy spawnedEnemyScript = spawned.GetComponent<Enemy>();
+                //    spawnedEnemyScript.SetSubwave(this);
+                //    spawnedEnemyScript.SetEnemySpawn(new EnemySpawn(respawns[0].typeIdentifier, respawns[0].spawnZone, respawns[0].attackPattern));
+                //    spawnedEnemyScript.SetAttackPattern(respawns[0].attackPattern);
 
-                    respawns.RemoveAt(0);
-                }
+                //    respawns.RemoveAt(0);
+                //}
             }
 
             try

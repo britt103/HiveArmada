@@ -81,13 +81,13 @@ namespace Hive.Armada.Enemies
         private float randY;
         private float randZ;
 
-        /// <summary>
-        /// On start, select enemy behavior based on value fireMode
-        /// </summary>
-        void Start()
-        {
-            //switchFireMode(fireMode);
-        }
+        ///// <summary>
+        ///// On start, select enemy behavior based on value fireMode
+        ///// </summary>
+        //void Start()
+        //{
+        //    //switchFireMode(fireMode);
+        //}
 
         /// <summary>
         /// tracks player and shoots projectiles in that direction, while being slightly
@@ -167,6 +167,12 @@ namespace Hive.Armada.Enemies
         /// </summary>
         protected override void Reset()
         {
+            // reset materials
+            for (int i = 0; i < renderers.Count; ++i)
+            {
+                renderers[i].material = materials[i];
+            }
+
             projectileTypeIdentifier =
                 enemyAttributes.EnemyProjectileTypeIdentifiers[TypeIdentifier];
             maxHealth = enemyAttributes.enemyHealthValues[TypeIdentifier];

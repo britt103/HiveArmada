@@ -313,13 +313,11 @@ namespace Hive.Armada.Enemies
         /// </summary>
         protected virtual void SelfDestructCountdown()
         {
-            /*
-            selfDestructTime -= Time.deltaTime;
-            if (selfDestructTime <= 0 && untouched)
-            {
-                SelfDestruct();
-            }
-            */
+            //selfDestructTime -= Time.deltaTime;
+            //if (selfDestructTime <= 0 && untouched)
+            //{
+            //    SelfDestruct();
+            //}
         }
     }
 }

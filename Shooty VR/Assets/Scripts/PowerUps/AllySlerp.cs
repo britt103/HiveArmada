@@ -95,9 +95,13 @@ namespace Hive.Armada.PowerUps
             timeLimit -= Time.deltaTime;
             if (timeLimit < 0.0F)
             {
-                //FindObjectOfType<PowerupStatus>().powerupTypeActive[0] = false;
                 Destroy(gameObject);
             }
+
+            //if (!currentTarget.activeSelf)
+            //{
+            //    currentTarget = null;
+            //}
 
             Move();
 
@@ -124,7 +128,7 @@ namespace Hive.Armada.PowerUps
 
                 //faster than non-squared magnitude
                 distance = positionDifference.sqrMagnitude;
-                if (distance < shortestDistance)
+                if (distance < shortestDistance && enemy.activeSelf)
                 {
                     shortestDistance = distance;
                     nearestEnemy = enemy;

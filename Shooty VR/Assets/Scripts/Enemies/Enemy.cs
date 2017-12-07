@@ -107,13 +107,13 @@ namespace Hive.Armada.Enemies
         /// The particle emitter for enemy spawn.
         /// </summary>
         [Tooltip("The particle emitter for enemy spawn.")]
-        public GameObject spawnEmitter;
+        protected GameObject spawnEmitter;
 
         /// <summary>
         /// The particle emitter for enemy death.
         /// </summary>
         [Tooltip("The particle emitter for enemy death.")]
-        public GameObject deathEmitter;
+        protected GameObject deathEmitter;
 
         /// <summary>
         /// Changes to false on first hit.
@@ -127,6 +127,9 @@ namespace Hive.Armada.Enemies
         /// </summary>
         protected Coroutine hitFlash;
 
+        /// <summary>
+        /// List of Renderers on the enemy that will flash when hit.
+        /// </summary>
         protected List<Renderer> renderers;
 
         /// <summary>

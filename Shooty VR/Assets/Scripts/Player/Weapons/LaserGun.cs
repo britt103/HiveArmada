@@ -66,6 +66,11 @@ namespace Hive.Armada.Player.Weapons
         public GameObject hitSparkEmitter;
 
         /// <summary>
+        /// Particle emitter for the muzzle flash effect.
+        /// </summary>
+        public GameObject muzzleFlashEmitter;
+
+        /// <summary>
         /// The audio source for the laser gun sounds
         /// </summary>
         [Header("Audio")]
@@ -142,6 +147,7 @@ namespace Hive.Armada.Player.Weapons
 
                 leftLaser.SetPosition(0, left.transform.position);
                 leftLaser.SetPosition(1, position);
+                Instantiate(muzzleFlashEmitter, left.transform.position, left.transform.rotation, left.transform);
             }
             else
             {
@@ -152,6 +158,7 @@ namespace Hive.Armada.Player.Weapons
 
                 rightLaser.SetPosition(0, right.transform.position);
                 rightLaser.SetPosition(1, position);
+                Instantiate(muzzleFlashEmitter, right.transform.position, right.transform.rotation, right.transform);
             }
 
             StartCoroutine(FlashLaser(isLeftFire));

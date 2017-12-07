@@ -20,21 +20,8 @@ namespace Hive.Armada.Menus
     /// </summary>
     public class StartMenu : MonoBehaviour
     {
-        /// <summary>
-        /// Reference to Reference Manager.
-        /// </summary>
-        private ReferenceManager reference;
-
         public AudioSource source;
         public AudioClip[] clips;
-
-        /// <summary>
-        /// Find references.
-        /// </summary>
-        private void Awake()
-        {
-            reference = FindObjectOfType<ReferenceManager>();
-        }
 
         /// <summary>
         /// Called by start button; transition to Wave Room.
@@ -42,9 +29,8 @@ namespace Hive.Armada.Menus
         public void PressSoloNormal()
         {
             source.PlayOneShot(clips[0]);
-            reference.sceneTransitionManager.TransitionOut("Wave Room");
+            GameObject.Find("Main Canvas").transform.Find("Loadout Menu").gameObject.SetActive(true);
             gameObject.SetActive(false);
-            
         }
 
         /// <summary>

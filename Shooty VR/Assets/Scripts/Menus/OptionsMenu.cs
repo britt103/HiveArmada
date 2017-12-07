@@ -11,6 +11,7 @@
 //=============================================================================
 
 using UnityEngine;
+using Hive.Armada.Game;
 
 namespace Hive.Armada.Menus
 {
@@ -88,6 +89,7 @@ namespace Hive.Armada.Menus
 			source.PlayOneShot(clips[1]);
             GameObject.Find("Main Canvas").transform.Find("Main Menu").gameObject.SetActive(true);
             gameObject.SetActive(false);
+            
         }
     }
 }

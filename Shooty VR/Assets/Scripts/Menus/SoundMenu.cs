@@ -39,8 +39,8 @@ namespace Hive.Armada.Menus
         /// </summary>
         private void Awake()
         {
-            volumeSlider.value = AudioListener.volume;
             reference = FindObjectOfType<ReferenceManager>();
+            volumeSlider.value = reference.optionsValues.masterVolume;
         }
 
         /// <summary>

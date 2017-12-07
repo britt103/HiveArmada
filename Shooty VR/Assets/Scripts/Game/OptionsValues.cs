@@ -53,18 +53,18 @@ namespace Hive.Armada.Game
         /// </summary>
         private ReferenceManager reference;
 
+        [Header("References")]
         /// <summary>
         /// Reference to player camera gameObject.
         /// </summary>
-        private GameObject cameraGO;
+        public GameObject cameraGO;
 
         /// <summary>
-        /// Find references. Set game values using player prefs.
+        /// Find references. Get PlayerPrefs value and set game settings.
         /// </summary>
-        void Awake()
+        private void Awake()
         {
             reference = FindObjectOfType<ReferenceManager>();
-            cameraGO = reference.player.gameObject.GetComponentInChildren<Camera>().gameObject;
 
             GetPlayerPrefs();
             SetGameValues();

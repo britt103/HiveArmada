@@ -174,6 +174,8 @@ namespace Hive.Armada.Player
             {
                 weapons[i].weapon.Initialize(i);
             }
+
+            currentWeapon = FindObjectOfType<ShipLoadout>().weapon;
         }
 
         /// <summary>

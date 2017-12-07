@@ -25,7 +25,7 @@ namespace Hive.Armada.Menus
     	public AudioClip[] clips;
 
         /// <summary>
-        /// Reference to bloom toggle.
+        /// Reference to Bloom Toggle.
         /// </summary>
         public Toggle bloomToggle;
 
@@ -40,6 +40,7 @@ namespace Hive.Armada.Menus
         private void Awake()
         {
             reference = FindObjectOfType<ReferenceManager>();
+            bloomToggle.isOn = reference.optionsValues.bloom;
         }
 
         /// <summary>
@@ -48,7 +49,6 @@ namespace Hive.Armada.Menus
         public void PressBack()
         {
 			source.PlayOneShot(clips[0]);
-
             reference.optionsValues.SetDisplayPlayerPrefs();
             GameObject.Find("Main Canvas").transform.Find("Options Menu").gameObject
                     .SetActive(true);

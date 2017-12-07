@@ -185,6 +185,14 @@ namespace Hive.Armada.Enemies
         /// </summary>
         protected override void Reset()
         {
+            // reset materials
+            for (int i = 0; i < renderers.Count; ++i)
+            {
+                renderers[i].material = materials[i];
+            }
+
+            hitFlash = null;
+
             projectileTypeIdentifier =
                             enemyAttributes.EnemyProjectileTypeIdentifiers[TypeIdentifier];
             maxHealth = enemyAttributes.enemyHealthValues[TypeIdentifier];

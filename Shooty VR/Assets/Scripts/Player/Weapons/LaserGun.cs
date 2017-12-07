@@ -87,13 +87,15 @@ namespace Hive.Armada.Player.Weapons
             {
                 StartCoroutine(Shoot(hit.collider.gameObject.transform.position));
 
+                Vector3 sparkPosition = hit.collider.ClosestPoint(transform.position);
+
+                Instantiate(hitSparkEmitter, sparkPosition,
+                            Quaternion.LookRotation(hit.point - gameObject.transform.position));
+
                 if (hit.collider.gameObject.GetComponent<Enemy>() != null)
                 {
                     hit.collider.gameObject.GetComponent<Enemy>().Hit(damage * damageMultiplier);
                 }
-
-                Instantiate(hitSparkEmitter, hit.point, Quaternion.LookRotation(hit.point - gameObject.transform.position));
-                //Instantiate(hitSparkEmitter, hit.point, Quaternion.LookRotation(hit.normal));
 
                 shipController.hand.controller.TriggerHapticPulse(2500);
             }
@@ -102,14 +104,16 @@ namespace Hive.Armada.Player.Weapons
             {
                 StartCoroutine(Shoot(hit.collider.gameObject.transform.position));
 
+                Vector3 sparkPosition = hit.collider.ClosestPoint(transform.position);
+
+                Instantiate(hitSparkEmitter, sparkPosition,
+                            Quaternion.LookRotation(hit.point - gameObject.transform.position));
+
                 if (hit.collider.gameObject.GetComponent<Shootable>() != null
                     && hit.collider.gameObject.GetComponent<Shootable>().isShootable)
                 {
                     hit.collider.gameObject.GetComponent<Shootable>().Shot();
                 }
-
-                Instantiate(hitSparkEmitter, hit.point, Quaternion.LookRotation(hit.point - gameObject.transform.position));
-                //Instantiate(hitSparkEmitter, hit.point, Quaternion.LookRotation(hit.normal));
 
                 shipController.hand.controller.TriggerHapticPulse(2500);
             }

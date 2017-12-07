@@ -173,6 +173,8 @@ namespace Hive.Armada.Enemies
                 renderers[i].material = materials[i];
             }
 
+            hitFlash = null;
+
             projectileTypeIdentifier =
                 enemyAttributes.EnemyProjectileTypeIdentifiers[TypeIdentifier];
             maxHealth = enemyAttributes.enemyHealthValues[TypeIdentifier];

@@ -31,12 +31,13 @@ namespace Hive.Armada.Player.Weapons
         /// <summary>
         /// Material for the lasers
         /// </summary>
+        [Header("Lasers")]
         public Material laserMaterial;
 
         /// <summary>
-        /// The sound the laser gun makes when it fires.
+        /// Thickness of the lasers
         /// </summary>
-        public AudioClip laserSound;
+        public float thickness = 0.002f;
 
         /// <summary>
         /// Left gun
@@ -59,14 +60,26 @@ namespace Hive.Armada.Player.Weapons
         private LineRenderer rightLaser;
 
         /// <summary>
+        /// Particle emitter for the hit spark effect.
+        /// </summary>
+        [Header("Emitters")]
+        public GameObject hitSparkEmitter;
+
+        /// <summary>
+        /// Particle emitter for the muzzle flash effect.
+        /// </summary>
+        public GameObject muzzleFlashEmitter;
+
+        /// <summary>
         /// The audio source for the laser gun sounds
         /// </summary>
+        [Header("Audio")]
         public AudioSource source;
 
         /// <summary>
-        /// Thickness of the lasers
+        /// The sound the laser gun makes when it fires.
         /// </summary>
-        public float thickness = 0.002f;
+        public AudioClip laserShootSound;
 
         /// <summary>
         /// Gets enemy or wall aimpoint and shoots at it. Will damage enemies.
@@ -79,6 +92,11 @@ namespace Hive.Armada.Player.Weapons
             {
                 StartCoroutine(Shoot(hit.collider.gameObject.transform.position));
 
+                Vector3 sparkPosition = hit.collider.ClosestPoint(transform.position);
+
+                Instantiate(hitSparkEmitter, sparkPosition,
+                            Quaternion.LookRotation(hit.point - gameObject.transform.position));
+
                 if (hit.collider.gameObject.GetComponent<Enemy>() != null)
                 {
                     hit.collider.gameObject.GetComponent<Enemy>().Hit(damage * damageMultiplier);
@@ -90,6 +108,11 @@ namespace Hive.Armada.Player.Weapons
                                      Utility.shootableMask))
             {
                 StartCoroutine(Shoot(hit.collider.gameObject.transform.position));
+
+                Vector3 sparkPosition = hit.collider.ClosestPoint(transform.position);
+
+                Instantiate(hitSparkEmitter, sparkPosition,
+                            Quaternion.LookRotation(hit.point - gameObject.transform.position));
 
                 if (hit.collider.gameObject.GetComponent<Shootable>() != null
                     && hit.collider.gameObject.GetComponent<Shootable>().isShootable)
@@ -121,6 +144,10 @@ namespace Hive.Armada.Player.Weapons
                                      Mathf.Max(
                                          Vector3.Magnitude(left.transform.position - position),
                                          1.0f);
+
+                leftLaser.SetPosition(0, left.transform.position);
+                leftLaser.SetPosition(1, position);
+                Instantiate(muzzleFlashEmitter, left.transform.position, left.transform.rotation, left.transform);
             }
             else
             {
@@ -128,15 +155,15 @@ namespace Hive.Armada.Player.Weapons
                                       Mathf.Max(
                                           Vector3.Magnitude(right.transform.position - position),
                                           1.0f);
+
+                rightLaser.SetPosition(0, right.transform.position);
+                rightLaser.SetPosition(1, position);
+                Instantiate(muzzleFlashEmitter, right.transform.position, right.transform.rotation, right.transform);
             }
 
-            leftLaser.SetPosition(0, left.transform.position);
-            leftLaser.SetPosition(1, position);
-            rightLaser.SetPosition(0, right.transform.position);
-            rightLaser.SetPosition(1, position);
             StartCoroutine(FlashLaser(isLeftFire));
 
-            source.PlayOneShot(laserSound);
+            source.PlayOneShot(laserShootSound);
 
             reference.statistics.IsFiring();
             reference.statistics.WeaponFired("Laser Gun", 1);

@@ -3610,8 +3610,8 @@ MonoBehaviour:
   setupSpawnGroups:
   - spawnZone: 1
     spawnWithPrevious: 0
-    spawnGroupDelay: 1
-    spawnDelay: 2
+    spawnGroupDelay: 0.5
+    spawnDelay: 1.5
     setupEnemySpawns:
     - enemyPrefab: {fileID: 1591170296302446, guid: 77949b1a806d5134791075a88b606d98,
         type: 2}
@@ -3625,7 +3625,7 @@ MonoBehaviour:
     - powerupPrefab: {fileID: 1430950907871662, guid: 7df1875ad51abb947a452aa3ae9c278c,
         type: 2}
       spawnTimeDelayBase: 1
-      spawnTimeDelayRange: 2
+      spawnTimeDelayRange: 1
   - spawnZone: 2
     spawnWithPrevious: 1
     spawnGroupDelay: 0
@@ -3669,8 +3669,8 @@ MonoBehaviour:
   setupSpawnGroups:
   - spawnZone: 3
     spawnWithPrevious: 0
-    spawnGroupDelay: 1
-    spawnDelay: 2
+    spawnGroupDelay: 0.5
+    spawnDelay: 1.5
     setupEnemySpawns:
     - enemyPrefab: {fileID: 1657808963477230, guid: 9d5bf18c82748ee4eab848b404bb835f,
         type: 2}
@@ -3680,7 +3680,7 @@ MonoBehaviour:
   - spawnZone: 1
     spawnWithPrevious: 0
     spawnGroupDelay: 0.5
-    spawnDelay: 2
+    spawnDelay: 1.5
     setupEnemySpawns:
     - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
         type: 2}
@@ -3690,7 +3690,7 @@ MonoBehaviour:
   - spawnZone: 2
     spawnWithPrevious: 0
     spawnGroupDelay: 0.5
-    spawnDelay: 2
+    spawnDelay: 1.5
     setupEnemySpawns:
     - enemyPrefab: {fileID: 1657808963477230, guid: 9d5bf18c82748ee4eab848b404bb835f,
         type: 2}
@@ -3712,8 +3712,8 @@ MonoBehaviour:
   setupSpawnGroups:
   - spawnZone: 2
     spawnWithPrevious: 0
-    spawnGroupDelay: 1
-    spawnDelay: 2
+    spawnGroupDelay: 0.5
+    spawnDelay: 1.25
     setupEnemySpawns:
     - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
         type: 2}
@@ -3723,11 +3723,11 @@ MonoBehaviour:
     - powerupPrefab: {fileID: 1430950907871662, guid: d9f3eb7f8e8b18341a147a1b1db98563,
         type: 2}
       spawnTimeDelayBase: 1
-      spawnTimeDelayRange: 2
+      spawnTimeDelayRange: 1
   - spawnZone: 5
     spawnWithPrevious: 0
     spawnGroupDelay: 0.5
-    spawnDelay: 2
+    spawnDelay: 1.25
     setupEnemySpawns:
     - enemyPrefab: {fileID: 1657808963477230, guid: 9d5bf18c82748ee4eab848b404bb835f,
         type: 2}
@@ -3737,7 +3737,7 @@ MonoBehaviour:
   - spawnZone: 5
     spawnWithPrevious: 0
     spawnGroupDelay: 0.5
-    spawnDelay: 2
+    spawnDelay: 1.25
     setupEnemySpawns:
     - enemyPrefab: {fileID: 1657808963477230, guid: 9d5bf18c82748ee4eab848b404bb835f,
         type: 2}
@@ -3747,7 +3747,7 @@ MonoBehaviour:
   - spawnZone: 3
     spawnWithPrevious: 0
     spawnGroupDelay: 0.5
-    spawnDelay: 2
+    spawnDelay: 1.25
     setupEnemySpawns:
     - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
         type: 2}
@@ -3769,8 +3769,8 @@ MonoBehaviour:
   setupSpawnGroups:
   - spawnZone: 3
     spawnWithPrevious: 0
-    spawnGroupDelay: 1
-    spawnDelay: 2
+    spawnGroupDelay: 0.5
+    spawnDelay: 1.5
     setupEnemySpawns:
     - enemyPrefab: {fileID: 1591170296302446, guid: 77949b1a806d5134791075a88b606d98,
         type: 2}
@@ -3796,8 +3796,8 @@ MonoBehaviour:
   setupSpawnGroups:
   - spawnZone: 1
     spawnWithPrevious: 0
-    spawnGroupDelay: 4
-    spawnDelay: 2
+    spawnGroupDelay: 2
+    spawnDelay: 1.5
     setupEnemySpawns:
     - enemyPrefab: {fileID: 1320547421668860, guid: 7b44f96ffc1d34448bbb3dfb12c72d56,
         type: 2}
@@ -3806,8 +3806,8 @@ MonoBehaviour:
     setupPowerupSpawns:
     - powerupPrefab: {fileID: 1430950907871662, guid: f37fe7f0b262cc54bbc3a48f855c1548,
         type: 2}
-      spawnTimeDelayBase: 0
-      spawnTimeDelayRange: 0
+      spawnTimeDelayBase: 1
+      spawnTimeDelayRange: 1
 --- !u!114 &114147316350463428
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3823,8 +3823,8 @@ MonoBehaviour:
   setupSpawnGroups:
   - spawnZone: 1
     spawnWithPrevious: 0
-    spawnGroupDelay: 1
-    spawnDelay: 2
+    spawnGroupDelay: 0.5
+    spawnDelay: 1.5
     setupEnemySpawns:
     - enemyPrefab: {fileID: 1591170296302446, guid: 77949b1a806d5134791075a88b606d98,
         type: 2}
@@ -3834,7 +3834,7 @@ MonoBehaviour:
     - powerupPrefab: {fileID: 1430950907871662, guid: 0801a6d9bab5c6b44b1a5d89a25afcef,
         type: 2}
       spawnTimeDelayBase: 1
-      spawnTimeDelayRange: 3
+      spawnTimeDelayRange: 1
   - spawnZone: 4
     spawnWithPrevious: 1
     spawnGroupDelay: 0
@@ -3871,7 +3871,7 @@ MonoBehaviour:
   - spawnZone: 1
     spawnWithPrevious: 0
     spawnGroupDelay: 1
-    spawnDelay: 2
+    spawnDelay: 1.5
     setupEnemySpawns:
     - enemyPrefab: {fileID: 1657808963477230, guid: 9d5bf18c82748ee4eab848b404bb835f,
         type: 2}
@@ -3914,7 +3914,7 @@ MonoBehaviour:
   - spawnZone: 1
     spawnWithPrevious: 0
     spawnGroupDelay: 0.5
-    spawnDelay: 2
+    spawnDelay: 1.5
     setupEnemySpawns:
     - enemyPrefab: {fileID: 1320547421668860, guid: 7b44f96ffc1d34448bbb3dfb12c72d56,
         type: 2}
@@ -3940,8 +3940,8 @@ MonoBehaviour:
   setupSpawnGroups:
   - spawnZone: 3
     spawnWithPrevious: 0
-    spawnGroupDelay: 1
-    spawnDelay: 2
+    spawnGroupDelay: 0.5
+    spawnDelay: 1.5
     setupEnemySpawns:
     - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
         type: 2}
@@ -3951,11 +3951,11 @@ MonoBehaviour:
     - powerupPrefab: {fileID: 1430950907871662, guid: d9f3eb7f8e8b18341a147a1b1db98563,
         type: 2}
       spawnTimeDelayBase: 1
-      spawnTimeDelayRange: 2
+      spawnTimeDelayRange: 1
   - spawnZone: 5
     spawnWithPrevious: 0
     spawnGroupDelay: 0.5
-    spawnDelay: 2
+    spawnDelay: 1.25
     setupEnemySpawns:
     - enemyPrefab: {fileID: 1320547421668860, guid: 7b44f96ffc1d34448bbb3dfb12c72d56,
         type: 2}
@@ -3985,7 +3985,7 @@ MonoBehaviour:
   - spawnZone: 2
     spawnWithPrevious: 0
     spawnGroupDelay: 0.5
-    spawnDelay: 2
+    spawnDelay: 1.5
     setupEnemySpawns:
     - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
         type: 2}
@@ -4008,7 +4008,7 @@ MonoBehaviour:
   - spawnZone: 1
     spawnWithPrevious: 0
     spawnGroupDelay: 0.2
-    spawnDelay: 3.5
+    spawnDelay: 1.5
     setupEnemySpawns:
     - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
         type: 2}
@@ -4031,7 +4031,7 @@ MonoBehaviour:
   - spawnZone: 1
     spawnWithPrevious: 0
     spawnGroupDelay: 0.2
-    spawnDelay: 3
+    spawnDelay: 1.5
     setupEnemySpawns:
     - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
         type: 2}
@@ -4053,8 +4053,8 @@ MonoBehaviour:
   setupSpawnGroups:
   - spawnZone: 1
     spawnWithPrevious: 0
-    spawnGroupDelay: 1
-    spawnDelay: 2.5
+    spawnGroupDelay: 0.5
+    spawnDelay: 1.5
     setupEnemySpawns:
     - enemyPrefab: {fileID: 1657808963477230, guid: 9d5bf18c82748ee4eab848b404bb835f,
         type: 2}
@@ -4064,7 +4064,7 @@ MonoBehaviour:
     - powerupPrefab: {fileID: 1430950907871662, guid: 0801a6d9bab5c6b44b1a5d89a25afcef,
         type: 2}
       spawnTimeDelayBase: 1
-      spawnTimeDelayRange: 2
+      spawnTimeDelayRange: 1
   - spawnZone: 2
     spawnWithPrevious: 1
     spawnGroupDelay: 0
@@ -4115,8 +4115,8 @@ MonoBehaviour:
   setupSpawnGroups:
   - spawnZone: 1
     spawnWithPrevious: 0
-    spawnGroupDelay: 0
-    spawnDelay: 0
+    spawnGroupDelay: 1
+    spawnDelay: 1.5
     setupEnemySpawns:
     - enemyPrefab: {fileID: 1320547421668860, guid: 7b44f96ffc1d34448bbb3dfb12c72d56,
         type: 2}
@@ -4126,7 +4126,7 @@ MonoBehaviour:
     - powerupPrefab: {fileID: 1430950907871662, guid: f37fe7f0b262cc54bbc3a48f855c1548,
         type: 2}
       spawnTimeDelayBase: 1
-      spawnTimeDelayRange: 3
+      spawnTimeDelayRange: 1
   - spawnZone: 2
     spawnWithPrevious: 1
     spawnGroupDelay: 0
@@ -4177,8 +4177,8 @@ MonoBehaviour:
   setupSpawnGroups:
   - spawnZone: 4
     spawnWithPrevious: 0
-    spawnGroupDelay: 1
-    spawnDelay: 2
+    spawnGroupDelay: 0.5
+    spawnDelay: 1.5
     setupEnemySpawns:
     - enemyPrefab: {fileID: 1320547421668860, guid: 7b44f96ffc1d34448bbb3dfb12c72d56,
         type: 2}
@@ -4236,7 +4236,7 @@ MonoBehaviour:
   - spawnZone: 1
     spawnWithPrevious: 0
     spawnGroupDelay: 1
-    spawnDelay: 2
+    spawnDelay: 1.5
     setupEnemySpawns:
     - enemyPrefab: {fileID: 1591170296302446, guid: 77949b1a806d5134791075a88b606d98,
         type: 2}
@@ -4317,7 +4317,7 @@ MonoBehaviour:
   - spawnZone: 1
     spawnWithPrevious: 0
     spawnGroupDelay: 1
-    spawnDelay: 2.5
+    spawnDelay: 1.5
     setupEnemySpawns:
     - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
         type: 2}
@@ -4327,7 +4327,7 @@ MonoBehaviour:
     - powerupPrefab: {fileID: 1430950907871662, guid: 7df1875ad51abb947a452aa3ae9c278c,
         type: 2}
       spawnTimeDelayBase: 1
-      spawnTimeDelayRange: 2
+      spawnTimeDelayRange: 1
   - spawnZone: 4
     spawnWithPrevious: 1
     spawnGroupDelay: 0
@@ -4364,7 +4364,7 @@ MonoBehaviour:
   - spawnZone: 1
     spawnWithPrevious: 0
     spawnGroupDelay: 0.5
-    spawnDelay: 2
+    spawnDelay: 1.75
     setupEnemySpawns:
     - enemyPrefab: {fileID: 1320547421668860, guid: 7b44f96ffc1d34448bbb3dfb12c72d56,
         type: 2}
@@ -4390,8 +4390,8 @@ MonoBehaviour:
   setupSpawnGroups:
   - spawnZone: 1
     spawnWithPrevious: 0
-    spawnGroupDelay: 1
-    spawnDelay: 2.75
+    spawnGroupDelay: 0.5
+    spawnDelay: 1.5
     setupEnemySpawns:
     - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
         type: 2}
@@ -4400,8 +4400,8 @@ MonoBehaviour:
     setupPowerupSpawns: []
   - spawnZone: 2
     spawnWithPrevious: 0
-    spawnGroupDelay: 1
-    spawnDelay: 2.75
+    spawnGroupDelay: 0.5
+    spawnDelay: 1.5
     setupEnemySpawns:
     - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
         type: 2}
@@ -4433,8 +4433,8 @@ MonoBehaviour:
   setupSpawnGroups:
   - spawnZone: 1
     spawnWithPrevious: 0
-    spawnGroupDelay: 1
-    spawnDelay: 2.5
+    spawnGroupDelay: 0.5
+    spawnDelay: 1.5
     setupEnemySpawns:
     - enemyPrefab: {fileID: 1591170296302446, guid: 77949b1a806d5134791075a88b606d98,
         type: 2}
@@ -4448,7 +4448,7 @@ MonoBehaviour:
     - powerupPrefab: {fileID: 1430950907871662, guid: 7df1875ad51abb947a452aa3ae9c278c,
         type: 2}
       spawnTimeDelayBase: 1
-      spawnTimeDelayRange: 2
+      spawnTimeDelayRange: 1
   - spawnZone: 2
     spawnWithPrevious: 1
     spawnGroupDelay: 0
@@ -4540,8 +4540,8 @@ MonoBehaviour:
     setupPowerupSpawns: []
   - spawnZone: 1
     spawnWithPrevious: 0
-    spawnGroupDelay: 2.5
-    spawnDelay: 2
+    spawnGroupDelay: 2
+    spawnDelay: 1.5
     setupEnemySpawns:
     - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
         type: 2}
@@ -4563,8 +4563,8 @@ MonoBehaviour:
   setupSpawnGroups:
   - spawnZone: 3
     spawnWithPrevious: 0
-    spawnGroupDelay: 3
-    spawnDelay: 2.5
+    spawnGroupDelay: 1.5
+    spawnDelay: 1.5
     setupEnemySpawns:
     - enemyPrefab: {fileID: 1320547421668860, guid: 7b44f96ffc1d34448bbb3dfb12c72d56,
         type: 2}
@@ -4596,8 +4596,8 @@ MonoBehaviour:
   setupSpawnGroups:
   - spawnZone: 2
     spawnWithPrevious: 0
-    spawnGroupDelay: 1
-    spawnDelay: 2.5
+    spawnGroupDelay: 0.5
+    spawnDelay: 1.5
     setupEnemySpawns:
     - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
         type: 2}
@@ -4640,7 +4640,7 @@ MonoBehaviour:
   - spawnZone: 1
     spawnWithPrevious: 0
     spawnGroupDelay: 0.5
-    spawnDelay: 2
+    spawnDelay: 1.5
     setupEnemySpawns:
     - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
         type: 2}
@@ -4687,8 +4687,8 @@ MonoBehaviour:
   setupSpawnGroups:
   - spawnZone: 3
     spawnWithPrevious: 0
-    spawnGroupDelay: 1
-    spawnDelay: 2.75
+    spawnGroupDelay: 0.5
+    spawnDelay: 1.5
     setupEnemySpawns:
     - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
         type: 2}
@@ -4697,8 +4697,8 @@ MonoBehaviour:
     setupPowerupSpawns: []
   - spawnZone: 1
     spawnWithPrevious: 0
-    spawnGroupDelay: 3
-    spawnDelay: 2.75
+    spawnGroupDelay: 1
+    spawnDelay: 1.5
     setupEnemySpawns:
     - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
         type: 2}
@@ -4736,7 +4736,7 @@ MonoBehaviour:
   - spawnZone: 1
     spawnWithPrevious: 0
     spawnGroupDelay: 0.5
-    spawnDelay: 2
+    spawnDelay: 1.5
     setupEnemySpawns:
     - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
         type: 2}
@@ -4769,7 +4769,7 @@ MonoBehaviour:
   - spawnZone: 1
     spawnWithPrevious: 0
     spawnGroupDelay: 1
-    spawnDelay: 2.5
+    spawnDelay: 1.75
     setupEnemySpawns:
     - enemyPrefab: {fileID: 1320547421668860, guid: 7b44f96ffc1d34448bbb3dfb12c72d56,
         type: 2}
@@ -4779,7 +4779,7 @@ MonoBehaviour:
     - powerupPrefab: {fileID: 1430950907871662, guid: 7df1875ad51abb947a452aa3ae9c278c,
         type: 2}
       spawnTimeDelayBase: 1
-      spawnTimeDelayRange: 3
+      spawnTimeDelayRange: 1
   - spawnZone: 2
     spawnWithPrevious: 1
     spawnGroupDelay: 0
@@ -4823,8 +4823,8 @@ MonoBehaviour:
   setupSpawnGroups:
   - spawnZone: 1
     spawnWithPrevious: 0
-    spawnGroupDelay: 1
-    spawnDelay: 2
+    spawnGroupDelay: 0.5
+    spawnDelay: 1.5
     setupEnemySpawns:
     - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
         type: 2}
@@ -4834,7 +4834,7 @@ MonoBehaviour:
     - powerupPrefab: {fileID: 1430950907871662, guid: f37fe7f0b262cc54bbc3a48f855c1548,
         type: 2}
       spawnTimeDelayBase: 1
-      spawnTimeDelayRange: 2
+      spawnTimeDelayRange: 1
   - spawnZone: 4
     spawnWithPrevious: 1
     spawnGroupDelay: 0
@@ -4870,8 +4870,8 @@ MonoBehaviour:
   setupSpawnGroups:
   - spawnZone: 1
     spawnWithPrevious: 0
-    spawnGroupDelay: 1
-    spawnDelay: 2
+    spawnGroupDelay: 0.5
+    spawnDelay: 1.5
     setupEnemySpawns:
     - enemyPrefab: {fileID: 1591170296302446, guid: 77949b1a806d5134791075a88b606d98,
         type: 2}
@@ -4885,7 +4885,7 @@ MonoBehaviour:
     - powerupPrefab: {fileID: 1430950907871662, guid: 0801a6d9bab5c6b44b1a5d89a25afcef,
         type: 2}
       spawnTimeDelayBase: 1
-      spawnTimeDelayRange: 2
+      spawnTimeDelayRange: 1
   - spawnZone: 2
     spawnWithPrevious: 1
     spawnGroupDelay: 0
@@ -4958,7 +4958,7 @@ MonoBehaviour:
   - spawnZone: 1
     spawnWithPrevious: 0
     spawnGroupDelay: 1
-    spawnDelay: 2.5
+    spawnDelay: 1.75
     setupEnemySpawns:
     - enemyPrefab: {fileID: 1320547421668860, guid: 7b44f96ffc1d34448bbb3dfb12c72d56,
         type: 2}
@@ -4985,7 +4985,7 @@ MonoBehaviour:
   - spawnZone: 2
     spawnWithPrevious: 0
     spawnGroupDelay: 1
-    spawnDelay: 2.5
+    spawnDelay: 1.75
     setupEnemySpawns:
     - enemyPrefab: {fileID: 1320547421668860, guid: 7b44f96ffc1d34448bbb3dfb12c72d56,
         type: 2}
@@ -5017,8 +5017,8 @@ MonoBehaviour:
   setupSpawnGroups:
   - spawnZone: 1
     spawnWithPrevious: 0
-    spawnGroupDelay: 1
-    spawnDelay: 2
+    spawnGroupDelay: 0.5
+    spawnDelay: 1.5
     setupEnemySpawns:
     - enemyPrefab: {fileID: 1320547421668860, guid: 7b44f96ffc1d34448bbb3dfb12c72d56,
         type: 2}
@@ -5032,7 +5032,7 @@ MonoBehaviour:
     - powerupPrefab: {fileID: 1430950907871662, guid: f37fe7f0b262cc54bbc3a48f855c1548,
         type: 2}
       spawnTimeDelayBase: 1
-      spawnTimeDelayRange: 2
+      spawnTimeDelayRange: 1
   - spawnZone: 2
     spawnWithPrevious: 1
     spawnGroupDelay: 0
@@ -5089,7 +5089,7 @@ MonoBehaviour:
   powerupSpawnZone:
     lowerBound: {fileID: 1782278475901154}
     upperBound: {fileID: 1206385740099510}
-  startingWave: 3
+  startingWave: 1
   startingSubwave: 1
   waves:
   - {fileID: 114964096998298972}
@@ -5155,8 +5155,8 @@ MonoBehaviour:
   setupSpawnGroups:
   - spawnZone: 1
     spawnWithPrevious: 0
-    spawnGroupDelay: 1
-    spawnDelay: 2
+    spawnGroupDelay: 0.5
+    spawnDelay: 1.5
     setupEnemySpawns:
     - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
         type: 2}
@@ -5190,7 +5190,7 @@ MonoBehaviour:
   - spawnZone: 2
     spawnWithPrevious: 0
     spawnGroupDelay: 0.5
-    spawnDelay: 2.5
+    spawnDelay: 1.5
     setupEnemySpawns:
     - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
         type: 2}
@@ -5223,7 +5223,7 @@ MonoBehaviour:
   - spawnZone: 1
     spawnWithPrevious: 0
     spawnGroupDelay: 1
-    spawnDelay: 2
+    spawnDelay: 1.5
     setupEnemySpawns:
     - enemyPrefab: {fileID: 1657808963477230, guid: 9d5bf18c82748ee4eab848b404bb835f,
         type: 2}
@@ -5232,8 +5232,8 @@ MonoBehaviour:
     setupPowerupSpawns: []
   - spawnZone: 2
     spawnWithPrevious: 1
-    spawnGroupDelay: 1
-    spawnDelay: 2
+    spawnGroupDelay: 0
+    spawnDelay: 0
     setupEnemySpawns:
     - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
         type: 2}
@@ -5242,8 +5242,8 @@ MonoBehaviour:
     setupPowerupSpawns: []
   - spawnZone: 3
     spawnWithPrevious: 1
-    spawnGroupDelay: 1
-    spawnDelay: 2
+    spawnGroupDelay: 0
+    spawnDelay: 0
     setupEnemySpawns:
     - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
         type: 2}
@@ -5295,8 +5295,8 @@ MonoBehaviour:
   setupSpawnGroups:
   - spawnZone: 2
     spawnWithPrevious: 0
-    spawnGroupDelay: 1
-    spawnDelay: 2
+    spawnGroupDelay: 0.5
+    spawnDelay: 1.5
     setupEnemySpawns:
     - enemyPrefab: {fileID: 1591170296302446, guid: 77949b1a806d5134791075a88b606d98,
         type: 2}
@@ -5323,7 +5323,7 @@ MonoBehaviour:
   - spawnZone: 4
     spawnWithPrevious: 0
     spawnGroupDelay: 1
-    spawnDelay: 2
+    spawnDelay: 1.5
     setupEnemySpawns:
     - enemyPrefab: {fileID: 1320547421668860, guid: 7b44f96ffc1d34448bbb3dfb12c72d56,
         type: 2}
@@ -5342,8 +5342,8 @@ MonoBehaviour:
     setupPowerupSpawns: []
   - spawnZone: 1
     spawnWithPrevious: 0
-    spawnGroupDelay: 5
-    spawnDelay: 2
+    spawnGroupDelay: 2
+    spawnDelay: 1.5
     setupEnemySpawns:
     - enemyPrefab: {fileID: 1320547421668860, guid: 7b44f96ffc1d34448bbb3dfb12c72d56,
         type: 2}
@@ -5366,7 +5366,7 @@ MonoBehaviour:
   - spawnZone: 2
     spawnWithPrevious: 0
     spawnGroupDelay: 1
-    spawnDelay: 2.75
+    spawnDelay: 1.5
     setupEnemySpawns:
     - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
         type: 2}
@@ -5375,8 +5375,8 @@ MonoBehaviour:
     setupPowerupSpawns: []
   - spawnZone: 1
     spawnWithPrevious: 0
-    spawnGroupDelay: 1
-    spawnDelay: 2.75
+    spawnGroupDelay: 0
+    spawnDelay: 1.5
     setupEnemySpawns:
     - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
         type: 2}
@@ -5413,7 +5413,7 @@ MonoBehaviour:
   setupSpawnGroups:
   - spawnZone: 0
     spawnWithPrevious: 0
-    spawnGroupDelay: 0
+    spawnGroupDelay: 0.5
     spawnDelay: 0
     setupEnemySpawns:
     - enemyPrefab: {fileID: 1657808963477230, guid: 9d5bf18c82748ee4eab848b404bb835f,
@@ -5424,7 +5424,7 @@ MonoBehaviour:
   - spawnZone: 1
     spawnWithPrevious: 0
     spawnGroupDelay: 2
-    spawnDelay: 2.5
+    spawnDelay: 1.5
     setupEnemySpawns:
     - enemyPrefab: {fileID: 1657808963477230, guid: 9d5bf18c82748ee4eab848b404bb835f,
         type: 2}
@@ -5446,8 +5446,8 @@ MonoBehaviour:
   setupSpawnGroups:
   - spawnZone: 2
     spawnWithPrevious: 0
-    spawnGroupDelay: 1
-    spawnDelay: 2.75
+    spawnGroupDelay: 0.5
+    spawnDelay: 1.5
     setupEnemySpawns:
     - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
         type: 2}
@@ -5457,7 +5457,7 @@ MonoBehaviour:
   - spawnZone: 1
     spawnWithPrevious: 0
     spawnGroupDelay: 0.5
-    spawnDelay: 2.75
+    spawnDelay: 1.5
     setupEnemySpawns:
     - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
         type: 2}
@@ -5467,7 +5467,7 @@ MonoBehaviour:
   - spawnZone: 5
     spawnWithPrevious: 0
     spawnGroupDelay: 0.5
-    spawnDelay: 2.75
+    spawnDelay: 1.5
     setupEnemySpawns:
     - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
         type: 2}
@@ -5519,8 +5519,8 @@ MonoBehaviour:
   setupSpawnGroups:
   - spawnZone: 2
     spawnWithPrevious: 0
-    spawnGroupDelay: 3
-    spawnDelay: 2.5
+    spawnGroupDelay: 1.5
+    spawnDelay: 1.5
     setupEnemySpawns:
     - enemyPrefab: {fileID: 1320547421668860, guid: 7b44f96ffc1d34448bbb3dfb12c72d56,
         type: 2}
@@ -5553,7 +5553,7 @@ MonoBehaviour:
   - spawnZone: 1
     spawnWithPrevious: 0
     spawnGroupDelay: 1
-    spawnDelay: 2.5
+    spawnDelay: 1.75
     setupEnemySpawns:
     - enemyPrefab: {fileID: 1320547421668860, guid: 7b44f96ffc1d34448bbb3dfb12c72d56,
         type: 2}
@@ -5596,7 +5596,7 @@ MonoBehaviour:
   - spawnZone: 0
     spawnWithPrevious: 0
     spawnGroupDelay: 1
-    spawnDelay: 2
+    spawnDelay: 1.5
     setupEnemySpawns:
     - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
         type: 2}
@@ -5618,8 +5618,8 @@ MonoBehaviour:
   setupSpawnGroups:
   - spawnZone: 2
     spawnWithPrevious: 0
-    spawnGroupDelay: 1
-    spawnDelay: 2
+    spawnGroupDelay: 0.5
+    spawnDelay: 1.25
     setupEnemySpawns:
     - enemyPrefab: {fileID: 1657808963477230, guid: 9d5bf18c82748ee4eab848b404bb835f,
         type: 2}
@@ -5659,7 +5659,7 @@ MonoBehaviour:
   - spawnZone: 1
     spawnWithPrevious: 0
     spawnGroupDelay: 0.5
-    spawnDelay: 1.75
+    spawnDelay: 1.25
     setupEnemySpawns:
     - enemyPrefab: {fileID: 1591170296302446, guid: 77949b1a806d5134791075a88b606d98,
         type: 2}
@@ -5685,8 +5685,8 @@ MonoBehaviour:
   setupSpawnGroups:
   - spawnZone: 3
     spawnWithPrevious: 0
-    spawnGroupDelay: 1
-    spawnDelay: 2.75
+    spawnGroupDelay: 0.5
+    spawnDelay: 1.5
     setupEnemySpawns:
     - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
         type: 2}
@@ -5696,7 +5696,7 @@ MonoBehaviour:
   - spawnZone: 1
     spawnWithPrevious: 0
     spawnGroupDelay: 0.5
-    spawnDelay: 2.75
+    spawnDelay: 1.5
     setupEnemySpawns:
     - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
         type: 2}
@@ -5706,7 +5706,7 @@ MonoBehaviour:
   - spawnZone: 4
     spawnWithPrevious: 0
     spawnGroupDelay: 0.5
-    spawnDelay: 2.75
+    spawnDelay: 1.5
     setupEnemySpawns:
     - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
         type: 2}

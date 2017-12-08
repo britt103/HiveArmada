@@ -155,13 +155,13 @@ namespace Hive.Armada.Game
                 ExpandPool(typeIdentifier);
             }
 
-            LinkedListNode<GameObject> spawnedNode = inactivePools[typeIdentifier].Last;
+            LinkedListNode<GameObject> spawnedNode = inactivePools[typeIdentifier].First;
             GameObject spawned = spawnedNode.Value;
-            inactivePools[typeIdentifier].RemoveLast();
+            inactivePools[typeIdentifier].RemoveFirst();
             activePools[typeIdentifier].AddLast(spawnedNode);
 
-            spawned.GetComponent<Poolable>().Activate();
             spawned.transform.position = position;
+            spawned.GetComponent<Poolable>().Activate();
 
             return spawned;
         }
@@ -187,14 +187,14 @@ namespace Hive.Armada.Game
                 ExpandPool(typeIdentifier);
             }
 
-            LinkedListNode<GameObject> spawnedNode = inactivePools[typeIdentifier].Last;
+            LinkedListNode<GameObject> spawnedNode = inactivePools[typeIdentifier].First;
             GameObject spawned = spawnedNode.Value;
-            inactivePools[typeIdentifier].RemoveLast();
+            inactivePools[typeIdentifier].RemoveFirst();
             activePools[typeIdentifier].AddLast(spawnedNode);
 
-            spawned.GetComponent<Poolable>().Activate();
             spawned.transform.position = position;
             spawned.transform.parent = parent;
+            spawned.GetComponent<Poolable>().Activate();
 
             return spawned;
         }
@@ -220,14 +220,14 @@ namespace Hive.Armada.Game
                 ExpandPool(typeIdentifier);
             }
 
-            LinkedListNode<GameObject> spawnedNode = inactivePools[typeIdentifier].Last;
+            LinkedListNode<GameObject> spawnedNode = inactivePools[typeIdentifier].First;
             GameObject spawned = spawnedNode.Value;
-            inactivePools[typeIdentifier].RemoveLast();
+            inactivePools[typeIdentifier].RemoveFirst();
             activePools[typeIdentifier].AddLast(spawnedNode);
 
-            spawned.GetComponent<Poolable>().Activate();
             spawned.transform.position = position;
             spawned.transform.rotation = rotation;
+            spawned.GetComponent<Poolable>().Activate();
 
             return spawned;
         }
@@ -255,15 +255,15 @@ namespace Hive.Armada.Game
                 ExpandPool(typeIdentifier);
             }
 
-            LinkedListNode<GameObject> spawnedNode = inactivePools[typeIdentifier].Last;
+            LinkedListNode<GameObject> spawnedNode = inactivePools[typeIdentifier].First;
             GameObject spawned = spawnedNode.Value;
-            inactivePools[typeIdentifier].RemoveLast();
+            inactivePools[typeIdentifier].RemoveFirst();
             activePools[typeIdentifier].AddLast(spawnedNode);
 
-            spawned.GetComponent<Poolable>().Activate();
             spawned.transform.parent = parent;
             spawned.transform.position = position;
             spawned.transform.rotation = rotation;
+            spawned.GetComponent<Poolable>().Activate();
 
             return spawned;
         }
@@ -393,8 +393,7 @@ namespace Hive.Armada.Game
         {
             GameObject pooled = Instantiate(objectsToPool[typeIdentifier],
                                             poolParents[typeIdentifier].transform);
-            pooled.GetComponent<Poolable>()
-                  .Initialize(typeIdentifier);
+            pooled.GetComponent<Poolable>().Initialize(typeIdentifier);
             inactivePools[typeIdentifier].AddLast(pooled);
         }
     }

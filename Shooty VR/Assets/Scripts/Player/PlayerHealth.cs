@@ -167,6 +167,15 @@ namespace Hive.Armada.Player
             int podIndex = (maxHealth - currentHealth) / 10;
             healthPods[podIndex].material = podDestroyedMaterial;
 
+            if (podHitEmitter)
+            {
+                Instantiate(podHitEmitter, transform);
+            }
+            else
+            {
+
+            }
+
             Instantiate(hitEmitter, transform);
             currentHealth -= damage;
             source.PlayOneShot(hitSound);

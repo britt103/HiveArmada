@@ -12,6 +12,7 @@
 using System.Collections;
 using System.Linq;
 using UnityEngine;
+using MirzaBeig.ParticleSystems;
 
 namespace Hive.Armada.Enemies
 {
@@ -83,11 +84,10 @@ namespace Hive.Armada.Enemies
             {
                 StartCoroutine(InRange());
             }
-            if (shaking)
-            {
-                iTween.ShakePosition(gameObject, new Vector3(0.1f, 0.1f, 0.1f), 0.1f);
-
-            }
+            //if (shaking)
+            //{
+            //    iTween.ShakePosition(gameObject, new Vector3(0.1f, 0.1f, 0.1f), 0.1f);
+            //}
         }
 
         /// <summary>
@@ -120,7 +120,7 @@ namespace Hive.Armada.Enemies
             // reset materials
             for (int i = 0; i < renderers.Count; ++i)
             {
-                renderers[i].material = materials[i];
+                renderers.ElementAt(i).material = materials.ElementAt(i);
             }
 
             if (Vector3.Distance(transform.position, player.transform.position) < range)
@@ -142,10 +142,23 @@ namespace Hive.Armada.Enemies
             }
 
             hitFlash = null;
+            shaking = false;
 
             maxHealth = enemyAttributes.enemyHealthValues[TypeIdentifier];
             Health = maxHealth;
             pointValue = enemyAttributes.enemyScoreValues[TypeIdentifier];
+
+            if (!isInitialized)
+            {
+                isInitialized = true;
+
+                GameObject spawnEmitterObject = Instantiate(spawnEmitter,
+                                                            transform.position,
+                                                            transform.rotation, transform);
+                spawnEmitterSystem = spawnEmitterObject.GetComponent<ParticleSystems>();
+
+                deathEmitterTypeIdentifier = objectPoolManager.GetTypeIdentifier(deathEmitter);
+            }
         }
     }
 }

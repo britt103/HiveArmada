@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Hive.Armada.Game;
+using MirzaBeig.ParticleSystems;
 
 namespace Hive.Armada.Enemies
 {
@@ -80,6 +81,11 @@ namespace Hive.Armada.Enemies
         protected Subwave subwave;
 
         /// <summary>
+        /// Whether or not this enemy has already been initialized with its attributes.
+        /// </summary>
+        protected bool isInitialized;
+
+        /// <summary>
         /// How much health the enemy spawns with.
         /// TODO: Move this to EnemyStats script
         /// </summary>
@@ -110,10 +116,20 @@ namespace Hive.Armada.Enemies
         public GameObject spawnEmitter;
 
         /// <summary>
+        /// The particle system for the enemy spawn emitter.
+        /// </summary>
+        protected ParticleSystems spawnEmitterSystem;
+
+        /// <summary>
         /// The particle emitter for enemy death.
         /// </summary>
         [Tooltip("The particle emitter for enemy death.")]
         public GameObject deathEmitter;
+
+        /// <summary>
+        /// The type identifier needed to spawn the death emitter from the object pool.
+        /// </summary>
+        protected int deathEmitterTypeIdentifier;
 
         /// <summary>
         /// Changes to false on first hit.
@@ -156,7 +172,8 @@ namespace Hive.Armada.Enemies
         protected bool shaking = false;
 
         /// <summary>
-        /// Initializes references to ReferenceManager and other managers.
+        /// Initializes references to ReferenceManager and other managers, list of renderers and
+        /// their materials for HitFlash(), and spawns the spawn particle emitter.
         /// </summary>
         public virtual void Awake()
         {
@@ -187,6 +204,31 @@ namespace Hive.Armada.Enemies
                 renderers.Add(r);
                 materials.Add(r.material);
             }
+
+            Reset();
+        }
+
+        /// <summary>
+        /// Plays the spawn particle emitter.
+        /// </summary>
+        private void OnEnable()
+        {
+            if (isInitialized)
+            {
+                spawnEmitterSystem.play();
+            }
+        }
+
+        /// <summary>
+        /// Stops the spawn particle emitter and clears all particles.
+        /// </summary>
+        private void OnDisable()
+        {
+            if (isInitialized)
+            {
+                spawnEmitterSystem.stop();
+                spawnEmitterSystem.clear();
+            }
         }
 
         /// <summary>
@@ -202,10 +244,10 @@ namespace Hive.Armada.Enemies
                 hitFlash = StartCoroutine(HitFlash());
             }
 
-            if (Health <= 20)
-            {
-                //shaking = true;
-            }
+            //if (Health <= 20)
+            //{
+            //    shaking = true;
+            //}
 
             if (Health <= 0)
             {
@@ -233,7 +275,10 @@ namespace Hive.Armada.Enemies
             subwave.EnemyDead();
             scoringSystem.AddScore(pointValue);
             reference.statistics.EnemyKilled();
-            Instantiate(deathEmitter, transform.position, transform.rotation);
+            objectPoolManager.Spawn(deathEmitterTypeIdentifier, transform.position,
+                                    transform.rotation);
+
+            //Instantiate(deathEmitter, transform.position, transform.rotation);
 
             objectPoolManager.Despawn(gameObject);
         }
@@ -249,7 +294,11 @@ namespace Hive.Armada.Enemies
         /// </summary>
         protected virtual void SelfDestruct()
         {
+            objectPoolManager.Spawn(deathEmitterTypeIdentifier, transform.position,
+                                    transform.rotation);
             subwave.AddRespawn(enemySpawn);
+            subwave.EnemyHit();
+            objectPoolManager.Despawn(gameObject);
         }
 
         /// <summary>
@@ -300,26 +349,24 @@ namespace Hive.Armada.Enemies
             this.attackPattern = attackPattern;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        protected override void SpawnEffects()
-        {
-            Instantiate(spawnEmitter, transform.position, transform.rotation, transform);
-        }
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        //protected override void SpawnEffects()
+        //{
+        //    Instantiate(spawnEmitter, transform.position, transform.rotation, transform);
+        //}
 
         /// <summary>
         /// Countdowns down from selfDestructTime. Calls Kill() if untouched.
         /// </summary>
         protected virtual void SelfDestructCountdown()
         {
-            /*
             selfDestructTime -= Time.deltaTime;
             if (selfDestructTime <= 0 && untouched)
             {
                 SelfDestruct();
             }
-            */
         }
     }
 }

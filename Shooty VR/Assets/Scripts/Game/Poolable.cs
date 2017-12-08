@@ -54,7 +54,7 @@ namespace Hive.Armada.Game
             Reset();
             IsActive = true;
             gameObject.SetActive(true);
-            SpawnEffects();
+            //SpawnEffects();
         }
 
         /// <summary>

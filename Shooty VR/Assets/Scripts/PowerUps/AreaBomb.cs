@@ -54,11 +54,6 @@ namespace Hive.Armada.PowerUps
         /// </summary>
         public GameObject trailEmitter;
 
-        ///// <summary>
-        ///// FX of Area Bomb detonation.
-        ///// </summary>
-        //public GameObject detonationEmitter;
-
         /// <summary>
         /// Time until detonation without player interaction.
         /// </summary>

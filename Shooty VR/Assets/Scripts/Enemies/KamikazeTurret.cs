@@ -49,7 +49,7 @@ namespace Hive.Armada.Enemies
         /// <summary>
         /// How much damage this enemy does to the player.
         /// </summary>
-        public int damage;
+        private int damage;
 
         /// <summary>
         /// Looks at the player and stores own position.
@@ -147,6 +147,9 @@ namespace Hive.Armada.Enemies
             maxHealth = enemyAttributes.enemyHealthValues[TypeIdentifier];
             Health = maxHealth;
             pointValue = enemyAttributes.enemyScoreValues[TypeIdentifier];
+			spawnEmitter = enemyAttributes.enemySpawnEmitters[TypeIdentifier];
+            deathEmitter = enemyAttributes.enemyDeathEmitters[TypeIdentifier];
+            damage = enemyAttributes.projectileDamage;
 
             if (!isInitialized)
             {

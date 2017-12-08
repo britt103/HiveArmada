@@ -7,13 +7,11 @@
 // Group Project
 //
 // A basic projectile. It will destroy itself after a set amount of time,
-// after colliding with the room, or the player. It will also kill the player.
+// after colliding with the room, or the player. It damages the player
+// by a set amount.
 //
 //=============================================================================
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Hive.Armada.Game;
 using UnityEngine;
 using Hive.Armada.Player;
@@ -21,6 +19,7 @@ using Hive.Armada.Player;
 namespace Hive.Armada.Enemies
 {
     /// <summary>
+    /// Basic projectile used by all shooting enemies.
     /// </summary>
     public class Projectile : Poolable
     {
@@ -31,12 +30,9 @@ namespace Hive.Armada.Enemies
         private ReferenceManager reference;
 
         /// <summary>
+        /// The amount of damage the projectile takes from the player's health 
         /// </summary>
-        public int damage;
-
-        /// <summary>
-        /// </summary>
-        public float lifetime;
+        private int damage;
 
         /// <summary>
         /// Initializes the reference to the Reference Manager
@@ -46,24 +42,20 @@ namespace Hive.Armada.Enemies
             reference = GameObject.Find("Reference Manager").GetComponent<ReferenceManager>();
         }
 
+        /// <summary>
+        /// Runs when the projectile collides with another object with a Collider.
+        /// </summary>
+        /// <param name="other"> The other collider </param>
         private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Player"))
             {
-                reference.playerShip.GetComponent<PlayerHealth>().Hit(damage);
+                if (Utility.isDebug)
+                {
+                    Debug.Log(GetType().Name + " - hit object named \"" + other.gameObject.name + "\"");
+                }
 
-                //if (other.GetComponent<PlayerHealth>() != null)
-                //{
-                //    reference.playerShip.GetComponent<PlayerHealth>().Hit(damage);
-                //}
-                //else
-                //{
-                //    if (Utility.isDebug)
-                //    {
-                //        Debug.Log("[WARNING] GameObject tagged with \"Player\"" +
-                //                  " does NOT have PlayerHealth.cs on it!");
-                //    }
-                //}
+                reference.playerShip.GetComponent<PlayerHealth>().Hit(damage);
                 reference.objectPoolManager.Despawn(gameObject);
             }
             else if (other.CompareTag("Room"))
@@ -72,10 +64,12 @@ namespace Hive.Armada.Enemies
             }
         }
 
+        /// <summary>
+        /// Initializes the damage for the projectile.
+        /// </summary>
         protected override void Reset()
         {
-            damage = 10;
-            lifetime = 10.0f;
+            damage = reference.enemyAttributes.projectileDamage;
         }
     }
 }

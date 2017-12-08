@@ -86,7 +86,7 @@ namespace Hive.Armada.Game
         /// Damage that the enemy projectiles deal.
         /// </summary>
         [Header("Projectile - General")]
-        public float projectileDamage;
+        public int projectileDamage;
 
         /// <summary>
         /// Speed at which the projectile moves.

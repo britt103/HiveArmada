@@ -160,8 +160,8 @@ namespace Hive.Armada.Game
             inactivePools[typeIdentifier].RemoveFirst();
             activePools[typeIdentifier].AddLast(spawnedNode);
 
-            spawned.GetComponent<Poolable>().Activate();
             spawned.transform.position = position;
+            spawned.GetComponent<Poolable>().Activate();
 
             return spawned;
         }
@@ -192,9 +192,9 @@ namespace Hive.Armada.Game
             inactivePools[typeIdentifier].RemoveFirst();
             activePools[typeIdentifier].AddLast(spawnedNode);
 
-            spawned.GetComponent<Poolable>().Activate();
             spawned.transform.position = position;
             spawned.transform.parent = parent;
+            spawned.GetComponent<Poolable>().Activate();
 
             return spawned;
         }
@@ -225,9 +225,9 @@ namespace Hive.Armada.Game
             inactivePools[typeIdentifier].RemoveFirst();
             activePools[typeIdentifier].AddLast(spawnedNode);
 
-            spawned.GetComponent<Poolable>().Activate();
             spawned.transform.position = position;
             spawned.transform.rotation = rotation;
+            spawned.GetComponent<Poolable>().Activate();
 
             return spawned;
         }
@@ -260,10 +260,10 @@ namespace Hive.Armada.Game
             inactivePools[typeIdentifier].RemoveFirst();
             activePools[typeIdentifier].AddLast(spawnedNode);
 
-            spawned.GetComponent<Poolable>().Activate();
             spawned.transform.parent = parent;
             spawned.transform.position = position;
             spawned.transform.rotation = rotation;
+            spawned.GetComponent<Poolable>().Activate();
 
             return spawned;
         }

@@ -127,6 +127,11 @@ namespace Hive.Armada.Enemies
         public GameObject deathEmitter;
 
         /// <summary>
+        /// The type identifier needed to spawn the death emitter from the object pool.
+        /// </summary>
+        protected int deathEmitterTypeIdentifier;
+
+        /// <summary>
         /// Changes to false on first hit.
         /// Used to tell the subwave that it can spawn more enemies.
         /// </summary>
@@ -199,6 +204,8 @@ namespace Hive.Armada.Enemies
                 renderers.Add(r);
                 materials.Add(r.material);
             }
+
+            Reset();
         }
 
         /// <summary>
@@ -237,10 +244,10 @@ namespace Hive.Armada.Enemies
                 hitFlash = StartCoroutine(HitFlash());
             }
 
-            if (Health <= 20)
-            {
-                shaking = true;
-            }
+            //if (Health <= 20)
+            //{
+            //    shaking = true;
+            //}
 
             if (Health <= 0)
             {
@@ -268,7 +275,10 @@ namespace Hive.Armada.Enemies
             subwave.EnemyDead();
             scoringSystem.AddScore(pointValue);
             reference.statistics.EnemyKilled();
-            Instantiate(deathEmitter, transform.position, transform.rotation);
+            objectPoolManager.Spawn(deathEmitterTypeIdentifier, transform.position,
+                                    transform.rotation);
+
+            //Instantiate(deathEmitter, transform.position, transform.rotation);
 
             objectPoolManager.Despawn(gameObject);
         }
@@ -284,7 +294,11 @@ namespace Hive.Armada.Enemies
         /// </summary>
         protected virtual void SelfDestruct()
         {
+            objectPoolManager.Spawn(deathEmitterTypeIdentifier, transform.position,
+                                    transform.rotation);
             subwave.AddRespawn(enemySpawn);
+            subwave.EnemyHit();
+            objectPoolManager.Despawn(gameObject);
         }
 
         /// <summary>
@@ -348,11 +362,11 @@ namespace Hive.Armada.Enemies
         /// </summary>
         protected virtual void SelfDestructCountdown()
         {
-            //selfDestructTime -= Time.deltaTime;
-            //if (selfDestructTime <= 0 && untouched)
-            //{
-            //    SelfDestruct();
-            //}
+            selfDestructTime -= Time.deltaTime;
+            if (selfDestructTime <= 0 && untouched)
+            {
+                SelfDestruct();
+            }
         }
     }
 }

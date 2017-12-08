@@ -11,6 +11,7 @@
 //=============================================================================
 
 using System.Collections;
+using MirzaBeig.ParticleSystems;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -142,11 +143,11 @@ namespace Hive.Armada.Enemies
                     transform.LookAt(new Vector3(0.0f, 2.0f, 0.0f));
                 }
             }
-            if (shaking)
-            {
-                iTween.ShakePosition(gameObject, new Vector3(0.1f, 0.1f, 0.1f), 0.1f);
+            //if (shaking)
+            //{
+            //    iTween.ShakePosition(gameObject, new Vector3(0.1f, 0.1f, 0.1f), 0.1f);
 
-            }
+            //}
             SelfDestructCountdown();
         }
 
@@ -185,6 +186,7 @@ namespace Hive.Armada.Enemies
             }
 
             hitFlash = null;
+            shaking = false;
 
             projectileTypeIdentifier =
                 enemyAttributes.EnemyProjectileTypeIdentifiers[TypeIdentifier];
@@ -195,6 +197,18 @@ namespace Hive.Armada.Enemies
             spread = enemyAttributes.enemySpread[TypeIdentifier];
             pointValue = enemyAttributes.enemyScoreValues[TypeIdentifier];
             selfDestructTime = enemyAttributes.enemySelfDestructTimes[TypeIdentifier];
+
+            if (!isInitialized)
+            {
+                isInitialized = true;
+
+                GameObject spawnEmitterObject = Instantiate(spawnEmitter,
+                                                            transform.position,
+                                                            transform.rotation, transform);
+                spawnEmitterSystem = spawnEmitterObject.GetComponent<ParticleSystems>();
+
+                deathEmitterTypeIdentifier = objectPoolManager.GetTypeIdentifier(deathEmitter);
+            }
         }
     }
 }

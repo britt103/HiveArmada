@@ -13,6 +13,7 @@
 using MirzaBeig.ParticleSystems;
 using System.Collections;
 using UnityEngine;
+
 namespace Hive.Armada.Enemies
 {
     public class StraightTurret : Enemy
@@ -37,7 +38,6 @@ namespace Hive.Armada.Enemies
         /// Position from which bullets are initially shot from
         /// </summary>
         public Transform fireSpawn;
-
 
         /// <summary>
         /// Variable that finds the player GameObject
@@ -79,7 +79,9 @@ namespace Hive.Armada.Enemies
         /// Spread values determined by fireCone on each axis
         /// </summary>
         private float randX;
+
         private float randY;
+
         private float randZ;
 
         ///// <summary>
@@ -95,7 +97,7 @@ namespace Hive.Armada.Enemies
         /// swayed via the spread value set by user. If player is not found automatically
         /// finds player, otherwise do nothing.
         /// </summary>
-        void Update()
+        private void Update()
         {
             if (player != null)
             {
@@ -104,7 +106,7 @@ namespace Hive.Armada.Enemies
 
                 if (Time.time > fireNext)
                 {
-                    fireNext = Time.time + (1 / fireRate);
+                    fireNext = Time.time + 1 / fireRate;
                     StartCoroutine(FireBullet());
                 }
             }
@@ -117,18 +119,17 @@ namespace Hive.Armada.Enemies
                     transform.LookAt(new Vector3(0.0f, 0.0f, 0.0f));
                 }
             }
-            if (shaking)
-            {
-                iTween.ShakePosition(gameObject, new Vector3(0.1f, 0.1f, 0.1f) ,0.1f);
-
-            }
+            //if (shaking)
+            //{
+            //    iTween.ShakePosition(gameObject, new Vector3(0.01f, 0.01f, 0.01f), Time.deltaTime);
+            //}
             SelfDestructCountdown();
         }
 
         private IEnumerator FireBullet()
         {
             GameObject shoot = objectPoolManager.Spawn(projectileTypeIdentifier, fireSpawn.position,
-                                        fireSpawn.rotation);
+                                                       fireSpawn.rotation);
             randX = Random.Range(-fireCone, fireCone);
             randY = Random.Range(-fireCone, fireCone);
             randZ = Random.Range(-fireCone, fireCone);
@@ -142,8 +143,8 @@ namespace Hive.Armada.Enemies
         /// Function that determines the enemy's projectile, firerate,
         /// spread, and projectile speed.
         /// </summary>
-        /// <param name="mode"></param>
-        void switchFireMode(int mode)
+        /// <param name="mode"> </param>
+        private void switchFireMode(int mode)
         {
             switch (mode)
             {
@@ -175,6 +176,7 @@ namespace Hive.Armada.Enemies
             }
 
             hitFlash = null;
+            shaking = false;
 
             projectileTypeIdentifier =
                 enemyAttributes.EnemyProjectileTypeIdentifiers[TypeIdentifier];
@@ -193,9 +195,11 @@ namespace Hive.Armada.Enemies
                 isInitialized = true;
 
                 GameObject spawnEmitterObject = Instantiate(spawnEmitter,
-                                                        transform.position,
-                                                        transform.rotation, transform);
+                                                            transform.position,
+                                                            transform.rotation, transform);
                 spawnEmitterSystem = spawnEmitterObject.GetComponent<ParticleSystems>();
+
+                deathEmitterTypeIdentifier = objectPoolManager.GetTypeIdentifier(deathEmitter);
             }
         }
     }

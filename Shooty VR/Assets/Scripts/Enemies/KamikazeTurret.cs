@@ -10,6 +10,7 @@
 //=============================================================================
 
 using System.Collections;
+using MirzaBeig.ParticleSystems;
 using UnityEngine;
 
 namespace Hive.Armada.Enemies
@@ -82,11 +83,10 @@ namespace Hive.Armada.Enemies
             {
                 StartCoroutine(InRange());
             }
-            if (shaking)
-            {
-                iTween.ShakePosition(gameObject, new Vector3(0.1f, 0.1f, 0.1f), 0.1f);
-
-            }
+            //if (shaking)
+            //{
+            //    iTween.ShakePosition(gameObject, new Vector3(0.1f, 0.1f, 0.1f), 0.1f);
+            //}
         }
 
         /// <summary>
@@ -141,10 +141,23 @@ namespace Hive.Armada.Enemies
             }
 
             hitFlash = null;
+            shaking = false;
 
             maxHealth = enemyAttributes.enemyHealthValues[TypeIdentifier];
             Health = maxHealth;
             pointValue = enemyAttributes.enemyScoreValues[TypeIdentifier];
+
+            if (!isInitialized)
+            {
+                isInitialized = true;
+
+                GameObject spawnEmitterObject = Instantiate(spawnEmitter,
+                                                            transform.position,
+                                                            transform.rotation, transform);
+                spawnEmitterSystem = spawnEmitterObject.GetComponent<ParticleSystems>();
+
+                deathEmitterTypeIdentifier = objectPoolManager.GetTypeIdentifier(deathEmitter);
+            }
         }
     }
 }

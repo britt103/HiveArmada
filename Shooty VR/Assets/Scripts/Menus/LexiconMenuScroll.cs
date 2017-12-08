@@ -21,6 +21,16 @@ namespace Hive.Armada.Menus
     public class LexiconMenuScroll : MonoBehaviour
     {
         /// <summary>
+        /// Reference to Menu Audio source.
+        /// </summary>
+        public AudioSource source;
+
+        /// <summary>
+        /// Clips to use with source.
+        /// </summary>
+    	public AudioClip[] clips;
+
+        /// <summary>
         /// Name of item on each entry.
         /// </summary>
         public string[] entryNames;
@@ -84,6 +94,7 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void PressBack()
         {
+            source.PlayOneShot(clips[1]);
             GameObject.Find("Main Canvas").transform.Find("Options Menu").gameObject
                     .SetActive(true);
             gameObject.SetActive(false);

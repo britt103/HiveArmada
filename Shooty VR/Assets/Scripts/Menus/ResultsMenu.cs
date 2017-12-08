@@ -26,6 +26,16 @@ namespace Hive.Armada.Menus
     public class ResultsMenu : MonoBehaviour
     {
         /// <summary>
+        /// Reference to Menu Audio source.
+        /// </summary>
+        public AudioSource source;
+
+        /// <summary>
+        /// Clips to use with source.
+        /// </summary>
+    	public AudioClip[] clips;
+
+        /// <summary>
         /// Reference to ReferenceManager.
         /// </summary>
         private ReferenceManager reference;
@@ -67,6 +77,7 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void PressContinue()
         {
+            source.PlayOneShot(clips[0]);
             stats.ResetValues();
             reference.menuMain.SetActive(true);
             gameObject.SetActive(false);

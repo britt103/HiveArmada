@@ -70,6 +70,8 @@ namespace Hive.Armada.Menus
         /// </summary>
         private GameObject aimObject;
 
+        private GameObject lastInteractableAimObject;
+
         /// <summary>
         /// If the aimObject is tagged as InteractableUI
         /// </summary>
@@ -132,7 +134,6 @@ namespace Hive.Armada.Menus
                     }
 
                     aimObject = hit.collider.gameObject;
-                    isInteractable = hit.collider.gameObject.CompareTag("InteractableUI");
 
                     pointer.SetPosition(0, transform.position);
                     pointer.SetPosition(1, hit.point);
@@ -158,6 +159,7 @@ namespace Hive.Armada.Menus
                     isInteractable = false;
                 }
 
+                //Check for UI interaction
                 if (hand.GetStandardInteractionButtonDown())
                 {
                     TriggerUpdate(false);
@@ -165,6 +167,10 @@ namespace Hive.Armada.Menus
                 else if (hand.GetStandardInteractionButton())
                 {
                     TriggerUpdate(true);
+                }
+                else if (lastInteractableAimObject)
+                {
+                    ExitLastInteractable();
                 }
             }
         }
@@ -187,6 +193,9 @@ namespace Hive.Armada.Menus
                         float value = (pointerX - minX) / (maxX - minX);
                         aimObject.GetComponent<Slider>().value = value;
                     }
+
+                    ExecuteEvents.Execute(aimObject, new PointerEventData(EventSystem.current), 
+                        ExecuteEvents.pointerEnterHandler);
                 }
                 else if (aimObject.GetComponent<Scrollbar>())
                 {
@@ -202,7 +211,17 @@ namespace Hive.Armada.Menus
                 }
                 else if (!stay)
                 {
-                    ExecuteEvents.Execute(aimObject, new PointerEventData(EventSystem.current), ExecuteEvents.submitHandler);
+                    ExecuteEvents.Execute(aimObject, new PointerEventData(EventSystem.current), 
+                        ExecuteEvents.submitHandler);
+                }
+
+                lastInteractableAimObject = aimObject;
+            }
+            else
+            {
+                if (lastInteractableAimObject)
+                {
+                    ExitLastInteractable();
                 }
             }
         }
@@ -226,6 +245,20 @@ namespace Hive.Armada.Menus
             pointer.endWidth = thickness;
 
             initialized = true;
+        }
+
+        /// <summary>
+        /// Exit active state of InteractableUI last interacted with.
+        /// </summary>
+        private void ExitLastInteractable()
+        {
+            if (lastInteractableAimObject.GetComponent<Slider>())
+            {
+                ExecuteEvents.Execute(lastInteractableAimObject, new PointerEventData(EventSystem.current),
+                    ExecuteEvents.pointerExitHandler);
+            }
+
+            lastInteractableAimObject = null;
         }
     }
 }

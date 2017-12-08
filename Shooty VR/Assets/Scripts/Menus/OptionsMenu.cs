@@ -20,7 +20,14 @@ namespace Hive.Armada.Menus
     /// </summary>
     public class OptionsMenu : MonoBehaviour
     {
+        /// <summary>
+        /// Reference to Menu Audio source.
+        /// </summary>
 		public AudioSource source;
+
+        /// <summary>
+        /// Clips to use with source.
+        /// </summary>
     	public AudioClip[] clips;
 
         /// <summary>

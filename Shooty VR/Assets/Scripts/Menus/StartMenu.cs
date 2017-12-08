@@ -20,8 +20,15 @@ namespace Hive.Armada.Menus
     /// </summary>
     public class StartMenu : MonoBehaviour
     {
-        public AudioSource source;
-        public AudioClip[] clips;
+        /// <summary>
+        /// Reference to Menu Audio source.
+        /// </summary>
+		public AudioSource source;
+
+        /// <summary>
+        /// Clips to use with source.
+        /// </summary>
+    	public AudioClip[] clips;
 
         /// <summary>
         /// Called by start button; transition to Wave Room.

@@ -99,7 +99,6 @@ namespace Hive.Armada.PowerUps
                     string nextPowerupName = powerups.Peek().name;
                 }
 
-
                 if (hand.controller.GetPressDown(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad))
                 {
                     Instantiate(powerups.Dequeue(), powerupPoint);

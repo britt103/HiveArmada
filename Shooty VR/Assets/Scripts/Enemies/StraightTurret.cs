@@ -10,6 +10,7 @@
 //
 //=============================================================================
 
+using MirzaBeig.ParticleSystems;
 using System.Collections;
 using UnityEngine;
 namespace Hive.Armada.Enemies
@@ -186,6 +187,16 @@ namespace Hive.Armada.Enemies
             selfDestructTime = enemyAttributes.enemySelfDestructTimes[TypeIdentifier];
             spawnEmitter = enemyAttributes.enemySpawnEmitters[TypeIdentifier];
             deathEmitter = enemyAttributes.enemyDeathEmitters[TypeIdentifier];
+
+            if (!isInitialized)
+            {
+                isInitialized = true;
+
+                GameObject spawnEmitterObject = Instantiate(spawnEmitter,
+                                                        transform.position,
+                                                        transform.rotation, transform);
+                spawnEmitterSystem = spawnEmitterObject.GetComponent<ParticleSystems>();
+            }
         }
     }
 }

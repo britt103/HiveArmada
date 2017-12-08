@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Hive.Armada.Game;
+using MirzaBeig.ParticleSystems;
 
 namespace Hive.Armada.Enemies
 {
@@ -80,6 +81,11 @@ namespace Hive.Armada.Enemies
         protected Subwave subwave;
 
         /// <summary>
+        /// Whether or not this enemy has already been initialized with its attributes.
+        /// </summary>
+        protected bool isInitialized;
+
+        /// <summary>
         /// How much health the enemy spawns with.
         /// TODO: Move this to EnemyStats script
         /// </summary>
@@ -108,6 +114,11 @@ namespace Hive.Armada.Enemies
         /// </summary>
         [Tooltip("The particle emitter for enemy spawn.")]
         public GameObject spawnEmitter;
+
+        /// <summary>
+        /// The particle system for the enemy spawn emitter.
+        /// </summary>
+        protected ParticleSystems spawnEmitterSystem;
 
         /// <summary>
         /// The particle emitter for enemy death.
@@ -156,7 +167,8 @@ namespace Hive.Armada.Enemies
         protected bool shaking = false;
 
         /// <summary>
-        /// Initializes references to ReferenceManager and other managers.
+        /// Initializes references to ReferenceManager and other managers, list of renderers and
+        /// their materials for HitFlash(), and spawns the spawn particle emitter.
         /// </summary>
         public virtual void Awake()
         {
@@ -190,6 +202,29 @@ namespace Hive.Armada.Enemies
         }
 
         /// <summary>
+        /// Plays the spawn particle emitter.
+        /// </summary>
+        private void OnEnable()
+        {
+            if (isInitialized)
+            {
+                spawnEmitterSystem.play();
+            }
+        }
+
+        /// <summary>
+        /// Stops the spawn particle emitter and clears all particles.
+        /// </summary>
+        private void OnDisable()
+        {
+            if (isInitialized)
+            {
+                spawnEmitterSystem.stop();
+                spawnEmitterSystem.clear();
+            }
+        }
+
+        /// <summary>
         /// Used to apply damage to an enemy.
         /// </summary>
         /// <param name="damage"> How much damage this enemy is taking. </param>
@@ -204,7 +239,7 @@ namespace Hive.Armada.Enemies
 
             if (Health <= 20)
             {
-                //shaking = true;
+                shaking = true;
             }
 
             if (Health <= 0)
@@ -300,13 +335,13 @@ namespace Hive.Armada.Enemies
             this.attackPattern = attackPattern;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        protected override void SpawnEffects()
-        {
-            Instantiate(spawnEmitter, transform.position, transform.rotation, transform);
-        }
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        //protected override void SpawnEffects()
+        //{
+        //    Instantiate(spawnEmitter, transform.position, transform.rotation, transform);
+        //}
 
         /// <summary>
         /// Countdowns down from selfDestructTime. Calls Kill() if untouched.

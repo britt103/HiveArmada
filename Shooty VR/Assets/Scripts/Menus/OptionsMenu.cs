@@ -11,6 +11,7 @@
 //=============================================================================
 
 using UnityEngine;
+using Hive.Armada.Game;
 
 namespace Hive.Armada.Menus
 {
@@ -19,7 +20,14 @@ namespace Hive.Armada.Menus
     /// </summary>
     public class OptionsMenu : MonoBehaviour
     {
+        /// <summary>
+        /// Reference to Menu Audio source.
+        /// </summary>
 		public AudioSource source;
+
+        /// <summary>
+        /// Clips to use with source.
+        /// </summary>
     	public AudioClip[] clips;
 
         /// <summary>
@@ -88,6 +96,7 @@ namespace Hive.Armada.Menus
 			source.PlayOneShot(clips[1]);
             GameObject.Find("Main Canvas").transform.Find("Main Menu").gameObject.SetActive(true);
             gameObject.SetActive(false);
+            
         }
     }
 }

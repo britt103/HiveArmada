@@ -20,23 +20,15 @@ namespace Hive.Armada.Menus
     /// </summary>
     public class ControlsMenu : MonoBehaviour
     {
+        /// <summary>
+        /// Reference to Menu Audio source.
+        /// </summary>
 		public AudioSource source;
+
+        /// <summary>
+        /// Clips to use with source.
+        /// </summary>
     	public AudioClip[] clips;
-
-        /// <summary>
-        /// ControlsHighlighter reference on active hand.
-        /// </summary>
-        private ControlsHighlighter ch;
-
-        /// <summary>
-        /// Activate controller highlighting.
-        /// </summary>
-        private void OnEnable()
-        {
-            ch = FindObjectOfType<ShipController>().transform.parent.GetComponentInChildren<ControlsHighlighter>();
-            ch.FireOn();
-            ch.PowerupOn();
-        }
 
         /// <summary>
         /// Back button pressed. Navigate to Options Menu.
@@ -46,7 +38,6 @@ namespace Hive.Armada.Menus
 			source.PlayOneShot(clips[0]);
             GameObject.Find("Main Canvas").transform.Find("Options Menu").gameObject
                     .SetActive(true);
-            ch.AllOff();
             gameObject.SetActive(false);
         }
     }

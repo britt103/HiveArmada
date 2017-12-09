@@ -22,6 +22,16 @@ namespace Hive.Armada.Menus
     public class SoundMenu : MonoBehaviour
     {
         /// <summary>
+        /// Reference to Menu Audio source.
+        /// </summary>
+        public AudioSource source;
+
+        /// <summary>
+        /// Clips to use with source.
+        /// </summary>
+    	public AudioClip[] clips;
+
+        /// <summary>
         /// Reference to volume slider
         /// </summary>
         public Slider volumeSlider;
@@ -31,16 +41,13 @@ namespace Hive.Armada.Menus
         /// </summary>
         private ReferenceManager reference;
 
-	    public AudioSource source;
-    	public AudioClip[] clips;
-
         /// <summary>
         /// Set default volume slider level.
         /// </summary>
         private void Awake()
         {
-            volumeSlider.value = AudioListener.volume;
             reference = FindObjectOfType<ReferenceManager>();
+            volumeSlider.value = reference.optionsValues.masterVolume;
         }
 
         /// <summary>

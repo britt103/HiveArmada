@@ -12,6 +12,7 @@
 
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.Rendering;
 using Valve.VR.InteractionSystem;
@@ -69,10 +70,12 @@ namespace Hive.Armada.Menus
         /// </summary>
         private GameObject aimObject;
 
+        private GameObject lastInteractableAimObject;
+
         /// <summary>
-        /// If the aimObject is tagged as button
+        /// If the aimObject is tagged as InteractableUI
         /// </summary>
-        private bool isButton;
+        private bool isInteractable;
 
         /// <summary>
         /// State of whether all UIPointer components have been initialized besides hand.
@@ -109,11 +112,11 @@ namespace Hive.Armada.Menus
                 if (Physics.Raycast(transform.position, transform.forward,
                         out hit, Mathf.Infinity, Utility.uiMask))
                 {
-                    if (hit.collider.gameObject.CompareTag("Button"))
+                    if (hit.collider.gameObject.CompareTag("InteractableUI"))
                     {
-                        if (!isButton)
+                        if (!isInteractable)
                         {
-                            isButton = true;
+                            isInteractable = true;
 
                             try
                             {
@@ -127,11 +130,10 @@ namespace Hive.Armada.Menus
                     }
                     else
                     {
-                        isButton = false;
+                        isInteractable = false;
                     }
 
                     aimObject = hit.collider.gameObject;
-                    isButton = hit.collider.gameObject.CompareTag("Button");
 
                     pointer.SetPosition(0, transform.position);
                     pointer.SetPosition(1, hit.point);
@@ -143,7 +145,7 @@ namespace Hive.Armada.Menus
                     out hit, Mathf.Infinity, Utility.roomMask))
                 {
                     aimObject = null;
-                    isButton = false;
+                    isInteractable = false;
 
                     pointer.SetPosition(0, transform.position);
                     pointer.SetPosition(1, hit.point);
@@ -154,12 +156,21 @@ namespace Hive.Armada.Menus
                 else
                 {
                     aimObject = null;
-                    isButton = false;
+                    isInteractable = false;
                 }
 
+                //Check for UI interaction
                 if (hand.GetStandardInteractionButtonDown())
                 {
-                    TriggerUpdate();
+                    TriggerUpdate(false);
+                }
+                else if (hand.GetStandardInteractionButton())
+                {
+                    TriggerUpdate(true);
+                }
+                else if (lastInteractableAimObject)
+                {
+                    ExitLastInteractable();
                 }
             }
         }
@@ -167,12 +178,51 @@ namespace Hive.Armada.Menus
         /// <summary>
         /// Sent every frame while the trigger is pressed
         /// </summary>
-        public void TriggerUpdate()
+        public void TriggerUpdate(bool stay)
         {
-            if (isButton)
+            if (isInteractable)
             {
-                ExecuteEvents.Execute(aimObject,
-                    new PointerEventData(EventSystem.current), ExecuteEvents.submitHandler);
+                if (aimObject.GetComponent<Slider>())
+                {
+                    float centerX = aimObject.GetComponent<BoxCollider>().center.x;
+                    float maxX = centerX + aimObject.GetComponent<BoxCollider>().bounds.extents.x;
+                    float minX = centerX - aimObject.GetComponent<BoxCollider>().bounds.extents.x;
+                    float pointerX = pointer.GetPosition(1).x;
+                    if (pointerX > minX && pointerX < maxX)
+                    {
+                        float value = (pointerX - minX) / (maxX - minX);
+                        aimObject.GetComponent<Slider>().value = value;
+                    }
+
+                    ExecuteEvents.Execute(aimObject, new PointerEventData(EventSystem.current), 
+                        ExecuteEvents.pointerEnterHandler);
+                }
+                else if (aimObject.GetComponent<Scrollbar>())
+                {
+                    Vector3 localCenter = aimObject.GetComponent<BoxCollider>().center;
+                    float centerY = aimObject.gameObject.transform.TransformPoint(localCenter).y;
+                    float maxY = centerY + aimObject.GetComponent<BoxCollider>().bounds.extents.y;
+                    float minY = centerY - aimObject.GetComponent<BoxCollider>().bounds.extents.y;
+                    float pointerY = pointer.GetPosition(1).y;
+                    float value = (pointerY - minY) / (maxY - minY);
+
+                    ScrollRect scrollRect = aimObject.GetComponentInParent<ScrollRect>();
+                    scrollRect.verticalNormalizedPosition = value;
+                }
+                else if (!stay)
+                {
+                    ExecuteEvents.Execute(aimObject, new PointerEventData(EventSystem.current), 
+                        ExecuteEvents.submitHandler);
+                }
+
+                lastInteractableAimObject = aimObject;
+            }
+            else
+            {
+                if (lastInteractableAimObject)
+                {
+                    ExitLastInteractable();
+                }
             }
         }
 
@@ -195,6 +245,20 @@ namespace Hive.Armada.Menus
             pointer.endWidth = thickness;
 
             initialized = true;
+        }
+
+        /// <summary>
+        /// Exit active state of InteractableUI last interacted with.
+        /// </summary>
+        private void ExitLastInteractable()
+        {
+            if (lastInteractableAimObject.GetComponent<Slider>())
+            {
+                ExecuteEvents.Execute(lastInteractableAimObject, new PointerEventData(EventSystem.current),
+                    ExecuteEvents.pointerExitHandler);
+            }
+
+            lastInteractableAimObject = null;
         }
     }
 }

@@ -274,9 +274,8 @@ namespace Hive.Armada.Enemies
         protected virtual void Kill()
         {
             KillSpecial();
-
             subwave.EnemyDead();
-            scoringSystem.AddScore(pointValue);
+            reference.statistics.AddScore(pointValue);
             reference.statistics.EnemyKilled();
             objectPoolManager.Spawn(deathEmitterTypeIdentifier, transform.position,
                                     transform.rotation);

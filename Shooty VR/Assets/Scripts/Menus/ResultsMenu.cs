@@ -60,7 +60,14 @@ namespace Hive.Armada.Menus
         /// </summary>
         public GameObject killsTextGO;
 
-        // Use this for initialization
+        /// <summary>
+        /// Reference to Text GameObject for score stat.
+        /// </summary>
+        public GameObject scoreTextGO;
+
+        /// <summary>
+        /// Get and set results values.
+        /// </summary>
         void Awake()
         {
             reference = FindObjectOfType<ReferenceManager>();
@@ -69,6 +76,7 @@ namespace Hive.Armada.Menus
             wavesTextGO.GetComponent<Text>().text = "Waves: " + stats.waves;
             timeTextGO.GetComponent<Text>().text = "Time: " + stats.totalAliveTime;
             killsTextGO.GetComponent<Text>().text = "Kills: " + stats.totalEnemiesKilled;
+            scoreTextGO.GetComponent<Text>().text = "Score: " + stats.totalScore;
         }
 
         /// <summary>

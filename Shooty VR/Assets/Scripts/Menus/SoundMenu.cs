@@ -1,21 +1,73 @@
-﻿//Name: Chad Johnson
-//Student ID: 1763718
-//Email: johns428@mail.chapman.edu
-//Course: CPSC 340-01, CPSC-344-01
-//Assignment: Group Project
-//Purpose: Control interactions and navigation with sound menu
+﻿//=============================================================================
+//
+// Chad Johnson
+// 1763718
+// johns428@mail.chapman.edu
+// CPSC-340-01 & CPSC-344-01
+// Group Project
+//
+// SoundMenu controls interactions with the Sound Menu.
+//
+//=============================================================================
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using Hive.Armada.Game;
 
-public class SoundMenu : MonoBehaviour {
+namespace Hive.Armada.Menus
+{
     /// <summary>
-    /// Back button pressed; navigates to options menu
+    /// Controls interactions with Sound Menu.
     /// </summary>
-    public void OnBackButton()
+    public class SoundMenu : MonoBehaviour
     {
-        GameObject.Find("Main Canvas").transform.Find("Options Menu").gameObject.SetActive(true);
-        gameObject.SetActive(false);
+        /// <summary>
+        /// Reference to Menu Audio source.
+        /// </summary>
+        public AudioSource source;
+
+        /// <summary>
+        /// Clips to use with source.
+        /// </summary>
+    	public AudioClip[] clips;
+
+        /// <summary>
+        /// Reference to volume slider
+        /// </summary>
+        public Slider volumeSlider;
+
+        /// <summary>
+        /// Reference to Reference Manager.
+        /// </summary>
+        private ReferenceManager reference;
+
+        /// <summary>
+        /// Set default volume slider level.
+        /// </summary>
+        private void Awake()
+        {
+            reference = FindObjectOfType<ReferenceManager>();
+            volumeSlider.value = reference.optionsValues.masterVolume;
+        }
+
+        /// <summary>
+        /// Back button pressed. Navigate to Options Menu.
+        /// </summary>
+        public void PressBack()
+        {
+			source.PlayOneShot(clips[0]);
+            reference.optionsValues.SetSoundPlayerPrefs();
+            GameObject.Find("Main Canvas").transform.Find("Options Menu").gameObject
+                    .SetActive(true);
+            gameObject.SetActive(false);
+        }
+
+        /// <summary>
+        /// Change AudioListener volume based on volumeSlider value.
+        /// </summary>
+        public void AdjustVolume(float value)
+        {
+            reference.optionsValues.SetMasterVolume(value);
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -48,6 +49,11 @@ namespace Hive.Armada.Enemies
                 var shoot = Instantiate(bullet, spawn.position, spawn.rotation);
                 shoot.GetComponent<Rigidbody>().velocity = shoot.transform.forward * fireSpeed;
             }
+        }
+
+        protected override void Reset()
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -1,36 +1,62 @@
-﻿//Name: Chad Johnson
-//Student ID: 1763718
-//Email: johns428@mail.chapman.edu
-//Course: CPSC 340-01, CPSC-344-01
-//Assignment: Group Project
-//Purpose: Visuals and stats for win condition
+﻿//=============================================================================
+//
+// Chad Johnson
+// 1763718
+// johns428@mail.chapman.edu
+// CPSC-340-01 & CPSC-344-01
+// Group Project
+//
+// Win controls interactions with the Win Menu.
+//
+//=============================================================================
 
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Hive.Armada.Player;
+using Hive.Armada.Game;
 
-namespace Hive.Armada
+namespace Hive.Armada.Menus
 {
+    /// <summary>
+    /// Controls interactions with Win Menu.
+    /// </summary>
     public class Win : MonoBehaviour
     {
         /// <summary>
+        /// Reference to ReferenceManager.
+        /// </summary>
+        private ReferenceManager reference;
+
+		public AudioSource Roy;
+        public AudioClip[] winAudio;
+
+        /// <summary>
         /// Run when activated
         /// </summary>
-        private void Awake()
+        private void OnEnable()
         {
+            reference = FindObjectOfType<ReferenceManager>();
             StartCoroutine(Run());
         }
 
         /// <summary>
-        /// Call stats printing, reloads scene
+        /// Call PrintStats in PlayerStats and loads into the menu room.
         /// </summary>
-        /// <returns></returns>
         private IEnumerator Run()
         {
-            yield return new WaitForSeconds(3);
+            Roy.PlayOneShot(winAudio[0]);
+            yield return new WaitForSeconds(1.0f);
+            winSound();
+            yield return new WaitForSeconds(3.0f);
             FindObjectOfType<PlayerStats>().PrintStats();
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            reference.sceneTransitionManager.TransitionOut("Menu Room");
+        }
+
+        public void winSound()
+        {
+            int winNumber = Random.Range(1, winAudio.Length);
+            Roy.PlayOneShot(winAudio[winNumber]);
         }
     }
 }

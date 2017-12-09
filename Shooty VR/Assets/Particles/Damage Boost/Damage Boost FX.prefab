@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 199192556887783848}
   m_Layer: 0
   m_Name: exhaust
-  m_TagString: Untagged
+  m_TagString: Emitter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 199436089848624728}
   m_Layer: 0
   m_Name: aura
-  m_TagString: Untagged
+  m_TagString: Emitter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -55,9 +55,10 @@ GameObject:
   - component: {fileID: 4593810376666112}
   - component: {fileID: 198578306837033660}
   - component: {fileID: 199937270362908546}
+  - component: {fileID: 114814085863834382}
   m_Layer: 0
   m_Name: Damage Boost FX
-  m_TagString: Untagged
+  m_TagString: Emitter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -74,7 +75,7 @@ GameObject:
   - component: {fileID: 199743857443455416}
   m_Layer: 0
   m_Name: shard
-  m_TagString: Untagged
+  m_TagString: Emitter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -134,6 +135,17 @@ Transform:
   m_Father: {fileID: 4593810376666112}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114814085863834382
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1723204681789840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92185d158b4c73943ab5df02d7a09647, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!198 &198578306837033660
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -193,7 +205,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1167450415
+  randomSeed: 286459170
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -3455,7 +3467,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1876704976
+  randomSeed: -634717801
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -6722,7 +6734,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -70832269
+  randomSeed: -1685931737
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -9989,7 +10001,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -476768640
+  randomSeed: -1504950487
   InitialModule:
     serializedVersion: 3
     enabled: 1

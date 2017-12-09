@@ -1,61 +1,51 @@
-﻿//Name: Chad Johnson
-//Student ID: 1763718
-//Email: johns428@mail.chapman.edu
-//Course: CPSC 340-01, CPSC-344-01
-//Assignment: Group Project
-//Purpose: Control interactions and navigation with start game menu
+﻿//=============================================================================
+//
+// Chad Johnson
+// 1763718
+// johns428@mail.chapman.edu
+// CPSC-340-01 & CPSC-344-01
+// Group Project
+//
+// StartMenu controls interactions with the Start Menu.
+//
+//=============================================================================
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Hive.Armada.Game;
-using Hive.Armada.Player;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
-namespace Hive.Armada.Menu
+namespace Hive.Armada.Menus
 {
+    /// <summary>
+    /// Controls interactions with Start Menu;
+    /// </summary>
     public class StartMenu : MonoBehaviour
     {
-        public Spawner spawner;
-        private bool isStarting;
+        /// <summary>
+        /// Reference to Menu Audio source.
+        /// </summary>
+		public AudioSource source;
 
         /// <summary>
-        /// Called by start button; changes ship mode and starts countdown
+        /// Clips to use with source.
         /// </summary>
-        public void ButtonSoloNormalClicked()
+    	public AudioClip[] clips;
+
+        /// <summary>
+        /// Called by start button; transition to Wave Room.
+        /// </summary>
+        public void PressSoloNormal()
         {
-            if (!isStarting)
-            {
-                isStarting = true;
-
-                GameObject ship = GameObject.FindGameObjectWithTag("Player");
-
-                if (ship != null)
-                {
-                    if (ship.GetComponent<ShipController>() != null)
-                        ship.GetComponent<ShipController>().SetShipMode(ShipController.ShipMode.Game);
-                }
-
-                if (spawner != null)
-                {
-                    //gameObject.GetComponentInChildren<Button>().enabled = false;
-                    GameObject.Find("Main Canvas").transform.Find("Countdown").gameObject.SetActive(true);
-                    gameObject.transform.parent.Find("Ambient FX").gameObject.SetActive(false);
-                    gameObject.SetActive(false);
-                }
-                else
-                {
-                    Debug.Log("CRITICAL - MENU'S REFERENCE TO SPAWNER IS NULL");
-                }  
-            }
+            source.PlayOneShot(clips[0]);
+            GameObject.Find("Main Canvas").transform.Find("Loadout Menu").gameObject.SetActive(true);
+            gameObject.SetActive(false);
         }
 
         /// <summary>
-        /// Back button pressed; navigates to main menu
+        /// Back button pressed; navigates to main menu.
         /// </summary>
-        public void OnBackButton()
+        public void PressBack()
         {
+            source.PlayOneShot(clips[1]);
             GameObject.Find("Main Canvas").transform.Find("Main Menu").gameObject.SetActive(true);
             gameObject.SetActive(false);
         }

@@ -11,7 +11,8 @@ using UnityEngine;
 using Valve.VR;
 using Valve.VR.InteractionSystem;
 
-public class ControlsHighlighter : MonoBehaviour {
+public class ControlsHighlighter : MonoBehaviour
+{
     public string fireTooltip = "Hold to Fire";
     public string powerupTooltip = "Press to Activate Powerup";
     public string pauseTooltip = "Press to Pause";
@@ -22,10 +23,11 @@ public class ControlsHighlighter : MonoBehaviour {
 
     Hand hand;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         hand = GetComponentInParent<Hand>();
-	}
+    }
 
     public void FireOn()
     {

@@ -1,24 +1,29 @@
-﻿using System.Collections;
+﻿//=============================================================================
+//
+// Chad Johnson
+// 1763718
+// johns428@mail.chapman.edu
+// CPSC-340-01 & CPSC-344-01
+// Group Project
+//
+// [DESCRIPTION]
+//
+//=============================================================================
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
-/// <summary>
-/// Chad Johnson
-/// 1763718
-/// johns428@mail.chapman.edu
-/// CPSC 340-01, CPSC 344-01
-/// 
-/// General game mode/status manager: activates/deactivates relevent objects
-/// </summary>
+using Hive.Armada.Game;
 
 namespace Hive.Armada
 {
     public class GameManager : MonoBehaviour
     {
-        public GameObject startMenu;
-
-        private bool shipPickedUp;
+        /// <summary>
+        /// Reference to ReferenceManager
+        /// </summary>
+        private ReferenceManager reference;
 
         // Use this for initialization
         void Start()
@@ -29,6 +34,8 @@ namespace Hive.Armada
             //{
             //    enemies[i].SetActive(false);
             //}
+
+            reference = FindObjectOfType<ReferenceManager>();
         }
 
         // Update is called once per frame
@@ -39,19 +46,13 @@ namespace Hive.Armada
 
         public void StartGame()
         {
-            startMenu.SetActive(false);
 
-
-
-            //for (int i = 0; i < enemies.Length; ++i)
-            //{
-            //    enemies[i].SetActive(true);
-            //}
         }
+
 
         //public void gameOver()
         //{
-        //    UnityEngine.SceneManagement.SceneManager.LoadScene("Test01");
+        //    UnityEngine.SceneManagement.SceneManager.LoadScene("Wave Room");
 
 
         //    kills = 0;
@@ -124,7 +125,7 @@ namespace Hive.Armada
 
         //public void gameOver()
         //{
-        //    UnityEngine.SceneManagement.SceneManager.LoadScene("Test01");
+        //    UnityEngine.SceneManagement.SceneManager.LoadScene("Wave Room");
 
 
         //    kills = 0;

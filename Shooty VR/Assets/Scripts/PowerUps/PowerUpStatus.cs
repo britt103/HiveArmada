@@ -1,253 +1,146 @@
-﻿//Name: Chad Johnson
-//Student ID: 1763718
-//Email: johns428@mail.chapman.edu
-//Course: CPSC 340-01, CPSC-344-01
-//Assignment: Group Project
-//Purpose: Tracks powerups in use
+﻿//=============================================================================
+//
+// Chad Johnson
+// 1763718
+// johns428@mail.champan.edu
+// CPSC-340-01 & CPSC-344-01
+// Group Project
+//
+// PowerupStatus tracks the powerups currently stored and currently active. A
+// powerup cannot be activated if a powerup of the same type is currently 
+// active. Powerups are activated upon controller input.
+//
+//=============================================================================
 
-using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine;
+using Hive.Armada.Player;
+using Valve.VR.InteractionSystem;
 
-namespace Hive.Armada
+namespace Hive.Armada.PowerUps
 {
+    /// <summary>
+    /// Tracks stored powerups and activations.
+    /// </summary>
     public class PowerUpStatus : MonoBehaviour
     {
-        public bool shieldStored = false;
-        public bool areaBombStored = false;
-        public bool clearStored = false;
-        public bool allyStored = false;
-        public bool damageBoostStored = false;
-
-        public bool shieldActive = false;
-        public bool areaBombActive = false;
-        public bool clearActive = false;
-        public bool allyActive = false;
-        public bool damageBoostActive = false;
-
+        /// <summary>
+        /// Queue containing powerup prefabs.
+        /// </summary>
         private Queue<GameObject> powerups = new Queue<GameObject>();
+
+        /// <summary>
+        /// Queue containing powerup icons.
+        /// </summary>
         private Queue<GameObject> powerupIcons = new Queue<GameObject>();
+
+        /// <summary>
+        /// Array containing names of powerups
+        /// </summary>
+        public string[] powerupNames;
+
+        /// <summary>
+        /// Maximum number of allowed stored powerups.
+        /// </summary>
         public int maxStoredPowerups = 3;
 
+        /// <summary>
+        /// Distance between icons.
+        /// </summary>
         public float iconSpacing = 1f;
-        public float alphaDelta = 30f;
 
+        /// <summary>
+        /// Reference to player ship.
+        /// </summary>
         private GameObject shipGO;
+
+        /// <summary>
+        /// References to player ship powerup point.
+        /// </summary>
         private Transform powerupPoint;
+
+        /// <summary>
+        /// References to playership icon point.
+        /// </summary>
         private Transform iconPoint;
 
+        /// <summary>
+        /// References to PlayerStats,
+        /// </summary>
         private PlayerStats stats;
 
-        private Valve.VR.InteractionSystem.Hand hand;
+        /// <summary>
+        /// Reference to active hand.
+        /// </summary>
+        private Hand hand;
 
+        /// <summary>
+        /// State of whether PowerupStatus is tracking inputs. 
+        /// </summary>
         public bool tracking = false;
 
-        // Use this for initialization
-        void Start()
+        /// <summary>
+        /// Find references.
+        /// </summary>
+        private void Start()
         {
             stats = FindObjectOfType<PlayerStats>();
         }
 
-        //// Update is called once per frame
-        void Update()
+        /// <summary>
+        /// Activate powerup and tooltip if input is detected.
+        /// </summary>
+        private void Update()
         {
-            //Debug.Log(tracking);
-
-            if (tracking)
+            if (tracking && powerups.Count > 0)
             {
-                if (hand.controller.GetPressDown(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad) && powerups.Count > 0)
+                if (hand.controller.GetTouch(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad))
                 {
-                    GameObject powerup = powerups.Dequeue();
-                    bool canActivate = true;
+                    string nextPowerupName = powerups.Peek().name;
+                }
 
-                    switch (powerup.name)
-                    {
-                        case "Shield":
-                            if (shieldActive)
-                            {
-                                canActivate = false;
-                            }
-                            else
-                            {
-                                shieldStored = false;
-                                shieldActive = true;
-                                stats.ShieldCount();
-                            }
-
-                            break;
-
-                        case "Area Bomb":
-                            if (areaBombActive)
-                            {
-                                canActivate = false;
-                            }
-                            else
-                            {
-                                areaBombStored = false;
-                                areaBombActive = true;
-                                stats.AreaBombCount();
-                            }
-
-                            break;
-
-                        case "Clear":
-                            if (clearActive)
-                            {
-                                canActivate = false;
-                            }
-                            else
-                            {
-                                clearStored = false;
-                                clearActive = true;
-                                stats.ClearCount();
-                            }
-
-                            break;
-
-                        case "Ally":
-                            if (allyActive)
-                            {
-                                canActivate = false;
-                            }
-                            else
-                            {
-                                allyStored = false;
-                                allyActive = true;
-                                stats.AllyCount();
-                            }
-
-                            break;
-
-                        case "Damage Boost":
-                            if (damageBoostActive)
-                            {
-                                canActivate = false;
-                            }
-                            else
-                            {
-                                damageBoostStored = false;
-                                damageBoostActive = true;
-                                stats.DamageBoostCount();
-                            }
-
-                            break;
-                    }
-
-                    if (canActivate)
-                    {
-                        Instantiate(powerup, powerupPoint);
-
-                        RemoveDisplayIcon();
-                    }
+                if (hand.controller.GetPressDown(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad))
+                {
+                    Instantiate(powerups.Dequeue(), powerupPoint);
+                    RemoveDisplayIcon();
                 }
             }
         }
 
-        //Getters and setters for powerup states
-
-        //public bool GetShield()
-        //{
-        //    return shieldState;
-        //}
-
-        //public void SetShield(bool newState)
-        //{
-        //    if (newState)
-        //    {
-        //        stats.ShieldCount();
-        //    }
-        //    shieldState = newState;
-        //}
-
-        //public bool GetAreaBomb()
-        //{
-        //    return areaBombState;
-        //}
-
-        //public void SetAreaBomb(bool newState)
-        //{
-        //    if (newState)
-        //    {
-        //        stats.AreaBombCount();
-        //    }
-        //    areaBombState = newState;
-        //}
-
-        //public bool GetClear()
-        //{
-        //    return clearState;
-        //}
-
-        //public void SetClear(bool newState)
-        //{
-        //    if (newState)
-        //    {
-        //        stats.ClearCount();
-        //    }
-        //    clearState = newState;
-        //}
-
-        //public bool GetAlly()
-        //{
-        //    return allyState;
-        //}
-
-        //public void SetAlly(bool newState)
-        //{
-        //    if (newState)
-        //    {
-        //        stats.AllyCount();
-        //    }
-        //    allyState = newState;
-        //}
-        //public bool GetDamageBoost()
-        //{
-        //    return damageBoostState;
-        //}
-
-        //public void SetDamageBoost(bool newState)
-        //{
-        //    if (newState)
-        //    {
-        //        stats.DamageBoostCount();
-        //    }
-        //    damageBoostState = newState;
-        //}
-
         /// <summary>
-        /// Trigger status to start tracking and find necessary gameobjects and transforms
+        /// Trigger PowerupStatus to start tracking and find references.
         /// </summary>
         public void BeginTracking()
         {
             tracking = true;
-
-            shipGO = gameObject.GetComponentInChildren<Player.ShipController>().gameObject;
-            hand = shipGO.GetComponentInParent<Valve.VR.InteractionSystem.Hand>();
+            shipGO = gameObject.GetComponentInChildren<ShipController>().gameObject;
+            hand = shipGO.GetComponentInParent<Hand>();
             powerupPoint = shipGO.transform.Find("Powerup Point");
             iconPoint = shipGO.transform.Find("Powerup Icon Point");
         }
 
         /// <summary>
-        /// Add powerup to queues
+        /// Add powerup to queues.
         /// </summary>
-        /// <param name="powerupPrefab">gameobject to powerup</param>
-        /// <param name="powerupIconPrefab">gameobject of powerup icon</param>
+        /// <param name="powerupPrefab">GameObject of powerup</param>
+        /// <param name="powerupIconPrefab">GameObject of powerup icon</param>
         public void StorePowerup(GameObject powerupPrefab, GameObject powerupIconPrefab)
         {
             powerups.Enqueue(powerupPrefab);
-
             GameObject newIcon = Instantiate(powerupIconPrefab, iconPoint);
             powerupIcons.Enqueue(newIcon);
             UpdateDisplayIcon(newIcon);
         }
 
         /// <summary>
-        /// Adjust attributes of newly added icon based on queue count
+        /// Adjust attributes of newly added icon based on queue count.
         /// </summary>
-        /// <param name="newIcon"></param>
+        /// <param name="newIcon">Newly added icon</param>
         private void UpdateDisplayIcon(GameObject newIcon)
         {
             //position
-            newIcon.transform.localPosition = new Vector3(iconSpacing * (powerupIcons.Count - 1), 0, 0);
+            newIcon.transform.localPosition = new Vector3
+                    (iconSpacing * (powerupIcons.Count - 1), 0, 0);
 
             //scale
             //newIcon.transform.localScale *= (powerupIcons.Count / maxStoredPowerups);
@@ -260,7 +153,7 @@ namespace Hive.Armada
         }
 
         /// <summary>
-        /// Removce icon, shift remaining icons
+        /// Removce icon and shift remaining icons.
         /// </summary>
         private void RemoveDisplayIcon()
         {
@@ -278,9 +171,22 @@ namespace Hive.Armada
         }
 
         /// <summary>
-        /// Return status of queue capacity
+        /// Clear powerup queues and remove all icons. Meant to be used between waves. 
         /// </summary>
-        /// <returns>bool: True if there is room left in queue</returns>
+        public void RemoveStoredPowerups()
+        {
+            powerups.Clear();
+            foreach(GameObject icon in powerupIcons)
+            {
+                Destroy(icon);
+            }
+            powerupIcons.Clear();
+        }
+
+        /// <summary>
+        /// Return status of queue capacity.
+        /// </summary>
+        /// <returns>State of whether there is room left in queue.</returns>
         public bool HasRoom()
         {
             return (powerups.Count < maxStoredPowerups);

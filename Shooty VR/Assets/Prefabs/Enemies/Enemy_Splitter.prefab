@@ -255,7 +255,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1591170296302446}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children:
@@ -686,11 +686,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: bb382f04fef5e244d81689ede21caeb6, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -726,7 +726,13 @@ AudioSource:
     m_Curve:
     - serializedVersion: 2
       time: 0
-      value: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -785,16 +791,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42057ba6fb932ad42aed79e00a22e868, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawner: {fileID: 0}
-  maxHealth: 100
   flashColor: {fileID: 2100000, guid: 1db15971033ba594294b4f0c035f7da8, type: 2}
-  fxSpawn: {fileID: 1986916411221482, guid: c22c489c25fedaa41a77630cc26e3c53, type: 2}
-  fxKill: {fileID: 1110594293534486, guid: a5ffbf29c124fdd4b9a26ba22878897e, type: 2}
-  bullet: {fileID: 1751136267563060, guid: a3e97b332c7c7484eb0cf0632e2a5e94, type: 2}
-  spawn: {fileID: 4347667254384738}
-  turret: {fileID: 1618603837932422, guid: 9a594f50db7a6b347af3019acb9f591b, type: 2}
-  fireRate: 0.6
-  fireSpeed: 1.5
+  spawnEmitter: {fileID: 0}
+  deathEmitter: {fileID: 0}
+  shootPoint: {fileID: 4347667254384738}
+  childTurret: {fileID: 1618603837932422, guid: 9a594f50db7a6b347af3019acb9f591b,
+    type: 2}
   splitDir: 2
 --- !u!136 &136215850579937890
 CapsuleCollider:

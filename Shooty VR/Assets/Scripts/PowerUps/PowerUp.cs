@@ -1,93 +1,138 @@
-﻿//Name: Chad Johnson
-//Student ID: 1763718
-//Email: johns428@mail.chapman.edu
-//Course: CPSC 340-01, CPSC-344-01
-//Assignment: Group Project
-//Purpose: Handles collision with Player, instantiates powerups
+﻿//=============================================================================
+//
+// Chad Johnson
+// 1763718
+// johns428@mail.champan.edu
+// CPSC-340-01 & CPSC-344-01
+// Group Project
+//
+// Powerup controls interaction with powerup pickup objects. When the player
+// interacts with the pickup, they recieve a powerup corresponding to Powerup's
+// pickup prefab. The player can only receive the powerup if they do not 
+// already have a powerup of that type currently stored.
+//
+//=============================================================================
 
 using UnityEngine;
-using Valve.VR.InteractionSystem;
 
-namespace Hive.Armada
+namespace Hive.Armada.PowerUps
 {
     public class PowerUp : MonoBehaviour
     {
-        //prefab to use for instantiation
+        /// <summary>
+        /// Reference to pickup prefab.
+        /// </summary>
         public GameObject powerupPrefab;
-        public GameObject powerupIconPrefab;
-        public GameObject fxAwake;
-        private PowerUpStatus status;
-        //private Transform head;
-        public float lifeTime = 20.0f;
 
+        /// <summary>
+        /// Reference to powerup icon prefab.
+        /// </summary>
+        public GameObject powerupIconPrefab;
+
+        /// <summary>
+        /// FX of pickup instantiation.
+        /// </summary>
+        public GameObject spawnEmitter;
+
+        /// <summary>
+        /// FX of powerup on collision with player.
+        /// </summary>
+        public GameObject pickupEmitter;
+
+        /// <summary>
+        /// Reference to PowerUpStatus.
+        /// </summary>
+        private PowerUpStatus status;
+
+        //Reference to player head transform.
+        private Transform head;
+
+        /// <summary>
+        /// Time until self-destruct.
+        /// </summary>
+        public float lifeTime = 10.0f;
+
+        /// <summary>
+        /// Find references. Instantiate and rotate FX. Start self-destruct countdown.
+        /// </summary>
         private void Start()
         {
-            Instantiate(fxAwake, transform.position, transform.localRotation);
+            head = GameObject.Find("VRCamera").transform;
+            GameObject fx = Instantiate(spawnEmitter, transform.position, transform.localRotation);
+            fx.transform.rotation = Quaternion
+                    .FromToRotation(Vector3.up, head.position - gameObject.transform.position);
+
             status = FindObjectOfType<PowerUpStatus>();
-            //head = GameObject.Find("Player").transform.Find("SteamVRObjects").transform.Find("FollowHead").transform;
             Destroy(gameObject, lifeTime);
         }
 
+        /// <summary>
+        /// Update rotation to face player.
+        /// </summary>
         private void Update()
         {
-            //gameObject.transform.LookAt(GameObject.Find("FollowHead").transform);
+            gameObject.transform.parent.LookAt(head);
         }
 
         /// <summary>
-        /// handles collision with player
+        /// Give player powerup upon collision, then self-destruct.
         /// </summary>
-        /// <param name="other">object powerup collided with</param>
+        /// <param name="other">Collider of object with which this collided.</param>
         void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.tag == "Player" && status.HasRoom())
+            if (other.CompareTag("Player") && status.HasRoom())
             {
-                switch (powerupPrefab.name)
-                {
-                    case "Shield":
-                        if (!status.shieldStored)
-                        {
-                            status.StorePowerup(powerupPrefab, powerupIconPrefab);
-                            status.shieldStored = true;
-                            Destroy(gameObject);
-                        }
-                        break;
+                //switch (powerupPrefab.name)
+                //{
+                //case "Ally":
+                //    if (!status.powerupTypeStored[0])
+                //    {
+                //        status.StorePowerup(powerupPrefab, powerupIconPrefab);
+                //        status.powerupTypeStored[0] = true;
+                //        Destroy(gameObject);
+                //    }
+                //    break;
 
-                    case "Area Bomb":
-                        if (!status.areaBombStored)
-                        {
-                            status.StorePowerup(powerupPrefab, powerupIconPrefab);
-                            status.areaBombStored = true;
-                            Destroy(gameObject);
+                //case "Area Bomb":
+                //    if (!status.powerupTypeStored[1])
+                //    {
+                //        status.StorePowerup(powerupPrefab, powerupIconPrefab);
+                //        status.powerupTypeStored[1] = true;
+                //        Destroy(gameObject);
 
-                        }
-                        break;
+                //    }
+                //    break;
 
-                    case "Clear":
-                        if (!status.clearStored)
-                        {
-                            status.StorePowerup(powerupPrefab, powerupIconPrefab);
-                            status.clearStored = true;
-                            Destroy(gameObject);
-                        }
-                        break;
+                //case "Clear":
+                //    if (!status.powerupTypeStored[2])
+                //    {
+                //        status.StorePowerup(powerupPrefab, powerupIconPrefab);
+                //        status.powerupTypeStored[2] = true;
+                //        Destroy(gameObject);
+                //    }
+                //    break;
 
-                    case "Ally":
-                        if (!status.allyStored)
-                        {
-                            status.StorePowerup(powerupPrefab, powerupIconPrefab);
-                            status.allyStored = true;
-                            Destroy(gameObject);
-                        }
-                        break;
-                    case "Damage Boost":
-                        if (!status.damageBoostStored)
-                        {
-                            status.StorePowerup(powerupPrefab, powerupIconPrefab);
-                            status.damageBoostStored = true;
-                            Destroy(gameObject);
-                        }
-                        break;
-                }
+                //case "Damage Boost":
+                //    if (!status.powerupTypeStored[3])
+                //    {
+                //        status.StorePowerup(powerupPrefab, powerupIconPrefab);
+                //        status.powerupTypeStored[3] = true;
+                //        Destroy(gameObject);
+                //    }
+                //    break;
+
+                //case "Shield":
+                //    if (!status.powerupTypeStored[4])
+                //    {
+                //        status.StorePowerup(powerupPrefab, powerupIconPrefab);
+                //        status.powerupTypeStored[4] = true;
+                //        Destroy(gameObject);
+                //    }
+                //    break;
+                //}
+                Instantiate(pickupEmitter, transform.position, transform.localRotation);
+                status.StorePowerup(powerupPrefab, powerupIconPrefab);
+                Destroy(gameObject);
             }
         }
     }

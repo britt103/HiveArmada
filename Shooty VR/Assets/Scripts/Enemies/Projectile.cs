@@ -1,50 +1,75 @@
-﻿// 
+﻿//=============================================================================
+//
 // Perry Sidler
 // 1831784
 // sidle104@mail.chapman.edu
 // CPSC-340-01 & CPSC-344-01
 // Group Project
-// 
+//
 // A basic projectile. It will destroy itself after a set amount of time,
-// after colliding with the room, or the player. It will also kill the player.
-// 
+// after colliding with the room, or the player. It damages the player
+// by a set amount.
+//
+//=============================================================================
 
-using System.Collections;
-using System.Collections.Generic;
+using Hive.Armada.Game;
 using UnityEngine;
 using Hive.Armada.Player;
 
 namespace Hive.Armada.Enemies
 {
-    public class Projectile : MonoBehaviour
+    /// <summary>
+    /// Basic projectile used by all shooting enemies.
+    /// </summary>
+    public class Projectile : Poolable
     {
-        public int damage;
-        public float lifetime;
+        /// <summary>
+        /// Reference manager that holds all needed references
+        /// (e.g. spawner, game manager, etc.)
+        /// </summary>
+        private ReferenceManager reference;
 
-        void Start()
+        /// <summary>
+        /// The amount of damage the projectile takes from the player's health 
+        /// </summary>
+        private int damage;
+
+        /// <summary>
+        /// Initializes the reference to the Reference Manager
+        /// </summary>
+        private void Awake()
         {
-            Destroy(gameObject, lifetime);
+            reference = GameObject.Find("Reference Manager").GetComponent<ReferenceManager>();
         }
 
-        void OnTriggerEnter(Collider other)
+        /// <summary>
+        /// Runs when the projectile collides with another object with a Collider.
+        /// </summary>
+        /// <param name="other"> The other collider </param>
+        private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Player"))
             {
-                if (other.GetComponent<PlayerHealth>() != null)
+                if (Utility.isDebug)
                 {
-                    other.GetComponent<PlayerHealth>().Hit(damage);
+                    Debug.Log(GetType().Name + " - hit object named \"" + other.gameObject.name + "\"");
                 }
-                else
-                {
-                    if (Utility.isDebug)
-                        Debug.Log("[WARNING] GameObject tagged with \"Player\" does NOT have PlayerHealth.cs on it!");
-                }
-                Destroy(gameObject);
+
+                reference.playerShip.GetComponent<PlayerHealth>().Hit(damage);
+                reference.objectPoolManager.Despawn(gameObject);
             }
             else if (other.CompareTag("Room"))
             {
-                Destroy(gameObject);
+                reference.objectPoolManager.Despawn(gameObject);
             }
+        }
+
+        /// <summary>
+        /// Initializes the damage for the projectile.
+        /// </summary>
+        protected override void Reset()
+        {
+            damage = reference.enemyAttributes.projectileDamage;
         }
     }
 }

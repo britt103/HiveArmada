@@ -95,6 +95,60 @@ namespace Hive.Armada.Enemies
         /// </summary>
         bool moveComplete;
 
+        /// <summary>
+        /// What texture to use for the lasers.
+        /// </summary>
+        public Material laserMaterial;
+
+        /// <summary>
+        /// How much damage the player takes from lasers.
+        /// </summary>
+        public int damage;
+
+        /// <summary>
+        /// Position below the player.
+        /// </summary>
+        private Vector3 pointA;
+
+        /// <summary>
+        /// Position of the player.
+        /// </summary>
+        private Vector3 pointB;
+
+        /// <summary>
+        /// Location on enemy to spawn lasers
+        /// </summary>
+        public GameObject[] laserSpawn;
+
+        /// <summary>
+        /// Array of lasers to be fired by this enemy
+        /// </summary>
+        LineRenderer[] laserArray;
+
+        /// <summary>
+        /// Whether this enemy has hit the player with its lasers. Toggles when player is hit
+        /// </summary>
+        private bool hasHit = false;
+
+        /// <summary>
+        /// Whether this enemy is shooting its lasers or not. Toggles
+        /// </summary>
+        private bool shooting = false;
+
+        /// <summary>
+        /// How many seconds it takes for the lasers to finish moving.
+        /// </summary>
+        private float timer;
+
+        /// <summary>
+        /// How many seconds the lasers will be on.
+        /// </summary>
+        public float timeLaserOn;
+        /// <summary>
+        /// Returns what the laser hit
+        /// </summary>
+        RaycastHit hit;
+
         ///// <summary>
         ///// On start, select enemy behavior based on value fireMode
         ///// </summary>
@@ -112,6 +166,7 @@ namespace Hive.Armada.Enemies
         {
             spawnComplete = false;
             moveComplete = false;
+            switchFireMode(fireMode);
         }
         void Update()
         {
@@ -121,12 +176,37 @@ namespace Hive.Armada.Enemies
                 {
                     if (player != null)
                     {
-                        transform.LookAt(player.transform);
-
-                        if (Time.time > fireNext)
+                        if (shooting)
                         {
-                            fireNext = Time.time + (1 / fireRate);
-                            StartCoroutine(FireBullet());
+                            transform.eulerAngles = Vector3.Lerp(pointA, pointB, timer);
+                            for (int i = 0; i < laserSpawn.Length; i++)
+                            {
+                                laserArray[i].SetPosition(0, laserSpawn[i].transform.position);
+                                laserArray[i].SetPosition(1, laserSpawn[i].transform.forward * 200.0f);
+                                if (Physics.Raycast(laserArray[i].GetPosition(0),
+                                                    laserArray[i].GetPosition(1) - laserArray[i].GetPosition(0), out hit))
+                                    switch (hit.transform.gameObject.tag)
+                                    {
+                                        case "Player":
+                                            if (hasHit == false)
+                                            {
+                                                hit.collider.gameObject.GetComponent<Player.PlayerHealth>().Hit(damage);
+                                                hasHit = true;
+                                                StartCoroutine(HitCooldown());
+                                            }
+                                            break;
+                                    }
+                            }
+                            timer += Time.deltaTime;
+                        }
+                        else
+                        {
+                            transform.LookAt(player.transform.position);
+                            if (Time.time > fireNext)
+                            {
+                                fireNext = Time.time + (1 / fireRate);
+                                StartCoroutine(FireBullet());
+                            }
                         }
 
                         if (shaking)
@@ -192,6 +272,9 @@ namespace Hive.Armada.Enemies
                     fireCone = 0;
                     fireProjectile = projectileArray[1];
                     break;
+                case 3:
+                    SetLaser();
+                    break;
             }
         }
 
@@ -219,7 +302,79 @@ namespace Hive.Armada.Enemies
         {
             moveComplete = true;
         }
+        /// <summary>
+        /// Turns off this enemy's lasers for 5 seconds.
+        /// </summary>
+        public IEnumerator LaserCooldown()
+        {
+            for (int i = 0; i < laserSpawn.Length; i++)
+            {
+                laserArray[i].enabled = false;
+            }
+            yield return new WaitForSeconds(5.0f);
+            StartCoroutine(LaserOn());
+        }
 
+        /// <summary>
+        /// Turns on this enemy's lasers.
+        /// </summary>
+        public IEnumerator LaserOn()
+        {
+            if (player != null)
+            {
+                Vector3 lookPos = new Vector3(player.transform.localPosition.x, player.transform.localPosition.y - 5,
+                                              player.transform.localPosition.z);
+                transform.LookAt(lookPos);
+                pointA = transform.localRotation.eulerAngles;
+                pointB = transform.localRotation.eulerAngles + new Vector3(-90f, 0f, 0f);
+            }
+
+            yield return new WaitForSeconds(1.0f);
+            for (int i = 0; i < laserSpawn.Length; i++)
+            {
+                laserArray[i].enabled = true;
+            }
+            timer = 0.0f;
+            StartCoroutine(LaserMoving());
+        }
+
+        /// <summary>
+        /// Makes this enemy fire its lasers for 'timelaserOn' seconds.
+        /// </summary>
+        public IEnumerator LaserMoving()
+        {
+            shooting = true;
+            yield return new WaitForSeconds(timeLaserOn);
+            shooting = false;
+            StartCoroutine(LaserCooldown());
+        }
+
+        /// <summary>
+        /// Initializes the array of lasers.
+        /// </summary>
+        public void SetLaser()
+        {
+            laserArray = new LineRenderer[laserSpawn.Length];
+            for (int i = 0; i < laserSpawn.Length; i++)
+            {
+                laserArray[i] = laserSpawn[i].AddComponent<LineRenderer>();
+                laserArray[i].material = laserMaterial;
+                laserArray[i].startWidth = 0.05f;
+                laserArray[i].endWidth = 0.05f;
+                laserArray[i].SetPosition(0, laserSpawn[i].transform.position);
+                laserArray[i].SetPosition(1, laserSpawn[i].transform.forward * 200.0f);
+            }
+            StartCoroutine(LaserCooldown());
+        }
+
+        /// <summary>
+        /// Removes the damage from lasers for 1 second after they collide with the player.
+        /// </summary>
+        public IEnumerator HitCooldown()
+        {
+            yield return new WaitForSeconds(1.0f);
+            hasHit = false;
+        }
         /// <summary>
         /// Resets attributes to this enemy's defaults from enemyAttributes.
         /// </summary>

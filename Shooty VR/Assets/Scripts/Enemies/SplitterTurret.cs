@@ -100,13 +100,38 @@ namespace Hive.Armada.Enemies
                 {
                     if (player != null)
                     {
-                        transform.LookAt(player.transform);
-
-                        if (canShoot)
+                        if (shooting)
                         {
-                            StartCoroutine(Shoot());
+                            transform.eulerAngles = Vector3.Lerp(pointA, pointB, timer);
+                            for (int i = 0; i < laserSpawn.Length; i++)
+                            {
+                                laserArray[i].SetPosition(0, laserSpawn[i].transform.position);
+                                laserArray[i].SetPosition(1, laserSpawn[i].transform.forward * 200.0f);
+                                if (Physics.Raycast(laserArray[i].GetPosition(0),
+                                                    laserArray[i].GetPosition(1) - laserArray[i].GetPosition(0), out hit))
+                                    switch (hit.transform.gameObject.tag)
+                                    {
+                                        case "Player":
+                                            if (hasHit == false)
+                                            {
+                                                hit.collider.gameObject.GetComponent<Player.PlayerHealth>().Hit(damage);
+                                                hasHit = true;
+                                                StartCoroutine(HitCooldown());
+                                            }
+                                            break;
+                                    }
+                            }
+                            timer += Time.deltaTime;
                         }
+                        else
+                        {
+                            transform.LookAt(player.transform);
 
+                            if (canShoot)
+                            {
+                                StartCoroutine(Shoot());
+                            }
+                        }
                         if (shaking)
                         {
                             iTween.ShakePosition(gameObject, new Vector3(0.1f, 0.1f, 0.1f), 0.1f);

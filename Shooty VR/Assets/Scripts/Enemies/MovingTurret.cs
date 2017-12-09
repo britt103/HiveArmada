@@ -11,9 +11,7 @@
 //=============================================================================
 
 using System.Collections;
-using System.Linq;
 using UnityEngine;
-using MirzaBeig.ParticleSystems;
 using Random = UnityEngine.Random;
 
 namespace Hive.Armada.Enemies
@@ -76,6 +74,11 @@ namespace Hive.Armada.Enemies
         private Vector3 posB;
 
         /// <summary>
+        /// Final position after spawning.
+        /// </summary>
+        private Vector3 endPosition;
+
+        /// <summary>
         /// The player's ship.
         /// </summary>
         private GameObject player;
@@ -91,16 +94,24 @@ namespace Hive.Armada.Enemies
         private float startTime;
 
         /// <summary>
+        /// Bools used to move the enemy to its spawn position.
+        /// </summary>
+        bool spawnComplete;
+
+        /// <summary>
+        /// Bools used to move the enemy to its spawn position.
+        /// </summary>
+        bool moveComplete;
+
+        /// <summary>
         /// Finds the player. Runs when this enemy spawns.
         /// </summary>
-        private void Start()
+        private void OnEnable()
         {
             startTime = Time.time;
+            spawnComplete = false;
+            moveComplete = false;
             player = GameObject.FindGameObjectWithTag("Player");
-            if (player != null)
-            {
-                transform.LookAt(player.transform);
-            }
             SetPosition();
         }
 
@@ -123,33 +134,50 @@ namespace Hive.Armada.Enemies
         /// </summary>
         private void Update()
         {
-            transform.position = Vector3.Lerp(posA, posB,
-                (Mathf.Sin(movingSpeed * (Time.time + startTime)) + 1.0f) / 2.0f);
-
-            if (player != null)
+            if (spawnComplete)
             {
-                transform.LookAt(player.transform);
-
-                if (canShoot)
+                if (moveComplete)
                 {
-                    StartCoroutine(Shoot());
+
+                    if (player != null)
+                    {
+                        transform.LookAt(player.transform);
+
+                        transform.position = Vector3.Lerp(posA, posB,
+                        (Mathf.Sin(movingSpeed * (Time.time + startTime)) + 1.0f) / 2.0f);
+
+                        if (canShoot)
+                        {
+                            StartCoroutine(Shoot());
+                        }
+                        if (shaking)
+                        {
+                            iTween.ShakePosition(gameObject, new Vector3(0.1f, 0.1f, 0.1f), 0.1f);
+
+                        }
+                        SelfDestructCountdown();
+                    }
+                    else
+                    {
+                        player = reference.playerShip;
+
+                        if (player == null)
+                        {
+                            transform.LookAt(new Vector3(0.0f, 2.0f, 0.0f));
+                        }
+                    }
+                }
+                else
+                {
+                    transform.position = Vector3.Lerp(transform.position, endPosition, Time.deltaTime * 1.0f);
+                    if (Vector3.Distance(transform.position, endPosition) <= 0.1f)
+                    {
+                        MoveComplete();
+                    }
+
                 }
             }
-            else
-            {
-                player = reference.playerShip;
 
-                if (player == null)
-                {
-                    transform.LookAt(new Vector3(0.0f, 2.0f, 0.0f));
-                }
-            }
-            //if (shaking)
-            //{
-            //    iTween.ShakePosition(gameObject, new Vector3(0.1f, 0.1f, 0.1f), 0.1f);
-
-            //}
-            SelfDestructCountdown();
         }
 
         /// <summary>
@@ -174,21 +202,35 @@ namespace Hive.Armada.Enemies
 
             canShoot = true;
         }
+        /// <summary>
+        /// Runs when this enemy finishes default pathing to SpawnZone.
+        /// </summary>
+        void SpawnComplete()
+        {
+            spawnComplete = true;
+        }
 
+        /// <summary>
+        /// Moves this enemy to endPos.
+        /// </summary>
+        /// <param name="endPos">Final position of this enemy.</param>
+        public void SetEndpoint(Vector3 endPos)
+        {
+            endPosition = endPos;
+            SpawnComplete();
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        void MoveComplete()
+        {
+            moveComplete = true;
+        }
         /// <summary>
         /// Resets attributes to this enemy's defaults from enemyAttributes.
         /// </summary>
         protected override void Reset()
         {
-            // reset materials
-            for (int i = 0; i < renderers.Count; ++i)
-            {
-                renderers.ElementAt(i).material = materials.ElementAt(i);
-            }
-
-            hitFlash = null;
-            shaking = false;
-
             projectileTypeIdentifier =
                 enemyAttributes.EnemyProjectileTypeIdentifiers[TypeIdentifier];
             maxHealth = enemyAttributes.enemyHealthValues[TypeIdentifier];
@@ -198,18 +240,6 @@ namespace Hive.Armada.Enemies
             spread = enemyAttributes.enemySpread[TypeIdentifier];
             pointValue = enemyAttributes.enemyScoreValues[TypeIdentifier];
             selfDestructTime = enemyAttributes.enemySelfDestructTimes[TypeIdentifier];
-
-            if (!isInitialized)
-            {
-                isInitialized = true;
-
-                GameObject spawnEmitterObject = Instantiate(spawnEmitter,
-                                                            transform.position,
-                                                            transform.rotation, transform);
-                spawnEmitterSystem = spawnEmitterObject.GetComponent<ParticleSystems>();
-
-                deathEmitterTypeIdentifier = objectPoolManager.GetTypeIdentifier(deathEmitter);
-            }
         }
     }
 }

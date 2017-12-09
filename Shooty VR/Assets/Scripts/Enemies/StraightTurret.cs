@@ -11,10 +11,7 @@
 //=============================================================================
 
 using System.Collections;
-using System.Linq;
 using UnityEngine;
-using MirzaBeig.ParticleSystems;
-
 namespace Hive.Armada.Enemies
 {
     public class StraightTurret : Enemy
@@ -51,6 +48,11 @@ namespace Hive.Armada.Enemies
         private Vector3 pos;
 
         /// <summary>
+        /// Final position after spawning.
+        /// </summary>
+        private Vector3 endPosition;
+
+        /// <summary>
         /// How fast the turret shoots at a given rate
         /// </summary>
         public float fireRate;
@@ -80,10 +82,72 @@ namespace Hive.Armada.Enemies
         /// Spread values determined by fireCone on each axis
         /// </summary>
         private float randX;
-
         private float randY;
-
         private float randZ;
+
+        /// <summary>
+        /// Bools used to move the enemy to its spawn position.
+        /// </summary>
+        bool spawnComplete;
+
+        /// <summary>
+        /// Bools used to move the enemy to its spawn position.
+        /// </summary>
+        bool moveComplete;
+
+        /// <summary>
+        /// What texture to use for the lasers.
+        /// </summary>
+        public Material laserMaterial;
+
+        /// <summary>
+        /// How much damage the player takes from lasers.
+        /// </summary>
+        public int damage;
+
+        /// <summary>
+        /// Position below the player.
+        /// </summary>
+        private Vector3 pointA;
+
+        /// <summary>
+        /// Position of the player.
+        /// </summary>
+        private Vector3 pointB;
+
+        /// <summary>
+        /// Location on enemy to spawn lasers
+        /// </summary>
+        public GameObject[] laserSpawn;
+
+        /// <summary>
+        /// Array of lasers to be fired by this enemy
+        /// </summary>
+        LineRenderer[] laserArray;
+
+        /// <summary>
+        /// Whether this enemy has hit the player with its lasers. Toggles when player is hit
+        /// </summary>
+        private bool hasHit = false;
+
+        /// <summary>
+        /// Whether this enemy is shooting its lasers or not. Toggles
+        /// </summary>
+        private bool shooting = false;
+
+        /// <summary>
+        /// How many seconds it takes for the lasers to finish moving.
+        /// </summary>
+        private float timer;
+
+        /// <summary>
+        /// How many seconds the lasers will be on.
+        /// </summary>
+        public float timeLaserOn;
+        /// <summary>
+        /// Returns what the laser hit
+        /// </summary>
+        RaycastHit hit;
 
         ///// <summary>
         ///// On start, select enemy behavior based on value fireMode
@@ -98,40 +162,85 @@ namespace Hive.Armada.Enemies
         /// swayed via the spread value set by user. If player is not found automatically
         /// finds player, otherwise do nothing.
         /// </summary>
-        private void Update()
+        private void OnEnable()
         {
-            if (player != null)
+            spawnComplete = false;
+            moveComplete = false;
+            switchFireMode(fireMode);
+        }
+        void Update()
+        {
+            if (spawnComplete)
             {
-                pos = player.transform.position;
-                transform.LookAt(pos);
-
-                if (Time.time > fireNext)
+                if (moveComplete)
                 {
-                    fireNext = Time.time + 1 / fireRate;
-                    StartCoroutine(FireBullet());
+                    if (player != null)
+                    {
+                        if (shooting)
+                        {
+                            transform.eulerAngles = Vector3.Lerp(pointA, pointB, timer);
+                            for (int i = 0; i < laserSpawn.Length; i++)
+                            {
+                                laserArray[i].SetPosition(0, laserSpawn[i].transform.position);
+                                laserArray[i].SetPosition(1, laserSpawn[i].transform.forward * 200.0f);
+                                if (Physics.Raycast(laserArray[i].GetPosition(0),
+                                                    laserArray[i].GetPosition(1) - laserArray[i].GetPosition(0), out hit))
+                                    switch (hit.transform.gameObject.tag)
+                                    {
+                                        case "Player":
+                                            if (hasHit == false)
+                                            {
+                                                hit.collider.gameObject.GetComponent<Player.PlayerHealth>().Hit(damage);
+                                                hasHit = true;
+                                                StartCoroutine(HitCooldown());
+                                            }
+                                            break;
+                                    }
+                            }
+                            timer += Time.deltaTime;
+                        }
+                        else
+                        {
+                            transform.LookAt(player.transform.position);
+                            if (Time.time > fireNext)
+                            {
+                                fireNext = Time.time + (1 / fireRate);
+                                StartCoroutine(FireBullet());
+                            }
+                        }
+
+                        if (shaking)
+                        {
+                            iTween.ShakePosition(gameObject, new Vector3(0.1f, 0.1f, 0.1f), 0.1f);
+                        }
+                    }
+                    else
+                    {
+                        player = reference.playerShip;
+
+                        if (player == null)
+                        {
+                            transform.LookAt(new Vector3(0.0f, 2.0f, 0.0f));
+                        }
+
+                    }
+                    SelfDestructCountdown();
+                }
+                else
+                {
+                    transform.position = Vector3.Lerp(transform.position, endPosition, Time.deltaTime * 1.0f);
+                    if (Vector3.Distance(transform.position, endPosition) <= 0.1f)
+                    {
+                        MoveComplete();
+                    }
                 }
             }
-            else
-            {
-                player = GameObject.FindGameObjectWithTag("Player");
-
-                if (player == null)
-                {
-                    transform.LookAt(new Vector3(0.0f, 0.0f, 0.0f));
-                }
-            }
-
-            //if (shaking)
-            //{
-            //    iTween.ShakePosition(gameObject, new Vector3(0.01f, 0.01f, 0.01f), Time.deltaTime);
-            //}
-            SelfDestructCountdown();
         }
 
         private IEnumerator FireBullet()
         {
             GameObject shoot = objectPoolManager.Spawn(projectileTypeIdentifier, fireSpawn.position,
-                                                       fireSpawn.rotation);
+                                        fireSpawn.rotation);
             randX = Random.Range(-fireCone, fireCone);
             randY = Random.Range(-fireCone, fireCone);
             randZ = Random.Range(-fireCone, fireCone);
@@ -145,8 +254,8 @@ namespace Hive.Armada.Enemies
         /// Function that determines the enemy's projectile, firerate,
         /// spread, and projectile speed.
         /// </summary>
-        /// <param name="mode"> </param>
-        private void switchFireMode(int mode)
+        /// <param name="mode"></param>
+        void switchFireMode(int mode)
         {
             switch (mode)
             {
@@ -163,9 +272,109 @@ namespace Hive.Armada.Enemies
                     fireCone = 0;
                     fireProjectile = projectileArray[1];
                     break;
+                case 3:
+                    SetLaser();
+                    break;
             }
         }
 
+        /// <summary>
+        /// Runs when this enemy finishes default pathing to SpawnZone.
+        /// </summary>
+        void SpawnComplete()
+        {
+            spawnComplete = true;
+        }
+
+        /// <summary>
+        /// Moves this enemy to endPos.
+        /// </summary>
+        /// <param name="endPos">Final position of this enemy.</param>
+        public void SetEndpoint(Vector3 endPos)
+        {
+            endPosition = endPos;
+            SpawnComplete();
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        void MoveComplete()
+        {
+            moveComplete = true;
+        }
+        /// <summary>
+        /// Turns off this enemy's lasers for 5 seconds.
+        /// </summary>
+        public IEnumerator LaserCooldown()
+        {
+            for (int i = 0; i < laserSpawn.Length; i++)
+            {
+                laserArray[i].enabled = false;
+            }
+            yield return new WaitForSeconds(5.0f);
+            StartCoroutine(LaserOn());
+        }
+
+        /// <summary>
+        /// Turns on this enemy's lasers.
+        /// </summary>
+        public IEnumerator LaserOn()
+        {
+            if (player != null)
+            {
+                Vector3 lookPos = new Vector3(player.transform.localPosition.x, player.transform.localPosition.y - 5,
+                                              player.transform.localPosition.z);
+                transform.LookAt(lookPos);
+                pointA = transform.localRotation.eulerAngles;
+                pointB = transform.localRotation.eulerAngles + new Vector3(-90f, 0f, 0f);
+            }
+
+            yield return new WaitForSeconds(1.0f);
+            for (int i = 0; i < laserSpawn.Length; i++)
+            {
+                laserArray[i].enabled = true;
+            }
+            timer = 0.0f;
+            StartCoroutine(LaserMoving());
+        }
+
+        /// <summary>
+        /// Makes this enemy fire its lasers for 'timelaserOn' seconds.
+        /// </summary>
+        public IEnumerator LaserMoving()
+        {
+            shooting = true;
+            yield return new WaitForSeconds(timeLaserOn);
+            shooting = false;
+            StartCoroutine(LaserCooldown());
+        }
+
+        /// <summary>
+        /// Initializes the array of lasers.
+        /// </summary>
+        public void SetLaser()
+        {
+            laserArray = new LineRenderer[laserSpawn.Length];
+            for (int i = 0; i < laserSpawn.Length; i++)
+            {
+                laserArray[i] = laserSpawn[i].AddComponent<LineRenderer>();
+                laserArray[i].material = laserMaterial;
+                laserArray[i].startWidth = 0.05f;
+                laserArray[i].endWidth = 0.05f;
+                laserArray[i].SetPosition(0, laserSpawn[i].transform.position);
+                laserArray[i].SetPosition(1, laserSpawn[i].transform.forward * 200.0f);
+            }
+            StartCoroutine(LaserCooldown());
+        }
+
+        /// <summary>
+        /// Removes the damage from lasers for 1 second after they collide with the player.
+        /// </summary>
+        public IEnumerator HitCooldown()
+        {
+            yield return new WaitForSeconds(1.0f);
+            hasHit = false;
+        }
         /// <summary>
         /// Resets attributes to this enemy's defaults from enemyAttributes.
         /// </summary>
@@ -174,11 +383,8 @@ namespace Hive.Armada.Enemies
             // reset materials
             for (int i = 0; i < renderers.Count; ++i)
             {
-                renderers.ElementAt(i).material = materials.ElementAt(i);
+                renderers[i].material = materials[i];
             }
-
-            hitFlash = null;
-            shaking = false;
 
             projectileTypeIdentifier =
                 enemyAttributes.EnemyProjectileTypeIdentifiers[TypeIdentifier];
@@ -192,17 +398,6 @@ namespace Hive.Armada.Enemies
             spawnEmitter = enemyAttributes.enemySpawnEmitters[TypeIdentifier];
             deathEmitter = enemyAttributes.enemyDeathEmitters[TypeIdentifier];
 
-            if (!isInitialized)
-            {
-                isInitialized = true;
-
-                GameObject spawnEmitterObject = Instantiate(spawnEmitter,
-                                                            transform.position,
-                                                            transform.rotation, transform);
-                spawnEmitterSystem = spawnEmitterObject.GetComponent<ParticleSystems>();
-
-                deathEmitterTypeIdentifier = objectPoolManager.GetTypeIdentifier(deathEmitter);
-            }
         }
     }
 }

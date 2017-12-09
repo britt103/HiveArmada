@@ -72,7 +72,7 @@ Transform:
   m_GameObject: {fileID: 1499271545386294}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children:
   - {fileID: 4303120934899364}
   m_Father: {fileID: 0}
@@ -252,16 +252,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isShootable: 1
-  spawnEmitter: {fileID: 0}
+  spawnEmitter: {fileID: 1634398922836420, guid: facd4ec51aebb6845a32f9b720ea4023,
+    type: 2}
   shotEmitter: {fileID: 1060095275791766, guid: e592d55d98210764b8e20e2bb6b6b492,
     type: 2}
   radius: 3
   acceleration: 0.045
-  accelerationSwitchTime: 0
+  accelerationSwitchTime: 2.5
   startingZ: 1
   trailEmitter: {fileID: 1743563473384194, guid: b8d9dbaf8fa78834f89eec092939e735,
     type: 2}
-  detonationTime: 0
+  detonationTime: 6
   isShootableTime: 0
   source: {fileID: 82425338101321092}
   clips:

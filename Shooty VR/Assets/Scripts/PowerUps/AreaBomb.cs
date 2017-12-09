@@ -7,10 +7,9 @@
 // Group Project
 //
 // AreaBomb controls the Area Bomb powerup. The Area Bomb accelerates forward
-// until collision with an enemy, collision with the room, or it's time limit
-// has run out. When one of these events occur, the Area Bomb detonates, 
-// destroying any enemies within a given radius. Currently assigned as
-// Powerup 2.
+// and detonates after collision with an enemy, collision with the room, 
+// being shot, or it's time limit has run out. Detonation destroys any enemies 
+// within a given radius. Currently assigned as Powerup 2.
 //
 //=============================================================================
 
@@ -50,6 +49,11 @@ namespace Hive.Armada.PowerUps
         private float currentSpeed;
 
         /// <summary>
+        /// State of whether bomb has been stopped by a boundary.
+        /// </summary>
+        private bool stopped = false;
+
+        /// <summary>
         /// Particle emitter for area bomb movement trail.
         /// </summary>
         public GameObject trailEmitter;
@@ -64,7 +68,14 @@ namespace Hive.Armada.PowerUps
         /// </summary>
         public float isShootableTime;
 
+        /// <summary>
+        /// Reference to audio source.
+        /// </summary>
 		public AudioSource source;
+
+        /// <summary>
+        /// Clips to use with source.
+        /// </summary>
         public AudioClip[] clips;
 
         /// <summary>
@@ -84,22 +95,25 @@ namespace Hive.Armada.PowerUps
         }
 
         /// <summary>
-        /// Move and adjust current speed using acceleration.
+        /// Move and adjust current speed using acceleration if not stopped.
         /// </summary>
         void Update()
         {
-            accelerationSwitchTime -= Time.deltaTime;
-
-            if(accelerationSwitchTime > 0)
+            if (!stopped)
             {
-                currentSpeed += acceleration * Time.deltaTime;
-            }
-            else
-            {
-                currentSpeed -= acceleration * Time.deltaTime;
-            }
+                accelerationSwitchTime -= Time.deltaTime;
 
-            transform.Translate(Vector3.forward * Mathf.Max(currentSpeed, 0.0f));
+                if (accelerationSwitchTime > 0)
+                {
+                    currentSpeed += acceleration * Time.deltaTime;
+                }
+                else
+                {
+                    currentSpeed -= acceleration * Time.deltaTime;
+                }
+
+                transform.Translate(Vector3.forward * Mathf.Max(currentSpeed, 0.0f));
+            }
         }
 
         /// <summary>
@@ -120,7 +134,7 @@ namespace Hive.Armada.PowerUps
         }
 
         /// <summary>
-        /// Trigger detonation on impact with enemy.
+        /// Trigger detonation on impact with enemy or stop on impact with bomb bounds.
         /// </summary>
         /// <param name="other">Collider of object with which this collided.</param>
         void OnTriggerEnter(Collider other)
@@ -128,6 +142,11 @@ namespace Hive.Armada.PowerUps
             if (other.CompareTag("Enemy"))
             {
                 Detonate();
+            }
+
+            else if(other.CompareTag("Bomb Bounds"))
+            {
+                stopped = true;
             }
         }
 

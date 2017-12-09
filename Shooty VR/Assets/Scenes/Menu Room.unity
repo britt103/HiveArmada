@@ -360,6 +360,47 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 48314197}
   m_Mesh: {fileID: 0}
+--- !u!1 &88903825
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 88903826}
+  - component: {fileID: 88903827}
+  m_Layer: 0
+  m_Name: Scene Info
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &88903826
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 88903825}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 186571866}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &88903827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 88903825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb7a972df6daabe4fbe7863a552df938, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  firstScene: 1
 --- !u!1 &115843195
 GameObject:
   m_ObjectHideFlags: 0
@@ -795,6 +836,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 719196001}
+  - {fileID: 88903826}
   - {fileID: 860152068}
   m_Father: {fileID: 0}
   m_RootOrder: 5
@@ -3026,9 +3068,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   source: {fileID: 672012772}
-  clips:
-  - {fileID: 8300000, guid: 994941f2e495271448f1e3f4b93e6de1, type: 3}
-  - {fileID: 8300000, guid: 080170fb7e06da1458a3bac11ee173a3, type: 3}
+  clips: [{fileID: 8300000, guid: 994941f2e495271448f1e3f4b93e6de1, type: 3}, {fileID: 8300000,
+      guid: 080170fb7e06da1458a3bac11ee173a3, type: 3}]
 --- !u!114 &734662591
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3269,9 +3310,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   source: {fileID: 672012772}
-  clips:
-  - {fileID: 8300000, guid: 994941f2e495271448f1e3f4b93e6de1, type: 3}
-  - {fileID: 8300000, guid: 080170fb7e06da1458a3bac11ee173a3, type: 3}
+  clips: [{fileID: 8300000, guid: 994941f2e495271448f1e3f4b93e6de1, type: 3}, {fileID: 8300000,
+      guid: 080170fb7e06da1458a3bac11ee173a3, type: 3}]
 --- !u!114 &762669958
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6053,9 +6093,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   source: {fileID: 672012772}
-  clips:
-  - {fileID: 8300000, guid: 994941f2e495271448f1e3f4b93e6de1, type: 3}
-  - {fileID: 8300000, guid: 080170fb7e06da1458a3bac11ee173a3, type: 3}
+  clips: [{fileID: 8300000, guid: 994941f2e495271448f1e3f4b93e6de1, type: 3}, {fileID: 8300000,
+      guid: 080170fb7e06da1458a3bac11ee173a3, type: 3}]
   volumeSlider: {fileID: 1591028100}
 --- !u!114 &1304263427
 MonoBehaviour:
@@ -8949,9 +8988,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   source: {fileID: 672012772}
-  clips:
-  - {fileID: 8300000, guid: 994941f2e495271448f1e3f4b93e6de1, type: 3}
-  - {fileID: 8300000, guid: 080170fb7e06da1458a3bac11ee173a3, type: 3}
+  clips: [{fileID: 8300000, guid: 994941f2e495271448f1e3f4b93e6de1, type: 3}, {fileID: 8300000,
+      guid: 080170fb7e06da1458a3bac11ee173a3, type: 3}]
   bloomToggle: {fileID: 719259524}
 --- !u!114 &1787720816
 MonoBehaviour:
@@ -9604,9 +9642,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   source: {fileID: 672012772}
-  clips:
-  - {fileID: 8300000, guid: 994941f2e495271448f1e3f4b93e6de1, type: 3}
-  - {fileID: 8300000, guid: 080170fb7e06da1458a3bac11ee173a3, type: 3}
+  clips: [{fileID: 8300000, guid: 994941f2e495271448f1e3f4b93e6de1, type: 3}, {fileID: 8300000,
+      guid: 080170fb7e06da1458a3bac11ee173a3, type: 3}]
   entryNames:
   - Ally
   - Area Bomb

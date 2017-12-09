@@ -12,9 +12,7 @@
 //=============================================================================
 
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using Hive.Armada.Game;
-using Hive.Armada.Player;
 
 namespace Hive.Armada
 {
@@ -39,32 +37,16 @@ namespace Hive.Armada
             reference = FindObjectOfType<ReferenceManager>();
         }
 
-        ///// <summary>
-        ///// Trigger Game Over upon collision with player head.
-        ///// </summary>
-        ///// <param name="other">Collider with which this is colliding.</param>
-        //private void OnTriggerStay(Collider other)
-        //{
-        //    if(other.gameObject.name == "FollowHead" && reference.statistics.isAlive
-        //        && !reference.spawner.waveCountGO.activeSelf)
-        //    {
-        //        Debug.Log("Out of Bounds");
-        //        reference.statistics.isAlive = false;
-        //        PlayerHealth playerHealth = FindObjectOfType<PlayerHealth>();
-        //        playerHealth.Hit(playerHealth.maxHealth);
-        //    }
-        //}
-
         /// <summary>
         /// Load Menu Room scene upon collision with player HMD.
         /// </summary>
         /// <param name="other">Collider with which this is colliding.</param>
         private void OnTriggerEnter(Collider other)
         {
-            if(other.gameObject.name == "FollowHead")
+            if(other.gameObject.name == "HeadCollider")
             {
                 Debug.Log("Out of Gameplay Bounds");
-                //SceneManager.LoadScene(sceneName);
+                reference.sceneTransitionManager.TransitionOut(sceneName);
             }
         }
     }

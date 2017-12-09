@@ -88,6 +88,19 @@ namespace Hive.Armada.Game
         /// </summary>
         private ReferenceManager reference;
 
+        /// <summary>
+        /// Reference to SceneInfo.
+        /// </summary>
+        private SceneInfo sceneInfo;
+
+        /// <summary>
+        /// State of whether manager is currently performing transition.
+        /// </summary>
+        private bool isTransitioning = false;
+
+        /// <summary>
+        /// References to UIPointers.
+        /// </summary>
         private UIPointer[] uiPointers;
 
         /// <summary>
@@ -98,7 +111,7 @@ namespace Hive.Armada.Game
         private void Awake()
         {
             reference = FindObjectOfType<ReferenceManager>();
-            TransitionIn();
+            sceneInfo = FindObjectOfType<SceneInfo>();
 
             if(SceneManager.GetActiveScene().name == "Menu Room")
             {
@@ -115,10 +128,18 @@ namespace Hive.Armada.Game
 
                 uiPointers = reference.player.GetComponentsInChildren<UIPointer>();
 
-                foreach (UIPointer pointer in uiPointers)
+                if (!sceneInfo.firstScene)
                 {
-                    pointer.gameObject.SetActive(false);
+                    foreach (UIPointer pointer in uiPointers)
+                    {
+                        pointer.gameObject.SetActive(false);
+                    }   
                 }
+            }
+
+            if (!sceneInfo.firstScene)
+            {
+                TransitionIn();
             }
         }
 
@@ -127,10 +148,14 @@ namespace Hive.Armada.Game
         /// </summary>
         public void TransitionIn()
         {
-            StartCoroutine(FadeIn());
-            StartCoroutine(StartAudio(audioInStartTime));
-            StartCoroutine(StartEmitter(emitterInStartTime));
-            StartCoroutine(EndTransition());
+            if (!isTransitioning)
+            {
+                isTransitioning = true;
+                StartCoroutine(FadeIn());
+                StartCoroutine(StartAudio(audioInStartTime));
+                StartCoroutine(StartEmitter(emitterInStartTime));
+                StartCoroutine(EndTransition());
+            }
         }
 
         /// <summary>
@@ -139,16 +164,20 @@ namespace Hive.Armada.Game
         /// <param name="sceneName">Name of scene to load.</param>
         public void TransitionOut(string sceneName)
         {
-            if(SceneManager.GetActiveScene().name == "Wave Room")
+            if (!isTransitioning)
             {
-                reference.statistics.PrintStats();
-                PlayerPrefs.SetInt("runFinished", Convert.ToInt32(true));
-            }
+                isTransitioning = true;
+                if (SceneManager.GetActiveScene().name == "Wave Room")
+                {
+                    reference.statistics.PrintStats();
+                    PlayerPrefs.SetInt("runFinished", Convert.ToInt32(true));
+                }
 
-            StartCoroutine(FadeOut());
-            StartCoroutine(StartAudio(audioOutStartTime));
-            StartCoroutine(StartEmitter(emitterOutStartTime));
-            StartCoroutine(LoadScene(sceneName));
+                StartCoroutine(FadeOut());
+                StartCoroutine(StartAudio(audioOutStartTime));
+                StartCoroutine(StartEmitter(emitterOutStartTime));
+                StartCoroutine(LoadScene(sceneName));
+            }
         }
 
         /// <summary>
@@ -159,6 +188,7 @@ namespace Hive.Armada.Game
         private IEnumerator LoadScene(string sceneName)
         {
             yield return new WaitForSeconds(transitionLength);
+            sceneInfo.IncrementScenesLoaded();
             reference.optionsValues.SetPlayerPrefs();
             SceneManager.LoadScene(sceneName);
         }
@@ -227,6 +257,8 @@ namespace Hive.Armada.Game
             {
                 reference.shipPickup.SetActive(true);
             }
+
+            isTransitioning = false;
         }
     }
 }

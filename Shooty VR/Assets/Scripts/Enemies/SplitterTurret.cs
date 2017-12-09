@@ -84,6 +84,60 @@ namespace Hive.Armada.Enemies
         bool moveComplete;
 
         /// <summary>
+        /// What texture to use for the lasers.
+        /// </summary>
+        public Material laserMaterial;
+
+        /// <summary>
+        /// How much damage the player takes from lasers.
+        /// </summary>
+        public int damage;
+
+        /// <summary>
+        /// Position below the player.
+        /// </summary>
+        private Vector3 pointA;
+
+        /// <summary>
+        /// Position of the player.
+        /// </summary>
+        private Vector3 pointB;
+
+        /// <summary>
+        /// Location on enemy to spawn lasers
+        /// </summary>
+        public GameObject[] laserSpawn;
+
+        /// <summary>
+        /// Array of lasers to be fired by this enemy
+        /// </summary>
+        LineRenderer[] laserArray;
+
+        /// <summary>
+        /// Whether this enemy has hit the player with its lasers. Toggles when player is hit
+        /// </summary>
+        private bool hasHit = false;
+
+        /// <summary>
+        /// Whether this enemy is shooting its lasers or not. Toggles
+        /// </summary>
+        private bool shooting = false;
+
+        /// <summary>
+        /// How many seconds it takes for the lasers to finish moving.
+        /// </summary>
+        private float timer;
+
+        /// <summary>
+        /// How many seconds the lasers will be on.
+        /// </summary>
+        public float timeLaserOn;
+        /// <summary>
+        /// Returns what the laser hit
+        /// </summary>
+        RaycastHit hit;
+
+        /// <summary>
         /// Tries to look at the player and shoot at it when possible. Runs every frame.
         /// </summary>
         private void OnEnable()
@@ -265,6 +319,16 @@ namespace Hive.Armada.Enemies
         {
             moveComplete = true;
         }
+
+        /// <summary>
+        /// Removes the damage from lasers for 1 second after they collide with the player.
+        /// </summary>
+        public IEnumerator HitCooldown()
+        {
+            yield return new WaitForSeconds(1.0f);
+            hasHit = false;
+        }
+
         /// <summary>
         /// Resets attributes to this enemy's defaults from enemyAttributes.
         /// </summary>

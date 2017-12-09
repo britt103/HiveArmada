@@ -54,7 +54,7 @@ namespace Hive.Armada.Player
         [Tooltip("Health pods on the back of the ship that represent how" +
                  " many hits the player can take before losing.")]
         [Reorderable("Health Pod", false)]
-        public Renderer[] healthPods;
+        public GameObject[] healthPods;
 
         /// <summary>
         /// Material for intact health pods.
@@ -131,7 +131,7 @@ namespace Hive.Armada.Player
 
             for (int i = 0; i < 3; ++i)
             {
-                healthPods[i].material = podIntactMaterial;
+                healthPods[i].GetComponent<Renderer>().material = podIntactMaterial;
             }
 
             foreach (Renderer r in gameObject.GetComponentsInChildren<Renderer>())
@@ -165,11 +165,14 @@ namespace Hive.Armada.Player
         public void Hit(int damage)
         {
             int podIndex = (maxHealth - currentHealth) / 10;
-            healthPods[podIndex].material = podDestroyedMaterial;
+            healthPods[podIndex].GetComponent<Renderer>().material = podDestroyedMaterial;
 
             if (podHitEmitter)
             {
-                Instantiate(podHitEmitter, transform);
+                ParticleSystem mPodEmitter = healthPods[podIndex].transform.GetChild(0).GetComponent<ParticleSystem>();
+                mPodEmitter.Clear();
+                mPodEmitter.Play();
+                //Instantiate(podHitEmitter, healthPods[podIndex].transform);
             }
             else
             {

@@ -369,7 +369,7 @@ namespace Hive.Armada.Player
         /// Add to score
         /// </summary>
         /// <param name="points">number of points to add</param>
-        public void Score(int points)
+        public void AddScore(int points)
         {
             score += points;
         }

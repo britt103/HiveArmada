@@ -142,8 +142,6 @@ namespace Hive.Armada.Game
             {
                 optionsValues = FindObjectOfType<OptionsValues>();
             }
-
-
         }
     }
 }

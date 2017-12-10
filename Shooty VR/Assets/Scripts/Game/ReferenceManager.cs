@@ -106,6 +106,7 @@ namespace Hive.Armada.Game
         //----------------------------------------
         [Header("Audio")]
         public AudioSource waveCountSource;
+        public AudioSource gameMusic;
 
         //----------------------------------------
         // 

@@ -5089,24 +5089,14 @@ MonoBehaviour:
   powerupSpawnZone:
     lowerBound: {fileID: 1782278475901154}
     upperBound: {fileID: 1206385740099510}
-  startingWave: 1
+  startingWave: 10
   startingSubwave: 1
   waves:
   - {fileID: 114964096998298972}
-  - {fileID: 114806240016172434}
-  - {fileID: 114391576728770250}
   - {fileID: 114364607843897974}
-  - {fileID: 114782008943788378}
-  - {fileID: 114322219793640028}
-  - {fileID: 114972327192416238}
   - {fileID: 114759348825672398}
-  - {fileID: 114862809494335190}
   - {fileID: 114570061004240250}
-  - {fileID: 114586129826131418}
-  - {fileID: 114711675219404420}
-  - {fileID: 114846579903759038}
   - {fileID: 114477675661380498}
-  - {fileID: 114375693707412172}
   waveCountSource: {fileID: 0}
   waveCountSounds:
   - {fileID: 8300000, guid: 3f9a996c2ac253c45880e98853da7fdf, type: 3}
@@ -5375,7 +5365,7 @@ MonoBehaviour:
     setupPowerupSpawns: []
   - spawnZone: 1
     spawnWithPrevious: 0
-    spawnGroupDelay: 0
+    spawnGroupDelay: 1
     spawnDelay: 1.5
     setupEnemySpawns:
     - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
@@ -5593,7 +5583,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyCap: 6
   setupSpawnGroups:
-  - spawnZone: 0
+  - spawnZone: 1
     spawnWithPrevious: 0
     spawnGroupDelay: 1
     spawnDelay: 1.5

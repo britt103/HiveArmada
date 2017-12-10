@@ -122,6 +122,7 @@ namespace Hive.Armada.Game
                 IsRunning = false;
                 IsComplete = true;
                 reference.waveManager.WaveComplete(WaveNumber);
+                reference.statistics.WaveComplete();
                 reference.statistics.IsNotAlive();
             }
         }

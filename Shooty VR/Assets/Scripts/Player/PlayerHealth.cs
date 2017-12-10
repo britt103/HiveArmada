@@ -174,36 +174,30 @@ namespace Hive.Armada.Player
                 mPodEmitter.Play();
                 //Instantiate(podHitEmitter, healthPods[podIndex].transform);
             }
-            else
-            {
 
-            }
-
-            Instantiate(hitEmitter, transform);
+            //Instantiate(hitEmitter, transform);
             currentHealth -= damage;
             source.PlayOneShot(hitSound);
 
             if (Utility.isDebug)
             {
                 Debug.Log("Hit for " + damage + " damage! Remaining health = " + currentHealth);
-                {
-                }
+            }
 
-                if (currentHealth <= 0)
+            if (currentHealth <= 0)
+            {
+                if (shipController != null)
                 {
-                    if (shipController != null)
-                    {
-                        Instantiate(deathEmitter, transform.position, transform.rotation);
-                        reference.statistics.IsNotAlive();
-                        reference.sceneTransitionManager.TransitionOut("Menu Room");
-                        shipController.hand.DetachObject(gameObject);
-                    }
+                    Instantiate(deathEmitter, transform.position, transform.rotation);
+                    reference.statistics.IsNotAlive();
+                    reference.sceneTransitionManager.TransitionOut("Menu Room");
+                    shipController.hand.DetachObject(gameObject);
                 }
+            }
 
-                if (hitFlash == null)
-                {
-                    hitFlash = StartCoroutine(HitFlash());
-                }
+            if (hitFlash == null)
+            {
+                hitFlash = StartCoroutine(HitFlash());
             }
         }
 

@@ -115,11 +115,11 @@ namespace Hive.Armada.Game
 
             if(SceneManager.GetActiveScene().name == "Menu Room")
             {
-                if (Convert.ToBoolean(PlayerPrefs.GetInt("runFinished", 0)))
+                if (sceneInfo.runFinished)
                 {
                     reference.menuMain.transform.parent.transform.Find("Results Menu")
                         .gameObject.SetActive(true);
-                    PlayerPrefs.SetInt("runFinished", Convert.ToInt32(false));
+                    sceneInfo.runFinished = false;
                 }
                 else
                 {
@@ -170,7 +170,7 @@ namespace Hive.Armada.Game
                 if (SceneManager.GetActiveScene().name == "Wave Room")
                 {
                     reference.statistics.PrintStats();
-                    PlayerPrefs.SetInt("runFinished", Convert.ToInt32(true));
+                    sceneInfo.runFinished = true;
                 }
 
                 StartCoroutine(FadeOut());

@@ -32,6 +32,11 @@ namespace Hive.Armada.Game
         public bool firstScene = true;
 
         /// <summary>
+        /// State of whether a run has just been completed.
+        /// </summary>
+        public bool runFinished = false;
+
+        /// <summary>
         /// Increment numScenesLoaded.
         /// </summary>
         private void Awake()

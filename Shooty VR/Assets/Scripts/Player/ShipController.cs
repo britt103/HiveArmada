@@ -168,7 +168,7 @@ namespace Hive.Armada.Player
             //laserSight = transform.Find("Laser Sight").GetComponent<LaserSight>();
             laserSight = transform.GetComponentInChildren<LaserSight>();
             laserSight.SetMode(ShipMode.Game);
-            newPosesAppliedAction = SteamVR_Events.NewPosesAppliedAction(OnNewPosesApplied);
+            //newPosesAppliedAction = SteamVR_Events.NewPosesAppliedAction(OnNewPosesApplied);
 
             for (int i = 0; i < weapons.Length; ++i)
             {
@@ -220,21 +220,21 @@ namespace Hive.Armada.Player
             reference.shipPickup.SetActive(false);
         }
 
-        /// <summary>
-        /// Enables the new poses applied action
-        /// </summary>
-        private void OnEnable()
-        {
-            newPosesAppliedAction.enabled = true;
-        }
+        ///// <summary>
+        ///// Enables the new poses applied action
+        ///// </summary>
+        //private void OnEnable()
+        //{
+        //    newPosesAppliedAction.enabled = true;
+        //}
 
-        /// <summary>
-        /// Disables the new poses applied action
-        /// </summary>
-        private void OnDisable()
-        {
-            newPosesAppliedAction.enabled = false;
-        }
+        ///// <summary>
+        ///// Disables the new poses applied action
+        ///// </summary>
+        //private void OnDisable()
+        //{
+        //    newPosesAppliedAction.enabled = false;
+        //}
 
         /// <summary>
         /// Updates to the late update pose if we are deferring new poses

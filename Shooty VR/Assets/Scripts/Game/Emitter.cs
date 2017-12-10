@@ -45,14 +45,14 @@ namespace Hive.Armada.Game
             system.onParticleSystemsDeadEvent += OnParticleSystemsDead;
         }
 
-        /// <summary>
-        /// Stops and clears all particles when the object is disabled.
-        /// </summary>
-        private void OnDisable()
-        {
-            system.stop();
-            system.clear();
-        }
+        ///// <summary>
+        ///// Stops and clears all particles when the object is disabled.
+        ///// </summary>
+        //private void OnDisable()
+        //{
+        //    system.stop();
+        //    system.clear();
+        //}
 
         /// <summary>
         /// Stops and clears particles when they all finish. Despawns this object with the pool.
@@ -70,8 +70,6 @@ namespace Hive.Armada.Game
         /// </summary>
         protected override void Reset()
         {
-            system.stop();
-            system.clear();
         }
     }
 }

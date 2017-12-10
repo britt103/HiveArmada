@@ -274,6 +274,8 @@ namespace Hive.Armada.Game
         /// <param name="objectToDespawn"> The object to despawn </param>
         public void Despawn(GameObject objectToDespawn)
         {
+            objectToDespawn.transform.position = gameObject.transform.position;
+
             Poolable objectPoolable = objectToDespawn.GetComponent<Poolable>();
             if (objectPoolable)
             {

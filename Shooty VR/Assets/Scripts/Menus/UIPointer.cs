@@ -70,6 +70,9 @@ namespace Hive.Armada.Menus
         /// </summary>
         private GameObject aimObject;
 
+        /// <summary>
+        /// Reference to last touched interactable.
+        /// </summary>
         private GameObject lastInteractableAimObject;
 
         /// <summary>
@@ -130,6 +133,7 @@ namespace Hive.Armada.Menus
                     }
                     else
                     {
+                        ExitLastInteractable();
                         isInteractable = false;
                     }
 
@@ -144,6 +148,7 @@ namespace Hive.Armada.Menus
                 else if (Physics.Raycast(transform.position, transform.forward,
                     out hit, Mathf.Infinity, Utility.roomMask))
                 {
+                    ExitLastInteractable();
                     aimObject = null;
                     isInteractable = false;
 
@@ -155,11 +160,22 @@ namespace Hive.Armada.Menus
                 }
                 else
                 {
+                    ExitLastInteractable();
                     aimObject = null;
                     isInteractable = false;
                 }
 
                 //Check for UI interaction
+                if (isInteractable)
+                {
+                    lastInteractableAimObject = aimObject;
+
+                    if (aimObject.GetComponent<UIHover>())
+                    {
+                        aimObject.GetComponent<UIHover>().Hover();
+                    }
+                }
+
                 if (hand.GetStandardInteractionButtonDown())
                 {
                     TriggerUpdate(false);
@@ -167,10 +183,6 @@ namespace Hive.Armada.Menus
                 else if (hand.GetStandardInteractionButton())
                 {
                     TriggerUpdate(true);
-                }
-                else if (lastInteractableAimObject)
-                {
-                    ExitLastInteractable();
                 }
             }
         }
@@ -193,9 +205,6 @@ namespace Hive.Armada.Menus
                         float value = (pointerX - minX) / (maxX - minX);
                         aimObject.GetComponent<Slider>().value = value;
                     }
-
-                    ExecuteEvents.Execute(aimObject, new PointerEventData(EventSystem.current), 
-                        ExecuteEvents.pointerEnterHandler);
                 }
                 else if (aimObject.GetComponent<Scrollbar>())
                 {
@@ -216,13 +225,6 @@ namespace Hive.Armada.Menus
                 }
 
                 lastInteractableAimObject = aimObject;
-            }
-            else
-            {
-                if (lastInteractableAimObject)
-                {
-                    ExitLastInteractable();
-                }
             }
         }
 
@@ -252,13 +254,11 @@ namespace Hive.Armada.Menus
         /// </summary>
         private void ExitLastInteractable()
         {
-            if (lastInteractableAimObject.GetComponent<Slider>())
+            if (lastInteractableAimObject && lastInteractableAimObject.GetComponent<UIHover>())
             {
-                ExecuteEvents.Execute(lastInteractableAimObject, new PointerEventData(EventSystem.current),
-                    ExecuteEvents.pointerExitHandler);
+                lastInteractableAimObject.GetComponent<UIHover>().EndHover();
+                lastInteractableAimObject = null;
             }
-
-            lastInteractableAimObject = null;
         }
     }
 }

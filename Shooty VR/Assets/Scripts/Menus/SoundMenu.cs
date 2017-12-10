@@ -62,6 +62,8 @@ namespace Hive.Armada.Menus
             gameObject.SetActive(false);
         }
 
+        //hover sound is flash-element
+        //select sound is menuselect
         /// <summary>
         /// Change AudioListener volume based on volumeSlider value.
         /// </summary>

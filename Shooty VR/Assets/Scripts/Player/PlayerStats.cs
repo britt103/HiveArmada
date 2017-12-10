@@ -289,31 +289,23 @@ namespace Hive.Armada.Player
         {
             dateTime = DateTime.Now.ToString();
             aliveTime = 0;
-            totalAliveTime = 0;
             isAlive = false;
-            waves = 0;
             enemiesKilled = 0;
-            totalEnemiesKilled = 0;
             firingTime = 0;
-            totalFiringTime = 0;
             score = 0;
-            totalScore = 0;
             isFiring = false;
 
             for (int i = 0; i < weaponShotsFired.Length; ++i)
             {
                 weaponShotsFired[i] = 0;
-                weaponTotalShotsFired[i] = 0;
             }
 
             for (int i = 0; i < powerupCount.Length; ++i)
             {
                 powerupCount[i] = 0;
-                powerupTotalCount[i] = 0;
             }
 
             currencyCollected = 0;
-            totalCurrencyCollected = 0;
         }
 
         /// <summary>

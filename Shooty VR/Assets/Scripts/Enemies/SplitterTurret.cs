@@ -159,14 +159,14 @@ namespace Hive.Armada.Enemies
                 child4Enemy.SetEnemySpawn(childEnemySpawn);
                 child4Enemy.SetAttackPattern(enemySpawn.attackPattern);
 
-                //child1.GetComponent<Rigidbody>().AddForce(new Vector3(transform.position.x + splitDir, transform.position.y + splitDir, transform.position.z) );
-                //child2.GetComponent<Rigidbody>().AddForce(new Vector3(transform.position.x - splitDir, transform.position.y - splitDir, transform.position.z) );
-                //child3.GetComponent<Rigidbody>().AddForce(new Vector3(transform.position.x + splitDir, transform.position.y - splitDir, transform.position.z) );
-                //child4.GetComponent<Rigidbody>().AddForce(new Vector3(transform.position.x - splitDir, transform.position.y + splitDir, transform.position.z) );
-                iTween.MoveTo(child1, iTween.Hash("x", transform.localPosition.x + (splitDir), "y", transform.localPosition.y + (splitDir), "z", transform.localPosition.z, "islocal", false, "time", 1.0f));
-                iTween.MoveTo(child2, iTween.Hash("x", transform.localPosition.x + (splitDir), "y", transform.localPosition.y - (splitDir), "z", transform.localPosition.z, "islocal", false, "time", 1.0f));
-                iTween.MoveTo(child3, iTween.Hash("x", transform.localPosition.x - (splitDir), "y", transform.localPosition.y + (splitDir), "z", transform.localPosition.z, "islocal", false, "time", 1.0f));
-                iTween.MoveTo(child4, iTween.Hash("x", transform.localPosition.x - (splitDir), "y", transform.localPosition.y - (splitDir), "z", transform.localPosition.z, "islocal", false, "time", 1.0f));
+                child1.GetComponent<Rigidbody>().AddForce(new Vector3(transform.position.x + splitDir, transform.position.y + splitDir, transform.position.z));
+                child2.GetComponent<Rigidbody>().AddForce(new Vector3(transform.position.x - splitDir, transform.position.y - splitDir, transform.position.z));
+                child3.GetComponent<Rigidbody>().AddForce(new Vector3(transform.position.x + splitDir, transform.position.y - splitDir, transform.position.z));
+                child4.GetComponent<Rigidbody>().AddForce(new Vector3(transform.position.x - splitDir, transform.position.y + splitDir, transform.position.z));
+                //iTween.MoveTo(child1, iTween.Hash("x", transform.localPosition.x + (splitDir), "y", transform.localPosition.y + (splitDir), "z", transform.localPosition.z, "islocal", false, "time", 1.0f));
+                //iTween.MoveTo(child2, iTween.Hash("x", transform.localPosition.x + (splitDir), "y", transform.localPosition.y - (splitDir), "z", transform.localPosition.z, "islocal", false, "time", 1.0f));
+                //iTween.MoveTo(child3, iTween.Hash("x", transform.localPosition.x - (splitDir), "y", transform.localPosition.y + (splitDir), "z", transform.localPosition.z, "islocal", false, "time", 1.0f));
+                //iTween.MoveTo(child4, iTween.Hash("x", transform.localPosition.x - (splitDir), "y", transform.localPosition.y - (splitDir), "z", transform.localPosition.z, "islocal", false, "time", 1.0f));
             }
 
             StartCoroutine(DeathDelay());
@@ -195,6 +195,7 @@ namespace Hive.Armada.Enemies
 
             hitFlash = null;
             shaking = false;
+            canShoot = true;
 
             projectileTypeIdentifier =
                             enemyAttributes.EnemyProjectileTypeIdentifiers[TypeIdentifier];

@@ -193,6 +193,7 @@ namespace Hive.Armada.Enemies
 
             hitFlash = null;
             shaking = false;
+            canShoot = true;
 
             projectileTypeIdentifier =
                 enemyAttributes.EnemyProjectileTypeIdentifiers[TypeIdentifier];

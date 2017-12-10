@@ -72,7 +72,7 @@ namespace Hive.Armada.Player.Weapons
         /// <summary>
         /// The sound the minigun makes when it fires.
         /// </summary>
-        public AudioClip minigunShootSound;
+        public AudioClip[] minigunShootSound;
 
         /// <summary>
         /// Gets enemy or wall aimpoint and shoots at it.
@@ -129,6 +129,8 @@ namespace Hive.Armada.Player.Weapons
         private IEnumerator Shoot(GameObject target, Vector3 position)
         {
             canShoot = false;
+
+            source.PlayOneShot(minigunShootSound[0]);
 
             GameObject barrel = isLeftFire
                                     ? left[Random.Range(0, left.Length)]

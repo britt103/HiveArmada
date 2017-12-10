@@ -555,7 +555,6 @@ namespace Hive.Armada.Game
                     }
 
                     Vector3 position;
-                    Vector3 endPosition;
                     SpawnZone zone = spawnGroups[group].enemySpawns[i].spawnZone;
                     if (zone != SpawnZone.Introduction)
                     {
@@ -598,7 +597,7 @@ namespace Hive.Armada.Game
 
                     ++enemiesRemaining;
 
-                    if (spawned.name.Equals("Enemy_Splitter"))
+                    if (spawned.name.Contains("Enemy_Splitter"))
                     {
                         enemiesRemaining += 4;
                     }

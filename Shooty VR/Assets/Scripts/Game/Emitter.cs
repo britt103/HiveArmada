@@ -36,6 +36,18 @@ namespace Hive.Armada.Game
         private ParticleSystems system;
 
         /// <summary>
+        /// Only plays sound if this is true
+        /// </summary>
+        public bool playSound;
+
+        /// <summary>
+        /// Reference to audio source
+        /// </summary>
+        public AudioSource source;
+
+        public AudioClip[] clips;
+
+        /// <summary>
         /// Initialize reference manager reference and system
         /// </summary>
         private void Awake()
@@ -43,6 +55,14 @@ namespace Hive.Armada.Game
             reference = GameObject.Find("Reference Manager").GetComponent<ReferenceManager>();
             system = GetComponent<ParticleSystems>();
             system.onParticleSystemsDeadEvent += OnParticleSystemsDead;
+        }
+
+        private void OnEnable()
+        {
+            playSound = true;
+
+            int sound = Random.Range(0, clips.Length);
+            source.PlayOneShot(clips[sound]);
         }
 
         ///// <summary>

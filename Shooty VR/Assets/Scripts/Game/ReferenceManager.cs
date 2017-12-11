@@ -106,7 +106,15 @@ namespace Hive.Armada.Game
         //----------------------------------------
         [Header("Audio")]
         public AudioSource waveCountSource;
-        public AudioSource gameMusic;
+
+        public AudioSource gameMusicSource;
+
+        public AudioSource playerShipSource;
+
+        /// <summary>
+        /// Sound for when a powerup is picked up by the player.
+        /// </summary>
+        public AudioClip powerupReadySound;
 
         //----------------------------------------
         // 

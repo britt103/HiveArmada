@@ -124,26 +124,12 @@ namespace Hive.Armada.Player
         [Reorderable("Weapon", false)]
         public WeaponSetup[] weapons;
 
-        ///// <summary>
-        ///// Array of the weapons available to the player.
-        ///// </summary>
-        //[Header("Weapon Attributes")]
-        //[Reorderable("Weapon", false)]
-        //public GameObject[] weapons;
+        /// <summary>
+        /// Audio source for ship sounds.
+        /// </summary>
+        [Header("Audio")]
+        public AudioSource source;
 
-        ///// <summary>
-        ///// Array of the damage for each weapon.
-        ///// </summary>
-        //[Reorderable("Weapon", false)]
-        //public int[] weaponDamage;
-
-        ///// <summary>
-        ///// Array of the fire rate for each weapon.
-        ///// </summary>
-        //[Reorderable("Weapon", false)]
-        //public float[] weaponFireRate;
-
-		public AudioSource engineSound;
         public AudioClip clip;
 
         /// <summary>
@@ -161,14 +147,12 @@ namespace Hive.Armada.Player
             else
             {
                 reference.playerShip = gameObject;
+                reference.playerShipSource = source;
             }
 
-			engineSound.PlayOneShot(clip);
-
-            //laserSight = transform.Find("Laser Sight").GetComponent<LaserSight>();
             laserSight = transform.GetComponentInChildren<LaserSight>();
             laserSight.SetMode(ShipMode.Game);
-            //newPosesAppliedAction = SteamVR_Events.NewPosesAppliedAction(OnNewPosesApplied);
+            newPosesAppliedAction = SteamVR_Events.NewPosesAppliedAction(OnNewPosesApplied);
 
             for (int i = 0; i < weapons.Length; ++i)
             {
@@ -220,21 +204,21 @@ namespace Hive.Armada.Player
             reference.shipPickup.SetActive(false);
         }
 
-        ///// <summary>
-        ///// Enables the new poses applied action
-        ///// </summary>
-        //private void OnEnable()
-        //{
-        //    newPosesAppliedAction.enabled = true;
-        //}
+        /// <summary>
+        /// Enables the new poses applied action
+        /// </summary>
+        private void OnEnable()
+        {
+            newPosesAppliedAction.enabled = true;
+        }
 
-        ///// <summary>
-        ///// Disables the new poses applied action
-        ///// </summary>
-        //private void OnDisable()
-        //{
-        //    newPosesAppliedAction.enabled = false;
-        //}
+        /// <summary>
+        /// Disables the new poses applied action
+        /// </summary>
+        private void OnDisable()
+        {
+            newPosesAppliedAction.enabled = false;
+        }
 
         /// <summary>
         /// Updates to the late update pose if we are deferring new poses

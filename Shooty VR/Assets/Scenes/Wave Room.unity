@@ -12182,17 +12182,31 @@ MonoBehaviour:
   canExpand: 1
   poolParentPrefab: {fileID: 1863223209720578, guid: 1843794a394e58641ab13ce356f29cc2,
     type: 2}
-  objectsToPool:
-  - {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c, type: 2}
-  - {fileID: 1320547421668860, guid: 7b44f96ffc1d34448bbb3dfb12c72d56, type: 2}
-  - {fileID: 1657808963477230, guid: 9d5bf18c82748ee4eab848b404bb835f, type: 2}
-  - {fileID: 1591170296302446, guid: 77949b1a806d5134791075a88b606d98, type: 2}
-  - {fileID: 1618603837932422, guid: 9a594f50db7a6b347af3019acb9f591b, type: 2}
-  - {fileID: 1250542050544924, guid: 473e8a4466aa88544a164535bb2ea51a, type: 2}
-  - {fileID: 1590670541974036, guid: 0f837641c26eee64eaa72bd67b35506d, type: 2}
-  - {fileID: 1112362033134432, guid: c57be84955d83f140ab1f33f7ce8fc7f, type: 2}
-  - {fileID: 1112362033134432, guid: ed1865491e559ed4b9f56e8ed60838d9, type: 2}
-  amountsToPool: 140000001400000014000000140000001400000014000000640000001e0000000a000000
+  objects:
+  - objectPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+      type: 2}
+    amountToPool: 20
+  - objectPrefab: {fileID: 1320547421668860, guid: 7b44f96ffc1d34448bbb3dfb12c72d56,
+      type: 2}
+    amountToPool: 20
+  - objectPrefab: {fileID: 1657808963477230, guid: 9d5bf18c82748ee4eab848b404bb835f,
+      type: 2}
+    amountToPool: 20
+  - objectPrefab: {fileID: 1591170296302446, guid: 77949b1a806d5134791075a88b606d98,
+      type: 2}
+    amountToPool: 20
+  - objectPrefab: {fileID: 1618603837932422, guid: 9a594f50db7a6b347af3019acb9f591b,
+      type: 2}
+    amountToPool: 20
+  - objectPrefab: {fileID: 1590670541974036, guid: 0f837641c26eee64eaa72bd67b35506d,
+      type: 2}
+    amountToPool: 150
+  - objectPrefab: {fileID: 1112362033134432, guid: c57be84955d83f140ab1f33f7ce8fc7f,
+      type: 2}
+    amountToPool: 30
+  - objectPrefab: {fileID: 1112362033134432, guid: ed1865491e559ed4b9f56e8ed60838d9,
+      type: 2}
+    amountToPool: 10
 --- !u!4 &898325482
 Transform:
   m_ObjectHideFlags: 0

@@ -285,6 +285,9 @@ namespace Hive.Armada.Player
             }
         }
 
+        /// <summary>
+        /// Reset wave values.
+        /// </summary>
         public void ResetValues()
         {
             dateTime = DateTime.Now.ToString();
@@ -306,6 +309,30 @@ namespace Hive.Armada.Player
             }
 
             currencyCollected = 0;
+        }
+
+        /// <summary>
+        /// Reset totals.
+        /// </summary>
+        public void ResetTotals()
+        {
+            waves = 0;
+            totalAliveTime = 0;
+            totalEnemiesKilled = 0;
+            totalFiringTime = 0;
+            totalScore = 0;
+
+            for (int i = 0; i < weaponShotsFired.Length; ++i)
+            {
+                weaponTotalShotsFired[i] = 0;
+            }
+
+            for (int i = 0; i < powerupCount.Length; ++i)
+            {
+                powerupTotalCount[i] = 0;
+            }
+
+            totalCurrencyCollected = 0;
         }
 
         /// <summary>

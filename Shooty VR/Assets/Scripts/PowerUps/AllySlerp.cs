@@ -101,10 +101,10 @@ namespace Hive.Armada.PowerUps
                 Destroy(gameObject);
             }
 
-            //if (!currentTarget.activeSelf)
-            //{
-            //    currentTarget = null;
-            //}
+            if (currentTarget && !currentTarget.activeSelf)
+            {
+                currentTarget = null;
+            }
 
             Move();
 

@@ -14,11 +14,18 @@
 //=============================================================================
 
 using UnityEngine;
+using Hive.Armada.Game;
 
 namespace Hive.Armada.PowerUps
 {
     public class PowerUp : MonoBehaviour
     {
+        /// <summary>
+        /// Reference manager that holds all needed references
+        /// (e.g. spawner, game manager, etc.)
+        /// </summary>
+        private ReferenceManager reference;
+
         /// <summary>
         /// Reference to pickup prefab.
         /// </summary>
@@ -30,12 +37,12 @@ namespace Hive.Armada.PowerUps
         public GameObject powerupIconPrefab;
 
         /// <summary>
-        /// FX of pickup instantiation.
+        /// Particle emitter for when the pickup spawns.
         /// </summary>
         public GameObject spawnEmitter;
 
         /// <summary>
-        /// FX of powerup on collision with player.
+        /// Particle emitter that persists on the pickup.
         /// </summary>
         public GameObject pickupEmitter;
 
@@ -60,15 +67,16 @@ namespace Hive.Armada.PowerUps
         /// <summary>
         /// Find references. Instantiate and rotate FX. Start self-destruct countdown.
         /// </summary>
-        private void Start()
+        private void Awake()
         {
-            head = GameObject.Find("VRCamera").transform;
-            GameObject fx = Instantiate(spawnEmitter, transform.position, transform.localRotation);
-            fx.transform.rotation = Quaternion
-                    .FromToRotation(Vector3.up, head.position - gameObject.transform.position);
+            reference = GameObject.Find("Reference Manager").GetComponent<ReferenceManager>();
 
-            status = FindObjectOfType<PowerUpStatus>();
-            Destroy(gameObject, lifeTime);
+            head = GameObject.Find("VRCamera").transform;
+            Instantiate(spawnEmitter, transform.parent.position, transform.parent.rotation, transform.parent);
+            Instantiate(pickupEmitter, transform.parent.position, transform.parent.rotation, transform.parent);
+
+            status = reference.powerUpStatus;
+            Destroy(transform.parent.gameObject, lifeTime);
         }
 
         /// <summary>
@@ -88,9 +96,9 @@ namespace Hive.Armada.PowerUps
             if (other.CompareTag("Player") && status.HasRoom() && !touched)
             {
                 touched = true;
-                Instantiate(pickupEmitter, transform.position, transform.localRotation);
+                reference.playerShipSource.PlayOneShot(reference.powerupReadySound);
                 status.StorePowerup(powerupPrefab, powerupIconPrefab);
-                Destroy(gameObject);
+                Destroy(transform.parent.gameObject);
             }
         }
     }

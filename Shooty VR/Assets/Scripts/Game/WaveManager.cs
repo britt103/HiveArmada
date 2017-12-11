@@ -172,7 +172,7 @@ namespace Hive.Armada.Game
                 }
 
                 IsRunning = true;
-                reference.gameMusic.Play();
+                reference.gameMusicSource.Play();
                 RunWave(currentWave, startingSubwave);
             }
         }

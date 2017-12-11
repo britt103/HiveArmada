@@ -101,6 +101,7 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void PressWeapon1()
         {
+            source.PlayOneShot(clips[0]);
             selectedWeapon = weapon1Enum;
             weaponText.text = "Weapon: " + weapon1Name;
             
@@ -111,6 +112,7 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void PressWeapon2()
         {
+            source.PlayOneShot(clips[0]);
             selectedWeapon = weapon2Enum;
             weaponText.text = "Weapon: " + weapon2Name;
         }

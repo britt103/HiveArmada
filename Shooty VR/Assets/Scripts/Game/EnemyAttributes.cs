@@ -109,9 +109,9 @@ namespace Hive.Armada.Game
 
             for (int i = 0; i < enemyProjectilePrefab.Length; ++i)
             {
-                for (int j = 0; j < reference.objectPoolManager.objectsToPool.Length; ++j)
+                for (int j = 0; j < reference.objectPoolManager.objects.Length; ++j)
                 {
-                    if (reference.objectPoolManager.objectsToPool[j].name.Equals(enemyProjectilePrefab[i].name))
+                    if (reference.objectPoolManager.objects[j].objectPrefab.name.Equals(enemyProjectilePrefab[i].name))
                     {
                         EnemyProjectileTypeIdentifiers[i] = j;
                         break;

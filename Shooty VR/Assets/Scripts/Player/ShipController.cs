@@ -29,22 +29,6 @@ namespace Hive.Armada.Player
     public class ShipController : MonoBehaviour
     {
         /// <summary>
-        /// Modes the ship can be in.
-        /// </summary>
-        public enum ShipMode
-        {
-            /// <summary>
-            /// Ship can shoot and switch guns in Game mode. Laser Sight is purely for aiming.
-            /// </summary>
-            Game,
-
-            /// <summary>
-            /// Ship can't shoot in Menu mode. The Laser Sight acts as a UI interaction pointer.
-            /// </summary>
-            Menu
-        }
-
-        /// <summary>
         /// Structure containing a weapon script, damage, and fire rate for a weapon.
         /// </summary>
         [Serializable]
@@ -114,11 +98,6 @@ namespace Hive.Armada.Player
         private ReferenceManager reference;
 
         /// <summary>
-        /// Which mode is the ship currently in.
-        /// </summary>
-        public ShipMode shipMode = ShipMode.Game;
-
-        /// <summary>
         /// Array of weapons available to the player.
         /// </summary>
         [Reorderable("Weapon", false)]
@@ -167,7 +146,6 @@ namespace Hive.Armada.Player
 
             //laserSight = transform.Find("Laser Sight").GetComponent<LaserSight>();
             laserSight = transform.GetComponentInChildren<LaserSight>();
-            laserSight.SetMode(ShipMode.Game);
             //newPosesAppliedAction = SteamVR_Events.NewPosesAppliedAction(OnNewPosesApplied);
 
             for (int i = 0; i < weapons.Length; ++i)
@@ -262,35 +240,12 @@ namespace Hive.Armada.Player
             transform.localPosition = Vector3.zero;
             transform.localRotation = Quaternion.identity;
 
-            switch (shipMode)
+            if (canShoot)
             {
-                case ShipMode.Game:
-                    if (canShoot)
-                    {
-                        if (hand.GetStandardInteractionButton())
-                        {
-                            weapons[currentWeapon].weapon.TriggerUpdate();
-                        }
-                    }
-                    else if (!canShoot && hand.GetStandardInteractionButtonUp())
-                    {
-                        canShoot = true;
-                    }
-                    break;
-                case ShipMode.Menu:
-                    if (hand.GetStandardInteractionButtonDown())
-                    {
-                        laserSight.TriggerUpdate(false);
-                    }
-
-                    else if (hand.GetStandardInteractionButton())
-                    {
-                        laserSight.TriggerUpdate(true);
-                    }
-                    break;
-                default:
-                    Debug.LogError(GetType().Name + " - ShipMode is not Menu or Game!");
-                    break;
+                if (hand.GetStandardInteractionButton())
+                {
+                    weapons[currentWeapon].weapon.TriggerUpdate();
+                }
             }
 
             //// Update handedness guess
@@ -323,13 +278,14 @@ namespace Hive.Armada.Player
         }
 
         /// <summary>
-        /// Sets the ship to switch to either Game or Menu mode.
+        /// Activates the corresponding weapon object.
         /// </summary>
-        /// <param name="mode"> The mode to switch the ship to </param>
-        public void SetShipMode(ShipMode mode)
+        /// <param name="weaponNumber"> Index of the weapon to activate </param>
+        public void SetWeapon(int weaponNumber)
         {
-            shipMode = mode;
-            laserSight.SetMode(mode);
+            currentWeapon = weaponNumber;
+
+            weapons[weaponNumber].weapon.gameObject.SetActive(true);
         }
 
         /// <summary>

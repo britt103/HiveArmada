@@ -7,7 +7,9 @@
 // Group Project
 // 
 // This is the player laser gun. It has two barrels and shoots alternating
-// lasers using LineRenderers.
+// lasers using LineRenderers. There is a muzzle flash and hit spark particle
+// emitter that spawn on the barrel and hit enemy, respectively, to give the
+// player more feedback.
 // 
 //=============================================================================
 
@@ -15,6 +17,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Rendering;
 using Hive.Armada.Enemies;
+using MirzaBeig.ParticleSystems;
 
 namespace Hive.Armada.Player.Weapons
 {
@@ -71,6 +74,16 @@ namespace Hive.Armada.Player.Weapons
         public GameObject muzzleFlashEmitter;
 
         /// <summary>
+        /// Pool of muzzle flash emitters.
+        /// </summary>
+        private ParticleSystems[] muzzleFlashEmitters;
+
+        /// <summary>
+        /// Index of the next muzzle flash emitter to use.
+        /// </summary>
+        private int muzzleFlashIndex;
+
+        /// <summary>
         /// The audio source for the laser gun sounds
         /// </summary>
         [Header("Audio")]
@@ -82,7 +95,46 @@ namespace Hive.Armada.Player.Weapons
         public AudioClip laserShootSound;
 
         /// <summary>
-        /// Gets enemy or wall aimpoint and shoots at it. Will damage enemies.
+        /// Initializes the LineRenderer's that are the lasers and
+        /// the muzzle flash emitter pool.
+        /// </summary>
+        protected override void SetupWeapon()
+        {
+            leftLaser = left.gameObject.AddComponent<LineRenderer>();
+            leftLaser.material = laserMaterial;
+            leftLaser.shadowCastingMode = ShadowCastingMode.Off;
+            leftLaser.receiveShadows = false;
+            leftLaser.alignment = LineAlignment.View;
+            leftLaser.startWidth = thickness;
+            leftLaser.endWidth = thickness;
+            leftLaser.enabled = false;
+
+            rightLaser = right.gameObject.AddComponent<LineRenderer>();
+            rightLaser.material = laserMaterial;
+            rightLaser.shadowCastingMode = ShadowCastingMode.Off;
+            rightLaser.receiveShadows = false;
+            rightLaser.alignment = LineAlignment.View;
+            rightLaser.startWidth = thickness;
+            rightLaser.endWidth = thickness;
+            rightLaser.enabled = false;
+
+            muzzleFlashEmitters = new ParticleSystems[Mathf.FloorToInt(fireRate * 2.5f)];
+            muzzleFlashIndex = 0;
+
+            for (int i = 0; i < muzzleFlashEmitters.Length; ++i)
+            {
+                GameObject muzzleFlash = Instantiate(muzzleFlashEmitter, transform);
+                ParticleSystems muzzleFlashSystem = muzzleFlash.GetComponent<ParticleSystems>();
+
+                muzzleFlashSystem.stop();
+                muzzleFlashSystem.clear();
+                muzzleFlashEmitters[i] = muzzleFlashSystem;
+            }
+        }
+
+        /// <summary>
+        /// Gets the enemy, interactable, or position on the wall that player is aimed at.
+        /// Shoots the enemy or interactable if there is one.
         /// </summary>
         protected override void Clicked()
         {
@@ -90,11 +142,9 @@ namespace Hive.Armada.Player.Weapons
             if (Physics.SphereCast(transform.position, radius, transform.forward, out hit, 200.0f,
                                    Utility.enemyMask))
             {
-                StartCoroutine(Shoot(hit.collider.gameObject.transform.position));
+                StartCoroutine(Shoot(hit.point));
 
-                Vector3 sparkPosition = hit.collider.ClosestPoint(transform.position);
-
-                Instantiate(hitSparkEmitter, sparkPosition,
+                Instantiate(hitSparkEmitter, hit.point,
                             Quaternion.LookRotation(hit.point - gameObject.transform.position));
 
                 if (hit.collider.gameObject.GetComponent<Enemy>() != null)
@@ -107,11 +157,9 @@ namespace Hive.Armada.Player.Weapons
             else if (Physics.Raycast(transform.position, transform.forward, out hit, 200.0f,
                                      Utility.shootableMask))
             {
-                StartCoroutine(Shoot(hit.collider.gameObject.transform.position));
+                StartCoroutine(Shoot(hit.point));
 
-                Vector3 sparkPosition = hit.collider.ClosestPoint(transform.position);
-
-                Instantiate(hitSparkEmitter, sparkPosition,
+                Instantiate(hitSparkEmitter, hit.point,
                             Quaternion.LookRotation(hit.point - gameObject.transform.position));
 
                 if (hit.collider.gameObject.GetComponent<Shootable>() != null
@@ -130,13 +178,14 @@ namespace Hive.Armada.Player.Weapons
         }
 
         /// <summary>
-        /// Blocks the gun from shooting based on fire rate, updates LineRenderers, starts the FlashLaser
-        /// coroutine.
+        /// Blocks the gun from shooting based on fire rate, updates LineRenderers, plays a muzzle
+        /// flash emitter, plays the gun sound and starts the FlashLaser coroutine.
         /// </summary>
         /// <param name="position"> The position of the target being shot </param>
         private IEnumerator Shoot(Vector3 position)
         {
             canShoot = false;
+            GameObject laser;
 
             if (isLeftFire)
             {
@@ -147,7 +196,8 @@ namespace Hive.Armada.Player.Weapons
 
                 leftLaser.SetPosition(0, left.transform.position);
                 leftLaser.SetPosition(1, position);
-                Instantiate(muzzleFlashEmitter, left.transform.position, left.transform.rotation, left.transform);
+
+                laser = left;
             }
             else
             {
@@ -158,7 +208,18 @@ namespace Hive.Armada.Player.Weapons
 
                 rightLaser.SetPosition(0, right.transform.position);
                 rightLaser.SetPosition(1, position);
-                Instantiate(muzzleFlashEmitter, right.transform.position, right.transform.rotation, right.transform);
+
+                laser = right;
+            }
+
+            ParticleSystems muzzleFlash = muzzleFlashEmitters[muzzleFlashIndex++];
+            muzzleFlash.gameObject.transform.position = laser.transform.position;
+            muzzleFlash.gameObject.transform.rotation = laser.transform.rotation;
+            muzzleFlash.play();
+
+            if (muzzleFlashIndex >= muzzleFlashEmitters.Length)
+            {
+                muzzleFlashIndex = 0;
             }
 
             StartCoroutine(FlashLaser(isLeftFire));
@@ -203,30 +264,6 @@ namespace Hive.Armada.Player.Weapons
             {
                 rightLaser.enabled = false;
             }
-        }
-
-        /// <summary>
-        /// Calls the initialization of all LineRenderers
-        /// </summary>
-        protected override void SetupLineRenderers()
-        {
-            leftLaser = left.gameObject.AddComponent<LineRenderer>();
-            leftLaser.material = laserMaterial;
-            leftLaser.shadowCastingMode = ShadowCastingMode.Off;
-            leftLaser.receiveShadows = false;
-            leftLaser.alignment = LineAlignment.View;
-            leftLaser.startWidth = thickness;
-            leftLaser.endWidth = thickness;
-            leftLaser.enabled = false;
-
-            rightLaser = right.gameObject.AddComponent<LineRenderer>();
-            rightLaser.material = laserMaterial;
-            rightLaser.shadowCastingMode = ShadowCastingMode.Off;
-            rightLaser.receiveShadows = false;
-            rightLaser.alignment = LineAlignment.View;
-            rightLaser.startWidth = thickness;
-            rightLaser.endWidth = thickness;
-            rightLaser.enabled = false;
         }
     }
 }

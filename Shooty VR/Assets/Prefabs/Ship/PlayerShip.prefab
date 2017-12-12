@@ -58,7 +58,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1039081036032958
 GameObject:
   m_ObjectHideFlags: 1
@@ -876,7 +876,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1478800581339926
 GameObject:
   m_ObjectHideFlags: 1
@@ -5896,7 +5896,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shipController: {fileID: 114805351180607888}
-  mode: 1
   laserMaterial: {fileID: 2100000, guid: 52fd0a2d4a02c4e46af843e393a6ec28, type: 2}
   thickness: 0.001
 --- !u!114 &114178774214985204
@@ -5999,7 +5998,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentWeapon: 0
   hand: {fileID: 0}
-  shipMode: 0
   weapons:
   - weapon: {fileID: 114178774214985204}
     damage: 8

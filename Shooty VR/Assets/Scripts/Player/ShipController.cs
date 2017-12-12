@@ -51,12 +51,6 @@ namespace Hive.Armada.Player
         }
 
         /// <summary>
-        /// Whether or not the player can shoot right now.
-        /// </summary>
-        [Space(10)]
-        private bool canShoot;
-
-        /// <summary>
         /// Index of the currently activated weapon.
         /// </summary>
         public int currentWeapon;
@@ -71,11 +65,6 @@ namespace Hive.Armada.Player
         /// </summary>
         [HideInInspector]
         public Hand hand;
-
-        /// <summary>
-        /// The Laser Sight on the ship. Reference to switch it between Game and Menu mode.
-        /// </summary>
-        private LaserSight laserSight;
 
         /// <summary>
         /// The deferred update position
@@ -129,15 +118,9 @@ namespace Hive.Armada.Player
                 reference.playerShipSource = source;
             }
 
-            laserSight = transform.GetComponentInChildren<LaserSight>();
             newPosesAppliedAction = SteamVR_Events.NewPosesAppliedAction(OnNewPosesApplied);
 
-            for (int i = 0; i < weapons.Length; ++i)
-            {
-                weapons[i].weapon.Initialize(i);
-            }
-
-            currentWeapon = FindObjectOfType<ShipLoadout>().weapon;
+            SetWeapon(FindObjectOfType<ShipLoadout>().weapon);
         }
 
         /// <summary>
@@ -165,7 +148,7 @@ namespace Hive.Armada.Player
                 reference.shipPickup.SetActive(false);
             }
 
-            if(reference.menuTitle && reference.menuMain)
+            if (reference.menuTitle && reference.menuMain)
             {
                 reference.menuTitle.SetActive(false);
                 reference.menuMain.SetActive(true);
@@ -224,41 +207,13 @@ namespace Hive.Armada.Player
             transform.localPosition = Vector3.zero;
             transform.localRotation = Quaternion.identity;
 
-            if (canShoot)
+            if (hand.GetStandardInteractionButton())
             {
-                if (hand.GetStandardInteractionButton())
-                {
-                    weapons[currentWeapon].weapon.TriggerUpdate();
-                }
+                weapons[currentWeapon].weapon.TriggerUpdate();
             }
 
             //// Update handedness guess
             //EvaluateHandedness();
-        }
-
-        /// <summary>
-        /// Switches the currently activated gun to the next in the array
-        /// </summary>
-        private void SwitchGun()
-        {
-            int previous = currentWeapon++;
-            if (currentWeapon >= weapons.Length)
-            {
-                currentWeapon = 0;
-            }
-
-            if (currentWeapon == previous)
-            {
-                return;
-            }
-
-            //weapons[previous].weapon.gameObject.SetActive(false);
-            //weapons[currentWeapon].weapon.gameObject.SetActive(true);
-
-            if (hand.GetStandardInteractionButton())
-            {
-                canShoot = false;
-            }
         }
 
         /// <summary>
@@ -267,9 +222,10 @@ namespace Hive.Armada.Player
         /// <param name="weaponNumber"> Index of the weapon to activate </param>
         public void SetWeapon(int weaponNumber)
         {
-            currentWeapon = weaponNumber;
-
+            weapons[weaponNumber].weapon.Initialize(weaponNumber);
             weapons[weaponNumber].weapon.gameObject.SetActive(true);
+
+            currentWeapon = weaponNumber;
         }
 
         /// <summary>
@@ -278,10 +234,7 @@ namespace Hive.Armada.Player
         /// <param name="boost"> The damage boost multiplier </param>
         public void SetDamageBoost(int boost)
         {
-            foreach (WeaponSetup weaponSetup in weapons)
-            {
-                weaponSetup.weapon.damageMultiplier = boost;
-            }
+            weapons[currentWeapon].weapon.damageMultiplier = boost;
         }
 
         /// <summary>

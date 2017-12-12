@@ -235,6 +235,7 @@ namespace Hive.Armada.Game
         /// <param name="spawnGroupDelay"> Time delay before this group is spawned </param>
         /// <param name="spawnDelay"> Time delay between individual spawns </param>
         /// <param name="enemySpawns"> List of individual spawns </param>
+        /// <param name="powerupSpawns"> List of powerup spawns </param>
         public SpawnGroup(float spawnGroupDelay, float spawnDelay, List<EnemySpawn> enemySpawns,
                           List<PowerupSpawn> powerupSpawns)
         {
@@ -352,7 +353,7 @@ namespace Hive.Armada.Game
         /// <summary>
         /// Time delay between respawning enemies.
         /// </summary>
-        private float respawnDelay = 0.0f;
+        private float respawnDelay;
 
         /// <summary>
         /// Initializes the reference to the Reference Manager
@@ -580,7 +581,10 @@ namespace Hive.Armada.Game
                         yield return new WaitForSeconds(0.1f);
                     }
 
-                    GameObject spawned = objectPoolManager.Spawn(typeIdentifier, position);
+                    Quaternion rotation =
+                        Quaternion.LookRotation(reference.playerShip.transform.position - position);
+
+                    GameObject spawned = objectPoolManager.Spawn(typeIdentifier, position, rotation);
                     
                     // set info for the enemy
                     Enemy spawnedEnemyScript = spawned.GetComponent<Enemy>();

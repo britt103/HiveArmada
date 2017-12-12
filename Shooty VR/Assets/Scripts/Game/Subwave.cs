@@ -235,6 +235,7 @@ namespace Hive.Armada.Game
         /// <param name="spawnGroupDelay"> Time delay before this group is spawned </param>
         /// <param name="spawnDelay"> Time delay between individual spawns </param>
         /// <param name="enemySpawns"> List of individual spawns </param>
+        /// <param name="powerupSpawns"> List of powerup spawns </param>
         public SpawnGroup(float spawnGroupDelay, float spawnDelay, List<EnemySpawn> enemySpawns,
                           List<PowerupSpawn> powerupSpawns)
         {
@@ -352,7 +353,7 @@ namespace Hive.Armada.Game
         /// <summary>
         /// Time delay between respawning enemies.
         /// </summary>
-        private float respawnDelay = 0.0f;
+        private float respawnDelay;
 
         /// <summary>
         /// Initializes the reference to the Reference Manager
@@ -377,7 +378,7 @@ namespace Hive.Armada.Game
             {
                 IsRunning = true;
 
-                random = new Random((int)Time.time);
+                random = new Random((int) Time.time);
                 WaveNumber = wave;
                 SubwaveNumber = subwave;
 
@@ -401,7 +402,7 @@ namespace Hive.Armada.Game
         {
             if (setupSpawnGroups.Length > 0)
             {
-                UnityEngine.Random.InitState((int)Time.time);
+                UnityEngine.Random.InitState((int) Time.time);
                 enemyCapCount = enemyCap;
                 spawnGroups = new List<SpawnGroup>();
 
@@ -559,12 +560,49 @@ namespace Hive.Armada.Game
                     if (zone != SpawnZone.Introduction)
                     {
                         // spawn position is random point in its zone
-                        Vector3 lower = spawnZones[(int)zone].lowerBound.transform.position;
-                        Vector3 upper = spawnZones[(int)zone].upperBound.transform.position;
-                        
-                        position = new Vector3(UnityEngine.Random.Range(lower.x, upper.x),
-                        UnityEngine.Random.Range(lower.y, upper.y),
-                        UnityEngine.Random.Range(lower.z, upper.z));
+                        Vector3 lower = spawnZones[(int) zone].lowerBound.transform.position;
+                        Vector3 upper = spawnZones[(int) zone].upperBound.transform.position;
+
+                        float radius;
+                        bool isColliding;
+
+                        switch (spawnGroups[group].enemySpawns[i].typeIdentifier)
+                        {
+                            case 0:
+                                radius = 0.4f;
+                                break;
+                            case 1:
+                                radius = 0.4f;
+                                break;
+                            case 2:
+                                radius = 0.24f;
+                                break;
+                            case 3:
+                                radius = 0.9f;
+                                break;
+                            default:
+                                radius = 0.4f;
+                                break;
+                        }
+
+                        do
+                        {
+                            position = new Vector3(UnityEngine.Random.Range(lower.x, upper.x),
+                                                   UnityEngine.Random.Range(lower.y, upper.y),
+                                                   UnityEngine.Random.Range(lower.z, upper.z));
+
+                            Collider[] colliders =
+                                Physics.OverlapSphere(position, radius, Utility.enemyMask);
+
+                            isColliding = colliders.Length > 0;
+
+                            if (isColliding)
+                            {
+                                // wait one frame to throttle this do-while
+                                yield return null;
+                            }
+                        }
+                        while (isColliding);
                     }
                     else
                     {
@@ -580,8 +618,23 @@ namespace Hive.Armada.Game
                         yield return new WaitForSeconds(0.1f);
                     }
 
-                    GameObject spawned = objectPoolManager.Spawn(typeIdentifier, position);
-                    
+                    Quaternion rotation;
+
+                    if (reference.playerShip)
+                    {
+                        rotation =
+                            Quaternion.LookRotation(
+                                reference.playerShip.transform.position - position);
+                    }
+                    else
+                    {
+                        rotation =
+                            Quaternion.LookRotation(new Vector3(0.0f, 2.0f, 0.0f) - position);
+                    }
+
+                    GameObject spawned =
+                        objectPoolManager.Spawn(typeIdentifier, position, rotation);
+
                     // set info for the enemy
                     Enemy spawnedEnemyScript = spawned.GetComponent<Enemy>();
                     spawnedEnemyScript.SetSubwave(this);
@@ -680,12 +733,12 @@ namespace Hive.Armada.Game
                         SpawnZone zone = respawns[0].spawnZone;
 
                         // spawn position is random point in its zone
-                        Vector3 lower = spawnZones[(int)zone].lowerBound.transform.position;
-                        Vector3 upper = spawnZones[(int)zone].upperBound.transform.position;
+                        Vector3 lower = spawnZones[(int) zone].lowerBound.transform.position;
+                        Vector3 upper = spawnZones[(int) zone].upperBound.transform.position;
 
                         position = new Vector3(UnityEngine.Random.Range(lower.x, upper.x),
-                            UnityEngine.Random.Range(lower.y, upper.y),
-                            UnityEngine.Random.Range(lower.z, upper.z));
+                                               UnityEngine.Random.Range(lower.y, upper.y),
+                                               UnityEngine.Random.Range(lower.z, upper.z));
                     }
                     else
                     {
@@ -693,12 +746,15 @@ namespace Hive.Armada.Game
                         position = spawnZones[0].lowerBound.transform.position;
                     }
 
-                    GameObject spawned = objectPoolManager.Spawn(respawns[0].typeIdentifier, position);
+                    GameObject spawned =
+                        objectPoolManager.Spawn(respawns[0].typeIdentifier, position);
 
                     // set info for the enemy
                     Enemy spawnedEnemyScript = spawned.GetComponent<Enemy>();
                     spawnedEnemyScript.SetSubwave(this);
-                    spawnedEnemyScript.SetEnemySpawn(new EnemySpawn(respawns[0].typeIdentifier, respawns[0].spawnZone, respawns[0].attackPattern));
+                    spawnedEnemyScript.SetEnemySpawn(
+                        new EnemySpawn(respawns[0].typeIdentifier, respawns[0].spawnZone,
+                                       respawns[0].attackPattern));
                     spawnedEnemyScript.SetAttackPattern(respawns[0].attackPattern);
 
                     respawns.RemoveAt(0);

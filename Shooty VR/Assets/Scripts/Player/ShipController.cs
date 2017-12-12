@@ -222,8 +222,8 @@ namespace Hive.Armada.Player
         /// <param name="weaponNumber"> Index of the weapon to activate </param>
         public void SetWeapon(int weaponNumber)
         {
-            weapons[weaponNumber].weapon.Initialize(weaponNumber);
             weapons[weaponNumber].weapon.gameObject.SetActive(true);
+            weapons[weaponNumber].weapon.Initialize(weaponNumber);
 
             currentWeapon = weaponNumber;
         }

@@ -49,9 +49,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4463228315857846}
-  - component: {fileID: 95203113492203290}
   - component: {fileID: 114783113088214496}
   - component: {fileID: 82575093128093072}
+  - component: {fileID: 95203113492203290}
   m_Layer: 0
   m_Name: Minigun
   m_TagString: Untagged
@@ -5982,9 +5982,10 @@ MonoBehaviour:
   - {fileID: 1804582580838716}
   hitSparkEmitter: {fileID: 1514411477096268, guid: 428589331263e1649baa33bed534c884,
     type: 2}
+  muzzleFlashEmitter: {fileID: 1585948764433870, guid: bb8ae17bb63b15b4f8db2ec1c45e51fa,
+    type: 2}
   source: {fileID: 82575093128093072}
-  minigunShootSound:
-  - {fileID: 8300000, guid: 0d8b4ead0574b8e4fabf31e218aefed7, type: 3}
+  minigunShootSound: {fileID: 8300000, guid: 58fa71883856e0e49973b4dce75e90d0, type: 3}
 --- !u!114 &114805351180607888
 MonoBehaviour:
   m_ObjectHideFlags: 1

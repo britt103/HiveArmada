@@ -97,18 +97,17 @@ namespace Hive.Armada.Menus
         }
 
         /// <summary>
-        /// LaserGun button pressed. Set shipLoadout weapon to laserGun.
+        /// Weapon1 button pressed. Set shipLoadout weapon to weapon1.
         /// </summary>
         public void PressWeapon1()
         {
             source.PlayOneShot(clips[0]);
             selectedWeapon = weapon1Enum;
             weaponText.text = "Weapon: " + weapon1Name;
-            
         }
 
         /// <summary>
-        /// MiniGun button pressed. Set shipLoadout weapon to minigun.
+        /// Weapon2 button pressed. Set shipLoadout weapon to weapon2.
         /// </summary>
         public void PressWeapon2()
         {
@@ -128,9 +127,9 @@ namespace Hive.Armada.Menus
         }
 
         /// <summary>
-        /// Continue button pressed. Trigger scene transition to Wave Room.
+        /// Play button pressed. Trigger scene transition to Wave Room.
         /// </summary>
-        public void PressContinue()
+        public void PressPlay()
         {
             shipLoadout.weapon = selectedWeapon;
             source.PlayOneShot(clips[0]);

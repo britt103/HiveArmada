@@ -86,16 +86,15 @@ namespace Hive.Armada.Enemies
         private bool canShoot = true;
 
         /// <summary>
-        /// When this enemy was created.
+        /// Angle used for moving with Mathf.Sin.
         /// </summary>
-        private float startTime;
+        private float theta;
 
         /// <summary>
         /// Finds the player. Runs when this enemy spawns.
         /// </summary>
         private void Start()
         {
-            startTime = Time.time;
             player = GameObject.FindGameObjectWithTag("Player");
             if (player != null)
             {
@@ -114,22 +113,30 @@ namespace Hive.Armada.Enemies
         /// </summary>
         private void SetPosition()
         {
-            posA = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-            posB = new Vector3(transform.position.x + xMax, transform.position.y + yMax,
-                transform.position.z);
+            posA = new Vector3(transform.position.x - xMax / 2,
+                               transform.position.y - yMax / 2,
+                               transform.position.z);
+            posB = new Vector3(transform.position.x + xMax / 2,
+                               transform.position.y + yMax / 2,
+                               transform.position.z);
 
-            //posCenter = new Vector3(posA.x + posB.x, posA.y + posB.y) / 2.0f;
-            //transform.position = posCenter;
+            theta = 0.0f;
         }
 
         /// <summary>
-        /// Moves the enemy between posA and posB, and tries to look at the player and shoot at it when possible.
-        /// Runs every Frame.
+        /// Moves the enemy between posA and posB, and tries to look at
+        /// the player and shoot at it when possible.
         /// </summary>
         private void Update()
         {
-            transform.position = Vector3.Lerp(posA, posB,
-                (Mathf.Sin(movingSpeed * (Time.time + startTime)) + 1.0f) / 2.0f);
+            transform.position = Vector3.Lerp(posA, posB, (Mathf.Sin(theta) + 1.0f) / 2.0f);
+
+            theta += movingSpeed * Time.deltaTime;
+
+            if (theta > Mathf.PI * 3 / 2)
+            {
+                theta -= Mathf.PI * 2;
+            }
 
             if (player != null)
             {
@@ -149,6 +156,7 @@ namespace Hive.Armada.Enemies
                     transform.LookAt(new Vector3(0.0f, 2.0f, 0.0f));
                 }
             }
+
             //if (shaking)
             //{
             //    iTween.ShakePosition(gameObject, new Vector3(0.1f, 0.1f, 0.1f), 0.1f);

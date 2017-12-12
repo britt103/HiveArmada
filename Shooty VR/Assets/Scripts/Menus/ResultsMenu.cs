@@ -6,14 +6,12 @@
 // CPSC-340-01 & CPSC-344-01
 // Group Project
 //
-// Results Menu display the results of the the just completed run to the 
+// Results Menu displays the results of the the just completed run to the 
 // player.
 //
 //=============================================================================
 
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Hive.Armada.Game;

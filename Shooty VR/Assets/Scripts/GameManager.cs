@@ -6,7 +6,7 @@
 // CPSC-340-01 & CPSC-344-01
 // Group Project
 //
-// [DESCRIPTION]
+// GameManager is currently not in use.
 //
 //=============================================================================
 
@@ -20,11 +20,6 @@ namespace Hive.Armada
 {
     public class GameManager : MonoBehaviour
     {
-        /// <summary>
-        /// Reference to ReferenceManager
-        /// </summary>
-        private ReferenceManager reference;
-
         // Use this for initialization
         void Start()
         {
@@ -35,7 +30,7 @@ namespace Hive.Armada
             //    enemies[i].SetActive(false);
             //}
 
-            reference = FindObjectOfType<ReferenceManager>();
+            //reference = FindObjectOfType<ReferenceManager>();
         }
 
         // Update is called once per frame

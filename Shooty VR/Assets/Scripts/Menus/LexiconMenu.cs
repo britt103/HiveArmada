@@ -6,7 +6,7 @@
 // CPSC-340-01 & CPSC-344-01
 // Group Project
 //
-// LexiconMenu controls interactions with the Lexicon Menu.
+// LexiconMenu controls interactions with the Lexicon Menu. OLD VERSION.
 //
 //=============================================================================
 

@@ -123,6 +123,7 @@ namespace Hive.Armada.Game
                 IsComplete = true;
                 reference.waveManager.WaveComplete(WaveNumber);
                 reference.statistics.WaveComplete();
+                reference.powerUpStatus.RemoveStoredPowerups();
             }
         }
     }

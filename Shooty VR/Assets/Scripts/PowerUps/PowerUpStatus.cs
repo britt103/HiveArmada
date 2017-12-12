@@ -6,9 +6,9 @@
 // CPSC-340-01 & CPSC-344-01
 // Group Project
 //
-// PowerupStatus tracks the powerups currently stored and currently active. A
-// powerup cannot be activated if a powerup of the same type is currently 
-// active. Powerups are activated upon controller input.
+// PowerupStatus tracks the powerups currently stored and currently active. 
+// Powerups are activated upon controller input. Stored powerups are lost
+// between waves.
 //
 //=============================================================================
 
@@ -94,13 +94,9 @@ namespace Hive.Armada.PowerUps
         {
             if (tracking && powerups.Count > 0)
             {
-                if (hand.controller.GetTouch(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad))
-                {
-                    string nextPowerupName = powerups.Peek().name;
-                }
-
                 if (hand.controller.GetPressDown(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad))
                 {
+                    stats.PowerupUsed(powerups.Peek().name);
                     Instantiate(powerups.Dequeue(), powerupPoint);
                     RemoveDisplayIcon();
                 }

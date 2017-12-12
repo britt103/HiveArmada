@@ -47,12 +47,6 @@ namespace Hive.Armada.Game
         /// </summary>
         public bool defaultBloom;
 
-        [Header("Non-Option Variables")]
-        /// <summary>
-        /// Reference to Reference Manager.
-        /// </summary>
-        private ReferenceManager reference;
-
         [Header("References")]
         /// <summary>
         /// Reference to player camera gameObject.
@@ -64,8 +58,6 @@ namespace Hive.Armada.Game
         /// </summary>
         private void Awake()
         {
-            reference = FindObjectOfType<ReferenceManager>();
-
             GetPlayerPrefs();
             SetGameValues();
         }

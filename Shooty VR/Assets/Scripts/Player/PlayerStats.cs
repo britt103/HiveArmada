@@ -8,7 +8,7 @@
 //
 // PlayerStats tracks various player metrics including powerup use, time alive, 
 // wave completion, and score. Data is output both to the editor console and
-// to a JSON text file.
+// to a JSON text file. Stats are tracked for individual waves and whole runs.
 //
 //=============================================================================
 

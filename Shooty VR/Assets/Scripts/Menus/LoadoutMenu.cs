@@ -6,7 +6,8 @@
 // CPSC-340-01 & CPSC-344-01
 // Group Project
 //
-// WeaponMenu controls interactions with the Weapon Menu.
+// LoadoutMenu controls interactions with the Load Menu. The player selects
+// which weapon they want to use in this menu.
 //
 //=============================================================================
 

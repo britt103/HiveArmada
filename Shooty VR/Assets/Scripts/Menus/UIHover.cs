@@ -6,8 +6,9 @@
 // CPSC-340-01 & CPSC-344-01
 // Group Project
 //
-// UIHover is a virtual parent class for buttons, sliders, toggles, etc. that
-// are interacted with using the UIPointer. 
+// UIHover controls hovering interactions with the UIPointer. This activates
+// active sprite versions of various UI icons when the UIPointer is hovering
+// over it.
 //
 //=============================================================================
 
@@ -40,6 +41,9 @@ namespace Hive.Armada.Menus
         /// </summary>
         private bool isHovering = false;
 
+        /// <summary>
+        /// Prevent hovering on enable.
+        /// </summary>
         private void OnEnable()
         {
             EndHover();

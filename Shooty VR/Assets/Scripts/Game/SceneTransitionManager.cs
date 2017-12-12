@@ -7,10 +7,11 @@
 // Group Project
 //
 // SceneTransitionManager handles the loading and transitions between scenes.
+// Transition effects include fading, audio, and particles. Scene-specific
+// actions are also done before and after transitions.
 //
 //=============================================================================
 
-using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -171,6 +172,13 @@ namespace Hive.Armada.Game
                 {
                     reference.statistics.PrintStats();
                     sceneInfo.runFinished = true;
+                }
+                else if (SceneManager.GetActiveScene().name == "Menu Room")
+                {
+                    foreach (UIPointer pointer in uiPointers)
+                    {
+                        pointer.gameObject.SetActive(false);
+                    }
                 }
 
                 StartCoroutine(FadeOut());

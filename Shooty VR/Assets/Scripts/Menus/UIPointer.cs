@@ -86,6 +86,16 @@ namespace Hive.Armada.Menus
         private bool initialized = false;
 
         /// <summary>
+        /// Reference to Menus gameobject.
+        /// </summary>
+        private GameObject menus;
+
+        /// <summary>
+        /// State of whether menus are toggled on.
+        /// </summary>
+        private bool menusOn = true;
+
+        /// <summary>
         /// Find references, initialize pointer and pointer values.
         /// </summary>
         private void OnEnable()
@@ -108,6 +118,11 @@ namespace Hive.Armada.Menus
                 if (!initialized)
                 {
                     Initialize();
+                }
+
+                if (hand.controller.GetPressDown(SteamVR_Controller.ButtonMask.ApplicationMenu))
+                {
+                    ToggleMenus();
                 }
 
                 RaycastHit hit;
@@ -168,6 +183,11 @@ namespace Hive.Armada.Menus
                 //Check for UI interaction
                 if (isInteractable)
                 {
+                    if (aimObject != lastInteractableAimObject)
+                    {
+                        ExitLastInteractable();
+                    }
+
                     lastInteractableAimObject = aimObject;
 
                     if (aimObject.GetComponent<UIHover>())
@@ -246,6 +266,8 @@ namespace Hive.Armada.Menus
             pointer.startWidth = thickness;
             pointer.endWidth = thickness;
 
+            menus = GameObject.Find("Menus");
+
             initialized = true;
         }
 
@@ -259,6 +281,15 @@ namespace Hive.Armada.Menus
                 lastInteractableAimObject.GetComponent<UIHover>().EndHover();
                 lastInteractableAimObject = null;
             }
+        }
+
+        /// <summary>
+        /// Toggle visibility of menus using Vive Menu button.
+        /// </summary>
+        private void ToggleMenus()
+        {
+            menusOn = !menusOn;
+            menus.SetActive(menusOn);
         }
     }
 }

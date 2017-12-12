@@ -40,11 +40,10 @@ GameObject:
   - component: {fileID: 23829361487451674}
   - component: {fileID: 95910639149188088}
   - component: {fileID: 114906720365711610}
-  - component: {fileID: 114100415811593928}
   - component: {fileID: 135581259128785744}
   - component: {fileID: 54415127377630178}
   - component: {fileID: 82425338101321092}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Area Bomb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -229,17 +228,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114100415811593928
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1499271545386294}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b93b6a877adcbf94c89a9d6e0c0e844d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114906720365711610
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -263,7 +251,7 @@ MonoBehaviour:
   trailEmitter: {fileID: 1743563473384194, guid: b8d9dbaf8fa78834f89eec092939e735,
     type: 2}
   detonationTime: 6
-  isShootableTime: 0
+  isShootableTime: 0.5
   source: {fileID: 82425338101321092}
   clips:
   - {fileID: 8300000, guid: 7918561557fcef64b8cffc3373d6259b, type: 3}

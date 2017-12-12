@@ -11,6 +11,7 @@
 //
 //=============================================================================
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -66,7 +67,7 @@ namespace Hive.Armada.Menus
         public GameObject scoreTextGO;
 
         /// <summary>
-        /// Get and set results values.
+        /// Get and set results values. Reset stats totals.
         /// </summary>
         void Awake()
         {
@@ -74,9 +75,13 @@ namespace Hive.Armada.Menus
             stats = FindObjectOfType<PlayerStats>();
 
             wavesTextGO.GetComponent<Text>().text = "Waves: " + stats.waves;
-            timeTextGO.GetComponent<Text>().text = "Time: " + stats.totalAliveTime;
+            TimeSpan time = TimeSpan.FromSeconds(stats.totalAliveTime);
+            string timeOutput = string.Format("{0:D2}:{1:D2}", time.Minutes, time.Seconds);
+            timeTextGO.GetComponent<Text>().text = "Time: " + timeOutput;
             killsTextGO.GetComponent<Text>().text = "Kills: " + stats.totalEnemiesKilled;
             scoreTextGO.GetComponent<Text>().text = "Score: " + stats.totalScore;
+
+            stats.ResetTotals();
         }
 
         /// <summary>

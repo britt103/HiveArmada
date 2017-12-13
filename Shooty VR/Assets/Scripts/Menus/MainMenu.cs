@@ -59,8 +59,14 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void PressQuit()
         {
-            Application.Quit();
-            //UnityEditor.EditorApplication.isPlaying = false;
+            if (Application.isEditor)
+            {
+                UnityEditor.EditorApplication.isPlaying = false;
+            }
+            else
+            {
+                Application.Quit();
+            }
         }
     }
 }

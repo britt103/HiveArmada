@@ -61,8 +61,7 @@ namespace Hive.Armada.Player
                 {
                     SetIsTracking(false);
                     SetIsIdle(false);
-                    //Application.Quit();
-                    Debug.Log("Idle Quit");
+                    Application.Quit();
                     //UnityEditor.EditorApplication.isPlaying = false;
                 }
             }

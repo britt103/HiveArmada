@@ -63,7 +63,7 @@ namespace Hive.Armada.Player
                     SetIsIdle(false);
                     //Application.Quit();
                     Debug.Log("Idle Quit");
-                    UnityEditor.EditorApplication.isPlaying = false;
+                    //UnityEditor.EditorApplication.isPlaying = false;
                 }
             }
         }

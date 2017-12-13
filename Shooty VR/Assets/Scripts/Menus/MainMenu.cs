@@ -60,7 +60,7 @@ namespace Hive.Armada.Menus
         public void PressQuit()
         {
             Application.Quit();
-            UnityEditor.EditorApplication.isPlaying = false;
+            //UnityEditor.EditorApplication.isPlaying = false;
         }
     }
 }

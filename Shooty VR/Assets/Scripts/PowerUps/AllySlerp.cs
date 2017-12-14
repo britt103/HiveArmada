@@ -96,19 +96,15 @@ namespace Hive.Armada.PowerUps
         void Update()
         {
             timeLimit -= Time.deltaTime;
-            if (timeLimit > 0.0F)
-            {
-                source.PlayOneShot(clips[1]);
-            }
             if (timeLimit < 0.0F)
             {
                 Destroy(gameObject);
             }
 
-            //if (!currentTarget.activeSelf)
-            //{
-            //    currentTarget = null;
-            //}
+            if (currentTarget && !currentTarget.activeSelf)
+            {
+                currentTarget = null;
+            }
 
             Move();
 
@@ -223,7 +219,7 @@ namespace Hive.Armada.PowerUps
             var bullet = Instantiate(bulletPrefab, transform.Find("BulletPoint")
                     .transform.position, transform.rotation);
 
-			source.PlayOneShot(clips[0]);
+            source.PlayOneShot(clips[0]);
 
             bullet.transform.LookAt(target);
             bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * bulletSpeed;

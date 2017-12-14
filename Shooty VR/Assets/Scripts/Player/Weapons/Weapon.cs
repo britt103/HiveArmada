@@ -65,17 +65,8 @@ namespace Hive.Armada.Player.Weapons
         protected bool canShoot = true;
 
         /// <summary>
-        /// Initializes weapon attributes
+        /// Initializes the reference to the Reference Manager
         /// </summary>
-        public virtual void Initialize(int index)
-        {
-            this.index = index;
-            SetupLineRenderers();
-            damageMultiplier = 1;
-            damage = shipController.weapons[index].damage;
-            fireRate = shipController.weapons[index].fireRate;
-        }
-
         protected virtual void Awake()
         {
             reference = GameObject.Find("Reference Manager").GetComponent<ReferenceManager>();
@@ -85,6 +76,24 @@ namespace Hive.Armada.Player.Weapons
                 Debug.LogError(GetType().Name + " - Could not find Reference Manager!");
             }
         }
+
+        /// <summary>
+        /// Initializes weapon attributes
+        /// </summary>
+        /// <param name="weaponIndex"> The index of this weapon's attributes in the ship </param>
+        public virtual void Initialize(int weaponIndex)
+        {
+            index = weaponIndex;
+            damageMultiplier = 1;
+            damage = shipController.weapons[weaponIndex].damage;
+            fireRate = shipController.weapons[weaponIndex].fireRate;
+            SetupWeapon();
+        }
+
+        /// <summary>
+        /// Runs any setup needed for the weapon.
+        /// </summary>
+        protected abstract void SetupWeapon();
 
         /// <summary>
         /// Called every frame that the controller's trigger is down.
@@ -101,7 +110,5 @@ namespace Hive.Armada.Player.Weapons
         /// Handles the logic behind shooting.
         /// </summary>
         protected abstract void Clicked();
-
-        protected abstract void SetupLineRenderers();
     }
 }

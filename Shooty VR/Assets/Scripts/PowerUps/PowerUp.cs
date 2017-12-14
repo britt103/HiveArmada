@@ -14,11 +14,18 @@
 //=============================================================================
 
 using UnityEngine;
+using Hive.Armada.Game;
 
 namespace Hive.Armada.PowerUps
 {
     public class PowerUp : MonoBehaviour
     {
+        /// <summary>
+        /// Reference manager that holds all needed references
+        /// (e.g. spawner, game manager, etc.)
+        /// </summary>
+        private ReferenceManager reference;
+
         /// <summary>
         /// Reference to pickup prefab.
         /// </summary>
@@ -30,12 +37,12 @@ namespace Hive.Armada.PowerUps
         public GameObject powerupIconPrefab;
 
         /// <summary>
-        /// FX of pickup instantiation.
+        /// Particle emitter for when the pickup spawns.
         /// </summary>
         public GameObject spawnEmitter;
 
         /// <summary>
-        /// FX of powerup on collision with player.
+        /// Particle emitter that persists on the pickup.
         /// </summary>
         public GameObject pickupEmitter;
 
@@ -53,17 +60,23 @@ namespace Hive.Armada.PowerUps
         public float lifeTime = 10.0f;
 
         /// <summary>
+        /// State of whether pickup has been touched.
+        /// </summary>
+        private bool touched = false;
+
+        /// <summary>
         /// Find references. Instantiate and rotate FX. Start self-destruct countdown.
         /// </summary>
-        private void Start()
+        private void Awake()
         {
-            head = GameObject.Find("VRCamera").transform;
-            GameObject fx = Instantiate(spawnEmitter, transform.position, transform.localRotation);
-            fx.transform.rotation = Quaternion
-                    .FromToRotation(Vector3.up, head.position - gameObject.transform.position);
+            reference = GameObject.Find("Reference Manager").GetComponent<ReferenceManager>();
 
-            status = FindObjectOfType<PowerUpStatus>();
-            Destroy(gameObject, lifeTime);
+            head = GameObject.Find("VRCamera").transform;
+            Instantiate(spawnEmitter, transform.parent.position, transform.parent.rotation, transform.parent);
+            Instantiate(pickupEmitter, transform.parent.position, transform.parent.rotation, transform.parent);
+
+            status = reference.powerUpStatus;
+            Destroy(transform.parent.gameObject, lifeTime);
         }
 
         /// <summary>
@@ -80,59 +93,12 @@ namespace Hive.Armada.PowerUps
         /// <param name="other">Collider of object with which this collided.</param>
         void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Player") && status.HasRoom())
+            if (other.CompareTag("Player") && status.HasRoom() && !touched)
             {
-                //switch (powerupPrefab.name)
-                //{
-                //case "Ally":
-                //    if (!status.powerupTypeStored[0])
-                //    {
-                //        status.StorePowerup(powerupPrefab, powerupIconPrefab);
-                //        status.powerupTypeStored[0] = true;
-                //        Destroy(gameObject);
-                //    }
-                //    break;
-
-                //case "Area Bomb":
-                //    if (!status.powerupTypeStored[1])
-                //    {
-                //        status.StorePowerup(powerupPrefab, powerupIconPrefab);
-                //        status.powerupTypeStored[1] = true;
-                //        Destroy(gameObject);
-
-                //    }
-                //    break;
-
-                //case "Clear":
-                //    if (!status.powerupTypeStored[2])
-                //    {
-                //        status.StorePowerup(powerupPrefab, powerupIconPrefab);
-                //        status.powerupTypeStored[2] = true;
-                //        Destroy(gameObject);
-                //    }
-                //    break;
-
-                //case "Damage Boost":
-                //    if (!status.powerupTypeStored[3])
-                //    {
-                //        status.StorePowerup(powerupPrefab, powerupIconPrefab);
-                //        status.powerupTypeStored[3] = true;
-                //        Destroy(gameObject);
-                //    }
-                //    break;
-
-                //case "Shield":
-                //    if (!status.powerupTypeStored[4])
-                //    {
-                //        status.StorePowerup(powerupPrefab, powerupIconPrefab);
-                //        status.powerupTypeStored[4] = true;
-                //        Destroy(gameObject);
-                //    }
-                //    break;
-                //}
-                Instantiate(pickupEmitter, transform.position, transform.localRotation);
+                touched = true;
+                reference.playerShipSource.PlayOneShot(reference.powerupReadySound);
                 status.StorePowerup(powerupPrefab, powerupIconPrefab);
-                Destroy(gameObject);
+                Destroy(transform.parent.gameObject);
             }
         }
     }

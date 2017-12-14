@@ -6,7 +6,10 @@
 // CPSC-340-01 & CPSC-344-01
 // Group Project
 // 
-// [DESCRIPTION]
+// This class holds all attributes for the enemies. The enemies use this to
+// reset their values to properly allow them to respawn with the object pool.
+// This also allows us to set all attributes in one place instead of having to
+// go through each and every relevant prefab to change attributes.
 // 
 //=============================================================================
 
@@ -109,9 +112,9 @@ namespace Hive.Armada.Game
 
             for (int i = 0; i < enemyProjectilePrefab.Length; ++i)
             {
-                for (int j = 0; j < reference.objectPoolManager.objectsToPool.Length; ++j)
+                for (int j = 0; j < reference.objectPoolManager.objects.Length; ++j)
                 {
-                    if (reference.objectPoolManager.objectsToPool[j].name.Equals(enemyProjectilePrefab[i].name))
+                    if (reference.objectPoolManager.objects[j].objectPrefab.name.Equals(enemyProjectilePrefab[i].name))
                     {
                         EnemyProjectileTypeIdentifiers[i] = j;
                         break;

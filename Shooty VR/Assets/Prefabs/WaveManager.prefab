@@ -1453,7 +1453,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1444067842127824}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.5, z: 1}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4223219142153974}
@@ -1615,7 +1615,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1019646632193294}
   m_LocalRotation: {x: 0, y: -0.17364825, z: 0, w: 0.9848078}
-  m_LocalPosition: {x: -2, y: 4, z: 3}
+  m_LocalPosition: {x: -2, y: 4, z: 1.9000001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4759340095940604}
@@ -1691,7 +1691,7 @@ Transform:
   m_GameObject: {fileID: 1604094668080294}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 1, z: 0.5}
+  m_LocalScale: {x: 1.5, y: 1, z: 0.5}
   m_Children: []
   m_Father: {fileID: 4002971312248246}
   m_RootOrder: 0
@@ -1729,7 +1729,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1706117228750208}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -1.0999999}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4641020903479878}
@@ -1799,7 +1799,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1707528544146128}
   m_LocalRotation: {x: 0, y: 0.38268343, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: 1.25, y: 0, z: 0.5}
+  m_LocalPosition: {x: 1.25, y: 0, z: -0.5999999}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4756017864980938}
@@ -1841,7 +1841,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1782278475901154}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1, y: -0.5, z: -0.25}
+  m_LocalPosition: {x: -0.5, y: -0.5, z: -0.25}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children: []
   m_Father: {fileID: 4002971312248246}
@@ -1886,7 +1886,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1953416381529820}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3, z: 5}
+  m_LocalPosition: {x: 0, y: 3, z: 3.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4192850234855072}
@@ -2025,7 +2025,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1364012987840970}
   m_LocalRotation: {x: 0, y: -0.38268343, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: -1.25, y: 0, z: 0.5}
+  m_LocalPosition: {x: -1.25, y: 0, z: -0.5999999}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4397293393795780}
@@ -2106,7 +2106,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1541843991057462}
   m_LocalRotation: {x: 0, y: 0.17364816, z: 0, w: 0.9848078}
-  m_LocalPosition: {x: 2, y: 4, z: 3}
+  m_LocalPosition: {x: 2, y: 4, z: 1.9000001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4857167098412906}
@@ -2438,7 +2438,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1206385740099510}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1, y: 0.5, z: 0.25}
+  m_LocalPosition: {x: 0.5, y: 0.5, z: 0.25}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children: []
   m_Father: {fileID: 4002971312248246}
@@ -3877,7 +3877,11 @@ MonoBehaviour:
         type: 2}
       spawnCount: 3
       attackPattern: 0
-    setupPowerupSpawns: []
+    setupPowerupSpawns:
+    - powerupPrefab: {fileID: 1430950907871662, guid: f37fe7f0b262cc54bbc3a48f855c1548,
+        type: 2}
+      spawnTimeDelayBase: 1
+      spawnTimeDelayRange: 1
   - spawnZone: 4
     spawnWithPrevious: 1
     spawnGroupDelay: 0
@@ -3924,7 +3928,11 @@ MonoBehaviour:
         type: 2}
       spawnCount: 4
       attackPattern: 0
-    setupPowerupSpawns: []
+    setupPowerupSpawns:
+    - powerupPrefab: {fileID: 1430950907871662, guid: 0801a6d9bab5c6b44b1a5d89a25afcef,
+        type: 2}
+      spawnTimeDelayBase: 1
+      spawnTimeDelayRange: 1
 --- !u!114 &114238879425225682
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4505,14 +4513,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyCap: 1
   setupSpawnGroups:
-  - spawnZone: 0
+  - spawnZone: 2
     spawnWithPrevious: 0
     spawnGroupDelay: 1
+    spawnDelay: 1.5
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1591170296302446, guid: 77949b1a806d5134791075a88b606d98,
+        type: 2}
+      spawnCount: 1
+      attackPattern: 0
+    setupPowerupSpawns:
+    - powerupPrefab: {fileID: 1430950907871662, guid: 7df1875ad51abb947a452aa3ae9c278c,
+        type: 2}
+      spawnTimeDelayBase: 1
+      spawnTimeDelayRange: 1
+  - spawnZone: 3
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
     spawnDelay: 0
     setupEnemySpawns:
     - enemyPrefab: {fileID: 1591170296302446, guid: 77949b1a806d5134791075a88b606d98,
         type: 2}
       spawnCount: 1
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 1
+    spawnWithPrevious: 1
+    spawnGroupDelay: 0
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+      spawnCount: 4
       attackPattern: 0
     setupPowerupSpawns: []
 --- !u!114 &114490797765589096
@@ -5093,19 +5125,9 @@ MonoBehaviour:
   startingSubwave: 1
   waves:
   - {fileID: 114964096998298972}
-  - {fileID: 114806240016172434}
-  - {fileID: 114391576728770250}
   - {fileID: 114364607843897974}
-  - {fileID: 114782008943788378}
-  - {fileID: 114322219793640028}
-  - {fileID: 114972327192416238}
   - {fileID: 114759348825672398}
-  - {fileID: 114862809494335190}
   - {fileID: 114570061004240250}
-  - {fileID: 114586129826131418}
-  - {fileID: 114711675219404420}
-  - {fileID: 114846579903759038}
-  - {fileID: 114477675661380498}
   - {fileID: 114375693707412172}
   waveCountSource: {fileID: 0}
   waveCountSounds:
@@ -5375,7 +5397,7 @@ MonoBehaviour:
     setupPowerupSpawns: []
   - spawnZone: 1
     spawnWithPrevious: 0
-    spawnGroupDelay: 0
+    spawnGroupDelay: 1
     spawnDelay: 1.5
     setupEnemySpawns:
     - enemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
@@ -5594,6 +5616,16 @@ MonoBehaviour:
   enemyCap: 6
   setupSpawnGroups:
   - spawnZone: 0
+    spawnWithPrevious: 0
+    spawnGroupDelay: 1
+    spawnDelay: 0
+    setupEnemySpawns:
+    - enemyPrefab: {fileID: 1591170296302446, guid: 77949b1a806d5134791075a88b606d98,
+        type: 2}
+      spawnCount: 1
+      attackPattern: 0
+    setupPowerupSpawns: []
+  - spawnZone: 1
     spawnWithPrevious: 0
     spawnGroupDelay: 1
     spawnDelay: 1.5

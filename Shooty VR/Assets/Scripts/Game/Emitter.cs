@@ -36,6 +36,21 @@ namespace Hive.Armada.Game
         private ParticleSystems system;
 
         /// <summary>
+        /// If true, plays a sound from clips.
+        /// </summary>
+        public bool playSound;
+
+        /// <summary>
+        /// Audio source to play the audio clips with.
+        /// </summary>
+        public AudioSource source;
+
+        /// <summary>
+        /// Sound clips to play from if playSound is true.
+        /// </summary>
+        public AudioClip[] clips;
+
+        /// <summary>
         /// Initialize reference manager reference and system
         /// </summary>
         private void Awake()
@@ -46,12 +61,17 @@ namespace Hive.Armada.Game
         }
 
         /// <summary>
-        /// Stops and clears all particles when the object is disabled.
+        /// Plays a random sound from clips when this emitter is enabled if playSound is true.
         /// </summary>
-        private void OnDisable()
+        private void OnEnable()
         {
-            system.stop();
-            system.clear();
+            if (!playSound)
+            {
+                return;
+            }
+
+            int sound = Random.Range(0, clips.Length);
+            source.PlayOneShot(clips[sound]);
         }
 
         /// <summary>

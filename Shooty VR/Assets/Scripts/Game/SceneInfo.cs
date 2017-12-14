@@ -10,8 +10,6 @@
 //
 //=============================================================================
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Hive.Armada.Game
@@ -30,6 +28,11 @@ namespace Hive.Armada.Game
         /// State of whether the current scene is the first.
         /// </summary>
         public bool firstScene = true;
+
+        /// <summary>
+        /// State of whether a run has just been completed.
+        /// </summary>
+        public bool runFinished = false;
 
         /// <summary>
         /// Increment numScenesLoaded.

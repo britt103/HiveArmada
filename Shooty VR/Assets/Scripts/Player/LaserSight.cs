@@ -12,16 +12,11 @@
 // but it is easier for the player to see where they are aiming when the laser
 // continues through enemies. If not, the laser could potential end just in
 // front of the ship and could go unnoticed by the player.
-// Doubles as the UI interaction pointer for menus. Can be toggled to menu mode
-// where it will interact with UI objects.
 //
 //=============================================================================
 
-using System;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.Rendering;
-using UnityEngine.UI;
 
 namespace Hive.Armada.Player
 {
@@ -34,11 +29,6 @@ namespace Hive.Armada.Player
         /// Reference to the ship controller
         /// </summary>
         public ShipController shipController;
-
-        /// <summary>
-        /// Which mode the ship is in
-        /// </summary>
-        public ShipController.ShipMode mode;
 
         /// <summary>
         /// The laser sight itself
@@ -56,22 +46,12 @@ namespace Hive.Armada.Player
         public float thickness = 0.002f;
 
         /// <summary>
-        /// The object the laser sight is hitting while in Menu mode
-        /// </summary>
-        private GameObject aimObject;
-
-        /// <summary>
-        /// If the aimObject is tagged as button
-        /// </summary>
-        private bool isInteractable;
-
-        /// <summary>
         /// Initializes the laser sight's LineRenderer and ship controller reference.
         /// </summary>
         private void Start()
         {
             shipController = GameObject.FindGameObjectWithTag("Player")
-                .GetComponent<ShipController>();
+                                       .GetComponent<ShipController>();
 
             laser = gameObject.AddComponent<LineRenderer>();
             laser.material = laserMaterial;
@@ -82,118 +62,31 @@ namespace Hive.Armada.Player
             laser.endWidth = thickness;
         }
 
-        // Update is called once per frame
+        /// <summary>
+        /// Updates the laser sight position
+        /// </summary>
         private void Update()
         {
             RaycastHit hit;
 
-            if (mode == ShipController.ShipMode.Game)
+            if (Physics.Raycast(transform.position, transform.forward, out hit,
+                Mathf.Infinity, Utility.enemyMask))
             {
-                if (Physics.Raycast(transform.position, transform.forward,
-                    out hit, Mathf.Infinity, Utility.roomMask))
-                {
-                    laser.SetPosition(0, transform.position);
-                    laser.SetPosition(1, hit.point);
+                laser.SetPosition(0, transform.position);
+                laser.SetPosition(1, hit.point);
 
-                    float mag = (transform.position - hit.point).magnitude;
-                    laser.endWidth = thickness * Mathf.Max(mag, 1.0f);
-                }
-                else
-                {
-                    isInteractable = false;
-                }
-            } // end if Game mode
-            else if (mode == ShipController.ShipMode.Menu)
-            {
-                if (Physics.Raycast(transform.position, transform.forward,
-                    out hit, Mathf.Infinity, Utility.uiMask))
-                {
-                    if (hit.collider.gameObject.CompareTag("InteractableUI"))
-                    {
-                        if (!isInteractable)
-                        {
-                            isInteractable = true;
-                            if (shipController != null)
-                            {
-                                try
-                                {
-                                    shipController.hand.controller.TriggerHapticPulse();
-                                }
-                                catch (Exception)
-                                {
-                                    // Do nothing
-                                }
-                            }
-                        }
-                    }
-                    else
-                    {
-                        isInteractable = false;
-                    }
-
-                    aimObject = hit.collider.gameObject;
-                    isInteractable = hit.collider.gameObject.CompareTag("InteractableUI");
-
-                    laser.SetPosition(0, transform.position);
-                    laser.SetPosition(1, hit.point);
-
-                    float mag = (transform.position - hit.point).magnitude;
-                    laser.endWidth = thickness * Mathf.Max(mag, 1.0f);
-                }
-                else if (Physics.Raycast(transform.position, transform.forward,
-                    out hit, Mathf.Infinity,
-                    Utility.roomMask))
-                {
-                    aimObject = null;
-                    isInteractable = false;
-
-                    laser.SetPosition(0, transform.position);
-                    laser.SetPosition(1, hit.point);
-
-                    float mag = (transform.position - hit.point).magnitude;
-                    laser.endWidth = thickness * Mathf.Max(mag, 1.0f);
-                }
-                else
-                {
-                    aimObject = null;
-                    isInteractable = false;
-                }
-            } // end if Menu mode
-        }
-
-        /// <summary>
-        /// Sent every frame while the trigger is pressed
-        /// </summary>
-        public void TriggerUpdate(bool stay)
-        {
-            if (mode.Equals(ShipController.ShipMode.Menu) && isInteractable)
-            {
-                if (aimObject.GetComponent<Slider>())
-                {
-                    float centerX = aimObject.GetComponent<BoxCollider>().center.x;
-                    float maxX = centerX + aimObject.GetComponent<BoxCollider>().bounds.extents.x;
-                    float minX = centerX - aimObject.GetComponent<BoxCollider>().bounds.extents.x;
-                    float pointerX = laser.GetPosition(1).x;
-                    if (pointerX > minX && pointerX < maxX)
-                    {
-                        float value = (pointerX - minX) / (maxX - minX);
-                        aimObject.GetComponent<Slider>().value = value;
-                    }
-                }
-                else if (!stay)
-                {
-                    ExecuteEvents.Execute(aimObject, new PointerEventData(EventSystem.current), ExecuteEvents.submitHandler);
-                }
+                float mag = (transform.position - hit.point).magnitude;
+                laser.endWidth = thickness * Mathf.Max(mag, 1.0f);
             }
-        }
+            else if (Physics.Raycast(transform.position, transform.forward, out hit, Mathf.Infinity,
+                                Utility.roomMask))
+            {
+                laser.SetPosition(0, transform.position);
+                laser.SetPosition(1, hit.point);
 
-        /// <summary>
-        /// Sets the mode for the laser, whether it should interact with UI or not.
-        /// </summary>
-        /// <param name="mode"> The ShipMode to use </param>
-        public void SetMode(ShipController.ShipMode mode)
-        {
-            this.mode = mode;
+                float mag = (transform.position - hit.point).magnitude;
+                laser.endWidth = thickness * Mathf.Max(mag, 1.0f);
+            }
         }
     }
 }

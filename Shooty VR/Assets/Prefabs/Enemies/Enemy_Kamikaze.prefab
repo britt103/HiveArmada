@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 114155336959163724}
   - component: {fileID: 136916484975758582}
   - component: {fileID: 23490431565518182}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Enemy_Kamikaze
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -177,8 +177,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1250542050544924}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 3.4124074, y: 1.1387732, z: -4.7852893}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 4386370023642142}
@@ -189,7 +189,7 @@ Transform:
   - {fileID: 4053905618225396}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!4 &4386370023642142
 Transform:
   m_ObjectHideFlags: 1
@@ -242,7 +242,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: d4ec364bd62dc1e408030ca99fd7f4cd, type: 2}
+  - {fileID: 2100000, guid: eb03c622f27771f4291a7a946856558c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -306,7 +306,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: d4ec364bd62dc1e408030ca99fd7f4cd, type: 2}
+  - {fileID: 2100000, guid: eb03c622f27771f4291a7a946856558c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -338,7 +338,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: d4ec364bd62dc1e408030ca99fd7f4cd, type: 2}
+  - {fileID: 2100000, guid: eb03c622f27771f4291a7a946856558c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -402,7 +402,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: d4ec364bd62dc1e408030ca99fd7f4cd, type: 2}
+  - {fileID: 2100000, guid: eb03c622f27771f4291a7a946856558c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -434,7 +434,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: d4ec364bd62dc1e408030ca99fd7f4cd, type: 2}
+  - {fileID: 2100000, guid: eb03c622f27771f4291a7a946856558c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -524,12 +524,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flashColor: {fileID: 2100000, guid: 1db15971033ba594294b4f0c035f7da8, type: 2}
-  spawnEmitter: {fileID: 0}
-  deathEmitter: {fileID: 0}
   moveSpeed: 1
   rotationSpeed: 3
   range: 1
-  damage: 10
 --- !u!136 &136916484975758582
 CapsuleCollider:
   m_ObjectHideFlags: 1

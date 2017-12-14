@@ -172,6 +172,7 @@ namespace Hive.Armada.Game
                 }
 
                 IsRunning = true;
+                reference.gameMusicSource.Play();
                 RunWave(currentWave, startingSubwave);
             }
         }
@@ -234,7 +235,7 @@ namespace Hive.Armada.Game
                 IsRunning = false;
                 IsComplete = true;
 
-                reference.menuWin.SetActive(true);
+                reference.sceneTransitionManager.TransitionOut("Menu Room");
             }
         }
 

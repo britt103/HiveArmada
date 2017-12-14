@@ -6,7 +6,10 @@
 // CPSC-340-01 & CPSC-344-01
 // Group Project
 //
-// LexiconMenuScroll controls interactions with the Lexicon Menu.
+// LexiconMenuScroll controls interactions with the Lexicon Menu. The player
+// can move through the scroll view by moving the vertical slider with the
+// UIPointer. Find a powerup, enemy, etc. for the first time unlocks the 
+// corresponding entry (not yet implemented).
 //
 //=============================================================================
 

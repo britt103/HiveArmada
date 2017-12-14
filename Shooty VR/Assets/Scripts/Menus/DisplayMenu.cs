@@ -67,6 +67,7 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void SetBloom(bool isOn)
         {
+            source.PlayOneShot(clips[1]);
             reference.optionsValues.SetBloom(isOn);
         }
     }

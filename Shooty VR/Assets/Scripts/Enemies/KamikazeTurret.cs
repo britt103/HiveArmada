@@ -10,7 +10,9 @@
 //=============================================================================
 
 using System.Collections;
+using System.Linq;
 using UnityEngine;
+using MirzaBeig.ParticleSystems;
 
 namespace Hive.Armada.Enemies
 {
@@ -30,11 +32,6 @@ namespace Hive.Armada.Enemies
         private Transform myTransform;
 
         /// <summary>
-        /// Final position after spawning.
-        /// </summary>
-        private Vector3 endPosition;
-
-        /// <summary>
         /// How fast this enemy moves towards the player.
         /// </summary>
         public float moveSpeed;
@@ -52,79 +49,46 @@ namespace Hive.Armada.Enemies
         /// <summary>
         /// How much damage this enemy does to the player.
         /// </summary>
-        public int damage;
-
-        /// <summary>
-        /// Bools used to move the enemy to its spawn position.
-        /// </summary>
-        bool spawnComplete;
-
-        /// <summary>
-        /// Bools used to move the enemy to its spawn position.
-        /// </summary>
-        bool moveComplete;
+        private int damage;
 
         /// <summary>
         /// Looks at the player and stores own position.
         /// </summary>
-        void OnEnable()
+        void Start()
         {
             myTransform = transform;
-            spawnComplete = false;
-            moveComplete = false;
-            player = GameObject.FindGameObjectWithTag("Player");
+            if (player != null)
+            {
+                player = GameObject.FindGameObjectWithTag("Player");
+                transform.LookAt(player.transform.position);
+            }
         }
 
         /// <summary>
         /// Moves the enemy closer to the player and explodes if they are within 'range'. Runs every frame.
         /// </summary>
-        private void Update()
+        void Update()
         {
+            player = GameObject.FindGameObjectWithTag("Player");
 
-            if (spawnComplete)
+            if (Vector3.Distance(transform.position, player.transform.position) >= range)
             {
-                if (moveComplete)
-                {
-                    if (player != null)
-                    {
-                        if (Vector3.Distance(transform.position, player.transform.position) >= range)
-                        {
-                            myTransform.rotation = Quaternion.Lerp(myTransform.rotation,
-                                                                    Quaternion.LookRotation(player.transform.position
-                                                                    - myTransform.position),
-                                                                    rotationSpeed * Time.deltaTime);
+                myTransform.rotation = Quaternion.Lerp(myTransform.rotation,
+                                                       Quaternion.LookRotation(player.transform.position
+                                                       - myTransform.position),
+                                                       rotationSpeed * Time.deltaTime);
 
-                            myTransform.position += myTransform.forward * moveSpeed * Time.deltaTime;
-                        }
-
-                        else if (Vector3.Distance(transform.position, player.transform.position) < range)
-                        {
-                            StartCoroutine(InRange());
-                        }
-                        if (shaking)
-                        {
-                            iTween.ShakePosition(gameObject, new Vector3(0.1f, 0.1f, 0.1f), 0.1f);
-
-                        }
-                    }
-                    else
-                    {
-                        if (player == null)
-                        {
-                            transform.LookAt(new Vector3(0.0f, 2.0f, 0.0f));
-                        }
-                    }
-                }
-                else
-                {
-                    transform.position = Vector3.Lerp(transform.position, endPosition, Time.deltaTime * 1.0f);
-                    if (Vector3.Distance(transform.position, endPosition) <= 0.1f)
-                    {
-                        MoveComplete();
-                    }
-                }
+                myTransform.position += myTransform.forward * moveSpeed * Time.deltaTime;
             }
 
+            else if (Vector3.Distance(transform.position, player.transform.position) < range)
+            {
+                StartCoroutine(InRange());
+            }
+            //if (shaking)
+            //{
+            //    iTween.ShakePosition(gameObject, new Vector3(0.1f, 0.1f, 0.1f), 0.1f);
+            //}
         }
 
         /// <summary>
@@ -157,7 +121,7 @@ namespace Hive.Armada.Enemies
             // reset materials
             for (int i = 0; i < renderers.Count; ++i)
             {
-                renderers[i].material = materials[i];
+                renderers.ElementAt(i).material = materials.ElementAt(i);
             }
 
             if (Vector3.Distance(transform.position, player.transform.position) < range)
@@ -166,39 +130,39 @@ namespace Hive.Armada.Enemies
             }
             Kill();
         }
-        /// <summary>
-        /// Runs when this enemy finishes default pathing to SpawnZone.
-        /// </summary>
-        void SpawnComplete()
-        {
-            spawnComplete = true;
-        }
 
-        /// <summary>
-        /// Moves this enemy to endPos.
-        /// </summary>
-        /// <param name="endPos">Final position of this enemy.</param>
-        public void SetEndpoint(Vector3 endPos)
-        {
-            endPosition = endPos;
-            SpawnComplete();
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        void MoveComplete()
-        {
-            moveComplete = true;
-        }
         /// <summary>
         /// Resets attributes to this enemy's defaults from enemyAttributes.
         /// </summary>
         protected override void Reset()
         {
+            // reset materials
+            for (int i = 0; i < renderers.Count; ++i)
+            {
+                renderers.ElementAt(i).material = materials.ElementAt(i);
+            }
+
+            hitFlash = null;
+            shaking = false;
 
             maxHealth = enemyAttributes.enemyHealthValues[TypeIdentifier];
             Health = maxHealth;
             pointValue = enemyAttributes.enemyScoreValues[TypeIdentifier];
+            spawnEmitter = enemyAttributes.enemySpawnEmitters[TypeIdentifier];
+            deathEmitter = enemyAttributes.enemyDeathEmitters[TypeIdentifier];
+            damage = enemyAttributes.projectileDamage;
+
+            if (!isInitialized)
+            {
+                isInitialized = true;
+
+                GameObject spawnEmitterObject = Instantiate(spawnEmitter,
+                                                            transform.position,
+                                                            transform.rotation, transform);
+                spawnEmitterSystem = spawnEmitterObject.GetComponent<ParticleSystems>();
+
+                deathEmitterTypeIdentifier = objectPoolManager.GetTypeIdentifier(deathEmitter);
+            }
         }
     }
 }

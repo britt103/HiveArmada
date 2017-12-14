@@ -8,7 +8,7 @@
 //
 // PlayerStats tracks various player metrics including powerup use, time alive, 
 // wave completion, and score. Data is output both to the editor console and
-// to a JSON text file.
+// to a JSON text file. Stats are tracked for individual waves and whole runs.
 //
 //=============================================================================
 
@@ -285,34 +285,53 @@ namespace Hive.Armada.Player
             }
         }
 
+        /// <summary>
+        /// Reset wave values.
+        /// </summary>
         public void ResetValues()
         {
             dateTime = DateTime.Now.ToString();
             aliveTime = 0;
-            totalAliveTime = 0;
             isAlive = false;
-            waves = 0;
             enemiesKilled = 0;
-            totalEnemiesKilled = 0;
             firingTime = 0;
-            totalFiringTime = 0;
             score = 0;
-            totalScore = 0;
             isFiring = false;
 
             for (int i = 0; i < weaponShotsFired.Length; ++i)
             {
                 weaponShotsFired[i] = 0;
-                weaponTotalShotsFired[i] = 0;
             }
 
             for (int i = 0; i < powerupCount.Length; ++i)
             {
                 powerupCount[i] = 0;
-                powerupTotalCount[i] = 0;
             }
 
             currencyCollected = 0;
+        }
+
+        /// <summary>
+        /// Reset totals.
+        /// </summary>
+        public void ResetTotals()
+        {
+            waves = 0;
+            totalAliveTime = 0;
+            totalEnemiesKilled = 0;
+            totalFiringTime = 0;
+            totalScore = 0;
+
+            for (int i = 0; i < weaponShotsFired.Length; ++i)
+            {
+                weaponTotalShotsFired[i] = 0;
+            }
+
+            for (int i = 0; i < powerupCount.Length; ++i)
+            {
+                powerupTotalCount[i] = 0;
+            }
+
             totalCurrencyCollected = 0;
         }
 

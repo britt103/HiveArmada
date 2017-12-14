@@ -12,6 +12,7 @@
 //
 //=============================================================================
 
+using Hive.Armada.Game;
 using UnityEngine;
 
 namespace Hive.Armada.Player
@@ -61,9 +62,8 @@ namespace Hive.Armada.Player
                 {
                     SetIsTracking(false);
                     SetIsIdle(false);
-                    //Application.Quit();
-                    Debug.Log("Idle Quit");
-                    UnityEditor.EditorApplication.isPlaying = false;
+
+                    FindObjectOfType<ReferenceManager>().sceneTransitionManager.TransitionOut("Menu Room");
                 }
             }
         }

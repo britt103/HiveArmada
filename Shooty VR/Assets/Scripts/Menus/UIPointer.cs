@@ -70,6 +70,9 @@ namespace Hive.Armada.Menus
         /// </summary>
         private GameObject aimObject;
 
+        /// <summary>
+        /// Reference to last touched interactable.
+        /// </summary>
         private GameObject lastInteractableAimObject;
 
         /// <summary>
@@ -81,6 +84,16 @@ namespace Hive.Armada.Menus
         /// State of whether all UIPointer components have been initialized besides hand.
         /// </summary>
         private bool initialized = false;
+
+        /// <summary>
+        /// Reference to Menus gameobject.
+        /// </summary>
+        private GameObject menus;
+
+        /// <summary>
+        /// State of whether menus are toggled on.
+        /// </summary>
+        private bool menusOn = true;
 
         /// <summary>
         /// Find references, initialize pointer and pointer values.
@@ -107,6 +120,11 @@ namespace Hive.Armada.Menus
                     Initialize();
                 }
 
+                if (hand.controller.GetPressDown(SteamVR_Controller.ButtonMask.ApplicationMenu))
+                {
+                    ToggleMenus();
+                }
+
                 RaycastHit hit;
 
                 if (Physics.Raycast(transform.position, transform.forward,
@@ -130,6 +148,7 @@ namespace Hive.Armada.Menus
                     }
                     else
                     {
+                        ExitLastInteractable();
                         isInteractable = false;
                     }
 
@@ -144,6 +163,7 @@ namespace Hive.Armada.Menus
                 else if (Physics.Raycast(transform.position, transform.forward,
                     out hit, Mathf.Infinity, Utility.roomMask))
                 {
+                    ExitLastInteractable();
                     aimObject = null;
                     isInteractable = false;
 
@@ -155,11 +175,27 @@ namespace Hive.Armada.Menus
                 }
                 else
                 {
+                    ExitLastInteractable();
                     aimObject = null;
                     isInteractable = false;
                 }
 
                 //Check for UI interaction
+                if (isInteractable)
+                {
+                    if (aimObject != lastInteractableAimObject)
+                    {
+                        ExitLastInteractable();
+                    }
+
+                    lastInteractableAimObject = aimObject;
+
+                    if (aimObject.GetComponent<UIHover>())
+                    {
+                        aimObject.GetComponent<UIHover>().Hover();
+                    }
+                }
+
                 if (hand.GetStandardInteractionButtonDown())
                 {
                     TriggerUpdate(false);
@@ -167,10 +203,6 @@ namespace Hive.Armada.Menus
                 else if (hand.GetStandardInteractionButton())
                 {
                     TriggerUpdate(true);
-                }
-                else if (lastInteractableAimObject)
-                {
-                    ExitLastInteractable();
                 }
             }
         }
@@ -193,9 +225,6 @@ namespace Hive.Armada.Menus
                         float value = (pointerX - minX) / (maxX - minX);
                         aimObject.GetComponent<Slider>().value = value;
                     }
-
-                    ExecuteEvents.Execute(aimObject, new PointerEventData(EventSystem.current), 
-                        ExecuteEvents.pointerEnterHandler);
                 }
                 else if (aimObject.GetComponent<Scrollbar>())
                 {
@@ -217,13 +246,6 @@ namespace Hive.Armada.Menus
 
                 lastInteractableAimObject = aimObject;
             }
-            else
-            {
-                if (lastInteractableAimObject)
-                {
-                    ExitLastInteractable();
-                }
-            }
         }
 
         /// <summary>
@@ -244,6 +266,8 @@ namespace Hive.Armada.Menus
             pointer.startWidth = thickness;
             pointer.endWidth = thickness;
 
+            menus = GameObject.Find("Menus");
+
             initialized = true;
         }
 
@@ -252,13 +276,20 @@ namespace Hive.Armada.Menus
         /// </summary>
         private void ExitLastInteractable()
         {
-            if (lastInteractableAimObject.GetComponent<Slider>())
+            if (lastInteractableAimObject && lastInteractableAimObject.GetComponent<UIHover>())
             {
-                ExecuteEvents.Execute(lastInteractableAimObject, new PointerEventData(EventSystem.current),
-                    ExecuteEvents.pointerExitHandler);
+                lastInteractableAimObject.GetComponent<UIHover>().EndHover();
+                lastInteractableAimObject = null;
             }
+        }
 
-            lastInteractableAimObject = null;
+        /// <summary>
+        /// Toggle visibility of menus using Vive Menu button.
+        /// </summary>
+        private void ToggleMenus()
+        {
+            menusOn = !menusOn;
+            menus.SetActive(menusOn);
         }
     }
 }

@@ -25,6 +25,12 @@ namespace Hive.Armada.Player
     public class PlayerHealth : MonoBehaviour
     {
         /// <summary>
+        /// Reference manager that holds all needed references
+        /// (e.g. spawner, game manager, etc.)
+        /// </summary>
+        private ReferenceManager reference;
+
+        /// <summary>
         /// Reference to the ship controller script.
         /// </summary>
         public ShipController shipController;
@@ -44,8 +50,6 @@ namespace Hive.Armada.Player
         /// </summary>
         [Header("Health Feedback")]
         public Material flashColor;
-
-        private ReferenceManager reference;
 
         /// <summary>
         /// Renderers for the game objects on the back of the ship
@@ -172,38 +176,30 @@ namespace Hive.Armada.Player
                 ParticleSystem mPodEmitter = healthPods[podIndex].transform.GetChild(0).GetComponent<ParticleSystem>();
                 mPodEmitter.Clear();
                 mPodEmitter.Play();
-                //Instantiate(podHitEmitter, healthPods[podIndex].transform);
-            }
-            else
-            {
-
             }
 
-            Instantiate(hitEmitter, transform);
             currentHealth -= damage;
             source.PlayOneShot(hitSound);
 
             if (Utility.isDebug)
             {
                 Debug.Log("Hit for " + damage + " damage! Remaining health = " + currentHealth);
-                {
-                }
+            }
 
-                if (currentHealth <= 0)
+            if (currentHealth <= 0)
+            {
+                if (shipController != null)
                 {
-                    if (shipController != null)
-                    {
-                        Instantiate(deathEmitter, transform.position, transform.rotation);
-                        reference.statistics.IsNotAlive();
-                        reference.sceneTransitionManager.TransitionOut("Menu Room");
-                        shipController.hand.DetachObject(gameObject);
-                    }
+                    Instantiate(deathEmitter, transform.position, transform.rotation);
+                    reference.statistics.IsNotAlive();
+                    reference.sceneTransitionManager.TransitionOut("Menu Room");
+                    shipController.hand.DetachObject(gameObject);
                 }
+            }
 
-                if (hitFlash == null)
-                {
-                    hitFlash = StartCoroutine(HitFlash());
-                }
+            if (hitFlash == null)
+            {
+                hitFlash = StartCoroutine(HitFlash());
             }
         }
 

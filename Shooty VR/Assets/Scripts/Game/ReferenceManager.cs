@@ -14,11 +14,10 @@
 // 
 //=============================================================================
 
-using Hive.Armada.Player;
-using Hive.Armada.PowerUps;
-using Hive.Armada.Menus;
 using UnityEngine;
 using UnityEngine.UI;
+using Hive.Armada.Player;
+using Hive.Armada.PowerUps;
 
 namespace Hive.Armada.Game
 {
@@ -106,6 +105,15 @@ namespace Hive.Armada.Game
         //----------------------------------------
         [Header("Audio")]
         public AudioSource waveCountSource;
+
+        public AudioSource gameMusicSource;
+
+        public AudioSource playerShipSource;
+
+        /// <summary>
+        /// Sound for when a powerup is picked up by the player.
+        /// </summary>
+        public AudioClip powerupReadySound;
 
         //----------------------------------------
         // 

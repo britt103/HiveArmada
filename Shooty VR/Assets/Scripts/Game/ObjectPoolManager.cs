@@ -1,13 +1,49 @@
 ﻿//=============================================================================
-//
+// 
 // Perry Sidler
 // 1831784
 // sidle104@mail.chapman.edu
 // CPSC-340-01 & CPSC-344-01
 // Group Project
-//
-// [DESCRIPTION]
-//
+// 
+// This class contains the object pool manager. It allows us to define a list
+// of prefabs to generate pools for and how large each pool should be. Then
+// instead of using Instantiate(), we use Spawn() (with almost the same list of
+// overloads) to "spawn" an object from the pool. Pooled objects are referred
+// to by an integer that they are assigned when the pools are generated that is
+// based on their index in the list of objects to pool. This allows for easy
+// access to pools without having to always convert a prefab into an index.
+// 
+// The idea behind object pooling is to instantiate all objects that will be
+// used all at once to limit spawning overhead. Then, all objects are returned
+// to the pool when they are finished instead of calling Destroy() to reduce
+// Unity's garbage collection as much as possible. This helps us to boost
+// performance.
+// 
+// The pools are made up of 2 arrays of lists: one for active or objects, the
+// other for inactive or objects that are ready to be spawned. When an object
+// it is removed from its type's inactive pool and added to the corresponding
+// active pool. When it is despawned it does the reverse.
+// 
+// The arrays of lists use LinkedLists. Looking at the performance and features
+// of different data structures in C#, I determined that using LinkedLists
+// would best satisfy the needs for the object pools.
+// First, we needed easy access to any object in the pool. That eliminated
+// Queues and Stacks.
+// Second, we needed to be able to expand the pool in the event that we try
+// to spawn an object and there isn't an inactive one available. This
+// eliminated Arrays as they are set in length.
+// Third, and most importantly, we needed performance. I researched the
+// difference between Lists and LinkedLists. What I found was that inserting
+// and removing from the end of a list was quick, it was about 100x slower to
+// insert or remove from the front. LinkedLists had approximately the same
+// performance for inserting and removing from both the front and back.
+// For those 3 reasons, I decided that LinkedLists were the best option. It
+// allows us to easily and efficiently add or remove items to the front or back
+// of the pools. The only "costly" operation is if we try to despawn an object
+// that is in the middle of the pool. Then we have to iterate over all nodes
+// until we find the correct one with a Big-O of n.
+// 
 //=============================================================================
 
 using System;
@@ -72,21 +108,6 @@ namespace Hive.Armada.Game
                  "them and how many of each to create in the pool.")]
         [Reorderable("Pooled Object", false)]
         public ObjectToPool[] objects;
-
-        ///// <summary>
-        ///// Array of all objects that should have pools created for them.
-        ///// </summary>
-        //[Tooltip("Array of all objects that should have pools created for them.")]
-        //[Reorderable("Object", false)]
-        //public GameObject[] objectsToPool;
-
-        ///// <summary>
-        ///// Array of pool sizes for objectsToPool.
-        ///// </summary>
-        //[Tooltip("Array of how big the pool for each object should be initialized at." +
-        //         " Also represents the current amount of objects in the pool.")]
-        //[Reorderable("Object", false)]
-        //public int[] amountsToPool;
 
         /// <summary>
         /// Array of queues for each object to pool.

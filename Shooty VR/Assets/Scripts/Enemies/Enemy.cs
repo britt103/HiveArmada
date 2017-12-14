@@ -87,7 +87,6 @@ namespace Hive.Armada.Enemies
 
         /// <summary>
         /// How much health the enemy spawns with.
-        /// TODO: Move this to EnemyStats script
         /// </summary>
         [Tooltip("How much health the enemy spawns with.")]
         protected int maxHealth;
@@ -247,11 +246,6 @@ namespace Hive.Armada.Enemies
                 hitFlash = StartCoroutine(HitFlash());
             }
 
-            //if (Health <= 20)
-            //{
-            //    shaking = true;
-            //}
-
             if (Health <= 0)
             {
                 Kill();
@@ -279,9 +273,6 @@ namespace Hive.Armada.Enemies
             reference.statistics.EnemyKilled();
             objectPoolManager.Spawn(deathEmitterTypeIdentifier, transform.position,
                                     transform.rotation);
-
-            //Instantiate(deathEmitter, transform.position, transform.rotation);
-
             objectPoolManager.Despawn(gameObject);
         }
 
@@ -350,14 +341,6 @@ namespace Hive.Armada.Enemies
         {
             this.attackPattern = attackPattern;
         }
-
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        //protected override void SpawnEffects()
-        //{
-        //    Instantiate(spawnEmitter, transform.position, transform.rotation, transform);
-        //}
 
         /// <summary>
         /// Countdowns down from selfDestructTime. Calls Kill() if untouched.

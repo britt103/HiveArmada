@@ -16,6 +16,7 @@ using System.Collections;
 using UnityEngine;
 using Hive.Armada.Game;
 using Hive.Armada.Player;
+using Hive.Armada.PowerUps;
 
 namespace Hive.Armada
 {
@@ -52,7 +53,7 @@ namespace Hive.Armada
         {
             reference = GameObject.Find("Reference Manager").GetComponent<ReferenceManager>();
 
-            Instantiate(spawnEmitter, GameObject.FindGameObjectWithTag("Player").transform);
+            Instantiate(spawnEmitter, reference.playerShip.transform);
             StartCoroutine(Run());
         }
 
@@ -66,7 +67,6 @@ namespace Hive.Armada
             yield return new WaitForSeconds(boostLength);
 
             reference.playerShip.GetComponent<ShipController>().SetDamageBoost(1);
-            //FindObjectOfType<PowerUpStatus>().damageBoostActive = false;
             Destroy(gameObject);
         }
     }

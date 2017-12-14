@@ -36,15 +36,18 @@ namespace Hive.Armada.Game
         private ParticleSystems system;
 
         /// <summary>
-        /// Only plays sound if this is true
+        /// If true, plays a sound from clips.
         /// </summary>
         public bool playSound;
 
         /// <summary>
-        /// Reference to audio source
+        /// Audio source to play the audio clips with.
         /// </summary>
         public AudioSource source;
 
+        /// <summary>
+        /// Sound clips to play from if playSound is true.
+        /// </summary>
         public AudioClip[] clips;
 
         /// <summary>
@@ -57,22 +60,19 @@ namespace Hive.Armada.Game
             system.onParticleSystemsDeadEvent += OnParticleSystemsDead;
         }
 
+        /// <summary>
+        /// Plays a random sound from clips when this emitter is enabled if playSound is true.
+        /// </summary>
         private void OnEnable()
         {
-            playSound = true;
+            if (!playSound)
+            {
+                return;
+            }
 
             int sound = Random.Range(0, clips.Length);
             source.PlayOneShot(clips[sound]);
         }
-
-        ///// <summary>
-        ///// Stops and clears all particles when the object is disabled.
-        ///// </summary>
-        //private void OnDisable()
-        //{
-        //    system.stop();
-        //    system.clear();
-        //}
 
         /// <summary>
         /// Stops and clears particles when they all finish. Despawns this object with the pool.
@@ -90,6 +90,8 @@ namespace Hive.Armada.Game
         /// </summary>
         protected override void Reset()
         {
+            system.stop();
+            system.clear();
         }
     }
 }

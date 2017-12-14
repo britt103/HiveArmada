@@ -13,7 +13,6 @@
 //=============================================================================
 
 using UnityEngine;
-using Valve.VR;
 using Valve.VR.InteractionSystem;
 using Hive.Armada.Game;
 using Hive.Armada.Player.Weapons;
@@ -97,8 +96,6 @@ namespace Hive.Armada.Player
         /// </summary>
         [Header("Audio")]
         public AudioSource source;
-
-        public AudioClip clip;
 
         /// <summary>
         /// Initializes references to Reference Manager and Laser Sight, sets this
@@ -211,9 +208,6 @@ namespace Hive.Armada.Player
             {
                 weapons[currentWeapon].weapon.TriggerUpdate();
             }
-
-            //// Update handedness guess
-            //EvaluateHandedness();
         }
 
         /// <summary>

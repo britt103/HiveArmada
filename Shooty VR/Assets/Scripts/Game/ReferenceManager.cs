@@ -14,11 +14,10 @@
 // 
 //=============================================================================
 
-using Hive.Armada.Player;
-using Hive.Armada.PowerUps;
-using Hive.Armada.Menus;
 using UnityEngine;
 using UnityEngine.UI;
+using Hive.Armada.Player;
+using Hive.Armada.PowerUps;
 
 namespace Hive.Armada.Game
 {

@@ -27,8 +27,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using UnityEngine;
 using Hive.Armada.Enemies;
 using SubjectNerd.Utilities;
@@ -506,21 +504,10 @@ namespace Hive.Armada.Game
             {
                 if (spawnGroups[group].powerupSpawns.Count > 0)
                 {
-                    // try to stop the coroutine if the previous ran over.
-                    try
+                    // stop the powerup coroutine if the previous ran over.
+                    if (powerupCoroutine != null)
                     {
                         StopCoroutine(powerupCoroutine);
-
-                        if (group > 0)
-                        {
-                            Debug.LogWarning("Wave " + WaveNumber + " Subwave " + SubwaveNumber +
-                                             " Spawn Group " + (group - 1) +
-                                             " powerupCoroutine ran over!");
-                        }
-                    }
-                    catch (Exception)
-                    {
-                        // Do nothing
                     }
 
                     powerupCoroutine =
@@ -566,6 +553,7 @@ namespace Hive.Armada.Game
                         float radius;
                         bool isColliding;
 
+                        // set the collision radius for the enemy we're about to spawn
                         switch (spawnGroups[group].enemySpawns[i].typeIdentifier)
                         {
                             case 0:
@@ -587,6 +575,7 @@ namespace Hive.Armada.Game
 
                         do
                         {
+                            // find a position that isn't colliding with any enemies
                             position = new Vector3(UnityEngine.Random.Range(lower.x, upper.x),
                                                    UnityEngine.Random.Range(lower.y, upper.y),
                                                    UnityEngine.Random.Range(lower.z, upper.z));
@@ -596,11 +585,8 @@ namespace Hive.Armada.Game
 
                             isColliding = colliders.Length > 0;
 
-                            if (isColliding)
-                            {
-                                // wait one frame to throttle this do-while
-                                yield return null;
-                            }
+                            // wait one frame to throttle this do-while
+                            yield return null;
                         }
                         while (isColliding);
                     }
@@ -622,12 +608,14 @@ namespace Hive.Armada.Game
 
                     if (reference.playerShip)
                     {
+                        // spawn the enemy looking at the player
                         rotation =
                             Quaternion.LookRotation(
                                 reference.playerShip.transform.position - position);
                     }
                     else
                     {
+                        // no player in the scene, spawn looking about where they should be
                         rotation =
                             Quaternion.LookRotation(new Vector3(0.0f, 2.0f, 0.0f) - position);
                     }
@@ -635,12 +623,14 @@ namespace Hive.Armada.Game
                     GameObject spawned =
                         objectPoolManager.Spawn(typeIdentifier, position, rotation);
 
-                    // set info for the enemy
+                    // initialize enemy subwave reference, EnemySpawn
+                    // for respawning, and attack pattern.
                     Enemy spawnedEnemyScript = spawned.GetComponent<Enemy>();
                     spawnedEnemyScript.SetSubwave(this);
                     spawnedEnemyScript.SetEnemySpawn(spawnGroups[group].enemySpawns[i]);
                     spawnedEnemyScript.SetAttackPattern(
                         spawnGroups[group].enemySpawns[i].attackPattern);
+
                     --enemyCapCount;
 
                     if (enemyCapCount <= 0)
@@ -652,6 +642,7 @@ namespace Hive.Armada.Game
 
                     if (spawned.name.Contains("Enemy_Splitter"))
                     {
+                        // accounting for splitter children that the splitter spawns
                         enemiesRemaining += 4;
                     }
 
@@ -669,7 +660,7 @@ namespace Hive.Armada.Game
         }
 
         /// <summary>
-        /// Counts
+        /// Spawns all powerups for the subwave.
         /// </summary>
         private IEnumerator PowerupSpawn(List<PowerupSpawn> powerupSpawns)
         {
@@ -761,13 +752,9 @@ namespace Hive.Armada.Game
                 }
             }
 
-            try
+            if (powerupCoroutine != null)
             {
                 StopCoroutine(powerupCoroutine);
-            }
-            catch (Exception)
-            {
-                // Do nothing
             }
 
             IsRunning = false;

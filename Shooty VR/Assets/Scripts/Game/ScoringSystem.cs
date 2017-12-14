@@ -6,12 +6,11 @@
 // CPSC-340-01 & CPSC-344-01
 // Group Project
 // 
-// [DESCRIPTION]
+// This class contains the basic scoring system. When enemies are killed, they
+// add their score to the player's current score here.
 // 
 //=============================================================================
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Hive.Armada.Game
@@ -21,24 +20,24 @@ namespace Hive.Armada.Game
     /// </summary>
     public class ScoringSystem : MonoBehaviour
     {
-        private ReferenceManager reference;
+        /// <summary>
+        /// The player's current score.
+        /// </summary>
         private int score;
 
-        void Awake()
-        {
-            reference = GameObject.Find("Reference Manager").GetComponent<ReferenceManager>();
-
-            if (reference == null)
-            {
-                Debug.LogError(GetType().Name + " - Could not find Reference Manager!");
-            }
-        }
-
+        /// <summary>
+        /// Adds points to the player's score.
+        /// </summary>
+        /// <param name="points"> Number of points to add </param>
         public void AddScore(int points)
         {
             score += points;
         }
 
+        /// <summary>
+        /// Get's the player's current score.
+        /// </summary>
+        /// <returns> The player's score integer </returns>
         public int GetScore()
         {
             return score;

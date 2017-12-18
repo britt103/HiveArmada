@@ -29,7 +29,7 @@ namespace Hive.Armada.PowerUps
         void Start()
         {
             Instantiate(awakeEmitter, transform.position, transform.rotation);
-            foreach (GameObject bullet in GameObject.FindGameObjectsWithTag("bullet"))
+            foreach (GameObject bullet in GameObject.FindGameObjectsWithTag("Projectile"))
             {
                 Destroy(bullet);
             }
@@ -47,7 +47,7 @@ namespace Hive.Armada.PowerUps
         //        {
         //            GameObject.Find("Player").GetComponent<PowerUpStatus>().SetClear(false);
 
-        //            foreach (GameObject bullet in GameObject.FindGameObjectsWithTag("bullet"))
+        //            foreach (GameObject bullet in GameObject.FindGameObjectsWithTag("Projectile"))
         //            {
         //                Destroy(bullet);
         //            }

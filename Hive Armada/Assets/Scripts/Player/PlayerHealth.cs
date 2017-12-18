@@ -140,10 +140,7 @@ namespace Hive.Armada.Player
 
             foreach (Renderer r in gameObject.GetComponentsInChildren<Renderer>())
             {
-                if (r.gameObject.CompareTag("Emitter") ||
-                    r.transform.parent.CompareTag("Emitter") ||
-                    r.gameObject.CompareTag("FX") ||
-                    r.transform.parent.CompareTag("FX"))
+                if (r.gameObject.CompareTag("Emitter") || r.transform.parent.CompareTag("Emitter"))
                 {
                     continue;
                 }

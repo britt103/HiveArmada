@@ -10,7 +10,7 @@
 // implements game adjustments using values for sounds, display, etc. Values
 // are stored as variables and as PlayerPrefs. Note: PlayerPrefs do not 
 // support booleans, so conversion is used between boolean and stored int
-// values (0 = false, 1 = true);
+// values (0 = false, 1 = true).
 //
 //=============================================================================
 
@@ -36,6 +36,16 @@ namespace Hive.Armada.Game
         /// </summary>
         public float defaultMasterVolume;
 
+        /// <summary>
+        /// Music volume level.
+        /// </summary>
+        public float musicVolume;
+
+        /// <summary>
+        /// Default music volume level.
+        /// </summary>
+        public float defaultMusicVolume;
+
         [Header("Display")]
         /// <summary>
         /// State of whether bloom is on.
@@ -48,6 +58,11 @@ namespace Hive.Armada.Game
         public bool defaultBloom;
 
         [Header("References")]
+        /// <summary>
+        /// Reference to audio source for scene music.
+        /// </summary>
+        public AudioSource musicAudioSource;
+
         /// <summary>
         /// Reference to player camera gameObject.
         /// </summary>
@@ -73,6 +88,19 @@ namespace Hive.Armada.Game
         }
 
         /// <summary>
+        /// Change and store value for musicVolume.
+        /// </summary>
+        /// <param name="musicVolume">New masterVolume value.</param>
+        public void SetMusicVolume(float musicVolume)
+        {
+            this.musicVolume = musicVolume;
+            if (musicAudioSource != null)
+            {
+                musicAudioSource.volume = musicVolume;
+            }
+        }
+
+        /// <summary>
         /// Change and store value for bloom.
         /// </summary>
         /// <param name="bloom">New bloom value.</param>
@@ -88,6 +116,7 @@ namespace Hive.Armada.Game
         public void SetSoundPlayerPrefs()
         {
             PlayerPrefs.SetFloat("masterVolume", masterVolume);
+            PlayerPrefs.SetFloat("musicVolume", musicVolume);
         }
 
         /// <summary>
@@ -113,7 +142,11 @@ namespace Hive.Armada.Game
         private void GetPlayerPrefs()
         {
             //Sound
+
+            //PlayerPrefs.SetFloat("masterVolume", 0.5f);
             masterVolume = PlayerPrefs.GetFloat("masterVolume", defaultMasterVolume);
+            //PlayerPrefs.SetFloat("musicVolume", 1f);
+            musicVolume = PlayerPrefs.GetFloat("musicVolume", defaultMusicVolume);
 
             //Display
             bloom = Convert.ToBoolean(PlayerPrefs.GetInt("bloom", Convert.ToInt32(defaultBloom)));
@@ -126,6 +159,7 @@ namespace Hive.Armada.Game
         {
             //Sound
             SetMasterVolume(masterVolume);
+            SetMusicVolume(musicVolume);
 
             //Display
             SetBloom(bloom);

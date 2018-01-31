@@ -45,6 +45,23 @@ namespace Hive.Armada.Enemies
         private float projectileSpeed;
 
         /// <summary>
+        /// Structure holding bullet prefabs that
+        /// the enemy will shoot
+        /// </summary>
+        public GameObject[] projectileArray;
+
+        /// <summary>
+        /// Projectile that the turret shoots out
+        /// </summary>
+        public GameObject fireProjectile;
+
+        /// <summary>
+        /// Value that determines what projectile the enemy will shoot
+        /// as well as its parameters
+        /// </summary>
+        private int fireMode;
+
+        /// <summary>
         /// Degrees that the projectile can be randomly rotated.
         /// Randomly picks in the range of [-spread, spread] for all 3 axes.
         /// </summary>
@@ -102,7 +119,7 @@ namespace Hive.Armada.Enemies
         }
 
         /// <summary>
-        /// Shoots a projectile at the player.
+        /// Fires projectiles in a pattern determined by the firemode at the player.
         /// </summary>
         private IEnumerator Shoot()
         {
@@ -124,6 +141,30 @@ namespace Hive.Armada.Enemies
             canShoot = true;
         }
 
+        /// <summary>
+        /// Function that determines the enemy's projectile, firerate,
+        /// spread, and projectile speed.
+        /// </summary>
+        /// <param name="mode">Current Enemy Firemode</param>
+        private void switchFireMode(int mode)
+        {
+            switch (mode)
+            {
+                case 1:
+                    fireRate = 0.6f;
+                    projectileSpeed = 1.5f;
+                    spread = 2;
+                    fireProjectile = projectileArray[0];
+                    break;
+
+                case 2:
+                    fireRate = 0.3f;
+                    projectileSpeed = 1.5f;
+                    spread = 0;
+                    fireProjectile = projectileArray[1];
+                    break;
+            }
+        }
         /// <summary>
         /// Spawns 4 'childTurret' enemies when this enemy is destroyed
         /// </summary>

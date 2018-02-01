@@ -56,7 +56,6 @@ namespace Hive.Armada.Enemies
         /// </summary>
         void Start()
         {
-            myTransform = transform;
             if (player != null)
             {
                 player = GameObject.FindGameObjectWithTag("Player");
@@ -69,26 +68,39 @@ namespace Hive.Armada.Enemies
         /// </summary>
         void Update()
         {
-            player = GameObject.FindGameObjectWithTag("Player");
-
-            if (Vector3.Distance(transform.position, player.transform.position) >= range)
+            if (player != null)
             {
-                myTransform.rotation = Quaternion.Lerp(myTransform.rotation,
-                                                       Quaternion.LookRotation(player.transform.position
-                                                       - myTransform.position),
-                                                       rotationSpeed * Time.deltaTime);
+                myTransform = transform;
 
-                myTransform.position += myTransform.forward * moveSpeed * Time.deltaTime;
+
+                if (Vector3.Distance(transform.position, player.transform.position) >= range)
+                {
+                    myTransform.rotation = Quaternion.Lerp(myTransform.rotation,
+                                                           Quaternion.LookRotation(player.transform.position
+                                                           - myTransform.position),
+                                                           rotationSpeed * Time.deltaTime);
+
+                    myTransform.position += myTransform.forward * moveSpeed * Time.deltaTime;
+                }
+
+                else if (Vector3.Distance(transform.position, player.transform.position) < range)
+                {
+                    StartCoroutine(InRange());
+                }
+                //if (shaking)
+                //{
+                //    iTween.ShakePosition(gameObject, new Vector3(0.1f, 0.1f, 0.1f), 0.1f);
+                //}
             }
-
-            else if (Vector3.Distance(transform.position, player.transform.position) < range)
+            else
             {
-                StartCoroutine(InRange());
+                player = reference.playerShip;
+
+                if (player == null)
+                {
+                    transform.LookAt(new Vector3(0.0f, 0.0f, 0.0f));
+                }
             }
-            //if (shaking)
-            //{
-            //    iTween.ShakePosition(gameObject, new Vector3(0.1f, 0.1f, 0.1f), 0.1f);
-            //}
         }
 
         /// <summary>

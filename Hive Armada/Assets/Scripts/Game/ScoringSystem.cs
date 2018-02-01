@@ -12,6 +12,7 @@
 // 
 //=============================================================================
 
+using System.Collections;
 using UnityEngine;
 
 namespace Hive.Armada.Game
@@ -23,6 +24,8 @@ namespace Hive.Armada.Game
     {
         public ReferenceManager reference;
 
+        private int score;
+
         /// <summary>
         /// The score bank of the currect combo.
         /// </summary>
@@ -31,7 +34,7 @@ namespace Hive.Armada.Game
         /// <summary>
         /// The timer of the current combo.
         /// </summary>
-        private float comboTimer;
+        private int comboTimer;
 
         /// <summary>
         /// Multiplier value of the current combo.
@@ -52,25 +55,21 @@ namespace Hive.Armada.Game
 
         /// <summary>
         /// Main combo function. When the combo timer reacher zero, the bank
-        /// is calculated with multiplier and sent to PlayerStats for 
+        /// is calculated with multiplier and sent to PlayerStats.
         /// </summary>
-        public void StartCombo()
+        public IEnumerator StartCombo()
         {
-            while(comboActive == true)
+            while (comboTimer <= 0)
             {
-                comboTimer -= Time.deltaTime;
-
-                if(comboTimer < 0)
-                {
-                    comboActive = false;
-                    comboBank *= comboMultiplier;
-                    int comboOut = (int) comboBank;
-                    AddScore(comboOut);
-                    comboMultiplier = 1.0f;
-                    comboBank = 0;
-                    break;
-                }
+                yield return new WaitForSeconds(1);
+                comboTimer--;
             }
+            comboActive = false;
+            comboBank *= comboMultiplier;
+            int comboOut = (int)comboBank;
+            AddScore(comboOut);
+            comboMultiplier = 1.0f;
+            comboBank = 0;
             //do point emitter stuff
         }
 
@@ -80,19 +79,18 @@ namespace Hive.Armada.Game
         /// <param name="points"> Number of points to add </param>
         public void AddScore(int points)
         {
+            score += points;
             reference.statistics.AddScore(points);
         }
 
         /// <summary>
         /// Get's the player's current score.
         /// </summary>
-        /// <returns> The player's score integer </returns>
-
-
-        //public int GetScore()
-        //{
-        //    return score;
-        //}
+        /// <returns> The player's score integer </returns
+        public int GetScore()
+        {
+            return score;
+        }
 
         /// <summary>
         /// Starts a new combo. If a combo is currently ongoing,
@@ -103,13 +101,13 @@ namespace Hive.Armada.Game
             if(comboActive == false)
             {
                 comboActive = true;
-                comboTimer = 5;
+                comboTimer = 3;
                 comboBank += points;
-                StartCombo();
+                StartCoroutine(StartCombo());
             }
             else if (comboActive == true)
             {
-                comboTimer = 5;
+                comboTimer = 3;
                 comboMultiplier += 0.1f;
             }
         }

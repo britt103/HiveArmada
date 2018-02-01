@@ -88,6 +88,11 @@ namespace Hive.Armada.Enemies
         private bool canShoot = true;
 
         /// <summary>
+        /// Whether or not the projectile being shot rotates.
+        /// </summary>
+        private bool canRotate;
+
+        /// <summary>
         /// Tries to look at the player and shoot at it when possible. Runs every frame.
         /// </summary>
         private void Update()
@@ -136,11 +141,25 @@ namespace Hive.Armada.Enemies
             projectile.GetComponent<Rigidbody>().velocity =
                 projectile.transform.forward * projectileSpeed;
 
+            if (canRotate)
+            {
+                StartCoroutine(rotateProjectile(projectile));
+            }
+
             yield return new WaitForSeconds(fireRate);
 
             canShoot = true;
+
         }
 
+        private IEnumerator rotateProjectile(GameObject bullet)
+        {
+            while (true)
+            {
+                bullet.GetComponent<Transform>().Rotate(0, 0, 1);
+                yield return new WaitForSeconds(0.01f);
+            }
+        }
         /// <summary>
         /// Function that determines the enemy's projectile, firerate,
         /// spread, and projectile speed.

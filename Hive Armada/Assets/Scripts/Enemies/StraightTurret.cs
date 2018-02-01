@@ -90,7 +90,12 @@ namespace Hive.Armada.Enemies
         /// </summary>
         private bool canShoot = true;
 
-        private bool fireModeSet = false;
+        /// <summary>
+        /// Whether or not the projectile being shot rotates.
+        /// </summary>
+        private bool canRotate;
+
+        //private bool fireModeSet = false;
 
         ///// <summary>
         ///// On start, select enemy behavior based on value fireMode
@@ -159,10 +164,24 @@ namespace Hive.Armada.Enemies
             projectile.GetComponent<Rigidbody>().velocity =
                 projectile.transform.forward * projectileSpeed;
 
+            if (canRotate)
+            {
+                StartCoroutine(rotateProjectile(projectile));
+            }
+
             yield return new WaitForSeconds(fireRate);
 
             canShoot = true;
 
+        }
+
+        private IEnumerator rotateProjectile(GameObject bullet)
+        {
+            while (true)
+            {
+                bullet.GetComponent<Transform>().Rotate(0, 0, 1);
+                yield return new WaitForSeconds(0.01f);
+            }
         }
 
         /// <summary>
@@ -178,6 +197,7 @@ namespace Hive.Armada.Enemies
                     fireRate = 0.6f;
                     projectileSpeed = 1.5f;
                     spread = 2;
+                    canRotate = false;
                     fireProjectile = projectileArray[0];
                     break;
 
@@ -185,6 +205,7 @@ namespace Hive.Armada.Enemies
                     fireRate = 0.3f;
                     projectileSpeed = 1.5f;
                     spread = 0;
+                    canRotate = true;
                     fireProjectile = projectileArray[1];
                     break;
             }

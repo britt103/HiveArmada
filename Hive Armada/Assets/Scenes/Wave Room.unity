@@ -16504,6 +16504,24 @@ Prefab:
       propertyPath: waveCountSource
       value: 
       objectReference: {fileID: 1732903678}
+    - target: {fileID: 114381731758551254, guid: 6503730551a61ef4ebeca6bd91b11120,
+        type: 2}
+      propertyPath: setupSpawnGroups.Array.data[0].setupEnemySpawns.Array.data[0].enemyPrefab
+      value: 
+      objectReference: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+    - target: {fileID: 114269125965258044, guid: 6503730551a61ef4ebeca6bd91b11120,
+        type: 2}
+      propertyPath: setupSpawnGroups.Array.data[0].setupEnemySpawns.Array.data[0].enemyPrefab
+      value: 
+      objectReference: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
+    - target: {fileID: 114286063447113084, guid: 6503730551a61ef4ebeca6bd91b11120,
+        type: 2}
+      propertyPath: setupSpawnGroups.Array.data[0].setupEnemySpawns.Array.data[0].enemyPrefab
+      value: 
+      objectReference: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6503730551a61ef4ebeca6bd91b11120, type: 2}
   m_IsPrefabParent: 0
@@ -30194,7 +30212,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd6c37d73f3d330439ad4e3db0d075a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyHealthValues: 640000009600000078000000fa0000005000000050000000
+  enemyHealthValues: 640000009600000078000000fa000000500000005000000050000000
   enemySelfDestructTimes:
   - 180
   - 180
@@ -30202,7 +30220,8 @@ MonoBehaviour:
   - 180
   - 180
   - 180
-  enemyScoreValues: 64000000c8000000960000005e0100003200000050000000
+  - 180
+  enemyScoreValues: 64000000c8000000960000005e010000320000005000000050000000
   enemyProjectilePrefab:
   - {fileID: 1590670541974036, guid: 0f837641c26eee64eaa72bd67b35506d, type: 2}
   - {fileID: 1590670541974036, guid: 0f837641c26eee64eaa72bd67b35506d, type: 2}
@@ -30229,11 +30248,13 @@ MonoBehaviour:
   - {fileID: 1634124259471280, guid: 05a76aa8728dfe04399bb8f593dae44b, type: 2}
   - {fileID: 1634124259471280, guid: 05a76aa8728dfe04399bb8f593dae44b, type: 2}
   - {fileID: 1634124259471280, guid: 05a76aa8728dfe04399bb8f593dae44b, type: 2}
+  - {fileID: 1634124259471280, guid: 05a76aa8728dfe04399bb8f593dae44b, type: 2}
   enemyDeathEmitters:
   - {fileID: 1112362033134432, guid: c57be84955d83f140ab1f33f7ce8fc7f, type: 2}
   - {fileID: 1112362033134432, guid: c57be84955d83f140ab1f33f7ce8fc7f, type: 2}
   - {fileID: 1112362033134432, guid: c57be84955d83f140ab1f33f7ce8fc7f, type: 2}
   - {fileID: 1112362033134432, guid: ed1865491e559ed4b9f56e8ed60838d9, type: 2}
+  - {fileID: 1112362033134432, guid: c57be84955d83f140ab1f33f7ce8fc7f, type: 2}
   - {fileID: 1112362033134432, guid: c57be84955d83f140ab1f33f7ce8fc7f, type: 2}
   - {fileID: 1112362033134432, guid: c57be84955d83f140ab1f33f7ce8fc7f, type: 2}
   projectileDamage: 10

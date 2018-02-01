@@ -90,6 +90,8 @@ namespace Hive.Armada.Enemies
         /// </summary>
         private bool canShoot = true;
 
+        private bool fireModeSet = false;
+
         ///// <summary>
         ///// On start, select enemy behavior based on value fireMode
         ///// </summary>
@@ -105,6 +107,14 @@ namespace Hive.Armada.Enemies
         /// </summary>
         private void Update()
         {
+            /// Ghetto set firemode
+            //if (!fireModeSet)
+            //{
+            //    fireMode = 2;
+            //    switchFireMode(fireMode);
+            //    fireModeSet = true;
+            //}
+
             if (player != null)
             {
                 pos = player.transform.position;
@@ -117,7 +127,7 @@ namespace Hive.Armada.Enemies
             }
             else
             {
-                player = GameObject.FindGameObjectWithTag("Player");
+                player = reference.playerShip;
 
                 if (player == null)
                 {

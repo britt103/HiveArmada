@@ -111,6 +111,7 @@ namespace Hive.Armada.Enemies
         /// </summary>
         IEnumerator InRange()
         {
+            moveSpeed = moveSpeed / 2.0f;
             foreach (Renderer r in renderers)
             {
                 r.material = flashColor;

@@ -12,6 +12,7 @@
 
 using System;
 using System.Collections;
+using System.IO;
 using UnityEngine;
 using SubjectNerd.Utilities;
 
@@ -53,6 +54,15 @@ namespace Hive.Armada.Game
         BackRight = 5
     }
 
+    public enum Powerups
+    {
+        Shield = 0,
+        DamageBoost = 1,
+        AreaBomb = 2,
+        Clear = 3,
+        Ally = 4
+    }
+
     /// <summary>
     /// Structure with 2 game objects that define the lower and upper bounds of a spawn zone.
     /// </summary>
@@ -81,6 +91,8 @@ namespace Hive.Armada.Game
         /// </summary>
         public ReferenceManager reference;
 
+        public WaveLoader waveLoader;
+
         /// <summary>
         /// Array of all available spawn zones in the scene.
         /// </summary>
@@ -92,6 +104,13 @@ namespace Hive.Armada.Game
         /// The lower and upper bounds of the powerup spawn zone.
         /// </summary>
         public SpawnZoneBounds powerupSpawnZone;
+
+        /// <summary>
+        /// Array of power-up prefabs for the subwaves to use.
+        /// </summary>
+        [Header("Power-ups")]
+        [Reorderable("Powerup", false)]
+        public GameObject[] powerupPrefabs;
 
         /// <summary>
         /// Which wave to start at?
@@ -137,6 +156,14 @@ namespace Hive.Armada.Game
         /// If all waves have been run and completed.
         /// </summary>
         public bool IsComplete { get; private set; }
+
+        /// <summary>
+        /// Loads the waves and subwaves from a file.
+        /// </summary>
+        public void Awake()
+        {
+            waves = waveLoader.LoadWaves();
+        }
 
         /// <summary>
         /// Runs the wave spawning for the game.
@@ -205,7 +232,7 @@ namespace Hive.Armada.Game
         {
             StartCoroutine(PlayWaveCount(wave + 1));
             reference.menuWaveNumberDisplay.gameObject.SetActive(true);
-            reference.menuWaveNumberDisplay.text = "Wave: " + (wave+1);
+            reference.menuWaveNumberDisplay.text = "Wave: " + (wave + 1);
 
             yield return new WaitForSeconds(2.0f);
 

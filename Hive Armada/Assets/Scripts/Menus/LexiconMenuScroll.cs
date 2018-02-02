@@ -46,7 +46,7 @@ namespace Hive.Armada.Menus
         /// <summary>
         /// Image for item on each entry.
         /// </summary>
-        public Sprite[] entryImages;
+        //public Sprite[] entryImages;
 
         /// <summary>
         /// States of whether each entry is locked.
@@ -66,7 +66,7 @@ namespace Hive.Armada.Menus
         /// <summary>
         /// Image used for locked entries.
         /// </summary>
-        public Sprite lockedImage;
+        //public Sprite lockedImage;
 
         /// <summary>
         /// Number of entrys in entries array.
@@ -78,10 +78,20 @@ namespace Hive.Armada.Menus
         /// </summary>
         public GameObject contentGO;
 
+        public GameObject menuTitle;
+
+        public GameObject scrollView;
+
+        public GameObject entryName;
+
+        public GameObject entryText;
+
         /// <summary>
-        /// Prefab for Lexicon entry.
+        /// Prefab for Lexicon entry button.
         /// </summary>
-        public GameObject entryPrefab;
+        public GameObject entryButtonPrefab;
+
+        private bool entryOpen = false;
 
         /// <summary>
         /// Load first entry.
@@ -98,9 +108,16 @@ namespace Hive.Armada.Menus
         public void PressBack()
         {
             source.PlayOneShot(clips[1]);
-            GameObject.Find("Main Canvas").transform.Find("Options Menu").gameObject
+            if (!entryOpen)
+            {
+                GameObject.Find("Main Canvas").transform.Find("Options Menu").gameObject
                     .SetActive(true);
-            gameObject.SetActive(false);
+                gameObject.SetActive(false);
+            }
+            else
+            {
+                CloseEntry();
+            }
         }
 
         /// <summary>
@@ -125,20 +142,52 @@ namespace Hive.Armada.Menus
         {
             for(int i = 0; i < numEntries; ++i)
             {
-                GameObject entry = Instantiate(entryPrefab, contentGO.transform);
+                GameObject entryButton = Instantiate(entryButtonPrefab, contentGO.transform);
+                entryButton.GetComponent<LexiconEntryButton>().id = i;
+                entryButton.GetComponent<LexiconEntryButton>().lexiconMenu = this;
+                entryButton.GetComponent<UIHover>().source = source;
                 if (entriesLocked[i])
                 {
-                    entry.transform.Find("Name").gameObject.GetComponent<Text>().text = lockedName;
-                    entry.transform.Find("Text").gameObject.GetComponent<Text>().text = lockedText;
-                    entry.transform.Find("Image").gameObject.GetComponent<Image>().sprite = lockedImage;
+                    entryButton.transform.Find("Name").gameObject.GetComponent<Text>().text = lockedName;
                 }
                 else
                 {
-                    entry.transform.Find("Name").gameObject.GetComponent<Text>().text = entryNames[i];
-                    entry.transform.Find("Text").gameObject.GetComponent<Text>().text = entryTexts[i];
-                    entry.transform.Find("Image Plane").gameObject.GetComponent<Image>().sprite = entryImages[i];
+                    entryButton.transform.Find("Name").gameObject.GetComponent<Text>().text = entryNames[i];
                 }
             }
+        }
+
+        public void OpenEntry(int entryId)
+        {
+            source.PlayOneShot(clips[0]);
+
+            menuTitle.SetActive(false);
+            scrollView.SetActive(false);
+            entryName.SetActive(true);
+            entryText.SetActive(true);
+
+            if (entriesLocked[entryId])
+            {
+                entryName.GetComponent<Text>().text = lockedName;
+                entryText.GetComponent<Text>().text = lockedText;
+            }
+            else
+            {
+                entryName.GetComponent<Text>().text = entryNames[entryId];
+                entryText.GetComponent<Text>().text = entryTexts[entryId];
+            }
+
+            entryOpen = true;
+        }
+
+        public void CloseEntry()
+        {
+            menuTitle.SetActive(true);
+            entryName.SetActive(false);
+            entryText.SetActive(false);
+            scrollView.SetActive(true);
+
+            entryOpen = false;
         }
     }
 }

@@ -45,6 +45,23 @@ namespace Hive.Armada.Enemies
         private float projectileSpeed;
 
         /// <summary>
+        /// Structure holding bullet prefabs that
+        /// the enemy will shoot
+        /// </summary>
+        public GameObject[] projectileArray;
+
+        /// <summary>
+        /// Projectile that the turret shoots out
+        /// </summary>
+        public GameObject fireProjectile;
+
+        /// <summary>
+        /// Value that determines what projectile the enemy will shoot
+        /// as well as its parameters
+        /// </summary>
+        private int fireMode;
+
+        /// <summary>
         /// Degrees that the projectile can be randomly rotated.
         /// Randomly picks in the range of [-spread, spread] for all 3 axes.
         /// </summary>
@@ -69,6 +86,11 @@ namespace Hive.Armada.Enemies
         /// Whether this enemy can shoot or not. Toggles when firing every 1/fireRate seconds.
         /// </summary>
         private bool canShoot = true;
+
+        /// <summary>
+        /// Whether or not the projectile being shot rotates.
+        /// </summary>
+        private bool canRotate;
 
         /// <summary>
         /// Tries to look at the player and shoot at it when possible. Runs every frame.
@@ -102,7 +124,7 @@ namespace Hive.Armada.Enemies
         }
 
         /// <summary>
-        /// Shoots a projectile at the player.
+        /// Fires projectiles in a pattern determined by the firemode at the player.
         /// </summary>
         private IEnumerator Shoot()
         {
@@ -119,11 +141,49 @@ namespace Hive.Armada.Enemies
             projectile.GetComponent<Rigidbody>().velocity =
                 projectile.transform.forward * projectileSpeed;
 
+            if (canRotate)
+            {
+                StartCoroutine(rotateProjectile(projectile));
+            }
+
             yield return new WaitForSeconds(fireRate);
 
             canShoot = true;
+
         }
 
+        private IEnumerator rotateProjectile(GameObject bullet)
+        {
+            while (true)
+            {
+                bullet.GetComponent<Transform>().Rotate(0, 0, 1);
+                yield return new WaitForSeconds(0.01f);
+            }
+        }
+        /// <summary>
+        /// Function that determines the enemy's projectile, firerate,
+        /// spread, and projectile speed.
+        /// </summary>
+        /// <param name="mode">Current Enemy Firemode</param>
+        private void switchFireMode(int mode)
+        {
+            switch (mode)
+            {
+                case 1:
+                    fireRate = 0.6f;
+                    projectileSpeed = 1.5f;
+                    spread = 2;
+                    fireProjectile = projectileArray[0];
+                    break;
+
+                case 2:
+                    fireRate = 0.3f;
+                    projectileSpeed = 1.5f;
+                    spread = 0;
+                    fireProjectile = projectileArray[1];
+                    break;
+            }
+        }
         /// <summary>
         /// Spawns 4 'childTurret' enemies when this enemy is destroyed
         /// </summary>

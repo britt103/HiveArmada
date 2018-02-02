@@ -22,7 +22,7 @@ namespace Hive.Armada.Menus
     {
         public int id;
 
-        public LexiconMenuScroll lexiconMenu;
+        public LexiconMenu lexiconMenu;
 
         public void PressButton()
         {

@@ -6,7 +6,10 @@
 // CPSC-340-01 & CPSC-344-01
 // Group Project
 //
-// LexiconMenu controls interactions with the Lexicon Menu. OLD VERSION.
+// LexiconMenu controls interactions with the Lexicon Menu. The player
+// can move through the scroll view by moving the vertical slider with the
+// UIPointer. Find a powerup, enemy, etc. for the first time unlocks the 
+// corresponding entry (not yet implemented).
 //
 //=============================================================================
 
@@ -21,164 +24,170 @@ namespace Hive.Armada.Menus
     public class LexiconMenu : MonoBehaviour
     {
         /// <summary>
-        /// Name of item on each page.
+        /// Reference to Menu Audio source.
         /// </summary>
-        public string[] pageNames;
+        public AudioSource source;
 
         /// <summary>
-        /// Text description for item on each page.
+        /// Clips to use with source.
         /// </summary>
-        public string[] pageTexts;
+    	public AudioClip[] clips;
 
         /// <summary>
-        /// Image for item on each page.
+        /// Name of item on each entry.
         /// </summary>
-        public Material[] pageImages;
+        public string[] entryNames;
 
         /// <summary>
-        /// States of whether each page is locked.
+        /// Text description for item on each entry.
         /// </summary>
-        public bool[] pagesLocked;
+        public string[] entryTexts;
 
         /// <summary>
-        /// Name used for locked pages.
+        /// Image for item on each entry.
+        /// </summary>
+        //public Sprite[] entryImages;
+
+        /// <summary>
+        /// States of whether each entry is locked.
+        /// </summary>
+        public bool[] entriesLocked;
+
+        /// <summary>
+        /// Name used for locked entries.
         /// </summary>
         public string lockedName;
 
         /// <summary>
-        /// Image used for locked pages.
+        /// Text used for locked entries.
         /// </summary>
-        public Material lockedImage;
+        public string lockedText;
 
         /// <summary>
-        /// Number of pages in pages array.
+        /// Image used for locked entries.
         /// </summary>
-        private int numPages;
+        //public Sprite lockedImage;
 
         /// <summary>
-        /// Index position of currently loaded page.
+        /// Number of entrys in entries array.
         /// </summary>
-        private int currIndex;
+        private int numEntries;
 
         /// <summary>
-        /// Page name text component in Lexicon Menu.
+        /// Refernce to Content gameObject in Scroll View.
         /// </summary>
-        public Text pageName;
+        public GameObject contentGO;
+
+        public GameObject menuTitle;
+
+        public GameObject scrollView;
+
+        public GameObject entryName;
+
+        public GameObject entryText;
 
         /// <summary>
-        /// Page text component in Lexicon Menu.
+        /// Prefab for Lexicon entry button.
         /// </summary>
-        public Text pageText;
+        public GameObject entryButtonPrefab;
+
+        private bool entryOpen = false;
 
         /// <summary>
-        /// Plane mesh renderer component in Lexicon Menu.
+        /// Load first entry.
         /// </summary>
-        public MeshRenderer pageImageRenderer;
-
-        /// <summary>
-        /// Reference to Prev button in Lexicon Menu.
-        /// </summary>
-        public GameObject prevButtonGO;
-
-        /// <summary>
-        /// Reference to Next button in Lexicon Menu.
-        /// </summary>
-        public GameObject nextButtonGO;
-
-		public AudioSource source;
-    	public AudioClip[] clips;
-
-        /// <summary>
-        /// Load first page.
-        /// </summary>
-        private void OnEnable()
+        private void Awake()
         {
-            //numPages = pages.Length;
-            numPages = pageNames.Length;
-            currIndex = 0;
-            prevButtonGO.SetActive(false);
-            LoadPage();
+            numEntries = entryNames.Length;
+            GenerateContent();
         }
 
         /// <summary>
-        /// Back button pressed. Navigate to Options Menu. Reset current page.
+        /// Back button pressed. Navigate to Options Menu. Reset current entry.
         /// </summary>
         public void PressBack()
         {
-			source.PlayOneShot(clips[0]);
-
-            GameObject.Find("Main Canvas").transform.Find("Options Menu").gameObject
+            source.PlayOneShot(clips[1]);
+            if (!entryOpen)
+            {
+                GameObject.Find("Main Canvas").transform.Find("Options Menu").gameObject
                     .SetActive(true);
-            gameObject.SetActive(false);
-        }
-
-        /// <summary>
-        /// Prev button pressed. Transition to the previous page.
-        /// </summary>
-        public void PressPrev()
-        {
-            currIndex = Mathf.Max(currIndex - 1, 0);
-            if (currIndex == 0)
-            {
-                prevButtonGO.SetActive(false);
-            }
-            if (currIndex == numPages - 2)
-            {
-                nextButtonGO.SetActive(true);
-            }
-            LoadPage();
-        }
-
-        /// <summary>
-        /// Next button pressed. Transition to the next page.
-        /// </summary>
-        public void PressNext()
-        {
-            currIndex = Mathf.Min(currIndex + 1, numPages - 1);
-            if(currIndex == 1)
-            {
-                prevButtonGO.SetActive(true);
-            }
-            if (currIndex == numPages - 1)
-            {
-                nextButtonGO.SetActive(false);
-            }
-            LoadPage();
-        }
-
-        /// <summary>
-        /// Load selected page into Lexicon Menu if unlocked.
-        /// </summary>
-        /// <param name="page">page to be loaded.</param>
-        private void LoadPage()
-        {
-            if (pagesLocked[currIndex])
-            {
-                pageName.text = lockedName;
-                pageText.text = "";
-                pageImageRenderer.material = lockedImage;
+                gameObject.SetActive(false);
             }
             else
             {
-                pageName.text = pageNames[currIndex];
-                pageText.text = pageTexts[currIndex];
-                pageImageRenderer.material = pageImages[currIndex];
+                CloseEntry();
             }
         }
 
         /// <summary>
-        /// Unlock the page associated with the provided name.
+        /// Unlock the entry associated with the provided name.
         /// </summary>
-        /// <param name="name">name of page to unlock.</param>
+        /// <param name="name">name of entry to unlock.</param>
         public void Unlock(string name)
         {
-            for(int i = 0; i < numPages; ++i)
+            for(int i = 0; i < numEntries; ++i)
             {
-                if(name == pageNames[i] && pagesLocked[i])
+                if(name == entryNames[i] && entriesLocked[i])
                 {
-                    pagesLocked[i] = false;
+                    entriesLocked[i] = false;
                 }
             }
+        }
+
+        /// <summary>
+        /// Create entries as children of Content.
+        /// </summary>
+        private void GenerateContent()
+        {
+            for(int i = 0; i < numEntries; ++i)
+            {
+                GameObject entryButton = Instantiate(entryButtonPrefab, contentGO.transform);
+                entryButton.GetComponent<LexiconEntryButton>().id = i;
+                entryButton.GetComponent<LexiconEntryButton>().lexiconMenu = this;
+                entryButton.GetComponent<UIHover>().source = source;
+                if (entriesLocked[i])
+                {
+                    entryButton.transform.Find("Name").gameObject.GetComponent<Text>().text = lockedName;
+                }
+                else
+                {
+                    entryButton.transform.Find("Name").gameObject.GetComponent<Text>().text = entryNames[i];
+                }
+            }
+        }
+
+        public void OpenEntry(int entryId)
+        {
+            source.PlayOneShot(clips[0]);
+
+            menuTitle.SetActive(false);
+            scrollView.SetActive(false);
+            entryName.SetActive(true);
+            entryText.SetActive(true);
+
+            if (entriesLocked[entryId])
+            {
+                entryName.GetComponent<Text>().text = lockedName;
+                entryText.GetComponent<Text>().text = lockedText;
+            }
+            else
+            {
+                entryName.GetComponent<Text>().text = entryNames[entryId];
+                entryText.GetComponent<Text>().text = entryTexts[entryId];
+            }
+
+            entryOpen = true;
+        }
+
+        public void CloseEntry()
+        {
+            menuTitle.SetActive(true);
+            entryName.SetActive(false);
+            entryText.SetActive(false);
+            scrollView.SetActive(true);
+
+            entryOpen = false;
         }
     }
 }

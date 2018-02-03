@@ -3,16 +3,18 @@
 // Chad Johnson
 // 1763718
 // johns428@mail.chapman.edu
-// CPSC-340-01 & CPSC-344-01
+// CPSC-440-1
 // Group Project
 //
 // LexiconMenu controls interactions with the Lexicon Menu. The player
 // can move through the scroll view by moving the vertical slider with the
 // UIPointer. Find a powerup, enemy, etc. for the first time unlocks the 
-// corresponding entry (not yet implemented).
+// corresponding entry.
 //
 //=============================================================================
 
+using System.IO;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,6 +25,7 @@ namespace Hive.Armada.Menus
     /// </summary>
     public class LexiconMenu : MonoBehaviour
     {
+        [Header("References")]
         /// <summary>
         /// Reference to Menu Audio source.
         /// </summary>
@@ -34,56 +37,28 @@ namespace Hive.Armada.Menus
     	public AudioClip[] clips;
 
         /// <summary>
-        /// Name of item on each entry.
-        /// </summary>
-        public string[] entryNames;
-
-        /// <summary>
-        /// Text description for item on each entry.
-        /// </summary>
-        public string[] entryTexts;
-
-        /// <summary>
-        /// Image for item on each entry.
-        /// </summary>
-        //public Sprite[] entryImages;
-
-        /// <summary>
-        /// States of whether each entry is locked.
-        /// </summary>
-        public bool[] entriesLocked;
-
-        /// <summary>
-        /// Name used for locked entries.
-        /// </summary>
-        public string lockedName;
-
-        /// <summary>
-        /// Text used for locked entries.
-        /// </summary>
-        public string lockedText;
-
-        /// <summary>
-        /// Image used for locked entries.
-        /// </summary>
-        //public Sprite lockedImage;
-
-        /// <summary>
-        /// Number of entrys in entries array.
-        /// </summary>
-        private int numEntries;
-
-        /// <summary>
         /// Refernce to Content gameObject in Scroll View.
         /// </summary>
         public GameObject contentGO;
 
+        /// <summary>
+        /// Reference to menu title text.
+        /// </summary>
         public GameObject menuTitle;
 
+        /// <summary>
+        /// Reference to menu ScrollView.
+        /// </summary>
         public GameObject scrollView;
 
+        /// <summary>
+        /// Reference to entry name text.
+        /// </summary>
         public GameObject entryName;
 
+        /// <summary>
+        /// Reference to entry text text.
+        /// </summary>
         public GameObject entryText;
 
         /// <summary>
@@ -91,19 +66,66 @@ namespace Hive.Armada.Menus
         /// </summary>
         public GameObject entryButtonPrefab;
 
+        /// <summary>
+        /// State of whether an entry is currently open.
+        /// </summary>
         private bool entryOpen = false;
 
         /// <summary>
-        /// Load first entry.
+        /// Object storing entry information.
         /// </summary>
-        private void Awake()
+        private LexiconEntryData entryData;
+
+        /// <summary>
+        /// Reference to Lexicon Unlock Data.
+        /// </summary>
+        private LexiconUnlockData unlockData;
+
+        /// <summary>
+        /// Read in Lexicon data and unlocks. Generate buttons for entries in scrollView.
+        /// </summary>
+        private void Start()
         {
-            numEntries = entryNames.Length;
+            ReadLexiconFile();
+            unlockData = FindObjectOfType<LexiconUnlockData>();
+            UpdateUnlocks();
             GenerateContent();
         }
 
         /// <summary>
-        /// Back button pressed. Navigate to Options Menu. Reset current entry.
+        /// Write LexiconEntryData to Json file.
+        /// </summary>
+        public void WriteLexiconFile()
+        {
+            File.WriteAllText(@"Lexicon.txt", JsonUtility.ToJson(entryData, true));
+        }
+
+        /// <summary>
+        /// Read LexiconEntryData from Json file.
+        /// </summary>
+        public void ReadLexiconFile()
+        {
+            string jsonString = File.ReadAllText(@"Lexicon.txt");
+            entryData = JsonUtility.FromJson<LexiconEntryData>(jsonString);
+        }
+
+        /// <summary>
+        /// Unlock entries using names from LexiconUnlockData. Update 
+        /// LexiconEntryData Json file.
+        /// </summary>
+        private void UpdateUnlocks()
+        {
+            List<string> unlocks = unlockData.GiveUnlocks();
+            foreach (string entryName in unlocks)
+            {
+                Unlock(entryName);
+            }
+            WriteLexiconFile();
+        }
+
+        /// <summary>
+        /// Back button pressed. If entry is not open, navigate to Main Menu.
+        /// Else, navigate to entry selection.
         /// </summary>
         public void PressBack()
         {
@@ -126,37 +148,41 @@ namespace Hive.Armada.Menus
         /// <param name="name">name of entry to unlock.</param>
         public void Unlock(string name)
         {
-            for(int i = 0; i < numEntries; ++i)
+            for(int i = 0; i < entryData.numEntries; ++i)
             {
-                if(name == entryNames[i] && entriesLocked[i])
+                if(name == entryData.entryNames[i] && entryData.entriesLocked[i])
                 {
-                    entriesLocked[i] = false;
+                    entryData.entriesLocked[i] = false;
                 }
             }
         }
 
         /// <summary>
-        /// Create entries as children of Content.
+        /// Create entrie buttons as children of Content.
         /// </summary>
         private void GenerateContent()
         {
-            for(int i = 0; i < numEntries; ++i)
+            for(int i = 0; i < entryData.numEntries; ++i)
             {
                 GameObject entryButton = Instantiate(entryButtonPrefab, contentGO.transform);
                 entryButton.GetComponent<LexiconEntryButton>().id = i;
                 entryButton.GetComponent<LexiconEntryButton>().lexiconMenu = this;
                 entryButton.GetComponent<UIHover>().source = source;
-                if (entriesLocked[i])
+                if (entryData.entriesLocked[i])
                 {
-                    entryButton.transform.Find("Name").gameObject.GetComponent<Text>().text = lockedName;
+                    entryButton.transform.Find("Name").gameObject.GetComponent<Text>().text = entryData.lockedName;
                 }
                 else
                 {
-                    entryButton.transform.Find("Name").gameObject.GetComponent<Text>().text = entryNames[i];
+                    entryButton.transform.Find("Name").gameObject.GetComponent<Text>().text = entryData.entryNames[i];
                 }
             }
         }
 
+        /// <summary>
+        /// Open entry view and fill entry name and text with corresponding values.
+        /// </summary>
+        /// <param name="entryId">Index of selected entry.</param>
         public void OpenEntry(int entryId)
         {
             source.PlayOneShot(clips[0]);
@@ -166,20 +192,23 @@ namespace Hive.Armada.Menus
             entryName.SetActive(true);
             entryText.SetActive(true);
 
-            if (entriesLocked[entryId])
+            if (entryData.entriesLocked[entryId])
             {
-                entryName.GetComponent<Text>().text = lockedName;
-                entryText.GetComponent<Text>().text = lockedText;
+                entryName.GetComponent<Text>().text = entryData.lockedName;
+                entryText.GetComponent<Text>().text = entryData.lockedText;
             }
             else
             {
-                entryName.GetComponent<Text>().text = entryNames[entryId];
-                entryText.GetComponent<Text>().text = entryTexts[entryId];
+                entryName.GetComponent<Text>().text = entryData.entryNames[entryId];
+                entryText.GetComponent<Text>().text = entryData.entryTexts[entryId];
             }
 
             entryOpen = true;
         }
 
+        /// <summary>
+        /// Close entry view and return to entry selection.
+        /// </summary>
         public void CloseEntry()
         {
             menuTitle.SetActive(true);

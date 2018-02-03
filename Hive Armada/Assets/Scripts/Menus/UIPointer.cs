@@ -194,6 +194,10 @@ namespace Hive.Armada.Menus
                     {
                         aimObject.GetComponent<UIHover>().Hover();
                     }
+                    else if (aimObject.GetComponent<ScrollbarUIHover>())
+                    {
+                        aimObject.GetComponent<ScrollbarUIHover>().PassHover();
+                    }
                 }
 
                 if (hand.GetStandardInteractionButtonDown())
@@ -276,9 +280,17 @@ namespace Hive.Armada.Menus
         /// </summary>
         private void ExitLastInteractable()
         {
-            if (lastInteractableAimObject && lastInteractableAimObject.GetComponent<UIHover>())
+            if (lastInteractableAimObject)
             {
-                lastInteractableAimObject.GetComponent<UIHover>().EndHover();
+                if (lastInteractableAimObject.GetComponent<UIHover>())
+                {
+                    lastInteractableAimObject.GetComponent<UIHover>().EndHover();
+                }
+                else if (lastInteractableAimObject.GetComponent<ScrollbarUIHover>())
+                {
+                    lastInteractableAimObject.GetComponent<ScrollbarUIHover>().PassEndHover();
+                }
+                
                 lastInteractableAimObject = null;
             }
         }

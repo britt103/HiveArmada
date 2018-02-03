@@ -3,7 +3,7 @@
 // Chad Johnson
 // 1763718
 // johns428@mail.chapman.edu
-// CPSC-340-01 & CPSC-344-01
+// CPSC-440-01
 // Group Project
 //
 // UIHover controls hovering interactions with the UIPointer. This activates
@@ -58,7 +58,7 @@ namespace Hive.Armada.Menus
             {
                 isHovering = true;
                 activeSpriteImageGO.SetActive(true);
-                source.PlayOneShot(hoverClip);
+                source.PlayOneShot(hoverClip); 
             }
         }
 

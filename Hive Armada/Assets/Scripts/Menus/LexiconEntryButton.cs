@@ -20,10 +20,19 @@ namespace Hive.Armada.Menus
     /// </summary>
     public class LexiconEntryButton : MonoBehaviour
     {
+        /// <summary>
+        /// Index of corresponding object within Lexicon entries.
+        /// </summary>
         public int id;
 
+        /// <summary>
+        /// Reference to Lexicon Menu.
+        /// </summary>
         public LexiconMenu lexiconMenu;
 
+        /// <summary>
+        /// Open corresponding Lexicon entry through Lexicon Menu.
+        /// </summary>
         public void PressButton()
         {
             lexiconMenu.OpenEntry(id);

@@ -22,6 +22,16 @@ namespace Hive.Armada.Menus
     public class SoundMenu : MonoBehaviour
     {
         /// <summary>
+        /// Reference to Menu Transition Manager.
+        /// </summary>
+        public MenuTransitionManager transitionManager;
+
+        /// <summary>
+        /// Reference to menu to go to when back is pressed.
+        /// </summary>
+        public GameObject backMenuGO;
+
+        /// <summary>
         /// Reference to Menu Audio source.
         /// </summary>
         public AudioSource source;
@@ -57,13 +67,9 @@ namespace Hive.Armada.Menus
         {
 			source.PlayOneShot(clips[0]);
             reference.optionsValues.SetSoundPlayerPrefs();
-            GameObject.Find("Main Canvas").transform.Find("Options Menu").gameObject
-                    .SetActive(true);
-            gameObject.SetActive(false);
+            transitionManager.Transition(backMenuGO);
         }
 
-        //hover sound is flash-element
-        //select sound is menuselect
         /// <summary>
         /// Change AudioListener volume based on volumeSlider value.
         /// </summary>

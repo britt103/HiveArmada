@@ -11,7 +11,6 @@
 //=============================================================================
 
 using UnityEngine;
-using Hive.Armada.Player;
 
 namespace Hive.Armada.Menus
 {
@@ -20,6 +19,16 @@ namespace Hive.Armada.Menus
     /// </summary>
     public class ControlsMenu : MonoBehaviour
     {
+        /// <summary>
+        /// Reference to Menu Transition Manager.
+        /// </summary>
+        public MenuTransitionManager transitionManager;
+
+        /// <summary>
+        /// Reference to menu to go to when back is pressed.
+        /// </summary>
+        public GameObject backMenuGO;
+
         /// <summary>
         /// Reference to Menu Audio source.
         /// </summary>
@@ -36,9 +45,7 @@ namespace Hive.Armada.Menus
         public void PressBack()
         {
 			source.PlayOneShot(clips[0]);
-            GameObject.Find("Main Canvas").transform.Find("Options Menu").gameObject
-                    .SetActive(true);
-            gameObject.SetActive(false);
+            transitionManager.Transition(backMenuGO);
         }
     }
 }

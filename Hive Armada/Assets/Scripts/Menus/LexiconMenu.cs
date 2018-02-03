@@ -27,6 +27,21 @@ namespace Hive.Armada.Menus
     {
         [Header("References")]
         /// <summary>
+        /// Reference to Menu Transition Manager.
+        /// </summary>
+        public MenuTransitionManager transitionManager;
+
+        /// <summary>
+        /// Reference to menu to go to when back is pressed.
+        /// </summary>
+        public GameObject backMenuGO;
+
+        /// <summary>
+        /// Reference to player transform for Options Menu.
+        /// </summary>
+        public Transform backMenuTransform;
+
+        /// <summary>
         /// Reference to Menu Audio source.
         /// </summary>
         public AudioSource source;
@@ -132,9 +147,8 @@ namespace Hive.Armada.Menus
             source.PlayOneShot(clips[1]);
             if (!entryOpen)
             {
-                GameObject.Find("Main Canvas").transform.Find("Options Menu").gameObject
-                    .SetActive(true);
-                gameObject.SetActive(false);
+                FindObjectOfType<RoomTransport>().Transport(backMenuTransform, gameObject,
+                    backMenuGO);
             }
             else
             {

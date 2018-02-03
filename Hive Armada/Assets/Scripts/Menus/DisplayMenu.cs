@@ -22,6 +22,16 @@ namespace Hive.Armada.Menus
     public class DisplayMenu : MonoBehaviour
     {
         /// <summary>
+        /// Reference to Menu Transition Manager.
+        /// </summary>
+        public MenuTransitionManager transitionManager;
+
+        /// <summary>
+        /// Reference to menu to go to when back is pressed.
+        /// </summary>
+        public GameObject backMenuGO;
+
+        /// <summary>
         /// Reference to Menu Audio source.
         /// </summary>
 		public AudioSource source;
@@ -57,8 +67,7 @@ namespace Hive.Armada.Menus
         {
 			source.PlayOneShot(clips[0]);
             reference.optionsValues.SetDisplayPlayerPrefs();
-            GameObject.Find("Main Canvas").transform.Find("Options Menu").gameObject
-                    .SetActive(true);
+            transitionManager.Transition(backMenuGO);
             gameObject.SetActive(false);
         }
 

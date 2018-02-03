@@ -25,6 +25,16 @@ namespace Hive.Armada.Menus
     public class ResultsMenu : MonoBehaviour
     {
         /// <summary>
+        /// Reference to Menu Transition Manager.
+        /// </summary>
+        public MenuTransitionManager transitionManager;
+
+        /// <summary>
+        /// Reference to menu to go to when back is pressed.
+        /// </summary>
+        public GameObject continueMenuGO;
+
+        /// <summary>
         /// Reference to Menu Audio source.
         /// </summary>
         public AudioSource source;
@@ -90,8 +100,7 @@ namespace Hive.Armada.Menus
         {
             source.PlayOneShot(clips[0]);
             stats.ResetValues();
-            reference.menuMain.SetActive(true);
-            gameObject.SetActive(false);
+            transitionManager.Transition(continueMenuGO);
         }
     }
 }

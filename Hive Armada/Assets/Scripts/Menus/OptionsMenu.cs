@@ -11,7 +11,6 @@
 //=============================================================================
 
 using UnityEngine;
-using Hive.Armada.Game;
 
 namespace Hive.Armada.Menus
 {
@@ -20,6 +19,51 @@ namespace Hive.Armada.Menus
     /// </summary>
     public class OptionsMenu : MonoBehaviour
     {
+        /// <summary>
+        /// Reference to Menu Transition Manager.
+        /// </summary>
+        public MenuTransitionManager transitionManager;
+
+        /// <summary>
+        /// Reference to menu to go to when back is pressed.
+        /// </summary>
+        public GameObject backMenuGO;
+
+        /// <summary>
+        /// Reference to Display Menu.
+        /// </summary>
+        public GameObject displayGO;
+
+        /// <summary>
+        /// Reference to Sound Menu.
+        /// </summary>
+        public GameObject soundGO;
+
+        /// <summary>
+        /// Reference to Controls Menu.
+        /// </summary>
+        public GameObject controlsGO;
+
+        /// <summary>
+        /// Reference to Lexicon Menu.
+        /// </summary>
+        public GameObject lexiconGO;
+
+        /// <summary>
+        /// Reference to player transform for Lexicon Menu.
+        /// </summary>
+        public Transform lexiconTransform;
+
+        /// <summary>
+        /// Reference to Intro Menu.
+        /// </summary>
+        public GameObject introGO;
+
+        /// <summary>
+        /// Reference to Credits Menu.
+        /// </summary>
+        public GameObject creditsGO;
+
         /// <summary>
         /// Reference to Menu Audio source.
         /// </summary>
@@ -36,8 +80,7 @@ namespace Hive.Armada.Menus
         public void PressControls()
         {
 			source.PlayOneShot(clips[0]);
-            GameObject.Find("Main Canvas").transform.Find("Controls Menu").gameObject.SetActive(true);
-            gameObject.SetActive(false);
+            transitionManager.Transition(controlsGO);
         }
 
         /// <summary>
@@ -46,8 +89,7 @@ namespace Hive.Armada.Menus
         public void PressDisplay()
         {
 			source.PlayOneShot(clips[0]);
-            GameObject.Find("Main Canvas").transform.Find("Display Menu").gameObject.SetActive(true);
-            gameObject.SetActive(false);
+            transitionManager.Transition(displayGO);
         }
 
         /// <summary>
@@ -56,8 +98,7 @@ namespace Hive.Armada.Menus
         public void PressSound()
         {
 			source.PlayOneShot(clips[0]);
-            GameObject.Find("Main Canvas").transform.Find("Sound Menu").gameObject.SetActive(true);
-            gameObject.SetActive(false);
+            transitionManager.Transition(soundGO);
         }
 
         /// <summary>
@@ -66,8 +107,7 @@ namespace Hive.Armada.Menus
         public void PressLexicon()
         {
 			source.PlayOneShot(clips[0]);
-            GameObject.Find("Main Canvas").transform.Find("Lexicon Menu").gameObject.SetActive(true);
-            gameObject.SetActive(false);
+            FindObjectOfType<RoomTransport>().Transport(lexiconTransform, gameObject, lexiconGO);
         }
 
         /// <summary>
@@ -76,6 +116,7 @@ namespace Hive.Armada.Menus
         public void PressIntro()
         {
 			source.PlayOneShot(clips[0]);
+            //transitionManager.Transition(introGO);
             Debug.Log("Intro button pressed");
         }
 
@@ -85,6 +126,7 @@ namespace Hive.Armada.Menus
         public void PressCredits()
         {
 			source.PlayOneShot(clips[0]);
+            //transitionManager.Transition(creditsGO);
             Debug.Log("Credits button pressed");
         }
 
@@ -94,9 +136,7 @@ namespace Hive.Armada.Menus
         public void PressBack()
         {
 			source.PlayOneShot(clips[1]);
-            GameObject.Find("Main Canvas").transform.Find("Main Menu").gameObject.SetActive(true);
-            gameObject.SetActive(false);
-            
+            transitionManager.Transition(backMenuGO);  
         }
     }
 }

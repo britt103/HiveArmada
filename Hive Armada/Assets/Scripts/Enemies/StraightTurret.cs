@@ -85,6 +85,21 @@ namespace Hive.Armada.Enemies
 
         private float randZ;
 
+        // <summary>
+        /// Final position after spawning.
+        /// </summary>
+        private Vector3 endPosition;
+
+        /// <summary>
+        /// Bools used to move the enemy to its spawn position.
+        /// </summary>
+        bool spawnComplete;
+
+        /// <summary>
+        /// Bools used to move the enemy to its spawn position.
+        /// </summary>
+        bool moveComplete;
+
         ///// <summary>
         ///// On start, select enemy behavior based on value fireMode
         ///// </summary>
@@ -100,24 +115,39 @@ namespace Hive.Armada.Enemies
         /// </summary>
         private void Update()
         {
-            if (player != null)
+            if (spawnComplete)
             {
-                pos = player.transform.position;
-                transform.LookAt(pos);
-
-                if (Time.time > fireNext)
+                if (moveComplete)
                 {
-                    fireNext = Time.time + 1 / fireRate;
-                    StartCoroutine(FireBullet());
+                    if (player != null)
+                    {
+                        pos = player.transform.position;
+                        transform.LookAt(pos);
+
+                        if (Time.time > fireNext)
+                        {
+                            fireNext = Time.time + 1 / fireRate;
+                            StartCoroutine(FireBullet());
+                        }
+                    }
+                    else
+                    {
+                        player = GameObject.FindGameObjectWithTag("Player");
+
+                        if (player == null)
+                        {
+                            transform.LookAt(new Vector3(0.0f, 0.0f, 0.0f));
+                        }
+                    }
                 }
-            }
-            else
-            {
-                player = GameObject.FindGameObjectWithTag("Player");
-
-                if (player == null)
+                else
                 {
-                    transform.LookAt(new Vector3(0.0f, 0.0f, 0.0f));
+                    transform.position = Vector3.Lerp(transform.position, endPosition, Time.deltaTime * 1.0f);
+                    if (Vector3.Distance(transform.position, endPosition) <= 0.1f)
+                    {
+                        MoveComplete();
+                    }
+
                 }
             }
 
@@ -165,6 +195,22 @@ namespace Hive.Armada.Enemies
                     break;
             }
         }
+        /// <summary>
+        /// Runs when this enemy finishes default pathing to a SpawnZone.
+        /// </summary>
+        /// <param name="endPos">Final position of this enemy.</param>
+        public void SetEndpoint(Vector3 endPos)
+        {
+            endPosition = endPos;
+            spawnComplete = true;
+        }
+        /// <summary>
+        /// Runs when this enemy is at endPos.
+        /// </summary>
+        public void MoveComplete()
+        {
+            moveComplete = true;
+        }
 
         /// <summary>
         /// Resets attributes to this enemy's defaults from enemyAttributes.
@@ -176,7 +222,8 @@ namespace Hive.Armada.Enemies
             {
                 renderers.ElementAt(i).material = materials.ElementAt(i);
             }
-
+            spawnComplete = false;
+            moveComplete = false;
             hitFlash = null;
             shaking = false;
 

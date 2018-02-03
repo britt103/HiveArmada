@@ -3656,7 +3656,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 140, y: 25, z: 0}
+  m_Size: {x: 160, y: 25, z: 0}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!224 &565639340
 RectTransform:
@@ -4419,7 +4419,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 140, y: 25, z: 0}
+  m_Size: {x: 160, y: 25, z: 0}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &719196000
 GameObject:
@@ -7662,7 +7662,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -20, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1140628336
 GameObject:
@@ -9701,7 +9701,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -20, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1493433540
 GameObject:
@@ -10537,7 +10537,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 140, y: 25, z: 0}
+  m_Size: {x: 160, y: 25, z: 0}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1591028102
 MonoBehaviour:
@@ -12016,7 +12016,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -20, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1842956404
 GameObject:
@@ -12819,35 +12819,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3606c89e8deec134aa0d049007b815d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pageNames: []
+  pageTexts: []
+  pageImages: []
+  pagesLocked: 
+  lockedName: Locked
+  lockedImage: {fileID: 0}
+  pageName: {fileID: 0}
+  pageText: {fileID: 0}
+  pageImageRenderer: {fileID: 0}
+  prevButtonGO: {fileID: 0}
+  nextButtonGO: {fileID: 0}
   source: {fileID: 672012772}
   clips:
   - {fileID: 8300000, guid: d1e46ad8dcf9df34ba9281e76b8cbad0, type: 3}
   - {fileID: 8300000, guid: 080170fb7e06da1458a3bac11ee173a3, type: 3}
-  entryNames:
-  - Ally
-  - Area Bomb
-  - Clear
-  - Damage Boost
-  - Shield
-  entryTexts:
-  - Summon ally ship.
-  - Launch shootable explosive.
-  - Destroy enemy projectiles.
-  - Increase weapon damage.
-  - Project protective barrier.
-  entryImages:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  entriesLocked: 0101010101
-  lockedName: Locked
-  lockedText: This entry has not been unlocked yet.
-  lockedImage: {fileID: 0}
-  contentGO: {fileID: 382722552}
-  entryPrefab: {fileID: 1713916620723542, guid: 59a503433cedb5c429970fbe2ea98644,
-    type: 2}
 --- !u!114 &1996974827
 MonoBehaviour:
   m_ObjectHideFlags: 0

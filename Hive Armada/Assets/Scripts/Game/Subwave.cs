@@ -548,8 +548,8 @@ namespace Hive.Armada.Game
                     if (zone != SpawnZone.Introduction)
                     {
                         // spawn position is random point in its zone
-                        Vector3 lower = spawnZones[(int) zone].lowerBound.transform.position;
-                        Vector3 upper = spawnZones[(int) zone].upperBound.transform.position;
+                        Vector3 lower = spawnZones[(int)zone].lowerBound.transform.position;
+                        Vector3 upper = spawnZones[(int)zone].upperBound.transform.position;
 
                         float radius;
                         bool isColliding;
@@ -685,30 +685,31 @@ namespace Hive.Armada.Game
                         }
                         --enemyCapCount;
 
-                    if (enemyCapCount <= 0)
-                    {
-                        canSpawn = false;
+                        if (enemyCapCount <= 0)
+                        {
+                            canSpawn = false;
+                        }
+
+                        ++enemiesRemaining;
+
+                        if (spawned.name.Contains("Enemy_Splitter"))
+                        {
+                            // accounting for splitter children that the splitter spawns
+                            enemiesRemaining += 4;
+                        }
+
+                        --enemiesToSpawn;
                     }
-
-                    ++enemiesRemaining;
-
-                    if (spawned.name.Contains("Enemy_Splitter"))
-                    {
-                        // accounting for splitter children that the splitter spawns
-                        enemiesRemaining += 4;
-                    }
-
-                    --enemiesToSpawn;
                 }
-            }
 
-            if (enemiesToSpawn > 0)
-            {
-                Debug.LogWarning(GetType().Name + " #" + SubwaveNumber +
-                                 " - enemiesToSpawn = " + enemiesToSpawn);
-            }
+                if (enemiesToSpawn > 0)
+                {
+                    Debug.LogWarning(GetType().Name + " #" + SubwaveNumber +
+                                     " - enemiesToSpawn = " + enemiesToSpawn);
+                }
 
-            StartCoroutine(WaitForSubwaveEnd());
+                StartCoroutine(WaitForSubwaveEnd());
+            }
         }
 
         /// <summary>

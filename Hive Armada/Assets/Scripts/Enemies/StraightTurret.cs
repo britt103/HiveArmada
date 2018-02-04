@@ -145,7 +145,7 @@ namespace Hive.Armada.Enemies
                     transform.position = Vector3.Lerp(transform.position, endPosition, Time.deltaTime * 1.0f);
                     if (Vector3.Distance(transform.position, endPosition) <= 0.1f)
                     {
-                        MoveComplete();
+                        moveComplete = true;
                     }
 
                 }
@@ -204,13 +204,13 @@ namespace Hive.Armada.Enemies
             endPosition = endPos;
             spawnComplete = true;
         }
-        /// <summary>
-        /// Runs when this enemy is at endPos.
-        /// </summary>
-        public void MoveComplete()
-        {
-            moveComplete = true;
-        }
+        ///// <summary>
+        ///// Runs when this enemy is at endPos.
+        ///// </summary>
+        //public void MoveComplete()
+        //{
+        //    moveComplete = true;
+        //}
 
         /// <summary>
         /// Resets attributes to this enemy's defaults from enemyAttributes.

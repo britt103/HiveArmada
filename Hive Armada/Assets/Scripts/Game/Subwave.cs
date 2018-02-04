@@ -656,28 +656,27 @@ namespace Hive.Armada.Game
                         if (zone == SpawnZone.Center)
                         {
                             iTween.MoveTo(spawned, iTween.Hash("path", iTweenPath.GetPath("CenterPath"), "easetype", iTween.EaseType.easeInOutSine, "time", 5.0f,
-                                                                      "orienttopath", true, "lookahead", .5f, "onComplete", "SetEndpoints", "onCompleteTarget", spawned, "oncompleteparams", position));
+                                                                      "orienttopath", true, "lookahead", .5f, "onComplete", "SetEndpoint", "onCompleteTarget", spawned, "oncompleteparams", position));
                         }
                         else if (zone == SpawnZone.FrontLeft)
                         {
-
                             iTween.MoveTo(spawned, iTween.Hash("path", iTweenPath.GetPath("LeftPath"), "easetype", iTween.EaseType.easeInOutSine, "time", 5.0f,
-                                                                      "orienttopath", true, "lookahead", .5f, "onComplete", "SetEndpoints", "onCompleteTarget", spawned, "oncompleteparams", position));
+                                                                      "orienttopath", true, "lookahead", .5f, "onComplete", "SetEndpoint", "onCompleteTarget", spawned, "oncompleteparams", position));
                         }
                         else if (zone == SpawnZone.FrontRight)
                         {
                             iTween.MoveTo(spawned, iTween.Hash("path", iTweenPath.GetPath("RightPath"), "easetype", iTween.EaseType.easeInOutSine, "time", 5.0f,
-                                                                      "orienttopath", true, "lookahead", .5f, "onComplete", "SetEndpoints", "onCompleteTarget", spawned, "oncompleteparams", position));
+                                                                      "orienttopath", true, "lookahead", .5f, "onComplete", "SetEndpoint", "onCompleteTarget", spawned, "oncompleteparams", position));
                         }
                         else if (zone == SpawnZone.BackLeft)
                         {
-                            iTween.MoveTo(spawned, iTween.Hash("path", iTweenPath.GetPath("BackleftPath"), "easetype", iTween.EaseType.easeInOutSine, "time", 5.0f,
-                                                                      "orienttopath", true, "lookahead", .5f, "onComplete", "SetEndpoints", "onCompleteTarget", spawned, "oncompleteparams", position));
+                            iTween.MoveTo(spawned, iTween.Hash("path", iTweenPath.GetPath("BackLeftPath"), "easetype", iTween.EaseType.easeInOutSine, "time", 5.0f,
+                                                                      "orienttopath", true, "lookahead", .5f, "onComplete", "SetEndpoint", "onCompleteTarget", spawned, "oncompleteparams", position));
                         }
                         else if (zone == SpawnZone.BackRight)
                         {
                             iTween.MoveTo(spawned, iTween.Hash("path", iTweenPath.GetPath("BackRightPath"), "easetype", iTween.EaseType.easeInOutSine, "time", 5.0f,
-                                                                      "orienttopath", true, "lookahead", .5f, "onComplete", "SetEndpoints", "onCompleteTarget", spawned, "oncompleteparams", position));
+                                                                      "orienttopath", true, "lookahead", .5f, "onComplete", "SetEndpoint", "onCompleteTarget", spawned, "oncompleteparams", position));
                         }
                         else
                         {

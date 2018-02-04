@@ -76,10 +76,17 @@ namespace Hive.Armada.Menus
         /// </summary>
         public GameObject entryText;
 
+        [Header("Content")]
         /// <summary>
         /// Prefab for Lexicon entry button.
         /// </summary>
         public GameObject entryButtonPrefab;
+
+        [Tooltip("Number of content entries that will start visible within viewport")]
+        /// <summary>
+        /// Number of content entries that will start visible within viewport.
+        /// </summary>
+        public int numStartingEntries;
 
         /// <summary>
         /// State of whether an entry is currently open.
@@ -189,6 +196,11 @@ namespace Hive.Armada.Menus
                 else
                 {
                     entryButton.transform.Find("Name").gameObject.GetComponent<Text>().text = entryData.entryNames[i];
+                }
+
+                if (i > numStartingEntries - 1)
+                {
+                    entryButton.layer = LayerMask.NameToLayer("Default");
                 }
             }
         }

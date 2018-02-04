@@ -132,8 +132,7 @@ namespace Hive.Armada.Enemies
                     }
                     else
                     {
-                        player = GameObject.FindGameObjectWithTag("Player");
-
+                        player = reference.playerShip;
                         if (player == null)
                         {
                             transform.LookAt(new Vector3(0.0f, 0.0f, 0.0f));

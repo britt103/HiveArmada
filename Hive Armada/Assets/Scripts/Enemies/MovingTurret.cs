@@ -90,12 +90,27 @@ namespace Hive.Armada.Enemies
         /// </summary>
         private float theta;
 
+        // <summary>
+        /// Final position after spawning.
+        /// </summary>
+        private Vector3 endPosition;
+
+        /// <summary>
+        /// Bools used to move the enemy to its spawn position.
+        /// </summary>
+        bool spawnComplete;
+
+        /// <summary>
+        /// Bools used to move the enemy to its spawn position.
+        /// </summary>
+        bool moveComplete;
+
         /// <summary>
         /// Finds the player. Runs when this enemy spawns.
         /// </summary>
         private void Start()
         {
-            player = GameObject.FindGameObjectWithTag("Player");
+            player = reference.playerShip;
             if (player != null)
             {
                 transform.LookAt(player.transform);
@@ -129,31 +144,46 @@ namespace Hive.Armada.Enemies
         /// </summary>
         private void Update()
         {
-            transform.position = Vector3.Lerp(posA, posB, (Mathf.Sin(theta) + 1.0f) / 2.0f);
-
-            theta += movingSpeed * Time.deltaTime;
-
-            if (theta > Mathf.PI * 3 / 2)
+            if (spawnComplete)
             {
-                theta -= Mathf.PI * 2;
-            }
-
-            if (player != null)
-            {
-                transform.LookAt(player.transform);
-
-                if (canShoot)
+                if (moveComplete)
                 {
-                    StartCoroutine(Shoot());
+                    transform.position = Vector3.Lerp(posA, posB, (Mathf.Sin(theta) + 1.0f) / 2.0f);
+
+                    theta += movingSpeed * Time.deltaTime;
+
+                    if (theta > Mathf.PI * 3 / 2)
+                    {
+                        theta -= Mathf.PI * 2;
+                    }
+
+                    if (player != null)
+                    {
+                        transform.LookAt(player.transform);
+
+                        if (canShoot)
+                        {
+                            StartCoroutine(Shoot());
+                        }
+                    }
+                    else
+                    {
+                        player = reference.playerShip;
+
+                        if (player == null)
+                        {
+                            transform.LookAt(new Vector3(0.0f, 2.0f, 0.0f));
+                        }
+                    }
                 }
-            }
-            else
-            {
-                player = reference.playerShip;
-
-                if (player == null)
+                else
                 {
-                    transform.LookAt(new Vector3(0.0f, 2.0f, 0.0f));
+                    transform.position = Vector3.Lerp(transform.position, endPosition, Time.deltaTime * 1.0f);
+                    if (Vector3.Distance(transform.position, endPosition) <= 0.1f)
+                    {
+                        moveComplete = true;
+                    }
+
                 }
             }
 
@@ -189,6 +219,16 @@ namespace Hive.Armada.Enemies
         }
 
         /// <summary>
+        /// Runs when this enemy finishes default pathing to a SpawnZone.
+        /// </summary>
+        /// <param name="endPos">Final position of this enemy.</param>
+        public void SetEndpoint(Vector3 endPos)
+        {
+            endPosition = endPos;
+            spawnComplete = true;
+        }
+
+        /// <summary>
         /// Resets attributes to this enemy's defaults from enemyAttributes.
         /// </summary>
         protected override void Reset()
@@ -202,6 +242,8 @@ namespace Hive.Armada.Enemies
             hitFlash = null;
             shaking = false;
             canShoot = true;
+            spawnComplete = false;
+            moveComplete = false;
 
             projectileTypeIdentifier =
                 enemyAttributes.EnemyProjectileTypeIdentifiers[TypeIdentifier];

@@ -51,6 +51,21 @@ namespace Hive.Armada.Enemies
         /// </summary>
         private int damage;
 
+        // <summary>
+        /// Final position after spawning.
+        /// </summary>
+        private Vector3 endPosition;
+
+        /// <summary>
+        /// Bools used to move the enemy to its spawn position.
+        /// </summary>
+        bool spawnComplete;
+
+        /// <summary>
+        /// Bools used to move the enemy to its spawn position.
+        /// </summary>
+        bool moveComplete;
+
         /// <summary>
         /// Looks at the player and stores own position.
         /// </summary>
@@ -59,7 +74,7 @@ namespace Hive.Armada.Enemies
             myTransform = transform;
             if (player != null)
             {
-                player = GameObject.FindGameObjectWithTag("Player");
+                player = reference.playerShip;
                 transform.LookAt(player.transform.position);
             }
         }
@@ -69,21 +84,36 @@ namespace Hive.Armada.Enemies
         /// </summary>
         void Update()
         {
-            player = GameObject.FindGameObjectWithTag("Player");
-
-            if (Vector3.Distance(transform.position, player.transform.position) >= range)
+            if (spawnComplete)
             {
-                myTransform.rotation = Quaternion.Lerp(myTransform.rotation,
-                                                       Quaternion.LookRotation(player.transform.position
-                                                       - myTransform.position),
-                                                       rotationSpeed * Time.deltaTime);
+                if (moveComplete)
+                {
+                    player = reference.playerShip;
 
-                myTransform.position += myTransform.forward * moveSpeed * Time.deltaTime;
-            }
+                    if (Vector3.Distance(transform.position, player.transform.position) >= range)
+                    {
+                        myTransform.rotation = Quaternion.Lerp(myTransform.rotation,
+                                                               Quaternion.LookRotation(player.transform.position
+                                                               - myTransform.position),
+                                                               rotationSpeed * Time.deltaTime);
 
-            else if (Vector3.Distance(transform.position, player.transform.position) < range)
-            {
-                StartCoroutine(InRange());
+                        myTransform.position += myTransform.forward * moveSpeed * Time.deltaTime;
+                    }
+
+                    else if (Vector3.Distance(transform.position, player.transform.position) < range)
+                    {
+                        StartCoroutine(InRange());
+                    }
+                }
+                else
+                {
+                    transform.position = Vector3.Lerp(transform.position, endPosition, Time.deltaTime * 1.0f);
+                    if (Vector3.Distance(transform.position, endPosition) <= 0.1f)
+                    {
+                        moveComplete = true;
+                    }
+
+                }
             }
             //if (shaking)
             //{
@@ -104,6 +134,16 @@ namespace Hive.Armada.Enemies
                 other.gameObject.GetComponent<Player.PlayerHealth>().Hit(damage);
                 Kill();
             }
+        }
+
+        /// <summary>
+        /// Runs when this enemy finishes default pathing to a SpawnZone.
+        /// </summary>
+        /// <param name="endPos">Final position of this enemy.</param>
+        public void SetEndpoint(Vector3 endPos)
+        {
+            endPosition = endPos;
+            spawnComplete = true;
         }
 
         /// <summary>
@@ -144,6 +184,8 @@ namespace Hive.Armada.Enemies
 
             hitFlash = null;
             shaking = false;
+            spawnComplete = false;
+            moveComplete = false;
 
             maxHealth = enemyAttributes.enemyHealthValues[TypeIdentifier];
             Health = maxHealth;

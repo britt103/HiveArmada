@@ -114,78 +114,9 @@ namespace Hive.Armada.Game
                     for (int spawnGroup = 0; spawnGroup < spawnGroupCount; ++spawnGroup)
                     {
                         JSONNode thisSpawnGroup = thisSubwave["spawn-groups"][spawnGroup];
-                        int enemyCount = thisSpawnGroup["enemies"].Count;
-                        SetupEnemySpawn[] enemySpawns = new SetupEnemySpawn[enemyCount];
-
-                        // Iterate over this subwave's enemy spawns
-                        for (int enemy = 0; enemy < enemyCount; ++enemy)
-                        {
-                            JSONNode thisEnemy = thisSpawnGroup["enemies"][enemy];
-
-                            AttackPattern attackPattern;
-
-                            switch (thisEnemy["attack-pattern"].AsInt)
-                            {
-                                case 0:
-                                    attackPattern = AttackPattern.One;
-                                    break;
-                                case 1:
-                                    attackPattern = AttackPattern.Two;
-                                    break;
-                                case 2:
-                                    attackPattern = AttackPattern.Three;
-                                    break;
-                                case 3:
-                                    attackPattern = AttackPattern.Four;
-                                    break;
-                                default:
-                                    attackPattern = AttackPattern.One;
-                                    break;
-                            }
-
-                            enemySpawns[enemy] = new SetupEnemySpawn
-                                                 {
-                                                     enemyPrefab = reference
-                                                         .objectPoolManager
-                                                         .objects[
-                                                         thisEnemy["type"]
-                                                             .AsInt]
-                                                         .objectPrefab,
-                                                     spawnCount = thisEnemy["count"].AsInt,
-                                                     attackPattern = attackPattern
-                                                 };
-                        }
-
-                        SpawnZone spawnZone;
-
-                        switch (thisSpawnGroup["spawn-zone"].AsInt)
-                        {
-                            case 0:
-                                spawnZone = SpawnZone.Introduction;
-                                break;
-                            case 1:
-                                spawnZone = SpawnZone.Center;
-                                break;
-                            case 2:
-                                spawnZone = SpawnZone.FrontLeft;
-                                break;
-                            case 3:
-                                spawnZone = SpawnZone.FrontRight;
-                                break;
-                            case 4:
-                                spawnZone = SpawnZone.BackLeft;
-                                break;
-                            case 5:
-                                spawnZone = SpawnZone.BackRight;
-                                break;
-                            default:
-                                spawnZone = SpawnZone.Center;
-                                break;
-                        }
 
                         spawnGroups[spawnGroup] = new SetupSpawnGroup
                                                   {
-                                                      spawnZone = spawnZone,
                                                       spawnWithPrevious =
                                                           thisSpawnGroup[
                                                               "with-previous"]
@@ -193,9 +124,86 @@ namespace Hive.Armada.Game
                                                       spawnGroupDelay =
                                                           thisSpawnGroup["group-delay"].AsFloat,
                                                       spawnDelay = thisSpawnGroup["spawn-delay"]
-                                                          .AsFloat,
-                                                      setupEnemySpawns = enemySpawns
+                                                          .AsFloat
                                                   };
+
+                        // Add spawn zone
+                        switch (thisSpawnGroup["spawn-zone"].AsInt)
+                        {
+                            case 0:
+                                spawnGroups[spawnGroup].spawnZone = SpawnZone.Introduction;
+                                break;
+                            case 1:
+                                spawnGroups[spawnGroup].spawnZone = SpawnZone.Center;
+                                break;
+                            case 2:
+                                spawnGroups[spawnGroup].spawnZone = SpawnZone.FrontLeft;
+                                break;
+                            case 3:
+                                spawnGroups[spawnGroup].spawnZone = SpawnZone.FrontRight;
+                                break;
+                            case 4:
+                                spawnGroups[spawnGroup].spawnZone = SpawnZone.BackLeft;
+                                break;
+                            case 5:
+                                spawnGroups[spawnGroup].spawnZone = SpawnZone.BackRight;
+                                break;
+                            default:
+                                spawnGroups[spawnGroup].spawnZone = SpawnZone.Center;
+                                break;
+                        }
+
+                        // Add enemy spawns if there are any
+                        if (thisSpawnGroup["enemies"])
+                        {
+                            int enemyCount = thisSpawnGroup["enemies"].Count;
+                            SetupEnemySpawn[] enemySpawns = new SetupEnemySpawn[enemyCount];
+
+                            // Iterate over this subwave's enemy spawns
+                            for (int enemy = 0; enemy < enemyCount; ++enemy)
+                            {
+                                JSONNode thisEnemy = thisSpawnGroup["enemies"][enemy];
+
+                                AttackPattern attackPattern;
+
+                                switch (thisEnemy["attack-pattern"].AsInt)
+                                {
+                                    case 0:
+                                        attackPattern = AttackPattern.One;
+                                        break;
+                                    case 1:
+                                        attackPattern = AttackPattern.Two;
+                                        break;
+                                    case 2:
+                                        attackPattern = AttackPattern.Three;
+                                        break;
+                                    case 3:
+                                        attackPattern = AttackPattern.Four;
+                                        break;
+                                    default:
+                                        attackPattern = AttackPattern.One;
+                                        break;
+                                }
+
+                                enemySpawns[enemy] = new SetupEnemySpawn
+                                {
+                                    enemyPrefab = reference
+                                                             .objectPoolManager
+                                                             .objects[
+                                                             thisEnemy["type"]
+                                                                 .AsInt]
+                                                             .objectPrefab,
+                                    spawnCount = thisEnemy["count"].AsInt,
+                                    attackPattern = attackPattern
+                                };
+                            }
+
+                            spawnGroups[spawnGroup].setupEnemySpawns = enemySpawns;
+                        }
+                        else
+                        {
+                            spawnGroups[spawnGroup].setupEnemySpawns = new SetupEnemySpawn[0];
+                        }
 
                         // Add power-up spawns if there are any
                         if (thisSpawnGroup["powerups"])
@@ -224,6 +232,10 @@ namespace Hive.Armada.Game
                             }
 
                             spawnGroups[spawnGroup].setupPowerupSpawns = powerupSpawns;
+                        }
+                        else
+                        {
+                            spawnGroups[spawnGroup].setupPowerupSpawns = new SetupPowerupSpawn[0];
                         }
                     }
 

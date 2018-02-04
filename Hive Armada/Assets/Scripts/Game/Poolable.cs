@@ -42,7 +42,6 @@ namespace Hive.Armada.Game
         public virtual void Initialize(int typeIdentifier)
         {
             TypeIdentifier = typeIdentifier;
-            Reset();
             gameObject.SetActive(false);
         }
 

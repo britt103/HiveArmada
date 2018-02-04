@@ -203,8 +203,6 @@ namespace Hive.Armada.Enemies
                 renderers.Add(r);
                 materials.Add(r.material);
             }
-
-            Reset();
         }
 
         /// <summary>

@@ -154,7 +154,7 @@ namespace Hive.Armada.Game
                         }
 
                         // Add enemy spawns if there are any
-                        if (thisSpawnGroup["enemies"])
+                        if (thisSpawnGroup["enemies"] != null)
                         {
                             int enemyCount = thisSpawnGroup["enemies"].Count;
                             SetupEnemySpawn[] enemySpawns = new SetupEnemySpawn[enemyCount];
@@ -206,7 +206,7 @@ namespace Hive.Armada.Game
                         }
 
                         // Add power-up spawns if there are any
-                        if (thisSpawnGroup["powerups"])
+                        if (thisSpawnGroup["powerups"] != null)
                         {
                             int powerupCount = thisSpawnGroup["powerups"].Count;
                             SetupPowerupSpawn[] powerupSpawns = new SetupPowerupSpawn[powerupCount];

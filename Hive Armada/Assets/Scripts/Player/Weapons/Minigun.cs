@@ -125,23 +125,8 @@ namespace Hive.Armada.Player.Weapons
         protected override void Clicked()
         {
             RaycastHit hit;
-            if (Physics.SphereCast(transform.position, radius, transform.forward, out hit, 200.0f,
-                                   Utility.enemyMask))
-            {
-                StartCoroutine(Shoot(hit.point));
-
-                Instantiate(hitSparkEmitter, hit.point,
-                            Quaternion.LookRotation(hit.point - gameObject.transform.position));
-
-                if (hit.collider.gameObject.GetComponent<Enemy>() != null)
-                {
-                    hit.collider.gameObject.GetComponent<Enemy>().Hit(damage * damageMultiplier);
-                }
-
-                shipController.hand.controller.TriggerHapticPulse(2500);
-            }
-            else if (Physics.Raycast(transform.position, transform.forward, out hit, 200.0f,
-                                     Utility.shootableMask))
+            if (Physics.Raycast(transform.position, transform.forward, out hit, 200.0f,
+                                Utility.shootableMask))
             {
                 StartCoroutine(Shoot(hit.point));
 
@@ -152,6 +137,21 @@ namespace Hive.Armada.Player.Weapons
                     && hit.collider.gameObject.GetComponent<Shootable>().isShootable)
                 {
                     hit.collider.gameObject.GetComponent<Shootable>().Shot();
+                }
+
+                shipController.hand.controller.TriggerHapticPulse(2500);
+            }
+            else if (Physics.SphereCast(transform.position, radius, transform.forward, out hit, 200.0f,
+                                        Utility.enemyMask))
+            {
+                StartCoroutine(Shoot(hit.point));
+
+                Instantiate(hitSparkEmitter, hit.point,
+                            Quaternion.LookRotation(hit.point - gameObject.transform.position));
+
+                if (hit.collider.gameObject.GetComponent<Enemy>() != null)
+                {
+                    hit.collider.gameObject.GetComponent<Enemy>().Hit(damage * damageMultiplier);
                 }
 
                 shipController.hand.controller.TriggerHapticPulse(2500);

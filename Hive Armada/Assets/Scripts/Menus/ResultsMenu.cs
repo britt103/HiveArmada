@@ -45,11 +45,6 @@ namespace Hive.Armada.Menus
     	public AudioClip[] clips;
 
         /// <summary>
-        /// Reference to ReferenceManager.
-        /// </summary>
-        private ReferenceManager reference;
-
-        /// <summary>
         /// Reference to PlayerStats.
         /// </summary>
         private PlayerStats stats;
@@ -79,7 +74,6 @@ namespace Hive.Armada.Menus
         /// </summary>
         void Awake()
         {
-            reference = FindObjectOfType<ReferenceManager>();
             stats = FindObjectOfType<PlayerStats>();
 
             wavesTextGO.GetComponent<Text>().text = "Waves: " + stats.waves;
@@ -90,6 +84,8 @@ namespace Hive.Armada.Menus
             scoreTextGO.GetComponent<Text>().text = "Score: " + stats.totalScore;
 
             stats.ResetTotals();
+
+            transitionManager.currMenu = gameObject;
         }
 
         /// <summary>

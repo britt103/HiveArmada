@@ -14,6 +14,7 @@
 
 using System.Collections.Generic;
 using UnityEngine;
+using Hive.Armada.Menus;
 using Hive.Armada.Player;
 using Valve.VR.InteractionSystem;
 
@@ -65,9 +66,14 @@ namespace Hive.Armada.PowerUps
         private Transform iconPoint;
 
         /// <summary>
-        /// References to PlayerStats,
+        /// References to PlayerStats.
         /// </summary>
         private PlayerStats stats;
+
+        /// <summary>
+        /// Reference to LexiconUnlockData.
+        /// </summary>
+        private LexiconUnlockData unlockData;
 
         /// <summary>
         /// Reference to active hand.
@@ -85,6 +91,7 @@ namespace Hive.Armada.PowerUps
         private void Start()
         {
             stats = FindObjectOfType<PlayerStats>();
+            unlockData = FindObjectOfType<LexiconUnlockData>();
         }
 
         /// <summary>
@@ -97,6 +104,7 @@ namespace Hive.Armada.PowerUps
                 if (hand.controller.GetPressDown(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad))
                 {
                     stats.PowerupUsed(powerups.Peek().name);
+                    unlockData.AddUnlock(powerups.Peek().name);
                     Instantiate(powerups.Dequeue(), powerupPoint);
                     RemoveDisplayIcon();
                 }

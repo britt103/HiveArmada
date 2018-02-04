@@ -130,12 +130,12 @@ namespace Hive.Armada.Menus
         /// </summary>
         private void UpdateUnlocks()
         {
-            List<string> unlocks = unlockData.GiveUnlocks();
-            foreach (string entryName in unlocks)
+            foreach (string entryName in unlockData.GetUnlocks())
             {
                 Unlock(entryName);
             }
             WriteLexiconFile();
+            unlockData.ClearUnlocks();
         }
 
         /// <summary>

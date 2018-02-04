@@ -29,18 +29,27 @@ namespace Hive.Armada.Menus
         /// <param name="name">Name of unlocked entry.</param>
         public void AddUnlock(string name)
         {
-            unlocks.Add(name);
+            if (!unlocks.Contains(name))
+            {
+                unlocks.Add(name);
+            }
         }
 
         /// <summary>
-        /// Return and clear unlocks list.
+        /// Return unlocks list.
         /// </summary>
-        /// <returns>Copy of unclocks list.</returns>
-        public List<string> GiveUnlocks()
+        /// <returns>Unlocks list.</returns>
+        public List<string> GetUnlocks()
         {
-            List<string> list = unlocks;
+            return unlocks;
+        }
+
+        /// <summary>
+        /// Clear unlocks list.
+        /// </summary>
+        public void ClearUnlocks()
+        {
             unlocks.Clear();
-            return list;
         }
     }
 }

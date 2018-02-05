@@ -14,7 +14,8 @@
 //=============================================================================
 
 using System.IO;
-using System.Collections.Generic;
+using Hive.Armada.Enemies;
+using Hive.Armada.PowerUps;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -76,6 +77,11 @@ namespace Hive.Armada.Menus
         /// </summary>
         public GameObject entryText;
 
+        /// <summary>
+        /// Reference to environment object on top of table.
+        /// </summary>
+        public GameObject tableDecoration;
+
         [Header("Content")]
         /// <summary>
         /// Prefab for Lexicon entry button.
@@ -87,6 +93,21 @@ namespace Hive.Armada.Menus
         /// Number of content entries that will start visible within viewport.
         /// </summary>
         public int numStartingEntries;
+
+        /// <summary>
+        /// References to prefabs used in entries. Order must match order in Lexicon.txt.
+        /// </summary>
+        public GameObject[] entryPrefabs;
+
+        /// <summary>
+        /// Point at which entry prefabs are displayed.
+        /// </summary>
+        public Transform entryPrefabPoint;
+
+        /// <summary>
+        /// Reference to currently displayed entry prefab.
+        /// </summary>
+        private GameObject currEntryPrefab;
 
         /// <summary>
         /// State of whether an entry is currently open.
@@ -112,6 +133,7 @@ namespace Hive.Armada.Menus
             unlockData = FindObjectOfType<LexiconUnlockData>();
             UpdateUnlocks();
             GenerateContent();
+            tableDecoration.SetActive(false);
         }
 
         /// <summary>
@@ -154,6 +176,7 @@ namespace Hive.Armada.Menus
             source.PlayOneShot(clips[1]);
             if (!entryOpen)
             {
+                tableDecoration.SetActive(true);
                 FindObjectOfType<RoomTransport>().Transport(backMenuTransform, gameObject,
                     backMenuGO);
             }
@@ -227,6 +250,16 @@ namespace Hive.Armada.Menus
             {
                 entryName.GetComponent<Text>().text = entryData.entryNames[entryId];
                 entryText.GetComponent<Text>().text = entryData.entryTexts[entryId];
+                currEntryPrefab = Instantiate(entryPrefabs[entryId], entryPrefabPoint);
+
+                if (currEntryPrefab.GetComponentInChildren<PowerUp>())
+                {
+                    currEntryPrefab.GetComponentInChildren<PowerUp>().lifeTime = Mathf.Infinity;
+                }
+                //else if (currEntryPrefab.GetComponentInChildren<Enemy>())
+                //{
+                //    currEntryPrefab.GetComponentInChildren<Enemy>().
+                //}
             }
 
             entryOpen = true;
@@ -241,6 +274,8 @@ namespace Hive.Armada.Menus
             entryName.SetActive(false);
             entryText.SetActive(false);
             scrollView.SetActive(true);
+
+            Destroy(currEntryPrefab);
 
             entryOpen = false;
         }

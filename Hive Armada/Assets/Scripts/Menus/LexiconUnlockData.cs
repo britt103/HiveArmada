@@ -29,8 +29,8 @@ namespace Hive.Armada.Menus
         /// <param name="name">Name of unlocked entry.</param>
         public void AddUnlock(string name)
         {
-            //Accounting for prefab naming convention.
-            name = name.Replace("_", " ");
+            //Accounting for prefab naming convention and cloning.
+            name = name.Replace("_", " ").Replace("(Clone)", "");
             if (!unlocks.Contains(name))
             {
                 unlocks.Add(name);

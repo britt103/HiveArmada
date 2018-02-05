@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Hive.Armada.Game;
+using Hive.Armada.Menus;
 using MirzaBeig.ParticleSystems;
 
 namespace Hive.Armada.Enemies
@@ -268,6 +269,7 @@ namespace Hive.Armada.Enemies
             subwave.EnemyDead();
             reference.statistics.AddScore(pointValue);
             reference.statistics.EnemyKilled();
+            FindObjectOfType<LexiconUnlockData>().AddUnlock(gameObject.name);
             objectPoolManager.Spawn(deathEmitterTypeIdentifier, transform.position,
                                     transform.rotation);
             objectPoolManager.Despawn(gameObject);

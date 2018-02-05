@@ -355,11 +355,6 @@ namespace Hive.Armada.Game
         private float respawnDelay;
 
         /// <summary>
-        /// Reference to LexiconUnlockData.
-        /// </summary>
-        private LexiconUnlockData unlockData;
-
-        /// <summary>
         /// Initializes the reference to the Reference Manager
         /// </summary>
         private void Awake()
@@ -369,8 +364,6 @@ namespace Hive.Armada.Game
             respawns = new List<EnemySpawn>();
 
             spawnZones = reference.waveManager.spawnZonesBounds;
-
-            unlockData = FindObjectOfType<LexiconUnlockData>();
         }
 
         /// <summary>
@@ -467,10 +460,6 @@ namespace Hive.Armada.Game
 
                             enemySpawns.Add(
                                 new EnemySpawn(typeIdentifier, spawnZone, attackPattern));
-
-                            //signal unlock for spawned enemy
-                            unlockData.AddUnlock(setupSpawnGroups[group].setupEnemySpawns[type]
-                                .enemyPrefab.name);
 
                             ++enemiesToSpawn;
                         }

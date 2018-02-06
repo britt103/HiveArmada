@@ -50,6 +50,11 @@ namespace Hive.Armada.Player
         }
 
         /// <summary>
+        /// The master collider used for the shield and Kamikaze proximity detonation.
+        /// </summary>
+        public MasterCollider masterCollider;
+
+        /// <summary>
         /// Index of the currently activated weapon.
         /// </summary>
         public int currentWeapon;

@@ -97,13 +97,20 @@ namespace Hive.Armada.Enemies
 
         //private bool fireModeSet = false;
 
-        ///// <summary>
-        ///// On start, select enemy behavior based on value fireMode
-        ///// </summary>
-        //void Start()
-        //{
-        //    //switchFireMode(fireMode);
-        //}
+        /// <summary>
+        /// Final position after spawning.
+        /// </summary>
+        private Vector3 endPosition;
+
+        /// <summary>
+        /// Bools used to move the enemy to its spawn position.
+        /// </summary>
+        private bool spawnComplete;
+
+        /// <summary>
+        /// Bools used to move the enemy to its spawn position.
+        /// </summary>
+        private bool moveComplete;
 
         /// <summary>
         /// tracks player and shoots projectiles in that direction, while being slightly
@@ -112,31 +119,37 @@ namespace Hive.Armada.Enemies
         /// </summary>
         private void Update()
         {
-            /// Ghetto set firemode
-            //if (!fireModeSet)
-            //{
-            //    fireMode = 2;
-            //    switchFireMode(fireMode);
-            //    fireModeSet = true;
-            //}
-
-            if (player != null)
+            if (spawnComplete)
             {
-                pos = player.transform.position;
-                transform.LookAt(pos);
-
-                if (canShoot)
+                if (moveComplete)
                 {
-                    StartCoroutine(Shoot());
+                    if (player != null)
+                    {
+                        pos = player.transform.position;
+                        transform.LookAt(pos);
+
+                        if (canShoot)
+                        {
+                            StartCoroutine(Shoot());
+                        }
+                    }
+                    else
+                    {
+                        player = reference.playerShip;
+                        if (player == null)
+                        {
+                            transform.LookAt(new Vector3(0.0f, 0.0f, 0.0f));
+                        }
+                    }
                 }
-            }
-            else
-            {
-                player = reference.playerShip;
-
-                if (player == null)
+                else
                 {
-                    transform.LookAt(new Vector3(0.0f, 0.0f, 0.0f));
+                    transform.position =
+                        Vector3.Lerp(transform.position, endPosition, Time.deltaTime * 1.0f);
+                    if (Vector3.Distance(transform.position, endPosition) <= 0.1f)
+                    {
+                        moveComplete = true;
+                    }
                 }
             }
 
@@ -154,8 +167,9 @@ namespace Hive.Armada.Enemies
         {
             canShoot = false;
 
-            GameObject projectile = objectPoolManager.Spawn(projectileTypeIdentifier, shootPoint.position,
-                                                       shootPoint.rotation);
+            GameObject projectile = objectPoolManager.Spawn(projectileTypeIdentifier,
+                                                            shootPoint.position,
+                                                            shootPoint.rotation);
             randX = Random.Range(-spread, spread);
             randY = Random.Range(-spread, spread);
             randZ = Random.Range(-spread, spread);
@@ -172,7 +186,6 @@ namespace Hive.Armada.Enemies
             yield return new WaitForSeconds(fireRate);
 
             canShoot = true;
-
         }
 
         private IEnumerator rotateProjectile(GameObject bullet)
@@ -188,7 +201,7 @@ namespace Hive.Armada.Enemies
         /// Function that determines the enemy's projectile, firerate,
         /// spread, and projectile speed.
         /// </summary>
-        /// <param name="mode">Current Enemy Firemode</param>
+        /// <param name="mode"> Current Enemy Firemode </param>
         private void switchFireMode(int mode)
         {
             switch (mode)
@@ -212,6 +225,23 @@ namespace Hive.Armada.Enemies
         }
 
         /// <summary>
+        /// Runs when this enemy finishes default pathing to a SpawnZone.
+        /// </summary>
+        /// <param name="endPos"> Final position of this enemy. </param>
+        public void SetEndpoint(Vector3 endPos)
+        {
+            endPosition = endPos;
+            spawnComplete = true;
+        }
+        ///// <summary>
+        ///// Runs when this enemy is at endPos.
+        ///// </summary>
+        //public void MoveComplete()
+        //{
+        //    moveComplete = true;
+        //}
+
+        /// <summary>
         /// Resets attributes to this enemy's defaults from enemyAttributes.
         /// </summary>
         protected override void Reset()
@@ -222,6 +252,8 @@ namespace Hive.Armada.Enemies
                 renderers.ElementAt(i).material = materials.ElementAt(i);
             }
 
+            spawnComplete = false;
+            moveComplete = false;
             hitFlash = null;
             shaking = false;
             canShoot = true;

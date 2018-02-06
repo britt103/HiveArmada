@@ -1,12 +1,12 @@
 ﻿//=============================================================================
 //
-// Ryan Britton
-// 1849351
-// britt103@mail.chapman.edu
+// Miguel Gotao
+// 2264941
+// gotao100@mail.chapman.edu
 // CPSC-340-01 & CPSC-344-01
 // Group Project
 //
-// Enemy that shoots at the player while moving between two points
+// Standard enemy behavior for shooting projectiles
 //
 //=============================================================================
 
@@ -14,34 +14,20 @@ using System.Collections;
 using System.Linq;
 using UnityEngine;
 using MirzaBeig.ParticleSystems;
-using Random = UnityEngine.Random;
 
 namespace Hive.Armada.Enemies
 {
-    /// <summary>
-    /// Moving turret Enemy
-    /// </summary>
-    public class MovingTurret : Enemy
+    public class StraightTurret : Enemy
     {
         /// <summary>
-        /// Type identifier for this enemy's projectiles in objectPoolManager
+        /// Type identifier for object pooling purposes
         /// </summary>
         private int projectileTypeIdentifier;
 
         /// <summary>
-        /// The point where this enemy shoots from.
+        /// Projectile that the turret shoots out
         /// </summary>
-        public Transform shootPoint;
-
-        /// <summary>
-        /// How many time per second this enemy can shoot.
-        /// </summary>
-        private float fireRate;
-
-        /// <summary>
-        /// How fast the projectiles move.
-        /// </summary>
-        private float projectileSpeed;
+        public GameObject fireProjectile;
 
         /// <summary>
         /// Structure holding bullet prefabs that
@@ -50,9 +36,39 @@ namespace Hive.Armada.Enemies
         public GameObject[] projectileArray;
 
         /// <summary>
-        /// Projectile that the turret shoots out
+        /// Position from which bullets are initially shot from
         /// </summary>
-        public GameObject fireProjectile;
+        public Transform shootPoint;
+
+        /// <summary>
+        /// Variable that finds the player GameObject
+        /// </summary>
+        private GameObject player;
+
+        /// <summary>
+        /// Vector3 that holds the player's position
+        /// </summary>
+        private Vector3 pos;
+
+        /// <summary>
+        /// How fast the turret shoots at a given rate
+        /// </summary>
+        public float fireRate;
+
+        /// <summary>
+        /// The rate at which enemy projectiles travel
+        /// </summary>
+        public float projectileSpeed;
+
+        /// <summary>
+        /// Size of conical spread the bullets travel within
+        /// </summary>
+        public float spread;
+
+        /// <summary>
+        /// Value that calculates the next time at which the enemy is able to shoot again
+        /// </summary>
+        private float fireNext;
 
         /// <summary>
         /// Value that determines what projectile the enemy will shoot
@@ -61,42 +77,15 @@ namespace Hive.Armada.Enemies
         private int fireMode;
 
         /// <summary>
-        /// Degrees that the projectile can be randomly rotated.
-        /// Randomly picks in the range of [-spread, spread] for all 3 axes.
+        /// Spread values determined by spread on each axis
         /// </summary>
-        private float spread;
+        private float randX;
 
-        /// <summary>
-        /// How fast this enemy can move.
-        /// </summary>
-        public float movingSpeed;
+        private float randY;
 
-        /// <summary>
-        /// Distance on the X axis this enemy will move.
-        /// </summary>
-        public float xMax;
+        private float randZ;
 
-        /// <summary>
-        /// Distance on the Y axis this enemy will move.
-        /// </summary>
-        public float yMax;
-
-        /// <summary>
-        /// Initial position of this enemy.
-        /// </summary>
-        private Vector3 posA;
-
-        /// <summary>
-        /// Secondary position this enemy will move between.
-        /// Based on xMax and yMax.
-        /// </summary>
-        private Vector3 posB;
-
-        /// <summary>
-        /// The player's ship.
-        /// </summary>
-        private GameObject player;
-
+<<<<<<< HEAD
         /// <summary>
         /// Whether this enemy can shoot or not. Toggles when firing every 1/fireRate seconds.
         /// </summary>
@@ -107,11 +96,8 @@ namespace Hive.Armada.Enemies
         /// </summary>
         private bool canRotate;
 
-        /// <summary>
-        /// Angle used for moving with Mathf.Sin.
-        /// </summary>
-        private float theta;
-
+        //private bool fireModeSet = false;
+=======
         // <summary>
         /// Final position after spawning.
         /// </summary>
@@ -120,99 +106,93 @@ namespace Hive.Armada.Enemies
         /// <summary>
         /// Bools used to move the enemy to its spawn position.
         /// </summary>
-        private bool spawnComplete;
+        bool spawnComplete;
 
         /// <summary>
         /// Bools used to move the enemy to its spawn position.
         /// </summary>
-        private bool moveComplete;
+        bool moveComplete;
+>>>>>>> feature/pathing
+
+        ///// <summary>
+        ///// On start, select enemy behavior based on value fireMode
+        ///// </summary>
+        //void Start()
+        //{
+        //    //switchFireMode(fireMode);
+        //}
 
         /// <summary>
-        /// Finds the player. Runs when this enemy spawns.
-        /// </summary>
-        private void Start()
-        {
-            player = reference.playerShip;
-            if (player != null)
-            {
-                transform.LookAt(player.transform);
-            }
-            SetPosition();
-        }
-
-        private void OnEnable()
-        {
-            SetPosition();
-        }
-
-        /// <summary>
-        /// Sets the two positions this enemy moves between.
-        /// </summary>
-        private void SetPosition()
-        {
-            posA = new Vector3(transform.position.x - xMax / 2,
-                               transform.position.y - yMax / 2,
-                               transform.position.z);
-            posB = new Vector3(transform.position.x + xMax / 2,
-                               transform.position.y + yMax / 2,
-                               transform.position.z);
-
-            theta = 0.0f;
-        }
-
-        /// <summary>
-        /// Moves the enemy between posA and posB, and tries to look at
-        /// the player and shoot at it when possible.
+        /// tracks player and shoots projectiles in that direction, while being slightly
+        /// swayed via the spread value set by user. If player is not found automatically
+        /// finds player, otherwise do nothing.
         /// </summary>
         private void Update()
         {
+<<<<<<< HEAD
+            /// Ghetto set firemode
+            //if (!fireModeSet)
+            //{
+            //    fireMode = 2;
+            //    switchFireMode(fireMode);
+            //    fireModeSet = true;
+            //}
+
+            if (player != null)
+            {
+                pos = player.transform.position;
+                transform.LookAt(pos);
+
+                if (canShoot)
+                {
+                    StartCoroutine(Shoot());
+                }
+            }
+            else
+            {
+                player = reference.playerShip;
+
+                if (player == null)
+=======
             if (spawnComplete)
             {
                 if (moveComplete)
                 {
-                    transform.position = Vector3.Lerp(posA, posB, (Mathf.Sin(theta) + 1.0f) / 2.0f);
-
-                    theta += movingSpeed * Time.deltaTime;
-
-                    if (theta > Mathf.PI * 3 / 2)
-                    {
-                        theta -= Mathf.PI * 2;
-                    }
-
                     if (player != null)
                     {
-                        transform.LookAt(player.transform);
+                        pos = player.transform.position;
+                        transform.LookAt(pos);
 
-                        if (canShoot)
+                        if (Time.time > fireNext)
                         {
-                            StartCoroutine(Shoot());
+                            fireNext = Time.time + 1 / fireRate;
+                            StartCoroutine(FireBullet());
                         }
                     }
                     else
                     {
                         player = reference.playerShip;
-
                         if (player == null)
                         {
-                            transform.LookAt(new Vector3(0.0f, 2.0f, 0.0f));
+                            transform.LookAt(new Vector3(0.0f, 0.0f, 0.0f));
                         }
                     }
                 }
                 else
+>>>>>>> feature/pathing
                 {
-                    transform.position =
-                        Vector3.Lerp(transform.position, endPosition, Time.deltaTime * 1.0f);
+                    transform.position = Vector3.Lerp(transform.position, endPosition, Time.deltaTime * 1.0f);
                     if (Vector3.Distance(transform.position, endPosition) <= 0.1f)
                     {
                         moveComplete = true;
                     }
+
                 }
             }
 
             //if (shaking)
             //{
-            //    iTween.ShakePosition(gameObject, new Vector3(0.1f, 0.1f, 0.1f), 0.1f);
-
+            //    iTween.ShakePosition(gameObject, new Vector3(0.01f, 0.01f, 0.01f), Time.deltaTime);
             //}
             SelfDestructCountdown();
         }
@@ -224,14 +204,13 @@ namespace Hive.Armada.Enemies
         {
             canShoot = false;
 
-            GameObject projectile =
-                objectPoolManager.Spawn(projectileTypeIdentifier, shootPoint.position,
-                                        shootPoint.rotation);
+            GameObject projectile = objectPoolManager.Spawn(projectileTypeIdentifier, shootPoint.position,
+                                                       shootPoint.rotation);
+            randX = Random.Range(-spread, spread);
+            randY = Random.Range(-spread, spread);
+            randZ = Random.Range(-spread, spread);
 
-            projectile.GetComponent<Transform>().Rotate(Random.Range(-spread, spread),
-                                                        Random.Range(-spread, spread),
-                                                        Random.Range(-spread, spread));
-
+            projectile.GetComponent<Transform>().Rotate(randX, randY, randZ);
             projectile.GetComponent<Rigidbody>().velocity =
                 projectile.transform.forward * projectileSpeed;
 
@@ -243,6 +222,7 @@ namespace Hive.Armada.Enemies
             yield return new WaitForSeconds(fireRate);
 
             canShoot = true;
+
         }
 
         private IEnumerator rotateProjectile(GameObject bullet)
@@ -258,7 +238,7 @@ namespace Hive.Armada.Enemies
         /// Function that determines the enemy's projectile, firerate,
         /// spread, and projectile speed.
         /// </summary>
-        /// <param name="mode"> Current Enemy Firemode </param>
+        /// <param name="mode">Current Enemy Firemode</param>
         private void switchFireMode(int mode)
         {
             switch (mode)
@@ -267,6 +247,7 @@ namespace Hive.Armada.Enemies
                     fireRate = 0.6f;
                     projectileSpeed = 1.5f;
                     spread = 2;
+                    canRotate = false;
                     fireProjectile = projectileArray[0];
                     break;
 
@@ -274,20 +255,27 @@ namespace Hive.Armada.Enemies
                     fireRate = 0.3f;
                     projectileSpeed = 1.5f;
                     spread = 0;
+                    canRotate = true;
                     fireProjectile = projectileArray[1];
                     break;
             }
         }
-
         /// <summary>
         /// Runs when this enemy finishes default pathing to a SpawnZone.
         /// </summary>
-        /// <param name="endPos"> Final position of this enemy. </param>
+        /// <param name="endPos">Final position of this enemy.</param>
         public void SetEndpoint(Vector3 endPos)
         {
             endPosition = endPos;
             spawnComplete = true;
         }
+        ///// <summary>
+        ///// Runs when this enemy is at endPos.
+        ///// </summary>
+        //public void MoveComplete()
+        //{
+        //    moveComplete = true;
+        //}
 
         /// <summary>
         /// Resets attributes to this enemy's defaults from enemyAttributes.
@@ -299,12 +287,11 @@ namespace Hive.Armada.Enemies
             {
                 renderers.ElementAt(i).material = materials.ElementAt(i);
             }
-
+            spawnComplete = false;
+            moveComplete = false;
             hitFlash = null;
             shaking = false;
             canShoot = true;
-            spawnComplete = false;
-            moveComplete = false;
 
             projectileTypeIdentifier =
                 enemyAttributes.EnemyProjectileTypeIdentifiers[TypeIdentifier];

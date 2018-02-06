@@ -87,6 +87,21 @@ namespace Hive.Armada.Enemies
         /// </summary>
         private bool canShoot = true;
 
+        // <summary>
+        /// Final position after spawning.
+        /// </summary>
+        private Vector3 endPosition;
+
+        /// <summary>
+        /// Bools used to move the enemy to its spawn position.
+        /// </summary>
+        bool spawnComplete;
+
+        /// <summary>
+        /// Bools used to move the enemy to its spawn position.
+        /// </summary>
+        bool moveComplete;
+
         /// <summary>
         /// Whether or not the projectile being shot rotates.
         /// </summary>
@@ -97,22 +112,37 @@ namespace Hive.Armada.Enemies
         /// </summary>
         private void Update()
         {
-            if (player != null)
+            if (spawnComplete)
             {
-                transform.LookAt(player.transform);
-
-                if (canShoot)
+                if (moveComplete)
                 {
-                    StartCoroutine(Shoot());
+                    if (player != null)
+                    {
+                        transform.LookAt(player.transform);
+
+                        if (canShoot)
+                        {
+                            StartCoroutine(Shoot());
+                        }
+                    }
+                    else
+                    {
+                        player = reference.playerShip;
+
+                        if (player == null)
+                        {
+                            transform.LookAt(new Vector3(0.0f, 2.0f, 0.0f));
+                        }
+                    }
                 }
-            }
-            else
-            {
-                player = reference.playerShip;
-
-                if (player == null)
+                else
                 {
-                    transform.LookAt(new Vector3(0.0f, 2.0f, 0.0f));
+                    transform.position = Vector3.Lerp(transform.position, endPosition, Time.deltaTime * 1.0f);
+                    if (Vector3.Distance(transform.position, endPosition) <= 0.1f)
+                    {
+                        moveComplete = true;
+                    }
+
                 }
             }
             //if (shaking)
@@ -185,6 +215,16 @@ namespace Hive.Armada.Enemies
             }
         }
         /// <summary>
+        /// Runs when this enemy finishes default pathing to a SpawnZone.
+        /// </summary>
+        /// <param name="endPos">Final position of this enemy.</param>
+        public void SetEndpoint(Vector3 endPos)
+        {
+            endPosition = endPos;
+            spawnComplete = true;
+        }
+
+        /// <summary>
         /// Spawns 4 'childTurret' enemies when this enemy is destroyed
         /// </summary>
         protected override void KillSpecial()
@@ -223,10 +263,7 @@ namespace Hive.Armada.Enemies
                 child2.GetComponent<Rigidbody>().AddForce(new Vector3(transform.position.x - splitDir, transform.position.y - splitDir, transform.position.z));
                 child3.GetComponent<Rigidbody>().AddForce(new Vector3(transform.position.x + splitDir, transform.position.y - splitDir, transform.position.z));
                 child4.GetComponent<Rigidbody>().AddForce(new Vector3(transform.position.x - splitDir, transform.position.y + splitDir, transform.position.z));
-                //iTween.MoveTo(child1, iTween.Hash("x", transform.localPosition.x + (splitDir), "y", transform.localPosition.y + (splitDir), "z", transform.localPosition.z, "islocal", false, "time", 1.0f));
-                //iTween.MoveTo(child2, iTween.Hash("x", transform.localPosition.x + (splitDir), "y", transform.localPosition.y - (splitDir), "z", transform.localPosition.z, "islocal", false, "time", 1.0f));
-                //iTween.MoveTo(child3, iTween.Hash("x", transform.localPosition.x - (splitDir), "y", transform.localPosition.y + (splitDir), "z", transform.localPosition.z, "islocal", false, "time", 1.0f));
-                //iTween.MoveTo(child4, iTween.Hash("x", transform.localPosition.x - (splitDir), "y", transform.localPosition.y - (splitDir), "z", transform.localPosition.z, "islocal", false, "time", 1.0f));
+
             }
 
             StartCoroutine(DeathDelay());
@@ -256,6 +293,8 @@ namespace Hive.Armada.Enemies
             hitFlash = null;
             shaking = false;
             canShoot = true;
+            spawnComplete = false;
+            moveComplete = false;
 
             projectileTypeIdentifier =
                             enemyAttributes.EnemyProjectileTypeIdentifiers[TypeIdentifier];

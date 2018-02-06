@@ -11,6 +11,7 @@
 //=============================================================================
 
 using System.Collections;
+using Hive.Armada.Enemies;
 using UnityEngine;
 using Hive.Armada.Game;
 
@@ -116,13 +117,22 @@ namespace Hive.Armada.Player
         /// <param name="other"> The other collider </param>
         private void OnTriggerEnter(Collider other)
         {
+            KamikazeTurret kamikaze = other.gameObject.GetComponent<KamikazeTurret>();
+
             if (!ShieldActive)
             {
+                if (kamikaze != null)
+                {
+                    kamikaze.NearPlayer();
+                }
+
                 return;
             }
 
-            if (!other.CompareTag("Projectile"))
+            if (kamikaze)
             {
+                kamikaze.Hit(1000);
+
                 return;
             }
 

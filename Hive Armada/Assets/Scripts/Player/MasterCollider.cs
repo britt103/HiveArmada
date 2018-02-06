@@ -191,6 +191,7 @@ namespace Hive.Armada.Player
                 shieldFlashTime -= shieldFlashAcceleration;
             }
 
+            ShieldActive = false;
             shieldRenderer.enabled = false;
             shieldCoroutine = null;
 

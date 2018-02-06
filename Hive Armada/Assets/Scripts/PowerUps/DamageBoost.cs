@@ -16,9 +16,8 @@ using System.Collections;
 using UnityEngine;
 using Hive.Armada.Game;
 using Hive.Armada.Player;
-using Hive.Armada.PowerUps;
 
-namespace Hive.Armada
+namespace Hive.Armada.PowerUps
 {
     /// <summary>
     /// Damage boost powerup

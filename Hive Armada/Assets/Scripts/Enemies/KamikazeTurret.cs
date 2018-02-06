@@ -52,6 +52,11 @@ namespace Hive.Armada.Enemies
         private int damage;
 
         /// <summary>
+        /// If the Kamikaze has already gone near the player.
+        /// </summary>
+        private bool nearPlayer;
+
+        /// <summary>
         /// Looks at the player and stores own position.
         /// </summary>
         void Start()
@@ -119,9 +124,21 @@ namespace Hive.Armada.Enemies
         }
 
         /// <summary>
+        /// Runs InRange if not already running.
+        /// </summary>
+        public void NearPlayer()
+        {
+            if (!nearPlayer)
+            {
+                nearPlayer = true;
+                StartCoroutine(InRange());
+            }
+        }
+
+        /// <summary>
         /// Causes a timed explosion when the enemy gets within range of the player ship
         /// </summary>
-        IEnumerator InRange()
+        private IEnumerator InRange()
         {
             moveSpeed = moveSpeed / 2.0f;
             foreach (Renderer r in renderers)

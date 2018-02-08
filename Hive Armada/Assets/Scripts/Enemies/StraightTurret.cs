@@ -75,7 +75,7 @@ namespace Hive.Armada.Enemies
         /// <summary>
         /// Value that calculates the next time at which the enemy is able to shoot again
         /// </summary>
-        private float fireNext;
+        //private float fireNext;
 
         /// <summary>
         /// Value that determines what projectile the enemy will shoot
@@ -107,10 +107,10 @@ namespace Hive.Armada.Enemies
         ///// <summary>
         ///// On start, select enemy behavior based on value fireMode
         ///// </summary>
-        void Start()
-        {
-            SetAttackPattern(attackPattern);
-        }
+        //void Start()
+        //{
+            
+        //}
 
         /// <summary>
         /// tracks player and shoots projectiles in that direction, while being slightly
@@ -161,12 +161,12 @@ namespace Hive.Armada.Enemies
         {
             canShoot = false;
 
-            for(int x = 0; x < 9; ++x)
+            for(int point = 0; point < 9; ++point)
             {
-                if(projectileArray[x] == true)
+                if(projectileArray[point] == true)
                 {
-                    GameObject projectile = objectPoolManager.Spawn(projectileTypeIdentifier, shootPoint[x].position,
-                                                       shootPoint[x].rotation);
+                    GameObject projectile = objectPoolManager.Spawn(projectileTypeIdentifier, shootPoint[point].position,
+                                                       shootPoint[point].rotation);
 
                     randX = Random.Range(-spread, spread);
                     randY = Random.Range(-spread, spread);

@@ -503,7 +503,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1320547421668860}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 5.53, z: 0}
   m_LocalScale: {x: 4, y: 4, z: 4}
   m_Children:
   - {fileID: 4042364280859282}
@@ -1500,12 +1500,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flashColor: {fileID: 2100000, guid: 1db15971033ba594294b4f0c035f7da8, type: 2}
-  fireProjectile: {fileID: 0}
-  fireSpawn: {fileID: 4320416853268668}
+  shootPoint: {fileID: 4320416853268668}
   fireRate: 1.5
-  fireSpeed: 1
-  fireCone: 7.5
-  firePellet: 10
+  projectileSpeed: 0
+  spread: 0
+  projectileCount: 10
 --- !u!136 &136189900763700134
 CapsuleCollider:
   m_ObjectHideFlags: 1

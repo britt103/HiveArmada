@@ -11,7 +11,6 @@
 
 using System.Collections;
 using System.Linq;
-using Hive.Armada.Player;
 using UnityEngine;
 using MirzaBeig.ParticleSystems;
 
@@ -52,21 +51,6 @@ namespace Hive.Armada.Enemies
         /// </summary>
         private int damage;
 
-        // <summary>
-        /// Final position after spawning.
-        /// </summary>
-        private Vector3 endPosition;
-
-        /// <summary>
-        /// Bools used to move the enemy to its spawn position.
-        /// </summary>
-        private bool spawnComplete;
-
-        /// <summary>
-        /// Bools used to move the enemy to its spawn position.
-        /// </summary>
-        private bool moveComplete;
-
         /// <summary>
         /// If the Kamikaze has already gone near the player.
         /// </summary>
@@ -75,11 +59,11 @@ namespace Hive.Armada.Enemies
         /// <summary>
         /// Looks at the player and stores own position.
         /// </summary>
-        private void Start()
+        void Start()
         {
             if (player != null)
             {
-                player = reference.playerShip;
+                player = GameObject.FindGameObjectWithTag("Player");
                 transform.LookAt(player.transform.position);
             }
         }
@@ -87,33 +71,39 @@ namespace Hive.Armada.Enemies
         /// <summary>
         /// Moves the enemy closer to the player and explodes if they are within 'range'. Runs every frame.
         /// </summary>
-        private void Update()
+        void Update()
         {
-            if (spawnComplete)
+            if (player != null)
             {
-                if (moveComplete)
+                myTransform = transform;
+
+
+                if (Vector3.Distance(transform.position, player.transform.position) >= range)
                 {
-                    player = reference.playerShip;
+                    myTransform.rotation = Quaternion.Lerp(myTransform.rotation,
+                                                           Quaternion.LookRotation(player.transform.position
+                                                           - myTransform.position),
+                                                           rotationSpeed * Time.deltaTime);
 
-                    if (Vector3.Distance(transform.position, player.transform.position) >= range)
-                    {
-                        myTransform.rotation = Quaternion.Lerp(myTransform.rotation,
-                                                               Quaternion.LookRotation(
-                                                                   player.transform.position
-                                                                   - myTransform.position),
-                                                               rotationSpeed * Time.deltaTime);
-
-                        myTransform.position += myTransform.forward * moveSpeed * Time.deltaTime;
-                    }
+                    myTransform.position += myTransform.forward * moveSpeed * Time.deltaTime;
                 }
-                else
+
+                else if (Vector3.Distance(transform.position, player.transform.position) < range)
                 {
-                    transform.position =
-                        Vector3.Lerp(transform.position, endPosition, Time.deltaTime * 1.0f);
-                    if (Vector3.Distance(transform.position, endPosition) <= 0.1f)
-                    {
-                        moveComplete = true;
-                    }
+                    StartCoroutine(InRange());
+                }
+                //if (shaking)
+                //{
+                //    iTween.ShakePosition(gameObject, new Vector3(0.1f, 0.1f, 0.1f), 0.1f);
+                //}
+            }
+            else
+            {
+                player = reference.playerShip;
+
+                if (player == null)
+                {
+                    transform.LookAt(new Vector3(0.0f, 0.0f, 0.0f));
                 }
             }
         }
@@ -128,19 +118,9 @@ namespace Hive.Armada.Enemies
         {
             if (other.tag == "Player")
             {
-                other.gameObject.GetComponent<PlayerHealth>().Hit(damage);
+                other.gameObject.GetComponent<Player.PlayerHealth>().Hit(damage);
                 Kill();
             }
-        }
-
-        /// <summary>
-        /// Runs when this enemy finishes default pathing to a SpawnZone.
-        /// </summary>
-        /// <param name="endPos"> Final position of this enemy. </param>
-        public void SetEndpoint(Vector3 endPos)
-        {
-            endPosition = endPos;
-            spawnComplete = true;
         }
 
         /// <summary>
@@ -176,7 +156,7 @@ namespace Hive.Armada.Enemies
 
             if (Vector3.Distance(transform.position, player.transform.position) < range)
             {
-                player.gameObject.GetComponent<PlayerHealth>().Hit(damage);
+                player.gameObject.GetComponent<Player.PlayerHealth>().Hit(damage);
             }
             Kill();
         }
@@ -194,8 +174,6 @@ namespace Hive.Armada.Enemies
 
             hitFlash = null;
             shaking = false;
-            spawnComplete = false;
-            moveComplete = false;
 
             maxHealth = enemyAttributes.enemyHealthValues[TypeIdentifier];
             Health = maxHealth;

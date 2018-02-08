@@ -19,11 +19,11 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4484438766323920}
-  - component: {fileID: 114283089246265016}
-  - component: {fileID: 114801313402817020}
-  - component: {fileID: 114993372478455762}
-  - component: {fileID: 114518696920890480}
-  - component: {fileID: 114279905085402436}
+  - component: {fileID: 114249502839347478}
+  - component: {fileID: 114707029511041178}
+  - component: {fileID: 114051505045945438}
+  - component: {fileID: 114065334055833758}
+  - component: {fileID: 114221893394238600}
   m_Layer: 0
   m_Name: Enemy Paths
   m_TagString: Untagged
@@ -68,7 +68,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1928108800046058}
   m_LocalRotation: {x: -0, y: -0.8970698, z: -0, w: -0.4418889}
-  m_LocalPosition: {x: -19.303, y: 5.32, z: 18.482}
+  m_LocalPosition: {x: -10.692238, y: 6.6400003, z: 3.8598652}
   m_LocalScale: {x: 4, y: 4, z: 4}
   m_Children: []
   m_Father: {fileID: 4484438766323920}
@@ -81,7 +81,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1145441088549298}
   m_LocalRotation: {x: -0, y: 0.46004918, z: -0, w: 0.8878935}
-  m_LocalPosition: {x: -3.73, y: -7.55, z: -1.08}
+  m_LocalPosition: {x: 3.013, y: -9.97, z: 16.448963}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4491688267167078}
@@ -96,13 +96,13 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1651922480724736}
   m_LocalRotation: {x: -0, y: -0.8970698, z: -0, w: -0.4418889}
-  m_LocalPosition: {x: 1.205, y: 4.649, z: 3.721}
+  m_LocalPosition: {x: 11.864597, y: 6.6400003, z: -12.134689}
   m_LocalScale: {x: 4, y: 4, z: 4}
   m_Children: []
   m_Father: {fileID: 4484438766323920}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114279905085402436
+--- !u!114 &114051505045945438
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -110,41 +110,42 @@ MonoBehaviour:
   m_GameObject: {fileID: 1145441088549298}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a80152e2d63236f4cb97b9acba77fbb9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pathName: BackRightPath
-  pathColor: {r: 0, g: 1, b: 0.17241383, a: 1}
-  nodes:
-  - {x: 1.0277507, y: -2.6409402, z: 23.939756}
-  - {x: 2.6320546, y: 2.4620895, z: 18.52134}
-  - {x: 4.0479937, y: 4.937879, z: 6.671597}
-  nodeCount: 3
-  initialized: 1
-  initialName: New Path 5
-  pathVisible: 1
---- !u!114 &114283089246265016
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1145441088549298}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a80152e2d63236f4cb97b9acba77fbb9, type: 3}
+  m_Script: {fileID: 11500000, guid: 01bffa8aa898b437183cd5617f7b5303, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   pathName: CenterPath
   pathColor: {r: 0, g: 1, b: 1, a: 1}
   nodes:
-  - {x: 0, y: -3.5017047, z: 0.9474838}
-  - {x: 0, y: -2.0305014, z: 5.5489097}
-  - {x: 0, y: 0.90515924, z: 4.0660615}
+  - {x: 0.05178672, y: -3.8970587, z: 1.4233841}
+  - {x: 0, y: -4.003642, z: 4.6453595}
+  - {x: 0, y: 0.49529862, z: 5.516558}
+  - {x: 0.046563268, y: 0.97730243, z: 4.7756524}
+  nodeCount: 4
+  initialized: 1
+  initialName: New Path 3
+  pathVisible: 1
+--- !u!114 &114065334055833758
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1145441088549298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01bffa8aa898b437183cd5617f7b5303, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pathName: BackLeftPath
+  pathColor: {r: 0.77931035, g: 1, b: 0, a: 1}
+  nodes:
+  - {x: -0.8386436, y: -3.353675, z: 26.297857}
+  - {x: -3.1523418, y: 3.634256, z: 23.55349}
+  - {x: -3.7305644, y: 4.7059164, z: 7.883}
   nodeCount: 3
   initialized: 1
   initialName: New Path 1
   pathVisible: 1
---- !u!114 &114518696920890480
+--- !u!114 &114221893394238600
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -152,41 +153,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 1145441088549298}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a80152e2d63236f4cb97b9acba77fbb9, type: 3}
+  m_Script: {fileID: 11500000, guid: 01bffa8aa898b437183cd5617f7b5303, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pathName: BackLeftPath
-  pathColor: {r: 1, g: 0, b: 0, a: 1}
+  pathName: BackRightPath
+  pathColor: {r: 0.034482475, g: 0, b: 1, a: 1}
   nodes:
-  - {x: -0.8917213, y: -2.368951, z: 24.071077}
-  - {x: -2.9914353, y: 2.4510221, z: 19.268438}
-  - {x: -3.7446878, y: 5.0507364, z: 6.809639}
-  nodeCount: 3
-  initialized: 1
-  initialName: New Path 4
-  pathVisible: 1
---- !u!114 &114801313402817020
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1145441088549298}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a80152e2d63236f4cb97b9acba77fbb9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pathName: LeftPath
-  pathColor: {r: 0.862069, g: 1, b: 0, a: 1}
-  nodes:
-  - {x: -0.79862756, y: -3.460756, z: 0.5515518}
-  - {x: -5.372866, y: -2.31245, z: 3.4978588}
-  - {x: -5.244373, y: 1.010596, z: 3.4183304}
+  - {x: 1.1393604, y: -3.3623085, z: 26.07883}
+  - {x: 2.2618384, y: 3.8391056, z: 23.975807}
+  - {x: 3.7330523, y: 4.9070144, z: 7.445878}
   nodeCount: 3
   initialized: 1
   initialName: New Path 2
   pathVisible: 1
---- !u!114 &114993372478455762
+--- !u!114 &114249502839347478
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -194,16 +174,39 @@ MonoBehaviour:
   m_GameObject: {fileID: 1145441088549298}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a80152e2d63236f4cb97b9acba77fbb9, type: 3}
+  m_Script: {fileID: 11500000, guid: 01bffa8aa898b437183cd5617f7b5303, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   pathName: RightPath
-  pathColor: {r: 0.034482475, g: 0, b: 1, a: 1}
+  pathColor: {r: 0, g: 1, b: 0.42068958, a: 1}
   nodes:
-  - {x: 0.906336, y: -3.4207788, z: 0.7690215}
-  - {x: 5.233125, y: -1.1095483, z: 3.7273622}
-  - {x: 4.924301, y: 1.0396986, z: 3.1256628}
-  nodeCount: 3
+  - {x: 1.3792582, y: -3.9990125, z: 0.5188019}
+  - {x: 4.4367523, y: -2.771706, z: 3.4223702}
+  - {x: 4.793858, y: 0.76067924, z: 4.2569323}
+  - {x: 4.375311, y: 1.0424327, z: 4.047853}
+  nodeCount: 4
   initialized: 1
-  initialName: New Path 3
+  initialName: New Path 1
+  pathVisible: 1
+--- !u!114 &114707029511041178
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1145441088549298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01bffa8aa898b437183cd5617f7b5303, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pathName: LeftPath
+  pathColor: {r: 1, g: 0, b: 0.35172415, a: 1}
+  nodes:
+  - {x: -1.182615, y: -3.8494415, z: 0.7137146}
+  - {x: -4.6000004, y: -3.91818, z: 3.8257382}
+  - {x: -4.79017, y: 0.7880218, z: 4.146329}
+  - {x: -4.2887607, y: 1.295454, z: 3.5981674}
+  nodeCount: 4
+  initialized: 1
+  initialName: New Path 2
   pathVisible: 1

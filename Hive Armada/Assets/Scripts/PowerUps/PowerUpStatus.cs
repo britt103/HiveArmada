@@ -104,7 +104,7 @@ namespace Hive.Armada.PowerUps
                 if (hand.controller.GetPressDown(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad))
                 {
                     stats.PowerupUsed(powerups.Peek().name);
-                    unlockData.AddUnlock(powerups.Peek().name);
+                    unlockData.AddPowerupUnlock(powerups.Peek().name);
                     Instantiate(powerups.Dequeue(), powerupPoint);
                     RemoveDisplayIcon();
                 }

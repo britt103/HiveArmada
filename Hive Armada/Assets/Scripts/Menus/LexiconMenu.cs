@@ -14,8 +14,8 @@
 //=============================================================================
 
 using System.IO;
-using Hive.Armada.Enemies;
-using Hive.Armada.PowerUps;
+using System.Linq;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -63,9 +63,19 @@ namespace Hive.Armada.Menus
         public GameObject menuTitle;
 
         /// <summary>
-        /// Reference to menu ScrollView.
+        /// Reference to description text.
+        /// </summary>
+        public GameObject menuDescription;
+
+        /// <summary>
+        /// Reference to menu ScrollView game object.
         /// </summary>
         public GameObject scrollView;
+
+        /// <summary>
+        /// Reference to scrollview vertical scrollbar.
+        /// </summary>
+        public Scrollbar scrollBar;
 
         /// <summary>
         /// Reference to entry name text.
@@ -78,6 +88,11 @@ namespace Hive.Armada.Menus
         public GameObject entryText;
 
         /// <summary>
+        /// Reference to category buttons/tabs.
+        /// </summary>
+        public GameObject[] categoryButtons;
+
+        /// <summary>
         /// Reference to environment object on top of table.
         /// </summary>
         public GameObject tableDecoration;
@@ -88,16 +103,20 @@ namespace Hive.Armada.Menus
         /// </summary>
         public GameObject entryButtonPrefab;
 
-        [Tooltip("Number of content entries that will start visible within viewport")]
         /// <summary>
-        /// Number of content entries that will start visible within viewport.
+        /// References to prefabs used in powerup entries. Order must match Lexicon.txt.
         /// </summary>
-        public int numStartingEntries;
+        public GameObject[] powerupPrefabs;
 
         /// <summary>
-        /// References to prefabs used in entries. Order must match order in Lexicon.txt.
+        /// References to prefabs used in powerup entries. Order must match Lexicon.txt.
         /// </summary>
-        public GameObject[] entryPrefabs;
+        public GameObject[] enemyPrefabs;
+
+        /// <summary>
+        /// References to prefabs used in powerup entries. Order must match Lexicon.txt.
+        /// </summary>
+        public GameObject[] weaponPrefabs;
 
         /// <summary>
         /// Point at which entry prefabs are displayed.
@@ -115,6 +134,11 @@ namespace Hive.Armada.Menus
         private bool entryOpen = false;
 
         /// <summary>
+        /// State of whether a category is currently open.
+        /// </summary>
+        private bool categoryOpen = false;
+
+        /// <summary>
         /// Object storing entry information.
         /// </summary>
         private LexiconEntryData entryData;
@@ -125,14 +149,40 @@ namespace Hive.Armada.Menus
         private LexiconUnlockData unlockData;
 
         /// <summary>
-        /// Read in Lexicon data and unlocks. Generate buttons for entries in scrollView.
+        /// Entry names of currently open category.
+        /// </summary>
+        private List<string> currNames = new List<string>();
+
+        /// <summary>
+        /// Entry texts of currently open category.
+        /// </summary>
+        private List<string> currTexts = new List<string>();
+
+        /// <summary>
+        /// Entry prefabs of currently open category.
+        /// </summary>
+        private List<GameObject> currPrefabs = new List<GameObject>();
+
+        /// <summary>
+        /// Locked entry states of currently open category.
+        /// </summary>
+        private List<bool> currLocked = new List<bool>();
+
+        /// <summary>
+        /// Read in Lexicon data and unlocks.
         /// </summary>
         private void Start()
         {
             ReadLexiconFile();
             unlockData = FindObjectOfType<LexiconUnlockData>();
             UpdateUnlocks();
-            GenerateContent();
+        }
+
+        /// <summary>
+        /// Disable game object near Lexicon area.
+        /// </summary>
+        private void OnEnable()
+        {
             tableDecoration.SetActive(false);
         }
 
@@ -159,71 +209,115 @@ namespace Hive.Armada.Menus
         /// </summary>
         private void UpdateUnlocks()
         {
-            foreach (string entryName in unlockData.GetUnlocks())
+            foreach (string entryName in unlockData.GetUnlocks()[0])
             {
-                Unlock(entryName);
+                UnlockPowerup(entryName);
             }
+            foreach (string entryName in unlockData.GetUnlocks()[1])
+            {
+                UnlockEnemy(entryName);
+            }
+            foreach (string entryName in unlockData.GetUnlocks()[2])
+            {
+                UnlockWeapon(entryName);
+            }
+
             WriteLexiconFile();
             unlockData.ClearUnlocks();
         }
 
         /// <summary>
-        /// Back button pressed. If entry is not open, navigate to Main Menu.
-        /// Else, navigate to entry selection.
+        /// Back button pressed. If a category or entry is open, close it. Else, transition
+        /// to back menu.
         /// </summary>
         public void PressBack()
         {
             source.PlayOneShot(clips[1]);
-            if (!entryOpen)
+
+            if (entryOpen)
+            {
+                CloseEntry();
+            }
+            else if (categoryOpen)
+            {
+                CloseCategory();
+            }
+            else
             {
                 tableDecoration.SetActive(true);
                 FindObjectOfType<RoomTransport>().Transport(backMenuTransform, gameObject,
                     backMenuGO);
             }
-            else
-            {
-                CloseEntry();
-            }
         }
 
         /// <summary>
-        /// Unlock the entry associated with the provided name.
+        /// Unlock the powerup entry associated with the provided name.
         /// </summary>
-        /// <param name="name">name of entry to unlock.</param>
-        public void Unlock(string name)
+        /// <param name="name">Name of entry to unlock.</param>
+        public void UnlockPowerup(string name)
         {
-            for(int i = 0; i < entryData.numEntries; ++i)
+            for (int i = 0; i < entryData.powerupNames.Length; ++i)
             {
-                if(name == entryData.entryNames[i] && entryData.entriesLocked[i])
+                if (name == entryData.powerupNames[i] && entryData.powerupsLocked[i])
                 {
-                    entryData.entriesLocked[i] = false;
+                    entryData.powerupsLocked[i] = false;
                 }
             }
         }
 
         /// <summary>
-        /// Create entrie buttons as children of Content.
+        /// Unlock the enemy entry associated with the provided name.
+        /// </summary>
+        /// <param name="name">Name of entry to unlock.</param>
+        public void UnlockEnemy(string name)
+        {
+            for (int i = 0; i < entryData.enemyNames.Length; ++i)
+            {
+                if (name == entryData.enemyNames[i] && entryData.enemiesLocked[i])
+                {
+                    entryData.enemiesLocked[i] = false;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Unlock the weapon entry associated with the provided name.
+        /// </summary>
+        /// <param name="name">Name of entry to unlock.</param>
+        public void UnlockWeapon(string name)
+        {
+            for (int i = 0; i < entryData.weaponNames.Length; ++i)
+            {
+                if (name == entryData.weaponNames[i] && entryData.weaponsLocked[i])
+                {
+                    entryData.weaponsLocked[i] = false;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Create entry buttons as children of Content and destroy previous buttons.
         /// </summary>
         private void GenerateContent()
         {
-            for(int i = 0; i < entryData.numEntries; ++i)
+            for (int i = 0; i < contentGO.transform.childCount; i++)
+            {
+                Destroy(contentGO.transform.GetChild(i).gameObject);
+            }
+
+            for (int i = 0; i < currNames.Capacity; ++i)
             {
                 GameObject entryButton = Instantiate(entryButtonPrefab, contentGO.transform);
                 entryButton.GetComponent<LexiconEntryButton>().id = i;
                 entryButton.GetComponent<LexiconEntryButton>().lexiconMenu = this;
                 entryButton.GetComponent<UIHover>().source = source;
-                if (entryData.entriesLocked[i])
+                if (currLocked[i])
                 {
                     entryButton.transform.Find("Name").gameObject.GetComponent<Text>().text = entryData.lockedName;
                 }
                 else
                 {
-                    entryButton.transform.Find("Name").gameObject.GetComponent<Text>().text = entryData.entryNames[i];
-                }
-
-                if (i > numStartingEntries - 1)
-                {
-                    entryButton.layer = LayerMask.NameToLayer("Default");
+                    entryButton.transform.Find("Name").gameObject.GetComponent<Text>().text = currNames[i];
                 }
             }
         }
@@ -241,32 +335,28 @@ namespace Hive.Armada.Menus
             entryName.SetActive(true);
             entryText.SetActive(true);
 
-            if (entryData.entriesLocked[entryId])
+            foreach(GameObject categoryButton in categoryButtons)
+            {
+                categoryButton.SetActive(false);
+            }
+
+            if (currLocked[entryId])
             {
                 entryName.GetComponent<Text>().text = entryData.lockedName;
                 entryText.GetComponent<Text>().text = entryData.lockedText;
             }
             else
             {
-                entryName.GetComponent<Text>().text = entryData.entryNames[entryId];
-                entryText.GetComponent<Text>().text = entryData.entryTexts[entryId];
-                currEntryPrefab = Instantiate(entryPrefabs[entryId], entryPrefabPoint);
-
-                if (currEntryPrefab.GetComponentInChildren<PowerUp>())
-                {
-                    currEntryPrefab.GetComponentInChildren<PowerUp>().lifeTime = Mathf.Infinity;
-                }
-                //else if (currEntryPrefab.GetComponentInChildren<Enemy>())
-                //{
-                //    currEntryPrefab.GetComponentInChildren<Enemy>().
-                //}
+                entryName.GetComponent<Text>().text = currNames[entryId];
+                entryText.GetComponent<Text>().text = currTexts[entryId];
+                currEntryPrefab = Instantiate(currPrefabs[entryId], entryPrefabPoint);
             }
 
             entryOpen = true;
         }
 
         /// <summary>
-        /// Close entry view and return to entry selection.
+        /// Close entry view and return to category view.
         /// </summary>
         public void CloseEntry()
         {
@@ -275,9 +365,74 @@ namespace Hive.Armada.Menus
             entryText.SetActive(false);
             scrollView.SetActive(true);
 
+            foreach (GameObject categoryButton in categoryButtons)
+            {
+                categoryButton.SetActive(true);
+            }
+
             Destroy(currEntryPrefab);
 
             entryOpen = false;
+        }
+
+        /// <summary>
+        /// Set variables tracking currently open category.
+        /// </summary>
+        /// <param name="category">Name of category</param>
+        private void SetCurrCategory(string category)
+        {
+            switch (category)
+            {
+                case "Powerups":
+                    currNames = entryData.powerupNames.ToList();
+                    currTexts = entryData.powerupTexts.ToList();
+                    currPrefabs = powerupPrefabs.ToList();
+                    currLocked = entryData.powerupsLocked.ToList();
+                    break;
+                case "Enemies":
+                    currNames = entryData.enemyNames.ToList();
+                    currTexts = entryData.enemyTexts.ToList();
+                    currPrefabs = enemyPrefabs.ToList();
+                    currLocked = entryData.enemiesLocked.ToList();
+                    break;
+                case "Weapons":
+                    currNames = entryData.weaponNames.ToList();
+                    currTexts = entryData.weaponTexts.ToList();
+                    currPrefabs = weaponPrefabs.ToList();
+                    currLocked = entryData.weaponsLocked.ToList();
+                    break;
+                default:
+                    Debug.Log("ERROR: Lexicon menu category could not be identified.");
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Open the category specified by parameter string.
+        /// </summary>
+        /// <param name="category">Name of category to open.</param>
+        public void OpenCategory(string category)
+        {
+            source.PlayOneShot(clips[0]);
+
+            menuDescription.SetActive(false);
+            menuTitle.GetComponent<Text>().text = category;
+            scrollView.SetActive(true);
+            SetCurrCategory(category);
+            GenerateContent();
+            scrollBar.value = 1;
+            categoryOpen = true;
+        }
+
+        /// <summary>
+        /// Close currently open category.
+        /// </summary>
+        private void CloseCategory()
+        {
+            menuDescription.SetActive(true);
+            menuTitle.GetComponent<Text>().text = "Lexicon";
+            scrollView.SetActive(false);
+            categoryOpen = false;
         }
     }
 }

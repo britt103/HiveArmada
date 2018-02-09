@@ -16,19 +16,49 @@ namespace Hive.Armada.Menus
     public class LexiconEntryData
     {
         /// <summary>
-        /// Name of item on each entry.
+        /// Name of powerup on each entry.
         /// </summary>
-        public string[] entryNames;
+        public string[] powerupNames;
 
         /// <summary>
-        /// Text description for item on each entry.
+        /// Text description for powerup on each entry.
         /// </summary>
-        public string[] entryTexts;
+        public string[] powerupTexts;
 
         /// <summary>
-        /// States of whether each entry is locked.
+        /// States of whether powerup entry is locked.
         /// </summary>
-        public bool[] entriesLocked;
+        public bool[] powerupsLocked;
+
+        /// <summary>
+        /// Name of enemy on each entry.
+        /// </summary>
+        public string[] enemyNames;
+
+        /// <summary>
+        /// Text description for enemy on each entry.
+        /// </summary>
+        public string[] enemyTexts;
+
+        /// <summary>
+        /// States of whether each enemy is locked.
+        /// </summary>
+        public bool[] enemiesLocked;
+
+        /// <summary>
+        /// Name of weapon on each entry.
+        /// </summary>
+        public string[] weaponNames;
+
+        /// <summary>
+        /// Text description for weapon on each entry.
+        /// </summary>
+        public string[] weaponTexts;
+
+        /// <summary>
+        /// States of whether each weapon is locked.
+        /// </summary>
+        public bool[] weaponsLocked;
 
         /// <summary>
         /// Name used for locked entries.
@@ -39,10 +69,5 @@ namespace Hive.Armada.Menus
         /// Text used for locked entries.
         /// </summary>
         public string lockedText;
-
-        /// <summary>
-        /// Number of entrys in entries array.
-        /// </summary>
-        public int numEntries;
     }
 }

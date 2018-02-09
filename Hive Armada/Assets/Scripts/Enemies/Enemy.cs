@@ -269,7 +269,7 @@ namespace Hive.Armada.Enemies
             subwave.EnemyDead();
             reference.statistics.AddScore(pointValue);
             reference.statistics.EnemyKilled();
-            FindObjectOfType<LexiconUnlockData>().AddUnlock(gameObject.name);
+            FindObjectOfType<LexiconUnlockData>().AddEnemyUnlock(gameObject.name);
             objectPoolManager.Spawn(deathEmitterTypeIdentifier, transform.position,
                                     transform.rotation);
             objectPoolManager.Despawn(gameObject);

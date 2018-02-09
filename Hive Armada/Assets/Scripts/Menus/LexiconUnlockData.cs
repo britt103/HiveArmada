@@ -19,39 +19,80 @@ namespace Hive.Armada.Menus
     public class LexiconUnlockData : MonoBehaviour
     {
         /// <summary>
-        /// List of names of entries unlocked.
+        /// List of names of powerups unlocked.
         /// </summary>
-        private List<string> unlocks = new List<string>();
+        private List<string> powerupUnlocks = new List<string>();
 
         /// <summary>
-        /// Add new entry name to unlocks list.
+        /// List of names of enemies unlocked.
         /// </summary>
-        /// <param name="name">Name of unlocked entry.</param>
-        public void AddUnlock(string name)
+        private List<string> enemyUnlocks = new List<string>();
+
+        /// <summary>
+        /// List of names of weapons unlocked.
+        /// </summary>
+        private List<string> weaponUnlocks = new List<string>();
+
+        /// <summary>
+        /// Add new entry name to powerup unlocks list.
+        /// </summary>
+        /// <param name="name">Name of unlocked powerup entry.</param>
+        public void AddPowerupUnlock(string name)
         {
-            //Accounting for prefab naming convention and cloning.
-            name = name.Replace("_", " ").Replace("(Clone)", "");
-            if (!unlocks.Contains(name))
+            name = name.Replace("_", " ").Replace("-Powerup", "");
+            if (!powerupUnlocks.Contains(name))
             {
-                unlocks.Add(name);
+                powerupUnlocks.Add(name);
             }
         }
 
         /// <summary>
-        /// Return unlocks list.
+        /// Add new entry name to enemy unlocks list.
         /// </summary>
-        /// <returns>Unlocks list.</returns>
-        public List<string> GetUnlocks()
+        /// <param name="name">Name of unlocked enemy entry.</param>
+        public void AddEnemyUnlock(string name)
         {
-            return unlocks;
+            name = name.Replace("_", " ").Replace("(Clone)", "");
+            if (!enemyUnlocks.Contains(name))
+            {
+                enemyUnlocks.Add(name);
+            }
         }
 
         /// <summary>
-        /// Clear unlocks list.
+        /// Add new entry name to weapon unlocks list.
+        /// </summary>
+        /// <param name="name">Name of unlocked weapon entry.</param>
+        public void AddWeaponUnlock(string name)
+        {
+            name = name.Replace("_", " ");
+            if (!weaponUnlocks.Contains(name))
+            {
+                weaponUnlocks.Add(name);
+            }
+        }
+
+        /// <summary>
+        /// Return unlocks lists.
+        /// </summary>
+        /// <returns>All unlock lists in a single list.</returns>
+        public List<List<string>> GetUnlocks()
+        {
+            List<List<string>> allUnlocks = new List<List<string>>();
+            allUnlocks.Add(powerupUnlocks);
+            allUnlocks.Add(enemyUnlocks);
+            allUnlocks.Add(weaponUnlocks);
+            return allUnlocks;
+        }
+
+        /// <summary>
+        /// Clear unlocks lists.
         /// </summary>
         public void ClearUnlocks()
         {
-            unlocks.Clear();
+            powerupUnlocks.Clear();
+            enemyUnlocks.Clear();
+            weaponUnlocks.Clear();
         }
     }
 }

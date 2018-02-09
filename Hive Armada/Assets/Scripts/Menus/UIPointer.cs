@@ -128,6 +128,23 @@ namespace Hive.Armada.Menus
                 RaycastHit hit;
 
                 if (Physics.Raycast(transform.position, transform.forward,
+                    out hit, Mathf.Infinity, Utility.uiCoverMask))
+                {
+                    Physics.Raycast(transform.position, transform.forward,
+                        out hit, Mathf.Infinity, Utility.roomMask);
+
+                    ExitLastInteractable();
+                    aimObject = null;
+                    isInteractable = false;
+
+                    pointer.SetPosition(0, transform.position);
+                    pointer.SetPosition(1, hit.point);
+
+                    float mag = (transform.position - hit.point).magnitude;
+                    pointer.endWidth = thickness * Mathf.Max(mag, 1.0f);
+                }
+
+                else if (Physics.Raycast(transform.position, transform.forward,
                         out hit, Mathf.Infinity, Utility.uiMask))
                 {
                     if (hit.collider.gameObject.CompareTag("InteractableUI"))
@@ -173,12 +190,12 @@ namespace Hive.Armada.Menus
                     float mag = (transform.position - hit.point).magnitude;
                     pointer.endWidth = thickness * Mathf.Max(mag, 1.0f);
                 }
-                else
-                {
-                    ExitLastInteractable();
-                    aimObject = null;
-                    isInteractable = false;
-                }
+                //else
+                //{
+                //    ExitLastInteractable();
+                //    aimObject = null;
+                //    isInteractable = false;
+                //}
 
                 //Check for UI interaction
                 if (isInteractable)

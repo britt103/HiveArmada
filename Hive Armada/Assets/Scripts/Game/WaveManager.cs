@@ -200,6 +200,7 @@ namespace Hive.Armada.Game
 
                 IsRunning = true;
                 reference.gameMusicSource.Play();
+                reference.iridiumSpawner.gameObject.SetActive(true);
                 RunWave(currentWave, startingSubwave);
             }
         }

@@ -39,24 +39,19 @@ namespace Hive.Armada.Menus
         public Text weaponText;
 
         /// <summary>
-        /// Name of weapon1.
+        /// Names of weapons.
         /// </summary>
-        public string weapon1Name;
+        public string[] weaponNames;
 
         /// <summary>
-        /// Number representing laser gun for ShipController.
+        /// Enumerators of weapons.
         /// </summary>
-        public int weapon1Enum;
+        public int[] weaponEnums;
 
         /// <summary>
-        /// Name of weapon2.
+        /// Buttons for weapons.
         /// </summary>
-        public string weapon2Name;
-
-        /// <summary>
-        /// Number representing mini gun for ShipController.
-        /// </summary>
-        public int weapon2Enum;
+        public GameObject[] weaponButtons;
 
         /// <summary>
         /// Enum of initially selected weapon. Starts as first weapon.
@@ -79,21 +74,41 @@ namespace Hive.Armada.Menus
         private ShipLoadout shipLoadout;
 
         /// <summary>
-        /// Find references. Set display for initial waepon.
+        /// Reference to Iridium System.
+        /// </summary>
+        private IridiumSystem iridiumSystem;
+
+        /// <summary>
+        /// Find references. Set display for initial waepon. If no Iridium weapons have been 
+        /// unlocked, skip menu.
         /// </summary>
         void Awake()
         {
             reference = FindObjectOfType<ReferenceManager>();
             shipLoadout = FindObjectOfType<ShipLoadout>();
+            iridiumSystem = FindObjectOfType<IridiumSystem>();
 
-            switch (initialWeapon)
+            if (!iridiumSystem.CheckMultipleWeaponsUnlocked())
             {
-                case 0:
-                    PressWeapon1();
-                    break;
-                case 1:
-                    PressWeapon2();
-                    break;
+                selectedWeapon = initialWeapon;
+                PressPlay();
+            }
+            else
+            {
+                for (int i = 0; i < weaponButtons.Length; i++)
+                {
+                    weaponButtons[i].SetActive(iridiumSystem.CheckWeaponUnlocked(weaponNames[i]));
+                }
+
+                switch (initialWeapon)
+                {
+                    case 0:
+                        PressWeapon1();
+                        break;
+                    case 1:
+                        PressWeapon2();
+                        break;
+                }
             }
         }
 
@@ -103,8 +118,8 @@ namespace Hive.Armada.Menus
         public void PressWeapon1()
         {
             source.PlayOneShot(clips[0]);
-            selectedWeapon = weapon1Enum;
-            weaponText.text = "Weapon: " + weapon1Name;
+            selectedWeapon = weaponEnums[0];
+            weaponText.text = "Weapon: " + weaponNames[0];
         }
 
         /// <summary>
@@ -113,8 +128,8 @@ namespace Hive.Armada.Menus
         public void PressWeapon2()
         {
             source.PlayOneShot(clips[0]);
-            selectedWeapon = weapon2Enum;
-            weaponText.text = "Weapon: " + weapon2Name;
+            selectedWeapon = weaponEnums[1];
+            weaponText.text = "Weapon: " + weaponNames[1];
         }
 
         /// <summary>

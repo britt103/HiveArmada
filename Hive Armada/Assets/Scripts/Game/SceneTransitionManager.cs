@@ -171,6 +171,7 @@ namespace Hive.Armada.Game
                 if (SceneManager.GetActiveScene().name == "Wave Room")
                 {
                     reference.statistics.PrintStats();
+                    FindObjectOfType<IridiumSystem>().WriteIridiumFile();
                     sceneInfo.runFinished = true;
                 }
                 else if (SceneManager.GetActiveScene().name == "Menu Room")

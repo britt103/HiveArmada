@@ -125,7 +125,7 @@ namespace Hive.Armada.Player.Weapons
         protected override void Clicked()
         {
             RaycastHit hit;
-            if (Physics.Raycast(transform.position, transform.forward, out hit, 200.0f,
+            if (Physics.SphereCast(transform.position, radius, transform.forward, out hit, 200.0f,
                                 Utility.shootableMask))
             {
                 StartCoroutine(Shoot(hit.point));

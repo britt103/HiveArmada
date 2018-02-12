@@ -73,6 +73,11 @@ namespace Hive.Armada.Game
             return iridiumAmount;
         }
 
+        public int GetShootablesAmount()
+        {
+            return iridiumAmount - iridiumData.amount;
+        }
+
         /// <summary>
         /// Add Iridium amount to total.
         /// </summary>

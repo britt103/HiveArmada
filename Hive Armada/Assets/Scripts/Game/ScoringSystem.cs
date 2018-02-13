@@ -39,7 +39,19 @@ namespace Hive.Armada.Game
         /// <summary>
         /// Multiplier value of the current combo.
         /// </summary>
-        private float comboMultiplier;
+        private int comboMultiplier;
+
+        /// <summary>
+        /// Current kill counter, resets combo at 5
+        /// </summary>
+        private int comboSequence;
+
+        /// <summary>
+        /// location to spawn the point emitter, fed in from enemy death
+        /// </summary>
+        private Transform deathLocation;
+
+        public GameObject[] pointEmitters;
 
         /// <summary>
         /// Bool dictating whether a combo is active or not.
@@ -49,7 +61,8 @@ namespace Hive.Armada.Game
         public void Start()
         {
             comboTimer = 0;
-            comboMultiplier = 1.0f;
+            comboSequence = 0;
+            comboMultiplier = 1;
             comboActive = false;
         }
 
@@ -61,14 +74,16 @@ namespace Hive.Armada.Game
         {
             while (comboTimer <= 0)
             {
+                if (comboMultiplier >= 5) break;
                 yield return new WaitForSeconds(1);
                 comboTimer--;
             }
             comboActive = false;
-            comboBank *= comboMultiplier;
+            //comboBank *= comboMultiplier;
             int comboOut = (int)comboBank;
             AddScore(comboOut);
-            comboMultiplier = 1.0f;
+            comboMultiplier = 1;
+            comboSequence = 0;
             comboBank = 0;
             //do point emitter stuff
         }
@@ -92,6 +107,11 @@ namespace Hive.Armada.Game
             return score;
         }
 
+        public void setLocation(Transform location)
+        {
+            this.deathLocation = location;
+        }
+
         /// <summary>
         /// Starts a new combo. If a combo is currently ongoing,
         /// then extend the current combo and add to the multiplier.
@@ -101,15 +121,66 @@ namespace Hive.Armada.Game
             if(comboActive == false)
             {
                 comboActive = true;
-                comboTimer = 3;
+                comboMultiplier = 1;
+                comboTimer = 2;
+                points *= comboMultiplier;
                 comboBank += points;
+                comboSequence += 1;
                 StartCoroutine(StartCombo());
             }
             else if (comboActive == true)
             {
-                comboTimer = 3;
-                comboMultiplier += 0.1f;
+                comboTimer = 2;
+                comboSequence += 1;
+                switch (comboSequence)
+                {
+                    case 3:
+                        comboMultiplier = 5;
+                        break;
+                    case 5:
+                        comboMultiplier = 10;
+                        break;
+                }
+                points *= comboMultiplier;
+                comboBank += points;
             }
+            spawnPointEmitter(points);
+        }
+
+        private void spawnPointEmitter(int points)
+        {
+            GameObject mEmitter = null;
+            switch (points)
+            {
+                case 5:
+                    mEmitter = pointEmitters[0];
+                    break;
+                case 10:
+                    mEmitter = pointEmitters[1];
+                    break;
+                case 20:
+                    mEmitter = pointEmitters[2];
+                    break;
+                case 25:
+                    mEmitter = pointEmitters[3];
+                    break;
+                case 50:
+                    mEmitter = pointEmitters[4];
+                    break;
+                case 100:
+                    mEmitter = pointEmitters[5];
+                    break;
+                case 200:
+                    mEmitter = pointEmitters[6];
+                    break;
+                case 250:
+                    mEmitter = pointEmitters[7];
+                    break;
+                case 500:
+                    mEmitter = pointEmitters[8];
+                    break;
+            }
+            Instantiate(mEmitter, deathLocation.position, deathLocation.rotation);
         }
     }
 }

@@ -266,6 +266,7 @@ namespace Hive.Armada.Enemies
         {
             KillSpecial();
             subwave.EnemyDead();
+            reference.scoringSystem.setLocation(transform);
             reference.scoringSystem.ComboIn(pointValue);
             reference.statistics.EnemyKilled();
             objectPoolManager.Spawn(deathEmitterTypeIdentifier, transform.position,

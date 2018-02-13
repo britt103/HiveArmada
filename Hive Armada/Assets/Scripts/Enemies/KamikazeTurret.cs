@@ -92,10 +92,10 @@ namespace Hive.Armada.Enemies
                 {
                     StartCoroutine(InRange());
                 }
-                //if (shaking)
-                //{
-                //    iTween.ShakePosition(gameObject, new Vector3(0.1f, 0.1f, 0.1f), 0.1f);
-                //}
+                if (shaking)
+                {
+                    iTween.ShakePosition(gameObject, new Vector3(0.1f, 0.1f, 0.1f), 0.1f);
+                }
             }
             else
             {

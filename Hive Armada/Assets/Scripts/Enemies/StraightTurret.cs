@@ -140,10 +140,10 @@ namespace Hive.Armada.Enemies
                 }
             }
 
-            //if (shaking)
-            //{
-            //    iTween.ShakePosition(gameObject, new Vector3(0.01f, 0.01f, 0.01f), Time.deltaTime);
-            //}
+            if (shaking)
+            {
+                iTween.ShakePosition(gameObject, new Vector3(0.01f, 0.01f, 0.01f), Time.deltaTime);
+            }
             SelfDestructCountdown();
         }
 

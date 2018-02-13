@@ -241,6 +241,11 @@ namespace Hive.Armada.Enemies
                 hitFlash = StartCoroutine(HitFlash());
             }
 
+            if(Health <= 20)
+            {
+                shaking = true;
+            }
+
             if (Health <= 0)
             {
                 Kill();

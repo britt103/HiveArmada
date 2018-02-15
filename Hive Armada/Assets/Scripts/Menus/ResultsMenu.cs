@@ -68,14 +68,23 @@ namespace Hive.Armada.Menus
         /// </summary>
         public GameObject scoreTextGO;
 
+        /// <summary>
+        /// Reference to Iridium text GO.
+        /// </summary>
         public GameObject iridiumTextGO;
 
+        /// <summary>
+        /// Reference to Iridium score text GO.
+        /// </summary>
         public GameObject iridiumScoreTextGO;
 
+        /// <summary>
+        /// Reference to Iridium shootables text GO.
+        /// </summary>
         public GameObject iridiumShootablesTextGO;
 
         /// <summary>
-        /// Get and set results values. Reset stats totals. Write to Iridium file.
+        /// Get and set results values. Reset stats totals. Calculate Iridium totals.
         /// </summary>
         void Awake()
         {

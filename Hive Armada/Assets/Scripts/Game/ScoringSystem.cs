@@ -22,8 +22,14 @@ namespace Hive.Armada.Game
     /// </summary>
     public class ScoringSystem : MonoBehaviour
     {
+        /// <summary>
+        /// Reference Manager
+        /// </summary>
         public ReferenceManager reference;
 
+        /// <summary>
+        /// The player's score.
+        /// </summary>
         private int score;
 
         /// <summary>
@@ -42,16 +48,24 @@ namespace Hive.Armada.Game
         private int comboMultiplier;
 
         /// <summary>
-        /// Current kill counter, resets combo at 5
+        /// Current kill counter, resets combo at 5.
         /// </summary>
         private int comboSequence;
 
         /// <summary>
-        /// location to spawn the point emitter, fed in from enemy death
+        /// Spawn location of point emitter.
         /// </summary>
-        private Transform deathLocation;
+        private Transform pointLocation;
 
+        /// <summary>
+        /// Structure holding all point emitters
+        /// </summary>
         public GameObject[] pointEmitters;
+
+        /// <summary>
+        /// Emitter to be spawned at enemy death
+        /// </summary>
+        GameObject mEmitter;
 
         /// <summary>
         /// Bool dictating whether a combo is active or not.
@@ -60,10 +74,25 @@ namespace Hive.Armada.Game
 
         public void Start()
         {
+            mEmitter = null;
             comboTimer = 0;
             comboSequence = 0;
             comboMultiplier = 1;
             comboActive = false;
+            pointLocation = reference.player.transform;
+        }
+
+        /// <summary>
+        /// Test function for when Vive is unavailable
+        /// </summary>
+        public void Update()
+        {
+            if (Input.GetKeyDown("space"))
+            {
+                ComboIn(10);
+                Debug.Log("Sequence: " + comboSequence);
+                Debug.Log("Multiplier: " + comboMultiplier);
+            }
         }
 
         /// <summary>
@@ -72,20 +101,25 @@ namespace Hive.Armada.Game
         /// </summary>
         public IEnumerator StartCombo()
         {
-            while (comboTimer <= 0)
+            do
             {
-                if (comboMultiplier >= 5) break;
-                yield return new WaitForSeconds(1);
                 comboTimer--;
+                if (comboTimer <= 0 || comboSequence >= 5)
+                {
+                    comboActive = false;
+                    break;
+                }
+                yield return new WaitForSeconds(1);
             }
-            comboActive = false;
+            while (comboActive);
+            //Debug.Log("Combo Death");
+            //comboActive = false;
             //comboBank *= comboMultiplier;
             int comboOut = (int)comboBank;
             AddScore(comboOut);
             comboMultiplier = 1;
             comboSequence = 0;
             comboBank = 0;
-            //do point emitter stuff
         }
 
         /// <summary>
@@ -107,9 +141,13 @@ namespace Hive.Armada.Game
             return score;
         }
 
+        /// <summary>
+        /// Sets the location for which the emitter will spawn from.
+        /// </summary>
+        /// <param name="location"></param>
         public void setLocation(Transform location)
         {
-            this.deathLocation = location;
+            this.pointLocation = location;
         }
 
         /// <summary>
@@ -121,17 +159,17 @@ namespace Hive.Armada.Game
             if(comboActive == false)
             {
                 comboActive = true;
+                comboSequence = 1;
                 comboMultiplier = 1;
-                comboTimer = 2;
+                comboTimer = 3;
                 points *= comboMultiplier;
                 comboBank += points;
-                comboSequence += 1;
                 StartCoroutine(StartCombo());
             }
             else if (comboActive == true)
             {
-                comboTimer = 2;
-                comboSequence += 1;
+                comboTimer = 3;
+                ++comboSequence;
                 switch (comboSequence)
                 {
                     case 3:
@@ -147,9 +185,13 @@ namespace Hive.Armada.Game
             spawnPointEmitter(points);
         }
 
+        /// <summary>
+        /// Function that chooses the emitter to be spawned, dependent on input points.
+        /// TODO: work with pooling so no need to instantiate.
+        /// </summary>
+        /// <param name="points"></param>
         private void spawnPointEmitter(int points)
         {
-            GameObject mEmitter = null;
             switch (points)
             {
                 case 5:
@@ -180,7 +222,7 @@ namespace Hive.Armada.Game
                     mEmitter = pointEmitters[8];
                     break;
             }
-            Instantiate(mEmitter, deathLocation.position, deathLocation.rotation);
+            Instantiate(mEmitter, pointLocation.position, pointLocation.rotation);
         }
     }
 }

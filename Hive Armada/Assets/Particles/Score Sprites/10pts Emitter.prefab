@@ -72,6 +72,7 @@ GameObject:
   - component: {fileID: 4182464341258446}
   - component: {fileID: 198806792991251222}
   - component: {fileID: 199858314062131520}
+  - component: {fileID: 114078526324996108}
   m_Layer: 0
   m_Name: 10pts Emitter
   m_TagString: Untagged
@@ -99,7 +100,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1667689896019222}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.993, z: 0}
+  m_LocalPosition: {x: 0, y: 0.24, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4584626509286758}
@@ -134,6 +135,17 @@ Transform:
   m_Father: {fileID: 4182464341258446}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114078526324996108
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1667689896019222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69cad530c565c714491a326c21accb90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!198 &198172806346665930
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -7043,7 +7055,7 @@ ParticleSystem:
     startRotationY:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0
+      scalar: 3.1415925
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -7125,7 +7137,7 @@ ParticleSystem:
     randomizeRotationDirection: 0
     maxNumParticles: 1000
     size3D: 0
-    rotation3D: 0
+    rotation3D: 1
     gravityModifier:
       serializedVersion: 2
       minMaxState: 0

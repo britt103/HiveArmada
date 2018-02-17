@@ -319,6 +319,7 @@ namespace Hive.Armada.Game
                                 rotation);
 
                         Enemy spawnedEnemyScript = spawned.GetComponent<Enemy>();
+                        spawnedEnemyScript.SetWave(this);
                         spawnedEnemyScript.SetAttackPattern(thisPath.attackPattern);
 
                         Hashtable moveHash = new Hashtable();
@@ -373,7 +374,7 @@ namespace Hive.Armada.Game
 
         public void EnemyDead()
         {
-
+            --enemiesRemaining;
         }
     }
 }

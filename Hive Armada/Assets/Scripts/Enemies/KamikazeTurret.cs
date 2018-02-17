@@ -182,17 +182,17 @@ namespace Hive.Armada.Enemies
             deathEmitter = enemyAttributes.enemyDeathEmitters[TypeIdentifier];
             damage = enemyAttributes.projectileDamage;
 
-            if (!isInitialized)
-            {
-                isInitialized = true;
+            //if (!isInitialized)
+            //{
+            //    isInitialized = true;
 
-                GameObject spawnEmitterObject = Instantiate(spawnEmitter,
-                                                            transform.position,
-                                                            transform.rotation, transform);
-                spawnEmitterSystem = spawnEmitterObject.GetComponent<ParticleSystems>();
+            //    GameObject spawnEmitterObject = Instantiate(spawnEmitter,
+            //                                                transform.position,
+            //                                                transform.rotation, transform);
+            //    spawnEmitterSystem = spawnEmitterObject.GetComponent<ParticleSystems>();
 
-                deathEmitterTypeIdentifier = objectPoolManager.GetTypeIdentifier(deathEmitter);
-            }
+            //    deathEmitterTypeIdentifier = objectPoolManager.GetTypeIdentifier(deathEmitter);
+            //}
         }
     }
 }

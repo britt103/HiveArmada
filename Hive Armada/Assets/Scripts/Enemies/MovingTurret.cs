@@ -151,40 +151,36 @@ namespace Hive.Armada.Enemies
         /// </summary>
         private void Update()
         {
-            transform.position = Vector3.Lerp(posA, posB, (Mathf.Sin(theta) + 1.0f) / 2.0f);
-
-            theta += movingSpeed * Time.deltaTime;
-
-            if (theta > Mathf.PI * 3 / 2)
+            if (pathingComplete)
             {
-                theta -= Mathf.PI * 2;
-            }
-
-            if (player != null)
-            {
-                transform.LookAt(player.transform);
-
-                if (canShoot)
+                if (reference.playerShip != null)
                 {
-                    StartCoroutine(Shoot());
+                    lookTarget = reference.playerShip.transform.position;
+                }
+
+                if (lookTarget != null)
+                {
+                    transform.LookAt(lookTarget);
+
+                    if (canShoot)
+                    {
+                        StartCoroutine(Shoot());
+                    }
+                }
+                else
+                {
+                    transform.LookAt(new Vector3(0.0f, 0.7f, 0.0f));
+                }
+
+                transform.position = Vector3.Lerp(posA, posB, (Mathf.Sin(theta) + 1.0f) / 2.0f);
+
+                theta += movingSpeed * Time.deltaTime;
+
+                if (theta > Mathf.PI * 3 / 2)
+                {
+                    theta -= Mathf.PI * 2;
                 }
             }
-            else
-            {
-                player = reference.playerShip;
-
-                if (player == null)
-                {
-                    transform.LookAt(new Vector3(0.0f, 2.0f, 0.0f));
-                }
-            }
-
-            //if (shaking)
-            //{
-            //    iTween.ShakePosition(gameObject, new Vector3(0.1f, 0.1f, 0.1f), 0.1f);
-
-            //}
-            SelfDestructCountdown();
         }
 
         /// <summary>
@@ -249,7 +245,17 @@ namespace Hive.Armada.Enemies
                     break;
             }
         }
-        
+
+        /// <summary>
+        /// This is run after the enemy has completed its path.
+        /// </summary>
+        protected override void OnPathingComplete()
+        {
+            SetPosition();
+
+            pathingComplete = true;
+        }
+
         /// <summary>
         /// Resets attributes to this enemy's defaults from enemyAttributes.
         /// </summary>
@@ -277,17 +283,17 @@ namespace Hive.Armada.Enemies
             spawnEmitter = enemyAttributes.enemySpawnEmitters[TypeIdentifier];
             deathEmitter = enemyAttributes.enemyDeathEmitters[TypeIdentifier];
 
-            if (!isInitialized)
-            {
-                isInitialized = true;
+            //if (!isInitialized)
+            //{
+            //    isInitialized = true;
 
-                GameObject spawnEmitterObject = Instantiate(spawnEmitter,
-                                                            transform.position,
-                                                            transform.rotation, transform);
-                spawnEmitterSystem = spawnEmitterObject.GetComponent<ParticleSystems>();
+            //    GameObject spawnEmitterObject = Instantiate(spawnEmitter,
+            //                                                transform.position,
+            //                                                transform.rotation, transform);
+            //    spawnEmitterSystem = spawnEmitterObject.GetComponent<ParticleSystems>();
 
-                deathEmitterTypeIdentifier = objectPoolManager.GetTypeIdentifier(deathEmitter);
-            }
+            //    deathEmitterTypeIdentifier = objectPoolManager.GetTypeIdentifier(deathEmitter);
+            //}
         }
     }
 }

@@ -41,16 +41,6 @@ namespace Hive.Armada.Enemies
         public Transform shootPoint;
 
         /// <summary>
-        /// Variable that finds the player GameObject
-        /// </summary>
-        private GameObject player;
-
-        /// <summary>
-        /// Vector3 that holds the player's position
-        /// </summary>
-        private Vector3 pos;
-
-        /// <summary>
         /// How fast the turret shoots at a given rate
         /// </summary>
         public float fireRate;
@@ -95,16 +85,6 @@ namespace Hive.Armada.Enemies
         /// </summary>
         private bool canRotate;
 
-        //private bool fireModeSet = false;
-
-        ///// <summary>
-        ///// On start, select enemy behavior based on value fireMode
-        ///// </summary>
-        //void Start()
-        //{
-        //    //switchFireMode(fireMode);
-        //}
-
         /// <summary>
         /// tracks player and shoots projectiles in that direction, while being slightly
         /// swayed via the spread value set by user. If player is not found automatically
@@ -112,39 +92,27 @@ namespace Hive.Armada.Enemies
         /// </summary>
         private void Update()
         {
-            /// Ghetto set firemode
-            //if (!fireModeSet)
-            //{
-            //    fireMode = 2;
-            //    switchFireMode(fireMode);
-            //    fireModeSet = true;
-            //}
-
-            if (player != null)
+            if (pathingComplete)
             {
-                pos = player.transform.position;
-                transform.LookAt(pos);
-
-                if (canShoot)
+                if (reference.playerShip != null)
                 {
-                    StartCoroutine(Shoot());
+                    lookTarget = reference.playerShip.transform.position;
+                }
+
+                if (lookTarget != null)
+                {
+                    transform.LookAt(lookTarget);
+
+                    if (canShoot)
+                    {
+                        StartCoroutine(Shoot());
+                    }
+                }
+                else
+                {
+                    transform.LookAt(new Vector3(0.0f, 0.7f, 0.0f));
                 }
             }
-            else
-            {
-                player = reference.playerShip;
-
-                if (player == null)
-                {
-                    transform.LookAt(new Vector3(0.0f, 0.0f, 0.0f));
-                }
-            }
-
-            //if (shaking)
-            //{
-            //    iTween.ShakePosition(gameObject, new Vector3(0.01f, 0.01f, 0.01f), Time.deltaTime);
-            //}
-            SelfDestructCountdown();
         }
 
         /// <summary>
@@ -238,17 +206,17 @@ namespace Hive.Armada.Enemies
             spawnEmitter = enemyAttributes.enemySpawnEmitters[TypeIdentifier];
             deathEmitter = enemyAttributes.enemyDeathEmitters[TypeIdentifier];
 
-            if (!isInitialized)
-            {
-                isInitialized = true;
+            //if (!isInitialized)
+            //{
+            //    isInitialized = true;
 
-                GameObject spawnEmitterObject = Instantiate(spawnEmitter,
-                                                            transform.position,
-                                                            transform.rotation, transform);
-                spawnEmitterSystem = spawnEmitterObject.GetComponent<ParticleSystems>();
+            //    GameObject spawnEmitterObject = Instantiate(spawnEmitter,
+            //                                                transform.position,
+            //                                                transform.rotation, transform);
+            //    spawnEmitterSystem = spawnEmitterObject.GetComponent<ParticleSystems>();
 
-                deathEmitterTypeIdentifier = objectPoolManager.GetTypeIdentifier(deathEmitter);
-            }
+            //    deathEmitterTypeIdentifier = objectPoolManager.GetTypeIdentifier(deathEmitter);
+            //}
         }
     }
 }

@@ -97,30 +97,27 @@ namespace Hive.Armada.Enemies
         /// </summary>
         private void Update()
         {
-            if (player != null)
+            if (pathingComplete)
             {
-                transform.LookAt(player.transform);
-
-                if (canShoot)
+                if (reference.playerShip != null)
                 {
-                    StartCoroutine(Shoot());
+                    lookTarget = reference.playerShip.transform.position;
+                }
+
+                if (lookTarget != null)
+                {
+                    transform.LookAt(lookTarget);
+
+                    if (canShoot)
+                    {
+                        StartCoroutine(Shoot());
+                    }
+                }
+                else
+                {
+                    transform.LookAt(new Vector3(0.0f, 0.7f, 0.0f));
                 }
             }
-            else
-            {
-                player = reference.playerShip;
-
-                if (player == null)
-                {
-                    transform.LookAt(new Vector3(0.0f, 2.0f, 0.0f));
-                }
-            }
-            //if (shaking)
-            //{
-            //    iTween.ShakePosition(gameObject, new Vector3(0.1f, 0.1f, 0.1f), 0.1f);
-
-            //}
-            SelfDestructCountdown();
         }
 
         /// <summary>

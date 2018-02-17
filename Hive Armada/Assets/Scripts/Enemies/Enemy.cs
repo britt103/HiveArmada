@@ -137,6 +137,11 @@ namespace Hive.Armada.Enemies
         protected bool untouched = true;
 
         /// <summary>
+        /// The position of where the enemy should look.
+        /// </summary>
+        protected Vector3 lookTarget;
+
+        /// <summary>
         /// Used to prevent HitFlash() from being called a
         /// second time before it is done flashing
         /// </summary>
@@ -154,11 +159,6 @@ namespace Hive.Armada.Enemies
         protected List<Material> materials;
 
         /// <summary>
-        /// The spawn information for this enemy. Used for respawning after self-destruction.
-        /// </summary>
-        protected EnemySpawn enemySpawn;
-
-        /// <summary>
         /// The attack pattern number that this enemy should use.
         /// </summary>
         protected AttackPattern attackPattern;
@@ -172,6 +172,11 @@ namespace Hive.Armada.Enemies
         /// Used to shake low health enemies.
         /// </summary>
         protected bool shaking = false;
+
+        /// <summary>
+        /// If this enemy has finished pathing.
+        /// </summary>
+        protected bool pathingComplete;
 
         /// <summary>
         /// Initializes references to ReferenceManager and other managers, list of renderers and
@@ -245,15 +250,6 @@ namespace Hive.Armada.Enemies
             {
                 Kill();
             }
-
-            //if (!untouched)
-            //{
-            //    return;
-            //}
-
-            //untouched = false;
-
-            //subwave.EnemyHit();
         }
 
         /// <summary>
@@ -312,20 +308,20 @@ namespace Hive.Armada.Enemies
         }
 
         /// <summary>
+        /// This is run after the enemy has completed its path.
+        /// </summary>
+        protected virtual void OnPathingComplete()
+        {
+            pathingComplete = true;
+        }
+
+        /// <summary>
         /// Used to set the wave reference.
         /// </summary>
         /// <param name="wave"> The wave that spawned this enemy </param>
         public virtual void SetWave(Wave wave)
         {
             this.wave = wave;
-        }
-        /// <summary>
-        /// Sets the enemy spawn which is used to respawn this enemy after self-destructing.
-        /// </summary>
-        /// <param name="enemySpawn"> This enemy's spawn information </param>
-        public virtual void SetEnemySpawn(EnemySpawn enemySpawn)
-        {
-            this.enemySpawn = enemySpawn;
         }
 
         /// <summary>

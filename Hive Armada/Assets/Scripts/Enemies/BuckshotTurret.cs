@@ -97,30 +97,32 @@ namespace Hive.Armada.Enemies
         /// </summary>
         private void Update()
         {
-            try
+            if (pathingComplete)
             {
-                pos = player.transform.position;
-                transform.LookAt(pos);
-
-                if (Time.time > fireNext)
+                if (reference.playerShip != null)
                 {
-                    fireNext = Time.time + fireRate;
+                    lookTarget = reference.playerShip.transform.position;
+                }
 
-                    for (int i = 0; i < firePellet; ++i)
+                if (lookTarget != null)
+                {
+                    transform.LookAt(lookTarget);
+
+                    if (Time.time > fireNext)
                     {
-                        StartCoroutine(FireBullet());
+                        fireNext = Time.time + fireRate;
+
+                        for (int i = 0; i < firePellet; ++i)
+                        {
+                            StartCoroutine(FireBullet());
+                        }
                     }
                 }
+                else
+                {
+                    transform.LookAt(new Vector3(0.0f, 0.7f, 0.0f));
+                }
             }
-            catch (Exception)
-            {
-            }
-            //if (shaking)
-            //{
-            //    iTween.ShakePosition(gameObject, new Vector3(0.1f, 0.1f, 0.1f), 0.1f);
-
-            //}
-            SelfDestructCountdown();
         }
 
         /// <summary>
@@ -163,17 +165,17 @@ namespace Hive.Armada.Enemies
             spawnEmitter = enemyAttributes.enemySpawnEmitters[TypeIdentifier];
             deathEmitter = enemyAttributes.enemyDeathEmitters[TypeIdentifier];
 
-            if (!isInitialized)
-            {
-                isInitialized = true;
+            //if (!isInitialized)
+            //{
+            //    isInitialized = true;
 
-                GameObject spawnEmitterObject = Instantiate(spawnEmitter,
-                                                            transform.position,
-                                                            transform.rotation, transform);
-                spawnEmitterSystem = spawnEmitterObject.GetComponent<ParticleSystems>();
+            //    GameObject spawnEmitterObject = Instantiate(spawnEmitter,
+            //                                                transform.position,
+            //                                                transform.rotation, transform);
+            //    spawnEmitterSystem = spawnEmitterObject.GetComponent<ParticleSystems>();
 
-                deathEmitterTypeIdentifier = objectPoolManager.GetTypeIdentifier(deathEmitter);
-            }
+            //    deathEmitterTypeIdentifier = objectPoolManager.GetTypeIdentifier(deathEmitter);
+            //}
         }
     }
 }

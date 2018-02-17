@@ -189,7 +189,7 @@ namespace Hive.Armada.Game
         public Transform[] powerupSpawnPoints;
 
         /// <summary>
-        /// Array of power-up prefabs for the subwaves to use.
+        /// Array of power-up prefabs for the waves to use.
         /// </summary>
         [Header("Power-ups")]
         [Reorderable("Powerup", false)]
@@ -200,11 +200,6 @@ namespace Hive.Armada.Game
         /// </summary>
         [Header("Waves")]
         public int startingWave;
-
-        /// <summary>
-        /// Index of the subwave in startingWave to go first.
-        /// </summary>
-        public int startingSubwave;
 
         /// <summary>
         /// Array of all waves that will be run.
@@ -241,7 +236,7 @@ namespace Hive.Armada.Game
         public bool IsComplete { get; private set; }
 
         /// <summary>
-        /// Loads the waves and subwaves from a file.
+        /// Loads the waves from a file.
         /// </summary>
         public void Awake()
         {
@@ -293,48 +288,27 @@ namespace Hive.Armada.Game
                     currentWave = startingWave;
                 }
 
-                --startingSubwave;
-
-                //if (startingSubwave <= 0)
-                //{
-                //    startingSubwave = 0;
-                //}
-                //else if (startingSubwave >= waves[currentWave].subwaves.Length)
-                //{
-                //    startingSubwave = 0;
-                //}
-
                 IsRunning = true;
                 reference.gameMusicSource.Play();
-                RunWave(currentWave, startingSubwave);
+                reference.statistics.IsAlive();
+                RunWave(currentWave);
             }
         }
 
         /// <summary>
-        /// Begins running a wave from the waves array
+        /// Begins running the waves from the waves array
         /// </summary>
         /// <param name="wave"> The index of the wave to run </param>
         private void RunWave(int wave)
         {
-            StartCoroutine(WaveNumberDisplay(wave, 0));
-        }
-
-        /// <summary>
-        /// Begins running a wave from the waves array at the given subwave
-        /// </summary>
-        /// <param name="wave"> The index of the wave to run </param>
-        /// <param name="subwave"> The index of the subwave to start on </param>
-        private void RunWave(int wave, int subwave)
-        {
-            StartCoroutine(WaveNumberDisplay(wave, subwave));
+            StartCoroutine(WaveNumberDisplay(wave));
         }
 
         /// <summary>
         /// Shows the wave number before starting the wave.
         /// </summary>
         /// <param name="wave"> The index of the wave being run </param>
-        /// <param name="subwave"> The index of the starting subwave </param>
-        private IEnumerator WaveNumberDisplay(int wave, int subwave)
+        private IEnumerator WaveNumberDisplay(int wave)
         {
             StartCoroutine(PlayWaveCount(wave + 1));
             reference.menuWaveNumberDisplay.gameObject.SetActive(true);
@@ -345,8 +319,6 @@ namespace Hive.Armada.Game
             reference.menuWaveNumberDisplay.gameObject.SetActive(false);
 
             waves[wave].Run(wave);
-
-            //waves[wave].Run(wave, subwave);
         }
 
         /// <summary>

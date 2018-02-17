@@ -327,7 +327,7 @@ namespace Hive.Armada.Game
                         moveHash.Add("easetype", iTween.EaseType.easeInOutSine);
                         moveHash.Add("time", 3.0f);
                         moveHash.Add("looktarget", reference.player.transform);
-                        moveHash.Add("onComplete", "AfterEnemyMove");
+                        moveHash.Add("onComplete", "OnPathingComplete");
                         moveHash.Add("onCompleteTarget", spawned);
                         moveHash.Add("path", iTweenPath.GetPath(pathName));
                         iTween.MoveTo(spawned, moveHash);

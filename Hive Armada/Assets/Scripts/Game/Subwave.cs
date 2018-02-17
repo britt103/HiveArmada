@@ -627,7 +627,7 @@ namespace Hive.Armada.Game
                     // for respawning, and attack pattern.
                     Enemy spawnedEnemyScript = spawned.GetComponent<Enemy>();
                     //spawnedEnemyScript.SetSubwave(this);
-                    spawnedEnemyScript.SetEnemySpawn(spawnGroups[group].enemySpawns[i]);
+                    //spawnedEnemyScript.SetEnemySpawn(spawnGroups[group].enemySpawns[i]);
                     spawnedEnemyScript.SetAttackPattern(
                         spawnGroups[group].enemySpawns[i].attackPattern);
 
@@ -743,9 +743,9 @@ namespace Hive.Armada.Game
                     // set info for the enemy
                     Enemy spawnedEnemyScript = spawned.GetComponent<Enemy>();
                     //spawnedEnemyScript.SetSubwave(this);
-                    spawnedEnemyScript.SetEnemySpawn(
-                        new EnemySpawn(respawns[0].typeIdentifier, respawns[0].spawnZone,
-                                       respawns[0].attackPattern));
+                    //spawnedEnemyScript.SetEnemySpawn(
+                    //    new EnemySpawn(respawns[0].typeIdentifier, respawns[0].spawnZone,
+                    //                   respawns[0].attackPattern));
                     spawnedEnemyScript.SetAttackPattern(respawns[0].attackPattern);
 
                     respawns.RemoveAt(0);

@@ -263,6 +263,7 @@ namespace Hive.Armada.Game
                 IsRunning = false;
                 IsComplete = true;
 
+                reference.statistics.won = true;
                 reference.sceneTransitionManager.TransitionOut("Menu Room");
             }
         }

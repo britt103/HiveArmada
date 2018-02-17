@@ -126,11 +126,6 @@ namespace Hive.Armada.Game
         /// </summary>
         private void Awake()
         {
-            if (waveManager)
-            {
-                waveManager.reference = this;
-            }
-
             if (enemyAttributes)
             {
                 enemyAttributes.Initialize();

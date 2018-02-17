@@ -35,7 +35,7 @@ namespace Hive.Armada.Game
         [Tooltip("Enter the filename and extension for the waves file.")]
         public string filename = "";
 
-        public Wave[] LoadWaves()
+        public Waves[] LoadWaves()
         {
             if (filename.Length == 0)
             {
@@ -78,7 +78,7 @@ namespace Hive.Armada.Game
             GameObject waveParent = new GameObject("Waves");
             waveParent.transform.parent = reference.waveManager.transform;
 
-            Wave[] waves = new Wave[waveCount];
+            Waves[] waves = new Waves[waveCount];
             GameObject[] waveObjects = new GameObject[waveCount];
 
             Debug.Log("Loading " + waveCount + " waves...");
@@ -91,7 +91,7 @@ namespace Hive.Armada.Game
 
                 waveObjects[wave] = new GameObject(thisWave["name"]);
                 waveObjects[wave].transform.parent = waveParent.transform;
-                waves[wave] = waveObjects[wave].AddComponent<Wave>();
+                waves[wave] = waveObjects[wave].AddComponent<Waves>();
                 waves[wave].subwaves = new Subwave[subwaveCount];
 
                 Subwave[] subwaves = new Subwave[subwaveCount];
@@ -131,7 +131,7 @@ namespace Hive.Armada.Game
                         switch (thisSpawnGroup["spawn-zone"].AsInt)
                         {
                             case 0:
-                                spawnGroups[spawnGroup].spawnZone = SpawnZone.Introduction;
+                                //spawnGroups[spawnGroup].spawnZone = SpawnZone.Introduction;
                                 break;
                             case 1:
                                 spawnGroups[spawnGroup].spawnZone = SpawnZone.Center;

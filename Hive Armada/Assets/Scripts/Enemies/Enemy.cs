@@ -78,7 +78,7 @@ namespace Hive.Armada.Enemies
         /// Reference to the subwave that spawned this enemy. Used to inform it
         /// when this enemy is hit for the first time and when it is killed.
         /// </summary>
-        protected Subwave subwave;
+        protected Wave wave;
 
         /// <summary>
         /// Whether or not this enemy has already been initialized with its attributes.
@@ -246,14 +246,14 @@ namespace Hive.Armada.Enemies
                 Kill();
             }
 
-            if (!untouched)
-            {
-                return;
-            }
+            //if (!untouched)
+            //{
+            //    return;
+            //}
 
-            untouched = false;
+            //untouched = false;
 
-            subwave.EnemyHit();
+            //subwave.EnemyHit();
         }
 
         /// <summary>
@@ -263,7 +263,7 @@ namespace Hive.Armada.Enemies
         protected virtual void Kill()
         {
             KillSpecial();
-            subwave.EnemyDead();
+            wave.EnemyDead();
             reference.statistics.AddScore(pointValue);
             reference.statistics.EnemyKilled();
             objectPoolManager.Spawn(deathEmitterTypeIdentifier, transform.position,
@@ -284,8 +284,8 @@ namespace Hive.Armada.Enemies
         {
             objectPoolManager.Spawn(deathEmitterTypeIdentifier, transform.position,
                                     transform.rotation);
-            subwave.AddRespawn(enemySpawn);
-            subwave.EnemyHit();
+            //wave.AddRespawn(enemySpawn);
+            //wave.EnemyHit();
             objectPoolManager.Despawn(gameObject);
         }
 
@@ -312,12 +312,12 @@ namespace Hive.Armada.Enemies
         }
 
         /// <summary>
-        /// Used to set the subwave reference.
+        /// Used to set the wave reference.
         /// </summary>
-        /// <param name="subwave"> The subwave that spawned this enemy </param>
-        public virtual void SetSubwave(Subwave subwave)
+        /// <param name="wave"> The wave that spawned this enemy </param>
+        public virtual void SetWave(Wave wave)
         {
-            this.subwave = subwave;
+            this.wave = wave;
         }
         /// <summary>
         /// Sets the enemy spawn which is used to respawn this enemy after self-destructing.

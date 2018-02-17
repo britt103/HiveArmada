@@ -370,5 +370,10 @@ namespace Hive.Armada.Game
 
             reference.waveManager.WaveComplete(WaveNumber);
         }
+
+        public void EnemyDead()
+        {
+
+        }
     }
 }

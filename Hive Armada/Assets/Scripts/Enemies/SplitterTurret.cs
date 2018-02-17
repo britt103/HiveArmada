@@ -192,32 +192,32 @@ namespace Hive.Armada.Enemies
             if (childTurret != null)
             {
                 int typeIdentifier = objectPoolManager.GetTypeIdentifier(childTurret);
-                Game.EnemySpawn childEnemySpawn = new Game.EnemySpawn(typeIdentifier, enemySpawn.spawnZone, enemySpawn.attackPattern);
+                //Game.EnemySpawn childEnemySpawn = new Game.EnemySpawn(typeIdentifier, enemySpawn.spawnZone, enemySpawn.attackPattern);
 
                 //Instantiate("Explosion.name", transform.position, transform.rotation); Placeholder for destroy effect
                 GameObject child1 = objectPoolManager.Spawn(typeIdentifier, new Vector3(transform.position.x + 0.1f, transform.position.y + 0.1f, transform.position.z), transform.rotation);
                 Enemy child1Enemy = child1.GetComponent<Enemy>();
-                child1Enemy.SetSubwave(subwave);
-                child1Enemy.SetEnemySpawn(childEnemySpawn);
-                child1Enemy.SetAttackPattern(enemySpawn.attackPattern);
+                child1Enemy.SetWave(wave);
+                //child1Enemy.SetEnemySpawn(childEnemySpawn);
+                //child1Enemy.SetAttackPattern(enemySpawn.attackPattern);
 
                 GameObject child2 = objectPoolManager.Spawn(typeIdentifier, new Vector3(transform.position.x - 0.1f, transform.position.y - 0.1f, transform.position.z), transform.rotation);
                 Enemy child2Enemy = child2.GetComponent<Enemy>();
-                child2Enemy.SetSubwave(subwave);
-                child2Enemy.SetEnemySpawn(childEnemySpawn);
-                child2Enemy.SetAttackPattern(enemySpawn.attackPattern);
+                child2Enemy.SetWave(wave);
+                //child2Enemy.SetEnemySpawn(childEnemySpawn);
+                //child2Enemy.SetAttackPattern(enemySpawn.attackPattern);
 
                 GameObject child3 = objectPoolManager.Spawn(typeIdentifier, new Vector3(transform.position.x + 0.1f, transform.position.y - 0.1f, transform.position.z), transform.rotation);
                 Enemy child3Enemy = child3.GetComponent<Enemy>();
-                child3Enemy.SetSubwave(subwave);
-                child3Enemy.SetEnemySpawn(childEnemySpawn);
-                child3Enemy.SetAttackPattern(enemySpawn.attackPattern);
+                child3Enemy.SetWave(wave);
+                //child3Enemy.SetEnemySpawn(childEnemySpawn);
+                //child3Enemy.SetAttackPattern(enemySpawn.attackPattern);
 
                 GameObject child4 = objectPoolManager.Spawn(typeIdentifier, new Vector3(transform.position.x - 0.1f, transform.position.y + 0.1f, transform.position.z), transform.rotation);
                 Enemy child4Enemy = child4.GetComponent<Enemy>();
-                child4Enemy.SetSubwave(subwave);
-                child4Enemy.SetEnemySpawn(childEnemySpawn);
-                child4Enemy.SetAttackPattern(enemySpawn.attackPattern);
+                child4Enemy.SetWave(wave);
+                //child4Enemy.SetEnemySpawn(childEnemySpawn);
+                //child4Enemy.SetAttackPattern(enemySpawn.attackPattern);
 
                 child1.GetComponent<Rigidbody>().AddForce(new Vector3(transform.position.x + splitDir, transform.position.y + splitDir, transform.position.z));
                 child2.GetComponent<Rigidbody>().AddForce(new Vector3(transform.position.x - splitDir, transform.position.y - splitDir, transform.position.z));

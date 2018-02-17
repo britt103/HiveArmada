@@ -104,7 +104,7 @@ namespace Hive.Armada.Game
             do
             {
                 comboTimer--;
-                if (comboTimer <= 0 || comboSequence >= 5)
+                if (comboTimer <= 0)
                 {
                     comboActive = false;
                     break;

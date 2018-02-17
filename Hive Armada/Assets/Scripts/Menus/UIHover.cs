@@ -8,7 +8,8 @@
 //
 // UIHover controls hovering interactions with the UIPointer. This activates
 // active sprite versions of various UI icons when the UIPointer is hovering
-// over it.
+// over it. In a selected state, the active sprite version remains active
+// regardless of hovering.
 //
 //=============================================================================
 
@@ -42,6 +43,11 @@ namespace Hive.Armada.Menus
         private bool isHovering = false;
 
         /// <summary>
+        /// State of whether UI has been selected.
+        /// </summary>
+        private bool isSelected = false;
+
+        /// <summary>
         /// Prevent hovering on enable.
         /// </summary>
         private void OnEnable()
@@ -54,7 +60,7 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void Hover()
         {
-            if (!isHovering)
+            if (!isHovering && !isSelected)
             {
                 isHovering = true;
                 activeSpriteImageGO.SetActive(true);
@@ -67,8 +73,29 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void EndHover()
         {
+            if (!isSelected)
+            {
+                activeSpriteImageGO.SetActive(false);
+                isHovering = false;
+            }
+        }
+
+        /// <summary>
+        /// Activate selected state.
+        /// </summary>
+        public void Select()
+        {
+            isSelected = true;
+            activeSpriteImageGO.SetActive(true);
+        }
+
+        /// <summary>
+        /// Deactivate selected state.
+        /// </summary>
+        public void EndSelect()
+        {
+            isSelected = false;
             activeSpriteImageGO.SetActive(false);
-            isHovering = false;
         }
     }
 }

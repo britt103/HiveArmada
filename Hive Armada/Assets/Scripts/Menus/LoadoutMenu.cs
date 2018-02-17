@@ -100,36 +100,23 @@ namespace Hive.Armada.Menus
                     weaponButtons[i].SetActive(iridiumSystem.CheckWeaponUnlocked(weaponNames[i]));
                 }
 
-                switch (initialWeapon)
-                {
-                    case 0:
-                        PressWeapon1();
-                        break;
-                    case 1:
-                        PressWeapon2();
-                        break;
-                }
+                PressWeapon(initialWeapon);
             }
         }
 
         /// <summary>
-        /// Weapon1 button pressed. Set shipLoadout weapon to weapon1.
+        /// Weapon button pressed. Set shipLoadout weapon to weaponNum.
         /// </summary>
-        public void PressWeapon1()
+        public void PressWeapon(int weaponNum)
         {
-            source.PlayOneShot(clips[0]);
-            selectedWeapon = weaponEnums[0];
-            weaponText.text = "Weapon: " + weaponNames[0];
-        }
-
-        /// <summary>
-        /// Weapon2 button pressed. Set shipLoadout weapon to weapon2.
-        /// </summary>
-        public void PressWeapon2()
-        {
-            source.PlayOneShot(clips[0]);
-            selectedWeapon = weaponEnums[1];
-            weaponText.text = "Weapon: " + weaponNames[1];
+            if (weaponNum != selectedWeapon)
+            {
+                source.PlayOneShot(clips[0]);
+                weaponButtons[selectedWeapon].GetComponent<UIHover>().EndSelect();
+                selectedWeapon = weaponNum;
+                weaponButtons[selectedWeapon].GetComponent<UIHover>().Select();
+                weaponText.text = "Weapon: " + weaponNames[selectedWeapon];
+            }
         }
 
         /// <summary>

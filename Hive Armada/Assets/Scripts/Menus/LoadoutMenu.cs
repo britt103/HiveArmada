@@ -88,9 +88,10 @@ namespace Hive.Armada.Menus
             shipLoadout = FindObjectOfType<ShipLoadout>();
             iridiumSystem = FindObjectOfType<IridiumSystem>();
 
+            selectedWeapon = initialWeapon;
+
             if (!iridiumSystem.CheckMultipleWeaponsUnlocked())
             {
-                selectedWeapon = initialWeapon;
                 PressPlay();
             }
             else
@@ -114,9 +115,9 @@ namespace Hive.Armada.Menus
                 source.PlayOneShot(clips[0]);
                 weaponButtons[selectedWeapon].GetComponent<UIHover>().EndSelect();
                 selectedWeapon = weaponNum;
-                weaponButtons[selectedWeapon].GetComponent<UIHover>().Select();
-                weaponText.text = "Weapon: " + weaponNames[selectedWeapon];
             }
+            weaponButtons[selectedWeapon].GetComponent<UIHover>().Select();
+            weaponText.text = "Weapon: " + weaponNames[selectedWeapon];
         }
 
         /// <summary>

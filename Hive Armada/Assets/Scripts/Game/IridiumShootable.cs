@@ -28,9 +28,24 @@ namespace Hive.Armada.Game
         public int iridiumValue;
 
         /// <summary>
+        /// Reference to Iridium shootable emitter.
+        /// </summary>
+        public GameObject emitter;
+
+        /// <summary>
+        /// Number of shots required to destroy object.
+        /// </summary>
+        public int health;
+
+        /// <summary>
         /// Time until object self destructs.
         /// </summary>
         public float selfDestructTime;
+
+        /// <summary>
+        /// Refernce to Referencemanager.
+        /// </summary>
+        private ReferenceManager reference;
 
         /// <summary>
         /// Reference to IridiumSystem.
@@ -51,7 +66,16 @@ namespace Hive.Armada.Game
         protected override void Awake()
         {
             base.Awake();
+            reference = FindObjectOfType<ReferenceManager>();
             iridiumSystem = FindObjectOfType<IridiumSystem>();
+        }
+
+        /// <summary>
+        /// make emitter look at player.
+        /// </summary>
+        private void Update()
+        {
+            emitter.transform.LookAt(reference.player.transform);
         }
 
         /// <summary>
@@ -59,8 +83,12 @@ namespace Hive.Armada.Game
         /// </summary>
         public override void Shot()
         {
-            iridiumSystem.AddIridium(iridiumValue);
-            base.Shot();
+            health--;
+            if (health <= 0)
+            {
+                iridiumSystem.AddIridium(iridiumValue);
+                base.Shot();
+            }
         }
 
         /// <summary>

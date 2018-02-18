@@ -178,7 +178,7 @@ namespace Hive.Armada.Enemies
             {
                 //X-pattern
                 case 0:
-                    fireRate = 1f;
+                    fireRate = 1.2f;
                     projectileSpeed = 1.5f;
                     spread = 0;
 
@@ -216,9 +216,9 @@ namespace Hive.Armada.Enemies
 
                 //inverse-X
                 case 1:
-                    fireRate = 0.5f;
+                    fireRate = 1.2f;
                     projectileSpeed = 1.5f;
-                    spread = 2;
+                    spread = 0;
 
                     projectileArray[0] = true;
                     projectileArray[1] = true;

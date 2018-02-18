@@ -88,11 +88,6 @@ namespace Hive.Armada.Enemies
         /// </summary>
         private bool canRotate;
 
-        private void Start()
-        {
-            Reset();
-        }
-
         /// <summary>
         /// Tries to look at the player and shoot at it when possible. Runs every frame.
         /// </summary>
@@ -171,16 +166,21 @@ namespace Hive.Armada.Enemies
                     fireRate = 0.6f;
                     projectileSpeed = 1.5f;
                     spread = 2;
-                    burstFire = 1;
+                    burstFire = 3;
                     break;
 
                 case 1:
-                    fireRate = 1f;
+                    fireRate = 1.2f;
                     projectileSpeed = 1.5f;
                     spread = 0;
-                    burstFire = 3;
+                    burstFire = 5;
                     break;
             }
+        }
+
+        void SetBurstFire(int burst)
+        {
+            this.burstFire = burst;
         }
 
         /// <summary>

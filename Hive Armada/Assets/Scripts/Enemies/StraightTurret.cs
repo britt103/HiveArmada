@@ -222,7 +222,7 @@ namespace Hive.Armada.Enemies
                     break;
 
                 case 1:
-                    fireRate = 0.3f;
+                    fireRate = 1.2f;
                     projectileSpeed = 1.5f;
                     spread = 0;
                     //canRotate = true;

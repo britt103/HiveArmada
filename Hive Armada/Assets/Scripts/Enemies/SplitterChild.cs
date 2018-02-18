@@ -87,26 +87,23 @@ namespace Hive.Armada.Enemies
         /// </summary>
         private void Update()
         {
-            if (pathingComplete)
+            if (reference.playerShip != null)
             {
-                if (reference.playerShip != null)
-                {
-                    lookTarget = reference.playerShip.transform.position;
-                }
+                lookTarget = reference.playerShip.transform.position;
+            }
 
-                if (lookTarget != null)
-                {
-                    transform.LookAt(lookTarget);
+            if (lookTarget != null)
+            {
+                transform.LookAt(lookTarget);
 
-                    if (canShoot)
-                    {
-                        StartCoroutine(Shoot());
-                    }
-                }
-                else
+                if (canShoot)
                 {
-                    transform.LookAt(new Vector3(0.0f, 0.7f, 0.0f));
+                    StartCoroutine(Shoot());
                 }
+            }
+            else
+            {
+                transform.LookAt(new Vector3(0.0f, 0.7f, 0.0f));
             }
         }
 

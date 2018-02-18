@@ -113,24 +113,6 @@ namespace Hive.Armada.Enemies
         private float theta;
 
         /// <summary>
-        /// Finds the player. Runs when this enemy spawns.
-        /// </summary>
-        private void Start()
-        {
-            player = GameObject.FindGameObjectWithTag("Player");
-            if (player != null)
-            {
-                transform.LookAt(player.transform);
-            }
-            SetPosition();
-        }
-
-        private void OnEnable()
-        {
-            SetPosition();
-        }
-
-        /// <summary>
         /// Sets the two positions this enemy moves between.
         /// </summary>
         private void SetPosition()

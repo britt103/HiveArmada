@@ -93,12 +93,31 @@ namespace Hive.Armada.Enemies
         private bool canRotate;
 
         /// <summary>
+        /// Variables for hovering
+        /// </summary>
+        private float theta;
+        private Vector3 posA;
+        private Vector3 posB;
+        public float xMax;
+        public float yMax;
+        public float movingSpeed;
+
+        /// <summary>
         /// Tries to look at the player and shoot at it when possible. Runs every frame.
         /// </summary>
         private void Update()
         {
             if (pathingComplete)
             {
+                transform.position = Vector3.Lerp(posA, posB, (Mathf.Sin(theta) + 1.0f) / 2.0f);
+
+                theta += movingSpeed * Time.deltaTime;
+
+                if (theta > Mathf.PI * 3 / 2)
+                {
+                    theta -= Mathf.PI * 2;
+                }
+
                 if (reference.playerShip != null)
                 {
                     lookTarget = reference.playerShip.transform.position;
@@ -118,6 +137,33 @@ namespace Hive.Armada.Enemies
                     transform.LookAt(new Vector3(0.0f, 0.7f, 0.0f));
                 }
             }
+        }
+
+        /// <summary>
+        /// This is run after the enemy has completed its path.
+        /// Calls Hover function to set positions to hover between
+        /// </summary>
+        protected override void OnPathingComplete()
+        {
+            Hover();
+
+            pathingComplete = true;
+        }
+
+        /// <summary>
+        /// Function that creates 2 vector 3's to float up and down with a Sin()
+        /// </summary>
+        private void Hover()
+        {
+            posA = new Vector3(transform.position.x + xMax / 100,
+                transform.position.y + yMax / 100,
+                transform.position.z);
+
+            posB = new Vector3(transform.position.x - xMax / 100,
+                transform.position.y - yMax / 100,
+                transform.position.z);
+
+            theta = 0.0f;
         }
 
         /// <summary>

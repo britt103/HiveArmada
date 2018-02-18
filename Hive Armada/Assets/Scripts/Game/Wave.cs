@@ -320,6 +320,7 @@ namespace Hive.Armada.Game
 
                         Enemy spawnedEnemyScript = spawned.GetComponent<Enemy>();
                         spawnedEnemyScript.SetWave(this);
+                        //spawnedEnemyScript.wave = this;
                         spawnedEnemyScript.SetAttackPattern(thisPath.attackPattern);
 
                         Hashtable moveHash = new Hashtable();

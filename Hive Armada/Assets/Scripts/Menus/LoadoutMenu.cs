@@ -34,11 +34,6 @@ namespace Hive.Armada.Menus
     	public AudioClip[] clips;
 
         /// <summary>
-        /// Reference to weapon text component.
-        /// </summary>
-        public Text weaponText;
-
-        /// <summary>
         /// Names of weapons.
         /// </summary>
         public string[] weaponNames;
@@ -117,7 +112,6 @@ namespace Hive.Armada.Menus
                 selectedWeapon = weaponNum;
             }
             weaponButtons[selectedWeapon].GetComponent<UIHover>().Select();
-            weaponText.text = "Weapon: " + weaponNames[selectedWeapon];
         }
 
         /// <summary>

@@ -78,6 +78,11 @@ namespace Hive.Armada.Menus
         public Scrollbar scrollBar;
 
         /// <summary>
+        /// Reference to vertical slider.
+        /// </summary>
+        public Slider verticalSlider;
+
+        /// <summary>
         /// Reference to entry name text.
         /// </summary>
         public GameObject entryName;
@@ -92,6 +97,8 @@ namespace Hive.Armada.Menus
         /// </summary>
         public GameObject[] categoryButtons;
 
+        public int numFittableButtons = 3;
+
         /// <summary>
         /// Reference to environment object on top of table.
         /// </summary>
@@ -102,6 +109,8 @@ namespace Hive.Armada.Menus
         /// Prefab for Lexicon entry button.
         /// </summary>
         public GameObject entryButtonPrefab;
+
+        public GameObject entryButtonEmptyPrefab;
 
         /// <summary>
         /// References to prefabs used in powerup entries. Order must match Lexicon.txt.
@@ -305,19 +314,43 @@ namespace Hive.Armada.Menus
                 Destroy(contentGO.transform.GetChild(i).gameObject);
             }
 
-            for (int i = 0; i < currNames.Capacity; ++i)
+            int entries;
+            bool tooFewEntries;
+            if (currNames.Count <= numFittableButtons)
             {
-                GameObject entryButton = Instantiate(entryButtonPrefab, contentGO.transform);
-                entryButton.GetComponent<LexiconEntryButton>().id = i;
-                entryButton.GetComponent<LexiconEntryButton>().lexiconMenu = this;
-                entryButton.GetComponent<UIHover>().source = source;
-                if (currLocked[i])
+                entries = numFittableButtons + 1;
+                tooFewEntries = true;
+                scrollBar.gameObject.GetComponent<BoxCollider>().enabled = false;
+                verticalSlider.gameObject.SetActive(false);
+            }
+            else
+            {
+                entries = currNames.Capacity;
+                tooFewEntries = false;
+                scrollBar.gameObject.GetComponent<BoxCollider>().enabled = true;
+                verticalSlider.gameObject.SetActive(true);
+            }
+
+            for (int i = 0; i < entries; ++i)
+            {
+                if (i >= numFittableButtons && tooFewEntries)
                 {
-                    entryButton.transform.Find("Name").gameObject.GetComponent<Text>().text = entryData.lockedName;
+                    GameObject entryButtonEmpty = Instantiate(entryButtonEmptyPrefab, contentGO.transform);
                 }
                 else
                 {
-                    entryButton.transform.Find("Name").gameObject.GetComponent<Text>().text = currNames[i];
+                    GameObject entryButton = Instantiate(entryButtonPrefab, contentGO.transform);
+                    entryButton.GetComponent<LexiconEntryButton>().id = i;
+                    entryButton.GetComponent<LexiconEntryButton>().lexiconMenu = this;
+                    entryButton.GetComponent<UIHover>().source = source;
+                    if (currLocked[i])
+                    {
+                        entryButton.transform.Find("Name").gameObject.GetComponent<Text>().text = entryData.lockedName;
+                    }
+                    else
+                    {
+                        entryButton.transform.Find("Name").gameObject.GetComponent<Text>().text = currNames[i];
+                    }
                 }
             }
         }

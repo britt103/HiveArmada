@@ -130,8 +130,20 @@ namespace Hive.Armada.Menus
                 if (Physics.Raycast(transform.position, transform.forward,
                     out hit, Mathf.Infinity, Utility.uiCoverMask))
                 {
-                    Physics.Raycast(transform.position, transform.forward,
-                        out hit, Mathf.Infinity, Utility.roomMask);
+                    if (Physics.Raycast(transform.position, transform.forward,
+                        out hit, Mathf.Infinity, Utility.uiMask))
+                    {
+                        if (hit.collider.gameObject.CompareTag("InteractableUI"))
+                        {
+                            Physics.Raycast(transform.position, transform.forward,
+                            out hit, Mathf.Infinity, Utility.roomMask);
+                        }
+                    }
+                    else
+                    {
+                        Physics.Raycast(transform.position, transform.forward,
+                            out hit, Mathf.Infinity, Utility.roomMask);
+                    }
 
                     ExitLastInteractable();
                     aimObject = null;

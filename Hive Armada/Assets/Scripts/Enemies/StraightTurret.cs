@@ -13,7 +13,6 @@
 using System.Collections;
 using System.Linq;
 using UnityEngine;
-using MirzaBeig.ParticleSystems;
 
 namespace Hive.Armada.Enemies
 {
@@ -118,7 +117,7 @@ namespace Hive.Armada.Enemies
                     lookTarget = reference.playerShip.transform.position;
                 }
 
-                if (lookTarget != null)
+                if (lookTarget != Vector3.negativeInfinity)
                 {
                     transform.LookAt(lookTarget);
 
@@ -236,6 +235,7 @@ namespace Hive.Armada.Enemies
                 renderers.ElementAt(i).material = materials.ElementAt(i);
             }
 
+            pathingComplete = false;
             hitFlash = null;
             shaking = false;
             canShoot = true;
@@ -249,20 +249,13 @@ namespace Hive.Armada.Enemies
             spread = enemyAttributes.enemySpread[TypeIdentifier];
             pointValue = enemyAttributes.enemyScoreValues[TypeIdentifier];
             selfDestructTime = enemyAttributes.enemySelfDestructTimes[TypeIdentifier];
-            spawnEmitter = enemyAttributes.enemySpawnEmitters[TypeIdentifier];
             deathEmitter = enemyAttributes.enemyDeathEmitters[TypeIdentifier];
 
-            //if (!isInitialized)
-            //{
-            //    isInitialized = true;
-
-            //    GameObject spawnEmitterObject = Instantiate(spawnEmitter,
-            //                                                transform.position,
-            //                                                transform.rotation, transform);
-            //    spawnEmitterSystem = spawnEmitterObject.GetComponent<ParticleSystems>();
-
-            //    deathEmitterTypeIdentifier = objectPoolManager.GetTypeIdentifier(deathEmitter);
-            //}
+            if (!isInitialized)
+            {
+                isInitialized = true;
+                deathEmitterTypeIdentifier = objectPoolManager.GetTypeIdentifier(deathEmitter);
+            }
         }
     }
 }

@@ -9,13 +9,11 @@
 // 
 //=============================================================================
 
+using Hive.Armada.Enemies;
+using SubjectNerd.Utilities;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using Hive.Armada.Enemies;
-using Random = System.Random;
-using SubjectNerd.Utilities;
 
 namespace Hive.Armada.Game
 {
@@ -252,11 +250,13 @@ namespace Hive.Armada.Game
 
                 WaveNumber = wave;
 
+                Debug.Log("Wave #" + (WaveNumber + 1) + " is beginning.");
+
                 StartCoroutine(Spawn());
             }
             else
             {
-                Debug.LogWarning("Wave " + WaveNumber + " is already running.");
+                Debug.LogWarning("Wave " + (WaveNumber + 1) + " is already running.");
             }
         }
 
@@ -265,23 +265,17 @@ namespace Hive.Armada.Game
         /// </summary>
         private IEnumerator Spawn()
         {
-            for (int group = 0; group < setupSpawnGroups.Length; ++group)
+            foreach (SetupNormalSpawnGroup group in setupSpawnGroups)
             {
-                SetupNormalSpawnGroup thisGroup = setupSpawnGroups[group];
+                yield return new WaitForSeconds(Mathf.Abs(group.delay));
 
-                yield return new WaitForSeconds(Mathf.Abs(setupSpawnGroups[group].delay));
-
-                for (int zone = 0; zone < thisGroup.setupSpawnZones.Length; ++zone)
+                foreach (SetupNormalSpawnZone zone in group.setupSpawnZones)
                 {
-                    SetupNormalSpawnZone thisZone = thisGroup.setupSpawnZones[zone];
-
-                    SpawnZone spawnZone = thisZone.zone;
-
                     Vector3 position;
 
-                    if (thisZone.zone == SpawnZone.Center ||
-                        thisZone.zone == SpawnZone.FrontLeft ||
-                        thisZone.zone == SpawnZone.FrontRight)
+                    if (zone.zone == SpawnZone.Center ||
+                        zone.zone == SpawnZone.FrontLeft ||
+                        zone.zone == SpawnZone.FrontRight)
                     {
                         position = GameObject.Find("FrontSpawn").transform.position;
                     }
@@ -306,11 +300,9 @@ namespace Hive.Armada.Game
                             Quaternion.LookRotation(new Vector3(0.0f, 2.0f, 0.0f) - position);
                     }
 
-                    for (int path = 0; path < thisZone.setupSpawnPaths.Length; ++path)
+                    foreach (SetupNormalSpawnPath thisPath in zone.setupSpawnPaths)
                     {
-                        SetupNormalSpawnPath thisPath = thisZone.setupSpawnPaths[path];
-
-                        string pathName = waveManager.PathNames[(int)thisZone.zone] + (int)thisPath.path;
+                        string pathName = waveManager.PathNames[(int)zone.zone] + (int)thisPath.path;
 
                         GameObject spawned =
                             objectPoolManager.Spawn(
@@ -320,7 +312,6 @@ namespace Hive.Armada.Game
 
                         Enemy spawnedEnemyScript = spawned.GetComponent<Enemy>();
                         spawnedEnemyScript.SetWave(this);
-                        //spawnedEnemyScript.wave = this;
                         spawnedEnemyScript.SetAttackPattern(thisPath.attackPattern);
 
                         Hashtable moveHash = new Hashtable();
@@ -343,11 +334,11 @@ namespace Hive.Armada.Game
                     }
                 }
 
-                if (thisGroup.powerupSpawn.powerupSpawn != PowerupSpawnPoint.NoPowerup)
+                if (group.powerupSpawn.powerupSpawn != PowerupSpawnPoint.NoPowerup)
                 {
-                    Vector3 spawnPoint = waveManager.powerupSpawnPoints[(int)thisGroup.powerupSpawn.powerupSpawn - 1].position;
+                    Vector3 spawnPoint = waveManager.powerupSpawnPoints[(int)group.powerupSpawn.powerupSpawn - 1].position;
 
-                    Instantiate(waveManager.powerupPrefabs[(int)thisGroup.powerupSpawn.powerup], spawnPoint, Quaternion.identity);
+                    Instantiate(waveManager.powerupPrefabs[(int)group.powerupSpawn.powerup], spawnPoint, Quaternion.identity);
                 }
             }
 
@@ -368,7 +359,7 @@ namespace Hive.Armada.Game
             IsRunning = false;
             IsComplete = true;
 
-            Debug.Log("Wave #" + WaveNumber + " is complete");
+            Debug.Log("Wave #" + (WaveNumber + 1) + " is complete.");
 
             reference.waveManager.WaveComplete(WaveNumber);
         }

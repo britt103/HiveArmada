@@ -83,6 +83,29 @@ namespace Hive.Armada.Enemies
         private bool canRotate;
 
         /// <summary>
+        /// Plays the spawn particle emitter.
+        /// </summary>
+        private void OnEnable()
+        {
+            if (isInitialized)
+            {
+                spawnEmitterSystem.play();
+            }
+        }
+
+        /// <summary>
+        /// Stops the spawn particle emitter and clears all particles.
+        /// </summary>
+        private void OnDisable()
+        {
+            if (isInitialized)
+            {
+                spawnEmitterSystem.stop();
+                spawnEmitterSystem.clear();
+            }
+        }
+
+        /// <summary>
         /// Tries to look at the player and shoot at it when possible. Runs every frame.
         /// </summary>
         private void Update()
@@ -92,7 +115,7 @@ namespace Hive.Armada.Enemies
                 lookTarget = reference.playerShip.transform.position;
             }
 
-            if (lookTarget != null)
+            if (lookTarget != Vector3.negativeInfinity)
             {
                 transform.LookAt(lookTarget);
 
@@ -133,7 +156,6 @@ namespace Hive.Armada.Enemies
             yield return new WaitForSeconds(fireRate);
 
             canShoot = true;
-
         }
 
         private IEnumerator rotateProjectile(GameObject bullet)
@@ -149,7 +171,7 @@ namespace Hive.Armada.Enemies
         /// Function that determines the enemy's projectile, firerate,
         /// spread, and projectile speed.
         /// </summary>
-        /// <param name="mode">Current Enemy Firemode</param>
+        /// <param name="mode"> Current Enemy Firemode </param>
         private void switchFireMode(int mode)
         {
             switch (mode)
@@ -197,17 +219,17 @@ namespace Hive.Armada.Enemies
             spawnEmitter = enemyAttributes.enemySpawnEmitters[TypeIdentifier];
             deathEmitter = enemyAttributes.enemyDeathEmitters[TypeIdentifier];
 
-            //if (!isInitialized)
-            //{
-            //    isInitialized = true;
+            if (!isInitialized)
+            {
+                isInitialized = true;
 
-            //    GameObject spawnEmitterObject = Instantiate(spawnEmitter,
-            //                                                transform.position,
-            //                                                transform.rotation, transform);
-            //    spawnEmitterSystem = spawnEmitterObject.GetComponent<ParticleSystems>();
+                GameObject spawnEmitterObject = Instantiate(spawnEmitter,
+                                                            transform.position,
+                                                            transform.rotation, transform);
+                spawnEmitterSystem = spawnEmitterObject.GetComponent<ParticleSystems>();
 
-            //    deathEmitterTypeIdentifier = objectPoolManager.GetTypeIdentifier(deathEmitter);
-            //}
+                deathEmitterTypeIdentifier = objectPoolManager.GetTypeIdentifier(deathEmitter);
+            }
         }
     }
 }

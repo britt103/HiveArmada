@@ -139,7 +139,7 @@ namespace Hive.Armada.Enemies
         /// <summary>
         /// The position of where the enemy should look.
         /// </summary>
-        protected Vector3 lookTarget;
+        protected Vector3 lookTarget = Vector3.negativeInfinity;
 
         /// <summary>
         /// Used to prevent HitFlash() from being called a
@@ -211,29 +211,6 @@ namespace Hive.Armada.Enemies
         }
 
         /// <summary>
-        /// Plays the spawn particle emitter.
-        /// </summary>
-        private void OnEnable()
-        {
-            if (isInitialized)
-            {
-                spawnEmitterSystem.play();
-            }
-        }
-
-        /// <summary>
-        /// Stops the spawn particle emitter and clears all particles.
-        /// </summary>
-        private void OnDisable()
-        {
-            if (isInitialized)
-            {
-                spawnEmitterSystem.stop();
-                spawnEmitterSystem.clear();
-            }
-        }
-
-        /// <summary>
         /// Used to apply damage to an enemy.
         /// </summary>
         /// <param name="damage"> How much damage this enemy is taking. </param>
@@ -280,8 +257,6 @@ namespace Hive.Armada.Enemies
         {
             objectPoolManager.Spawn(deathEmitterTypeIdentifier, transform.position,
                                     transform.rotation);
-            //wave.AddRespawn(enemySpawn);
-            //wave.EnemyHit();
             objectPoolManager.Despawn(gameObject);
         }
 

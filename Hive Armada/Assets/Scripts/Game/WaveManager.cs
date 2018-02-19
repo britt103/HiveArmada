@@ -329,7 +329,7 @@ namespace Hive.Armada.Game
         {
             if (!waves[currentWave].IsComplete || waves[currentWave].IsRunning)
             {
-                Debug.LogError(GetType().Name + " - wave" + currentWave +
+                Debug.LogError(GetType().Name + " - wave" + (currentWave + 1) +
                                " says it is complete, but it isn't!");
             }
 

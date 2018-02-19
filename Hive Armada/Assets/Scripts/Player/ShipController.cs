@@ -60,6 +60,12 @@ namespace Hive.Armada.Player
         public int currentWeapon;
 
         /// <summary>
+        /// Prevents the weapon from firing when the player
+        /// grabs the ship until they release the trigger.
+        /// </summary>
+        private bool canShoot;
+
+        /// <summary>
         /// If we should wait until LateUpdate to update poses
         /// </summary>
         private bool deferNewPoses;
@@ -209,9 +215,19 @@ namespace Hive.Armada.Player
             transform.localPosition = Vector3.zero;
             transform.localRotation = Quaternion.identity;
 
-            if (hand.GetStandardInteractionButton())
+            if (canShoot)
             {
-                weapons[currentWeapon].weapon.TriggerUpdate();
+                if (hand.GetStandardInteractionButton())
+                {
+                    weapons[currentWeapon].weapon.TriggerUpdate();
+                }
+            }
+            else
+            {
+                if (hand.GetStandardInteractionButtonUp())
+                {
+                    canShoot = true;
+                }
             }
         }
 

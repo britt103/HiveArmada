@@ -12,7 +12,6 @@
 using System.Collections;
 using System.Linq;
 using UnityEngine;
-using MirzaBeig.ParticleSystems;
 
 namespace Hive.Armada.Enemies
 {
@@ -172,25 +171,19 @@ namespace Hive.Armada.Enemies
                 renderers.ElementAt(i).material = materials.ElementAt(i);
             }
 
+            pathingComplete = false;
             hitFlash = null;
             shaking = false;
 
             maxHealth = enemyAttributes.enemyHealthValues[TypeIdentifier];
             Health = maxHealth;
             pointValue = enemyAttributes.enemyScoreValues[TypeIdentifier];
-            spawnEmitter = enemyAttributes.enemySpawnEmitters[TypeIdentifier];
             deathEmitter = enemyAttributes.enemyDeathEmitters[TypeIdentifier];
             damage = enemyAttributes.projectileDamage;
 
             if (!isInitialized)
             {
                 isInitialized = true;
-
-                GameObject spawnEmitterObject = Instantiate(spawnEmitter,
-                                                            transform.position,
-                                                            transform.rotation, transform);
-                spawnEmitterSystem = spawnEmitterObject.GetComponent<ParticleSystems>();
-
                 deathEmitterTypeIdentifier = objectPoolManager.GetTypeIdentifier(deathEmitter);
             }
         }

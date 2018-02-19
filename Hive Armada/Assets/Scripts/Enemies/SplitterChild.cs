@@ -87,9 +87,14 @@ namespace Hive.Armada.Enemies
         /// </summary>
         private void Update()
         {
-            if (player != null)
+            if (reference.playerShip != null)
             {
-                transform.LookAt(player.transform);
+                lookTarget = reference.playerShip.transform.position;
+            }
+
+            if (lookTarget != Vector3.negativeInfinity)
+            {
+                transform.LookAt(lookTarget);
 
                 if (canShoot)
                 {
@@ -98,15 +103,8 @@ namespace Hive.Armada.Enemies
             }
             else
             {
-                player = reference.playerShip;
-
-                if (player == null)
-                {
-                    transform.LookAt(new Vector3(0.0f, 2.0f, 0.0f));
-                }
+                transform.LookAt(new Vector3(0.0f, 0.7f, 0.0f));
             }
-
-            SelfDestructCountdown();
         }
 
         /// <summary>
@@ -135,7 +133,6 @@ namespace Hive.Armada.Enemies
             yield return new WaitForSeconds(fireRate);
 
             canShoot = true;
-
         }
 
         private IEnumerator rotateProjectile(GameObject bullet)
@@ -151,7 +148,7 @@ namespace Hive.Armada.Enemies
         /// Function that determines the enemy's projectile, firerate,
         /// spread, and projectile speed.
         /// </summary>
-        /// <param name="mode">Current Enemy Firemode</param>
+        /// <param name="mode"> Current Enemy Firemode </param>
         private void switchFireMode(int mode)
         {
             switch (mode)

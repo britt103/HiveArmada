@@ -24,34 +24,29 @@ namespace Hive.Armada.Game
     public enum SpawnZone
     {
         /// <summary>
-        /// The introduction spawn point that is right in front of the player's view.
-        /// </summary>
-        Introduction = 0,
-
-        /// <summary>
         /// The main spawn region in front of the player.
         /// </summary>
-        Center = 1,
+        Center,
 
         /// <summary>
         /// The spawn region that is in the front left.
         /// </summary>
-        FrontLeft = 2,
+        FrontLeft,
 
         /// <summary>
         /// The spawn region that is in the front right.
         /// </summary>
-        FrontRight = 3,
+        FrontRight,
 
         /// <summary>
         /// The spawn region that is up in the back left.
         /// </summary>
-        BackLeft = 4,
+        BackLeft,
 
         /// <summary>
         /// The spawn region that is up in the back right.
         /// </summary>
-        BackRight = 5
+        BackRight
     }
 
     public enum Powerups
@@ -61,6 +56,86 @@ namespace Hive.Armada.Game
         AreaBomb = 2,
         Clear = 3,
         Ally = 4
+    }
+
+    /// <summary>
+    /// All enemy types that are in normal mode.
+    /// </summary>
+    public enum EnemyType
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        Standard,
+
+        /// <summary>
+        /// 
+        /// </summary>
+        Buckshot,
+
+        /// <summary>
+        /// 
+        /// </summary>
+        Moving,
+
+        /// <summary>
+        /// 
+        /// </summary>
+        Splitter,
+
+        /// <summary>
+        /// 
+        /// </summary>
+        Kamikaze,
+
+        /// <summary>
+        /// 
+        /// </summary>
+        SplitterChild
+    }
+
+
+    /// <summary>
+    /// 
+    /// </summary>
+    [Serializable]
+    public struct EnemyTypeSetup
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        [Tooltip("The prefab for the Standard enemy.")]
+        public GameObject standardEnemyPrefab;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [Tooltip("The prefab for the Buckshot enemy.")]
+        public GameObject buckshotEnemyPrefab;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [Tooltip("The prefab for the Moving enemy.")]
+        public GameObject movingEnemyPrefab;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [Tooltip("The prefab for the Splitter enemy.")]
+        public GameObject splitterEnemyPrefab;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [Tooltip("The prefab for the Kamikaze enemy.")]
+        public GameObject kamikazeEnemyPrefab;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [Tooltip("The prefab for the Splitter Child enemy.")]
+        public GameObject splitterChildEnemyPrefab;
     }
 
     /// <summary>
@@ -89,9 +164,15 @@ namespace Hive.Armada.Game
         /// Reference manager that holds all needed references
         /// (e.g. spawner, game manager, etc.)
         /// </summary>
-        public ReferenceManager reference;
+        private ReferenceManager reference;
 
         public WaveLoader waveLoader;
+
+        public EnemyTypeSetup enemyTypeSetup;
+
+        public int[] EnemyIDs { get; private set; }
+
+        public string[] PathNames { get; private set; }
 
         /// <summary>
         /// Array of all available spawn zones in the scene.
@@ -105,8 +186,10 @@ namespace Hive.Armada.Game
         /// </summary>
         public SpawnZoneBounds powerupSpawnZone;
 
+        public Transform[] powerupSpawnPoints;
+
         /// <summary>
-        /// Array of power-up prefabs for the subwaves to use.
+        /// Array of power-up prefabs for the waves to use.
         /// </summary>
         [Header("Power-ups")]
         [Reorderable("Powerup", false)]
@@ -117,11 +200,6 @@ namespace Hive.Armada.Game
         /// </summary>
         [Header("Waves")]
         public int startingWave;
-
-        /// <summary>
-        /// Index of the subwave in startingWave to go first.
-        /// </summary>
-        public int startingSubwave;
 
         /// <summary>
         /// Array of all waves that will be run.
@@ -158,11 +236,34 @@ namespace Hive.Armada.Game
         public bool IsComplete { get; private set; }
 
         /// <summary>
-        /// Loads the waves and subwaves from a file.
+        /// Loads the waves from a file.
         /// </summary>
         public void Awake()
         {
-            waves = waveLoader.LoadWaves();
+            reference = GameObject.Find("Reference Manager").GetComponent<ReferenceManager>();
+
+            ObjectPoolManager objectPool = reference.objectPoolManager;
+
+            EnemyIDs = new[]
+            {
+                objectPool.GetTypeIdentifier(enemyTypeSetup.standardEnemyPrefab),
+                objectPool.GetTypeIdentifier(enemyTypeSetup.buckshotEnemyPrefab),
+                objectPool.GetTypeIdentifier(enemyTypeSetup.movingEnemyPrefab),
+                objectPool.GetTypeIdentifier(enemyTypeSetup.splitterEnemyPrefab),
+                objectPool.GetTypeIdentifier(enemyTypeSetup.kamikazeEnemyPrefab),
+                objectPool.GetTypeIdentifier(enemyTypeSetup.splitterChildEnemyPrefab)
+            };
+
+            PathNames = new[]
+            {
+                "CenterPath",
+                "LeftPath",
+                "RightPath",
+                "BackLeftPath",
+                "BackRightPath"
+            };
+
+            //waves = waveLoader.LoadWaves();
         }
 
         /// <summary>
@@ -187,48 +288,27 @@ namespace Hive.Armada.Game
                     currentWave = startingWave;
                 }
 
-                --startingSubwave;
-
-                if (startingSubwave <= 0)
-                {
-                    startingSubwave = 0;
-                }
-                else if (startingSubwave >= waves[currentWave].subwaves.Length)
-                {
-                    startingSubwave = 0;
-                }
-
                 IsRunning = true;
                 reference.gameMusicSource.Play();
-                RunWave(currentWave, startingSubwave);
+                reference.statistics.IsAlive();
+                RunWave(currentWave);
             }
         }
 
         /// <summary>
-        /// Begins running a wave from the waves array
+        /// Begins running the waves from the waves array
         /// </summary>
         /// <param name="wave"> The index of the wave to run </param>
         private void RunWave(int wave)
         {
-            StartCoroutine(WaveNumberDisplay(wave, 0));
-        }
-
-        /// <summary>
-        /// Begins running a wave from the waves array at the given subwave
-        /// </summary>
-        /// <param name="wave"> The index of the wave to run </param>
-        /// <param name="subwave"> The index of the subwave to start on </param>
-        private void RunWave(int wave, int subwave)
-        {
-            StartCoroutine(WaveNumberDisplay(wave, subwave));
+            StartCoroutine(WaveNumberDisplay(wave));
         }
 
         /// <summary>
         /// Shows the wave number before starting the wave.
         /// </summary>
         /// <param name="wave"> The index of the wave being run </param>
-        /// <param name="subwave"> The index of the starting subwave </param>
-        private IEnumerator WaveNumberDisplay(int wave, int subwave)
+        private IEnumerator WaveNumberDisplay(int wave)
         {
             StartCoroutine(PlayWaveCount(wave + 1));
             reference.menuWaveNumberDisplay.gameObject.SetActive(true);
@@ -238,7 +318,7 @@ namespace Hive.Armada.Game
 
             reference.menuWaveNumberDisplay.gameObject.SetActive(false);
 
-            waves[wave].Run(wave, subwave);
+            waves[wave].Run(wave);
         }
 
         /// <summary>
@@ -249,7 +329,7 @@ namespace Hive.Armada.Game
         {
             if (!waves[currentWave].IsComplete || waves[currentWave].IsRunning)
             {
-                Debug.LogError(GetType().Name + " - wave" + currentWave +
+                Debug.LogError(GetType().Name + " - wave" + (currentWave + 1) +
                                " says it is complete, but it isn't!");
             }
 

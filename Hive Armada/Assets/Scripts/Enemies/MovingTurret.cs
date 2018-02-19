@@ -13,7 +13,6 @@
 using System.Collections;
 using System.Linq;
 using UnityEngine;
-using MirzaBeig.ParticleSystems;
 using Random = UnityEngine.Random;
 
 namespace Hive.Armada.Enemies
@@ -113,24 +112,6 @@ namespace Hive.Armada.Enemies
         private float theta;
 
         /// <summary>
-        /// Finds the player. Runs when this enemy spawns.
-        /// </summary>
-        private void Start()
-        {
-            player = GameObject.FindGameObjectWithTag("Player");
-            if (player != null)
-            {
-                transform.LookAt(player.transform);
-            }
-            SetPosition();
-        }
-
-        private void OnEnable()
-        {
-            SetPosition();
-        }
-
-        /// <summary>
         /// Sets the two positions this enemy moves between.
         /// </summary>
         private void SetPosition()
@@ -151,40 +132,36 @@ namespace Hive.Armada.Enemies
         /// </summary>
         private void Update()
         {
-            transform.position = Vector3.Lerp(posA, posB, (Mathf.Sin(theta) + 1.0f) / 2.0f);
-
-            theta += movingSpeed * Time.deltaTime;
-
-            if (theta > Mathf.PI * 3 / 2)
+            if (pathingComplete)
             {
-                theta -= Mathf.PI * 2;
-            }
-
-            if (player != null)
-            {
-                transform.LookAt(player.transform);
-
-                if (canShoot)
+                if (reference.playerShip != null)
                 {
-                    StartCoroutine(Shoot());
+                    lookTarget = reference.playerShip.transform.position;
+                }
+
+                if (lookTarget != Vector3.negativeInfinity)
+                {
+                    transform.LookAt(lookTarget);
+
+                    if (canShoot)
+                    {
+                        StartCoroutine(Shoot());
+                    }
+                }
+                else
+                {
+                    transform.LookAt(new Vector3(0.0f, 0.7f, 0.0f));
+                }
+
+                transform.position = Vector3.Lerp(posA, posB, (Mathf.Sin(theta) + 1.0f) / 2.0f);
+
+                theta += movingSpeed * Time.deltaTime;
+
+                if (theta > Mathf.PI * 3 / 2)
+                {
+                    theta -= Mathf.PI * 2;
                 }
             }
-            else
-            {
-                player = reference.playerShip;
-
-                if (player == null)
-                {
-                    transform.LookAt(new Vector3(0.0f, 2.0f, 0.0f));
-                }
-            }
-
-            //if (shaking)
-            //{
-            //    iTween.ShakePosition(gameObject, new Vector3(0.1f, 0.1f, 0.1f), 0.1f);
-
-            //}
-            SelfDestructCountdown();
         }
 
         /// <summary>
@@ -249,7 +226,17 @@ namespace Hive.Armada.Enemies
                     break;
             }
         }
-        
+
+        /// <summary>
+        /// This is run after the enemy has completed its path.
+        /// </summary>
+        protected override void OnPathingComplete()
+        {
+            SetPosition();
+
+            pathingComplete = true;
+        }
+
         /// <summary>
         /// Resets attributes to this enemy's defaults from enemyAttributes.
         /// </summary>
@@ -261,6 +248,7 @@ namespace Hive.Armada.Enemies
                 renderers.ElementAt(i).material = materials.ElementAt(i);
             }
 
+            pathingComplete = false;
             hitFlash = null;
             shaking = false;
             canShoot = true;
@@ -274,18 +262,11 @@ namespace Hive.Armada.Enemies
             spread = enemyAttributes.enemySpread[TypeIdentifier];
             pointValue = enemyAttributes.enemyScoreValues[TypeIdentifier];
             selfDestructTime = enemyAttributes.enemySelfDestructTimes[TypeIdentifier];
-            spawnEmitter = enemyAttributes.enemySpawnEmitters[TypeIdentifier];
             deathEmitter = enemyAttributes.enemyDeathEmitters[TypeIdentifier];
 
             if (!isInitialized)
             {
                 isInitialized = true;
-
-                GameObject spawnEmitterObject = Instantiate(spawnEmitter,
-                                                            transform.position,
-                                                            transform.rotation, transform);
-                spawnEmitterSystem = spawnEmitterObject.GetComponent<ParticleSystems>();
-
                 deathEmitterTypeIdentifier = objectPoolManager.GetTypeIdentifier(deathEmitter);
             }
         }

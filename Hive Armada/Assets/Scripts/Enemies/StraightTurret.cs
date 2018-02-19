@@ -13,7 +13,6 @@
 using System.Collections;
 using System.Linq;
 using UnityEngine;
-using MirzaBeig.ParticleSystems;
 
 namespace Hive.Armada.Enemies
 {
@@ -39,16 +38,6 @@ namespace Hive.Armada.Enemies
         /// Position from which bullets are initially shot from
         /// </summary>
         public Transform shootPoint;
-
-        /// <summary>
-        /// Variable that finds the player GameObject
-        /// </summary>
-        private GameObject player;
-
-        /// <summary>
-        /// Vector3 that holds the player's position
-        /// </summary>
-        private Vector3 pos;
 
         /// <summary>
         /// How fast the turret shoots at a given rate
@@ -95,15 +84,15 @@ namespace Hive.Armada.Enemies
         /// </summary>
         private bool canRotate;
 
-        //private bool fireModeSet = false;
-
-        ///// <summary>
-        ///// On start, select enemy behavior based on value fireMode
-        ///// </summary>
-        //void Start()
-        //{
-        //    //switchFireMode(fireMode);
-        //}
+        /// <summary>
+        /// Variables for hovering
+        /// </summary>
+        private float theta;
+        private Vector3 posA;
+        private Vector3 posB;
+        public float xMax;
+        public float yMax;
+        public float movingSpeed;
 
         /// <summary>
         /// tracks player and shoots projectiles in that direction, while being slightly
@@ -112,39 +101,63 @@ namespace Hive.Armada.Enemies
         /// </summary>
         private void Update()
         {
-            /// Ghetto set firemode
-            //if (!fireModeSet)
-            //{
-            //    fireMode = 2;
-            //    switchFireMode(fireMode);
-            //    fireModeSet = true;
-            //}
-
-            if (player != null)
+            if (pathingComplete)
             {
-                pos = player.transform.position;
-                transform.LookAt(pos);
+                transform.position = Vector3.Lerp(posA, posB, (Mathf.Sin(theta) + 1.0f) / 2.0f);
 
-                if (canShoot)
+                theta += movingSpeed * Time.deltaTime;
+
+                if (theta > Mathf.PI * 3 / 2)
                 {
-                    StartCoroutine(Shoot());
+                    theta -= Mathf.PI * 2;
+                }
+
+                if (reference.playerShip != null)
+                {
+                    lookTarget = reference.playerShip.transform.position;
+                }
+
+                if (lookTarget != Vector3.negativeInfinity)
+                {
+                    transform.LookAt(lookTarget);
+
+                    if (canShoot)
+                    {
+                        StartCoroutine(Shoot());
+                    }
+                }
+                else
+                {
+                    transform.LookAt(new Vector3(0.0f, 0.7f, 0.0f));
                 }
             }
-            else
-            {
-                player = reference.playerShip;
+        }
 
-                if (player == null)
-                {
-                    transform.LookAt(new Vector3(0.0f, 0.0f, 0.0f));
-                }
-            }
+        /// <summary>
+        /// This is run after the enemy has completed its path.
+        /// Calls Hover function to set positions to hover between
+        /// </summary>
+        protected override void OnPathingComplete()
+        {
+            Hover();
 
-            //if (shaking)
-            //{
-            //    iTween.ShakePosition(gameObject, new Vector3(0.01f, 0.01f, 0.01f), Time.deltaTime);
-            //}
-            SelfDestructCountdown();
+            pathingComplete = true;
+        }
+
+        /// <summary>
+        /// Function that creates 2 vector 3's to float up and down with a Sin()
+        /// </summary>
+        private void Hover()
+        {
+            posA = new Vector3(transform.position.x + xMax / 100,
+                transform.position.y + yMax / 100,
+                transform.position.z);
+
+            posB = new Vector3(transform.position.x - xMax / 100,
+                transform.position.y - yMax / 100,
+                transform.position.z);
+
+            theta = 0.0f;
         }
 
         /// <summary>
@@ -222,6 +235,7 @@ namespace Hive.Armada.Enemies
                 renderers.ElementAt(i).material = materials.ElementAt(i);
             }
 
+            pathingComplete = false;
             hitFlash = null;
             shaking = false;
             canShoot = true;
@@ -235,18 +249,11 @@ namespace Hive.Armada.Enemies
             spread = enemyAttributes.enemySpread[TypeIdentifier];
             pointValue = enemyAttributes.enemyScoreValues[TypeIdentifier];
             selfDestructTime = enemyAttributes.enemySelfDestructTimes[TypeIdentifier];
-            spawnEmitter = enemyAttributes.enemySpawnEmitters[TypeIdentifier];
             deathEmitter = enemyAttributes.enemyDeathEmitters[TypeIdentifier];
 
             if (!isInitialized)
             {
                 isInitialized = true;
-
-                GameObject spawnEmitterObject = Instantiate(spawnEmitter,
-                                                            transform.position,
-                                                            transform.rotation, transform);
-                spawnEmitterSystem = spawnEmitterObject.GetComponent<ParticleSystems>();
-
                 deathEmitterTypeIdentifier = objectPoolManager.GetTypeIdentifier(deathEmitter);
             }
         }

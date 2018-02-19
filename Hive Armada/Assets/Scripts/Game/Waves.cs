@@ -1,162 +1,130 @@
 ﻿//=============================================================================
-// 
+//
 // Perry Sidler
 // 1831784
 // sidle104@mail.chapman.edu
 // CPSC-340-01 & CPSC-344-01
 // Group Project
+//
+// This file contains the Wave class which has an array of subwaves that it
+// will spawn. Subwaves can be reused in the both the same and different waves.
+// This allows us to have more control over spawning and also simplifies the
+// wave design process by letting us reuse subwaves.
 // 
-// [DESCRIPTION]
-// 
+// The logic inside of Wave is very simple. It keeps track of what subwaves it
+// has and tells the next one to start when the previous tells it that it has
+// completed. Once the wave is done it tells WaveManager that it has completed.
+//
 //=============================================================================
 
-using System.Collections;
-using System.Collections.Generic;
+using SubjectNerd.Utilities;
 using UnityEngine;
 
 namespace Hive.Armada.Game
 {
+    /// <summary>
+    /// Contains all logic for a Wave.
+    /// </summary>
+    [DisallowMultipleComponent]
     public class Waves : MonoBehaviour
     {
-        public GameObject[] enemies;
-        public int[][] waveSpawns;
-        public AudioSource source;
-        public AudioClip[] sounds;
-
-        private readonly int[] enemyCap =
-        {
-            1,
-            2,
-            4,
-            4,
-            2,
-            4,
-            2,
-            3,
-            4,
-            3,
-            1,
-            3,
-            4,
-            4,
-            7
-        };
-        private readonly float[] spawnTime =
-        {
-            3.0f,
-            3.0f,
-            2.0f,
-            3.0f,
-            3.0f,
-            2.0f,
-            3.0f,
-            2.0f,
-            2.0f,
-            2.0f,
-            2.0f,
-            2.0f,
-            2.0f,
-            1.8f,
-            1.8f
-        };
-
-        public float[][] wavePowerupChances;
-
-        void Awake()
-        {
-            waveSpawns = new int[15][];
-
-            // 1-5
-            waveSpawns[0] = new[] { 2, 0, 0, 0 };
-            waveSpawns[1] = new[] { 4, 0, 0, 0 };
-            waveSpawns[2] = new[] { 8, 0, 0, 0 };
-            waveSpawns[3] = new[] { 4, 1, 0, 0 };
-            waveSpawns[4] = new[] { 0, 3, 0, 0 };
-            // 6-10
-            waveSpawns[5] = new[] { 8, 2, 0, 0 };
-            waveSpawns[6] = new[] { 0, 5, 0, 0 };
-            waveSpawns[7] = new[] { 0, 0, 6, 0 };
-            waveSpawns[8] = new[] { 4, 2, 4, 0 };
-            waveSpawns[9] = new[] { 2, 0, 0, 1 };
-
-            // 11-15
-            waveSpawns[10] = new[] { 0, 0, 0, 3 };
-            waveSpawns[11] = new[] { 1, 2, 2, 1 };
-            waveSpawns[12] = new[] { 3, 2, 2, 3 };
-            waveSpawns[13] = new[] { 5, 0, 5, 4 };
-            waveSpawns[14] = new[] { 8, 5, 2, 5 };
-
-            wavePowerupChances = new float[15][];
-
-            //currently ally, area bomb, clear, damage boost, shield
-            //1-5
-            wavePowerupChances[0] = new[] { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f };
-            wavePowerupChances[1] = new[] { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f };
-            wavePowerupChances[2] = new[] { 0.0f, 0.0f, 0.0f, 0.0f, 1.0f };
-            wavePowerupChances[3] = new[] { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f };
-            wavePowerupChances[4] = new[] { 0.0f, 0.0f, 0.0f, 1.0f, 0.0f };
-            //6-10
-            wavePowerupChances[5] = new[] { 0.0f, 1.0f, 0.0f, 0.0f, 0.0f };
-            wavePowerupChances[6] = new[] { 0.0f, 0.0f, 0.0f, 0.5f, 1.0f };
-            wavePowerupChances[7] = new[] { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f };
-            wavePowerupChances[8] = new[] { 0.0f, 1.0f, 0.0f, 0.0f, 0.0f };
-            wavePowerupChances[9] = new[] { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f };
-            //11-15
-            wavePowerupChances[10] = new[] { 0.0f, 0.0f, 0.0f, 0.0f, 1.0f };
-            wavePowerupChances[11] = new[] { 0.0f, 0.0f, 0.0f, 1.0f, 0.0f };
-            wavePowerupChances[12] = new[] { 0.0f, 0.5f, 0.0f, 0.0f, 1.0f };
-            wavePowerupChances[13] = new[] { 0.0f, 0.0f, 0.0f, 0.5f, 1.0f };
-            wavePowerupChances[14] = new[] { 0.0f, 0.33f, 0.0f, 0.66f, 1.0f };
-        }
+        /// <summary>
+        /// Reference manager that holds all needed references
+        /// (e.g. spawner, game manager, etc.)
+        /// </summary>
+        private ReferenceManager reference;
 
         /// <summary>
-        /// 
+        /// Index of this wave in the game.
         /// </summary>
-        /// <param name="wave"></param>
-        /// <returns></returns>
-        public int[] GetSpawns(int wave)
-        {
-            int[] spawns = new int[waveSpawns[wave].Length];
+        public int WaveNumber { get; private set; }
 
-            for (int i = 0; i < waveSpawns[wave].Length; ++i)
+        /// <summary>
+        /// All subwaves that will run during this wave in the order they will run.
+        /// </summary>
+        [Tooltip("All subwaves that will run during this wave in the order they will run.")]
+        [Reorderable("Subwave", false)]
+        public Subwave[] subwaves;
+
+        /// <summary>
+        /// Index of the subwave that is currently running.
+        /// </summary>
+        private int currentSubwave;
+
+        /// <summary>
+        /// If this wave, and any subwaves, are currently running.
+        /// </summary>
+        public bool IsRunning { get; private set; }
+
+        /// <summary>
+        /// If this wave has run and completed all of its subwaves.
+        /// </summary>
+        public bool IsComplete { get; private set; }
+
+        /// <summary>
+        /// Initializes the Wave and begins spawning its subwaves.
+        /// </summary>
+        /// <param name="wave"> The wave's number </param>
+        /// <param name="subwave"> Index of the subwave to start with </param>
+        public void Run(int wave, int subwave)
+        {
+            reference = GameObject.Find("Reference Manager").GetComponent<ReferenceManager>();
+
+            if (reference == null)
             {
-                spawns[i] = waveSpawns[wave][i];
+                Debug.LogError(GetType().Name + " - Could not find Reference Manager!");
             }
 
-            return spawns;
+            if (subwaves.Length == 0)
+            {
+                Debug.LogError("Wave " + WaveNumber + " has no subwaves!");
+            }
+            else
+            {
+                WaveNumber = wave;
+                Debug.Log("Beginning Wave #" + WaveNumber);
+
+                currentSubwave = subwave;
+                IsRunning = true;
+                reference.statistics.IsAlive();
+                RunSubwave(currentSubwave);
+            }
         }
 
         /// <summary>
-        /// 
+        /// Begins running a subwave from the subwaves array.
         /// </summary>
-        /// <param name="wave"></param>
-        /// <returns></returns>
-        public int GetEnemyCap(int wave)
+        /// <param name="subwave"> The index of the subwave to run </param>
+        private void RunSubwave(int subwave)
         {
-            return enemyCap[wave];
+            Debug.Log("Beginning Wave #" + WaveNumber + "-" + subwave);
+            subwaves[subwave].Run(WaveNumber, subwave);
         }
 
         /// <summary>
-        /// 
+        /// Informs the wave that a given subwave has completed.
         /// </summary>
-        /// <param name="wave"></param>
-        /// <returns></returns>
-        public float GetSpawnTime(int wave)
+        /// <param name="subwave"> The index of the subwave that completed </param>
+        public void SubwaveComplete(int subwave)
         {
-            return spawnTime[wave];
-        }
+            if (!subwaves[subwave].IsComplete || subwaves[subwave].IsRunning)
+            {
+                Debug.LogError("Wave " + WaveNumber + " - subwave " + subwave +
+                               " says it is complete, but it isn't!");
+            }
 
-        public float[] GetPowerupChances(int wave)
-        {
-            return wavePowerupChances[wave];
-        }
-
-        public IEnumerator playWave(int waveNumber)
-        {
-            source.PlayOneShot(sounds[0]);
-            yield return new WaitForSeconds(0.9f);
-            source.PlayOneShot(sounds[waveNumber]);
+            if (subwaves.Length > ++currentSubwave)
+            {
+                RunSubwave(currentSubwave);
+            }
+            else
+            {
+                IsRunning = false;
+                IsComplete = true;
+                reference.waveManager.WaveComplete(WaveNumber);
+                reference.statistics.WaveComplete();
+                reference.powerUpStatus.RemoveStoredPowerups();
+            }
         }
     }
 }
-

@@ -10,11 +10,9 @@
 //
 //=============================================================================
 
-using System;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
-using MirzaBeig.ParticleSystems;
 using Random = UnityEngine.Random;
 
 namespace Hive.Armada.Enemies
@@ -82,6 +80,16 @@ namespace Hive.Armada.Enemies
         private float randZ;
 
         /// <summary>
+        /// Variables for hovering
+        /// </summary>
+        private float theta;
+        private Vector3 posA;
+        private Vector3 posB;
+        public float xMax;
+        public float yMax;
+        public float movingSpeed;
+
+        /// <summary>
         /// Finds the player and instantiates pos for position holding
         /// </summary>
         private void Start()
@@ -97,30 +105,68 @@ namespace Hive.Armada.Enemies
         /// </summary>
         private void Update()
         {
-            try
+            if (pathingComplete)
             {
-                pos = player.transform.position;
-                transform.LookAt(pos);
+                transform.position = Vector3.Lerp(posA, posB, (Mathf.Sin(theta) + 1.0f) / 2.0f);
 
-                if (Time.time > fireNext)
+                theta += movingSpeed * Time.deltaTime;
+
+                if (theta > Mathf.PI * 3 / 2)
                 {
-                    fireNext = Time.time + fireRate;
+                    theta -= Mathf.PI * 2;
+                }
 
-                    for (int i = 0; i < firePellet; ++i)
+                if (reference.playerShip != null)
+                {
+                    lookTarget = reference.playerShip.transform.position;
+                }
+
+                if (lookTarget != Vector3.negativeInfinity)
+                {
+                    transform.LookAt(lookTarget);
+
+                    if (Time.time > fireNext)
                     {
-                        StartCoroutine(FireBullet());
+                        fireNext = Time.time + fireRate;
+
+                        for (int i = 0; i < firePellet; ++i)
+                        {
+                            StartCoroutine(FireBullet());
+                        }
                     }
                 }
+                else
+                {
+                    transform.LookAt(new Vector3(0.0f, 0.7f, 0.0f));
+                }
             }
-            catch (Exception)
-            {
-            }
-            //if (shaking)
-            //{
-            //    iTween.ShakePosition(gameObject, new Vector3(0.1f, 0.1f, 0.1f), 0.1f);
+        }
 
-            //}
-            SelfDestructCountdown();
+        /// <summary>
+        /// This is run after the enemy has completed its path.
+        /// Calls Hover function to set positions to hover between
+        /// </summary>
+        protected override void OnPathingComplete()
+        {
+            Hover();
+
+            pathingComplete = true;
+        }
+
+        /// <summary>
+        /// Function that creates 2 vector 3's to float up and down with a Sin()
+        /// </summary>
+        private void Hover()
+        {
+            posA = new Vector3(transform.position.x + xMax / 100,
+                transform.position.y + yMax / 100,
+                transform.position.z);
+
+            posB = new Vector3(transform.position.x - xMax / 100,
+                transform.position.y - yMax / 100,
+                transform.position.z);
+
+            theta = 0.0f;
         }
 
         /// <summary>
@@ -148,6 +194,7 @@ namespace Hive.Armada.Enemies
                 renderers.ElementAt(i).material = materials.ElementAt(i);
             }
 
+            pathingComplete = false;
             hitFlash = null;
             shaking = false;
 
@@ -160,18 +207,11 @@ namespace Hive.Armada.Enemies
             fireCone = enemyAttributes.enemySpread[TypeIdentifier];
             pointValue = enemyAttributes.enemyScoreValues[TypeIdentifier];
             selfDestructTime = enemyAttributes.enemySelfDestructTimes[TypeIdentifier];
-            spawnEmitter = enemyAttributes.enemySpawnEmitters[TypeIdentifier];
             deathEmitter = enemyAttributes.enemyDeathEmitters[TypeIdentifier];
 
             if (!isInitialized)
             {
                 isInitialized = true;
-
-                GameObject spawnEmitterObject = Instantiate(spawnEmitter,
-                                                            transform.position,
-                                                            transform.rotation, transform);
-                spawnEmitterSystem = spawnEmitterObject.GetComponent<ParticleSystems>();
-
                 deathEmitterTypeIdentifier = objectPoolManager.GetTypeIdentifier(deathEmitter);
             }
         }

@@ -78,7 +78,7 @@ namespace Hive.Armada.Enemies
         /// Reference to the subwave that spawned this enemy. Used to inform it
         /// when this enemy is hit for the first time and when it is killed.
         /// </summary>
-        protected Subwave subwave;
+        protected Wave wave;
 
         /// <summary>
         /// Whether or not this enemy has already been initialized with its attributes.
@@ -137,6 +137,11 @@ namespace Hive.Armada.Enemies
         protected bool untouched = true;
 
         /// <summary>
+        /// The position of where the enemy should look.
+        /// </summary>
+        protected Vector3 lookTarget = Vector3.negativeInfinity;
+
+        /// <summary>
         /// Used to prevent HitFlash() from being called a
         /// second time before it is done flashing
         /// </summary>
@@ -154,11 +159,6 @@ namespace Hive.Armada.Enemies
         protected List<Material> materials;
 
         /// <summary>
-        /// The spawn information for this enemy. Used for respawning after self-destruction.
-        /// </summary>
-        protected EnemySpawn enemySpawn;
-
-        /// <summary>
         /// The attack pattern number that this enemy should use.
         /// </summary>
         protected AttackPattern attackPattern;
@@ -172,6 +172,11 @@ namespace Hive.Armada.Enemies
         /// Used to shake low health enemies.
         /// </summary>
         protected bool shaking = false;
+
+        /// <summary>
+        /// If this enemy has finished pathing.
+        /// </summary>
+        protected bool pathingComplete;
 
         /// <summary>
         /// Initializes references to ReferenceManager and other managers, list of renderers and
@@ -206,29 +211,6 @@ namespace Hive.Armada.Enemies
         }
 
         /// <summary>
-        /// Plays the spawn particle emitter.
-        /// </summary>
-        private void OnEnable()
-        {
-            if (isInitialized)
-            {
-                spawnEmitterSystem.play();
-            }
-        }
-
-        /// <summary>
-        /// Stops the spawn particle emitter and clears all particles.
-        /// </summary>
-        private void OnDisable()
-        {
-            if (isInitialized)
-            {
-                spawnEmitterSystem.stop();
-                spawnEmitterSystem.clear();
-            }
-        }
-
-        /// <summary>
         /// Used to apply damage to an enemy.
         /// </summary>
         /// <param name="damage"> How much damage this enemy is taking. </param>
@@ -245,15 +227,6 @@ namespace Hive.Armada.Enemies
             {
                 Kill();
             }
-
-            if (!untouched)
-            {
-                return;
-            }
-
-            untouched = false;
-
-            subwave.EnemyHit();
         }
 
         /// <summary>
@@ -263,7 +236,7 @@ namespace Hive.Armada.Enemies
         protected virtual void Kill()
         {
             KillSpecial();
-            subwave.EnemyDead();
+            wave.EnemyDead();
             reference.scoringSystem.setLocation(transform);
             reference.scoringSystem.ComboIn(pointValue);
             reference.statistics.EnemyKilled();
@@ -285,8 +258,6 @@ namespace Hive.Armada.Enemies
         {
             objectPoolManager.Spawn(deathEmitterTypeIdentifier, transform.position,
                                     transform.rotation);
-            subwave.AddRespawn(enemySpawn);
-            subwave.EnemyHit();
             objectPoolManager.Despawn(gameObject);
         }
 
@@ -313,20 +284,20 @@ namespace Hive.Armada.Enemies
         }
 
         /// <summary>
-        /// Used to set the subwave reference.
+        /// This is run after the enemy has completed its path.
         /// </summary>
-        /// <param name="subwave"> The subwave that spawned this enemy </param>
-        public virtual void SetSubwave(Subwave subwave)
+        protected virtual void OnPathingComplete()
         {
-            this.subwave = subwave;
+            pathingComplete = true;
         }
+
         /// <summary>
-        /// Sets the enemy spawn which is used to respawn this enemy after self-destructing.
+        /// Used to set the wave reference.
         /// </summary>
-        /// <param name="enemySpawn"> This enemy's spawn information </param>
-        public virtual void SetEnemySpawn(EnemySpawn enemySpawn)
+        /// <param name="wave"> The wave that spawned this enemy </param>
+        public virtual void SetWave(Wave wave)
         {
-            this.enemySpawn = enemySpawn;
+            this.wave = wave;
         }
 
         /// <summary>

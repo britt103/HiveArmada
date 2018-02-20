@@ -249,7 +249,7 @@ namespace Hive.Armada.Game
         {
             yield return new WaitForSeconds(transitionLength);
             transitionAudioSource.Stop();
-            Destroy(emitterGO);
+            //Destroy(emitterGO);
 
             string sceneName = SceneManager.GetActiveScene().name;
 

@@ -56,15 +56,27 @@ namespace Hive.Armada.Enemies
         private bool nearPlayer;
 
         /// <summary>
+        /// If the Kamikaze has gone in range before.
+        /// </summary>
+        private bool inRange;
+
+        private AudioSource source;
+
+        public AudioClip clip;
+
+        /// <summary>
         /// Looks at the player and stores own position.
         /// </summary>
         void Start()
         {
+            Reset();
             if (player != null)
             {
                 player = GameObject.FindGameObjectWithTag("Player");
                 transform.LookAt(player.transform.position);
             }
+            source = GetComponent<AudioSource>();
+
         }
 
         /// <summary>
@@ -89,7 +101,10 @@ namespace Hive.Armada.Enemies
 
                 else if (Vector3.Distance(transform.position, player.transform.position) < range)
                 {
-                    StartCoroutine(InRange());
+                    if (!inRange)
+                    {
+                        StartCoroutine(InRange());
+                    }
                 }
                 //if (shaking)
                 //{
@@ -115,6 +130,7 @@ namespace Hive.Armada.Enemies
         /// </param>
         private void OnTriggerEnter(Collider other)
         {
+
             if (other.tag == "Player")
             {
                 other.gameObject.GetComponent<Player.PlayerHealth>().Hit(damage);
@@ -139,19 +155,9 @@ namespace Hive.Armada.Enemies
         /// </summary>
         private IEnumerator InRange()
         {
-            moveSpeed = moveSpeed / 2.0f;
-            foreach (Renderer r in renderers)
-            {
-                r.material = flashColor;
-            }
-
-            yield return new WaitForSeconds(1.0f);
-
-            // reset materials
-            for (int i = 0; i < renderers.Count; ++i)
-            {
-                renderers.ElementAt(i).material = materials.ElementAt(i);
-            }
+            inRange = true;
+            source.PlayOneShot(clip);
+            yield return new WaitForSeconds(clip.length);
 
             if (Vector3.Distance(transform.position, player.transform.position) < range)
             {
@@ -174,6 +180,7 @@ namespace Hive.Armada.Enemies
             pathingComplete = false;
             hitFlash = null;
             shaking = false;
+            inRange = false;
 
             maxHealth = enemyAttributes.enemyHealthValues[TypeIdentifier];
             Health = maxHealth;

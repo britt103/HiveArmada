@@ -2212,6 +2212,74 @@ MonoBehaviour:
     powerupSpawn:
       powerupSpawn: 0
       powerup: 0
+  - delay: 6
+    setupSpawnZones:
+    - zone: 0
+      setupSpawnPaths:
+      - path: 7
+        enemy: 0
+        attackPattern: 0
+      - path: 8
+        enemy: 0
+        attackPattern: 0
+      - path: 6
+        enemy: 0
+        attackPattern: 0
+    powerupSpawn:
+      powerupSpawn: 0
+      powerup: 1
+  - delay: 10
+    setupSpawnZones:
+    - zone: 0
+      setupSpawnPaths:
+      - path: 4
+        enemy: 0
+        attackPattern: 0
+      - path: 3
+        enemy: 0
+        attackPattern: 0
+      - path: 11
+        enemy: 0
+        attackPattern: 0
+    - zone: 1
+      setupSpawnPaths:
+      - path: 9
+        enemy: 0
+        attackPattern: 0
+    - zone: 2
+      setupSpawnPaths:
+      - path: 5
+        enemy: 0
+        attackPattern: 0
+    powerupSpawn:
+      powerupSpawn: 0
+      powerup: 1
+  - delay: 10
+    setupSpawnZones:
+    - zone: 0
+      setupSpawnPaths:
+      - path: 11
+        enemy: 0
+        attackPattern: 0
+    - zone: 1
+      setupSpawnPaths:
+      - path: 8
+        enemy: 0
+        attackPattern: 0
+      - path: 10
+        enemy: 0
+        attackPattern: 0
+    - zone: 2
+      setupSpawnPaths:
+      - path: 0
+        enemy: 0
+        attackPattern: 0
+      - path: 12
+        enemy: 0
+        attackPattern: 0
+    powerupSpawn:
+      powerupSpawn: 0
+      powerup: 1
   - delay: 5
     setupSpawnZones: []
     powerupSpawn:
@@ -2235,7 +2303,7 @@ MonoBehaviour:
         enemy: 0
         attackPattern: 0
     powerupSpawn:
-      powerupSpawn: 2
+      powerupSpawn: 0
       powerup: 0
   - delay: 5
     setupSpawnZones: []

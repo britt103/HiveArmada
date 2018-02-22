@@ -344,6 +344,8 @@ namespace Hive.Armada.Game
 
                 reference.sceneTransitionManager.TransitionOut("Menu Room");
             }
+
+            reference.statistics.WaveComplete();
         }
 
         /// <summary>

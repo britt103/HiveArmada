@@ -40,9 +40,34 @@ namespace Hive.Armada.Menus
         private ReferenceManager reference;
 
         /// <summary>
+        /// Refernece to IridiumSystem.
+        /// </summary>
+        private IridiumSystem iridiumSystem;
+
+        /// <summary>
+        /// Percent of score used to calculate Iridium gain.
+        /// </summary>
+        public float iridiumScoreMultiplier = 0.2f;
+
+        /// <summary>
         /// Reference to PlayerStats.
         /// </summary>
         private PlayerStats stats;
+
+        /// <summary>
+        /// Reference to Text GameObjecft for victory/defeat.
+        /// </summary>
+        public GameObject victoryDefeatTextGO;
+
+        /// <summary>
+        /// Message to display if player wins.
+        /// </summary>
+        public string victoryMessage;
+
+        /// <summary>
+        /// Message to display if player loses.
+        /// </summary>
+        public string defeatMessage;
 
         /// <summary>
         /// Reference to Text GameObject for wave stat.
@@ -65,12 +90,27 @@ namespace Hive.Armada.Menus
         public GameObject scoreTextGO;
 
         /// <summary>
-        /// Get and set results values. Reset stats totals.
+        /// Reference to Iridium text GO.
+        /// </summary>
+        public GameObject iridiumTextGO;
+
+        /// <summary>
+        /// Get and set results values. Reset stats totals. Calculate Iridium totals.
         /// </summary>
         void Awake()
         {
             reference = FindObjectOfType<ReferenceManager>();
+            iridiumSystem = FindObjectOfType<IridiumSystem>();
             stats = FindObjectOfType<PlayerStats>();
+
+            if (stats.won)
+            {
+                victoryDefeatTextGO.GetComponent<Text>().text = victoryMessage;
+            }
+            else
+            {
+                victoryDefeatTextGO.GetComponent<Text>().text = defeatMessage;
+            }
 
             wavesTextGO.GetComponent<Text>().text = "Waves: " + stats.waves;
             TimeSpan time = TimeSpan.FromSeconds(stats.totalAliveTime);
@@ -79,7 +119,15 @@ namespace Hive.Armada.Menus
             killsTextGO.GetComponent<Text>().text = "Kills: " + stats.totalEnemiesKilled;
             scoreTextGO.GetComponent<Text>().text = "Score: " + stats.totalScore;
 
+            int iridiumScoreAmount = (int)(stats.totalScore * 0.2);
+            int iridiumShootablesAmount = iridiumSystem.GetShootablesAmount();
+            
+            iridiumTextGO.GetComponent<Text>().text = "Iridium: " + 
+                (iridiumScoreAmount + iridiumShootablesAmount);
+
             stats.ResetTotals();
+            iridiumSystem.AddIridium(iridiumScoreAmount);
+            iridiumSystem.WriteIridiumFile();
         }
 
         /// <summary>

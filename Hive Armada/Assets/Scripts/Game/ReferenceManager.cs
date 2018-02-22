@@ -50,6 +50,8 @@ namespace Hive.Armada.Game
 
         public PlayerIdleTimer playerIdleTimer;
 
+        public IridiumSpawner iridiumSpawner;
+
         //----------------------------------------
         // 
         // Player

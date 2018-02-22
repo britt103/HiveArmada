@@ -84,6 +84,12 @@ namespace Hive.Armada.Player
         public int totalScore = 0;
 
         /// <summary>
+        /// State of whether player won the most recent run.
+        /// </summary>
+        [NonSerialized]
+        public bool won = false;
+
+        /// <summary>
         /// State of whether player is currently firing.
         /// </summary>
         [NonSerialized]
@@ -349,6 +355,7 @@ namespace Hive.Armada.Player
         public void IsNotAlive()
         {
             isAlive = false;
+            won = false;
         }
 
         /// <summary>

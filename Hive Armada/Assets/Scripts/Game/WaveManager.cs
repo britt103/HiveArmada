@@ -291,6 +291,7 @@ namespace Hive.Armada.Game
                 IsRunning = true;
                 reference.gameMusicSource.Play();
                 reference.statistics.IsAlive();
+				reference.iridiumSpawner.gameObject.SetActive(true);
                 RunWave(currentWave);
             }
         }
@@ -342,6 +343,7 @@ namespace Hive.Armada.Game
                 IsRunning = false;
                 IsComplete = true;
 
+                reference.statistics.won = true;
                 reference.sceneTransitionManager.TransitionOut("Menu Room");
             }
         }

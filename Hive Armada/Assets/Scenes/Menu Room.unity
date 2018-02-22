@@ -839,8 +839,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -299.98785, y: -50}
-  m_SizeDelta: {x: 1800, y: 250}
+  m_AnchoredPosition: {x: -400, y: -150}
+  m_SizeDelta: {x: 1100, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &136646358
 GameObject:
@@ -995,6 +995,7 @@ Transform:
   - {fileID: 719196001}
   - {fileID: 88903826}
   - {fileID: 860152068}
+  - {fileID: 438543410}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1157,80 +1158,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 188642739}
---- !u!1 &189605146
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 189605147}
-  - component: {fileID: 189605149}
-  - component: {fileID: 189605148}
-  m_Layer: 5
-  m_Name: 'Weapon:'
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &189605147
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 189605146}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.6, y: 0.6, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1842956405}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 200}
-  m_SizeDelta: {x: 2500, y: 200}
-  m_Pivot: {x: 0.5, y: 1}
---- !u!114 &189605148
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 189605146}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.5137255, g: 0.8980392, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_FontData:
-    m_Font: {fileID: 12800000, guid: ce6a143c09a8a22489719c27a1f527d1, type: 3}
-    m_FontSize: 200
-    m_FontStyle: 0
-    m_BestFit: 1
-    m_MinSize: 2
-    m_MaxSize: 200
-    m_Alignment: 4
-    m_AlignByGeometry: 0
-    m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
-    m_LineSpacing: 1
-  m_Text: 'Weapon:'
---- !u!222 &189605149
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 189605146}
 --- !u!1 &195779864
 GameObject:
   m_ObjectHideFlags: 0
@@ -2192,8 +2119,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -299.9853, y: -350}
-  m_SizeDelta: {x: 1800, y: 250}
+  m_AnchoredPosition: {x: -400, y: -50}
+  m_SizeDelta: {x: 1100, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &302370860
 MonoBehaviour:
@@ -3017,7 +2944,7 @@ RectTransform:
   - {fileID: 1519027452}
   - {fileID: 1941252223}
   m_Father: {fileID: 1842956405}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3135,6 +3062,46 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 436831025}
+--- !u!1 &438543409
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 438543410}
+  - component: {fileID: 438543411}
+  m_Layer: 0
+  m_Name: Iridium System
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &438543410
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 438543409}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 186571866}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &438543411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 438543409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2bae8324daada74ea497c3f0d7ba59a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &439573910
 GameObject:
   m_ObjectHideFlags: 0
@@ -3206,8 +3173,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -299.98782, y: -200}
-  m_SizeDelta: {x: 1800, y: 250}
+  m_AnchoredPosition: {x: -400, y: -250}
+  m_SizeDelta: {x: 1100, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &441050966
 GameObject:
@@ -3344,6 +3311,80 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 441050966}
+--- !u!1 &454824644
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 454824645}
+  - component: {fileID: 454824647}
+  - component: {fileID: 454824646}
+  m_Layer: 5
+  m_Name: Victory/Defeat
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &454824645
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 454824644}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 828213807}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 90}
+  m_SizeDelta: {x: 1200, y: 150}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &454824646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 454824644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.5137255, g: 0.8980392, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 134
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 300
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: Victory!
+--- !u!222 &454824647
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 454824644}
 --- !u!1 &476491306
 GameObject:
   m_ObjectHideFlags: 0
@@ -3817,8 +3858,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -300, y: 100}
-  m_SizeDelta: {x: 1800, y: 250}
+  m_AnchoredPosition: {x: -400, y: -350}
+  m_SizeDelta: {x: 1100, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &648465918
 GameObject:
@@ -3834,7 +3875,7 @@ GameObject:
   - component: {fileID: 648465920}
   - component: {fileID: 648465924}
   m_Layer: 5
-  m_Name: Laser Gun Button
+  m_Name: Laser Button
   m_TagString: InteractableUI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3853,11 +3894,11 @@ RectTransform:
   - {fileID: 1313159877}
   - {fileID: 1915021166}
   m_Father: {fileID: 1842956405}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -350, y: 0}
+  m_AnchoredPosition: {x: -350, y: 100}
   m_SizeDelta: {x: 880, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!65 &648465920
@@ -3912,8 +3953,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1842956406}
-        m_MethodName: PressWeapon1
-        m_Mode: 1
+        m_MethodName: PressWeapon
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -5285,7 +5326,7 @@ RectTransform:
   m_Children:
   - {fileID: 978684550}
   m_Father: {fileID: 828213807}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
@@ -5760,6 +5801,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1498811198}
+  - {fileID: 454824645}
   - {fileID: 1493774952}
   - {fileID: 767166440}
   m_Father: {fileID: 1611461873}
@@ -5785,10 +5827,15 @@ MonoBehaviour:
   clips:
   - {fileID: 8300000, guid: d1e46ad8dcf9df34ba9281e76b8cbad0, type: 3}
   - {fileID: 8300000, guid: 080170fb7e06da1458a3bac11ee173a3, type: 3}
+  iridiumScoreMultiplier: 0.2
+  victoryDefeatTextGO: {fileID: 454824644}
+  victoryMessage: Victory!
+  defeatMessage: Defeat!
   wavesTextGO: {fileID: 619809825}
   timeTextGO: {fileID: 128842176}
   killsTextGO: {fileID: 439573910}
   scoreTextGO: {fileID: 302370858}
+  iridiumTextGO: {fileID: 836521069}
 --- !u!114 &828213809
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5890,6 +5937,80 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 832355452}
+--- !u!1 &836521069
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 836521070}
+  - component: {fileID: 836521072}
+  - component: {fileID: 836521071}
+  m_Layer: 5
+  m_Name: Iridium
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &836521070
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 836521069}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.49871588, y: 0.50091344, z: 1.0001155}
+  m_Children: []
+  m_Father: {fileID: 1493774952}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 300, y: -50}
+  m_SizeDelta: {x: 1100, y: 150}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &836521071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 836521069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.5137255, g: 0.8980392, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 200
+    m_FontStyle: 0
+    m_BestFit: 1
+    m_MinSize: 2
+    m_MaxSize: 200
+    m_Alignment: 3
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 'Iridium: '
+--- !u!222 &836521072
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 836521069}
 --- !u!1 &840597578
 GameObject:
   m_ObjectHideFlags: 0
@@ -6647,6 +6768,7 @@ MonoBehaviour:
   sceneTransitionManager: {fileID: 1450906470}
   optionsValues: {fileID: 908284914}
   playerIdleTimer: {fileID: 0}
+  iridiumSpawner: {fileID: 0}
   player: {fileID: 1427451901}
   playerShip: {fileID: 0}
   shipPickup: {fileID: 0}
@@ -8594,7 +8716,7 @@ GameObject:
   - component: {fileID: 1313159879}
   - component: {fileID: 1313159878}
   m_Layer: 5
-  m_Name: Laser Gun
+  m_Name: Laser
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8650,7 +8772,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Laser Gun
+  m_Text: Laser
 --- !u!222 &1313159879
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9797,8 +9919,9 @@ RectTransform:
   - {fileID: 128842179}
   - {fileID: 439573913}
   - {fileID: 302370859}
+  - {fileID: 836521070}
   m_Father: {fileID: 828213807}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -10293,7 +10416,7 @@ GameObject:
   - component: {fileID: 1569314570}
   - component: {fileID: 1569314574}
   m_Layer: 5
-  m_Name: Mini Gun Button
+  m_Name: Minigun Button
   m_TagString: InteractableUI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10312,11 +10435,11 @@ RectTransform:
   - {fileID: 1720207724}
   - {fileID: 1818824865}
   m_Father: {fileID: 1842956405}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 350.00012, y: 0.000020503998}
+  m_AnchoredPosition: {x: 350.00012, y: 100}
   m_SizeDelta: {x: 880, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!65 &1569314570
@@ -10371,12 +10494,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1842956406}
-        m_MethodName: PressWeapon2
-        m_Mode: 1
+        m_MethodName: PressWeapon
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -11434,7 +11557,7 @@ RectTransform:
   m_Children:
   - {fileID: 1610520576}
   m_Father: {fileID: 1842956405}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -11593,7 +11716,7 @@ GameObject:
   - component: {fileID: 1720207726}
   - component: {fileID: 1720207725}
   m_Layer: 5
-  m_Name: Mini Gun
+  m_Name: Minigun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11649,7 +11772,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Mini Gun
+  m_Text: Minigun
 --- !u!222 &1720207726
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -12035,7 +12158,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1842956405
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12047,7 +12170,6 @@ RectTransform:
   m_LocalScale: {x: 1.000006, y: 1.0005174, z: 0.9999607}
   m_Children:
   - {fileID: 349880500}
-  - {fileID: 189605147}
   - {fileID: 648465919}
   - {fileID: 1569314569}
   - {fileID: 1701495281}
@@ -12075,11 +12197,14 @@ MonoBehaviour:
   clips:
   - {fileID: 8300000, guid: d1e46ad8dcf9df34ba9281e76b8cbad0, type: 3}
   - {fileID: 8300000, guid: 080170fb7e06da1458a3bac11ee173a3, type: 3}
-  weaponText: {fileID: 189605148}
-  weapon1Name: Laser Gun
-  weapon1Enum: 0
-  weapon2Name: Mini Gun
-  weapon2Enum: 1
+  weaponText: {fileID: 0}
+  weaponNames:
+  - Laser
+  - Minigun
+  weaponEnums: 0000000001000000
+  weaponButtons:
+  - {fileID: 648465918}
+  - {fileID: 1569314568}
   initialWeapon: 0
 --- !u!114 &1842956407
 MonoBehaviour:
@@ -12823,12 +12948,6 @@ MonoBehaviour:
   pageTexts: []
   pageImages: []
   pagesLocked: 
-  source: {fileID: 672012772}
-  clips:
-  - {fileID: 8300000, guid: d1e46ad8dcf9df34ba9281e76b8cbad0, type: 3}
-  - {fileID: 8300000, guid: 080170fb7e06da1458a3bac11ee173a3, type: 3}
-  lockedName: Locked
-  lockedImage: {fileID: 0}
   pageName: {fileID: 0}
   pageText: {fileID: 0}
   pageImageRenderer: {fileID: 0}

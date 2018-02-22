@@ -34,29 +34,19 @@ namespace Hive.Armada.Menus
     	public AudioClip[] clips;
 
         /// <summary>
-        /// Reference to weapon text component.
+        /// Names of weapons.
         /// </summary>
-        public Text weaponText;
+        public string[] weaponNames;
 
         /// <summary>
-        /// Name of weapon1.
+        /// Enumerators of weapons.
         /// </summary>
-        public string weapon1Name;
+        public int[] weaponEnums;
 
         /// <summary>
-        /// Number representing laser gun for ShipController.
+        /// Buttons for weapons.
         /// </summary>
-        public int weapon1Enum;
-
-        /// <summary>
-        /// Name of weapon2.
-        /// </summary>
-        public string weapon2Name;
-
-        /// <summary>
-        /// Number representing mini gun for ShipController.
-        /// </summary>
-        public int weapon2Enum;
+        public GameObject[] weaponButtons;
 
         /// <summary>
         /// Enum of initially selected weapon. Starts as first weapon.
@@ -79,42 +69,49 @@ namespace Hive.Armada.Menus
         private ShipLoadout shipLoadout;
 
         /// <summary>
-        /// Find references. Set display for initial waepon.
+        /// Reference to Iridium System.
+        /// </summary>
+        private IridiumSystem iridiumSystem;
+
+        /// <summary>
+        /// Find references. Set display for initial waepon. If no Iridium weapons have been 
+        /// unlocked, skip menu.
         /// </summary>
         void Awake()
         {
             reference = FindObjectOfType<ReferenceManager>();
             shipLoadout = FindObjectOfType<ShipLoadout>();
+            iridiumSystem = FindObjectOfType<IridiumSystem>();
 
-            switch (initialWeapon)
+            selectedWeapon = initialWeapon;
+
+            if (!iridiumSystem.CheckMultipleWeaponsUnlocked())
             {
-                case 0:
-                    PressWeapon1();
-                    break;
-                case 1:
-                    PressWeapon2();
-                    break;
+                PressPlay();
+            }
+            else
+            {
+                for (int i = 0; i < weaponButtons.Length; i++)
+                {
+                    weaponButtons[i].SetActive(iridiumSystem.CheckWeaponUnlocked(weaponNames[i]));
+                }
+
+                PressWeapon(initialWeapon);
             }
         }
 
         /// <summary>
-        /// Weapon1 button pressed. Set shipLoadout weapon to weapon1.
+        /// Weapon button pressed. Set shipLoadout weapon to weaponNum.
         /// </summary>
-        public void PressWeapon1()
+        public void PressWeapon(int weaponNum)
         {
-            source.PlayOneShot(clips[0]);
-            selectedWeapon = weapon1Enum;
-            weaponText.text = "Weapon: " + weapon1Name;
-        }
-
-        /// <summary>
-        /// Weapon2 button pressed. Set shipLoadout weapon to weapon2.
-        /// </summary>
-        public void PressWeapon2()
-        {
-            source.PlayOneShot(clips[0]);
-            selectedWeapon = weapon2Enum;
-            weaponText.text = "Weapon: " + weapon2Name;
+            if (weaponNum != selectedWeapon)
+            {
+                source.PlayOneShot(clips[0]);
+                weaponButtons[selectedWeapon].GetComponent<UIHover>().EndSelect();
+                selectedWeapon = weaponNum;
+            }
+            weaponButtons[selectedWeapon].GetComponent<UIHover>().Select();
         }
 
         /// <summary>

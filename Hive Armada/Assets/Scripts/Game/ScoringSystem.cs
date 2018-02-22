@@ -38,11 +38,6 @@ namespace Hive.Armada.Game
         private int score;
 
         /// <summary>
-        /// The score bank of the currect combo.
-        /// </summary>
-        private float comboBank;
-
-        /// <summary>
         /// The timer of the current combo.
         /// </summary>
         private int comboTimer;
@@ -56,11 +51,6 @@ namespace Hive.Armada.Game
         /// Current kill counter, resets combo at 5.
         /// </summary>
         private int comboSequence;
-
-        /// <summary>
-        /// Spawn location of point emitter.
-        /// </summary>
-        private Transform pointLocation;
 
         /// <summary>
         /// Structure holding all point emitters
@@ -84,7 +74,6 @@ namespace Hive.Armada.Game
             comboSequence = 0;
             comboMultiplier = 1;
             comboActive = false;
-            pointLocation = reference.player.transform;
         }
 
         /// <summary>
@@ -94,9 +83,9 @@ namespace Hive.Armada.Game
         {
             if (Input.GetKeyDown("space"))
             {
-                ComboIn(10);
-                Debug.Log("Sequence: " + comboSequence);
-                Debug.Log("Multiplier: " + comboMultiplier);
+                ComboIn(10, reference.player.transform);
+                //Debug.Log("Sequence: " + comboSequence);
+                //Debug.Log("Multiplier: " + comboMultiplier);
             }
         }
 
@@ -120,11 +109,10 @@ namespace Hive.Armada.Game
             //Debug.Log("Combo Death");
             //comboActive = false;
             //comboBank *= comboMultiplier;
-            int comboOut = (int)comboBank;
-            AddScore(comboOut);
+            //int comboOut = (int)comboBank;
+            //AddScore(comboOut);
             comboMultiplier = 1;
             comboSequence = 0;
-            comboBank = 0;
         }
 
         /// <summary>
@@ -147,19 +135,10 @@ namespace Hive.Armada.Game
         }
 
         /// <summary>
-        /// Sets the location for which the emitter will spawn from.
-        /// </summary>
-        /// <param name="location"></param>
-        public void setLocation(Transform location)
-        {
-            this.pointLocation = location;
-        }
-
-        /// <summary>
         /// Starts a new combo. If a combo is currently ongoing,
         /// then extend the current combo and add to the multiplier.
         /// </summary>
-        public void ComboIn(int points)
+        public void ComboIn(int points, Transform pointLocation)
         {
             if(comboActive == false)
             {
@@ -168,7 +147,6 @@ namespace Hive.Armada.Game
                 comboMultiplier = 1;
                 comboTimer = 3;
                 points *= comboMultiplier;
-                comboBank += points;
                 StartCoroutine(StartCombo());
             }
             else if (comboActive == true)
@@ -185,9 +163,10 @@ namespace Hive.Armada.Game
                         break;
                 }
                 points *= comboMultiplier;
-                comboBank += points;
             }
-            spawnPointEmitter(points);
+            Debug.Log("Points gained: " + points);
+            //AddScore(points);
+            spawnPointEmitter(points, pointLocation);
         }
 
         /// <summary>
@@ -195,7 +174,7 @@ namespace Hive.Armada.Game
         /// TODO: work with pooling so no need to instantiate.
         /// </summary>
         /// <param name="points"></param>
-        private void spawnPointEmitter(int points)
+        private void spawnPointEmitter(int points, Transform spawn)
         {
             switch (points)
             {
@@ -227,7 +206,7 @@ namespace Hive.Armada.Game
                     mEmitter = pointEmitters[8];
                     break;
             }
-            Instantiate(mEmitter, pointLocation.position, pointLocation.rotation);
+            Instantiate(mEmitter, spawn.position, spawn.rotation);
         }
     }
 }

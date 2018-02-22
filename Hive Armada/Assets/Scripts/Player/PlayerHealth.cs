@@ -189,6 +189,7 @@ namespace Hive.Armada.Player
                 {
                     Instantiate(deathEmitter, transform.position, transform.rotation);
                     reference.statistics.IsNotAlive();
+                    reference.powerUpStatus.tracking = false;
                     reference.sceneTransitionManager.TransitionOut("Menu Room");
                     shipController.hand.DetachObject(gameObject);
                 }

@@ -32,9 +32,19 @@ namespace Hive.Armada.Menus
     	public AudioClip[] clips;
 
         /// <summary>
-        /// Reference to volume slider
+        /// Reference to master volume slider
         /// </summary>
-        public Slider volumeSlider;
+        public Slider masterVolumeSlider;
+
+        /// <summary>
+        /// Reference to music volume slider
+        /// </summary>
+        public Slider musicVolumeSlider;
+
+        /// <summary>
+        /// Reference to fx volume slider
+        /// </summary>
+        public Slider fxVolumeSlider;
 
         /// <summary>
         /// Reference to Reference Manager.
@@ -47,7 +57,9 @@ namespace Hive.Armada.Menus
         private void Awake()
         {
             reference = FindObjectOfType<ReferenceManager>();
-            volumeSlider.value = reference.optionsValues.masterVolume;
+            masterVolumeSlider.value = reference.optionsValues.masterVolume;
+            musicVolumeSlider.value = reference.optionsValues.musicVolume;
+            fxVolumeSlider.value = reference.optionsValues.fxVolume;
         }
 
         /// <summary>
@@ -64,12 +76,29 @@ namespace Hive.Armada.Menus
 
         //hover sound is flash-element
         //select sound is menuselect
+
         /// <summary>
-        /// Change AudioListener volume based on volumeSlider value.
+        /// Change AudioListener volume based on masterVolumeSlider value.
         /// </summary>
-        public void AdjustVolume(float value)
+        public void AdjustMasterVolume(float value)
         {
             reference.optionsValues.SetMasterVolume(value);
+        }
+
+        /// <summary>
+        /// Change music volume based on musicVolumeSlider value.
+        /// </summary>
+        public void AdjustMusicVolume(float value)
+        {
+            reference.optionsValues.SetMusicVolume(value);
+        }
+
+        /// <summary>
+        /// Change fx volume based on fxVolumeSlider value.
+        /// </summary>
+        public void AdjustFXVolume(float value)
+        {
+            reference.optionsValues.SetFXVolume(value);
         }
     }
 }

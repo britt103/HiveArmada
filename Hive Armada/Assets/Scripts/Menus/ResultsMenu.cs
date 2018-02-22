@@ -25,6 +25,16 @@ namespace Hive.Armada.Menus
     public class ResultsMenu : MonoBehaviour
     {
         /// <summary>
+        /// Reference to Menu Transition Manager.
+        /// </summary>
+        public MenuTransitionManager transitionManager;
+
+        /// <summary>
+        /// Reference to menu to go to when back is pressed.
+        /// </summary>
+        public GameObject continueMenuGO;
+
+        /// <summary>
         /// Reference to Menu Audio source.
         /// </summary>
         public AudioSource source;
@@ -33,11 +43,6 @@ namespace Hive.Armada.Menus
         /// Clips to use with source.
         /// </summary>
     	public AudioClip[] clips;
-
-        /// <summary>
-        /// Reference to ReferenceManager.
-        /// </summary>
-        private ReferenceManager reference;
 
         /// <summary>
         /// Refernece to IridiumSystem.
@@ -99,7 +104,6 @@ namespace Hive.Armada.Menus
         /// </summary>
         void Awake()
         {
-            reference = FindObjectOfType<ReferenceManager>();
             iridiumSystem = FindObjectOfType<IridiumSystem>();
             stats = FindObjectOfType<PlayerStats>();
 
@@ -128,6 +132,7 @@ namespace Hive.Armada.Menus
             stats.ResetTotals();
             iridiumSystem.AddIridium(iridiumScoreAmount);
             iridiumSystem.WriteIridiumFile();
+			transitionManager.currMenu = gameObject;
         }
 
         /// <summary>
@@ -138,8 +143,7 @@ namespace Hive.Armada.Menus
         {
             source.PlayOneShot(clips[0]);
             stats.ResetValues();
-            reference.menuMain.SetActive(true);
-            gameObject.SetActive(false);
+            transitionManager.Transition(continueMenuGO);
         }
     }
 }

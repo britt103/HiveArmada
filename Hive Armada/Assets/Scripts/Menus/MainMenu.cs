@@ -21,6 +21,21 @@ namespace Hive.Armada.Menus
     public class MainMenu : MonoBehaviour
     {
         /// <summary>
+        /// Reference to Menu Transition Manager.
+        /// </summary>
+        public MenuTransitionManager transitionManager;
+
+        /// <summary>
+        /// Reference to Start Menu.
+        /// </summary>
+        public GameObject startMenuGO;
+
+        /// <summary>
+        /// Reference to Options Menu.
+        /// </summary>
+        public GameObject optionsMenuGO;
+
+        /// <summary>
         /// Reference to Menu Audio source.
         /// </summary>
 		public AudioSource source;
@@ -36,10 +51,7 @@ namespace Hive.Armada.Menus
         public void PressStart()
         {
 			source.PlayOneShot(clips[0]);
-
-            GameObject.Find("Main Canvas").transform.Find("Start Menu").gameObject
-                    .SetActive(true);
-            gameObject.SetActive(false);
+            transitionManager.Transition(startMenuGO);
         }
 
         /// <summary>
@@ -48,10 +60,7 @@ namespace Hive.Armada.Menus
         public void PressOptions()
         {
 			source.PlayOneShot(clips[0]);
-
-            GameObject.Find("Main Canvas").transform.Find("Options Menu").gameObject
-                    .SetActive(true);
-            gameObject.SetActive(false);
+            transitionManager.Transition(optionsMenuGO);
         }
 
         /// <summary>

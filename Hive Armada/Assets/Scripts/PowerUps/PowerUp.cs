@@ -72,9 +72,16 @@ namespace Hive.Armada.PowerUps
             reference = GameObject.Find("Reference Manager").GetComponent<ReferenceManager>();
 
             head = GameObject.Find("VRCamera").transform;
-            Instantiate(spawnEmitter, transform.parent.position, transform.parent.rotation, transform.parent);
-            Instantiate(pickupEmitter, transform.parent.position, transform.parent.rotation, transform.parent);
 
+            if (spawnEmitter)
+            {
+                Instantiate(spawnEmitter, transform.parent.position, transform.parent.rotation, transform.parent);
+            }
+            if (pickupEmitter)
+            {
+                Instantiate(pickupEmitter, transform.parent.position, transform.parent.rotation, transform.parent);
+            }
+            
             status = reference.powerUpStatus;
             Destroy(transform.parent.gameObject, lifeTime);
         }

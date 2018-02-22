@@ -38,6 +38,11 @@ namespace Hive.Armada
         public static LayerMask uiMask = LayerMask.GetMask("UI");
 
         /// <summary>
+        /// Layer mask for UICover layer
+        /// </summary>
+        public static LayerMask uiCoverMask = LayerMask.GetMask("UICover");
+
+        /// <summary>
         /// Layer mask for the Shootable layer
         /// </summary>
         public static LayerMask shootableMask = LayerMask.GetMask("Shootable");

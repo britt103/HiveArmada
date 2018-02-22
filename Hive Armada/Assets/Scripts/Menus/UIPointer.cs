@@ -128,6 +128,35 @@ namespace Hive.Armada.Menus
                 RaycastHit hit;
 
                 if (Physics.Raycast(transform.position, transform.forward,
+                    out hit, Mathf.Infinity, Utility.uiCoverMask))
+                {
+                    if (Physics.Raycast(transform.position, transform.forward,
+                        out hit, Mathf.Infinity, Utility.uiMask))
+                    {
+                        if (hit.collider.gameObject.CompareTag("InteractableUI"))
+                        {
+                            Physics.Raycast(transform.position, transform.forward,
+                            out hit, Mathf.Infinity, Utility.roomMask);
+                        }
+                    }
+                    else
+                    {
+                        Physics.Raycast(transform.position, transform.forward,
+                            out hit, Mathf.Infinity, Utility.roomMask);
+                    }
+
+                    ExitLastInteractable();
+                    aimObject = null;
+                    isInteractable = false;
+
+                    pointer.SetPosition(0, transform.position);
+                    pointer.SetPosition(1, hit.point);
+
+                    float mag = (transform.position - hit.point).magnitude;
+                    pointer.endWidth = thickness * Mathf.Max(mag, 1.0f);
+                }
+
+                else if (Physics.Raycast(transform.position, transform.forward,
                         out hit, Mathf.Infinity, Utility.uiMask))
                 {
                     if (hit.collider.gameObject.CompareTag("InteractableUI"))
@@ -173,12 +202,12 @@ namespace Hive.Armada.Menus
                     float mag = (transform.position - hit.point).magnitude;
                     pointer.endWidth = thickness * Mathf.Max(mag, 1.0f);
                 }
-                else
-                {
-                    ExitLastInteractable();
-                    aimObject = null;
-                    isInteractable = false;
-                }
+                //else
+                //{
+                //    ExitLastInteractable();
+                //    aimObject = null;
+                //    isInteractable = false;
+                //}
 
                 //Check for UI interaction
                 if (isInteractable)
@@ -193,6 +222,10 @@ namespace Hive.Armada.Menus
                     if (aimObject.GetComponent<UIHover>())
                     {
                         aimObject.GetComponent<UIHover>().Hover();
+                    }
+                    else if (aimObject.GetComponent<ScrollbarUIHover>())
+                    {
+                        aimObject.GetComponent<ScrollbarUIHover>().PassHover();
                     }
                 }
 
@@ -276,9 +309,17 @@ namespace Hive.Armada.Menus
         /// </summary>
         private void ExitLastInteractable()
         {
-            if (lastInteractableAimObject && lastInteractableAimObject.GetComponent<UIHover>())
+            if (lastInteractableAimObject)
             {
-                lastInteractableAimObject.GetComponent<UIHover>().EndHover();
+                if (lastInteractableAimObject.GetComponent<UIHover>())
+                {
+                    lastInteractableAimObject.GetComponent<UIHover>().EndHover();
+                }
+                else if (lastInteractableAimObject.GetComponent<ScrollbarUIHover>())
+                {
+                    lastInteractableAimObject.GetComponent<ScrollbarUIHover>().PassEndHover();
+                }
+                
                 lastInteractableAimObject = null;
             }
         }

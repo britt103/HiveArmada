@@ -13,6 +13,7 @@
 
 using System.IO;
 using System.IO.Compression;
+using System.Text;
 using Hive.Armada.Enemies;
 using UnityEngine;
 using SimpleJSON;
@@ -53,7 +54,7 @@ namespace Hive.Armada.Game
                     new DeflateStream(memoryStream, CompressionMode.Decompress))
                 {
                     using (StreamReader reader =
-                        new StreamReader(deflateStream, System.Text.Encoding.UTF8))
+                        new StreamReader(deflateStream, Encoding.UTF8))
                     {
                         text = reader.ReadToEnd();
                     }
@@ -122,15 +123,20 @@ namespace Hive.Armada.Game
                                                               "with-previous"]
                                                               .AsBool,
                                                       spawnGroupDelay =
-                                                          thisSpawnGroup["group-delay"].AsFloat,
-                                                      spawnDelay = thisSpawnGroup["spawn-delay"]
-                                                          .AsFloat
+                                                          thisSpawnGroup[
+                                                              "group-delay"]
+                                                              .AsFloat,
+                                                      spawnDelay =
+                                                          thisSpawnGroup[
+                                                              "spawn-delay"]
+                                                              .AsFloat
                                                   };
 
                         // Add spawn zone
                         switch (thisSpawnGroup["spawn-zone"].AsInt)
                         {
                             case 0:
+
                                 //spawnGroups[spawnGroup].spawnZone = SpawnZone.Introduction;
                                 break;
                             case 1:
@@ -186,16 +192,16 @@ namespace Hive.Armada.Game
                                 }
 
                                 enemySpawns[enemy] = new SetupEnemySpawn
-                                {
-                                    enemyPrefab = reference
+                                                     {
+                                                         enemyPrefab = reference
                                                              .objectPoolManager
                                                              .objects[
                                                              thisEnemy["type"]
                                                                  .AsInt]
                                                              .objectPrefab,
-                                    spawnCount = thisEnemy["count"].AsInt,
-                                    attackPattern = attackPattern
-                                };
+                                                         spawnCount = thisEnemy["count"].AsInt,
+                                                         attackPattern = attackPattern
+                                                     };
                             }
 
                             spawnGroups[spawnGroup].setupEnemySpawns = enemySpawns;

@@ -3,13 +3,19 @@
 // Chad Johnson
 // 1763718
 // johns428@mail.chapman.edu
-// CPSC-340-01 & CPSC-344-01
+// CPSC-440-1
 // Group Project
 //
-// LexiconMenu controls interactions with the Lexicon Menu. OLD VERSION.
+// LexiconMenu controls interactions with the Lexicon Menu. The player
+// can move through the scroll view by moving the vertical slider with the
+// UIPointer. Find a powerup, enemy, etc. for the first time unlocks the 
+// corresponding entry.
 //
 //=============================================================================
 
+using System.IO;
+using System.Linq;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,165 +26,446 @@ namespace Hive.Armada.Menus
     /// </summary>
     public class LexiconMenu : MonoBehaviour
     {
+        [Header("References")]
         /// <summary>
-        /// Name of item on each page.
+        /// Reference to Menu Transition Manager.
         /// </summary>
-        public string[] pageNames;
+        public MenuTransitionManager transitionManager;
 
         /// <summary>
-        /// Text description for item on each page.
+        /// Reference to menu to go to when back is pressed.
         /// </summary>
-        public string[] pageTexts;
+        public GameObject backMenuGO;
 
         /// <summary>
-        /// Image for item on each page.
+        /// Reference to player transform for Options Menu.
         /// </summary>
-        public Material[] pageImages;
+        public Transform backMenuTransform;
 
         /// <summary>
-        /// States of whether each page is locked.
+        /// Reference to Menu Audio source.
         /// </summary>
-        public bool[] pagesLocked;
+        public AudioSource source;
 
         /// <summary>
-        /// Name used for locked pages.
+        /// Clips to use with source.
         /// </summary>
-        public string lockedName;
-
-        /// <summary>
-        /// Image used for locked pages.
-        /// </summary>
-        public Material lockedImage;
-
-        /// <summary>
-        /// Number of pages in pages array.
-        /// </summary>
-        private int numPages;
-
-        /// <summary>
-        /// Index position of currently loaded page.
-        /// </summary>
-        private int currIndex;
-
-        /// <summary>
-        /// Page name text component in Lexicon Menu.
-        /// </summary>
-        public Text pageName;
-
-        /// <summary>
-        /// Page text component in Lexicon Menu.
-        /// </summary>
-        public Text pageText;
-
-        /// <summary>
-        /// Plane mesh renderer component in Lexicon Menu.
-        /// </summary>
-        public MeshRenderer pageImageRenderer;
-
-        /// <summary>
-        /// Reference to Prev button in Lexicon Menu.
-        /// </summary>
-        public GameObject prevButtonGO;
-
-        /// <summary>
-        /// Reference to Next button in Lexicon Menu.
-        /// </summary>
-        public GameObject nextButtonGO;
-
-		public AudioSource source;
     	public AudioClip[] clips;
 
         /// <summary>
-        /// Load first page.
+        /// Refernce to Content gameObject in Scroll View.
+        /// </summary>
+        public GameObject contentGO;
+
+        /// <summary>
+        /// Reference to menu title text.
+        /// </summary>
+        public GameObject menuTitle;
+
+        /// <summary>
+        /// Reference to description text.
+        /// </summary>
+        public GameObject menuDescription;
+
+        /// <summary>
+        /// Reference to menu ScrollView game object.
+        /// </summary>
+        public GameObject scrollView;
+
+        /// <summary>
+        /// Reference to scrollview vertical scrollbar.
+        /// </summary>
+        public Scrollbar scrollBar;
+
+        /// <summary>
+        /// Reference to vertical slider.
+        /// </summary>
+        public Slider verticalSlider;
+
+        /// <summary>
+        /// Reference to entry name text.
+        /// </summary>
+        public GameObject entryName;
+
+        /// <summary>
+        /// Reference to entry text text.
+        /// </summary>
+        public GameObject entryText;
+
+        /// <summary>
+        /// Reference to category buttons/tabs.
+        /// </summary>
+        public GameObject[] categoryButtons;
+
+        public int numFittableButtons = 3;
+
+        /// <summary>
+        /// Reference to environment object on top of table.
+        /// </summary>
+        public GameObject tableDecoration;
+
+        [Header("Content")]
+        /// <summary>
+        /// Prefab for Lexicon entry button.
+        /// </summary>
+        public GameObject entryButtonPrefab;
+
+        public GameObject entryButtonEmptyPrefab;
+
+        /// <summary>
+        /// References to prefabs used in powerup entries. Order must match Lexicon.txt.
+        /// </summary>
+        public GameObject[] powerupPrefabs;
+
+        /// <summary>
+        /// References to prefabs used in powerup entries. Order must match Lexicon.txt.
+        /// </summary>
+        public GameObject[] enemyPrefabs;
+
+        /// <summary>
+        /// References to prefabs used in powerup entries. Order must match Lexicon.txt.
+        /// </summary>
+        public GameObject[] weaponPrefabs;
+
+        /// <summary>
+        /// Point at which entry prefabs are displayed.
+        /// </summary>
+        public Transform entryPrefabPoint;
+
+        /// <summary>
+        /// Reference to currently displayed entry prefab.
+        /// </summary>
+        private GameObject currEntryPrefab;
+
+        /// <summary>
+        /// State of whether an entry is currently open.
+        /// </summary>
+        private bool entryOpen = false;
+
+        /// <summary>
+        /// State of whether a category is currently open.
+        /// </summary>
+        private bool categoryOpen = false;
+
+        /// <summary>
+        /// Object storing entry information.
+        /// </summary>
+        private LexiconEntryData entryData;
+
+        /// <summary>
+        /// Reference to Lexicon Unlock Data.
+        /// </summary>
+        private LexiconUnlockData unlockData;
+
+        /// <summary>
+        /// Entry names of currently open category.
+        /// </summary>
+        private List<string> currNames = new List<string>();
+
+        /// <summary>
+        /// Entry texts of currently open category.
+        /// </summary>
+        private List<string> currTexts = new List<string>();
+
+        /// <summary>
+        /// Entry prefabs of currently open category.
+        /// </summary>
+        private List<GameObject> currPrefabs = new List<GameObject>();
+
+        /// <summary>
+        /// Locked entry states of currently open category.
+        /// </summary>
+        private List<bool> currLocked = new List<bool>();
+
+        /// <summary>
+        /// Read in Lexicon data and unlocks.
+        /// </summary>
+        private void Start()
+        {
+            ReadLexiconFile();
+            unlockData = FindObjectOfType<LexiconUnlockData>();
+            UpdateUnlocks();
+        }
+
+        /// <summary>
+        /// Disable game object near Lexicon area.
         /// </summary>
         private void OnEnable()
         {
-            //numPages = pages.Length;
-            numPages = pageNames.Length;
-            currIndex = 0;
-            prevButtonGO.SetActive(false);
-            LoadPage();
+            tableDecoration.SetActive(false);
         }
 
         /// <summary>
-        /// Back button pressed. Navigate to Options Menu. Reset current page.
+        /// Write LexiconEntryData to Json file.
+        /// </summary>
+        public void WriteLexiconFile()
+        {
+            File.WriteAllText(@"Lexicon.txt", JsonUtility.ToJson(entryData, true));
+        }
+
+        /// <summary>
+        /// Read LexiconEntryData from Json file.
+        /// </summary>
+        public void ReadLexiconFile()
+        {
+            string jsonString = File.ReadAllText(@"Lexicon.txt");
+            entryData = JsonUtility.FromJson<LexiconEntryData>(jsonString);
+        }
+
+        /// <summary>
+        /// Unlock entries using names from LexiconUnlockData. Update 
+        /// LexiconEntryData Json file.
+        /// </summary>
+        private void UpdateUnlocks()
+        {
+            foreach (string entryName in unlockData.GetUnlocks()[0])
+            {
+                UnlockPowerup(entryName);
+            }
+            foreach (string entryName in unlockData.GetUnlocks()[1])
+            {
+                UnlockEnemy(entryName);
+            }
+            foreach (string entryName in unlockData.GetUnlocks()[2])
+            {
+                UnlockWeapon(entryName);
+            }
+
+            WriteLexiconFile();
+            unlockData.ClearUnlocks();
+        }
+
+        /// <summary>
+        /// Back button pressed. If a category or entry is open, close it. Else, transition
+        /// to back menu.
         /// </summary>
         public void PressBack()
         {
-			source.PlayOneShot(clips[0]);
+            source.PlayOneShot(clips[1]);
 
-            GameObject.Find("Main Canvas").transform.Find("Options Menu").gameObject
-                    .SetActive(true);
-            gameObject.SetActive(false);
-        }
-
-        /// <summary>
-        /// Prev button pressed. Transition to the previous page.
-        /// </summary>
-        public void PressPrev()
-        {
-            currIndex = Mathf.Max(currIndex - 1, 0);
-            if (currIndex == 0)
+            if (entryOpen)
             {
-                prevButtonGO.SetActive(false);
+                CloseEntry();
             }
-            if (currIndex == numPages - 2)
+            else if (categoryOpen)
             {
-                nextButtonGO.SetActive(true);
-            }
-            LoadPage();
-        }
-
-        /// <summary>
-        /// Next button pressed. Transition to the next page.
-        /// </summary>
-        public void PressNext()
-        {
-            currIndex = Mathf.Min(currIndex + 1, numPages - 1);
-            if(currIndex == 1)
-            {
-                prevButtonGO.SetActive(true);
-            }
-            if (currIndex == numPages - 1)
-            {
-                nextButtonGO.SetActive(false);
-            }
-            LoadPage();
-        }
-
-        /// <summary>
-        /// Load selected page into Lexicon Menu if unlocked.
-        /// </summary>
-        /// <param name="page">page to be loaded.</param>
-        private void LoadPage()
-        {
-            if (pagesLocked[currIndex])
-            {
-                pageName.text = lockedName;
-                pageText.text = "";
-                pageImageRenderer.material = lockedImage;
+                CloseCategory();
             }
             else
             {
-                pageName.text = pageNames[currIndex];
-                pageText.text = pageTexts[currIndex];
-                pageImageRenderer.material = pageImages[currIndex];
+                tableDecoration.SetActive(true);
+                FindObjectOfType<RoomTransport>().Transport(backMenuTransform, gameObject,
+                    backMenuGO);
             }
         }
 
         /// <summary>
-        /// Unlock the page associated with the provided name.
+        /// Unlock the powerup entry associated with the provided name.
         /// </summary>
-        /// <param name="name">name of page to unlock.</param>
-        public void Unlock(string name)
+        /// <param name="name">Name of entry to unlock.</param>
+        public void UnlockPowerup(string name)
         {
-            for(int i = 0; i < numPages; ++i)
+            for (int i = 0; i < entryData.powerupNames.Length; ++i)
             {
-                if(name == pageNames[i] && pagesLocked[i])
+                if (name == entryData.powerupNames[i] && entryData.powerupsLocked[i])
                 {
-                    pagesLocked[i] = false;
+                    entryData.powerupsLocked[i] = false;
                 }
             }
+        }
+
+        /// <summary>
+        /// Unlock the enemy entry associated with the provided name.
+        /// </summary>
+        /// <param name="name">Name of entry to unlock.</param>
+        public void UnlockEnemy(string name)
+        {
+            for (int i = 0; i < entryData.enemyNames.Length; ++i)
+            {
+                if (name == entryData.enemyNames[i] && entryData.enemiesLocked[i])
+                {
+                    entryData.enemiesLocked[i] = false;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Unlock the weapon entry associated with the provided name.
+        /// </summary>
+        /// <param name="name">Name of entry to unlock.</param>
+        public void UnlockWeapon(string name)
+        {
+            for (int i = 0; i < entryData.weaponNames.Length; ++i)
+            {
+                if (name == entryData.weaponNames[i] && entryData.weaponsLocked[i])
+                {
+                    entryData.weaponsLocked[i] = false;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Create entry buttons as children of Content and destroy previous buttons.
+        /// </summary>
+        private void GenerateContent()
+        {
+            for (int i = 0; i < contentGO.transform.childCount; i++)
+            {
+                Destroy(contentGO.transform.GetChild(i).gameObject);
+            }
+
+            int entries;
+            bool tooFewEntries;
+            if (currNames.Count <= numFittableButtons)
+            {
+                entries = numFittableButtons + 1;
+                tooFewEntries = true;
+                scrollBar.gameObject.GetComponent<BoxCollider>().enabled = false;
+                verticalSlider.gameObject.SetActive(false);
+            }
+            else
+            {
+                entries = currNames.Capacity;
+                tooFewEntries = false;
+                scrollBar.gameObject.GetComponent<BoxCollider>().enabled = true;
+                verticalSlider.gameObject.SetActive(true);
+            }
+
+            for (int i = 0; i < entries; ++i)
+            {
+                if (i >= numFittableButtons && tooFewEntries)
+                {
+                    GameObject entryButtonEmpty = Instantiate(entryButtonEmptyPrefab, contentGO.transform);
+                }
+                else
+                {
+                    GameObject entryButton = Instantiate(entryButtonPrefab, contentGO.transform);
+                    entryButton.GetComponent<LexiconEntryButton>().id = i;
+                    entryButton.GetComponent<LexiconEntryButton>().lexiconMenu = this;
+                    entryButton.GetComponent<UIHover>().source = source;
+                    if (currLocked[i])
+                    {
+                        entryButton.transform.Find("Name").gameObject.GetComponent<Text>().text = entryData.lockedName;
+                    }
+                    else
+                    {
+                        entryButton.transform.Find("Name").gameObject.GetComponent<Text>().text = currNames[i];
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Open entry view and fill entry name and text with corresponding values.
+        /// </summary>
+        /// <param name="entryId">Index of selected entry.</param>
+        public void OpenEntry(int entryId)
+        {
+            source.PlayOneShot(clips[0]);
+
+            menuTitle.SetActive(false);
+            scrollView.SetActive(false);
+            entryName.SetActive(true);
+            entryText.SetActive(true);
+
+            foreach(GameObject categoryButton in categoryButtons)
+            {
+                categoryButton.SetActive(false);
+            }
+
+            if (currLocked[entryId])
+            {
+                entryName.GetComponent<Text>().text = entryData.lockedName;
+                entryText.GetComponent<Text>().text = entryData.lockedText;
+            }
+            else
+            {
+                entryName.GetComponent<Text>().text = currNames[entryId];
+                entryText.GetComponent<Text>().text = currTexts[entryId];
+                currEntryPrefab = Instantiate(currPrefabs[entryId], entryPrefabPoint);
+            }
+
+            entryOpen = true;
+        }
+
+        /// <summary>
+        /// Close entry view and return to category view.
+        /// </summary>
+        public void CloseEntry()
+        {
+            menuTitle.SetActive(true);
+            entryName.SetActive(false);
+            entryText.SetActive(false);
+            scrollView.SetActive(true);
+
+            foreach (GameObject categoryButton in categoryButtons)
+            {
+                categoryButton.SetActive(true);
+            }
+
+            Destroy(currEntryPrefab);
+
+            entryOpen = false;
+        }
+
+        /// <summary>
+        /// Set variables tracking currently open category.
+        /// </summary>
+        /// <param name="category">Name of category</param>
+        private void SetCurrCategory(string category)
+        {
+            switch (category)
+            {
+                case "Powerups":
+                    currNames = entryData.powerupNames.ToList();
+                    currTexts = entryData.powerupTexts.ToList();
+                    currPrefabs = powerupPrefabs.ToList();
+                    currLocked = entryData.powerupsLocked.ToList();
+                    break;
+                case "Enemies":
+                    currNames = entryData.enemyNames.ToList();
+                    currTexts = entryData.enemyTexts.ToList();
+                    currPrefabs = enemyPrefabs.ToList();
+                    currLocked = entryData.enemiesLocked.ToList();
+                    break;
+                case "Weapons":
+                    currNames = entryData.weaponNames.ToList();
+                    currTexts = entryData.weaponTexts.ToList();
+                    currPrefabs = weaponPrefabs.ToList();
+                    currLocked = entryData.weaponsLocked.ToList();
+                    break;
+                default:
+                    Debug.Log("ERROR: Lexicon menu category could not be identified.");
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Open the category specified by parameter string.
+        /// </summary>
+        /// <param name="category">Name of category to open.</param>
+        public void OpenCategory(string category)
+        {
+            source.PlayOneShot(clips[0]);
+
+            menuDescription.SetActive(false);
+            menuTitle.GetComponent<Text>().text = category;
+            scrollView.SetActive(true);
+            SetCurrCategory(category);
+            GenerateContent();
+            scrollBar.value = 1;
+            categoryOpen = true;
+        }
+
+        /// <summary>
+        /// Close currently open category.
+        /// </summary>
+        private void CloseCategory()
+        {
+            menuDescription.SetActive(true);
+            menuTitle.GetComponent<Text>().text = "Lexicon";
+            scrollView.SetActive(false);
+            categoryOpen = false;
         }
     }
 }

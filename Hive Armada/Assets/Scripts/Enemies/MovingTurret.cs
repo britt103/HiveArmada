@@ -161,6 +161,11 @@ namespace Hive.Armada.Enemies
                 {
                     theta -= Mathf.PI * 2;
                 }
+
+				if (shaking)
+            	{
+                	iTween.ShakePosition(gameObject, new Vector3(0.1f, 0.1f, 0.1f), 0.1f);
+            	}
             }
         }
 

@@ -346,8 +346,8 @@ namespace Hive.Armada.Menus
 
             itemName.GetComponent<Text>().text = currNames[itemId];
             itemText.GetComponent<Text>().text = currTexts[itemId];
-            itemCost.GetComponent<Text>().text = currCosts[itemId].ToString();
-            iridiumAmount.GetComponent<Text>().text = iridiumSystem.GetIridiumAmount().ToString();
+            itemCost.GetComponent<Text>().text = "Cost: " + currCosts[itemId].ToString();
+            iridiumAmount.GetComponent<Text>().text = "Iridium: " + iridiumSystem.GetIridiumAmount().ToString();
             currItemId = itemId;
             currPrefab = Instantiate(currPrefabs[itemId], itemPrefabPoint);
   

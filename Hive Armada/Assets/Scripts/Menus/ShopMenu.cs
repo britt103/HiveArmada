@@ -12,6 +12,7 @@
 //=============================================================================
 
 using System.Linq;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -76,11 +77,6 @@ namespace Hive.Armada.Menus
         public GameObject[] categoryButtons;
 
         /// <summary>
-        /// Reference to buy button.
-        /// </summary>
-        public GameObject buyButton;
-
-        /// <summary>
         /// Reference to menu ScrollView game object.
         /// </summary>
         public GameObject scrollView;
@@ -109,6 +105,21 @@ namespace Hive.Armada.Menus
         /// Reference to item cost text.
         /// </summary>
         public GameObject itemCost;
+
+        /// <summary>
+        /// Reference to iridium amount text.
+        /// </summary>
+        public GameObject iridiumAmount;
+
+        /// <summary>
+        /// Reference to cannot afford text.
+        /// </summary>
+        public GameObject cannotAfford;
+
+        /// <summary>
+        /// Reference to buy button.
+        /// </summary>
+        public GameObject buyButton;
 
         /// <summary>
         /// Reference to environment object on top of table.
@@ -192,6 +203,11 @@ namespace Hive.Armada.Menus
         private bool categoryOpen = false;
 
         /// <summary>
+        /// How long the cannot afford text should be displayed.
+        /// </summary>
+        public float cannotAffordDisplayTime;
+
+        /// <summary>
         /// Disable game object near Shop area.
         /// </summary>
         private void OnEnable()
@@ -267,8 +283,20 @@ namespace Hive.Armada.Menus
             }
             else
             {
-
+                StartCoroutine(DisplayCannotAfford());
             }
+        }
+
+        /// <summary>
+        /// Display cannot afford for specified amount of time
+        /// </summary>
+        private IEnumerator DisplayCannotAfford()
+        {
+            buyButton.SetActive(false);
+            cannotAfford.SetActive(true);
+            yield return new WaitForSeconds(cannotAffordDisplayTime);
+            buyButton.SetActive(true);
+            cannotAfford.SetActive(false);
         }
 
         /// <summary>
@@ -308,6 +336,7 @@ namespace Hive.Armada.Menus
             itemName.SetActive(true);
             itemText.SetActive(true);
             itemCost.SetActive(true);
+            iridiumAmount.SetActive(true);
             buyButton.SetActive(true);
 
             foreach (GameObject categoryButton in categoryButtons)
@@ -318,6 +347,7 @@ namespace Hive.Armada.Menus
             itemName.GetComponent<Text>().text = currNames[itemId];
             itemText.GetComponent<Text>().text = currTexts[itemId];
             itemCost.GetComponent<Text>().text = currCosts[itemId].ToString();
+            iridiumAmount.GetComponent<Text>().text = iridiumSystem.GetIridiumAmount().ToString();
             currItemId = itemId;
             currPrefab = Instantiate(currPrefabs[itemId], itemPrefabPoint);
   
@@ -333,6 +363,8 @@ namespace Hive.Armada.Menus
             itemName.SetActive(false);
             itemText.SetActive(false);
             itemCost.SetActive(false);
+            iridiumAmount.SetActive(false);
+            cannotAfford.SetActive(false);
             buyButton.SetActive(false);
             scrollView.SetActive(true);
 

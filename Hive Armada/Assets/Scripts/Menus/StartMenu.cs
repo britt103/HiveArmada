@@ -32,12 +32,17 @@ namespace Hive.Armada.Menus
         /// <summary>
         /// Reference to Loadout Menu.
         /// </summary>
-        public GameObject loadoutMenuGO;
+        public GameObject loadoutGO;
 
         /// <summary>
         /// Reference to Shop Menu.
         /// </summary>
-        public GameObject shopMenuGO;
+        public GameObject shopGO;
+
+        /// <summary>
+        /// Reference to player transform for Shop Menu.
+        /// </summary>
+        public Transform shopTransform;
 
         /// <summary>
         /// Reference to Menu Audio source.
@@ -55,7 +60,7 @@ namespace Hive.Armada.Menus
         public void PressSoloNormal()
         {
             source.PlayOneShot(clips[0]);
-            transitionManager.Transition(loadoutMenuGO);
+            transitionManager.Transition(loadoutGO);
         }
         /// <summary>
         /// Called by shop button; navigates to Shop Menu.
@@ -63,7 +68,7 @@ namespace Hive.Armada.Menus
         public void PressShop()
         {
             source.PlayOneShot(clips[0]);
-            transitionManager.Transition(shopMenuGO);
+            FindObjectOfType<RoomTransport>().Transport(shopTransform, gameObject, shopGO);
         }
 
         /// <summary>

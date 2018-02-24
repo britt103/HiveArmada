@@ -116,25 +116,17 @@ namespace Hive.Armada.Game
         /// Check if multiple weapons have been unlocked.
         /// </summary>
         /// <returns>State of whether multiple weapons have been unlocked.</returns>
-        public bool CheckMultipleWeaponsUnlocked()
+        public bool CheckAnyWeaponsUnlocked()
         {
-            int count = 0;
             foreach (bool locked in iridiumData.weaponsLocked)
             {
                 if (!locked)
                 {
-                    count++;
+                    return true;
                 }
             }
-            
-            if (count > 1)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+
+            return false;
         }
 
         /// <summary>
@@ -158,31 +150,19 @@ namespace Hive.Armada.Game
         /// Returns a list of all item names in specified iridiumData category.
         /// </summary>
         /// <returns>List of item name strings.</returns>
-        public List<string> GetLockedItemNames(string category)
+        public List<string> GetItemNames(string category)
         {
             List<string> itemNames = new List<string>();
-            string[] iridiumDataNames;
-            bool[] iridiumDataLocked;
 
             switch (category)
             {
                 case "Weapons":
-                    iridiumDataNames = iridiumData.weaponNames;
-                    iridiumDataLocked = iridiumData.weaponsLocked;
+                    itemNames = iridiumData.weaponNames.ToList();
                     break;
                 default:
                     Debug.Log("ERROR: Item category could not be identified.");
-                    iridiumDataNames = new string[0];
-                    iridiumDataLocked = new bool[0];
+                    itemNames = new List<string>();
                     break;
-            }
-
-            for (int i = 0; i < iridiumDataNames.Length; i++)
-            {
-                if (iridiumDataLocked[i])
-                {
-                    itemNames.Add(iridiumDataNames[i]);
-                }
             }
 
             return itemNames;
@@ -191,31 +171,19 @@ namespace Hive.Armada.Game
         /// Returns a list of all item texts in specified iridiumData category.
         /// </summary>
         /// <returns>List of item name strings.</returns>
-        public List<string> GetLockedItemTexts(string category)
+        public List<string> GetItemTexts(string category)
         {
             List<string> itemTexts = new List<string>();
-            string[] iridiumDataTexts;
-            bool[] iridiumDataLocked;
 
             switch (category)
             {
                 case "Weapons":
-                    iridiumDataTexts = iridiumData.weaponTexts;
-                    iridiumDataLocked = iridiumData.weaponsLocked;
+                    itemTexts = iridiumData.weaponTexts.ToList();
                     break;
                 default:
                     Debug.Log("ERROR: Item category could not be identified.");
-                    iridiumDataTexts = new string[0];
-                    iridiumDataLocked = new bool[0];
+                    itemTexts = new List<string>();
                     break;
-            }
-
-            for (int i = 0; i < iridiumDataTexts.Length; i++)
-            {
-                if (iridiumDataLocked[i])
-                {
-                    itemTexts.Add(iridiumDataTexts[i]);
-                }
             }
 
             return itemTexts;
@@ -226,34 +194,44 @@ namespace Hive.Armada.Game
         /// Returns a list of all item costs in specified iridiumData category.
         /// </summary>
         /// <returns>List of item cost integers.</returns>
-        public List<int> GetLockedItemCosts(string category)
+        public List<int> GetItemCosts(string category)
         {
             List<int> itemCosts = new List<int>();
-            int[] iridiumDataCosts;
-            bool[] iridiumDataLocked;
 
             switch (category)
             {
                 case "Weapons":
-                    iridiumDataCosts = iridiumData.weaponCosts;
-                    iridiumDataLocked = iridiumData.weaponsLocked;
+                    itemCosts = iridiumData.weaponCosts.ToList();
                     break;
                 default:
                     Debug.Log("ERROR: Item category could not be identified.");
-                    iridiumDataCosts = new int[0];
-                    iridiumDataLocked = new bool[0];
+                    itemCosts = new List<int>();
                     break;
             }
 
-            for (int i = 0; i < iridiumDataCosts.Length; i++)
+            return itemCosts;
+        }
+
+        /// <summary>
+        /// Returns a list of all items locked in the specified iridiumData category.
+        /// </summary>
+        /// <returns>List of item cost integers.</returns>
+        public List<bool> GetItemsLocked(string category)
+        {
+            List<bool> itemsLocked = new List<bool>();
+
+            switch (category)
             {
-                if (iridiumDataLocked[i])
-                {
-                    itemCosts.Add(iridiumDataCosts[i]);
-                }
+                case "Weapons":
+                    itemsLocked = iridiumData.weaponsLocked.ToList();
+                    break;
+                default:
+                    Debug.Log("ERROR: Item category could not be identified.");
+                    itemsLocked = new List<bool>();
+                    break;
             }
 
-            return itemCosts;
+            return itemsLocked;
         }
 
         /// <summary>

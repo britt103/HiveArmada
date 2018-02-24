@@ -42,6 +42,11 @@ namespace Hive.Armada.Menus
         public MenuTransitionManager transitionManager;
 
         /// <summary>
+        /// Reference to Lexicon Menu GO.
+        /// </summary>
+        public GameObject lexiconGO;
+
+        /// <summary>
         /// Reference to menu to go to when back is pressed.
         /// </summary>
         public GameObject backMenuGO;
@@ -112,6 +117,11 @@ namespace Hive.Armada.Menus
         public GameObject iridiumAmount;
 
         /// <summary>
+        /// Reference to bought text.
+        /// </summary>
+        public GameObject bought;
+
+        /// <summary>
         /// Reference to buy button.
         /// </summary>
         public GameObject buyButton;
@@ -176,6 +186,11 @@ namespace Hive.Armada.Menus
         /// Item costs of currently open category.
         /// </summary>
         private List<int> currCosts = new List<int>();
+
+        /// <summary>
+        /// Items not bought of currently open category.
+        /// </summary>
+        private List<bool> currNotBought = new List<bool>();
 
         /// <summary>
         /// Reference to currently displayed item prefab.
@@ -266,12 +281,10 @@ namespace Hive.Armada.Menus
             {
                 iridiumSystem.UnlockItem(currCategory, currNames[currItemId]);
                 lexiconUnlockData.AddWeaponUnlock(currNames[currItemId]);
-                currNames.RemoveAt(currItemId);
-                currTexts.RemoveAt(currItemId);
-                currCosts.RemoveAt(currItemId);
-                currPrefabs.RemoveAt(currItemId);
+                lexiconGO.SetActive(true);
+                lexiconGO.SetActive(false);
+                currNotBought[currItemId] = false;
                 PressBack();
-                GenerateContent();
             }
         }
 
@@ -313,12 +326,17 @@ namespace Hive.Armada.Menus
             itemText.SetActive(true);
             itemCost.SetActive(true);
             iridiumAmount.SetActive(true);
-            buyButton.SetActive(true);
-
-            if (iridiumSystem.GetIridiumAmount() < currCosts[currItemId])
+            
+            if (!currNotBought[itemId])
             {
+                bought.SetActive(true);
+                buyButton.SetActive(false);
+            }
+            else if (iridiumSystem.GetIridiumAmount() < currCosts[itemId])
+            {
+                bought.SetActive(false);
+                buyButton.SetActive(true);
                 buyButton.GetComponent<BoxCollider>().enabled = false;
-                //buyButton.tag = "InteractableUI";
                 Color tempColor = buyButton.GetComponent<Image>().color;
                 tempColor.a = 0.2f;
                 buyButton.GetComponent<Image>().color = tempColor;
@@ -328,8 +346,9 @@ namespace Hive.Armada.Menus
             }
             else
             {
+                bought.SetActive(false);
+                buyButton.SetActive(true);
                 buyButton.GetComponent<BoxCollider>().enabled = true;
-                //buyButton.tag = "Untagged";
                 Color tempColor = buyButton.GetComponent<Image>().color;
                 tempColor.a = 1;
                 buyButton.GetComponent<Image>().color = tempColor;
@@ -363,6 +382,7 @@ namespace Hive.Armada.Menus
             itemText.SetActive(false);
             itemCost.SetActive(false);
             iridiumAmount.SetActive(false);
+            bought.SetActive(false);
             buyButton.SetActive(false);
             scrollView.SetActive(true);
 
@@ -386,36 +406,11 @@ namespace Hive.Armada.Menus
             {
                 case "Weapons":
                     currCategory = category;
-                    currNames = iridiumSystem.GetLockedItemNames(category);
-                    currTexts = iridiumSystem.GetLockedItemTexts(category);
-                    currCosts = iridiumSystem.GetLockedItemCosts(category);
+                    currNames = iridiumSystem.GetItemNames(category);
+                    currTexts = iridiumSystem.GetItemTexts(category);
+                    currCosts = iridiumSystem.GetItemCosts(category);
+                    currNotBought = iridiumSystem.GetItemsLocked(category);
                     currPrefabs = weaponPrefabs.ToList();
-
-                    List<GameObject> prefabsToRemove = new List<GameObject>();
-
-                    //Remove prefabs from currPrefabs corresponding to unlocked items.
-                    bool itemPresent = false;
-                    foreach (GameObject prefab in currPrefabs)
-                    {
-                        foreach(string name in currNames)
-                        {
-                            if (prefab.name.Contains(name))
-                            {
-                                itemPresent = true;
-                            }
-                        }
-
-                        if (!itemPresent)
-                        {
-                            prefabsToRemove.Add(prefab);
-                        }
-                    }
-
-                    foreach (GameObject prefab in prefabsToRemove)
-                    {
-                        currPrefabs.Remove(prefab);
-                    }
-
                     break;
                 default:
                     Debug.Log("ERROR: Lexicon menu category could not be identified.");

@@ -97,6 +97,9 @@ namespace Hive.Armada.Menus
         /// </summary>
         public GameObject[] categoryButtons;
 
+        /// <summary>
+        /// Number of buttons that are completely visible in view at a time.
+        /// </summary>
         public int numFittableButtons = 3;
 
         /// <summary>
@@ -110,6 +113,9 @@ namespace Hive.Armada.Menus
         /// </summary>
         public GameObject entryButtonPrefab;
 
+        /// <summary>
+        /// Prefab for empty Lexicon entry button.
+        /// </summary>
         public GameObject entryButtonEmptyPrefab;
 
         /// <summary>
@@ -184,15 +190,15 @@ namespace Hive.Armada.Menus
         {
             ReadLexiconFile();
             unlockData = FindObjectOfType<LexiconUnlockData>();
-            UpdateUnlocks();
         }
 
         /// <summary>
-        /// Disable game object near Lexicon area.
+        /// Disable game object near Lexicon area. Update unlocks.
         /// </summary>
         private void OnEnable()
         {
             tableDecoration.SetActive(false);
+            UpdateUnlocks();
         }
 
         /// <summary>
@@ -335,7 +341,7 @@ namespace Hive.Armada.Menus
             {
                 if (i >= numFittableButtons && tooFewEntries)
                 {
-                    GameObject entryButtonEmpty = Instantiate(entryButtonEmptyPrefab, contentGO.transform);
+                    Instantiate(entryButtonEmptyPrefab, contentGO.transform);
                 }
                 else
                 {

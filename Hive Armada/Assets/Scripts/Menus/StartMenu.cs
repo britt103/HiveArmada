@@ -35,6 +35,11 @@ namespace Hive.Armada.Menus
         public GameObject loadoutMenuGO;
 
         /// <summary>
+        /// Reference to Shop Menu.
+        /// </summary>
+        public GameObject shopMenuGO;
+
+        /// <summary>
         /// Reference to Menu Audio source.
         /// </summary>
 		public AudioSource source;
@@ -45,16 +50,24 @@ namespace Hive.Armada.Menus
     	public AudioClip[] clips;
 
         /// <summary>
-        /// Called by start button; transition to Wave Room.
+        /// Called by start button; navigates to Loadout Menu.
         /// </summary>
         public void PressSoloNormal()
         {
             source.PlayOneShot(clips[0]);
             transitionManager.Transition(loadoutMenuGO);
         }
+        /// <summary>
+        /// Called by shop button; navigates to Shop Menu.
+        /// </summary>
+        public void PressShop()
+        {
+            source.PlayOneShot(clips[0]);
+            transitionManager.Transition(shopMenuGO);
+        }
 
         /// <summary>
-        /// Back button pressed; navigates to main menu.
+        /// Back button pressed; navigates to Main Menu.
         /// </summary>
         public void PressBack()
         {

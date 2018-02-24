@@ -13,6 +13,8 @@
 //=============================================================================
 
 using System.IO;
+using System.Linq;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Hive.Armada.Game
@@ -105,6 +107,7 @@ namespace Hive.Armada.Game
             else
             {
                 iridiumAmount -= payment;
+                //WriteIridiumFile();
                 return true;
             }
         }
@@ -151,5 +154,131 @@ namespace Hive.Armada.Game
             return false;
         }
 
+        /// <summary>
+        /// Returns a list of all item names in specified iridiumData category.
+        /// </summary>
+        /// <returns>List of item name strings.</returns>
+        public List<string> GetLockedItemNames(string category)
+        {
+            List<string> itemNames = new List<string>();
+            string[] iridiumDataNames;
+            bool[] iridiumDataLocked;
+
+            switch (category)
+            {
+                case "Weapons":
+                    iridiumDataNames = iridiumData.weaponNames;
+                    iridiumDataLocked = iridiumData.weaponsLocked;
+                    break;
+                default:
+                    Debug.Log("ERROR: Item category could not be identified.");
+                    iridiumDataNames = new string[0];
+                    iridiumDataLocked = new bool[0];
+                    break;
+            }
+
+            for (int i = 0; i < iridiumDataNames.Length; i++)
+            {
+                if (!iridiumDataLocked[i])
+                {
+                    itemNames.Add(iridiumDataNames[i]);
+                }
+            }
+
+            return itemNames;
+        }
+        /// <summary>
+        /// Returns a list of all item texts in specified iridiumData category.
+        /// </summary>
+        /// <returns>List of item name strings.</returns>
+        public List<string> GetLockedItemTexts(string category)
+        {
+            List<string> itemTexts = new List<string>();
+            string[] iridiumDataTexts;
+            bool[] iridiumDataLocked;
+
+            switch (category)
+            {
+                case "Weapons":
+                    iridiumDataTexts = iridiumData.weaponTexts;
+                    iridiumDataLocked = iridiumData.weaponsLocked;
+                    break;
+                default:
+                    Debug.Log("ERROR: Item category could not be identified.");
+                    iridiumDataTexts = new string[0];
+                    iridiumDataLocked = new bool[0];
+                    break;
+            }
+
+            for (int i = 0; i < iridiumDataTexts.Length; i++)
+            {
+                if (!iridiumDataLocked[i])
+                {
+                    itemTexts.Add(iridiumDataTexts[i]);
+                }
+            }
+
+            return itemTexts;
+        }
+
+
+        /// <summary>
+        /// Returns a list of all item costs in specified iridiumData category.
+        /// </summary>
+        /// <returns>List of item cost integers.</returns>
+        public List<int> GetLockedItemCosts(string category)
+        {
+            List<int> itemCosts = new List<int>();
+            int[] iridiumDataCosts;
+            bool[] iridiumDataLocked;
+
+            switch (category)
+            {
+                case "Weapons":
+                    iridiumDataCosts = iridiumData.weaponCosts;
+                    iridiumDataLocked = iridiumData.weaponsLocked;
+                    break;
+                default:
+                    Debug.Log("ERROR: Item category could not be identified.");
+                    iridiumDataCosts = new int[0];
+                    iridiumDataLocked = new bool[0];
+                    break;
+            }
+
+            for (int i = 0; i < iridiumDataCosts.Length; i++)
+            {
+                if (!iridiumDataLocked[i])
+                {
+                    itemCosts.Add(iridiumDataCosts[i]);
+                }
+            }
+
+            return itemCosts;
+        }
+
+        /// <summary>
+        /// Unlock iridium item.
+        /// </summary>
+        /// <param name="category">Name of category of item.</param>
+        /// <param name="name">Name of item.</param>
+        public void UnlockItem(string category, string name)
+        {
+            switch (category)
+            {
+                case "Weapons":
+                    for (int i = 0; i < iridiumData.weaponNames.Length; i++)
+                    {
+                        if (name == iridiumData.weaponNames[i])
+                        {
+                            iridiumData.weaponsLocked[i] = false;
+                        }
+                    }
+                    WriteIridiumFile();
+                    break;
+                default:
+                    Debug.Log("ERROR: Item category could not be identified.");
+                    break;
+            }
+        }
     }
 }

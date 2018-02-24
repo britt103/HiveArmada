@@ -164,8 +164,7 @@ namespace Hive.Armada.Game
                 }
                 points *= comboMultiplier;
             }
-            Debug.Log("Points gained: " + points);
-            //AddScore(points);
+            AddScore(points);
             spawnPointEmitter(points, pointLocation);
         }
 

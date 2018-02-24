@@ -112,11 +112,6 @@ namespace Hive.Armada.Menus
         public GameObject iridiumAmount;
 
         /// <summary>
-        /// Reference to cannot afford text.
-        /// </summary>
-        public GameObject cannotAfford;
-
-        /// <summary>
         /// Reference to buy button.
         /// </summary>
         public GameObject buyButton;
@@ -203,11 +198,6 @@ namespace Hive.Armada.Menus
         private bool categoryOpen = false;
 
         /// <summary>
-        /// How long the cannot afford text should be displayed.
-        /// </summary>
-        public float cannotAffordDisplayTime;
-
-        /// <summary>
         /// Disable game object near Shop area.
         /// </summary>
         private void OnEnable()
@@ -283,22 +273,6 @@ namespace Hive.Armada.Menus
                 PressBack();
                 GenerateContent();
             }
-            else
-            {
-                StartCoroutine(DisplayCannotAfford());
-            }
-        }
-
-        /// <summary>
-        /// Display cannot afford for specified amount of time
-        /// </summary>
-        private IEnumerator DisplayCannotAfford()
-        {
-            buyButton.SetActive(false);
-            cannotAfford.SetActive(true);
-            yield return new WaitForSeconds(cannotAffordDisplayTime);
-            buyButton.SetActive(true);
-            cannotAfford.SetActive(false);
         }
 
         /// <summary>
@@ -341,6 +315,29 @@ namespace Hive.Armada.Menus
             iridiumAmount.SetActive(true);
             buyButton.SetActive(true);
 
+            if (iridiumSystem.GetIridiumAmount() < currCosts[currItemId])
+            {
+                buyButton.GetComponent<BoxCollider>().enabled = false;
+                //buyButton.tag = "InteractableUI";
+                Color tempColor = buyButton.GetComponent<Image>().color;
+                tempColor.a = 0.2f;
+                buyButton.GetComponent<Image>().color = tempColor;
+                tempColor = buyButton.GetComponentInChildren<Text>().color;
+                tempColor.a = 0.2f;
+                buyButton.GetComponentInChildren<Text>().color = tempColor;
+            }
+            else
+            {
+                buyButton.GetComponent<BoxCollider>().enabled = true;
+                //buyButton.tag = "Untagged";
+                Color tempColor = buyButton.GetComponent<Image>().color;
+                tempColor.a = 1;
+                buyButton.GetComponent<Image>().color = tempColor;
+                tempColor = buyButton.GetComponentInChildren<Text>().color;
+                tempColor.a = 1;
+                buyButton.GetComponentInChildren<Text>().color = tempColor;
+            }
+
             foreach (GameObject categoryButton in categoryButtons)
             {
                 categoryButton.SetActive(false);
@@ -366,7 +363,6 @@ namespace Hive.Armada.Menus
             itemText.SetActive(false);
             itemCost.SetActive(false);
             iridiumAmount.SetActive(false);
-            cannotAfford.SetActive(false);
             buyButton.SetActive(false);
             scrollView.SetActive(true);
 
@@ -399,22 +395,6 @@ namespace Hive.Armada.Menus
 
                     //Remove prefabs from currPrefabs corresponding to unlocked items.
                     bool itemPresent = false;
-                    //for (int i = 0; i < currPrefabs.Count; i++)
-                    //{
-                    //    for (int j = 0; j < currNames.Count; i++)
-                    //    {
-                    //        if (currPrefabs[i].name.Contains(currNames[j]))
-                    //        {
-                    //            itemPresent = true;
-                    //        }
-                    //    }
-
-                    //    if (!itemPresent)
-                    //    {
-                    //        prefabsToRemove.Add(currPrefabs[i].name);
-                    //    }
-                    //}
-
                     foreach (GameObject prefab in currPrefabs)
                     {
                         foreach(string name in currNames)
@@ -435,17 +415,6 @@ namespace Hive.Armada.Menus
                     {
                         currPrefabs.Remove(prefab);
                     }
-
-                    //for (int i = 0; i < prefabsToRemove.Count; i++)
-                    //{
-                    //    for (int j = 0; j < currPrefabs.Count; j++)
-                    //    {
-                    //        if (prefabsToRemove[i] == currPrefabs[j].name)
-                    //        {
-
-                    //        }
-                    //    }
-                    //}
 
                     break;
                 default:

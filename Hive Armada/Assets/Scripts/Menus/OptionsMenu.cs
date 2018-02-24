@@ -79,11 +79,17 @@ namespace Hive.Armada.Menus
         /// doesn't play over itself
         /// </summary>
         private int controlsCounter = 0;
+
         private int displayCounter = 0;
+
         private int soundCounter = 0;
+
         private int lexiconCounter = 0;
+
         private int introCounter = 0;
+
         private int creditsCounter = 0;
+
         private int backCounter = 0;
 
         /// <summary>

@@ -56,6 +56,7 @@ namespace Hive.Armada.Menus
         /// doesn't play over itself
         /// </summary>
         private int backCounter = 0;
+
         private int bloomCounter = 0;
 
         /// <summary>

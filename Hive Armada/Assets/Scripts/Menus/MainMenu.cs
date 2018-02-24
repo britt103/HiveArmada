@@ -50,6 +50,7 @@ namespace Hive.Armada.Menus
         /// doesn't play over itself
         /// </summary>
         private int startCounter = 0;
+
         private int optionsCounter = 0;
 
         /// <summary>

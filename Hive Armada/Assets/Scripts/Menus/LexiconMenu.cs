@@ -182,17 +182,35 @@ namespace Hive.Armada.Menus
         /// doesn't play over itself
         /// </summary>
         private int backCounter = 0;
+
         private int entryCounter = 0;
+
         private int categoryCounter = 0;
 
+        /// <summary>
+        /// Reference to the information button used for
+        /// playing dialogue about the selected item
+        /// </summary>
         public GameObject informationButton;
 
+        /// <summary>
+        /// Variable used to set the current category
+        /// </summary>
         private string entryCategory;
 
+        /// <summary>
+        /// Variable used to set the current entry chosen
+        /// </summary>
         private int entryValue;
 
+        /// <summary>
+        /// Audio arrays for each of the categories to choose
+        /// from to play when an entry is selected
+        /// </summary>
         public AudioClip[] powerupsAudio;
+
         public AudioClip[] enemiesAudio;
+
         public AudioClip[] weaponsAudio;
 
         /// <summary>

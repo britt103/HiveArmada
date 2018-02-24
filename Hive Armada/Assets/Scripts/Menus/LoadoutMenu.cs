@@ -88,7 +88,9 @@ namespace Hive.Armada.Menus
         /// doesn't play over itself
         /// </summary>
         private int weaponCount = 0;
+
         private int backCount = 0;
+
         private int playCount = 0;
 
         /// <summary>

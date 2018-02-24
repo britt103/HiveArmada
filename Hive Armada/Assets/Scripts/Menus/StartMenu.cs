@@ -49,6 +49,7 @@ namespace Hive.Armada.Menus
         /// doesn't play over itself
         /// </summary>
         private int soloNormalCounter = 0;
+
         private int backCounter = 0;
 
         /// <summary>

@@ -179,7 +179,7 @@ namespace Hive.Armada.Game
 
             for (int i = 0; i < iridiumDataNames.Length; i++)
             {
-                if (!iridiumDataLocked[i])
+                if (iridiumDataLocked[i])
                 {
                     itemNames.Add(iridiumDataNames[i]);
                 }
@@ -212,7 +212,7 @@ namespace Hive.Armada.Game
 
             for (int i = 0; i < iridiumDataTexts.Length; i++)
             {
-                if (!iridiumDataLocked[i])
+                if (iridiumDataLocked[i])
                 {
                     itemTexts.Add(iridiumDataTexts[i]);
                 }
@@ -247,7 +247,7 @@ namespace Hive.Armada.Game
 
             for (int i = 0; i < iridiumDataCosts.Length; i++)
             {
-                if (!iridiumDataLocked[i])
+                if (iridiumDataLocked[i])
                 {
                     itemCosts.Add(iridiumDataCosts[i]);
                 }

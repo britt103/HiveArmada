@@ -12059,7 +12059,7 @@ MonoBehaviour:
   itemText: {fileID: 968657838}
   itemCost: {fileID: 589149878}
   iridiumAmount: {fileID: 726194988}
-  cannotAfford: {fileID: 0}
+  cannotAfford: {fileID: 1873931659}
   buyButton: {fileID: 1541471983}
   tableDecoration: {fileID: 1816551254}
   itemButtonPrefab: {fileID: 1586695209148668, guid: 88cd59f13817d02468dcdfc0a967f66a,
@@ -12073,7 +12073,7 @@ MonoBehaviour:
   - {fileID: 1344116622870008, guid: e0d8ad146f7188d4f81419989fb6fc66, type: 2}
   - {fileID: 1876590022084866, guid: b3622917491f3f1499e7119b1d13b7d7, type: 2}
   - {fileID: 1876590022084866, guid: b3622917491f3f1499e7119b1d13b7d7, type: 2}
-  cannotAffordDisplayTime: 0
+  cannotAffordDisplayTime: 2
 --- !u!114 &1343310013
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15580,7 +15580,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1343310012}
         m_MethodName: OpenCategory
         m_Mode: 5
         m_Arguments:
@@ -15633,7 +15633,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1641021144}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.0000018796595}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.50000024, y: 0.5, z: 1.0000141}
   m_Children:
   - {fileID: 1424241477}
@@ -15643,7 +15643,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 324.99994, y: 180}
+  m_AnchoredPosition: {x: 325, y: 100}
   m_SizeDelta: {x: 1000, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1641544991
@@ -17058,7 +17058,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1343310012}
         m_MethodName: PressBack
         m_Mode: 1
         m_Arguments:

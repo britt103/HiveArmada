@@ -184,21 +184,14 @@ namespace Hive.Armada.Menus
         private List<bool> currLocked = new List<bool>();
 
         /// <summary>
-        /// Read in Lexicon data and unlocks.
-        /// </summary>
-        private void Start()
-        {
-            ReadLexiconFile();
-            unlockData = FindObjectOfType<LexiconUnlockData>();
-        }
-
-        /// <summary>
-        /// Disable game object near Lexicon area. Update unlocks.
+        /// Read in data. Disable game object near Lexicon area. Update unlocks.
         /// </summary>
         private void OnEnable()
         {
-            tableDecoration.SetActive(false);
+            ReadLexiconFile();
+            unlockData = FindObjectOfType<LexiconUnlockData>();
             UpdateUnlocks();
+            tableDecoration.SetActive(false);
         }
 
         /// <summary>
@@ -339,9 +332,10 @@ namespace Hive.Armada.Menus
 
             for (int i = 0; i < entries; ++i)
             {
-                if (i >= numFittableButtons && tooFewEntries)
+                if (i >= currNames.Count && tooFewEntries)
                 {
-                    Instantiate(entryButtonEmptyPrefab, contentGO.transform);
+                    GameObject entryButtonEmpty = Instantiate(entryButtonEmptyPrefab, contentGO.transform);
+                    entryButtonEmpty.SetActive(false);
                 }
                 else
                 {

@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 114126440921470224}
   - component: {fileID: 65751094710752094}
   - component: {fileID: 114743898468640406}
-  - component: {fileID: 114348226329993512}
+  - component: {fileID: 114312622035839168}
   m_Layer: 5
   m_Name: Shop Item Button
   m_TagString: InteractableUI
@@ -117,7 +117,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114348226329993512}
+      - m_Target: {fileID: 114312622035839168}
         m_MethodName: PressButton
         m_Mode: 1
         m_Arguments:
@@ -130,7 +130,7 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &114348226329993512
+--- !u!114 &114312622035839168
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -138,11 +138,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1586695209148668}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f57e3aaa716e44468bbe2de928b9c4a, type: 3}
+  m_Script: {fileID: 11500000, guid: 6697c80413cd46a418ea8d2b270566f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
-  lexiconMenu: {fileID: 0}
+  shopMenu: {fileID: 0}
 --- !u!114 &114614333642512176
 MonoBehaviour:
   m_ObjectHideFlags: 1

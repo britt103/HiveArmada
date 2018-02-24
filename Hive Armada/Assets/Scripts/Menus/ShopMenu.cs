@@ -219,6 +219,7 @@ namespace Hive.Armada.Menus
         void Start()
         {
             iridiumSystem = FindObjectOfType<IridiumSystem>();
+            lexiconUnlockData = FindObjectOfType<LexiconUnlockData>();
         }
 
         /// <summary>
@@ -231,28 +232,29 @@ namespace Hive.Armada.Menus
                 Destroy(contentGO.transform.GetChild(i).gameObject);
             }
 
-            int entries;
+            int items;
             bool tooFewEntries;
             if (currNames.Count <= numFittableButtons)
             {
-                entries = numFittableButtons + 1;
+                items = numFittableButtons + 1;
                 tooFewEntries = true;
                 scrollBar.gameObject.GetComponent<BoxCollider>().enabled = false;
                 verticalSlider.gameObject.SetActive(false);
             }
             else
             {
-                entries = currNames.Capacity;
+                items = currNames.Capacity;
                 tooFewEntries = false;
                 scrollBar.gameObject.GetComponent<BoxCollider>().enabled = true;
                 verticalSlider.gameObject.SetActive(true);
             }
 
-            for (int i = 0; i < entries; ++i)
+            for (int i = 0; i < items; ++i)
             {
-                if (i >= numFittableButtons && tooFewEntries)
+                if (i >= currNames.Count && tooFewEntries)
                 {
-                    Instantiate(itemButtonEmptyPrefab, contentGO.transform);
+                    GameObject itemButtonEmpty = Instantiate(itemButtonEmptyPrefab, contentGO.transform);
+                    itemButtonEmpty.SetActive(false);
                 }
                 else
                 {
@@ -393,13 +395,31 @@ namespace Hive.Armada.Menus
                     currCosts = iridiumSystem.GetLockedItemCosts(category);
                     currPrefabs = weaponPrefabs.ToList();
 
+                    List<GameObject> prefabsToRemove = new List<GameObject>();
+
                     //Remove prefabs from currPrefabs corresponding to unlocked items.
                     bool itemPresent = false;
-                    for (int i = 0; i < currPrefabs.Count; i++)
+                    //for (int i = 0; i < currPrefabs.Count; i++)
+                    //{
+                    //    for (int j = 0; j < currNames.Count; i++)
+                    //    {
+                    //        if (currPrefabs[i].name.Contains(currNames[j]))
+                    //        {
+                    //            itemPresent = true;
+                    //        }
+                    //    }
+
+                    //    if (!itemPresent)
+                    //    {
+                    //        prefabsToRemove.Add(currPrefabs[i].name);
+                    //    }
+                    //}
+
+                    foreach (GameObject prefab in currPrefabs)
                     {
-                        for (int j = 0; j < currNames.Count; i++)
+                        foreach(string name in currNames)
                         {
-                            if (currPrefabs[i].name.Contains(currNames[j]))
+                            if (prefab.name.Contains(name))
                             {
                                 itemPresent = true;
                             }
@@ -407,9 +427,25 @@ namespace Hive.Armada.Menus
 
                         if (!itemPresent)
                         {
-                            currPrefabs.RemoveAt(i);
+                            prefabsToRemove.Add(prefab);
                         }
                     }
+
+                    foreach (GameObject prefab in prefabsToRemove)
+                    {
+                        currPrefabs.Remove(prefab);
+                    }
+
+                    //for (int i = 0; i < prefabsToRemove.Count; i++)
+                    //{
+                    //    for (int j = 0; j < currPrefabs.Count; j++)
+                    //    {
+                    //        if (prefabsToRemove[i] == currPrefabs[j].name)
+                    //        {
+
+                    //        }
+                    //    }
+                    //}
 
                     break;
                 default:

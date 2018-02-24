@@ -92,6 +92,14 @@ namespace Hive.Armada.Player.Weapons
         /// </summary>
         public AudioClip minigunShootSound;
 
+        private float overheat;
+
+        public float overheatPerShot;
+
+        public float overheatCooldown;
+
+        private bool isOverheating;
+
         /// <summary>
         /// Initializes the LineRenderer's for the minigun tracers and
         /// the muzzle flash emitter pool.
@@ -124,42 +132,45 @@ namespace Hive.Armada.Player.Weapons
         /// </summary>
         protected override void Clicked()
         {
-            RaycastHit hit;
-            if (Physics.SphereCast(transform.position, radius, transform.forward, out hit, 200.0f,
-                                Utility.shootableMask))
+            if (!isOverheating)
             {
-                StartCoroutine(Shoot(hit.point));
-
-                Instantiate(hitSparkEmitter, hit.point,
-                            Quaternion.LookRotation(hit.point - gameObject.transform.position));
-
-                if (hit.collider.gameObject.GetComponent<Shootable>() != null
-                    && hit.collider.gameObject.GetComponent<Shootable>().isShootable)
+                RaycastHit hit;
+                if (Physics.SphereCast(transform.position, radius, transform.forward, out hit, 200.0f,
+                                    Utility.shootableMask))
                 {
-                    hit.collider.gameObject.GetComponent<Shootable>().Shot();
+                    StartCoroutine(Shoot(hit.point));
+
+                    Instantiate(hitSparkEmitter, hit.point,
+                                Quaternion.LookRotation(hit.point - gameObject.transform.position));
+
+                    if (hit.collider.gameObject.GetComponent<Shootable>() != null
+                        && hit.collider.gameObject.GetComponent<Shootable>().isShootable)
+                    {
+                        hit.collider.gameObject.GetComponent<Shootable>().Shot();
+                    }
+
+                    shipController.hand.controller.TriggerHapticPulse(2500);
                 }
-
-                shipController.hand.controller.TriggerHapticPulse(2500);
-            }
-            else if (Physics.SphereCast(transform.position, radius, transform.forward, out hit, 200.0f,
-                                        Utility.enemyMask))
-            {
-                StartCoroutine(Shoot(hit.point));
-
-                Instantiate(hitSparkEmitter, hit.point,
-                            Quaternion.LookRotation(hit.point - gameObject.transform.position));
-
-                if (hit.collider.gameObject.GetComponent<Enemy>() != null)
+                else if (Physics.SphereCast(transform.position, radius, transform.forward, out hit, 200.0f,
+                                            Utility.enemyMask))
                 {
-                    hit.collider.gameObject.GetComponent<Enemy>().Hit(damage * damageMultiplier);
-                }
+                    StartCoroutine(Shoot(hit.point));
 
-                shipController.hand.controller.TriggerHapticPulse(2500);
-            }
-            else if (Physics.Raycast(transform.position, transform.forward, out hit, 200.0f,
-                                     Utility.roomMask))
-            {
-                StartCoroutine(Shoot(hit.point));
+                    Instantiate(hitSparkEmitter, hit.point,
+                                Quaternion.LookRotation(hit.point - gameObject.transform.position));
+
+                    if (hit.collider.gameObject.GetComponent<Enemy>() != null)
+                    {
+                        hit.collider.gameObject.GetComponent<Enemy>().Hit(damage * damageMultiplier);
+                    }
+
+                    shipController.hand.controller.TriggerHapticPulse(2500);
+                }
+                else if (Physics.Raycast(transform.position, transform.forward, out hit, 200.0f,
+                                         Utility.roomMask))
+                {
+                    StartCoroutine(Shoot(hit.point));
+                }
             }
         }
 
@@ -171,6 +182,7 @@ namespace Hive.Armada.Player.Weapons
         private IEnumerator Shoot(Vector3 position)
         {
             canShoot = false;
+            AddOverheat();
 
             GameObject barrel = isLeftFire
                                     ? left[Random.Range(0, left.Length)]
@@ -247,6 +259,26 @@ namespace Hive.Armada.Player.Weapons
             r.startWidth = thickness;
             r.endWidth = thickness;
             r.enabled = false;
+        }
+
+        private void AddOverheat()
+        {
+            overheat += overheatPerShot;
+
+            if (overheat >= 100.0f)
+            {
+                isOverheating = true;
+            }
+        }
+
+        /// <summary>
+        /// Waits for the minigun to cool-down and then disables overheating.
+        /// </summary>
+        private IEnumerator OverheatCooldown()
+        {
+            yield return new WaitForSeconds(overheatCooldown);
+            overheat = 0.0f;
+            isOverheating = false;
         }
     }
 }

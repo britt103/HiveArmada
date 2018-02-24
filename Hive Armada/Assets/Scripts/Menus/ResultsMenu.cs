@@ -100,6 +100,12 @@ namespace Hive.Armada.Menus
         public GameObject iridiumTextGO;
 
         /// <summary>
+        /// Variable used to make sure that audio
+        /// doesn't play over itself
+        /// </summary>
+        private int continueCounter = 0;
+
+        /// <summary>
         /// Get and set results values. Reset stats totals. Calculate Iridium totals.
         /// </summary>
         void Awake()
@@ -142,6 +148,12 @@ namespace Hive.Armada.Menus
         public void PressContinue()
         {
             source.PlayOneShot(clips[0]);
+            continueCounter += 1;
+            if (continueCounter > 1)
+            {
+                source.Stop();
+                source.PlayOneShot(clips[0]);
+            }
             stats.ResetValues();
             transitionManager.Transition(continueMenuGO);
         }

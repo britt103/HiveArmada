@@ -45,11 +45,24 @@ namespace Hive.Armada.Menus
     	public AudioClip[] clips;
 
         /// <summary>
+        /// Variables used as a check to make sure audio
+        /// doesn't play over itself
+        /// </summary>
+        private int soloNormalCounter = 0;
+        private int backCounter = 0;
+
+        /// <summary>
         /// Called by start button; transition to Wave Room.
         /// </summary>
         public void PressSoloNormal()
         {
             source.PlayOneShot(clips[0]);
+            soloNormalCounter += 1;
+            if(soloNormalCounter > 1)
+            {
+                source.Stop();
+                source.PlayOneShot(clips[0]);
+            }
             transitionManager.Transition(loadoutMenuGO);
         }
 
@@ -59,6 +72,12 @@ namespace Hive.Armada.Menus
         public void PressBack()
         {
             source.PlayOneShot(clips[1]);
+            backCounter += 1;
+            if(backCounter > 1)
+            {
+                source.Stop();
+                source.PlayOneShot(clips[1]);
+            }
             transitionManager.Transition(backMenuGO);
         }
     }

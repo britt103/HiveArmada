@@ -178,6 +178,14 @@ namespace Hive.Armada.Menus
         private List<bool> currLocked = new List<bool>();
 
         /// <summary>
+        /// Variables used to make sure audio
+        /// doesn't play over itself
+        /// </summary>
+        private int backCounter = 0;
+        private int entryCounter = 0;
+        private int categoryCounter = 0;
+
+        /// <summary>
         /// Read in Lexicon data and unlocks.
         /// </summary>
         private void Start()
@@ -242,6 +250,12 @@ namespace Hive.Armada.Menus
         public void PressBack()
         {
             source.PlayOneShot(clips[1]);
+            backCounter += 1;
+            if (backCounter > 1)
+            {
+                source.Stop();
+                source.PlayOneShot(clips[1]);
+            }
 
             if (entryOpen)
             {
@@ -362,6 +376,12 @@ namespace Hive.Armada.Menus
         public void OpenEntry(int entryId)
         {
             source.PlayOneShot(clips[0]);
+            entryCounter += 1;
+            if (entryCounter > 1)
+            {
+                source.Stop();
+                source.PlayOneShot(clips[0]);
+            }
 
             menuTitle.SetActive(false);
             scrollView.SetActive(false);
@@ -447,6 +467,12 @@ namespace Hive.Armada.Menus
         public void OpenCategory(string category)
         {
             source.PlayOneShot(clips[0]);
+            categoryCounter += 1;
+            if (categoryCounter > 1)
+            {
+                source.Stop();
+                source.PlayOneShot(clips[0]);
+            }
 
             menuDescription.SetActive(false);
             menuTitle.GetComponent<Text>().text = category;

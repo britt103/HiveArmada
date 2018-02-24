@@ -46,11 +46,24 @@ namespace Hive.Armada.Menus
     	public AudioClip[] clips;
 
         /// <summary>
+        /// Variables used as a check to make sure audio
+        /// doesn't play over itself
+        /// </summary>
+        private int startCounter = 0;
+        private int optionsCounter = 0;
+
+        /// <summary>
         /// Start button pressed. Navigate to Start Menu.
         /// </summary>
         public void PressStart()
         {
 			source.PlayOneShot(clips[0]);
+            startCounter += 1;
+            if(startCounter > 1)
+            {
+                source.Stop();
+                source.PlayOneShot(clips[0]);
+            }
             transitionManager.Transition(startMenuGO);
         }
 
@@ -60,6 +73,12 @@ namespace Hive.Armada.Menus
         public void PressOptions()
         {
 			source.PlayOneShot(clips[0]);
+            optionsCounter += 1;
+            if(optionsCounter > 1)
+            {
+                source.Stop();
+                source.PlayOneShot(clips[0]);
+            }
             transitionManager.Transition(optionsMenuGO);
         }
 

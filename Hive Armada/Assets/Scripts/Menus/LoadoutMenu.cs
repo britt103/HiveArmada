@@ -84,6 +84,14 @@ namespace Hive.Armada.Menus
         private IridiumSystem iridiumSystem;
 
         /// <summary>
+        /// Variables used as a check to make sure audio
+        /// doesn't play over itself
+        /// </summary>
+        private int weaponCount = 0;
+        private int backCount = 0;
+        private int playCount = 0;
+
+        /// <summary>
         /// Find references. Set display for initial waepon. If no Iridium weapons have been 
         /// unlocked, skip menu.
         /// </summary>
@@ -118,6 +126,12 @@ namespace Hive.Armada.Menus
             if (weaponNum != selectedWeapon)
             {
                 source.PlayOneShot(clips[0]);
+                weaponCount += 1;
+                if (weaponCount > 1)
+                {
+                    source.Stop();
+                    source.PlayOneShot(clips[0]);
+                }
                 weaponButtons[selectedWeapon].GetComponent<UIHover>().EndSelect();
                 selectedWeapon = weaponNum;
             }
@@ -130,6 +144,12 @@ namespace Hive.Armada.Menus
         public void PressBack()
         {
             source.PlayOneShot(clips[1]);
+            backCount += 1;
+            if (backCount > 1)
+            {
+                source.Stop();
+                source.PlayOneShot(clips[1]);
+            }
             transitionManager.Transition(backMenuGO);
         }
 
@@ -140,6 +160,12 @@ namespace Hive.Armada.Menus
         {
             shipLoadout.weapon = selectedWeapon;
             source.PlayOneShot(clips[0]);
+            playCount += 1;
+            if (playCount > 1)
+            {
+                source.Stop();
+                source.PlayOneShot(clips[0]);
+            }
             reference.sceneTransitionManager.TransitionOut("Wave Room");
             gameObject.SetActive(false);
         }

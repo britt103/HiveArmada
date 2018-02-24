@@ -185,6 +185,16 @@ namespace Hive.Armada.Menus
         private int entryCounter = 0;
         private int categoryCounter = 0;
 
+        public GameObject informationButton;
+
+        private string entryCategory;
+
+        private int entryValue;
+
+        public AudioClip[] powerupsAudio;
+        public AudioClip[] enemiesAudio;
+        public AudioClip[] weaponsAudio;
+
         /// <summary>
         /// Read in Lexicon data and unlocks.
         /// </summary>
@@ -387,6 +397,8 @@ namespace Hive.Armada.Menus
             scrollView.SetActive(false);
             entryName.SetActive(true);
             entryText.SetActive(true);
+            informationButton.SetActive(true);
+            entryValue = entryId;
 
             foreach(GameObject categoryButton in categoryButtons)
             {
@@ -417,6 +429,7 @@ namespace Hive.Armada.Menus
             entryName.SetActive(false);
             entryText.SetActive(false);
             scrollView.SetActive(true);
+            informationButton.SetActive(false);
 
             foreach (GameObject categoryButton in categoryButtons)
             {
@@ -481,6 +494,7 @@ namespace Hive.Armada.Menus
             GenerateContent();
             scrollBar.value = 1;
             categoryOpen = true;
+            entryCategory = category;
         }
 
         /// <summary>
@@ -492,6 +506,29 @@ namespace Hive.Armada.Menus
             menuTitle.GetComponent<Text>().text = "Lexicon";
             scrollView.SetActive(false);
             categoryOpen = false;
+        }
+
+        /// <summary>
+        /// Play audio source based first on which category
+        /// is open and second on the entryId that is assigned
+        /// </summary>
+        public void Information()
+        {
+            switch(entryCategory)
+            {
+                case "Powerups":
+                    source.PlayOneShot(powerupsAudio[entryValue]);
+                    break;
+                case "Enemies":
+                    source.PlayOneShot(enemiesAudio[entryValue]);
+                    break;
+                case "Weapons":
+                    source.PlayOneShot(weaponsAudio[entryValue]);
+                    break;
+                default:
+                    Debug.Log("ERROR: the category is not defined");
+                    break;
+            }
         }
     }
 }

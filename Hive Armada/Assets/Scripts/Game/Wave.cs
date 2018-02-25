@@ -267,7 +267,7 @@ namespace Hive.Armada.Game
         {
             foreach (SetupNormalSpawnGroup group in setupSpawnGroups)
             {
-                //yield return new WaitForSeconds(Mathf.Abs(group.delay));
+                yield return new WaitForSeconds(Mathf.Abs(group.delay));
 
                 while (enemiesRemaining > 0)
                 {

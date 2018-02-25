@@ -2076,114 +2076,260 @@ MonoBehaviour:
   setupSpawnGroups:
   - delay: 0
     setupSpawnZones:
-    - zone: 2
-      setupSpawnPaths:
-      - path: 7
-        enemy: 3
-        attackPattern: 0
-      - path: 6
-        enemy: 0
-        attackPattern: 1
-      - path: 8
-        enemy: 0
-        attackPattern: 1
-    - zone: 1
-      setupSpawnPaths:
-      - path: 7
-        enemy: 3
-        attackPattern: 0
-      - path: 8
-        enemy: 0
-        attackPattern: 0
-      - path: 6
-        enemy: 0
-        attackPattern: 0
-    powerupSpawn:
-      powerupSpawn: 0
-      powerup: 0
-  - delay: 3
-    setupSpawnZones: []
-    powerupSpawn:
-      powerupSpawn: 2
-      powerup: 0
-  - delay: 8
-    setupSpawnZones:
     - zone: 0
       setupSpawnPaths:
-      - path: 1
-        enemy: 1
+      - path: 0
+        enemy: 3
         attackPattern: 0
-      - path: 2
-        enemy: 1
-        attackPattern: 0
-    - zone: 3
-      setupSpawnPaths:
-      - path: 1
-        enemy: 2
-        attackPattern: 1
-      - path: 2
-        enemy: 1
-        attackPattern: 0
-      - path: 3
-        enemy: 2
-        attackPattern: 1
-      - path: 4
-        enemy: 1
-        attackPattern: 0
-    - zone: 4
-      setupSpawnPaths:
-      - path: 1
-        enemy: 1
-        attackPattern: 0
-      - path: 2
-        enemy: 2
-        attackPattern: 1
-      - path: 3
-        enemy: 1
-        attackPattern: 0
-      - path: 4
-        enemy: 2
-        attackPattern: 1
     powerupSpawn:
       powerupSpawn: 0
       powerup: 0
   - delay: 0
-    setupSpawnZones: []
+    setupSpawnZones:
+    - zone: 0
+      setupSpawnPaths:
+      - path: 1
+        enemy: 0
+        attackPattern: 1
+      - path: 7
+        enemy: 0
+        attackPattern: 0
+      - path: 2
+        enemy: 0
+        attackPattern: 1
+      - path: 3
+        enemy: 0
+        attackPattern: 0
+      - path: 11
+        enemy: 0
+        attackPattern: 1
+      - path: 4
+        enemy: 0
+        attackPattern: 0
     powerupSpawn:
-      powerupSpawn: 3
+      powerupSpawn: 0
+      powerup: 0
+  - delay: 0
+    setupSpawnZones:
+    - zone: 0
+      setupSpawnPaths:
+      - path: 1
+        enemy: 0
+        attackPattern: 0
+      - path: 2
+        enemy: 0
+        attackPattern: 0
+      - path: 3
+        enemy: 0
+        attackPattern: 1
+      - path: 4
+        enemy: 0
+        attackPattern: 1
+    - zone: 1
+      setupSpawnPaths:
+      - path: 0
+        enemy: 3
+        attackPattern: 0
+    - zone: 2
+      setupSpawnPaths:
+      - path: 0
+        enemy: 3
+        attackPattern: 0
+    powerupSpawn:
+      powerupSpawn: 1
       powerup: 2
   - delay: 0
     setupSpawnZones:
     - zone: 0
       setupSpawnPaths:
-      - path: 0
+      - path: 7
         enemy: 3
+        attackPattern: 0
+    - zone: 3
+      setupSpawnPaths:
+      - path: 7
+        enemy: 0
+        attackPattern: 1
+      - path: 5
+        enemy: 0
+        attackPattern: 0
+      - path: 9
+        enemy: 0
+        attackPattern: 0
+      - path: 11
+        enemy: 0
+        attackPattern: 1
+    - zone: 4
+      setupSpawnPaths:
+      - path: 7
+        enemy: 0
         attackPattern: 0
       - path: 5
         enemy: 0
-        attackPattern: 1
+        attackPattern: 0
       - path: 9
         enemy: 0
+        attackPattern: 0
+      - path: 11
+        enemy: 0
+        attackPattern: 0
+    powerupSpawn:
+      powerupSpawn: 0
+      powerup: 0
+  - delay: 0
+    setupSpawnZones:
+    - zone: 1
+      setupSpawnPaths:
+      - path: 9
+        enemy: 3
+        attackPattern: 0
+      - path: 11
+        enemy: 0
         attackPattern: 1
+      - path: 7
+        enemy: 0
+        attackPattern: 1
+    powerupSpawn:
+      powerupSpawn: 0
+      powerup: 0
+  - delay: 0
+    setupSpawnZones:
+    - zone: 2
+      setupSpawnPaths:
+      - path: 5
+        enemy: 3
+        attackPattern: 0
+      - path: 6
+        enemy: 0
+        attackPattern: 1
+      - path: 12
+        enemy: 0
+        attackPattern: 1
+    powerupSpawn:
+      powerupSpawn: 0
+      powerup: 0
+  - delay: 0
+    setupSpawnZones:
+    - zone: 0
+      setupSpawnPaths:
+      - path: 0
+        enemy: 3
+        attackPattern: 0
     - zone: 3
       setupSpawnPaths:
       - path: 0
-        enemy: 4
-        attackPattern: 0
-      - path: 7
         enemy: 3
         attackPattern: 0
     - zone: 4
       setupSpawnPaths:
       - path: 0
-        enemy: 4
-        attackPattern: 0
-      - path: 7
         enemy: 3
         attackPattern: 0
     powerupSpawn:
       powerupSpawn: 2
       powerup: 0
+  - delay: 0
+    setupSpawnZones:
+    - zone: 0
+      setupSpawnPaths:
+      - path: 0
+        enemy: 0
+        attackPattern: 0
+      - path: 7
+        enemy: 0
+        attackPattern: 0
+      - path: 3
+        enemy: 0
+        attackPattern: 0
+      - path: 4
+        enemy: 0
+        attackPattern: 0
+    - zone: 1
+      setupSpawnPaths:
+      - path: 8
+        enemy: 2
+        attackPattern: 0
+      - path: 12
+        enemy: 2
+        attackPattern: 0
+    - zone: 2
+      setupSpawnPaths:
+      - path: 6
+        enemy: 2
+        attackPattern: 0
+      - path: 10
+        enemy: 2
+        attackPattern: 0
+    powerupSpawn:
+      powerupSpawn: 0
+      powerup: 0
+  - delay: 0
+    setupSpawnZones:
+    - zone: 3
+      setupSpawnPaths:
+      - path: 6
+        enemy: 1
+        attackPattern: 0
+      - path: 10
+        enemy: 1
+        attackPattern: 0
+    - zone: 4
+      setupSpawnPaths:
+      - path: 8
+        enemy: 1
+        attackPattern: 0
+      - path: 12
+        enemy: 1
+        attackPattern: 0
+    - zone: 0
+      setupSpawnPaths:
+      - path: 0
+        enemy: 2
+        attackPattern: 1
+      - path: 1
+        enemy: 2
+        attackPattern: 1
+      - path: 2
+        enemy: 2
+        attackPattern: 1
+      - path: 11
+        enemy: 2
+        attackPattern: 1
+    powerupSpawn:
+      powerupSpawn: 0
+      powerup: 0
+  - delay: 0
+    setupSpawnZones:
+    - zone: 0
+      setupSpawnPaths:
+      - path: 7
+        enemy: 3
+        attackPattern: 0
+      - path: 6
+        enemy: 1
+        attackPattern: 0
+      - path: 8
+        enemy: 1
+        attackPattern: 0
+    - zone: 1
+      setupSpawnPaths:
+      - path: 7
+        enemy: 0
+        attackPattern: 1
+      - path: 11
+        enemy: 0
+        attackPattern: 1
+    - zone: 2
+      setupSpawnPaths:
+      - path: 7
+        enemy: 0
+        attackPattern: 1
+      - path: 11
+        enemy: 0
+        attackPattern: 1
+    powerupSpawn:
+      powerupSpawn: 3
+      powerup: 1
 --- !u!114 &114083042273622394
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2203,6 +2349,16 @@ MonoBehaviour:
       - path: 0
         enemy: 0
         attackPattern: 0
+    powerupSpawn:
+      powerupSpawn: 0
+      powerup: 1
+  - delay: 0
+    setupSpawnZones:
+    - zone: 0
+      setupSpawnPaths:
+      - path: 11
+        enemy: 0
+        attackPattern: 0
       - path: 1
         enemy: 0
         attackPattern: 0
@@ -2212,37 +2368,148 @@ MonoBehaviour:
     powerupSpawn:
       powerupSpawn: 0
       powerup: 0
-  - delay: 6
+  - delay: 0
     setupSpawnZones:
     - zone: 0
       setupSpawnPaths:
       - path: 7
         enemy: 0
         attackPattern: 0
-      - path: 8
+      - path: 3
         enemy: 0
         attackPattern: 0
-      - path: 6
+      - path: 4
+        enemy: 0
+        attackPattern: 0
+      - path: 10
+        enemy: 0
+        attackPattern: 0
+      - path: 12
         enemy: 0
         attackPattern: 0
     powerupSpawn:
       powerupSpawn: 0
       powerup: 1
-  - delay: 10
+  - delay: 0
     setupSpawnZones:
-    - zone: 0
+    - zone: 1
       setupSpawnPaths:
-      - path: 4
+      - path: 1
+        enemy: 0
+        attackPattern: 0
+      - path: 2
         enemy: 0
         attackPattern: 0
       - path: 3
         enemy: 0
         attackPattern: 0
-      - path: 11
+      - path: 4
+        enemy: 0
+        attackPattern: 0
+    - zone: 0
+      setupSpawnPaths:
+      - path: 5
+        enemy: 0
+        attackPattern: 0
+      - path: 6
+        enemy: 0
+        attackPattern: 0
+      - path: 8
+        enemy: 0
+        attackPattern: 0
+      - path: 9
+        enemy: 0
+        attackPattern: 0
+    powerupSpawn:
+      powerupSpawn: 0
+      powerup: 1
+  - delay: 0
+    setupSpawnZones:
+    - zone: 2
+      setupSpawnPaths:
+      - path: 1
+        enemy: 0
+        attackPattern: 0
+      - path: 2
+        enemy: 0
+        attackPattern: 0
+      - path: 3
+        enemy: 0
+        attackPattern: 0
+      - path: 4
+        enemy: 0
+        attackPattern: 0
+    - zone: 0
+      setupSpawnPaths:
+      - path: 0
+        enemy: 0
+        attackPattern: 0
+      - path: 7
+        enemy: 0
+        attackPattern: 0
+      - path: 10
+        enemy: 0
+        attackPattern: 0
+      - path: 12
+        enemy: 0
+        attackPattern: 0
+    powerupSpawn:
+      powerupSpawn: 0
+      powerup: 2
+  - delay: 0
+    setupSpawnZones:
+    - zone: 0
+      setupSpawnPaths:
+      - path: 0
+        enemy: 0
+        attackPattern: 1
+      - path: 1
+        enemy: 0
+        attackPattern: 0
+      - path: 2
+        enemy: 0
+        attackPattern: 0
+      - path: 6
+        enemy: 0
+        attackPattern: 0
+      - path: 8
         enemy: 0
         attackPattern: 0
     - zone: 1
       setupSpawnPaths:
+      - path: 8
+        enemy: 0
+        attackPattern: 0
+      - path: 10
+        enemy: 0
+        attackPattern: 0
+    - zone: 2
+      setupSpawnPaths:
+      - path: 6
+        enemy: 0
+        attackPattern: 0
+      - path: 12
+        enemy: 0
+        attackPattern: 0
+    powerupSpawn:
+      powerupSpawn: 0
+      powerup: 0
+  - delay: 0
+    setupSpawnZones:
+    - zone: 0
+      setupSpawnPaths:
+      - path: 7
+        enemy: 0
+        attackPattern: 1
+      - path: 1
+        enemy: 0
+        attackPattern: 0
+      - path: 2
+        enemy: 0
+        attackPattern: 0
+      - path: 5
+        enemy: 0
+        attackPattern: 0
       - path: 9
         enemy: 0
         attackPattern: 0
@@ -2251,78 +2518,141 @@ MonoBehaviour:
       - path: 5
         enemy: 0
         attackPattern: 0
-    powerupSpawn:
-      powerupSpawn: 0
-      powerup: 1
-  - delay: 10
-    setupSpawnZones:
-    - zone: 0
-      setupSpawnPaths:
-      - path: 11
+      - path: 6
+        enemy: 0
+        attackPattern: 1
+      - path: 1
         enemy: 0
         attackPattern: 0
-    - zone: 1
-      setupSpawnPaths:
-      - path: 8
+      - path: 0
         enemy: 0
         attackPattern: 0
-      - path: 10
-        enemy: 0
-        attackPattern: 0
-    - zone: 2
+    - zone: 3
       setupSpawnPaths:
       - path: 0
         enemy: 0
         attackPattern: 0
-      - path: 12
+      - path: 3
+        enemy: 0
+        attackPattern: 0
+      - path: 10
+        enemy: 0
+        attackPattern: 1
+      - path: 9
         enemy: 0
         attackPattern: 0
     powerupSpawn:
       powerupSpawn: 0
       powerup: 1
-  - delay: 5
-    setupSpawnZones: []
-    powerupSpawn:
-      powerupSpawn: 3
-      powerup: 2
-  - delay: 5
-    setupSpawnZones:
-    - zone: 0
-      setupSpawnPaths:
-      - path: 11
-        enemy: 0
-        attackPattern: 0
-    - zone: 1
-      setupSpawnPaths:
-      - path: 2
-        enemy: 0
-        attackPattern: 0
-    - zone: 2
-      setupSpawnPaths:
-      - path: 1
-        enemy: 0
-        attackPattern: 0
-    powerupSpawn:
-      powerupSpawn: 0
-      powerup: 0
-  - delay: 5
-    setupSpawnZones: []
-    powerupSpawn:
-      powerupSpawn: 1
-      powerup: 1
-  - delay: 5
+  - delay: 0
     setupSpawnZones:
     - zone: 0
       setupSpawnPaths:
       - path: 7
         enemy: 0
         attackPattern: 0
+      - path: 1
+        enemy: 0
+        attackPattern: 0
+      - path: 2
+        enemy: 0
+        attackPattern: 0
+      - path: 5
+        enemy: 0
+        attackPattern: 1
+      - path: 9
+        enemy: 0
+        attackPattern: 1
+    - zone: 1
+      setupSpawnPaths:
+      - path: 9
+        enemy: 0
+        attackPattern: 0
+      - path: 10
+        enemy: 0
+        attackPattern: 1
+      - path: 0
+        enemy: 0
+        attackPattern: 0
+      - path: 2
+        enemy: 0
+        attackPattern: 0
+    - zone: 4
+      setupSpawnPaths:
+      - path: 0
+        enemy: 0
+        attackPattern: 0
+      - path: 4
+        enemy: 0
+        attackPattern: 0
+      - path: 12
+        enemy: 0
+        attackPattern: 1
+      - path: 5
+        enemy: 0
+        attackPattern: 0
+    powerupSpawn:
+      powerupSpawn: 0
+      powerup: 1
+  - delay: 0
+    setupSpawnZones:
+    - zone: 0
+      setupSpawnPaths:
+      - path: 7
+        enemy: 0
+        attackPattern: 1
+      - path: 1
+        enemy: 0
+        attackPattern: 0
+      - path: 2
+        enemy: 0
+        attackPattern: 1
+      - path: 3
+        enemy: 0
+        attackPattern: 0
+      - path: 4
+        enemy: 0
+        attackPattern: 1
+      - path: 11
+        enemy: 0
+        attackPattern: 0
+    - zone: 3
+      setupSpawnPaths:
+      - path: 1
+        enemy: 0
+        attackPattern: 1
+      - path: 2
+        enemy: 0
+        attackPattern: 0
+      - path: 3
+        enemy: 0
+        attackPattern: 1
+      - path: 4
+        enemy: 0
+        attackPattern: 0
+    - zone: 4
+      setupSpawnPaths:
+      - path: 1
+        enemy: 0
+        attackPattern: 0
+      - path: 2
+        enemy: 0
+        attackPattern: 0
+      - path: 3
+        enemy: 0
+        attackPattern: 0
+      - path: 4
+        enemy: 0
+        attackPattern: 0
     - zone: 1
       setupSpawnPaths:
       - path: 0
-        enemy: 1
+        enemy: 0
         attackPattern: 0
-      - path: 10
+      - path: 1
+        enemy: 0
+        attackPattern: 0
+      - path: 2
         enemy: 0
         attackPattern: 0
     - zone: 2
@@ -2330,12 +2660,15 @@ MonoBehaviour:
       - path: 0
         enemy: 1
         attackPattern: 0
-      - path: 12
+      - path: 1
+        enemy: 0
+        attackPattern: 0
+      - path: 2
         enemy: 0
         attackPattern: 0
     powerupSpawn:
-      powerupSpawn: 0
-      powerup: 1
+      powerupSpawn: 2
+      powerup: 0
 --- !u!114 &114508135794012018
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2426,112 +2759,307 @@ MonoBehaviour:
   setupSpawnGroups:
   - delay: 0
     setupSpawnZones:
-    - zone: 4
+    - zone: 0
+      setupSpawnPaths:
+      - path: 0
+        enemy: 2
+        attackPattern: 0
+    powerupSpawn:
+      powerupSpawn: 0
+      powerup: 0
+  - delay: 0
+    setupSpawnZones:
+    - zone: 0
+      setupSpawnPaths:
+      - path: 6
+        enemy: 2
+        attackPattern: 0
+      - path: 8
+        enemy: 2
+        attackPattern: 0
+      - path: 10
+        enemy: 2
+        attackPattern: 0
+      - path: 12
+        enemy: 2
+        attackPattern: 0
+    powerupSpawn:
+      powerupSpawn: 0
+      powerup: 0
+  - delay: 0
+    setupSpawnZones:
+    - zone: 0
+      setupSpawnPaths:
+      - path: 7
+        enemy: 2
+        attackPattern: 0
+      - path: 3
+        enemy: 2
+        attackPattern: 0
+      - path: 4
+        enemy: 2
+        attackPattern: 0
+    - zone: 1
+      setupSpawnPaths:
+      - path: 1
+        enemy: 2
+        attackPattern: 0
+      - path: 2
+        enemy: 2
+        attackPattern: 0
+      - path: 11
+        enemy: 2
+        attackPattern: 0
+    - zone: 2
+      setupSpawnPaths:
+      - path: 1
+        enemy: 2
+        attackPattern: 0
+      - path: 2
+        enemy: 2
+        attackPattern: 0
+      - path: 11
+        enemy: 2
+        attackPattern: 0
+    powerupSpawn:
+      powerupSpawn: 3
+      powerup: 1
+  - delay: 0
+    setupSpawnZones:
+    - zone: 0
+      setupSpawnPaths:
+      - path: 1
+        enemy: 2
+        attackPattern: 0
+      - path: 2
+        enemy: 2
+        attackPattern: 0
+      - path: 3
+        enemy: 2
+        attackPattern: 0
+      - path: 4
+        enemy: 2
+        attackPattern: 0
+      - path: 7
+        enemy: 2
+        attackPattern: 0
+      - path: 11
+        enemy: 2
+        attackPattern: 0
+    - zone: 1
+      setupSpawnPaths:
+      - path: 1
+        enemy: 0
+        attackPattern: 0
+      - path: 2
+        enemy: 0
+        attackPattern: 0
+      - path: 3
+        enemy: 0
+        attackPattern: 0
+    - zone: 2
+      setupSpawnPaths: []
+    powerupSpawn:
+      powerupSpawn: 0
+      powerup: 0
+  - delay: 0
+    setupSpawnZones:
+    - zone: 0
+      setupSpawnPaths:
+      - path: 9
+        enemy: 1
+        attackPattern: 0
+      - path: 5
+        enemy: 1
+        attackPattern: 0
+      - path: 6
+        enemy: 2
+        attackPattern: 0
+      - path: 8
+        enemy: 2
+        attackPattern: 0
+      - path: 10
+        enemy: 2
+        attackPattern: 0
+      - path: 12
+        enemy: 2
+        attackPattern: 0
+    powerupSpawn:
+      powerupSpawn: 0
+      powerup: 0
+  - delay: 0
+    setupSpawnZones:
+    - zone: 0
+      setupSpawnPaths:
+      - path: 6
+        enemy: 1
+        attackPattern: 0
+      - path: 8
+        enemy: 1
+        attackPattern: 0
+    - zone: 1
+      setupSpawnPaths:
+      - path: 11
+        enemy: 0
+        attackPattern: 1
+      - path: 1
+        enemy: 0
+        attackPattern: 0
+      - path: 2
+        enemy: 0
+        attackPattern: 0
+    - zone: 2
+      setupSpawnPaths:
+      - path: 1
+        enemy: 0
+        attackPattern: 0
+      - path: 2
+        enemy: 0
+        attackPattern: 0
+      - path: 11
+        enemy: 0
+        attackPattern: 1
+    powerupSpawn:
+      powerupSpawn: 0
+      powerup: 0
+  - delay: 0
+    setupSpawnZones:
+    - zone: 0
+      setupSpawnPaths:
+      - path: 5
+        enemy: 1
+        attackPattern: 0
+      - path: 9
+        enemy: 1
+        attackPattern: 0
+    - zone: 2
       setupSpawnPaths:
       - path: 10
         enemy: 2
-        attackPattern: 1
+        attackPattern: 0
       - path: 6
         enemy: 2
-        attackPattern: 1
-      - path: 0
-        enemy: 1
         attackPattern: 0
     - zone: 1
       setupSpawnPaths:
       - path: 8
         enemy: 2
-        attackPattern: 1
+        attackPattern: 0
       - path: 12
         enemy: 2
-        attackPattern: 1
-      - path: 0
-        enemy: 1
         attackPattern: 0
-    powerupSpawn:
-      powerupSpawn: 0
-      powerup: 0
-  - delay: 5
-    setupSpawnZones: []
-    powerupSpawn:
-      powerupSpawn: 3
-      powerup: 3
-  - delay: 10
-    setupSpawnZones:
-    - zone: 0
-      setupSpawnPaths:
-      - path: 0
-        enemy: 1
-        attackPattern: 0
-      - path: 10
-        enemy: 0
-        attackPattern: 1
-      - path: 12
-        enemy: 0
-        attackPattern: 1
-    - zone: 3
-      setupSpawnPaths:
-      - path: 8
-        enemy: 2
-        attackPattern: 1
-      - path: 12
-        enemy: 2
-        attackPattern: 1
-      - path: 0
-        enemy: 1
-        attackPattern: 0
-    - zone: 2
-      setupSpawnPaths:
-      - path: 7
-        enemy: 2
-        attackPattern: 0
-      - path: 6
-        enemy: 2
-        attackPattern: 0
-      - path: 0
-        enemy: 1
-        attackPattern: 0
-    powerupSpawn:
-      powerupSpawn: 2
-      powerup: 0
-  - delay: 5
-    setupSpawnZones: []
     powerupSpawn:
       powerupSpawn: 1
-      powerup: 1
-  - delay: 10
+      powerup: 2
+  - delay: 0
     setupSpawnZones:
     - zone: 0
       setupSpawnPaths:
-      - path: 11
-        enemy: 3
+      - path: 0
+        enemy: 1
         attackPattern: 0
-    - zone: 3
-      setupSpawnPaths:
-      - path: 6
+      - path: 7
         enemy: 0
         attackPattern: 0
+      - path: 3
+        enemy: 0
+        attackPattern: 0
+      - path: 4
+        enemy: 0
+        attackPattern: 0
+    - zone: 4
+      setupSpawnPaths:
+      - path: 3
+        enemy: 0
+        attackPattern: 1
+      - path: 4
+        enemy: 0
+        attackPattern: 1
+    - zone: 1
+      setupSpawnPaths:
       - path: 1
         enemy: 2
         attackPattern: 0
       - path: 3
+        enemy: 2
+        attackPattern: 0
+    powerupSpawn:
+      powerupSpawn: 0
+      powerup: 0
+  - delay: 0
+    setupSpawnZones:
+    - zone: 0
+      setupSpawnPaths:
+      - path: 0
         enemy: 1
         attackPattern: 0
-      - path: 10
-        enemy: 0
-        attackPattern: 1
-    - zone: 4
-      setupSpawnPaths:
-      - path: 8
+      - path: 11
         enemy: 0
         attackPattern: 0
+      - path: 1
+        enemy: 0
+        attackPattern: 0
+      - path: 2
+        enemy: 0
+        attackPattern: 0
+    - zone: 2
+      setupSpawnPaths:
       - path: 2
         enemy: 2
         attackPattern: 0
       - path: 4
+        enemy: 2
+        attackPattern: 0
+    - zone: 3
+      setupSpawnPaths:
+      - path: 1
+        enemy: 0
+        attackPattern: 1
+      - path: 2
+        enemy: 0
+        attackPattern: 1
+    powerupSpawn:
+      powerupSpawn: 0
+      powerup: 0
+  - delay: 0
+    setupSpawnZones:
+    - zone: 0
+      setupSpawnPaths:
+      - path: 0
         enemy: 1
         attackPattern: 0
-      - path: 12
+      - path: 7
+        enemy: 2
+        attackPattern: 0
+      - path: 9
+        enemy: 2
+        attackPattern: 0
+      - path: 5
+        enemy: 2
+        attackPattern: 0
+      - path: 11
+        enemy: 2
+        attackPattern: 0
+    - zone: 3
+      setupSpawnPaths:
+      - path: 0
+        enemy: 1
+        attackPattern: 0
+      - path: 1
+        enemy: 0
+        attackPattern: 1
+      - path: 2
+        enemy: 0
+        attackPattern: 0
+    - zone: 4
+      setupSpawnPaths:
+      - path: 0
+        enemy: 1
+        attackPattern: 0
+      - path: 1
+        enemy: 0
+        attackPattern: 0
+      - path: 2
         enemy: 0
         attackPattern: 1
     powerupSpawn:
@@ -2566,97 +3094,272 @@ MonoBehaviour:
     setupSpawnZones:
     - zone: 0
       setupSpawnPaths:
-      - path: 8
+      - path: 0
+        enemy: 1
+        attackPattern: 0
+      - path: 1
+        enemy: 0
+        attackPattern: 1
+      - path: 2
         enemy: 0
         attackPattern: 0
+      - path: 3
+        enemy: 0
+        attackPattern: 0
+      - path: 4
+        enemy: 0
+        attackPattern: 1
+    powerupSpawn:
+      powerupSpawn: 0
+      powerup: 0
+  - delay: 0
+    setupSpawnZones:
+    - zone: 0
+      setupSpawnPaths:
+      - path: 5
+        enemy: 1
+        attackPattern: 0
+      - path: 9
+        enemy: 1
+        attackPattern: 0
+    powerupSpawn:
+      powerupSpawn: 2
+      powerup: 0
+  - delay: 0
+    setupSpawnZones:
+    - zone: 0
+      setupSpawnPaths:
+      - path: 6
+        enemy: 1
+        attackPattern: 0
+      - path: 8
+        enemy: 1
+        attackPattern: 0
+    - zone: 3
+      setupSpawnPaths:
+      - path: 0
+        enemy: 1
+        attackPattern: 0
+    - zone: 4
+      setupSpawnPaths:
+      - path: 0
+        enemy: 1
+        attackPattern: 0
+    powerupSpawn:
+      powerupSpawn: 0
+      powerup: 0
+  - delay: 0
+    setupSpawnZones:
+    - zone: 0
+      setupSpawnPaths:
+      - path: 7
+        enemy: 1
+        attackPattern: 0
+      - path: 3
+        enemy: 1
+        attackPattern: 0
+      - path: 4
+        enemy: 1
+        attackPattern: 0
+    powerupSpawn:
+      powerupSpawn: 3
+      powerup: 1
+  - delay: 0
+    setupSpawnZones:
+    - zone: 1
+      setupSpawnPaths:
+      - path: 0
+        enemy: 1
+        attackPattern: 0
+      - path: 9
+        enemy: 1
+        attackPattern: 0
+    - zone: 3
+      setupSpawnPaths:
+      - path: 0
+        enemy: 1
+        attackPattern: 0
+      - path: 9
+        enemy: 1
+        attackPattern: 0
+    powerupSpawn:
+      powerupSpawn: 0
+      powerup: 1
+  - delay: 0
+    setupSpawnZones:
+    - zone: 2
+      setupSpawnPaths:
+      - path: 0
+        enemy: 1
+        attackPattern: 0
+      - path: 5
+        enemy: 1
+        attackPattern: 0
+    - zone: 4
+      setupSpawnPaths:
+      - path: 0
+        enemy: 1
+        attackPattern: 0
+      - path: 5
+        enemy: 1
+        attackPattern: 0
+    powerupSpawn:
+      powerupSpawn: 0
+      powerup: 1
+  - delay: 0
+    setupSpawnZones:
+    - zone: 0
+      setupSpawnPaths:
+      - path: 7
+        enemy: 0
+        attackPattern: 0
+      - path: 11
+        enemy: 0
+        attackPattern: 0
+      - path: 5
+        enemy: 0
+        attackPattern: 0
+      - path: 9
+        enemy: 0
+        attackPattern: 0
+    - zone: 3
+      setupSpawnPaths:
+      - path: 0
+        enemy: 1
+        attackPattern: 0
+    - zone: 4
+      setupSpawnPaths:
+      - path: 0
+        enemy: 1
+        attackPattern: 0
+    powerupSpawn:
+      powerupSpawn: 1
+      powerup: 2
+  - delay: 0
+    setupSpawnZones:
+    - zone: 0
+      setupSpawnPaths:
       - path: 6
         enemy: 0
         attackPattern: 0
-      - path: 12
+      - path: 8
         enemy: 0
         attackPattern: 0
       - path: 10
         enemy: 0
         attackPattern: 0
-    - zone: 3
-      setupSpawnPaths:
-      - path: 3
-        enemy: 1
-        attackPattern: 0
-    - zone: 4
-      setupSpawnPaths:
-      - path: 4
-        enemy: 1
-        attackPattern: 0
-    powerupSpawn:
-      powerupSpawn: 0
-      powerup: 0
-  - delay: 5
-    setupSpawnZones: []
-    powerupSpawn:
-      powerupSpawn: 2
-      powerup: 0
-  - delay: 10
-    setupSpawnZones:
-    - zone: 1
-      setupSpawnPaths:
-      - path: 9
-        enemy: 1
+      - path: 12
+        enemy: 0
         attackPattern: 0
     - zone: 2
       setupSpawnPaths:
-      - path: 5
-        enemy: 1
-        attackPattern: 0
-    - zone: 3
-      setupSpawnPaths:
-      - path: 3
-        enemy: 0
-        attackPattern: 1
-      - path: 4
-        enemy: 1
-        attackPattern: 1
-    - zone: 4
-      setupSpawnPaths:
-      - path: 4
-        enemy: 0
-        attackPattern: 1
-      - path: 3
-        enemy: 0
-        attackPattern: 1
-    powerupSpawn:
-      powerupSpawn: 2
-      powerup: 0
-  - delay: 5
-    setupSpawnZones: []
-    powerupSpawn:
-      powerupSpawn: 3
-      powerup: 3
-  - delay: 8
-    setupSpawnZones:
-    - zone: 0
-      setupSpawnPaths:
       - path: 0
         enemy: 1
         attackPattern: 0
-      - path: 3
-        enemy: 1
+    powerupSpawn:
+      powerupSpawn: 0
+      powerup: 1
+  - delay: 0
+    setupSpawnZones:
+    - zone: 0
+      setupSpawnPaths:
+      - path: 6
+        enemy: 0
         attackPattern: 0
-      - path: 4
-        enemy: 1
+      - path: 8
+        enemy: 0
+        attackPattern: 0
+      - path: 10
+        enemy: 0
+        attackPattern: 0
+      - path: 12
+        enemy: 0
         attackPattern: 0
     - zone: 1
       setupSpawnPaths:
       - path: 0
-        enemy: 2
-        attackPattern: 0
-    - zone: 0
-      setupSpawnPaths:
-      - path: 0
-        enemy: 2
+        enemy: 1
         attackPattern: 0
     powerupSpawn:
       powerupSpawn: 0
+      powerup: 1
+  - delay: 0
+    setupSpawnZones:
+    - zone: 0
+      setupSpawnPaths:
+      - path: 6
+        enemy: 1
+        attackPattern: 0
+      - path: 8
+        enemy: 1
+        attackPattern: 0
+      - path: 10
+        enemy: 1
+        attackPattern: 0
+      - path: 12
+        enemy: 1
+        attackPattern: 0
+    powerupSpawn:
+      powerupSpawn: 2
+      powerup: 0
+  - delay: 0
+    setupSpawnZones:
+    - zone: 2
+      setupSpawnPaths:
+      - path: 7
+        enemy: 0
+        attackPattern: 1
+      - path: 11
+        enemy: 0
+        attackPattern: 1
+    - zone: 1
+      setupSpawnPaths:
+      - path: 7
+        enemy: 1
+        attackPattern: 0
+      - path: 11
+        enemy: 1
+        attackPattern: 0
+    powerupSpawn:
+      powerupSpawn: 0
+      powerup: 1
+  - delay: 0
+    setupSpawnZones:
+    - zone: 0
+      setupSpawnPaths:
+      - path: 7
+        enemy: 1
+        attackPattern: 0
+      - path: 4
+        enemy: 1
+        attackPattern: 0
+      - path: 3
+        enemy: 1
+        attackPattern: 0
+    - zone: 1
+      setupSpawnPaths:
+      - path: 1
+        enemy: 0
+        attackPattern: 1
+      - path: 2
+        enemy: 0
+        attackPattern: 1
+      - path: 11
+        enemy: 0
+        attackPattern: 1
+    - zone: 2
+      setupSpawnPaths:
+      - path: 1
+        enemy: 0
+        attackPattern: 1
+      - path: 2
+        enemy: 0
+        attackPattern: 1
+      - path: 11
+        enemy: 0
+        attackPattern: 1
+    powerupSpawn:
+      powerupSpawn: 3
       powerup: 1
 --- !u!114 &114982984793684692
 MonoBehaviour:
@@ -2674,128 +3377,97 @@ MonoBehaviour:
     setupSpawnZones:
     - zone: 0
       setupSpawnPaths:
-      - path: 7
-        enemy: 0
-        attackPattern: 1
       - path: 0
-        enemy: 0
-        attackPattern: 0
-      - path: 11
-        enemy: 0
-        attackPattern: 1
-    - zone: 3
-      setupSpawnPaths:
-      - path: 1
         enemy: 4
-        attackPattern: 0
-      - path: 10
-        enemy: 2
-        attackPattern: 0
-      - path: 11
-        enemy: 3
-        attackPattern: 0
-      - path: 12
-        enemy: 2
-        attackPattern: 0
-    - zone: 4
-      setupSpawnPaths:
-      - path: 2
-        enemy: 4
-        attackPattern: 0
-      - path: 12
-        enemy: 2
-        attackPattern: 0
-      - path: 11
-        enemy: 3
-        attackPattern: 0
-      - path: 10
-        enemy: 2
         attackPattern: 0
     powerupSpawn:
       powerupSpawn: 0
       powerup: 0
-  - delay: 5
-    setupSpawnZones: []
-    powerupSpawn:
-      powerupSpawn: 3
-      powerup: 3
-  - delay: 10
+  - delay: 0
     setupSpawnZones:
-    - zone: 1
+    - zone: 0
       setupSpawnPaths:
-      - path: 5
-        enemy: 4
-        attackPattern: 0
       - path: 1
-        enemy: 0
+        enemy: 2
         attackPattern: 0
       - path: 2
-        enemy: 0
+        enemy: 2
+        attackPattern: 0
+      - path: 3
+        enemy: 2
+        attackPattern: 0
+      - path: 4
+        enemy: 2
+        attackPattern: 0
+    - zone: 1
+      setupSpawnPaths:
+      - path: 1
+        enemy: 1
+        attackPattern: 0
+      - path: 2
+        enemy: 1
+        attackPattern: 0
+      - path: 0
+        enemy: 4
         attackPattern: 0
     - zone: 2
       setupSpawnPaths:
-      - path: 9
-        enemy: 4
+      - path: 1
+        enemy: 1
         attackPattern: 0
       - path: 2
-        enemy: 0
+        enemy: 1
         attackPattern: 0
-      - path: 1
-        enemy: 0
-        attackPattern: 0
-    - zone: 3
-      setupSpawnPaths:
-      - path: 1
+      - path: 0
         enemy: 4
         attackPattern: 0
-      - path: 5
-        enemy: 2
-        attackPattern: 1
-      - path: 8
-        enemy: 1
-        attackPattern: 0
-    - zone: 4
-      setupSpawnPaths:
-      - path: 2
-        enemy: 4
-        attackPattern: 0
-      - path: 9
-        enemy: 2
-        attackPattern: 1
-      - path: 6
-        enemy: 1
-        attackPattern: 0
-    - zone: 0
-      setupSpawnPaths:
-      - path: 6
-        enemy: 1
-        attackPattern: 0
-      - path: 8
-        enemy: 1
-        attackPattern: 0
-      - path: 10
-        enemy: 0
-        attackPattern: 1
-      - path: 12
-        enemy: 0
-        attackPattern: 1
-    powerupSpawn:
-      powerupSpawn: 1
-      powerup: 1
-  - delay: 5
-    setupSpawnZones: []
     powerupSpawn:
       powerupSpawn: 2
       powerup: 0
-  - delay: 5
+  - delay: 0
+    setupSpawnZones:
+    - zone: 1
+      setupSpawnPaths:
+      - path: 1
+        enemy: 0
+        attackPattern: 1
+      - path: 2
+        enemy: 0
+        attackPattern: 0
+      - path: 3
+        enemy: 0
+        attackPattern: 1
+      - path: 4
+        enemy: 0
+        attackPattern: 0
+    - zone: 0
+      setupSpawnPaths:
+      - path: 7
+        enemy: 3
+        attackPattern: 0
+    - zone: 2
+      setupSpawnPaths:
+      - path: 1
+        enemy: 0
+        attackPattern: 0
+      - path: 2
+        enemy: 0
+        attackPattern: 1
+      - path: 3
+        enemy: 0
+        attackPattern: 0
+      - path: 4
+        enemy: 0
+        attackPattern: 1
+    powerupSpawn:
+      powerupSpawn: 0
+      powerup: 0
+  - delay: 0
     setupSpawnZones:
     - zone: 0
       setupSpawnPaths:
-      - path: 1
-        enemy: 2
-        attackPattern: 0
-      - path: 2
-        enemy: 2
+      - path: 7
+        enemy: 3
         attackPattern: 0
       - path: 5
         enemy: 1
@@ -2805,59 +3477,322 @@ MonoBehaviour:
         attackPattern: 0
     - zone: 1
       setupSpawnPaths:
-      - path: 8
-        enemy: 0
+      - path: 7
+        enemy: 2
         attackPattern: 1
       - path: 9
+        enemy: 2
+        attackPattern: 1
+      - path: 0
+        enemy: 4
+        attackPattern: 0
+    - zone: 2
+      setupSpawnPaths:
+      - path: 7
+        enemy: 0
+        attackPattern: 0
+      - path: 5
+        enemy: 0
+        attackPattern: 0
+    powerupSpawn:
+      powerupSpawn: 1
+      powerup: 2
+  - delay: 0
+    setupSpawnZones:
+    - zone: 0
+      setupSpawnPaths:
+      - path: 5
+        enemy: 0
+        attackPattern: 1
+      - path: 6
+        enemy: 0
+        attackPattern: 0
+      - path: 12
+        enemy: 0
+        attackPattern: 0
+      - path: 8
+        enemy: 0
+        attackPattern: 0
+      - path: 9
+        enemy: 0
+        attackPattern: 1
+      - path: 10
+        enemy: 0
+        attackPattern: 0
+    - zone: 3
+      setupSpawnPaths:
+      - path: 0
+        enemy: 3
+        attackPattern: 0
+      - path: 12
+        enemy: 4
+        attackPattern: 0
+    - zone: 4
+      setupSpawnPaths:
+      - path: 0
         enemy: 3
         attackPattern: 0
       - path: 10
+        enemy: 4
+        attackPattern: 0
+    powerupSpawn:
+      powerupSpawn: 3
+      powerup: 1
+  - delay: 0
+    setupSpawnZones:
+    - zone: 1
+      setupSpawnPaths:
+      - path: 7
+        enemy: 0
+        attackPattern: 0
+      - path: 11
+        enemy: 0
+        attackPattern: 0
+      - path: 9
         enemy: 0
         attackPattern: 1
+    - zone: 2
+      setupSpawnPaths:
+      - path: 7
+        enemy: 0
+        attackPattern: 0
+      - path: 11
+        enemy: 0
+        attackPattern: 0
+      - path: 5
+        enemy: 0
+        attackPattern: 0
+    - zone: 3
+      setupSpawnPaths:
+      - path: 8
+        enemy: 2
+        attackPattern: 0
+      - path: 12
+        enemy: 2
+        attackPattern: 0
+      - path: 1
+        enemy: 2
+        attackPattern: 1
+      - path: 3
+        enemy: 2
+        attackPattern: 1
+    - zone: 4
+      setupSpawnPaths:
+      - path: 6
+        enemy: 2
+        attackPattern: 0
+      - path: 10
+        enemy: 2
+        attackPattern: 0
+      - path: 2
+        enemy: 2
+        attackPattern: 1
+      - path: 4
+        enemy: 2
+        attackPattern: 1
+    powerupSpawn:
+      powerupSpawn: 1
+      powerup: 2
+  - delay: 0
+    setupSpawnZones:
+    - zone: 0
+      setupSpawnPaths:
+      - path: 12
+        enemy: 4
+        attackPattern: 0
+      - path: 10
+        enemy: 4
+        attackPattern: 0
+    - zone: 1
+      setupSpawnPaths:
+      - path: 0
+        enemy: 1
+        attackPattern: 0
+      - path: 2
+        enemy: 0
+        attackPattern: 1
+      - path: 3
+        enemy: 0
+        attackPattern: 1
+    - zone: 2
+      setupSpawnPaths:
+      - path: 0
+        enemy: 0
+        attackPattern: 1
+      - path: 1
+        enemy: 0
+        attackPattern: 0
+      - path: 4
+        enemy: 0
+        attackPattern: 1
+    - zone: 3
+      setupSpawnPaths:
+      - path: 0
+        enemy: 3
+        attackPattern: 0
+    - zone: 4
+      setupSpawnPaths:
+      - path: 0
+        enemy: 3
+        attackPattern: 0
+    powerupSpawn:
+      powerupSpawn: 2
+      powerup: 4
+  - delay: 0
+    setupSpawnZones:
+    - zone: 0
+      setupSpawnPaths:
+      - path: 7
+        enemy: 3
+        attackPattern: 0
+      - path: 11
+        enemy: 4
+        attackPattern: 0
+    - zone: 1
+      setupSpawnPaths:
+      - path: 7
+        enemy: 0
+        attackPattern: 1
+      - path: 8
+        enemy: 0
+        attackPattern: 1
+      - path: 11
+        enemy: 0
+        attackPattern: 1
+      - path: 12
+        enemy: 0
+        attackPattern: 1
+    - zone: 2
+      setupSpawnPaths:
+      - path: 6
+        enemy: 0
+        attackPattern: 1
+      - path: 7
+        enemy: 0
+        attackPattern: 1
+      - path: 10
+        enemy: 0
+        attackPattern: 1
+      - path: 11
+        enemy: 0
+        attackPattern: 1
+    - zone: 3
+      setupSpawnPaths:
+      - path: 8
+        enemy: 1
+        attackPattern: 0
+      - path: 11
+        enemy: 1
+        attackPattern: 0
+    - zone: 4
+      setupSpawnPaths:
+      - path: 6
+        enemy: 1
+        attackPattern: 0
+      - path: 11
+        enemy: 1
+        attackPattern: 0
+    powerupSpawn:
+      powerupSpawn: 2
+      powerup: 4
+  - delay: 0
+    setupSpawnZones:
+    - zone: 0
+      setupSpawnPaths:
+      - path: 12
+        enemy: 2
+        attackPattern: 1
+      - path: 4
+        enemy: 2
+        attackPattern: 1
+      - path: 2
+        enemy: 2
+        attackPattern: 1
+      - path: 8
+        enemy: 2
+        attackPattern: 1
+    - zone: 1
+      setupSpawnPaths:
+      - path: 7
+        enemy: 3
+        attackPattern: 0
+    - zone: 2
+      setupSpawnPaths:
+      - path: 7
+        enemy: 3
+        attackPattern: 0
+    - zone: 4
+      setupSpawnPaths:
+      - path: 0
+        enemy: 4
+        attackPattern: 0
+    - zone: 3
+      setupSpawnPaths:
+      - path: 0
+        enemy: 4
+        attackPattern: 0
+    powerupSpawn:
+      powerupSpawn: 1
+      powerup: 2
+  - delay: 0
+    setupSpawnZones:
+    - zone: 0
+      setupSpawnPaths:
+      - path: 7
+        enemy: 3
+        attackPattern: 0
+      - path: 1
+        enemy: 0
+        attackPattern: 0
+      - path: 2
+        enemy: 0
+        attackPattern: 0
+      - path: 11
+        enemy: 0
+        attackPattern: 0
+      - path: 6
+        enemy: 0
+        attackPattern: 1
+      - path: 8
+        enemy: 0
+        attackPattern: 1
+    - zone: 1
+      setupSpawnPaths:
+      - path: 9
+        enemy: 2
+        attackPattern: 1
+      - path: 7
+        enemy: 2
+        attackPattern: 0
+      - path: 11
+        enemy: 2
+        attackPattern: 0
       - path: 5
         enemy: 4
         attackPattern: 0
     - zone: 2
       setupSpawnPaths:
-      - path: 6
-        enemy: 0
-        attackPattern: 0
       - path: 5
-        enemy: 3
+        enemy: 2
+        attackPattern: 1
+      - path: 7
+        enemy: 2
         attackPattern: 0
-      - path: 12
-        enemy: 0
+      - path: 11
+        enemy: 2
         attackPattern: 0
       - path: 9
         enemy: 4
         attackPattern: 0
     - zone: 3
       setupSpawnPaths:
-      - path: 4
-        enemy: 1
-        attackPattern: 0
-      - path: 0
+      - path: 1
         enemy: 3
-        attackPattern: 0
-      - path: 3
-        enemy: 0
-        attackPattern: 0
-      - path: 9
-        enemy: 1
         attackPattern: 0
     - zone: 4
       setupSpawnPaths:
-      - path: 3
-        enemy: 1
-        attackPattern: 0
-      - path: 0
+      - path: 2
         enemy: 3
-        attackPattern: 0
-      - path: 4
-        enemy: 0
-        attackPattern: 0
-      - path: 5
-        enemy: 1
         attackPattern: 0
     powerupSpawn:
       powerupSpawn: 2

@@ -6052,6 +6052,12 @@ MonoBehaviour:
   - {fileID: 1248719630318882}
   - {fileID: 1164056285220086}
   - {fileID: 1804582580838716}
+  overheatMax: 100
+  overheatPerShot: 0.5
+  overheatDecreaseAmount: 6.67
+  overheatDecreaseTickLength: 0.1
+  overheatDecreaseDelay: 0.33
+  overheatCoolDown: 3
   hitSparkEmitter: {fileID: 1514411477096268, guid: 428589331263e1649baa33bed534c884,
     type: 2}
   muzzleFlashEmitter: {fileID: 1585948764433870, guid: bb8ae17bb63b15b4f8db2ec1c45e51fa,
@@ -6077,7 +6083,7 @@ MonoBehaviour:
     damage: 8
     fireRate: 10
   - weapon: {fileID: 114783113088214496}
-    damage: 5
+    damage: 8
     fireRate: 25
   source: {fileID: 82855239161610398}
 --- !u!114 &114896250194711588

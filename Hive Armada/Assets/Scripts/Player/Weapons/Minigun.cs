@@ -61,6 +61,73 @@ namespace Hive.Armada.Player.Weapons
         public GameObject[] right;
 
         /// <summary>
+        /// Amount at which the minigun overheats.
+        /// </summary>
+        [Header("Overheat")]
+        [Tooltip("The amount at which the minigun overheats.")]
+        public float overheatMax;
+
+        /// <summary>
+        /// Amount to increase overheat per shot.
+        /// </summary>
+        [Tooltip("Amount to increase overheat per shot.")]
+        public float overheatPerShot;
+
+        /// <summary>
+        /// How much to decrease overheat per tick.
+        /// </summary>
+        [Tooltip("How much the overheat decreases per tick.")]
+        public float overheatDecreaseAmount;
+
+        /// <summary>
+        /// Time length of decrease ticks.
+        /// </summary>
+        [Tooltip("Time between overheat decreasing.")]
+        public float overheatDecreaseTickLength;
+
+        /// <summary>
+        /// Time delay between shooting and overheat decreasing.
+        /// </summary>
+        [Tooltip("Time delay between shooting and overheat decreasing.")]
+        public float overheatDecreaseDelay;
+
+        /// <summary>
+        /// How long overheating minigun needs to cool down.
+        /// </summary>
+        [Tooltip("How long the minigun needs to cool down once it overheats.")]
+        public float overheatCoolDown;
+
+        /// <summary>
+        /// The current overheat amount.
+        /// </summary>
+        private float overheatAmount;
+
+        /// <summary>
+        /// If the minigun is overheating.
+        /// </summary>
+        private bool isOverheating;
+
+        /// <summary>
+        /// True when the player hasn't shot for 'overheatDecreaseDelay' seconds.
+        /// </summary>
+        private bool isCooling;
+
+        /// <summary>
+        /// Coroutine for decrease ticks.
+        /// </summary>
+        private Coroutine overheatTickCoroutine;
+
+        /// <summary>
+        /// Coroutine for delay between shooting and beginning of decrease ticks.
+        /// </summary>
+        private Coroutine overheatDecreaseDelayCoroutine;
+
+        /// <summary>
+        /// Coroutine for overheat full cool down.
+        /// </summary>
+        private Coroutine overheatCoolDownCoroutine;
+
+        /// <summary>
         /// Particle emitter for the hit spark effect.
         /// </summary>
         [Header("Emitters")]
@@ -91,14 +158,6 @@ namespace Hive.Armada.Player.Weapons
         /// The sound the minigun makes when it fires.
         /// </summary>
         public AudioClip minigunShootSound;
-
-        private float overheat;
-
-        public float overheatPerShot;
-
-        public float overheatCooldown;
-
-        private bool isOverheating;
 
         /// <summary>
         /// Initializes the LineRenderer's for the minigun tracers and
@@ -184,6 +243,23 @@ namespace Hive.Armada.Player.Weapons
             canShoot = false;
             AddOverheat();
 
+            if (!isOverheating)
+            {
+                isCooling = false;
+
+                if (overheatDecreaseDelayCoroutine != null)
+                {
+                    StopCoroutine(overheatDecreaseDelayCoroutine);
+                    overheatDecreaseDelayCoroutine = null;
+                }
+
+                overheatDecreaseDelayCoroutine = StartCoroutine(OverheatDecreaseDelay());
+            }
+            else
+            {
+                Debug.LogError(GetType().Name + " - Shot while overheating.");
+            }
+
             GameObject barrel = isLeftFire
                                     ? left[Random.Range(0, left.Length)]
                                     : right[Random.Range(0, right.Length)];
@@ -261,24 +337,61 @@ namespace Hive.Armada.Player.Weapons
             r.enabled = false;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private void AddOverheat()
         {
-            overheat += overheatPerShot;
+            overheatAmount += overheatPerShot;
 
-            if (overheat >= 100.0f)
+            if (overheatAmount >= overheatMax)
             {
                 isOverheating = true;
+
+                overheatCoolDownCoroutine = StartCoroutine(OverheatCoolDown());
             }
         }
 
         /// <summary>
-        /// Waits for the minigun to cool-down and then disables overheating.
+        /// 
         /// </summary>
-        private IEnumerator OverheatCooldown()
+        private IEnumerator OverheatDecreaseDelay()
         {
-            yield return new WaitForSeconds(overheatCooldown);
-            overheat = 0.0f;
+            yield return new WaitForSeconds(overheatDecreaseDelay);
+            overheatTickCoroutine = StartCoroutine(OverheatTick());
+            overheatDecreaseDelayCoroutine = null;
+        }
+
+        /// <summary>
+        /// Runs ticks to decrease the overheat amount until the
+        /// player shoots or the minigun is fully cooled down
+        /// </summary>
+        private IEnumerator OverheatTick()
+        {
+            while (isCooling)
+            {
+                if (overheatAmount <= 0.0f)
+                {
+                    overheatAmount = 0.0f;
+                    break;
+                }
+
+                overheatAmount -= overheatDecreaseAmount;
+                yield return new WaitForSeconds(overheatDecreaseTickLength);
+            }
+
+            overheatTickCoroutine = null;
+        }
+
+        /// <summary>
+        /// Waits for the minigun to cool down and then disables overheating.
+        /// </summary>
+        private IEnumerator OverheatCoolDown()
+        {
+            yield return new WaitForSeconds(overheatCoolDown);
+            overheatAmount = 0.0f;
             isOverheating = false;
+            overheatCoolDownCoroutine = null;
         }
     }
 }

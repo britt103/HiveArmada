@@ -99,6 +99,7 @@ namespace Hive.Armada.Enemies
         void Start()
         {
             Reset();
+            ResetAttackPattern();
             StartCoroutine(SelectBehavior(0));
         }
 
@@ -156,7 +157,7 @@ namespace Hive.Armada.Enemies
             canShoot = true;
         }
 
-        private IEnumerator rotateProjectile(Transform pivot)
+        private IEnumerator RotateProjectile(Transform pivot)
         {
             while (true)
             {
@@ -167,38 +168,57 @@ namespace Hive.Armada.Enemies
 
         private IEnumerator SelectBehavior(int behavior)
         {
-            int time = 10;
+            //Debug.Log(behavior);
             switch (behavior)
             {
                 //standard pattern
                 case 0:
+                    yield return new WaitForSeconds(1);
                     SetAttackPattern(AttackPattern.Four);
-                    while (time >= 0)
+                    for(int i = 0; i < 20; ++i)
                     {
                         StartCoroutine(Shoot());
                         yield return new WaitForSeconds(fireRate);
-                        time--;
                     }
                     StartCoroutine(SelectBehavior(1));
                     break;
 
                 case 1:
-                    while (time >= 0)
+                    yield return new WaitForSeconds(1);
+                    for (int i = 0; i < 15; ++i)
                     {
                         SetAttackPattern(AttackPattern.Two);
                         StartCoroutine(Shoot());
-                        yield return new WaitForSeconds(0.05f);
-                        //SetAttackPattern(AttackPattern
-                        //yield return new WaitForSeconds(0.2f);
+                        yield return new WaitForSeconds(0.025f);
+                        SetAttackPattern(AttackPattern.Three);
+                        StartCoroutine(Shoot());
+                        yield return new WaitForSeconds(0.025f);
                         SetAttackPattern(AttackPattern.Four);
                         StartCoroutine(Shoot());
-                        yield return new WaitForSeconds(0.05f);
+                        yield return new WaitForSeconds(0.025f);
+                        SetAttackPattern(AttackPattern.Three);
+                        StartCoroutine(Shoot());
+                        yield return new WaitForSeconds(0.025f);
                         SetAttackPattern(AttackPattern.Two);
                         StartCoroutine(Shoot());
                         yield return new WaitForSeconds(fireRate);
-                        --time;
                     }
+                    StartCoroutine(SelectBehavior(2));
                     break;
+
+                case 2:
+                    yield return new WaitForSeconds(1);
+                    ResetAttackPattern();
+                    SetAttackPattern(AttackPattern.One);
+                    StartCoroutine(RotateProjectile(shootPivot));
+                    for (int i = 0; i < 200; ++i)
+                    {
+                        StartCoroutine(Shoot());
+                        yield return new WaitForSeconds(0.15f);
+                    }
+                    StartCoroutine(SelectBehavior(0));
+                    break;
+
             }
             yield return null;
         }
@@ -217,7 +237,7 @@ namespace Hive.Armada.Enemies
                     fireRate = 0.1f;
                     projectileSpeed = 1.5f;
                     spread = 0;
-                    StartCoroutine(rotateProjectile(shootPivot));
+                    StartCoroutine(RotateProjectile(shootPivot));
                     for (int i = 0; i < 9; ++i)
                     {
                         projectileArray[i] = true;
@@ -229,7 +249,20 @@ namespace Hive.Armada.Enemies
 
                 case 1:
                     fireRate = 0.8f;
-                    projectileSpeed = 1.5f;
+                    projectileSpeed = 2.5f;
+                    spread = 0;
+
+                    myPoints = new int[] {
+                        30, 31, 32,
+                        40,
+                        48, 49, 50 };
+
+                    ActivateShootPoints(myPoints, myPoints.Length);
+                    return;
+
+                case 2:
+                    fireRate = 0.8f;
+                    projectileSpeed = 2.5f;
                     spread = 0;
 
                     myPoints = new int[] {
@@ -245,8 +278,8 @@ namespace Hive.Armada.Enemies
                     return;
 
                 case 3:
-                    fireRate = 0.8f;
-                    projectileSpeed = 1.5f;
+                    fireRate = 0.6f;
+                    projectileSpeed = 2.5f;
                     spread = 0;
 
                     myPoints = new int[] {
@@ -263,17 +296,18 @@ namespace Hive.Armada.Enemies
                     ActivateShootPoints(myPoints, myPoints.Length);
                     return;
             }
-            Debug.Log(myPoints.Length);
+            //Debug.Log(myPoints.Length);
         }
 
         private void ResetAttackPattern()
         {
-            StopCoroutine(rotateProjectile(shootPivot));
+            StopCoroutine(RotateProjectile(shootPivot));
             shootPivot.rotation = transform.rotation;
             for(int i = 0; i < 81; ++i)
             {
                 projectileArray[i] = false;
             }
+            //Debug.Log("Reset!");
         }
 
         private void ActivateShootPoints(int[] points, int length)

@@ -157,7 +157,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4731544161332256}
   m_Layer: 0
-  m_Name: BulletPoint
+  m_Name: Shoot Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -798,8 +798,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1088525707068120}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.82, z: 0}
-  m_LocalScale: {x: 30, y: 30, z: 30}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 50, y: 50, z: 50}
   m_Children:
   - {fileID: 4050812067710742}
   - {fileID: 4192587127036236}
@@ -946,7 +946,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1156764990891100}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.009208, z: 0.0417}
+  m_LocalPosition: {x: 0, y: 0.009208, z: 0.02}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4436206113618072}
@@ -2311,13 +2311,13 @@ MonoBehaviour:
   distance: 2.2
   timeLimit: 15
   slerpTime: 0.5
-  currentTarget: {fileID: 0}
-  bulletPrefab: {fileID: 1751136267563060, guid: cd3380ebe23784c4c9333503c5be6c19,
+  shootPoint: {fileID: 4731544161332256}
+  rocketPrefab: {fileID: 1101561360092930, guid: aeca747fcabc6ca4189b8bf812ff586c,
     type: 2}
   spawnEmitter: {fileID: 1165656984623822, guid: b3e8f7f44c9c61147b4d8f2c73bce88f,
     type: 2}
-  bulletSpeed: 15
-  firerate: 3
+  damage: 30
+  firerate: 1
   source: {fileID: 82925288737960426}
   clips:
   - {fileID: 8300000, guid: 1453cf1b200b64247b9b99e548ea69e4, type: 3}

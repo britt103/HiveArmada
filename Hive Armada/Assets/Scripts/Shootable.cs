@@ -32,21 +32,21 @@ namespace Hive.Armada
         public float shootableDelay = 0.0f;
 
         /// <summary>
-        /// FX to be instantiated when spawned.
+        /// Emitter on shootable spawn.
         /// </summary>
         public GameObject spawnEmitter;
 
         /// <summary>
-        /// FX to be instantiated when hit.
+        /// Emitter on shootable death.
         /// </summary>
-        public GameObject shotEmitter;
+        public GameObject deathEmitter;
 
         /// <summary>
         /// Instantiate spawn fx. Start delay coroutine.
         /// </summary>
         protected virtual void Awake()
         {
-            if (spawnEmitter)
+            if (spawnEmitter != null)
             {
                 Instantiate(spawnEmitter, transform.position, transform.rotation, transform);
             }
@@ -64,13 +64,13 @@ namespace Hive.Armada
         }
 
         /// <summary>
-        /// Instantiate hit fx. Self-destruct.
+        /// Spawns the death emitter and destroys the object.
         /// </summary>
-        public virtual void Shot()
+        public virtual void Hit()
         {
-            if (shotEmitter)
+            if (deathEmitter != null)
             {
-                Instantiate(shotEmitter, transform.position, transform.rotation);
+                Instantiate(deathEmitter, transform.position, transform.rotation);
             }
             Destroy(gameObject);
         }

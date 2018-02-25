@@ -136,7 +136,7 @@ namespace Hive.Armada.Player.Weapons
                 if (hit.collider.gameObject.GetComponent<Shootable>() != null
                     && hit.collider.gameObject.GetComponent<Shootable>().isShootable)
                 {
-                    hit.collider.gameObject.GetComponent<Shootable>().Shot();
+                    hit.collider.gameObject.GetComponent<Shootable>().Hit();
                 }
 
                 shipController.hand.controller.TriggerHapticPulse(2500);

@@ -43,7 +43,7 @@ namespace Hive.Armada.PowerUps
         //public float sphereCastMaxDistance = 1.0F;
 
         //Reference to currently targetted enemy.
-        public GameObject currentTarget = null;
+        private GameObject currentTarget;
 
         /// <summary>
         /// Represents progress of current slerp movement in terms of time.
@@ -57,10 +57,12 @@ namespace Hive.Armada.PowerUps
 
         //private bool targetAcquired;
 
+        public Transform shootPoint;
+
         /// <summary>
         /// Projectile prefab.
         /// </summary>
-        public GameObject bulletPrefab;
+        public GameObject rocketPrefab;
 
         /// <summary>
         /// FX instanted in Start().
@@ -68,9 +70,9 @@ namespace Hive.Armada.PowerUps
         public GameObject spawnEmitter;
 
         /// <summary>
-        /// Speed of fired projectiles.
+        /// Damage dealt to enemies on collision.
         /// </summary>
-        public float bulletSpeed;
+        public int damage;
 
         /// <summary>
         /// Number of projectiles fired per second.
@@ -110,7 +112,7 @@ namespace Hive.Armada.PowerUps
 
             if (canFire && slerpFraction >= 1.0F && currentTarget != null)
             {
-                StartCoroutine(Fire(currentTarget.transform.position));
+                StartCoroutine(Fire(currentTarget));
             }
         }
 
@@ -212,17 +214,17 @@ namespace Hive.Armada.PowerUps
         /// <summary>
         /// Instantiate bullet according to firerate.
         /// </summary>
-        /// <param name="target">Enemy bullet is "aimed" at</param>
-        private IEnumerator Fire(Vector3 target)
+        /// <param name="target"> The target to launch the rocket at </param>
+        private IEnumerator Fire(GameObject target)
         {
             canFire = false;
-            var bullet = Instantiate(bulletPrefab, transform.Find("BulletPoint")
-                    .transform.position, transform.rotation);
+            GameObject rocket = Instantiate(rocketPrefab, shootPoint.position, shootPoint.rotation);
+            AllyRocket rocketScript = rocket.GetComponent<AllyRocket>();
+            //explosionTypeId
+            rocketScript.Initialize(damage, -1);
+            rocketScript.Launch(target);
 
             source.PlayOneShot(clips[0]);
-
-            bullet.transform.LookAt(target);
-            bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * bulletSpeed;
 
             yield return new WaitForSeconds(1.0f / firerate);
             canFire = true;

@@ -196,6 +196,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1536999386649952
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4469052535252662}
+  - component: {fileID: 114652215748066726}
+  - component: {fileID: 114348132302223494}
+  m_Layer: 0
+  m_Name: Boss Spawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!4 &4027746561094850
 Transform:
   m_ObjectHideFlags: 1
@@ -242,7 +259,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1081941180973096}
   m_LocalRotation: {x: -0, y: -0.999793, z: -0, w: 0.020345954}
-  m_LocalPosition: {x: -2.723641, y: -7.160129, z: 22.87349}
+  m_LocalPosition: {x: 0.128, y: -7.160129, z: 22.868}
   m_LocalScale: {x: 4, y: 4, z: 4}
   m_Children: []
   m_Father: {fileID: 4684116384836694}
@@ -274,6 +291,19 @@ Transform:
   m_Father: {fileID: 4684116384836694}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 54.781002, z: 0}
+--- !u!4 &4469052535252662
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1536999386649952}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -14.05, y: -2.51, z: 60.82}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4684116384836694}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4684116384836694
 Transform:
   m_ObjectHideFlags: 1
@@ -291,6 +321,7 @@ Transform:
   - {fileID: 4194587304078512}
   - {fileID: 4321842622805130}
   - {fileID: 4283183781713602}
+  - {fileID: 4469052535252662}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -361,11 +392,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pathName: RightPath11
-  pathColor: {r: 0.034482475, g: 0, b: 1, a: 1}
+  pathColor: {r: 0.03529412, g: 0, b: 1, a: 1}
   nodes:
-  - {x: 0.906336, y: -3.4207788, z: 0.7690215}
-  - {x: 4.5811963, y: -1.1095483, z: 2.864109}
-  - {x: 4.9872723, y: 1.1858188, z: 3.0205002}
+  - {x: 0.7032804, y: -2.9728394, z: 0.42501163}
+  - {x: 4.292607, y: -1.4877908, z: 2.3430173}
+  - {x: 4.987272, y: 1.1858188, z: 3.0205002}
   nodeCount: 3
   initialized: 1
   initialName: New Path 3
@@ -384,8 +415,8 @@ MonoBehaviour:
   pathName: LeftPath2
   pathColor: {r: 0.86274517, g: 1, b: 0, a: 1}
   nodes:
-  - {x: -0.906336, y: -3.4207788, z: 0.7690215}
-  - {x: -4.581196, y: -1.1095483, z: 2.864109}
+  - {x: -0.906336, y: -3.6334014, z: 1.2552904}
+  - {x: -4.7980623, y: -1.1095483, z: 3.6229444}
   - {x: -4.376506, y: 2.2966833, z: 3.3113172}
   nodeCount: 3
   initialized: 1
@@ -403,10 +434,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pathName: RightPath5
-  pathColor: {r: 0.034482475, g: 0, b: 1, a: 1}
+  pathColor: {r: 0.03529412, g: 0, b: 1, a: 1}
   nodes:
-  - {x: 0.906336, y: -3.4207788, z: 0.7690215}
-  - {x: 4.5811963, y: -1.1095483, z: 2.864109}
+  - {x: 0.906336, y: -3.6685653, z: 1.9562643}
+  - {x: 4.044343, y: -1.1095483, z: 3.9968312}
   - {x: 3.852082, y: 2.0337226, z: 3.6160154}
   nodeCount: 3
   initialized: 1
@@ -426,8 +457,8 @@ MonoBehaviour:
   pathName: BackRightPath3
   pathColor: {r: 0, g: 1, b: 0.17254902, a: 1}
   nodes:
-  - {x: 0.8917213, y: -2.368951, z: 24.071077}
-  - {x: 2.991435, y: 2.4510221, z: 19.268438}
+  - {x: 2.00464, y: -1.9335117, z: 24.071077}
+  - {x: 3.69819, y: 2.7184062, z: 19.268438}
   - {x: 4.3399, y: 5.6798444, z: 6.2156186}
   nodeCount: 3
   initialized: 1
@@ -489,8 +520,8 @@ MonoBehaviour:
   pathName: BackLeftPath8
   pathColor: {r: 1, g: 0, b: 0, a: 1}
   nodes:
-  - {x: -0.8917213, y: -2.368951, z: 24.071077}
-  - {x: -2.9914353, y: 2.4510221, z: 19.268438}
+  - {x: -0.32346404, y: -1.0061982, z: 24.071077}
+  - {x: -1.5970042, y: 3.6705666, z: 19.268438}
   - {x: -2.646857, y: 6.78586, z: 7.005963}
   nodeCount: 3
   initialized: 1
@@ -510,8 +541,8 @@ MonoBehaviour:
   pathName: BackLeftPath2
   pathColor: {r: 1, g: 0, b: 0, a: 1}
   nodes:
-  - {x: -0.8917213, y: -2.368951, z: 24.071077}
-  - {x: -2.9914353, y: 2.4510221, z: 19.268438}
+  - {x: -0.82582635, y: -1.360472, z: 24.071077}
+  - {x: -2.1710443, y: 3.408082, z: 19.268438}
   - {x: -3.1821525, y: 6.4235444, z: 6.893964}
   nodeCount: 3
   initialized: 1
@@ -552,8 +583,8 @@ MonoBehaviour:
   pathName: BackRightPath0
   pathColor: {r: 0, g: 1, b: 0.17254902, a: 1}
   nodes:
-  - {x: 0.8917213, y: -2.368951, z: 24.071077}
-  - {x: 2.991435, y: 2.4510221, z: 19.268438}
+  - {x: 1.409249, y: -1.6286194, z: 24.071077}
+  - {x: 2.991435, y: 3.0624647, z: 19.268438}
   - {x: 3.735225, y: 6.0516944, z: 6.5147333}
   nodeCount: 3
   initialized: 1
@@ -594,8 +625,8 @@ MonoBehaviour:
   pathName: LeftPath7
   pathColor: {r: 0.86274517, g: 1, b: 0, a: 1}
   nodes:
-  - {x: -0.906336, y: -3.4207788, z: 0.7690215}
-  - {x: -4.581196, y: -1.1095483, z: 2.864109}
+  - {x: -0.5694322, y: -3.4207788, z: 0.34412205}
+  - {x: -5.539422, y: -1.609266, z: 3.009632}
   - {x: -4.987272, y: 2.6755412, z: 3.0205002}
   nodeCount: 3
   initialized: 1
@@ -615,8 +646,8 @@ MonoBehaviour:
   pathName: BackLeftPath1
   pathColor: {r: 1, g: 0, b: 0, a: 1}
   nodes:
-  - {x: -0.8917213, y: -2.368951, z: 24.071077}
-  - {x: -2.9914353, y: 2.4510221, z: 19.268438}
+  - {x: -2.0528555, y: -1.3805251, z: 24.071077}
+  - {x: -3.696643, y: 3.3196008, z: 19.268438}
   - {x: -4.3399, y: 6.4235444, z: 6.1417775}
   nodeCount: 3
   initialized: 1
@@ -636,8 +667,8 @@ MonoBehaviour:
   pathName: BackLeftPath9
   pathColor: {r: 1, g: 0, b: 0, a: 1}
   nodes:
-  - {x: -0.8917213, y: -2.368951, z: 24.071077}
-  - {x: -2.9914353, y: 2.4510221, z: 19.268438}
+  - {x: -0.26177198, y: -1.759846, z: 24.071077}
+  - {x: -1.5570405, y: 3.1530874, z: 19.268438}
   - {x: -2.646857, y: 6.042159, z: 7.0209546}
   nodeCount: 3
   initialized: 1
@@ -685,6 +716,27 @@ MonoBehaviour:
   initialized: 1
   initialName: New Path 1
   pathVisible: 1
+--- !u!114 &114348132302223494
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1536999386649952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a80152e2d63236f4cb97b9acba77fbb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pathName: BossOut
+  pathColor: {r: 1, g: 1, b: 1, a: 1}
+  nodes:
+  - {x: 0, y: 3.339567, z: 6.514733}
+  - {x: 0, y: 3.339567, z: 59.34808}
+  - {x: -14.05, y: 0, z: 60.82}
+  nodeCount: 3
+  initialized: 1
+  initialName: New Path 4
+  pathVisible: 1
 --- !u!114 &114357424052193184
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -699,8 +751,8 @@ MonoBehaviour:
   pathName: LeftPath0
   pathColor: {r: 0.862069, g: 1, b: 0, a: 1}
   nodes:
-  - {x: -0.906336, y: -3.420779, z: 0.7690215}
-  - {x: -4.581196, y: -1.109548, z: 2.864109}
+  - {x: -0.906336, y: -3.315682, z: 0.59229255}
+  - {x: -5.2551813, y: -1.109548, z: 3.0223472}
   - {x: -4.987272, y: 1.97914, z: 3.0205}
   nodeCount: 3
   initialized: 1
@@ -718,10 +770,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pathName: RightPath3
-  pathColor: {r: 0.034482475, g: 0, b: 1, a: 1}
+  pathColor: {r: 0.03529412, g: 0, b: 1, a: 1}
   nodes:
-  - {x: 0.906336, y: -3.4207788, z: 0.7690215}
-  - {x: 4.5811963, y: -1.1095483, z: 2.864109}
+  - {x: 1.267761, y: -3.1516838, z: 0.25378883}
+  - {x: 4.952729, y: -1.1095483, z: 2.1634965}
   - {x: 5.343459, y: 1.625957, z: 2.4789116}
   nodeCount: 3
   initialized: 1
@@ -741,8 +793,8 @@ MonoBehaviour:
   pathName: BackRightPath6
   pathColor: {r: 0, g: 1, b: 0.17254902, a: 1}
   nodes:
-  - {x: 0.8917213, y: -2.368951, z: 24.071077}
-  - {x: 2.991435, y: 2.4510221, z: 19.268438}
+  - {x: 0.323464, y: -1.0061982, z: 24.071077}
+  - {x: 1.597004, y: 3.6705666, z: 19.268438}
   - {x: 2.646857, y: 6.78586, z: 7.005963}
   nodeCount: 3
   initialized: 1
@@ -762,8 +814,8 @@ MonoBehaviour:
   pathName: BackRightPath2
   pathColor: {r: 0, g: 1, b: 0.17254902, a: 1}
   nodes:
-  - {x: 0.8917213, y: -2.368951, z: 24.071077}
-  - {x: 2.991435, y: 2.4510221, z: 19.268438}
+  - {x: 2.052855, y: -1.3805251, z: 24.071077}
+  - {x: 3.696643, y: 3.3196008, z: 19.268438}
   - {x: 4.3399, y: 6.4235444, z: 6.1417775}
   nodeCount: 3
   initialized: 1
@@ -783,8 +835,8 @@ MonoBehaviour:
   pathName: LeftPath11
   pathColor: {r: 0.86274517, g: 1, b: 0, a: 1}
   nodes:
-  - {x: -0.906336, y: -3.4207788, z: 0.7690215}
-  - {x: -4.581196, y: -1.1095483, z: 2.864109}
+  - {x: -0.70328045, y: -2.9728394, z: 0.42501163}
+  - {x: -4.292607, y: -1.4877908, z: 2.3430173}
   - {x: -4.987272, y: 1.1858188, z: 3.0205002}
   nodeCount: 3
   initialized: 1
@@ -823,10 +875,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pathName: RightPath6
-  pathColor: {r: 0.034482475, g: 0, b: 1, a: 1}
+  pathColor: {r: 0.03529412, g: 0, b: 1, a: 1}
   nodes:
-  - {x: 0.906336, y: -3.4207788, z: 0.7690215}
-  - {x: 4.5811963, y: -1.1095483, z: 2.864109}
+  - {x: 0.906336, y: -4.271563, z: 2.1973534}
+  - {x: 4.581196, y: -1.1095483, z: 4.497165}
   - {x: 3.852082, y: 2.7537487, z: 3.6160154}
   nodeCount: 3
   initialized: 1
@@ -844,14 +896,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pathName: RightPath0
-  pathColor: {r: 0.034482475, g: 0, b: 1, a: 1}
+  pathColor: {r: 0.03529412, g: 0, b: 1, a: 1}
   nodes:
-  - {x: 0.906336, y: -3.4207788, z: 0.7690215}
-  - {x: 4.5811963, y: -1.1095483, z: 2.864109}
-  - {x: 4.9872723, y: 1.9791396, z: 3.0205002}
+  - {x: 0.906336, y: -3.315682, z: 0.59229255}
+  - {x: 5.255181, y: -1.109548, z: 3.0223472}
+  - {x: 4.987272, y: 1.97914, z: 3.0205}
   nodeCount: 3
   initialized: 1
-  initialName: New Path 3
+  initialName: New Path 2
   pathVisible: 1
 --- !u!114 &114444241705534898
 MonoBehaviour:
@@ -888,8 +940,8 @@ MonoBehaviour:
   pathName: BackLeftPath10
   pathColor: {r: 1, g: 0, b: 0, a: 1}
   nodes:
-  - {x: -0.8917213, y: -2.368951, z: 24.071077}
-  - {x: -2.9914353, y: 2.4510221, z: 19.268438}
+  - {x: -0.1803245, y: -2.368951, z: 24.071077}
+  - {x: -1.5671308, y: 2.4510221, z: 19.268438}
   - {x: -2.646857, y: 5.3652015, z: 7.0558033}
   nodeCount: 3
   initialized: 1
@@ -909,8 +961,8 @@ MonoBehaviour:
   pathName: BackRightPath12
   pathColor: {r: 0, g: 1, b: 0.17254902, a: 1}
   nodes:
-  - {x: 0.8917213, y: -2.368951, z: 24.071077}
-  - {x: 2.991435, y: 2.4510221, z: 19.268438}
+  - {x: 0.1803245, y: -2.368951, z: 24.071077}
+  - {x: 1.567131, y: 2.4510221, z: 19.268438}
   - {x: 2.646857, y: 5.3652015, z: 7.0558033}
   nodeCount: 3
   initialized: 1
@@ -930,8 +982,8 @@ MonoBehaviour:
   pathName: BackRightPath10
   pathColor: {r: 0, g: 1, b: 0.17254902, a: 1}
   nodes:
-  - {x: 0.8917213, y: -2.368951, z: 24.071077}
-  - {x: 2.991435, y: 2.4510221, z: 19.268438}
+  - {x: 2.850393, y: -2.368951, z: 24.071077}
+  - {x: 4.1472, y: 2.4510221, z: 19.268438}
   - {x: 4.853744, y: 5.3842707, z: 5.8434443}
   nodeCount: 3
   initialized: 1
@@ -951,8 +1003,8 @@ MonoBehaviour:
   pathName: LeftPath1
   pathColor: {r: 0.86274517, g: 1, b: 0, a: 1}
   nodes:
-  - {x: -0.906336, y: -3.4207788, z: 0.7690215}
-  - {x: -4.581196, y: -1.1095483, z: 2.864109}
+  - {x: -0.906336, y: -3.4393125, z: 0.08585721}
+  - {x: -5.861726, y: -1.1095483, z: 2.864109}
   - {x: -5.343459, y: 2.2966833, z: 2.4789116}
   nodeCount: 3
   initialized: 1
@@ -993,8 +1045,8 @@ MonoBehaviour:
   pathName: LeftPath4
   pathColor: {r: 0.86274517, g: 1, b: 0, a: 1}
   nodes:
-  - {x: -0.906336, y: -3.4207788, z: 0.7690215}
-  - {x: -4.581196, y: -1.1095483, z: 2.864109}
+  - {x: -1.267761, y: -3.1516838, z: 0.25378883}
+  - {x: -4.952729, y: -1.1095483, z: 2.1634965}
   - {x: -5.343459, y: 1.625957, z: 2.4789116}
   nodeCount: 3
   initialized: 1
@@ -1012,11 +1064,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pathName: RightPath7
-  pathColor: {r: 0.034482475, g: 0, b: 1, a: 1}
+  pathColor: {r: 0.03529412, g: 0, b: 1, a: 1}
   nodes:
-  - {x: 0.906336, y: -3.4207788, z: 0.7690215}
-  - {x: 4.5811963, y: -1.1095483, z: 2.864109}
-  - {x: 4.9872723, y: 2.6755412, z: 3.0205002}
+  - {x: 0.5694322, y: -3.4207788, z: 0.34412205}
+  - {x: 5.539422, y: -1.609266, z: 3.009632}
+  - {x: 4.987272, y: 2.6755412, z: 3.0205002}
   nodeCount: 3
   initialized: 1
   initialName: New Path 3
@@ -1033,10 +1085,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pathName: RightPath9
-  pathColor: {r: 0.034482475, g: 0, b: 1, a: 1}
+  pathColor: {r: 0.03529412, g: 0, b: 1, a: 1}
   nodes:
-  - {x: 0.906336, y: -3.4207788, z: 0.7690215}
-  - {x: 4.5811963, y: -1.1095483, z: 2.864109}
+  - {x: 1.454865, y: -3.3156168, z: -0.15151238}
+  - {x: 6.008173, y: -1.1095483, z: 2.0229843}
   - {x: 6.067646, y: 2.0443149, z: 2.1522465}
   nodeCount: 3
   initialized: 1
@@ -1056,12 +1108,33 @@ MonoBehaviour:
   pathName: LeftPath3
   pathColor: {r: 0.86274517, g: 1, b: 0, a: 1}
   nodes:
-  - {x: -0.906336, y: -3.4207788, z: 0.7690215}
-  - {x: -4.581196, y: -1.1095483, z: 2.864109}
+  - {x: -0.906336, y: -3.1639018, z: 1.1722968}
+  - {x: -3.9283223, y: -1.1095483, z: 2.864109}
   - {x: -4.376506, y: 1.5874453, z: 3.3113172}
   nodeCount: 3
   initialized: 1
   initialName: New Path 3
+  pathVisible: 1
+--- !u!114 &114652215748066726
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1536999386649952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a80152e2d63236f4cb97b9acba77fbb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pathName: BossIn
+  pathColor: {r: 1, g: 1, b: 1, a: 1}
+  nodes:
+  - {x: -14.05, y: 0, z: 60.82}
+  - {x: 0, y: 3.339567, z: 59.348076}
+  - {x: 0, y: 3.3395672, z: 6.5147333}
+  nodeCount: 3
+  initialized: 1
+  initialName: New Path 4
   pathVisible: 1
 --- !u!114 &114654346976928212
 MonoBehaviour:
@@ -1077,8 +1150,8 @@ MonoBehaviour:
   pathName: BackLeftPath7
   pathColor: {r: 1, g: 0, b: 0, a: 1}
   nodes:
-  - {x: -0.8917213, y: -2.368951, z: 24.071077}
-  - {x: -2.9914353, y: 2.4510221, z: 19.268438}
+  - {x: -1.4498948, y: -0.9975846, z: 24.071077}
+  - {x: -2.9914353, y: 3.6578012, z: 19.268438}
   - {x: -3.7352252, y: 6.795395, z: 6.5147333}
   nodeCount: 3
   initialized: 1
@@ -1098,8 +1171,8 @@ MonoBehaviour:
   pathName: BackRightPath7
   pathColor: {r: 0, g: 1, b: 0.17254902, a: 1}
   nodes:
-  - {x: 0.8917213, y: -2.368951, z: 24.071077}
-  - {x: 2.991435, y: 2.4510221, z: 19.268438}
+  - {x: 1.449895, y: -0.9975846, z: 24.071077}
+  - {x: 2.991435, y: 3.6578012, z: 19.268438}
   - {x: 3.735225, y: 6.795395, z: 6.5147333}
   nodeCount: 3
   initialized: 1
@@ -1119,8 +1192,8 @@ MonoBehaviour:
   pathName: BackLeftPath11
   pathColor: {r: 1, g: 0, b: 0, a: 1}
   nodes:
-  - {x: -0.8917213, y: -2.368951, z: 24.071077}
-  - {x: -2.9914353, y: 2.4510221, z: 19.268438}
+  - {x: -1.4209548, y: -2.368951, z: 24.071077}
+  - {x: -2.991135, y: 2.3599677, z: 19.268438}
   - {x: -3.7352252, y: 5.3652015, z: 6.5147333}
   nodeCount: 3
   initialized: 1
@@ -1140,8 +1213,8 @@ MonoBehaviour:
   pathName: LeftPath5
   pathColor: {r: 0.86274517, g: 1, b: 0, a: 1}
   nodes:
-  - {x: -0.906336, y: -3.4207788, z: 0.7690215}
-  - {x: -4.581196, y: -1.1095483, z: 2.864109}
+  - {x: -1.4548645, y: -3.3156168, z: -0.15151238}
+  - {x: -6.0081725, y: -1.1095483, z: 2.0229843}
   - {x: -6.067646, y: 2.0443149, z: 2.1522465}
   nodeCount: 3
   initialized: 1
@@ -1161,8 +1234,8 @@ MonoBehaviour:
   pathName: LeftPath6
   pathColor: {r: 0.86274517, g: 1, b: 0, a: 1}
   nodes:
-  - {x: -0.906336, y: -3.4207788, z: 0.7690215}
-  - {x: -4.581196, y: -1.1095483, z: 2.864109}
+  - {x: -1.2651572, y: -3.660934, z: -0.252584}
+  - {x: -6.7623515, y: -1.1095483, z: 2.4676144}
   - {x: -6.067646, y: 2.7326865, z: 2.1522465}
   nodeCount: 3
   initialized: 1
@@ -1180,10 +1253,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pathName: RightPath12
-  pathColor: {r: 0.034482475, g: 0, b: 1, a: 1}
+  pathColor: {r: 0.03529412, g: 0, b: 1, a: 1}
   nodes:
-  - {x: 0.906336, y: -3.4207788, z: 0.7690215}
-  - {x: 4.5811963, y: -1.1095483, z: 2.864109}
+  - {x: 0.906336, y: -3.163049, z: 1.8168283}
+  - {x: 3.688533, y: -1.1095483, z: 3.3825157}
   - {x: 3.852082, y: 1.2709055, z: 3.6160154}
   nodeCount: 3
   initialized: 1
@@ -1201,10 +1274,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pathName: RightPath10
-  pathColor: {r: 0.034482475, g: 0, b: 1, a: 1}
+  pathColor: {r: 0.03529412, g: 0, b: 1, a: 1}
   nodes:
-  - {x: 0.906336, y: -3.4207788, z: 0.7690215}
-  - {x: 4.5811963, y: -1.1095483, z: 2.864109}
+  - {x: 1.40514, y: -2.8320374, z: -0.17259979}
+  - {x: 5.224392, y: -1.1095483, z: 1.7504963}
   - {x: 6.067646, y: 1.2445668, z: 2.1522465}
   nodeCount: 3
   initialized: 1
@@ -1224,8 +1297,8 @@ MonoBehaviour:
   pathName: BackRightPath11
   pathColor: {r: 0, g: 1, b: 0.17254902, a: 1}
   nodes:
-  - {x: 0.8917213, y: -2.368951, z: 24.071077}
-  - {x: 2.991435, y: 2.4510221, z: 19.268438}
+  - {x: 1.420955, y: -2.368951, z: 24.071077}
+  - {x: 2.991135, y: 2.3599677, z: 19.268438}
   - {x: 3.735225, y: 5.3652015, z: 6.5147333}
   nodeCount: 3
   initialized: 1
@@ -1245,8 +1318,8 @@ MonoBehaviour:
   pathName: BackRightPath8
   pathColor: {r: 0, g: 1, b: 0.17254902, a: 1}
   nodes:
-  - {x: 0.8917213, y: -2.368951, z: 24.071077}
-  - {x: 2.991435, y: 2.4510221, z: 19.268438}
+  - {x: 2.80375, y: -0.88859725, z: 24.071077}
+  - {x: 4.310089, y: 3.6726336, z: 19.268438}
   - {x: 4.853744, y: 6.7572565, z: 5.7901936}
   nodeCount: 3
   initialized: 1
@@ -1266,8 +1339,8 @@ MonoBehaviour:
   pathName: LeftPath10
   pathColor: {r: 0.86274517, g: 1, b: 0, a: 1}
   nodes:
-  - {x: -0.906336, y: -3.4207788, z: 0.7690215}
-  - {x: -4.581196, y: -1.1095483, z: 2.864109}
+  - {x: -0.906336, y: -3.163049, z: 1.8168283}
+  - {x: -3.6885333, y: -1.1095483, z: 3.3825157}
   - {x: -3.852082, y: 1.2709055, z: 3.6160154}
   nodeCount: 3
   initialized: 1
@@ -1287,8 +1360,8 @@ MonoBehaviour:
   pathName: BackLeftPath4
   pathColor: {r: 1, g: 0, b: 0, a: 1}
   nodes:
-  - {x: -0.8917213, y: -2.368951, z: 24.071077}
-  - {x: -2.9914353, y: 2.4510221, z: 19.268438}
+  - {x: -2.0046396, y: -1.9335117, z: 24.071077}
+  - {x: -3.69819, y: 2.7184062, z: 19.268438}
   - {x: -4.3399, y: 5.6798444, z: 6.2156186}
   nodeCount: 3
   initialized: 1
@@ -1308,8 +1381,8 @@ MonoBehaviour:
   pathName: BackRightPath9
   pathColor: {r: 0, g: 1, b: 0.17254902, a: 1}
   nodes:
-  - {x: 0.8917213, y: -2.368951, z: 24.071077}
-  - {x: 2.991435, y: 2.4510221, z: 19.268438}
+  - {x: 2.772936, y: -1.6271813, z: 24.071077}
+  - {x: 4.134522, y: 3.1204987, z: 19.268438}
   - {x: 4.853744, y: 6.0516944, z: 5.8701897}
   nodeCount: 3
   initialized: 1
@@ -1329,8 +1402,8 @@ MonoBehaviour:
   pathName: BackRightPath1
   pathColor: {r: 0, g: 1, b: 0.17254902, a: 1}
   nodes:
-  - {x: 0.8917213, y: -2.368951, z: 24.071077}
-  - {x: 2.991435, y: 2.4510221, z: 19.268438}
+  - {x: 0.8258263, y: -1.360472, z: 24.071077}
+  - {x: 2.171044, y: 3.408082, z: 19.268438}
   - {x: 3.182153, y: 6.4235444, z: 6.893964}
   nodeCount: 3
   initialized: 1
@@ -1350,8 +1423,8 @@ MonoBehaviour:
   pathName: BackRightPath5
   pathColor: {r: 0, g: 1, b: 0.17254902, a: 1}
   nodes:
-  - {x: 0.8917213, y: -2.368951, z: 24.071077}
-  - {x: 2.991435, y: 2.4510221, z: 19.268438}
+  - {x: 0.261772, y: -1.759846, z: 24.071077}
+  - {x: 1.55704, y: 3.1530874, z: 19.268438}
   - {x: 2.646857, y: 6.042159, z: 7.0209546}
   nodeCount: 3
   initialized: 1
@@ -1371,8 +1444,8 @@ MonoBehaviour:
   pathName: BackLeftPath12
   pathColor: {r: 1, g: 0, b: 0, a: 1}
   nodes:
-  - {x: -0.8917213, y: -2.368951, z: 24.071077}
-  - {x: -2.9914353, y: 2.4510221, z: 19.268438}
+  - {x: -2.8503928, y: -2.368951, z: 24.071077}
+  - {x: -4.1471996, y: 2.4510221, z: 19.268438}
   - {x: -4.8537436, y: 5.3842707, z: 5.8434443}
   nodeCount: 3
   initialized: 1
@@ -1392,8 +1465,8 @@ MonoBehaviour:
   pathName: BackLeftPath5
   pathColor: {r: 1, g: 0, b: 0, a: 1}
   nodes:
-  - {x: -0.8917213, y: -2.368951, z: 24.071077}
-  - {x: -2.9914353, y: 2.4510221, z: 19.268438}
+  - {x: -2.7729359, y: -1.6271813, z: 24.071077}
+  - {x: -4.1345224, y: 3.1204987, z: 19.268438}
   - {x: -4.8537436, y: 6.0516944, z: 5.8701897}
   nodeCount: 3
   initialized: 1
@@ -1411,10 +1484,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pathName: RightPath1
-  pathColor: {r: 0.034482475, g: 0, b: 1, a: 1}
+  pathColor: {r: 0.03529412, g: 0, b: 1, a: 1}
   nodes:
-  - {x: 0.906336, y: -3.4207788, z: 0.7690215}
-  - {x: 4.5811963, y: -1.1095483, z: 2.864109}
+  - {x: 0.906336, y: -3.6334014, z: 1.2552904}
+  - {x: 4.798062, y: -1.1095483, z: 3.6229444}
   - {x: 4.376506, y: 2.2966833, z: 3.3113172}
   nodeCount: 3
   initialized: 1
@@ -1432,10 +1505,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pathName: RightPath8
-  pathColor: {r: 0.034482475, g: 0, b: 1, a: 1}
+  pathColor: {r: 0.03529412, g: 0, b: 1, a: 1}
   nodes:
-  - {x: 0.906336, y: -3.4207788, z: 0.7690215}
-  - {x: 4.5811963, y: -1.1095483, z: 2.864109}
+  - {x: 1.265157, y: -3.660934, z: -0.252584}
+  - {x: 6.762352, y: -1.1095483, z: 2.4676144}
   - {x: 6.067646, y: 2.7326865, z: 2.1522465}
   nodeCount: 3
   initialized: 1
@@ -1455,8 +1528,8 @@ MonoBehaviour:
   pathName: BackRightPath4
   pathColor: {r: 0, g: 1, b: 0.17254902, a: 1}
   nodes:
-  - {x: 0.8917213, y: -2.368951, z: 24.071077}
-  - {x: 2.991435, y: 2.4510221, z: 19.268438}
+  - {x: 0.770072, y: -2.091243, z: 24.071077}
+  - {x: 2.218388, y: 2.8264384, z: 19.268438}
   - {x: 3.182153, y: 5.67031, z: 6.902256}
   nodeCount: 3
   initialized: 1
@@ -1476,8 +1549,8 @@ MonoBehaviour:
   pathName: LeftPath8
   pathColor: {r: 0.86274517, g: 1, b: 0, a: 1}
   nodes:
-  - {x: -0.906336, y: -3.4207788, z: 0.7690215}
-  - {x: -4.581196, y: -1.1095483, z: 2.864109}
+  - {x: -0.906336, y: -4.271563, z: 2.1973534}
+  - {x: -4.581196, y: -1.1095483, z: 4.497165}
   - {x: -3.852082, y: 2.7537487, z: 3.6160154}
   nodeCount: 3
   initialized: 1
@@ -1495,10 +1568,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pathName: RightPath4
-  pathColor: {r: 0.034482475, g: 0, b: 1, a: 1}
+  pathColor: {r: 0.03529412, g: 0, b: 1, a: 1}
   nodes:
-  - {x: 0.906336, y: -3.4207788, z: 0.7690215}
-  - {x: 4.5811963, y: -1.1095483, z: 2.864109}
+  - {x: 0.906336, y: -3.1639018, z: 1.1722968}
+  - {x: 3.928322, y: -1.1095483, z: 2.864109}
   - {x: 4.376506, y: 1.5874453, z: 3.3113172}
   nodeCount: 3
   initialized: 1
@@ -1518,8 +1591,8 @@ MonoBehaviour:
   pathName: BackLeftPath3
   pathColor: {r: 1, g: 0, b: 0, a: 1}
   nodes:
-  - {x: -0.8917213, y: -2.368951, z: 24.071077}
-  - {x: -2.9914353, y: 2.4510221, z: 19.268438}
+  - {x: -0.77007204, y: -2.091243, z: 24.071077}
+  - {x: -2.2183878, y: 2.8264384, z: 19.268438}
   - {x: -3.1821525, y: 5.67031, z: 6.902256}
   nodeCount: 3
   initialized: 1
@@ -1560,8 +1633,8 @@ MonoBehaviour:
   pathName: BackLeftPath6
   pathColor: {r: 1, g: 0, b: 0, a: 1}
   nodes:
-  - {x: -0.8917213, y: -2.368951, z: 24.071077}
-  - {x: -2.9914353, y: 2.4510221, z: 19.268438}
+  - {x: -2.80375, y: -0.88859725, z: 24.071077}
+  - {x: -4.3100886, y: 3.6726336, z: 19.268438}
   - {x: -4.8537436, y: 6.7572565, z: 5.7901936}
   nodeCount: 3
   initialized: 1
@@ -1579,10 +1652,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pathName: RightPath2
-  pathColor: {r: 0.034482475, g: 0, b: 1, a: 1}
+  pathColor: {r: 0.03529412, g: 0, b: 1, a: 1}
   nodes:
-  - {x: 0.906336, y: -3.4207788, z: 0.7690215}
-  - {x: 4.5811963, y: -1.1095483, z: 2.864109}
+  - {x: 0.906336, y: -3.4393125, z: 0.08585721}
+  - {x: 5.861726, y: -1.1095483, z: 2.864109}
   - {x: 5.343459, y: 2.2966833, z: 2.4789116}
   nodeCount: 3
   initialized: 1
@@ -1602,8 +1675,8 @@ MonoBehaviour:
   pathName: BackLeftPath0
   pathColor: {r: 1, g: 0, b: 0, a: 1}
   nodes:
-  - {x: -0.8917213, y: -2.368951, z: 24.071077}
-  - {x: -2.9914353, y: 2.4510221, z: 19.268438}
+  - {x: -1.4092488, y: -1.6286194, z: 24.071077}
+  - {x: -2.9914353, y: 3.0624647, z: 19.268438}
   - {x: -3.7352252, y: 6.0516944, z: 6.5147333}
   nodeCount: 3
   initialized: 1
@@ -1623,8 +1696,8 @@ MonoBehaviour:
   pathName: LeftPath9
   pathColor: {r: 0.86274517, g: 1, b: 0, a: 1}
   nodes:
-  - {x: -0.906336, y: -3.4207788, z: 0.7690215}
-  - {x: -4.581196, y: -1.1095483, z: 2.864109}
+  - {x: -0.906336, y: -3.6685653, z: 1.9562643}
+  - {x: -4.0443425, y: -1.1095483, z: 3.9968312}
   - {x: -3.852082, y: 2.0337226, z: 3.6160154}
   nodeCount: 3
   initialized: 1
@@ -1644,8 +1717,8 @@ MonoBehaviour:
   pathName: LeftPath12
   pathColor: {r: 0.86274517, g: 1, b: 0, a: 1}
   nodes:
-  - {x: -0.906336, y: -3.4207788, z: 0.7690215}
-  - {x: -4.581196, y: -1.1095483, z: 2.864109}
+  - {x: -1.4051402, y: -2.8320374, z: -0.17259979}
+  - {x: -5.2243924, y: -1.1095483, z: 1.7504963}
   - {x: -6.067646, y: 1.2445668, z: 2.1522465}
   nodeCount: 3
   initialized: 1

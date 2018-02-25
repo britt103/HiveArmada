@@ -42,9 +42,16 @@ namespace Hive.Armada.Enemies
         public Transform[] shootPoint;
 
         /// <summary>
+        /// Transform of the shoot point, to be used for altering attack patterns
+        /// </summary>
+        public Transform shootPivot;
+
+        /// <summary>
         /// Variable that finds the player GameObject
         /// </summary>
         private GameObject player;
+
+        public GameObject projectile;
 
         /// <summary>
         /// How fast the turret shoots at a given rate
@@ -92,7 +99,7 @@ namespace Hive.Armada.Enemies
         void Start()
         {
             Reset();
-            SetAttackPattern(AttackPattern.One);
+            StartCoroutine(SelectBehavior(0));
         }
 
         /// <summary>
@@ -106,10 +113,10 @@ namespace Hive.Armada.Enemies
             {
                 transform.LookAt(player.transform);
 
-                if (canShoot)
-                {
-                    StartCoroutine(Shoot());
-                }
+                //if (canShoot)
+                //{
+                //    StartCoroutine(Shoot());
+                //}
             }
             else
             {
@@ -120,11 +127,6 @@ namespace Hive.Armada.Enemies
                     transform.LookAt(new Vector3(0.0f, 0.0f, 0.0f));
                 }
             }
-        }
-
-        private IEnumerator SelectBehavior(int behavior)
-        {
-            return null;
         }
 
         /// <summary>
@@ -148,24 +150,57 @@ namespace Hive.Armada.Enemies
                     projectile.GetComponent<Transform>().Rotate(randX, randY, randZ);
                     projectile.GetComponent<Rigidbody>().velocity =
                         projectile.transform.forward * projectileSpeed;
-
-                    if (canRotate)
-                    {
-                        StartCoroutine(rotateProjectile(projectile));
-                    }
                 }
             }
             yield return new WaitForSeconds(fireRate);
             canShoot = true;
         }
 
-        private IEnumerator rotateProjectile(GameObject bullet)
+        private IEnumerator rotateProjectile(Transform pivot)
         {
             while (true)
             {
-                bullet.GetComponent<Transform>().Rotate(0, 0, 1);
+                pivot.Rotate(0, 0, 1);
                 yield return new WaitForSeconds(0.01f);
             }
+        }
+
+        private IEnumerator SelectBehavior(int behavior)
+        {
+            int time = 10;
+            switch (behavior)
+            {
+                //standard pattern
+                case 0:
+                    SetAttackPattern(AttackPattern.Four);
+                    while (time >= 0)
+                    {
+                        StartCoroutine(Shoot());
+                        yield return new WaitForSeconds(fireRate);
+                        time--;
+                    }
+                    StartCoroutine(SelectBehavior(1));
+                    break;
+
+                case 1:
+                    while (time >= 0)
+                    {
+                        SetAttackPattern(AttackPattern.Two);
+                        StartCoroutine(Shoot());
+                        yield return new WaitForSeconds(0.05f);
+                        //SetAttackPattern(AttackPattern
+                        //yield return new WaitForSeconds(0.2f);
+                        SetAttackPattern(AttackPattern.Four);
+                        StartCoroutine(Shoot());
+                        yield return new WaitForSeconds(0.05f);
+                        SetAttackPattern(AttackPattern.Two);
+                        StartCoroutine(Shoot());
+                        yield return new WaitForSeconds(fireRate);
+                        --time;
+                    }
+                    break;
+            }
+            yield return null;
         }
 
         /// <summary>
@@ -175,17 +210,80 @@ namespace Hive.Armada.Enemies
         /// <param name="mode">Current Enemy Firemode</param>
         public override void SetAttackPattern(AttackPattern attackPattern)
         {
+            int[] myPoints = new int[] { };
             switch ((int)attackPattern)
             {
                 case 0:
-                    fireRate = 1;
+                    fireRate = 0.1f;
                     projectileSpeed = 1.5f;
-                    spread = 1;
-                    for (int i = 0; i < 81; ++i) projectileArray[i] = true;
+                    spread = 0;
+                    StartCoroutine(rotateProjectile(shootPivot));
+                    for (int i = 0; i < 9; ++i)
+                    {
+                        projectileArray[i] = true;
+                        projectileArray[i * 9] = true;
+                        projectileArray[8 + (9*i)] = true;
+                    }
+                    for (int i = 73; i < 81; ++i) projectileArray[i] = true;
                     return;
+
+                case 1:
+                    fireRate = 0.8f;
+                    projectileSpeed = 1.5f;
+                    spread = 0;
+
+                    myPoints = new int[] {
+                        13,
+                        20, 21, 23, 24,
+                        29, 33,
+                        37, 39, 41, 43,
+                        47, 51,
+                        56, 57, 59, 60,
+                        67 };
+
+                    ActivateShootPoints(myPoints, myPoints.Length);
+                    return;
+
+                case 3:
+                    fireRate = 0.8f;
+                    projectileSpeed = 1.5f;
+                    spread = 0;
+
+                    myPoints = new int[] {
+                        4,
+                        11, 12, 14, 15,
+                        19, 20, 22, 24, 25,
+                        28, 34,
+                        36, 38, 42, 44,
+                        46, 52,
+                        55, 56, 58, 60, 61,
+                        65, 66, 68, 69,
+                        76 };
+
+                    ActivateShootPoints(myPoints, myPoints.Length);
+                    return;
+            }
+            Debug.Log(myPoints.Length);
+        }
+
+        private void ResetAttackPattern()
+        {
+            StopCoroutine(rotateProjectile(shootPivot));
+            shootPivot.rotation = transform.rotation;
+            for(int i = 0; i < 81; ++i)
+            {
+                projectileArray[i] = false;
             }
         }
 
+        private void ActivateShootPoints(int[] points, int length)
+        {
+            ResetAttackPattern();
+            for (int i = 0; i < length; ++i)
+            {
+                projectileArray[points[i]] = true;
+            }
+        }
         /// <summary>
         /// Resets attributes to this enemy's defaults from enemyAttributes.
         /// </summary>
@@ -201,7 +299,7 @@ namespace Hive.Armada.Enemies
             //shaking = false;
             //canShoot = true;
 
-            //projectileTypeIdentifier =
+            projectileTypeIdentifier = objectPoolManager.GetTypeIdentifier(projectile);
             //    enemyAttributes.EnemyProjectileTypeIdentifiers[TypeIdentifier];
             //maxHealth = enemyAttributes.enemyHealthValues[TypeIdentifier];
             //Health = maxHealth;

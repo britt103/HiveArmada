@@ -388,6 +388,7 @@ namespace Hive.Armada.Menus
                     if (currLocked[i])
                     {
                         entryButton.transform.Find("Name").gameObject.GetComponent<Text>().text = entryData.lockedName;
+                        entryButton.GetComponent<BoxCollider>().enabled = false;
                     }
                     else
                     {
@@ -415,7 +416,6 @@ namespace Hive.Armada.Menus
             scrollView.SetActive(false);
             entryName.SetActive(true);
             entryText.SetActive(true);
-            informationButton.SetActive(true);
             entryValue = entryId;
 
             foreach(GameObject categoryButton in categoryButtons)
@@ -427,11 +427,13 @@ namespace Hive.Armada.Menus
             {
                 entryName.GetComponent<Text>().text = entryData.lockedName;
                 entryText.GetComponent<Text>().text = entryData.lockedText;
+                informationButton.SetActive(false);
             }
             else
             {
                 entryName.GetComponent<Text>().text = currNames[entryId];
                 entryText.GetComponent<Text>().text = currTexts[entryId];
+                informationButton.SetActive(true);
                 currEntryPrefab = Instantiate(currPrefabs[entryId], entryPrefabPoint);
             }
 

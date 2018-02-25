@@ -187,6 +187,12 @@ namespace Hive.Armada.Menus
 
         private int categoryCounter = 0;
 
+        private int powerupCounter = 0;
+
+        private int enemyCounter = 0;
+
+        private int weaponCounter = 0;
+
         /// <summary>
         /// Reference to the information button used for
         /// playing dialogue about the selected item
@@ -538,12 +544,30 @@ namespace Hive.Armada.Menus
             {
                 case "Powerups":
                     source.PlayOneShot(powerupsAudio[entryValue]);
+                    powerupCounter += 1;
+                    if (powerupCounter > 1)
+                    {
+                        source.Stop();
+                        source.PlayOneShot(powerupsAudio[entryValue]);
+                    }
                     break;
                 case "Enemies":
                     source.PlayOneShot(enemiesAudio[entryValue]);
+                    enemyCounter += 1;
+                    if (enemyCounter > 1)
+                    {
+                        source.Stop();
+                        source.PlayOneShot(enemiesAudio[entryValue]);
+                    }
                     break;
                 case "Weapons":
                     source.PlayOneShot(weaponsAudio[entryValue]);
+                    weaponCounter += 1;
+                    if (weaponCounter > 1)
+                    {
+                        source.Stop();
+                        source.PlayOneShot(weaponsAudio[entryValue]);
+                    }
                     break;
                 default:
                     Debug.Log("ERROR: the category is not defined");

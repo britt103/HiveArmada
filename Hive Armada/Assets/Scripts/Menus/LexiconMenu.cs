@@ -15,6 +15,7 @@
 
 using System.IO;
 using System.Linq;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -540,34 +541,93 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void Information()
         {
-            switch(entryCategory)
+            StartCoroutine(InformationAudio());
+            //switch(entryCategory)
+            //{
+            //    case "Powerups":
+            //        source.PlayOneShot(powerupsAudio[entryValue]);
+            //        powerupCounter += 1;
+            //        if (powerupCounter > 1)
+            //        {
+            //            source.Stop();
+            //            source.PlayOneShot(powerupsAudio[entryValue]);
+            //        }
+            //        break;
+            //    case "Enemies":
+            //        source.PlayOneShot(enemiesAudio[entryValue]);
+            //        enemyCounter += 1;
+            //        if (enemyCounter > 1)
+            //        {
+            //            source.Stop();
+            //            source.PlayOneShot(enemiesAudio[entryValue]);
+            //        }
+            //        break;
+            //    case "Weapons":
+            //        source.PlayOneShot(weaponsAudio[entryValue]);
+            //        weaponCounter += 1;
+            //        if (weaponCounter > 1)
+            //        {
+            //            source.Stop();
+            //            source.PlayOneShot(weaponsAudio[entryValue]);
+            //        }
+            //        break;
+            //    default:
+            //        Debug.Log("ERROR: the category is not defined");
+            //        break;
+            //}
+        }
+
+        IEnumerator InformationAudio()
+        {
+            switch (entryCategory)
             {
                 case "Powerups":
-                    source.PlayOneShot(powerupsAudio[entryValue]);
-                    powerupCounter += 1;
-                    if (powerupCounter > 1)
+                    if (source.isPlaying)
                     {
-                        source.Stop();
+                        yield return new WaitWhile(() => source.isPlaying);
+                    }
+                    else
+                    {
                         source.PlayOneShot(powerupsAudio[entryValue]);
                     }
+                    //powerupCounter += 1;
+                    //if (powerupCounter > 1)
+                    //{
+                    //    source.Stop();
+                    //    source.PlayOneShot(powerupsAudio[entryValue]);
+                    //}
                     break;
                 case "Enemies":
-                    source.PlayOneShot(enemiesAudio[entryValue]);
-                    enemyCounter += 1;
-                    if (enemyCounter > 1)
+                    if (source.isPlaying)
                     {
-                        source.Stop();
+                        yield return new WaitWhile(() => source.isPlaying);
+                    }
+                    else
+                    {
                         source.PlayOneShot(enemiesAudio[entryValue]);
                     }
+                    //enemyCounter += 1;
+                    //if (enemyCounter > 1)
+                    //{
+                    //    source.Stop();
+                    //    source.PlayOneShot(enemiesAudio[entryValue]);
+                    //}
                     break;
                 case "Weapons":
-                    source.PlayOneShot(weaponsAudio[entryValue]);
-                    weaponCounter += 1;
-                    if (weaponCounter > 1)
+                    if (source.isPlaying)
                     {
-                        source.Stop();
+                        yield return new WaitWhile(() => source.isPlaying);
+                    }
+                    else
+                    {
                         source.PlayOneShot(weaponsAudio[entryValue]);
                     }
+                    //weaponCounter += 1;
+                    //if (weaponCounter > 1)
+                    //{
+                    //    source.Stop();
+                    //    source.PlayOneShot(weaponsAudio[entryValue]);
+                    //}
                     break;
                 default:
                     Debug.Log("ERROR: the category is not defined");

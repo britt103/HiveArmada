@@ -129,7 +129,7 @@ namespace Hive.Armada.Player
                 return;
             }
 
-            if (!other.CompareTag("bullet") && !other.CompareTag("Enemy"))
+            if (!other.CompareTag("Projectile") && !other.CompareTag("Enemy"))
             {
                 return;
             }

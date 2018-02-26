@@ -180,27 +180,15 @@ namespace Hive.Armada.Enemies
         /// </summary>
         protected override void Reset()
         {
-            // reset materials
-            for (int i = 0; i < renderers.Count; ++i)
-            {
-                renderers.ElementAt(i).material = materials.ElementAt(i);
-            }
-
-            hitFlash = null;
-            shaking = false;
+            base.Reset();
+            
             canShoot = true;
-
             projectileTypeIdentifier =
                 enemyAttributes.EnemyProjectileTypeIdentifiers[TypeIdentifier];
-            maxHealth = enemyAttributes.enemyHealthValues[TypeIdentifier];
-            Health = maxHealth;
             fireRate = enemyAttributes.enemyFireRate[TypeIdentifier];
             projectileSpeed = enemyAttributes.projectileSpeed;
             spread = enemyAttributes.enemySpread[TypeIdentifier];
-            pointValue = enemyAttributes.enemyScoreValues[TypeIdentifier];
-            selfDestructTime = enemyAttributes.enemySelfDestructTimes[TypeIdentifier];
             spawnEmitter = enemyAttributes.enemySpawnEmitters[TypeIdentifier];
-            deathEmitter = enemyAttributes.enemyDeathEmitters[TypeIdentifier];
 
             if (!isInitialized)
             {
@@ -210,8 +198,6 @@ namespace Hive.Armada.Enemies
                                                             transform.position,
                                                             transform.rotation, transform);
                 spawnEmitterSystem = spawnEmitterObject.GetComponent<ParticleSystems>();
-
-                deathEmitterTypeIdentifier = objectPoolManager.GetTypeIdentifier(deathEmitter);
             }
         }
     }

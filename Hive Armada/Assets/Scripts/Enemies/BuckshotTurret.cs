@@ -154,8 +154,7 @@ namespace Hive.Armada.Enemies
         protected override void OnPathingComplete()
         {
             Hover();
-
-            pathingComplete = true;
+            base.OnPathingComplete();
         }
 
         /// <summary>
@@ -193,32 +192,13 @@ namespace Hive.Armada.Enemies
 
         protected override void Reset()
         {
-            // reset materials
-            for (int i = 0; i < renderers.Count; ++i)
-            {
-                renderers.ElementAt(i).material = materials.ElementAt(i);
-            }
-
-            pathingComplete = false;
-            hitFlash = null;
-            shaking = false;
+            base.Reset();
 
             projectileTypeIdentifier =
                 enemyAttributes.EnemyProjectileTypeIdentifiers[TypeIdentifier];
-            maxHealth = enemyAttributes.enemyHealthValues[TypeIdentifier];
-            Health = maxHealth;
             fireRate = enemyAttributes.enemyFireRate[TypeIdentifier];
             fireSpeed = enemyAttributes.projectileSpeed;
             fireCone = enemyAttributes.enemySpread[TypeIdentifier];
-            pointValue = enemyAttributes.enemyScoreValues[TypeIdentifier];
-            selfDestructTime = enemyAttributes.enemySelfDestructTimes[TypeIdentifier];
-            deathEmitter = enemyAttributes.enemyDeathEmitters[TypeIdentifier];
-
-            if (!isInitialized)
-            {
-                isInitialized = true;
-                deathEmitterTypeIdentifier = objectPoolManager.GetTypeIdentifier(deathEmitter);
-            }
         }
     }
 }

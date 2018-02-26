@@ -6,23 +6,23 @@
 // CPSC-440-01, CPSC-340-01 & CPSC-344-01
 // Group Project
 //
-// [DESCRIPTION]
+// This class defines a multi-use rocket. This rocket is designed to be used
+// with the player rocket pod weapon, ally power-up, and area bomb power-up.
 //
 //=============================================================================
 
 using System;
 using System.Collections;
-using System.Collections.Generic;
+using UnityEngine;
 using Hive.Armada.Enemies;
 using Hive.Armada.Game;
-using UnityEngine;
-using Valve.VR.InteractionSystem;
 using Random = UnityEngine.Random;
+using Valve.VR.InteractionSystem;
 
 namespace Hive.Armada.Player.Weapons
 {
     /// <summary>
-    /// The rockets launched by the rocket pod weapon.
+    /// Multi-use rocket. Used by player rocket pod weapon, ally power-up, and area bomb power-up.
     /// </summary>
     public class Rocket : Poolable
     {
@@ -118,11 +118,6 @@ namespace Hive.Armada.Player.Weapons
         private float explosiveRadius;
 
         /// <summary>
-        /// How much damage to deal in the area of effect.
-        /// </summary>
-        private float explosiveDamage;
-
-        /// <summary>
         /// Time between random rocket movements.
         /// </summary>
         private float randomTime;
@@ -198,51 +193,6 @@ namespace Hive.Armada.Player.Weapons
         }
 
         /// <summary>
-        /// Moves the rocket toward its target.
-        /// </summary>
-        private void Update()
-        {
-            if (isHoming)
-            {
-                if (target == null || !target.activeSelf ||
-                    targetPoolableScript != null && targetPoolableScript.IsActive == false)
-                {
-                    if ((behaviorFlags & RocketFlags.AutoTarget) == 0)
-                    {
-                        target = null;
-                        isHoming = false;
-                        isTargetDead = true;
-                    }
-                    else
-                    {
-                        //todo add coroutine to find new target
-                        AquireTarget();
-                    }
-                }
-                else if (isTargetDead)
-                {
-                    targetPosition = target.transform.position;
-                }
-            }
-
-            if (isTargetDead)
-            {
-                if (Vector3.Distance(transform.position, targetPosition) < 0.4f)
-                {
-                    Explode();
-                }
-            }
-
-            transform.Translate(0.0f, 0.0f, speed * Time.deltaTime, Space.Self);
-            transform.Translate(randomMovement);
-
-            Vector3 relativePosition = targetPosition - transform.position;
-            Quaternion rotation = Quaternion.LookRotation(relativePosition);
-            transform.rotation =
-                Quaternion.Slerp(transform.rotation, rotation, homingSensitivity);
-        }
-
-        /// <summary>
         /// Initializes the rocket and its attributes.
         /// </summary>
         /// <param name="rocketType"> The index for the rocket's attributes </param>
@@ -275,7 +225,6 @@ namespace Hive.Armada.Player.Weapons
             homingSensitivity = rocketAttributes.rockets[rocketType].homingSensitivity;
             explodeTime = rocketAttributes.rockets[rocketType].explodeTime;
             explosiveRadius = rocketAttributes.rockets[rocketType].explosiveRadius;
-            explosiveDamage = rocketAttributes.rockets[rocketType].explosiveDamage;
             randomTime = rocketAttributes.rockets[rocketType].randomTime;
             randomX = rocketAttributes.rockets[rocketType].randomX;
             randomY = rocketAttributes.rockets[rocketType].randomY;
@@ -289,12 +238,65 @@ namespace Hive.Armada.Player.Weapons
                                          0.0f),
                     new GradientColorKey(rocketAttributes.rockets[rocketType].trailColor,
                                          1.0f)
-                }, new[] {new GradientAlphaKey(1.0f, 0.0f), new GradientAlphaKey(1.0f, 1.0f)});
+                }, new[] { new GradientAlphaKey(1.0f, 0.0f), new GradientAlphaKey(1.0f, 1.0f) });
             trailRenderer.colorGradient = gradient;
             trailRenderer.startWidth = rocketAttributes.rockets[rocketType].trailWidth;
             trailRenderer.endWidth = rocketAttributes.rockets[rocketType].trailWidth;
 
             explosionEmitterId = rocketAttributes.RocketExplosionEmitterIds[rocketType];
+        }
+
+        /// <summary>
+        /// Sets the damage multiplier for the rocket.
+        /// </summary>
+        /// <param name="multiplier"> The damage multiplier </param>
+        public void SetDamageMultiplier(int multiplier)
+        {
+            damageMultiplier = multiplier;
+        }
+
+        /// <summary>
+        /// Moves the rocket toward its target.
+        /// </summary>
+        private void Update()
+        {
+            if (isHoming)
+            {
+                if (target == null || !target.activeSelf ||
+                    targetPoolableScript != null && targetPoolableScript.IsActive == false)
+                {
+                    if ((behaviorFlags & RocketFlags.AutoTarget) == 0)
+                    {
+                        target = null;
+                        isHoming = false;
+                        isTargetDead = true;
+                    }
+                    else
+                    {
+                        AquireTarget();
+                    }
+                }
+                else if (!isTargetDead)
+                {
+                    targetPosition = target.transform.position;
+                }
+            }
+
+            if (isTargetDead)
+            {
+                if (Vector3.Distance(transform.position, targetPosition) < 0.4f)
+                {
+                    Explode();
+                }
+            }
+
+            transform.Translate(0.0f, 0.0f, speed * Time.deltaTime, Space.Self);
+            transform.Translate(randomMovement);
+
+            Vector3 relativePosition = targetPosition - transform.position;
+            Quaternion rotation = Quaternion.LookRotation(relativePosition);
+            transform.rotation =
+                Quaternion.Slerp(transform.rotation, rotation, homingSensitivity);
         }
 
         /// <summary>
@@ -338,21 +340,10 @@ namespace Hive.Armada.Player.Weapons
         }
 
         /// <summary>
-        /// Sets the damage multiplier for the rocket.
-        /// </summary>
-        /// <param name="multiplier"> The damage multiplier </param>
-        public void SetDamageMultiplier(int multiplier)
-        {
-            damageMultiplier = multiplier;
-        }
-
-        /// <summary>
         /// Finds the nearest enemy and targets it.
         /// </summary>
-        /// <returns> If successfully acquired target </returns>
-        private bool AquireTarget()
+        private void AquireTarget()
         {
-            bool result = false;
             Collider[] colliders = Physics.OverlapSphere(transform.position, explosiveRadius,
                                                          Utility.enemyMask,
                                                          QueryTriggerInteraction.Collide);
@@ -375,10 +366,54 @@ namespace Hive.Armada.Player.Weapons
             {
                 target = colliders[closestIndex].gameObject;
                 isHoming = true;
-                result = true;
             }
+        }
 
-            return result;
+        /// <summary>
+        /// Explodes the rocket if it hits the room or an enemy.
+        /// </summary>
+        /// <param name="other"> The other collider </param>
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag("Enemy"))
+            {
+                explosionTarget = other.gameObject;
+                other.GetComponent<Enemy>().Hit(damage * damageMultiplier);
+                if ((behaviorFlags & RocketFlags.HapticFeedback) != 0)
+                {
+                    shipController.hand.controller.TriggerHapticPulse(2500);
+                }
+                Explode();
+            }
+            else if (other.CompareTag("Room"))
+            {
+                Explode();
+            }
+        }
+
+        /// <summary>
+        /// Generates the random movement for the rocket.
+        /// </summary>
+        private IEnumerator RandomMovement()
+        {
+            while (true)
+            {
+                yield return new WaitForSeconds(randomTime);
+
+                randomMovement = new Vector3(Random.Range(-randomX, randomX),
+                                             Random.Range(-randomY, randomY),
+                                             Random.Range(0, randomZ));
+            }
+        }
+
+        /// <summary>
+        /// Explodes the rocket after a set amount of time.
+        /// </summary>
+        private IEnumerator SelfDestruct()
+        {
+            yield return new WaitForSeconds(explodeTime);
+
+            Explode();
         }
 
         /// <summary>
@@ -404,7 +439,16 @@ namespace Hive.Armada.Player.Weapons
         /// </summary>
         private void ExplosiveDamage()
         {
-            //TODO implement aoe damage
+            Collider[] colliders =
+                Physics.OverlapSphere(transform.position, explosiveRadius, Utility.enemyMask);
+
+            foreach (Collider enemy in colliders)
+            {
+                if (enemy.gameObject.GetInstanceID() != explosionTarget.GetInstanceID())
+                {
+                    enemy.gameObject.SendMessage("Hit", damage, SendMessageOptions.DontRequireReceiver);
+                }
+            }
         }
 
         /// <summary>
@@ -417,65 +461,6 @@ namespace Hive.Armada.Player.Weapons
             explosionTarget = null;
 
             base.Deactivate();
-        }
-
-        /// <summary>
-        /// Explodes the rocket if it hits the room or an enemy.
-        /// </summary>
-        /// <param name="other"> The other collider </param>
-        private void OnTriggerEnter(Collider other)
-        {
-            if (other.CompareTag("Enemy"))
-            {
-                explosionTarget = other.gameObject;
-                other.GetComponent<Enemy>().Hit(damage * damageMultiplier);
-                if ((behaviorFlags & RocketFlags.HapticFeedback) != 0)
-                {
-                    shipController.hand.controller.TriggerHapticPulse(2500);
-                }
-                Explode();
-            }
-            else if (other.CompareTag("Room"))
-            {
-                Explode();
-            }
-        }
-
-        ///// <summary>
-        ///// Damages the enemy that was hit and sends haptic feedback to the controller.
-        ///// </summary>
-        ///// <param name="enemy"> </param>
-        //private void HitEnemy(Collider enemy)
-        //{
-        //    explosionTarget = enemy.gameObject;
-        //    enemy.GetComponent<Enemy>().Hit(damage);
-        //    shipController.hand.controller.TriggerHapticPulse(2500);
-        //    Explode();
-        //}
-
-        /// <summary>
-        /// Generates the random movement for the rocket.
-        /// </summary>
-        private IEnumerator RandomMovement()
-        {
-            while (true)
-            {
-                yield return new WaitForSeconds(randomTime);
-
-                randomMovement = new Vector3(Random.Range(-randomX, randomX),
-                                             Random.Range(-randomY, randomY),
-                                             Random.Range(0, randomZ));
-            }
-        }
-
-        /// <summary>
-        /// Explodes the rocket after a set amount of time.
-        /// </summary>
-        private IEnumerator SelfDestruct()
-        {
-            yield return new WaitForSeconds(explodeTime);
-
-            Explode();
         }
 
         /// <summary>

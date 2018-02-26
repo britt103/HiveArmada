@@ -11,6 +11,8 @@
 //
 //=============================================================================
 
+using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using Hive.Armada.Game;
@@ -128,12 +130,12 @@ namespace Hive.Armada.Menus
             if (weaponNum != selectedWeapon)
             {
                 source.PlayOneShot(clips[0]);
-                weaponCount += 1;
-                if (weaponCount > 1)
-                {
-                    source.Stop();
-                    source.PlayOneShot(clips[0]);
-                }
+                //weaponCount += 1;
+                //if (weaponCount > 1)
+                //{
+                //    source.Stop();
+                //    source.PlayOneShot(clips[0]);
+                //}
                 weaponButtons[selectedWeapon].GetComponent<UIHover>().EndSelect();
                 selectedWeapon = weaponNum;
             }
@@ -147,11 +149,11 @@ namespace Hive.Armada.Menus
         {
             source.PlayOneShot(clips[1]);
             backCount += 1;
-            if (backCount > 1)
-            {
-                source.Stop();
-                source.PlayOneShot(clips[1]);
-            }
+            //if (backCount > 1)
+            //{
+            //    source.Stop();
+            //    source.PlayOneShot(clips[1]);
+            //}
             transitionManager.Transition(backMenuGO);
         }
 
@@ -162,14 +164,22 @@ namespace Hive.Armada.Menus
         {
             shipLoadout.weapon = selectedWeapon;
             source.PlayOneShot(clips[0]);
-            playCount += 1;
-            if (playCount > 1)
-            {
-                source.Stop();
-                source.PlayOneShot(clips[0]);
-            }
+            //StartCoroutine(pressPlaySound());
+            //playCount += 1;
+            //if (playCount > 1)
+            //{
+            //    source.Stop();
+            //    source.PlayOneShot(clips[0]);
+            //}
             reference.sceneTransitionManager.TransitionOut("Wave Room");
             gameObject.SetActive(false);
         }
+
+        //private IEnumerator pressPlaySound()
+        //{
+        //    source.PlayOneShot(clips[0]);
+        //    yield return new WaitForSeconds(0.5f);
+        //    source.PlayOneShot(clips[2]);
+        //}
     }
 }

@@ -45,6 +45,8 @@ namespace Hive.Armada.Menus
         /// </summary>
     	public AudioClip[] clips;
 
+        public AudioClip[] startClips;
+
         /// <summary>
         /// Variables used as a check to make sure audio
         /// doesn't play over itself
@@ -52,6 +54,12 @@ namespace Hive.Armada.Menus
         private int startCounter = 0;
 
         private int optionsCounter = 0;
+
+        void OnAwake()
+        {
+            int randNum = Random.Range(1, startClips.Length);
+            source.PlayOneShot(startClips[randNum]);
+        }
 
         /// <summary>
         /// Start button pressed. Navigate to Start Menu.

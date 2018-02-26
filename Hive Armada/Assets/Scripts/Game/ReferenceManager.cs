@@ -52,6 +52,8 @@ namespace Hive.Armada.Game
 
         public IridiumSpawner iridiumSpawner;
 
+        public RocketAttributes rocketAttributes;
+
         //----------------------------------------
         // 
         // Player
@@ -128,24 +130,29 @@ namespace Hive.Armada.Game
         /// </summary>
         private void Awake()
         {
-            if (enemyAttributes)
+            if (enemyAttributes != null)
             {
                 enemyAttributes.Initialize();
             }
 
-            if (objectPoolManager)
+            if (objectPoolManager != null)
             {
                 objectPoolManager.Initialize();
             }
 
-            if (!statistics)
+            if (statistics == null)
             {
                 statistics = FindObjectOfType<PlayerStats>();
             }
 
-            if (!optionsValues)
+            if (optionsValues == null)
             {
                 optionsValues = FindObjectOfType<OptionsValues>();
+            }
+
+            if (rocketAttributes != null)
+            {
+                rocketAttributes.Initialize();
             }
         }
     }

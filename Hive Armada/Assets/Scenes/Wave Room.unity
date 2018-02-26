@@ -12372,7 +12372,10 @@ MonoBehaviour:
     amountToPool: 10
   - objectPrefab: {fileID: 1577835415642778, guid: 12352e24291685e4592fdef29cf51957,
       type: 2}
-    amountToPool: 20
+    amountToPool: 50
+  - objectPrefab: {fileID: 1101561360092930, guid: aeca747fcabc6ca4189b8bf812ff586c,
+      type: 2}
+    amountToPool: 50
 --- !u!4 &898325482
 Transform:
   m_ObjectHideFlags: 0
@@ -12414,7 +12417,7 @@ Transform:
   m_Children:
   - {fileID: 2010568140}
   m_Father: {fileID: 421848038}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &902762742
 MonoBehaviour:
@@ -34876,6 +34879,93 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1511534824}
   m_Mesh: {fileID: 4300128, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
+--- !u!1 &1533610575
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1533610576}
+  - component: {fileID: 1533610577}
+  m_Layer: 0
+  m_Name: Rocket Attributes
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1533610576
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1533610575}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2047074951}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1533610577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1533610575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69b8af92f2f02c44c9fe7c18db5cef02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  reference: {fileID: 0}
+  rockets:
+  - rocketType: 0
+    behaviorFlags: 1
+    damage: 30
+    speed: 2
+    homingSensitivity: 0.1
+    explodeTime: 5
+    explosiveRadius: 0
+    explosiveDamage: 0
+    randomTime: 0.2
+    randomX: 0.005
+    randomY: 0.005
+    randomZ: 0.005
+    trailColor: {r: 1, g: 1, b: 1, a: 1}
+    trailWidth: 0.007
+    explosionEmitterPrefab: {fileID: 0}
+  - rocketType: 1
+    behaviorFlags: 0
+    damage: 30
+    speed: 2
+    homingSensitivity: 0.1
+    explodeTime: 5
+    explosiveRadius: 0
+    explosiveDamage: 0
+    randomTime: 0.2
+    randomX: 0.005
+    randomY: 0.005
+    randomZ: 0.005
+    trailColor: {r: 1, g: 1, b: 1, a: 1}
+    trailWidth: 0.007
+    explosionEmitterPrefab: {fileID: 0}
+  - rocketType: 2
+    behaviorFlags: 14
+    damage: 250
+    speed: 2
+    homingSensitivity: 0.5
+    explodeTime: 8
+    explosiveRadius: 3
+    explosiveDamage: 1
+    randomTime: 0.2
+    randomX: 0.001
+    randomY: 0.001
+    randomZ: 0.001
+    trailColor: {r: 1, g: 0.63985807, b: 0.2205882, a: 1}
+    trailWidth: 0.01
+    explosionEmitterPrefab: {fileID: 0}
 --- !u!1 &1535253964
 GameObject:
   m_ObjectHideFlags: 0
@@ -49419,6 +49509,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1351179624}
+  - {fileID: 1533610576}
   m_Father: {fileID: 421848038}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -49443,6 +49534,7 @@ MonoBehaviour:
   optionsValues: {fileID: 1923599318}
   playerIdleTimer: {fileID: 2052364200}
   iridiumSpawner: {fileID: 902762742}
+  rocketAttributes: {fileID: 1533610577}
   player: {fileID: 2052364198}
   playerShip: {fileID: 0}
   shipPickup: {fileID: 1176633369}

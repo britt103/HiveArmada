@@ -136,8 +136,8 @@ namespace Hive.Armada.Player.Weapons
         {
             canShoot = false;
 
-            //reference.statistics.IsFiring();
-            //reference.statistics.WeaponFired("RocketPod", 1);
+            reference.statistics.IsFiring();
+            reference.statistics.WeaponFired("Rocket Pods", 1);
             reference.playerIdleTimer.SetIsIdle(false);
 
             barrelIndex = 0;
@@ -166,7 +166,7 @@ namespace Hive.Armada.Player.Weapons
 
             canShoot = true;
 
-            //reference.statistics.IsNotFiring();
+            reference.statistics.IsNotFiring();
             reference.playerIdleTimer.SetIsIdle(true);
         }
     }

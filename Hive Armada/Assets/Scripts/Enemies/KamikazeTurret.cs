@@ -171,28 +171,10 @@ namespace Hive.Armada.Enemies
         /// </summary>
         protected override void Reset()
         {
-            // reset materials
-            for (int i = 0; i < renderers.Count; ++i)
-            {
-                renderers.ElementAt(i).material = materials.ElementAt(i);
-            }
+            base.Reset();
 
-            pathingComplete = false;
-            hitFlash = null;
-            shaking = false;
             inRange = false;
-
-            maxHealth = enemyAttributes.enemyHealthValues[TypeIdentifier];
-            Health = maxHealth;
-            pointValue = enemyAttributes.enemyScoreValues[TypeIdentifier];
-            deathEmitter = enemyAttributes.enemyDeathEmitters[TypeIdentifier];
             damage = enemyAttributes.projectileDamage;
-
-            if (!isInitialized)
-            {
-                isInitialized = true;
-                deathEmitterTypeIdentifier = objectPoolManager.GetTypeIdentifier(deathEmitter);
-            }
         }
     }
 }

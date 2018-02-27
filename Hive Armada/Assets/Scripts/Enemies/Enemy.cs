@@ -241,7 +241,6 @@ namespace Hive.Armada.Enemies
         /// </summary>
         protected virtual void Kill()
         {
-            KillSpecial();
             wave.EnemyDead();
             reference.scoringSystem.ComboIn(pointValue, transform);
             reference.statistics.EnemyKilled();
@@ -250,12 +249,6 @@ namespace Hive.Armada.Enemies
                                     transform.rotation);
             objectPoolManager.Despawn(gameObject);
         }
-
-        /// <summary>
-        /// Enemies can override this if they have any special
-        /// functionality that happens when they are killed.
-        /// </summary>
-        protected virtual void KillSpecial() { }
 
         /// <summary>
         /// Tells the subwave to respawn this enemy.
@@ -325,6 +318,27 @@ namespace Hive.Armada.Enemies
             {
                 SelfDestruct();
             }
+        }
+
+        /// <summary>
+        /// Resets attributes to this enemy's defaults from enemyAttributes.
+        /// </summary>
+        protected override void Reset()
+        {
+            // reset materials
+            for (int i = 0; i < renderers.Count; ++i)
+            {
+                renderers.ElementAt(i).material = materials.ElementAt(i);
+            }
+
+            pathingComplete = false;
+            hitFlash = null;
+            shaking = false;
+            maxHealth = enemyAttributes.enemyHealthValues[TypeIdentifier];
+            Health = maxHealth;
+            pointValue = enemyAttributes.enemyScoreValues[TypeIdentifier];
+            selfDestructTime = enemyAttributes.enemySelfDestructTimes[TypeIdentifier];
+            deathEmitterTypeIdentifier = enemyAttributes.EnemyDeathEmitterTypeIds[TypeIdentifier];
         }
     }
 }

@@ -86,6 +86,11 @@ namespace Hive.Armada.Game
         public GameObject[] enemyDeathEmitters;
 
         /// <summary>
+        /// Type Ids for the enemy death particle emitters.
+        /// </summary>
+        public int[] EnemyDeathEmitterTypeIds { get; private set; }
+
+        /// <summary>
         /// Damage that the enemy projectiles deal.
         /// </summary>
         [Header("Projectile - General")]
@@ -119,6 +124,21 @@ namespace Hive.Armada.Game
                         EnemyProjectileTypeIdentifiers[i] = j;
                         break;
                     }
+                }
+            }
+
+            EnemyDeathEmitterTypeIds = new int[enemyDeathEmitters.Length];
+
+            for (int i = 0; i < enemyDeathEmitters.Length; ++i)
+            {
+                if (enemyDeathEmitters[i] != null)
+                {
+                    EnemyDeathEmitterTypeIds[i] =
+                        reference.objectPoolManager.GetTypeIdentifier(enemyDeathEmitters[i]);
+                }
+                else
+                {
+                    EnemyDeathEmitterTypeIds[i] = -1;
                 }
             }
         }

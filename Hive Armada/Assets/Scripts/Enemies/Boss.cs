@@ -335,8 +335,8 @@ namespace Hive.Armada.Enemies
 
             projectileTypeIdentifier = objectPoolManager.GetTypeIdentifier(projectile);
             //    enemyAttributes.EnemyProjectileTypeIdentifiers[TypeIdentifier];
-            //maxHealth = enemyAttributes.enemyHealthValues[TypeIdentifier];
-            //Health = maxHealth;
+            maxHealth = 700;
+            Health = maxHealth;
             //fireRate = enemyAttributes.enemyFireRate[TypeIdentifier];
             //projectileSpeed = enemyAttributes.projectileSpeed;
             //spread = enemyAttributes.enemySpread[TypeIdentifier];

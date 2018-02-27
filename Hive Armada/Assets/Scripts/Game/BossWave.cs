@@ -48,7 +48,9 @@ namespace Hive.Armada.Game
         /// <summary>
         /// The boss enemy.
         /// </summary>
-        public GameObject boss;
+        public GameObject bossPrefab;
+
+        private GameObject boss;
 
         /// <summary>
         /// Reference for boss paths
@@ -66,8 +68,8 @@ namespace Hive.Armada.Game
             reference = GameObject.Find("Reference Manager").GetComponent<ReferenceManager>();
             waveManager = reference.waveManager;
             bossSpawn = GameObject.Find("BossSpawn");
-            bossHealth = boss.GetComponent<Enemy>().Health;
-            Instantiate(boss, bossSpawn.transform);
+            bossHealth = bossPrefab.GetComponent<Enemy>().Health;
+            boss = Instantiate(bossPrefab, bossSpawn.transform);
             boss.SetActive(false);
         }
 

@@ -22,6 +22,8 @@ namespace Hive.Armada
         /// </summary>
         public static bool isDebug = true;
 
+        public static LayerMask defaultMask = LayerMask.GetMask("Default");
+
         /// <summary>
         /// Layer mask for the Enemy layer
         /// </summary>

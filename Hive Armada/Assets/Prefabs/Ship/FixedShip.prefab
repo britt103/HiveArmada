@@ -6374,15 +6374,15 @@ MonoBehaviour:
   currentWeapon: 0
   hand: {fileID: 0}
   weapons:
-  - weapon: {fileID: 114739049526032148}
-    damage: 30
-    fireRate: 3
   - weapon: {fileID: 114162874286398668}
     damage: 8
     fireRate: 10
   - weapon: {fileID: 114409586814718092}
     damage: 5
     fireRate: 25
+  - weapon: {fileID: 114739049526032148}
+    damage: 30
+    fireRate: 3
   source: {fileID: 82884209245115158}
 --- !u!114 &114409586814718092
 MonoBehaviour:
@@ -6418,6 +6418,12 @@ MonoBehaviour:
   - {fileID: 1971773462685474}
   - {fileID: 1571404607607304}
   - {fileID: 1936049077635490}
+  overheatMax: 100
+  overheatPerShot: 0.5
+  overheatDecreaseAmount: 6.67
+  overheatDecreaseTickLength: 0.1
+  overheatDecreaseDelay: 0.33
+  overheatCoolDown: 3
   hitSparkEmitter: {fileID: 1514411477096268, guid: 428589331263e1649baa33bed534c884,
     type: 2}
   muzzleFlashEmitter: {fileID: 1585948764433870, guid: bb8ae17bb63b15b4f8db2ec1c45e51fa,
@@ -6494,8 +6500,7 @@ MonoBehaviour:
   radius: 0.3
   rocketPrefab: {fileID: 1101561360092930, guid: aeca747fcabc6ca4189b8bf812ff586c,
     type: 2}
-  rocketParentPrefab: {fileID: 1863223209720578, guid: 1843794a394e58641ab13ce356f29cc2,
-    type: 2}
+  rocketType: 0
   barrels:
   - {fileID: 4515915060593930}
   - {fileID: 4543163395793076}
@@ -6508,7 +6513,6 @@ MonoBehaviour:
   - {fileID: 4494333886139790}
   - {fileID: 4280591822332094}
   burstAmount: 6
-  rocketPoolCount: 60
   rocketLaunchEmitter: {fileID: 0}
   rocketExplosionEmitter: {fileID: 0}
   source: {fileID: 0}

@@ -129,6 +129,11 @@ namespace Hive.Armada.Player
                 return;
             }
 
+            if (!other.CompareTag("Projectile") && !other.CompareTag("Enemy"))
+            {
+                return;
+            }
+
             if (kamikaze)
             {
                 kamikaze.Hit(1000);

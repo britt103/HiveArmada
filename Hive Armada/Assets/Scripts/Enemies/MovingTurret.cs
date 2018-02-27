@@ -30,7 +30,7 @@ namespace Hive.Armada.Enemies
         /// <summary>
         /// The point where this enemy shoots from.
         /// </summary>
-        public Transform shootPoint;
+        public Transform[] shootPoint;
 
         /// <summary>
         /// How many time per second this enemy can shoot.
@@ -46,7 +46,7 @@ namespace Hive.Armada.Enemies
         /// Structure holding bullet prefabs that
         /// the enemy will shoot
         /// </summary>
-        public GameObject[] projectileArray;
+        public bool[] projectileArray;
 
         /// <summary>
         /// Projectile that the turret shoots out
@@ -176,26 +176,27 @@ namespace Hive.Armada.Enemies
         {
             canShoot = false;
 
-            GameObject projectile =
-                objectPoolManager.Spawn(projectileTypeIdentifier, shootPoint.position,
-                                        shootPoint.rotation);
-
-            projectile.GetComponent<Transform>().Rotate(Random.Range(-spread, spread),
-                                                        Random.Range(-spread, spread),
-                                                        Random.Range(-spread, spread));
-
-            projectile.GetComponent<Rigidbody>().velocity =
-                projectile.transform.forward * projectileSpeed;
-
-            if (canRotate)
+            for (int point = 0; point < 9; ++point)
             {
-                StartCoroutine(rotateProjectile(projectile));
+                if (projectileArray[point] == true)
+                {
+                    GameObject projectile = objectPoolManager.Spawn(projectileTypeIdentifier, shootPoint[point].position,
+                                                       shootPoint[point].rotation);
+                    
+                    projectile.GetComponent<Transform>().Rotate(Random.Range(-spread, spread), 
+                        Random.Range(-spread, spread),
+                        Random.Range(-spread, spread));
+                    projectile.GetComponent<Rigidbody>().velocity =
+                        projectile.transform.forward * projectileSpeed;
+
+                    if (canRotate)
+                    {
+                        StartCoroutine(rotateProjectile(projectile));
+                    }
+                }
             }
-
             yield return new WaitForSeconds(fireRate);
-
             canShoot = true;
-
         }
 
         private IEnumerator rotateProjectile(GameObject bullet)
@@ -212,22 +213,41 @@ namespace Hive.Armada.Enemies
         /// spread, and projectile speed.
         /// </summary>
         /// <param name="mode">Current Enemy Firemode</param>
-        private void switchFireMode(int mode)
+        public override void SetAttackPattern(AttackPattern attackPattern)
         {
-            switch (mode)
+            switch ((int)attackPattern)
             {
-                case 1:
-                    fireRate = 0.6f;
-                    projectileSpeed = 1.5f;
-                    spread = 2;
-                    fireProjectile = projectileArray[0];
-                    break;
-
-                case 2:
-                    fireRate = 0.3f;
+                //standard pattern, single bullets
+                case 0:
+                    fireRate = 0.8f;
                     projectileSpeed = 1.5f;
                     spread = 0;
-                    fireProjectile = projectileArray[1];
+                    //canRotate = false;
+                    projectileArray[0] = true;
+                    projectileArray[1] = true;
+                    projectileArray[2] = false;
+                    projectileArray[3] = false;
+                    projectileArray[4] = true;
+                    projectileArray[5] = false;
+                    projectileArray[6] = true;
+                    projectileArray[7] = false;
+                    projectileArray[8] = false;
+                    break;
+
+                case 1:
+                    fireRate = 0.8f;
+                    projectileSpeed = 1.5f;
+                    spread = 0;
+                    //canRotate = true;
+                    projectileArray[0] = false;
+                    projectileArray[1] = true;
+                    projectileArray[2] = true;
+                    projectileArray[3] = true;
+                    projectileArray[4] = true;
+                    projectileArray[5] = true;
+                    projectileArray[6] = true;
+                    projectileArray[7] = true;
+                    projectileArray[8] = true;
                     break;
             }
         }

@@ -30,12 +30,12 @@ namespace Hive.Armada.Enemies
         /// <summary>
         /// Projectile that the turret shoots out
         /// </summary>
-        public GameObject fireProjectile;
+        //public GameObject fireProjectile;
 
         /// <summary>
         /// Position from which bullets are initially shot from
         /// </summary>
-        public Transform fireSpawn;
+        public Transform shootPoint;
 
         /// <summary>
         /// Variable that finds the player GameObject
@@ -45,7 +45,7 @@ namespace Hive.Armada.Enemies
         /// <summary>
         /// Vector3 that holds the player's position
         /// </summary>
-        private Vector3 pos;
+        //private Vector3 pos;
 
         /// <summary>
         /// How fast the turret shoots at a given rate
@@ -55,29 +55,34 @@ namespace Hive.Armada.Enemies
         /// <summary>
         /// The rate at which enemy projectiles travel
         /// </summary>
-        public float fireSpeed;
+        public float projectileSpeed;
 
         /// <summary>
         /// Size of conical spread the bullets travel within
         /// </summary>
-        public float fireCone;
+        public float spread;
 
         /// <summary>
         /// Number of projectiles that the bullet shoots out at once
         /// </summary>
-        public float firePellet;
+        public float projectileCount;
 
         /// <summary>
         /// Value that calculates the next time at which the enemy is able to shoot again
         /// </summary>
-        private float fireNext;
+        //private float fireNext;
 
+        /// <summary>
+        /// Whether this enemy can shoot or not. Toggles when firing every 1/fireRate seconds.
+        /// </summary>
+        private bool canShoot = true;
+        
         /// <summary>
         /// Spread values determined by fireCone on each axis
         /// </summary>
-        private float randX;
-        private float randY;
-        private float randZ;
+        //private float randX;
+        //private float randY;
+        //private float randZ;
 
         /// <summary>
         /// Variables for hovering
@@ -94,9 +99,10 @@ namespace Hive.Armada.Enemies
         /// </summary>
         private void Start()
         {
-            player = GameObject.FindGameObjectWithTag("Player");
-            pos = new Vector3(player.transform.position.x, player.transform.position.y,
-                player.transform.position.z);
+            //    player = GameObject.FindGameObjectWithTag("Player");
+            //    pos = new Vector3(player.transform.position.x, player.transform.position.y,
+            //        player.transform.position.z);
+            Reset();
         }
 
         /// <summary>
@@ -120,18 +126,15 @@ namespace Hive.Armada.Enemies
                 {
                     lookTarget = reference.playerShip.transform.position;
                 }
-
                 if (lookTarget != Vector3.negativeInfinity)
                 {
                     transform.LookAt(lookTarget);
 
-                    if (Time.time > fireNext)
+                    if (canShoot)
                     {
-                        fireNext = Time.time + fireRate;
-
-                        for (int i = 0; i < firePellet; ++i)
+                        for (int i = 0; i < projectileCount; ++i)
                         {
-                            StartCoroutine(FireBullet());
+                            StartCoroutine(Shoot());
                         }
                     }
                 }
@@ -169,7 +172,6 @@ namespace Hive.Armada.Enemies
             posB = new Vector3(transform.position.x - xMax / 100,
                 transform.position.y - yMax / 100,
                 transform.position.z);
-
             theta = 0.0f;
         }
 
@@ -177,17 +179,24 @@ namespace Hive.Armada.Enemies
         /// Spawn bullets and shoot them in accordance to set spread value
         /// </summary>
         /// <returns></returns>
-        private IEnumerator FireBullet()
+        private IEnumerator Shoot()
         {
-            GameObject shoot = objectPoolManager.Spawn(projectileTypeIdentifier, fireSpawn.position,
-                                        fireSpawn.rotation);
-            randX = Random.Range(-fireCone, fireCone);
-            randY = Random.Range(-fireCone, fireCone);
-            randZ = Random.Range(-fireCone, fireCone);
+            canShoot = false;
+            //Debug.Log("Hi!");
+            GameObject projectile = objectPoolManager.Spawn(projectileTypeIdentifier, shootPoint.position,
+                                        shootPoint.rotation);
+            //randX = Random.Range(-spread, spread);
+            //randY = Random.Range(-spread, spread);
+            //randZ = Random.Range(-spread, spread);
 
-            shoot.GetComponent<Transform>().Rotate(randX, randY, randZ);
-            shoot.GetComponent<Rigidbody>().velocity = shoot.transform.forward * fireSpeed;
-            yield break;
+            projectile.GetComponent<Transform>().Rotate(Random.Range(-spread, spread),
+                                            Random.Range(-spread, spread),
+                                            Random.Range(-spread, spread));
+
+            projectile.GetComponent<Rigidbody>().velocity = projectile.transform.forward * projectileSpeed;
+
+            yield return new WaitForSeconds(fireRate);
+            canShoot = true;
         }
 
         protected override void Reset()
@@ -197,8 +206,8 @@ namespace Hive.Armada.Enemies
             projectileTypeIdentifier =
                 enemyAttributes.EnemyProjectileTypeIdentifiers[TypeIdentifier];
             fireRate = enemyAttributes.enemyFireRate[TypeIdentifier];
-            fireSpeed = enemyAttributes.projectileSpeed;
-            fireCone = enemyAttributes.enemySpread[TypeIdentifier];
+            projectileSpeed = enemyAttributes.projectileSpeed;
+            spread = enemyAttributes.enemySpread[TypeIdentifier];
         }
     }
 }

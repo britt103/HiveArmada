@@ -241,7 +241,6 @@ namespace Hive.Armada.Player.Weapons
         private IEnumerator Shoot(Vector3 position)
         {
             canShoot = false;
-            AddOverheat();
 
             if (!isOverheating)
             {
@@ -259,6 +258,8 @@ namespace Hive.Armada.Player.Weapons
             {
                 Debug.LogError(GetType().Name + " - Shot while overheating.");
             }
+
+            AddOverheat();
 
             GameObject barrel = isLeftFire
                                     ? left[Random.Range(0, left.Length)]

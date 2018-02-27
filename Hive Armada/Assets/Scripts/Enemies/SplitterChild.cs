@@ -48,18 +48,24 @@ namespace Hive.Armada.Enemies
         /// Structure holding bullet prefabs that
         /// the enemy will shoot
         /// </summary>
-        public GameObject[] projectileArray;
+        //public bool[] projectileArray;
 
         /// <summary>
         /// Projectile that the turret shoots out
         /// </summary>
-        public GameObject fireProjectile;
+        //public GameObject fireProjectile;
 
         /// <summary>
         /// Value that determines what projectile the enemy will shoot
         /// as well as its parameters
         /// </summary>
-        private int fireMode;
+        //private int fireMode;
+
+        /// <summary>
+        /// Number of bursts the turret will shoot before going on cooldown
+        /// Leave at 1 for regular fire
+        /// </summary>
+        public int burstFire = 1;
 
         /// <summary>
         /// Degrees that the projectile can be randomly rotated.
@@ -120,24 +126,26 @@ namespace Hive.Armada.Enemies
         {
             canShoot = false;
 
-            GameObject projectile =
-                objectPoolManager.Spawn(projectileTypeIdentifier, shootPoint.position,
-                                        shootPoint.rotation);
-
-            projectile.GetComponent<Transform>().Rotate(Random.Range(-spread, spread),
-                                                        Random.Range(-spread, spread),
-                                                        Random.Range(-spread, spread));
-
-            projectile.GetComponent<Rigidbody>().velocity =
-                projectile.transform.forward * projectileSpeed;
-
-            if (canRotate)
+            for (int x = 0; x < burstFire; x++)
             {
-                StartCoroutine(rotateProjectile(projectile));
+                    GameObject projectile =
+                        objectPoolManager.Spawn(projectileTypeIdentifier, shootPoint.position,
+                                                shootPoint.rotation);
+
+                    projectile.GetComponent<Transform>().Rotate(Random.Range(-spread, spread),
+                                                                Random.Range(-spread, spread),
+                                                                Random.Range(-spread, spread));
+
+                    projectile.GetComponent<Rigidbody>().velocity =
+                        projectile.transform.forward * projectileSpeed;
+
+                    if (canRotate)
+                    {
+                        StartCoroutine(rotateProjectile(projectile));
+                    }
+                yield return new WaitForSeconds(0.1f);
             }
-
             yield return new WaitForSeconds(fireRate);
-
             canShoot = true;
         }
 
@@ -149,30 +157,34 @@ namespace Hive.Armada.Enemies
                 yield return new WaitForSeconds(0.01f);
             }
         }
-
         /// <summary>
         /// Function that determines the enemy's projectile, firerate,
         /// spread, and projectile speed.
         /// </summary>
         /// <param name="mode"> Current Enemy Firemode </param>
-        private void switchFireMode(int mode)
+        public override void SetAttackPattern(AttackPattern attackPattern)
         {
-            switch (mode)
+            switch ((int)attackPattern)
             {
-                case 1:
+                case 0:
                     fireRate = 0.6f;
                     projectileSpeed = 1.5f;
                     spread = 2;
-                    fireProjectile = projectileArray[0];
+                    burstFire = 3;
                     break;
 
-                case 2:
-                    fireRate = 0.3f;
+                case 1:
+                    fireRate = 1.2f;
                     projectileSpeed = 1.5f;
                     spread = 0;
-                    fireProjectile = projectileArray[1];
+                    burstFire = 5;
                     break;
             }
+        }
+
+        void SetBurstFire(int burst)
+        {
+            this.burstFire = burst;
         }
 
         /// <summary>

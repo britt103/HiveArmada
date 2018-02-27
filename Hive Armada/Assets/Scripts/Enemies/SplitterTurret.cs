@@ -29,9 +29,14 @@ namespace Hive.Armada.Enemies
         private int projectileTypeIdentifier;
 
         /// <summary>
-        /// The point where this enemy shoots from.
+        /// The point where this enemy shoots from. Arranged in a 5x5 grid as shown below:
+        /// 00 - 01 - 02 - 03 - 04
+        /// 05 - 06 - 07 - 08 - 09
+        /// 10 - 11 - 12 - 13 - 14
+        /// 15 - 16 - 17 - 18 - 19
+        /// 20 - 21 - 22 - 23 - 24
         /// </summary>
-        public Transform shootPoint;
+        public Transform[] shootPoint;
 
         /// <summary>
         /// How many time per second this enemy can shoot.
@@ -44,10 +49,9 @@ namespace Hive.Armada.Enemies
         private float projectileSpeed;
 
         /// <summary>
-        /// Structure holding bullet prefabs that
-        /// the enemy will shoot
+        /// Structure holding the current firing pattern
         /// </summary>
-        public GameObject[] projectileArray;
+        public bool[] projectileArray;
 
         /// <summary>
         /// Projectile that the turret shoots out
@@ -175,26 +179,29 @@ namespace Hive.Armada.Enemies
         {
             canShoot = false;
 
-            GameObject projectile =
-                objectPoolManager.Spawn(projectileTypeIdentifier, shootPoint.position,
-                                        shootPoint.rotation);
-
-            projectile.GetComponent<Transform>().Rotate(Random.Range(-spread, spread),
-                                                        Random.Range(-spread, spread),
-                                                        Random.Range(-spread, spread));
-
-            projectile.GetComponent<Rigidbody>().velocity =
-                projectile.transform.forward * projectileSpeed;
-
-            if (canRotate)
+            for (int x = 0; x < 25; x++)
             {
-                StartCoroutine(rotateProjectile(projectile));
+                if (projectileArray[x] == true)
+                {
+                    GameObject projectile =
+                        objectPoolManager.Spawn(projectileTypeIdentifier, shootPoint[x].position,
+                                                shootPoint[x].rotation);
+
+                    projectile.GetComponent<Transform>().Rotate(Random.Range(-spread, spread),
+                                                                Random.Range(-spread, spread),
+                                                                Random.Range(-spread, spread));
+
+                    projectile.GetComponent<Rigidbody>().velocity =
+                        projectile.transform.forward * projectileSpeed;
+
+                    if (canRotate)
+                    {
+                        StartCoroutine(rotateProjectile(projectile));
+                    }
+                }
             }
-
             yield return new WaitForSeconds(fireRate);
-
             canShoot = true;
-
         }
 
         private IEnumerator rotateProjectile(GameObject bullet)
@@ -211,22 +218,84 @@ namespace Hive.Armada.Enemies
         /// spread, and projectile speed.
         /// </summary>
         /// <param name="mode">Current Enemy Firemode</param>
-        private void switchFireMode(int mode)
+        public override void SetAttackPattern(AttackPattern attackPattern)
         {
-            switch (mode)
+            switch ((int)attackPattern)
             {
-                case 1:
-                    fireRate = 0.6f;
-                    projectileSpeed = 1.5f;
-                    spread = 2;
-                    fireProjectile = projectileArray[0];
-                    break;
-
-                case 2:
-                    fireRate = 0.3f;
+                //X-pattern
+                case 0:
+                    fireRate = 1.2f;
                     projectileSpeed = 1.5f;
                     spread = 0;
-                    fireProjectile = projectileArray[1];
+
+                    projectileArray[0] = true;
+                    projectileArray[1] = false;
+                    projectileArray[2] = false;
+                    projectileArray[3] = false;
+                    projectileArray[4] = true;
+
+                    projectileArray[5] = false;
+                    projectileArray[6] = true;
+                    projectileArray[7] = false;
+                    projectileArray[8] = true;
+                    projectileArray[9] = false;
+
+                    projectileArray[10] = false;
+                    projectileArray[11] = false;
+                    projectileArray[12] = true;
+                    projectileArray[13] = false;
+                    projectileArray[14] = false;
+
+                    projectileArray[15] = false;
+                    projectileArray[16] = true;
+                    projectileArray[17] = false;
+                    projectileArray[18] = true;
+                    projectileArray[19] = false;
+
+                    projectileArray[20] = true;
+                    projectileArray[21] = false;
+                    projectileArray[22] = false;
+                    projectileArray[23] = false;
+                    projectileArray[24] = true;
+
+                    break;
+
+                //inverse-X
+                case 1:
+                    fireRate = 1.2f;
+                    projectileSpeed = 1.5f;
+                    spread = 0;
+
+                    projectileArray[0] = true;
+                    projectileArray[1] = true;
+                    projectileArray[2] = false;
+                    projectileArray[3] = true;
+                    projectileArray[4] = true;
+
+                    projectileArray[5] = true;
+                    projectileArray[6] = false;
+                    projectileArray[7] = false;
+                    projectileArray[8] = false;
+                    projectileArray[9] = true;
+
+                    projectileArray[10] = false;
+                    projectileArray[11] = false;
+                    projectileArray[12] = true;
+                    projectileArray[13] = false;
+                    projectileArray[14] = false;
+
+                    projectileArray[15] = true;
+                    projectileArray[16] = false;
+                    projectileArray[17] = false;
+                    projectileArray[18] = false;
+                    projectileArray[19] = true;
+
+                    projectileArray[20] = true;
+                    projectileArray[21] = true;
+                    projectileArray[22] = false;
+                    projectileArray[23] = true;
+                    projectileArray[24] = true;
+
                     break;
             }
         }

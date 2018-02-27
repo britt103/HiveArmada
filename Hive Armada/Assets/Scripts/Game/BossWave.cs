@@ -98,7 +98,8 @@ namespace Hive.Armada.Game
             Debug.Log("Wave #" + (currentWave + 1) + " is complete.");
 
             //play audio on defeat here?
-            iTween.MoveTo(boss, iTween.Hash("path", iTweenPath.GetPath("BossOut"), "easetype", iTween.EaseType.easeInOutSine, "time", 5.0f, "looktarget", reference.playerShip.transform));
+            iTween.MoveTo(boss, iTween.Hash("path", iTweenPath.GetPath("BossOut"), "easetype", iTween.EaseType.easeInOutSine, "time", 5.0f, "looktarget", reference.playerShip.transform,
+                                            "onComplete", "Reset","onCompleteTarget", boss));
             boss.SetActive(false);
             reference.waveManager.BossWaveComplete(currentWave);
         }

@@ -158,6 +158,10 @@ namespace Hive.Armada.Player
                 reference.shipPickup.SetActive(false);
             }
 
+            UnityEngine.Random.InitState((int)Time.time);
+            int randNumSound = UnityEngine.Random.Range(1, pickupShipClips.Length);
+            source.PlayOneShot(pickupShipClips[randNumSound]);
+
             if (reference.menuTitle && reference.menuMain)
             {
                 reference.menuTitle.SetActive(false);
@@ -173,9 +177,6 @@ namespace Hive.Armada.Player
             }
 
             reference.shipPickup.SetActive(false);
-
-            int randNumSound = UnityEngine.Random.Range(1, pickupShipClips.Length);
-            source.PlayOneShot(pickupShipClips[randNumSound]);
         }
 
         /// <summary>

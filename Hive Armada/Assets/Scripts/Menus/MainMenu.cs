@@ -55,9 +55,10 @@ namespace Hive.Armada.Menus
 
         private int optionsCounter = 0;
 
-        void OnAwake()
+        void Awake()
         {
-            int randNum = Random.Range(1, startClips.Length);
+            Random.InitState((int)Time.time);
+            int randNum = Random.Range(0, startClips.Length);
             source.PlayOneShot(startClips[randNum]);
         }
 

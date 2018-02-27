@@ -175,7 +175,7 @@ namespace Hive.Armada.Enemies
                 case 0:
                     yield return new WaitForSeconds(1);
                     SetAttackPattern(AttackPattern.Four);
-                    for (int i = 0; i < 20; ++i)
+                    for(int i = 0; i < 20; ++i)
                     {
                         StartCoroutine(Shoot());
                         yield return new WaitForSeconds(fireRate);
@@ -242,7 +242,7 @@ namespace Hive.Armada.Enemies
                     {
                         projectileArray[i] = true;
                         projectileArray[i * 9] = true;
-                        projectileArray[8 + (9 * i)] = true;
+                        projectileArray[8 + (9*i)] = true;
                     }
                     for (int i = 73; i < 81; ++i) projectileArray[i] = true;
                     return;
@@ -303,7 +303,7 @@ namespace Hive.Armada.Enemies
         {
             StopCoroutine(RotateProjectile(shootPivot));
             shootPivot.rotation = transform.rotation;
-            for (int i = 0; i < 81; ++i)
+            for(int i = 0; i < 81; ++i)
             {
                 projectileArray[i] = false;
             }

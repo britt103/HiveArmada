@@ -163,6 +163,9 @@ namespace Hive.Armada.Enemies
             pathingFinished = true;
         }
 
+        /// <summary>
+        /// Begins boss firing logic.
+        /// </summary>
         public void StartBoss()
         {
             ResetAttackPattern();
@@ -170,6 +173,9 @@ namespace Hive.Armada.Enemies
             Hover();
         }
 
+        /// <summary>
+        /// Stops boss from attacking.
+        /// </summary>
         public void PauseBoss()
         {
             ResetAttackPattern();

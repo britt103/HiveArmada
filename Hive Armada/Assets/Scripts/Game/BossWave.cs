@@ -55,13 +55,21 @@ namespace Hive.Armada.Game
         /// </summary>
         private GameObject boss;
 
+        /// <summary>
+        /// Script attached to boss enemy.
+        /// </summary>
         private Boss bossScript;
+
         /// <summary>
         /// Reference for boss paths
         /// </summary>
         private GameObject bossSpawn;
 
+        /// <summary>
+        /// Position to instantiate the boss enemy.
+        /// </summary>
         private Vector3 spawnPosition;
+
         /// <summary>
         /// Sets up logic for spawning the boss.
         /// </summary>
@@ -76,7 +84,6 @@ namespace Hive.Armada.Game
             bossScript.BossReset();            
             boss.SetActive(false);
         }
-
 
         /// <summary>
         /// Runs the spawning logic for the boss wave.

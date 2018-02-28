@@ -80,6 +80,11 @@ namespace Hive.Armada.Game
         public Transform emitterPoint;
 
         /// <summary>
+        /// Reference to SteamVR_LoadLevel
+        /// </summary>
+        public SteamVR_LoadLevel steamVRLoadLevel;
+
+        /// <summary>
         /// Reference to instantiated emitter.
         /// </summary>
         private GameObject emitterGO;
@@ -114,7 +119,7 @@ namespace Hive.Armada.Game
             reference = FindObjectOfType<ReferenceManager>();
             sceneInfo = FindObjectOfType<SceneInfo>();
 
-            if(SceneManager.GetActiveScene().name == "Menu Room")
+            if (SceneManager.GetActiveScene().name == "Menu Room")
             {
                 if (sceneInfo.runFinished)
                 {
@@ -134,7 +139,7 @@ namespace Hive.Armada.Game
                     foreach (UIPointer pointer in uiPointers)
                     {
                         pointer.gameObject.SetActive(false);
-                    }   
+                    }
                 }
             }
 
@@ -184,6 +189,8 @@ namespace Hive.Armada.Game
                 StartCoroutine(FadeOut());
                 StartCoroutine(StartAudio(audioOutStartTime));
                 StartCoroutine(StartEmitter(emitterOutStartTime));
+                sceneInfo.IncrementScenesLoaded();
+                reference.optionsValues.SetPlayerPrefs();
                 StartCoroutine(LoadScene(sceneName));
             }
         }
@@ -195,10 +202,9 @@ namespace Hive.Armada.Game
         /// <param name="sceneName">Name of scene to load.</param>
         private IEnumerator LoadScene(string sceneName)
         {
+            steamVRLoadLevel.levelName = sceneName;
             yield return new WaitForSeconds(transitionLength);
-            sceneInfo.IncrementScenesLoaded();
-            reference.optionsValues.SetPlayerPrefs();
-            SceneManager.LoadScene(sceneName);
+            steamVRLoadLevel.Trigger();
         }
 
         /// <summary>

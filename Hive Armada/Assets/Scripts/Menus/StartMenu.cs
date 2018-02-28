@@ -32,7 +32,17 @@ namespace Hive.Armada.Menus
         /// <summary>
         /// Reference to Loadout Menu.
         /// </summary>
-        public GameObject loadoutMenuGO;
+        public GameObject loadoutGO;
+
+        /// <summary>
+        /// Reference to Shop Menu.
+        /// </summary>
+        public GameObject shopGO;
+
+        /// <summary>
+        /// Reference to player transform for Shop Menu.
+        /// </summary>
+        public Transform shopTransform;
 
         /// <summary>
         /// Reference to Menu Audio source.
@@ -53,22 +63,30 @@ namespace Hive.Armada.Menus
         private int backCounter = 0;
 
         /// <summary>
-        /// Called by start button; transition to Wave Room.
+        /// Called by start button; navigates to Loadout Menu.
         /// </summary>
         public void PressSoloNormal()
         {
-            source.PlayOneShot(clips[0]);
+			source.PlayOneShot(clips[0]);
             soloNormalCounter += 1;
             if(soloNormalCounter > 1)
             {
                 source.Stop();
                 source.PlayOneShot(clips[0]);
             }
-            transitionManager.Transition(loadoutMenuGO);
+            transitionManager.Transition(loadoutGO);
+        }
+        /// <summary>
+        /// Called by shop button; navigates to Shop Menu.
+        /// </summary>
+        public void PressShop()
+        {
+            source.PlayOneShot(clips[0]);
+            FindObjectOfType<RoomTransport>().Transport(shopTransform, gameObject, shopGO);
         }
 
         /// <summary>
-        /// Back button pressed; navigates to main menu.
+        /// Back button pressed; navigates to Main Menu.
         /// </summary>
         public void PressBack()
         {

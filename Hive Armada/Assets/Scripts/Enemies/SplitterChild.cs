@@ -164,7 +164,9 @@ namespace Hive.Armada.Enemies
         /// <param name="mode"> Current Enemy Firemode </param>
         public override void SetAttackPattern(AttackPattern attackPattern)
         {
-            switch ((int)attackPattern)
+            base.SetAttackPattern(attackPattern);
+
+            switch ((int)this.attackPattern)
             {
                 case 0:
                     fireRate = 0.6f;

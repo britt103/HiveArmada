@@ -107,7 +107,7 @@ namespace Hive.Armada.Menus
 
             selectedWeapon = initialWeapon;
 
-            if (!iridiumSystem.CheckMultipleWeaponsUnlocked())
+            if (!iridiumSystem.CheckAnyWeaponsUnlocked())
             {
                 PressPlay();
             }

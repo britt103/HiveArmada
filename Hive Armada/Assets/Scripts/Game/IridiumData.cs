@@ -6,7 +6,7 @@
 // CPSC-440-1
 // Group Project
 //
-// IridiumUnlockData stores data about Iridium unlockables and what items have
+// IridiumData stores data about Iridium unlockables and what items have
 // been unlocked.
 //
 //=============================================================================
@@ -24,6 +24,11 @@ namespace Hive.Armada.Game
         /// Names of weapon items.
         /// </summary>
         public string[] weaponNames;
+
+        /// <summary>
+        /// Descriptions of weapon items.
+        /// </summary>
+        public string[] weaponTexts;
 
         /// <summary>
         /// Costs of weapon items.

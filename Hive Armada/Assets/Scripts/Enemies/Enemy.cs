@@ -172,7 +172,7 @@ namespace Hive.Armada.Enemies
         /// <summary>
         /// Used to shake low health enemies.
         /// </summary>
-        protected bool shaking = false;
+        protected bool shaking;
 
         /// <summary>
         /// If this enemy has finished pathing.

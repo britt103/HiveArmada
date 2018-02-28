@@ -148,6 +148,11 @@ namespace Hive.Armada.Player.Weapons
         private Poolable targetPoolableScript;
 
         /// <summary>
+        /// Reference to the enemy script on the target.
+        /// </summary>
+        private Enemy targetEnemyScript;
+
+        /// <summary>
         /// The target position for the rocket to seek.
         /// </summary>
         private Vector3 targetPosition;
@@ -233,7 +238,7 @@ namespace Hive.Armada.Player.Weapons
                                          0.0f),
                     new GradientColorKey(rocketAttributes.rockets[rocketType].trailColor,
                                          1.0f)
-                }, new[] { new GradientAlphaKey(1.0f, 0.0f), new GradientAlphaKey(1.0f, 1.0f) });
+                }, new[] {new GradientAlphaKey(1.0f, 0.0f), new GradientAlphaKey(1.0f, 1.0f)});
             trailRenderer.colorGradient = gradient;
             trailRenderer.startWidth = rocketAttributes.rockets[rocketType].trailWidth;
             trailRenderer.endWidth = rocketAttributes.rockets[rocketType].trailWidth;
@@ -257,27 +262,32 @@ namespace Hive.Armada.Player.Weapons
         {
             if (isHoming)
             {
-                if (target == null || !target.activeSelf ||
-                    targetPoolableScript != null && targetPoolableScript.IsActive == false)
+                if (targetPoolableScript != null && targetPoolableScript.IsActive == false ||
+                    targetEnemyScript != null && targetEnemyScript.Health <= 0 ||
+                    target == null || !target.activeSelf)
                 {
-                    if ((behaviorFlags & RocketFlags.AutoTarget) == 0)
-                    {
-                        target = null;
-                        isHoming = false;
-                        isTargetDead = true;
-                    }
-                    else
+                    isTargetDead = true;
+                    target = null;
+                    isHoming = false;
+
+                    if ((behaviorFlags & RocketFlags.AutoTarget) != 0)
                     {
                         AquireTarget();
                     }
                 }
-                else if (!isTargetDead)
+
+                if (targetPoolableScript != null && targetPoolableScript.IsActive ||
+                    targetEnemyScript != null && targetEnemyScript.Health > 0 ||
+                    !isTargetDead)
                 {
-                    targetPosition = target.transform.position;
+                    if (target != null)
+                    {
+                        targetPosition = target.transform.position;
+                    }
                 }
             }
 
-            if (isTargetDead)
+            if (isTargetDead || !isHoming)
             {
                 if (Vector3.Distance(transform.position, targetPosition) < 0.4f)
                 {
@@ -309,6 +319,7 @@ namespace Hive.Armada.Player.Weapons
                 isHoming = true;
 
                 targetPoolableScript = target.GetComponent<Poolable>();
+                targetEnemyScript = target.GetComponent<Enemy>();
             }
             else
             {
@@ -361,6 +372,7 @@ namespace Hive.Armada.Player.Weapons
             {
                 target = colliders[closestIndex].gameObject;
                 isHoming = true;
+                isTargetDead = false;
             }
         }
 
@@ -377,6 +389,15 @@ namespace Hive.Armada.Player.Weapons
                 if ((behaviorFlags & RocketFlags.HapticFeedback) != 0)
                 {
                     shipController.hand.controller.TriggerHapticPulse(2500);
+                }
+                Explode();
+            }
+            else if (other.CompareTag("Shootable"))
+            {
+                Shootable shootable = other.GetComponent<Shootable>();
+                if (shootable != null)
+                {
+                    shootable.Hit();
                 }
                 Explode();
             }
@@ -441,7 +462,8 @@ namespace Hive.Armada.Player.Weapons
             {
                 if (enemy.gameObject.GetInstanceID() != explosionTarget.GetInstanceID())
                 {
-                    enemy.gameObject.SendMessage("Hit", damage, SendMessageOptions.DontRequireReceiver);
+                    enemy.gameObject.SendMessage("Hit", damage,
+                                                 SendMessageOptions.DontRequireReceiver);
                 }
             }
         }

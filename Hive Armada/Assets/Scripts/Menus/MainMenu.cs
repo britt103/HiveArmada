@@ -10,12 +10,13 @@
 //
 //=============================================================================
 
+using UnityEditor;
 using UnityEngine;
 
 namespace Hive.Armada.Menus
 {
     /// <summary>
-    /// Contains navigation functions for the Start and Options menu and prompting of applcation 
+    /// Contains navigation functions for the Start and Options menu and prompting of applcation
     /// exit on Main Menu.
     /// </summary>
     public class MainMenu : MonoBehaviour
@@ -38,12 +39,12 @@ namespace Hive.Armada.Menus
         /// <summary>
         /// Reference to Menu Audio source.
         /// </summary>
-		public AudioSource source;
+        public AudioSource source;
 
         /// <summary>
         /// Clips to use with source.
         /// </summary>
-    	public AudioClip[] clips;
+        public AudioClip[] clips;
 
         public AudioClip[] startClips;
 
@@ -51,25 +52,25 @@ namespace Hive.Armada.Menus
         /// Variables used as a check to make sure audio
         /// doesn't play over itself
         /// </summary>
-        private int startCounter = 0;
+        private int startCounter;
 
-        private int optionsCounter = 0;
+        private int optionsCounter;
 
-        void Awake()
-        {
-            Random.InitState((int)Time.time);
-            int randNum = Random.Range(0, startClips.Length);
-            source.PlayOneShot(startClips[randNum]);
-        }
+        //private void Awake()
+        //{
+        //    Random.InitState((int) Time.time);
+        //    int randNum = Random.Range(0, startClips.Length);
+        //    source.PlayOneShot(startClips[randNum]);
+        //}
 
         /// <summary>
         /// Start button pressed. Navigate to Start Menu.
         /// </summary>
         public void PressStart()
         {
-			source.PlayOneShot(clips[0]);
+            source.PlayOneShot(clips[0]);
             startCounter += 1;
-            if(startCounter > 1)
+            if (startCounter > 1)
             {
                 source.Stop();
                 source.PlayOneShot(clips[0]);
@@ -82,9 +83,9 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void PressOptions()
         {
-			source.PlayOneShot(clips[0]);
+            source.PlayOneShot(clips[0]);
             optionsCounter += 1;
-            if(optionsCounter > 1)
+            if (optionsCounter > 1)
             {
                 source.Stop();
                 source.PlayOneShot(clips[0]);
@@ -99,7 +100,7 @@ namespace Hive.Armada.Menus
         {
             if (Application.isEditor)
             {
-                UnityEditor.EditorApplication.isPlaying = false;
+                EditorApplication.isPlaying = false;
             }
             else
             {

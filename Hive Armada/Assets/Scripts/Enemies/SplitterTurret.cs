@@ -310,25 +310,25 @@ namespace Hive.Armada.Enemies
                 int typeIdentifier = objectPoolManager.GetTypeIdentifier(childTurret);
 
                 GameObject child1 = objectPoolManager.Spawn(typeIdentifier, new Vector3(transform.position.x + 0.1f, transform.position.y + 0.1f, transform.position.z), transform.rotation);
-                child1.layer = Utility.enemyMask;
+                child1.layer = Utility.enemyLayerId;
                 Enemy child1Enemy = child1.GetComponent<Enemy>();
                 child1Enemy.SetWave(wave);
                 child1Enemy.SetAttackPattern(attackPattern);
 
                 GameObject child2 = objectPoolManager.Spawn(typeIdentifier, new Vector3(transform.position.x - 0.1f, transform.position.y - 0.1f, transform.position.z), transform.rotation);
-                child2.layer = Utility.enemyMask;
+                child2.layer = Utility.enemyLayerId;
                 Enemy child2Enemy = child2.GetComponent<Enemy>();
                 child2Enemy.SetWave(wave);
                 child2Enemy.SetAttackPattern(attackPattern);
 
                 GameObject child3 = objectPoolManager.Spawn(typeIdentifier, new Vector3(transform.position.x + 0.1f, transform.position.y - 0.1f, transform.position.z), transform.rotation);
-                child3.layer = Utility.enemyMask;
+                child3.layer = Utility.enemyLayerId;
                 Enemy child3Enemy = child3.GetComponent<Enemy>();
                 child3Enemy.SetWave(wave);
                 child3Enemy.SetAttackPattern(attackPattern);
 
                 GameObject child4 = objectPoolManager.Spawn(typeIdentifier, new Vector3(transform.position.x - 0.1f, transform.position.y + 0.1f, transform.position.z), transform.rotation);
-                child4.layer = Utility.enemyMask;
+                child4.layer = Utility.enemyLayerId;
                 Enemy child4Enemy = child4.GetComponent<Enemy>();
                 child4Enemy.SetWave(wave);
                 child4Enemy.SetAttackPattern(attackPattern);

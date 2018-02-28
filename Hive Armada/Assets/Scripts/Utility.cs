@@ -22,8 +22,6 @@ namespace Hive.Armada
         /// </summary>
         public static bool isDebug = true;
 
-        public static LayerMask defaultMask = LayerMask.GetMask("Default");
-
         /// <summary>
         /// Layer mask for the Enemy layer
         /// </summary>
@@ -53,5 +51,25 @@ namespace Hive.Armada
         /// Layer mask for the UI and Room layer. Used for the laser when in Menu mode.
         /// </summary>
         public static LayerMask laserMenuMask = LayerMask.GetMask("UI", "Room");
+
+        /// <summary>
+        /// The layer ID number for Room.
+        /// </summary>
+        public static int roomLayerId = 8;
+
+        /// <summary>
+        /// The layer ID number for Enemy.
+        /// </summary>
+        public static int enemyLayerId = 9;
+
+        /// <summary>
+        /// The layer ID number for Shootable.
+        /// </summary>
+        public static int shootableLayerId = 10;
+
+        /// <summary>
+        /// The layer ID number for UICover.
+        /// </summary>
+        public static int uiCoverLayerId = 11;
     }
 }

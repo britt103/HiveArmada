@@ -18,6 +18,7 @@ using Hive.Armada.Game;
 using Hive.Armada.Player.Weapons;
 using SubjectNerd.Utilities;
 using System;
+using Random = UnityEngine.Random;
 
 namespace Hive.Armada.Player
 {
@@ -158,9 +159,9 @@ namespace Hive.Armada.Player
                 reference.shipPickup.SetActive(false);
             }
 
-            UnityEngine.Random.InitState((int)Time.time);
-            int randNumSound = UnityEngine.Random.Range(1, pickupShipClips.Length);
-            source.PlayOneShot(pickupShipClips[randNumSound]);
+            //Random.InitState((int) Time.time);
+            //int randNumSound = Random.Range(0, pickupShipClips.Length);
+            //source.PlayOneShot(pickupShipClips[randNumSound]);
 
             if (reference.menuTitle && reference.menuMain)
             {

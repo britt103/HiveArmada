@@ -6374,16 +6374,17 @@ MonoBehaviour:
   currentWeapon: 0
   hand: {fileID: 0}
   weapons:
-  - weapon: {fileID: 114739049526032148}
-    damage: 30
-    fireRate: 3
   - weapon: {fileID: 114162874286398668}
     damage: 8
     fireRate: 10
   - weapon: {fileID: 114409586814718092}
     damage: 5
     fireRate: 25
+  - weapon: {fileID: 114739049526032148}
+    damage: 30
+    fireRate: 3
   source: {fileID: 82884209245115158}
+  pickupShipClips: []
 --- !u!114 &114409586814718092
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6498,7 +6499,7 @@ MonoBehaviour:
   shipController: {fileID: 114338893226363622}
   damageMultiplier: 0
   radius: 0.3
-  rocketPrefab: {fileID: 1101561360092930, guid: aeca747fcabc6ca4189b8bf812ff586c,
+  rocketPrefab: {fileID: 1307413110761698, guid: 44d6133eede41af47acad395888fba4a,
     type: 2}
   rocketType: 0
   barrels:

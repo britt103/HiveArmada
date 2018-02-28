@@ -45,6 +45,7 @@ namespace Hive.Armada.Game
         /// </summary>
         void Start()
         {
+            Random.InitState((int)Time.time);
             currTime = spawnTimeInterval;
         }
 

@@ -194,8 +194,9 @@ namespace Hive.Armada.Player.Weapons
             if (!isOverheating)
             {
                 RaycastHit hit;
-                if (Physics.SphereCast(transform.position, radius, transform.forward, out hit, 200.0f,
-                                    Utility.shootableMask))
+                if (Physics.SphereCast(transform.position, radius, transform.forward, out hit,
+                                       200.0f,
+                                       Utility.shootableMask))
                 {
                     StartCoroutine(Shoot(hit.point));
 
@@ -205,12 +206,13 @@ namespace Hive.Armada.Player.Weapons
                     if (hit.collider.gameObject.GetComponent<Shootable>() != null
                         && hit.collider.gameObject.GetComponent<Shootable>().isShootable)
                     {
-                        hit.collider.gameObject.GetComponent<Shootable>().Shot();
+                        hit.collider.gameObject.GetComponent<Shootable>().Hit();
                     }
 
                     shipController.hand.controller.TriggerHapticPulse(2500);
                 }
-                else if (Physics.SphereCast(transform.position, radius, transform.forward, out hit, 200.0f,
+                else if (Physics.SphereCast(transform.position, radius, transform.forward, out hit,
+                                            200.0f,
                                             Utility.enemyMask))
                 {
                     StartCoroutine(Shoot(hit.point));
@@ -220,7 +222,8 @@ namespace Hive.Armada.Player.Weapons
 
                     if (hit.collider.gameObject.GetComponent<Enemy>() != null)
                     {
-                        hit.collider.gameObject.GetComponent<Enemy>().Hit(damage * damageMultiplier);
+                        hit.collider.gameObject.GetComponent<Enemy>()
+                           .Hit(damage * damageMultiplier);
                     }
 
                     shipController.hand.controller.TriggerHapticPulse(2500);
@@ -339,7 +342,6 @@ namespace Hive.Armada.Player.Weapons
         }
 
         /// <summary>
-        /// 
         /// </summary>
         private void AddOverheat()
         {
@@ -354,11 +356,14 @@ namespace Hive.Armada.Player.Weapons
         }
 
         /// <summary>
-        /// 
+        /// Waits for the player to not shoot for overheatDecreaseDelay time,
+        /// then starts the minigun cool down process
         /// </summary>
         private IEnumerator OverheatDecreaseDelay()
         {
             yield return new WaitForSeconds(overheatDecreaseDelay);
+
+            isCooling = true;
             overheatTickCoroutine = StartCoroutine(OverheatTick());
             overheatDecreaseDelayCoroutine = null;
         }
@@ -371,13 +376,15 @@ namespace Hive.Armada.Player.Weapons
         {
             while (isCooling)
             {
+                overheatAmount -= overheatDecreaseAmount;
+
                 if (overheatAmount <= 0.0f)
                 {
                     overheatAmount = 0.0f;
+                    isCooling = false;
                     break;
                 }
 
-                overheatAmount -= overheatDecreaseAmount;
                 yield return new WaitForSeconds(overheatDecreaseTickLength);
             }
 
@@ -390,6 +397,7 @@ namespace Hive.Armada.Player.Weapons
         private IEnumerator OverheatCoolDown()
         {
             yield return new WaitForSeconds(overheatCoolDown);
+
             overheatAmount = 0.0f;
             isOverheating = false;
             overheatCoolDownCoroutine = null;

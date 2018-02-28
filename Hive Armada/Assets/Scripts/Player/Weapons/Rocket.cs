@@ -51,11 +51,6 @@ namespace Hive.Armada.Player.Weapons
             /// If the rocket should auto-aquire its own target.
             /// </summary>
             AutoTarget = 1 << 3
-
-            ///// <summary>
-            ///// If the rocket requires a target or can launch at a point.
-            ///// </summary>
-            //RequireTarget = 1 << 4
         }
 
         /// <summary>
@@ -468,6 +463,7 @@ namespace Hive.Armada.Player.Weapons
         /// </summary>
         protected override void Reset()
         {
+            behaviorFlags = 0;
             shipController = null;
             target = null;
             targetPoolableScript = null;

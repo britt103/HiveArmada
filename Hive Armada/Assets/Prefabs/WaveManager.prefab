@@ -995,7 +995,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1482604555976536}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -2746,27 +2746,9 @@ MonoBehaviour:
       - path: 1
         enemy: 0
         attackPattern: 1
-      - path: 2
-        enemy: 0
-        attackPattern: 0
-      - path: 3
-        enemy: 0
-        attackPattern: 1
-      - path: 4
-        enemy: 0
-        attackPattern: 0
     - zone: 4
       setupSpawnPaths:
       - path: 1
-        enemy: 0
-        attackPattern: 0
-      - path: 2
-        enemy: 0
-        attackPattern: 0
-      - path: 3
-        enemy: 0
-        attackPattern: 0
-      - path: 4
         enemy: 0
         attackPattern: 0
     - zone: 1
@@ -2777,18 +2759,12 @@ MonoBehaviour:
       - path: 1
         enemy: 0
         attackPattern: 0
-      - path: 2
-        enemy: 0
-        attackPattern: 0
     - zone: 2
       setupSpawnPaths:
       - path: 0
         enemy: 0
         attackPattern: 0
       - path: 1
-        enemy: 0
-        attackPattern: 0
-      - path: 2
         enemy: 0
         attackPattern: 0
     powerupSpawn:
@@ -2852,7 +2828,7 @@ MonoBehaviour:
   - {fileID: 114716578532522766}
   - {fileID: 114069306157670186}
   - {fileID: 114982984793684692}
-  bossWave: {fileID: 0}
+  bossWave: {fileID: 114070921658505556}
   waveCountSource: {fileID: 0}
   waveCountSounds:
   - {fileID: 8300000, guid: 3f9a996c2ac253c45880e98853da7fdf, type: 3}

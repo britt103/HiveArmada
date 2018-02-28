@@ -207,7 +207,7 @@ namespace Hive.Armada.Enemies
             switch (mode)
             {
                 case 1:
-                    fireRate = 0.6f;
+                    fireRate = 1.0f;
                     projectileSpeed = 1.5f;
                     spread = 2;
                     canRotate = false;
@@ -215,7 +215,7 @@ namespace Hive.Armada.Enemies
                     break;
 
                 case 2:
-                    fireRate = 0.3f;
+                    fireRate = 2.0f;
                     projectileSpeed = 1.5f;
                     spread = 0;
                     canRotate = true;

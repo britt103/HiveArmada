@@ -61,11 +61,8 @@ namespace Hive.Armada.Game
         private GameObject bossSpawn;
 
         /// <summary>
-        /// The health value of the boss.
+        /// Sets up logic for spawning the boss.
         /// </summary>
-        private int bossHealth;
-
-        // Use this for initialization
         void Awake()
         {
             reference = GameObject.Find("Reference Manager").GetComponent<ReferenceManager>();
@@ -73,24 +70,25 @@ namespace Hive.Armada.Game
             bossSpawn = GameObject.Find("Boss Spawn");
             boss = Instantiate(bossPrefab, bossSpawn.transform);
             boss.GetComponent<Boss>().BossReset();
-            bossHealth = boss.GetComponent<Enemy>().Health;
+            //bossHealth = boss.GetComponent<Enemy>().Health;
             Debug.Log("boss health on bosswave is: " + bossHealth);
             boss.SetActive(false);
         }
 
 
         /// <summary>
-        /// Runs the spawning logic for the wave.
+        /// Runs the spawning logic for the boss wave.
         /// </summary>
         /// <param name="wave"> This wave's index </param>
         public void Run(int wave)
-        {
-            
+        {           
             currentWave = wave;
-            StartCoroutine(RunBoss());
-            
+            StartCoroutine(RunBoss());            
         }
 
+        /// <summary>
+        /// Paths boss into the scene.
+        /// </summary>
         private IEnumerator RunBoss()
         {
             //placeholder for boss audio
@@ -99,35 +97,56 @@ namespace Hive.Armada.Game
             yield return new WaitForSeconds(0.1f);
             boss.SetActive(true);
             iTween.MoveTo(boss, iTween.Hash("path", iTweenPath.GetPath("BossIn"), "easetype", iTween.EaseType.easeInOutSine, "time", 5.0f, "looktarget", reference.playerShip.transform,
-                                            "onComplete", "FinishedPathing","onCompleteTarget",boss));
+                                            "onComplete", "FinishedPathing","onCompleteTarget", boss));
             StartCoroutine(WaitForPathing());          
         }
 
+        /// <summary>
+        /// Waits for boss to finish pathing into the scene.
+        /// </summary>
         private IEnumerator WaitForPathing()
         {
             while (!boss.GetComponent<Boss>().pathingFinished)
             {
                 yield return new WaitForSeconds(0.1f);
             }
+
             StartCoroutine(WaitForWaveEnd());
-            Debug.Log("Boss wave " + currentWave);
+            Debug.Log("Boss wave " + currentWave+1);
         }
 
+        /// <summary>
+        /// Waits for boss to reach 0 health, then paths it out of scene.
+        /// </summary>
         private IEnumerator WaitForWaveEnd()
         {
-            bossHealth = boss.GetComponent<Enemy>().Health;
-            while (bossHealth > 0)
+            while (boss.GetComponent<Enemy>.Health > 0)
             {
-                Debug.Log("Current Boss Health: " + bossHealth);
+                //Debug.Log("Current Boss Health: " + bossHealth);
                 yield return new WaitForSeconds(0.1f);
             }
 
             Debug.Log("Boss wave #" + (currentWave + 1) + " is complete.");
 
             //play audio on defeat here?
+            boss.GetComponent<Boss>().pathingFinished = false;
             iTween.MoveTo(boss, iTween.Hash("path", iTweenPath.GetPath("BossOut"), "easetype", iTween.EaseType.easeInOutSine, "time", 5.0f, "looktarget", reference.playerShip.transform,
-                                            "onComplete", "BossReset","onCompleteTarget", boss));
-            yield return new WaitForSeconds(4.9f);
+                                            "onComplete", "FinishedPathing","onCompleteTarget", boss));
+            StartCoroutine(WaitForBossOut());            
+        }
+
+        /// <summary>
+        /// Resets boss values once it finishes pathing out of scene.
+        /// Tells wavemanager to go to the next wave.
+        /// </summary>
+        private IEnumerator WaitForBossOut()
+        {
+            while (!boss.GetComponent<Boss>().pathingFinished)
+            {
+                yield return new WaitForSeconds(0.1f);
+            }
+            boss.GetComponent<Boss>().BossReset();
+            Debug.Log("Boss wave " + currentWave+1 + "Finished");
             boss.SetActive(false);
             reference.waveManager.BossWaveComplete(currentWave);
         }

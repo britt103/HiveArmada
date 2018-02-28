@@ -93,16 +93,17 @@ namespace Hive.Armada.Enemies
         /// </summary>
         private bool canRotate;
 
+        /// <summary>
+        /// Whether or not this enemy is pathing.
+        /// </summary>
         public bool pathingFinished;
 
-        private GameObject bosswave;
 
         /// <summary>
         /// On start, select enemy behavior based on value fireMode
         /// </summary>
         void Start()
         {
-            bosswave = GameObject.Find("BossWaves");
             Reset();
             ResetAttackPattern();
             StartCoroutine(SelectBehavior(0));
@@ -136,6 +137,9 @@ namespace Hive.Armada.Enemies
             }
         }
 
+        /// <summary>
+        /// Called by Bosswave when boss finishes pathing.
+        /// </summary>
         public void FinishedPathing()
         {
             pathingFinished = true;
@@ -328,6 +332,11 @@ namespace Hive.Armada.Enemies
             {
                 projectileArray[points[i]] = true;
             }
+        }
+
+        protected override void Kill()
+        {
+            //Do Nothing
         }
 
         protected override void Reset()

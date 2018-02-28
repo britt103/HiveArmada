@@ -108,6 +108,8 @@ namespace Hive.Armada.Player
         [Header("Audio")]
         public AudioSource source;
 
+        public AudioClip[] pickupShipClips;
+
         /// <summary>
         /// Initializes references to Reference Manager and Laser Sight, sets this
         /// GameObject to the player ship reference in Reference Manager.
@@ -155,6 +157,10 @@ namespace Hive.Armada.Player
             {
                 reference.shipPickup.SetActive(false);
             }
+
+            UnityEngine.Random.InitState((int)Time.time);
+            int randNumSound = UnityEngine.Random.Range(1, pickupShipClips.Length);
+            source.PlayOneShot(pickupShipClips[randNumSound]);
 
             if (reference.menuTitle && reference.menuMain)
             {

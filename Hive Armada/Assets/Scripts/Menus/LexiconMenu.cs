@@ -15,6 +15,7 @@
 
 using System.IO;
 using System.Linq;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -178,6 +179,48 @@ namespace Hive.Armada.Menus
         private List<bool> currLocked = new List<bool>();
 
         /// <summary>
+        /// Variables used to make sure audio
+        /// doesn't play over itself
+        /// </summary>
+        private int backCounter = 0;
+
+        private int entryCounter = 0;
+
+        private int categoryCounter = 0;
+
+        private int powerupCounter = 0;
+
+        private int enemyCounter = 0;
+
+        private int weaponCounter = 0;
+
+        /// <summary>
+        /// Reference to the information button used for
+        /// playing dialogue about the selected item
+        /// </summary>
+        public GameObject informationButton;
+
+        /// <summary>
+        /// Variable used to set the current category
+        /// </summary>
+        private string entryCategory;
+
+        /// <summary>
+        /// Variable used to set the current entry chosen
+        /// </summary>
+        private int entryValue;
+
+        /// <summary>
+        /// Audio arrays for each of the categories to choose
+        /// from to play when an entry is selected
+        /// </summary>
+        public AudioClip[] powerupsAudio;
+
+        public AudioClip[] enemiesAudio;
+
+        public AudioClip[] weaponsAudio;
+
+        /// <summary>
         /// Read in Lexicon data and unlocks.
         /// </summary>
         private void Start()
@@ -242,6 +285,12 @@ namespace Hive.Armada.Menus
         public void PressBack()
         {
             source.PlayOneShot(clips[1]);
+            backCounter += 1;
+            if (backCounter > 1)
+            {
+                source.Stop();
+                source.PlayOneShot(clips[1]);
+            }
 
             if (entryOpen)
             {
@@ -346,6 +395,7 @@ namespace Hive.Armada.Menus
                     if (currLocked[i])
                     {
                         entryButton.transform.Find("Name").gameObject.GetComponent<Text>().text = entryData.lockedName;
+                        entryButton.GetComponent<BoxCollider>().enabled = false;
                     }
                     else
                     {
@@ -362,11 +412,18 @@ namespace Hive.Armada.Menus
         public void OpenEntry(int entryId)
         {
             source.PlayOneShot(clips[0]);
+            entryCounter += 1;
+            if (entryCounter > 1)
+            {
+                source.Stop();
+                source.PlayOneShot(clips[0]);
+            }
 
             menuTitle.SetActive(false);
             scrollView.SetActive(false);
             entryName.SetActive(true);
             entryText.SetActive(true);
+            entryValue = entryId;
 
             foreach(GameObject categoryButton in categoryButtons)
             {
@@ -377,11 +434,13 @@ namespace Hive.Armada.Menus
             {
                 entryName.GetComponent<Text>().text = entryData.lockedName;
                 entryText.GetComponent<Text>().text = entryData.lockedText;
+                informationButton.SetActive(false);
             }
             else
             {
                 entryName.GetComponent<Text>().text = currNames[entryId];
                 entryText.GetComponent<Text>().text = currTexts[entryId];
+                informationButton.SetActive(true);
                 currEntryPrefab = Instantiate(currPrefabs[entryId], entryPrefabPoint);
             }
 
@@ -397,6 +456,7 @@ namespace Hive.Armada.Menus
             entryName.SetActive(false);
             entryText.SetActive(false);
             scrollView.SetActive(true);
+            informationButton.SetActive(false);
 
             foreach (GameObject categoryButton in categoryButtons)
             {
@@ -447,6 +507,12 @@ namespace Hive.Armada.Menus
         public void OpenCategory(string category)
         {
             source.PlayOneShot(clips[0]);
+            categoryCounter += 1;
+            if (categoryCounter > 1)
+            {
+                source.Stop();
+                source.PlayOneShot(clips[0]);
+            }
 
             menuDescription.SetActive(false);
             menuTitle.GetComponent<Text>().text = category;
@@ -455,6 +521,7 @@ namespace Hive.Armada.Menus
             GenerateContent();
             scrollBar.value = 1;
             categoryOpen = true;
+            entryCategory = category;
         }
 
         /// <summary>
@@ -466,6 +533,106 @@ namespace Hive.Armada.Menus
             menuTitle.GetComponent<Text>().text = "Lexicon";
             scrollView.SetActive(false);
             categoryOpen = false;
+        }
+
+        /// <summary>
+        /// Play audio source based first on which category
+        /// is open and second on the entryId that is assigned
+        /// </summary>
+        public void Information()
+        {
+            StartCoroutine(InformationAudio());
+            //switch(entryCategory)
+            //{
+            //    case "Powerups":
+            //        source.PlayOneShot(powerupsAudio[entryValue]);
+            //        powerupCounter += 1;
+            //        if (powerupCounter > 1)
+            //        {
+            //            source.Stop();
+            //            source.PlayOneShot(powerupsAudio[entryValue]);
+            //        }
+            //        break;
+            //    case "Enemies":
+            //        source.PlayOneShot(enemiesAudio[entryValue]);
+            //        enemyCounter += 1;
+            //        if (enemyCounter > 1)
+            //        {
+            //            source.Stop();
+            //            source.PlayOneShot(enemiesAudio[entryValue]);
+            //        }
+            //        break;
+            //    case "Weapons":
+            //        source.PlayOneShot(weaponsAudio[entryValue]);
+            //        weaponCounter += 1;
+            //        if (weaponCounter > 1)
+            //        {
+            //            source.Stop();
+            //            source.PlayOneShot(weaponsAudio[entryValue]);
+            //        }
+            //        break;
+            //    default:
+            //        Debug.Log("ERROR: the category is not defined");
+            //        break;
+            //}
+        }
+
+        IEnumerator InformationAudio()
+        {
+            switch (entryCategory)
+            {
+                case "Powerups":
+                    if (source.isPlaying)
+                    {
+                        yield return new WaitWhile(() => source.isPlaying);
+                    }
+                    else
+                    {
+                        source.PlayOneShot(powerupsAudio[entryValue]);
+                    }
+                    //powerupCounter += 1;
+                    //if (powerupCounter > 1)
+                    //{
+                    //    source.Stop();
+                    //    source.PlayOneShot(powerupsAudio[entryValue]);
+                    //}
+                    break;
+                case "Enemies":
+                    if (source.isPlaying)
+                    {
+                        yield return new WaitWhile(() => source.isPlaying);
+                    }
+                    else
+                    {
+                        source.PlayOneShot(enemiesAudio[entryValue]);
+                    }
+                    //enemyCounter += 1;
+                    //if (enemyCounter > 1)
+                    //{
+                    //    source.Stop();
+                    //    source.PlayOneShot(enemiesAudio[entryValue]);
+                    //}
+                    break;
+                case "Weapons":
+                    if (source.isPlaying)
+                    {
+                        yield return new WaitWhile(() => source.isPlaying);
+                    }
+                    else
+                    {
+                        source.PlayOneShot(weaponsAudio[entryValue]);
+                    }
+                    //weaponCounter += 1;
+                    //if (weaponCounter > 1)
+                    //{
+                    //    source.Stop();
+                    //    source.PlayOneShot(weaponsAudio[entryValue]);
+                    //}
+                    break;
+                default:
+                    Debug.Log("ERROR: the category is not defined");
+                    break;
+            }
         }
     }
 }

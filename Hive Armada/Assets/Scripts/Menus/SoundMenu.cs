@@ -62,6 +62,12 @@ namespace Hive.Armada.Menus
         private ReferenceManager reference;
 
         /// <summary>
+        /// Variable used to make sure that audio
+        /// doesn't play over itself
+        /// </summary>
+        private int backCounter = 0;
+
+        /// <summary>
         /// Set default volume slider level.
         /// </summary>
         private void Awake()
@@ -78,6 +84,12 @@ namespace Hive.Armada.Menus
         public void PressBack()
         {
 			source.PlayOneShot(clips[0]);
+            backCounter += 1;
+            if (backCounter > 1)
+            {
+                source.Stop();
+                source.PlayOneShot(clips[0]);
+            }
             reference.optionsValues.SetSoundPlayerPrefs();
             transitionManager.Transition(backMenuGO);
         }

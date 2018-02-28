@@ -203,6 +203,7 @@ namespace Hive.Armada.Enemies
         {
             base.Reset();
 
+            canShoot = true;
             projectileTypeIdentifier =
                 enemyAttributes.EnemyProjectileTypeIdentifiers[TypeIdentifier];
             fireRate = enemyAttributes.enemyFireRate[TypeIdentifier];

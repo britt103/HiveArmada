@@ -93,14 +93,27 @@ namespace Hive.Armada.Enemies
         /// </summary>
         private bool canRotate;
 
+        public bool canActivate;
+        /// <summary>
+        /// Whether or not this enemy is pathing.
+        /// </summary>
+        public bool pathingFinished;
+
+        private float theta;
+        private Vector3 posA;
+        private Vector3 posB;
+        public float xMax;
+        public float yMax;
+        public float movingSpeed;
+
         /// <summary>
         /// On start, select enemy behavior based on value fireMode
         /// </summary>
         void Start()
         {
-            Reset();
-            ResetAttackPattern();
-            StartCoroutine(SelectBehavior(0));
+            //Reset();
+            //ResetAttackPattern();
+            //StartCoroutine(SelectBehavior(0));
         }
 
         /// <summary>
@@ -110,24 +123,64 @@ namespace Hive.Armada.Enemies
         /// </summary>
         private void Update()
         {
-            if (player != null)
+            if (canActivate)
             {
-                transform.LookAt(player.transform);
+                transform.position = Vector3.Lerp(posA, posB, (Mathf.Sin(theta) + 1.0f) / 2.0f);
 
-                //if (canShoot)
-                //{
-                //    StartCoroutine(Shoot());
-                //}
-            }
-            else
-            {
-                player = reference.playerShip;
+                theta += movingSpeed * Time.deltaTime;
 
-                if (player == null)
+                if (theta > Mathf.PI * 3 / 2)
                 {
-                    transform.LookAt(new Vector3(0.0f, 0.0f, 0.0f));
+                    theta -= Mathf.PI * 2;
+                }
+
+                if (player != null)
+                {
+                    transform.LookAt(reference.playerShip.transform.position);
+
+                    //if (canShoot)
+                    //{
+                    //    StartCoroutine(Shoot());
+                    //}
+                }
+                else
+                {
+                    player = reference.playerShip;
+
+                    if (player == null)
+                    {
+                        transform.LookAt(new Vector3(0.0f, 0.0f, 0.0f));
+                    }
                 }
             }
+        }
+
+        /// <summary>
+        /// Called by Bosswave when boss finishes pathing.
+        /// </summary>
+        public void FinishedPathing()
+        {
+            pathingFinished = true;
+            ResetAttackPattern();
+            StartCoroutine(SelectBehavior(0));
+            Hover();
+
+        }
+
+        /// <summary>
+        /// Function that creates 2 vector 3's to float up and down with a Sin()
+        /// </summary>
+        private void Hover()
+        {
+            posA = new Vector3(transform.position.x + xMax / 100,
+                transform.position.y + yMax / 100,
+                transform.position.z);
+
+            posB = new Vector3(transform.position.x - xMax / 100,
+                transform.position.y - yMax / 100,
+                transform.position.z);
+
+            theta = 0.0f;
         }
 
         /// <summary>
@@ -217,6 +270,10 @@ namespace Hive.Armada.Enemies
                         yield return new WaitForSeconds(0.15f);
                     }
                     StartCoroutine(SelectBehavior(0));
+                    break;
+
+                case 3:
+                    //Do nothing
                     break;
 
             }
@@ -318,10 +375,21 @@ namespace Hive.Armada.Enemies
                 projectileArray[points[i]] = true;
             }
         }
+
+        protected override void Kill()
+        {
+            StartCoroutine(SelectBehavior(3));
+        }
+
+        protected override void Reset()
+        {
+            //Do Nothing
+        }
+
         /// <summary>
         /// Resets attributes to this enemy's defaults from enemyAttributes.
         /// </summary>
-        protected override void Reset()
+        public void BossReset()
         {
             //// reset materials
             //for (int i = 0; i < renderers.Count; ++i)
@@ -335,8 +403,11 @@ namespace Hive.Armada.Enemies
 
             projectileTypeIdentifier = objectPoolManager.GetTypeIdentifier(projectile);
             //    enemyAttributes.EnemyProjectileTypeIdentifiers[TypeIdentifier];
-            //maxHealth = enemyAttributes.enemyHealthValues[TypeIdentifier];
-            //Health = maxHealth;
+            maxHealth = 700;
+            Health = maxHealth;
+            Debug.Log("Boss Health on boss is"+Health);
+            pathingFinished = false;
+            
             //fireRate = enemyAttributes.enemyFireRate[TypeIdentifier];
             //projectileSpeed = enemyAttributes.projectileSpeed;
             //spread = enemyAttributes.enemySpread[TypeIdentifier];

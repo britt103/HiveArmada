@@ -15,6 +15,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Hive.Armada.Enemies;
 using UnityEngine;
 using Hive.Armada.Game;
 
@@ -112,18 +113,18 @@ namespace Hive.Armada.Player.Weapons
             if (Physics.Raycast(transform.position, transform.forward, out hit, 200.0f,
                                 Utility.shootableMask))
             {
-                StartCoroutine(Shoot(hit.collider.gameObject, hit.point));
+                StartCoroutine(Shoot(hit.collider.gameObject, hit.point, transform.forward));
             }
             else if (Physics.SphereCast(transform.position, radius, transform.forward, out hit,
                                         200.0f,
                                         Utility.enemyMask))
             {
-                StartCoroutine(Shoot(hit.collider.gameObject, hit.point));
+                StartCoroutine(Shoot(hit.collider.gameObject, hit.point, transform.forward));
             }
             else if (Physics.Raycast(transform.position, transform.forward, out hit, 200.0f,
                                      Utility.roomMask))
             {
-                StartCoroutine(Shoot(null, hit.point));
+                StartCoroutine(Shoot(null, hit.point, transform.forward));
             }
         }
 
@@ -132,7 +133,8 @@ namespace Hive.Armada.Player.Weapons
         /// </summary>
         /// <param name="target"> The gameobject to launch the rocket at </param>
         /// <param name="position"> The position to launch the rocket at </param>
-        private IEnumerator Shoot(GameObject target, Vector3 position)
+        /// <param name="forward"> The forward vector at the time of shooting </param>
+        private IEnumerator Shoot(GameObject target, Vector3 position, Vector3 forward)
         {
             canShoot = false;
 
@@ -159,7 +161,72 @@ namespace Hive.Armada.Player.Weapons
                 Rocket rocketScript = rocket.GetComponent<Rocket>();
                 rocketScript.SetupRocket(rocketTypeIndex, shipController);
                 rocketScript.SetDamageMultiplier(damageMultiplier);
-                rocketScript.Launch(target, position);
+
+                bool launched = false;
+                if (target != null)
+                {
+                    if (target.GetComponent<Poolable>() != null)
+                    {
+                        if (target.GetComponent<Poolable>().IsActive)
+                        {
+                            rocketScript.Launch(target, position);
+                            launched = true;
+                        }
+                        //else
+                        //{
+                        //    Debug.LogWarning(GetType().Name + " - Target is not active.");
+                        //}
+                    }
+
+                    if (!launched)
+                    {
+                        if (target.GetComponent<Enemy>() != null)
+                        {
+                            if (target.GetComponent<Enemy>().Health > 0)
+                            {
+                                rocketScript.Launch(target, position);
+                                launched = true;
+                            }
+                        }
+                        //else
+                        //{
+                        //    Debug.LogWarning(GetType().Name + " - Target is not alive.");
+                        //}
+                    }
+
+                    if (!launched)
+                    {
+                        if (target.activeInHierarchy && target.activeSelf)
+                        {
+                            rocketScript.Launch(target, position);
+                            launched = true;
+                        }
+                        //else
+                        //{
+                        //    Debug.LogWarning(GetType().Name + " - Target is not active.");
+                        //}
+                    }
+                }
+                else
+                {
+                    rocketScript.Launch(null, position);
+                    launched = true;
+                }
+
+                if (!launched)
+                {
+                    RaycastHit hit;
+                    if (Physics.Raycast(position, forward, out hit, 200.0f,
+                                        Utility.roomMask))
+                    {
+                        rocketScript.Launch(null, hit.point);
+                    }
+                    else
+                    {
+                        Debug.LogWarning(GetType().Name +
+                                         " - Unable to redirect from invalid target to room.");
+                    }
+                }
             }
 
             yield return new WaitForSeconds(1.0f / fireRate);

@@ -212,6 +212,8 @@ namespace Hive.Armada.Game
         /// </summary>
         private int currentWave;
 
+        public BossWave bossWave;
+
         /// <summary>
         /// The source to play the wave count from.
         /// </summary>
@@ -322,6 +324,11 @@ namespace Hive.Armada.Game
             waves[wave].Run(wave);
         }
 
+        private void RunBossWave(int wave)
+        {
+            bossWave.GetComponent<BossWave>().Run(wave);
+        }
+
         /// <summary>
         /// Informs the wave manager that a given wave has completed.
         /// </summary>
@@ -334,6 +341,22 @@ namespace Hive.Armada.Game
                                " says it is complete, but it isn't!");
             }
 
+            if (waves.Length >= currentWave)
+            {
+                RunBossWave(currentWave);
+            }
+            else
+            {
+                IsRunning = false;
+                IsComplete = true;
+
+                reference.sceneTransitionManager.TransitionOut("Menu Room");
+            }
+
+            //reference.statistics.WaveComplete();
+        }
+        public void BossWaveComplete(int wave)
+        {
             if (waves.Length > ++currentWave)
             {
                 RunWave(currentWave);

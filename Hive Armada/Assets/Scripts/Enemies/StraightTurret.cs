@@ -235,7 +235,7 @@ namespace Hive.Armada.Enemies
             {
                 //standard pattern, single bullets
                 case 0:
-                    fireRate = 0.6f;
+                    fireRate = 1.0f;
                     projectileSpeed = 1.5f;
                     spread = 2;
                     //canRotate = false;

@@ -269,6 +269,11 @@ namespace Hive.Armada.Game
             {
                 yield return new WaitForSeconds(Mathf.Abs(group.delay));
 
+                while (enemiesRemaining > 0)
+                {
+                    yield return new WaitForSeconds(0.1f);
+                }
+
                 foreach (SetupNormalSpawnZone zone in group.setupSpawnZones)
                 {
                     Vector3 position;

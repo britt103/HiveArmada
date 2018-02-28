@@ -266,8 +266,10 @@ namespace Hive.Armada.Player.Weapons
                     targetEnemyScript != null && targetEnemyScript.Health <= 0 ||
                     target == null || !target.activeSelf)
                 {
-                    isTargetDead = true;
                     target = null;
+                    targetPoolableScript = null;
+                    targetEnemyScript = null;
+                    isTargetDead = true;
                     isHoming = false;
 
                     if ((behaviorFlags & RocketFlags.AutoTarget) != 0)
@@ -489,6 +491,7 @@ namespace Hive.Armada.Player.Weapons
             shipController = null;
             target = null;
             targetPoolableScript = null;
+            targetEnemyScript = null;
             damageMultiplier = 1;
         }
     }

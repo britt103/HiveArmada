@@ -47864,6 +47864,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1908650249}
   - component: {fileID: 1908650250}
+  - component: {fileID: 1908650251}
   m_Layer: 0
   m_Name: Scene Transition Manager
   m_TagString: Untagged
@@ -47895,7 +47896,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7d584214e819ab4489fdfd36722b3ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transitionLength: 3
+  transitionLength: 5
   fadeColor: {r: 0, g: 0, b: 0, a: 1}
   fadeInStartTime: 0
   fadeOutStartTime: 0
@@ -47907,6 +47908,45 @@ MonoBehaviour:
   emitterInStartTime: 0
   emitterOutStartTime: 0
   emitterPoint: {fileID: 2052364205}
+  steamVRLoadLevel: {fileID: 1908650251}
+--- !u!114 &1908650251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1908650248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5a6a70209b6e6345bfe18b02314a54e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelName: 
+  internalProcessPath: 
+  internalProcessArgs: 
+  loadAdditive: 0
+  loadAsync: 1
+  loadingScreen: {fileID: 2800000, guid: ca3d252c24306c9418fcdce34abc1c2d, type: 3}
+  progressBarEmpty: {fileID: 2800000, guid: 37e4f8111d2aa324aae48df87ff2d713, type: 3}
+  progressBarFull: {fileID: 2800000, guid: d8a382bc2324aec41b33b12b547636fb, type: 3}
+  loadingScreenWidthInMeters: 6
+  progressBarWidthInMeters: 3
+  loadingScreenDistance: 0
+  loadingScreenTransform: {fileID: 106629177}
+  progressBarTransform: {fileID: 106629177}
+  front: {fileID: 2800000, guid: 08d77fe4d80b22845b618eaffd7fc02a, type: 3}
+  back: {fileID: 2800000, guid: 38f8ff2d52c1b294bb224af38844e95b, type: 3}
+  left: {fileID: 2800000, guid: 68418038d982ac04a8ec4e451fe3c321, type: 3}
+  right: {fileID: 2800000, guid: fa65142c511f9274c93bbaf369d8eee6, type: 3}
+  top: {fileID: 2800000, guid: 7922bc56613df194bb252be0e3de89f7, type: 3}
+  bottom: {fileID: 2800000, guid: b84c4c42856bbd24a81deaf30faba211, type: 3}
+  backgroundColor: {r: 0, g: 0, b: 0, a: 1}
+  showGrid: 0
+  fadeOutTime: 0
+  fadeInTime: 0
+  postLoadSettleTime: 1
+  loadingScreenFadeInTime: 1
+  loadingScreenFadeOutTime: 0.25
+  autoTriggerOnEnable: 0
 --- !u!1 &1910466691
 GameObject:
   m_ObjectHideFlags: 0

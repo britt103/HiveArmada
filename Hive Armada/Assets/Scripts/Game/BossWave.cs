@@ -55,6 +55,7 @@ namespace Hive.Armada.Game
         /// </summary>
         private GameObject boss;
 
+        private Boss bossScript;
         /// <summary>
         /// Reference for boss paths
         /// </summary>
@@ -71,7 +72,8 @@ namespace Hive.Armada.Game
             bossSpawn = GameObject.Find("Boss Spawn");
             spawnPosition = bossSpawn.transform.position;
             boss = Instantiate(bossPrefab, spawnPosition, transform.rotation);
-            boss.GetComponent<Boss>().BossReset();            
+            bossScript = boss.GetComponent<Boss>();
+            bossScript.BossReset();            
             boss.SetActive(false);
         }
 
@@ -96,8 +98,8 @@ namespace Hive.Armada.Game
             //yield return new WaitForSeconds(clips[wave].length);
             yield return new WaitForSeconds(0.1f);
             boss.SetActive(true);
-            iTween.MoveTo(boss, iTween.Hash("path", iTweenPath.GetPath("BossIn"), "easetype", iTween.EaseType.easeInOutSine, "time", 5.0f, "orientToPath", true,
-                                             "lookTime", 0.2,"onComplete", "FinishedPathing","onCompleteTarget", boss));
+            iTween.MoveTo(boss, iTween.Hash("path", iTweenPath.GetPath("BossIn"), "easetype", iTween.EaseType.easeInOutSine, "time", 5.0f,
+                                            "looktarget", reference.playerShip,"onComplete", "FinishedPathing","onCompleteTarget", boss));
             StartCoroutine(WaitForPathing());          
         }
 
@@ -110,7 +112,7 @@ namespace Hive.Armada.Game
             {
                 yield return new WaitForSeconds(0.1f);
             }
-            boss.GetComponent<Boss>().canActivate = true;
+            bossScript.canActivate = true;
             StartCoroutine(WaitForWaveEnd());
             Debug.Log("Boss wave " + currentWave+1);
         }
@@ -129,11 +131,12 @@ namespace Hive.Armada.Game
             Debug.Log("Boss wave #" + (currentWave + 1) + " is complete.");
 
             //play audio on defeat here?
-            boss.GetComponent<Boss>().canActivate = false;
-            boss.GetComponent<Boss>().pathingFinished = false;
-            iTween.MoveTo(boss, iTween.Hash("path", iTweenPath.GetPath("BossOut"), "easetype", iTween.EaseType.easeInOutSine, "time", 5.0f, "orientToPath",true,
-                                             "lookTime", 0.2,"onComplete", "FinishedPathing","onCompleteTarget", boss));
-            StartCoroutine(WaitForBossOut());            
+            bossScript.canActivate = false;
+            bossScript.pathingFinished = false;
+            bossScript.PauseBoss();
+            iTween.MoveTo(boss, iTween.Hash("path", iTweenPath.GetPath("BossOut"), "easetype", iTween.EaseType.easeInOutSine, "time", 5.0f,
+                                            "looktarget", reference.playerShip,"onComplete", "FinishedPathing","onCompleteTarget", boss));
+            StartCoroutine(WaitForBossOut());
         }
 
         /// <summary>
@@ -146,7 +149,7 @@ namespace Hive.Armada.Game
             {
                 yield return new WaitForSeconds(0.1f);
             }
-            boss.GetComponent<Boss>().BossReset();
+            bossScript.BossReset();
             Debug.Log("Boss wave " + currentWave+1 + "Finished");
             boss.SetActive(false);
             reference.waveManager.BossWaveComplete(currentWave);

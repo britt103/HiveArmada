@@ -136,7 +136,7 @@ namespace Hive.Armada.Enemies
 
                 if (player != null)
                 {
-                    transform.LookAt(player.transform.position);
+                    transform.LookAt(reference.playerShip.transform.position);
 
                     //if (canShoot)
                     //{

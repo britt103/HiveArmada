@@ -96,8 +96,8 @@ namespace Hive.Armada.Game
             //yield return new WaitForSeconds(clips[wave].length);
             yield return new WaitForSeconds(0.1f);
             boss.SetActive(true);
-            iTween.MoveTo(boss, iTween.Hash("path", iTweenPath.GetPath("BossIn"), "easetype", iTween.EaseType.easeInOutSine, "time", 5.0f, "looktarget", reference.playerShip.transform.position,
-                                            "onComplete", "FinishedPathing","onCompleteTarget", boss));
+            iTween.MoveTo(boss, iTween.Hash("path", iTweenPath.GetPath("BossIn"), "easetype", iTween.EaseType.easeInOutSine, "time", 5.0f, "orientToPath", true,
+                                             "lookTime", 0.2,"onComplete", "FinishedPathing","onCompleteTarget", boss));
             StartCoroutine(WaitForPathing());          
         }
 
@@ -131,8 +131,8 @@ namespace Hive.Armada.Game
             //play audio on defeat here?
             boss.GetComponent<Boss>().canActivate = false;
             boss.GetComponent<Boss>().pathingFinished = false;
-            iTween.MoveTo(boss, iTween.Hash("path", iTweenPath.GetPath("BossOut"), "easetype", iTween.EaseType.easeInOutSine, "time", 5.0f, "looktarget", reference.playerShip.transform.position,
-                                            "onComplete", "FinishedPathing","onCompleteTarget", boss));
+            iTween.MoveTo(boss, iTween.Hash("path", iTweenPath.GetPath("BossOut"), "easetype", iTween.EaseType.easeInOutSine, "time", 5.0f, "orientToPath",true,
+                                             "lookTime", 0.2,"onComplete", "FinishedPathing","onCompleteTarget", boss));
             StartCoroutine(WaitForBossOut());            
         }
 

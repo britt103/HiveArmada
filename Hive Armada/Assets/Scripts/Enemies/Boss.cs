@@ -93,11 +93,16 @@ namespace Hive.Armada.Enemies
         /// </summary>
         private bool canRotate;
 
+        public bool pathingFinished;
+
+        private GameObject bosswave;
+
         /// <summary>
         /// On start, select enemy behavior based on value fireMode
         /// </summary>
         void Start()
         {
+            bosswave = GameObject.Find("BossWaves");
             Reset();
             ResetAttackPattern();
             StartCoroutine(SelectBehavior(0));
@@ -110,6 +115,7 @@ namespace Hive.Armada.Enemies
         /// </summary>
         private void Update()
         {
+
             if (player != null)
             {
                 transform.LookAt(player.transform);
@@ -128,6 +134,11 @@ namespace Hive.Armada.Enemies
                     transform.LookAt(new Vector3(0.0f, 0.0f, 0.0f));
                 }
             }
+        }
+
+        public void FinishedPathing()
+        {
+            pathingFinished = true;
         }
 
         /// <summary>
@@ -318,10 +329,16 @@ namespace Hive.Armada.Enemies
                 projectileArray[points[i]] = true;
             }
         }
+
+        protected override void Reset()
+        {
+            //Do Nothing
+        }
+
         /// <summary>
         /// Resets attributes to this enemy's defaults from enemyAttributes.
         /// </summary>
-        protected override void Reset()
+        public void BossReset()
         {
             //// reset materials
             //for (int i = 0; i < renderers.Count; ++i)
@@ -337,6 +354,8 @@ namespace Hive.Armada.Enemies
             //    enemyAttributes.EnemyProjectileTypeIdentifiers[TypeIdentifier];
             maxHealth = 700;
             Health = maxHealth;
+            Debug.Log("Boss Health on boss is"+Health);
+            pathingFinished = false;
             //fireRate = enemyAttributes.enemyFireRate[TypeIdentifier];
             //projectileSpeed = enemyAttributes.projectileSpeed;
             //spread = enemyAttributes.enemySpread[TypeIdentifier];

@@ -46,10 +46,13 @@ namespace Hive.Armada.Game
         private int currentWave;
 
         /// <summary>
-        /// The boss enemy.
+        /// The boss enemy prefab.
         /// </summary>
         public GameObject bossPrefab;
 
+        /// <summary>
+        /// The boss enemy in scene.
+        /// </summary>
         private GameObject boss;
 
         /// <summary>
@@ -67,9 +70,11 @@ namespace Hive.Armada.Game
         {
             reference = GameObject.Find("Reference Manager").GetComponent<ReferenceManager>();
             waveManager = reference.waveManager;
-            bossSpawn = GameObject.Find("BossSpawn");
-            bossHealth = bossPrefab.GetComponent<Enemy>().Health;
+            bossSpawn = GameObject.Find("Boss Spawn");
             boss = Instantiate(bossPrefab, bossSpawn.transform);
+            boss.GetComponent<Boss>().BossReset();
+            bossHealth = boss.GetComponent<Enemy>().Health;
+            Debug.Log("boss health on bosswave is: " + bossHealth);
             boss.SetActive(false);
         }
 
@@ -80,28 +85,49 @@ namespace Hive.Armada.Game
         /// <param name="wave"> This wave's index </param>
         public void Run(int wave)
         {
+            
+            currentWave = wave;
+            StartCoroutine(RunBoss());
+            
+        }
+
+        private IEnumerator RunBoss()
+        {
             //placeholder for boss audio
             //source.PlayOneShot(clips[wave]);
             //yield return new WaitForSeconds(clips[wave].length);
-            currentWave = wave;            
+            yield return new WaitForSeconds(0.1f);
             boss.SetActive(true);
-            iTween.MoveTo(boss, iTween.Hash("path", iTweenPath.GetPath("BossIn") ,"easetype", iTween.EaseType.easeInOutSine,"time",5.0f,"looktarget",reference.playerShip.transform));
-            StartCoroutine(WaitForWaveEnd());
+            iTween.MoveTo(boss, iTween.Hash("path", iTweenPath.GetPath("BossIn"), "easetype", iTween.EaseType.easeInOutSine, "time", 5.0f, "looktarget", reference.playerShip.transform,
+                                            "onComplete", "FinishedPathing","onCompleteTarget",boss));
+            StartCoroutine(WaitForPathing());          
+        }
 
+        private IEnumerator WaitForPathing()
+        {
+            while (!boss.GetComponent<Boss>().pathingFinished)
+            {
+                yield return new WaitForSeconds(0.1f);
+            }
+            StartCoroutine(WaitForWaveEnd());
+            Debug.Log("Boss wave " + currentWave);
         }
 
         private IEnumerator WaitForWaveEnd()
         {
+            bossHealth = boss.GetComponent<Enemy>().Health;
             while (bossHealth > 0)
             {
+                Debug.Log("Current Boss Health: " + bossHealth);
                 yield return new WaitForSeconds(0.1f);
             }
 
-            Debug.Log("Wave #" + (currentWave + 1) + " is complete.");
+            Debug.Log("Boss wave #" + (currentWave + 1) + " is complete.");
 
             //play audio on defeat here?
             iTween.MoveTo(boss, iTween.Hash("path", iTweenPath.GetPath("BossOut"), "easetype", iTween.EaseType.easeInOutSine, "time", 5.0f, "looktarget", reference.playerShip.transform,
-                                            "onComplete", "Reset","onCompleteTarget", boss));
+                                            "onComplete", "BossReset","onCompleteTarget", boss));
+            yield return new WaitForSeconds(4.9f);
             boss.SetActive(false);
             reference.waveManager.BossWaveComplete(currentWave);
         }

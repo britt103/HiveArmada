@@ -212,7 +212,7 @@ namespace Hive.Armada.Game
         /// </summary>
         private int currentWave;
 
-        public GameObject bossWave;
+        public BossWave bossWave;
 
         /// <summary>
         /// The source to play the wave count from.
@@ -245,8 +245,6 @@ namespace Hive.Armada.Game
             reference = GameObject.Find("Reference Manager").GetComponent<ReferenceManager>();
 
             ObjectPoolManager objectPool = reference.objectPoolManager;
-
-            bossWave = GameObject.Find("BossWaves");
 
             EnemyIDs = new[]
             {

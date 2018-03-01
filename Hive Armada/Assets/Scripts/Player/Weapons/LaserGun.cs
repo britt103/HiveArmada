@@ -171,7 +171,7 @@ namespace Hive.Armada.Player.Weapons
                 shipController.hand.controller.TriggerHapticPulse(2500);
             }
             else if (Physics.Raycast(transform.position, transform.forward, out hit, 200.0f,
-                                     Utility.roomMask))
+                                     Utility.roomPathingMask))
             {
                 StartCoroutine(Shoot(hit.point));
             }

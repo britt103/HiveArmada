@@ -323,7 +323,14 @@ namespace Hive.Armada.Game
 
                         moveHash.Add("easetype", iTween.EaseType.easeInOutSine);
                         moveHash.Add("time", 3.0f);
-                        moveHash.Add("looktarget", reference.playerShip.transform);
+                        if (reference.playerShip != null)
+                        {
+                            moveHash.Add("looktarget", reference.playerShip.transform);
+                        }
+                        else
+                        {
+                            moveHash.Add("looktarget", reference.player.transform);
+                        }
                         moveHash.Add("onComplete", "OnPathingComplete");
                         moveHash.Add("onCompleteTarget", spawned);
                         moveHash.Add("path", iTweenPath.GetPath(pathName));

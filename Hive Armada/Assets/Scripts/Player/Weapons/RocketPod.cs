@@ -69,11 +69,6 @@ namespace Hive.Armada.Player.Weapons
         public GameObject rocketLaunchEmitter;
 
         /// <summary>
-        /// Emitter for the rocket impact/self destruct explosion.
-        /// </summary>
-        public GameObject rocketExplosionEmitter;
-
-        /// <summary>
         /// The audio source for the rocket pod sounds
         /// </summary>
         [Header("Audio")]
@@ -225,6 +220,7 @@ namespace Hive.Armada.Player.Weapons
                     {
                         Debug.LogWarning(GetType().Name +
                                          " - Unable to redirect from invalid target to room.");
+                        reference.objectPoolManager.Despawn(rocket);
                     }
                 }
             }

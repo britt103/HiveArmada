@@ -58,7 +58,26 @@ MonoBehaviour:
     damage: 30
     speed: 2
     homingSensitivity: 0.3
-    explodeTime: 10
+    explodeTime: 7
+    explosiveRadius: 0
+    randomTime: 0.2
+    randomX: 0.005
+    randomY: 0.005
+    randomZ: 0.005
+    trailColor: {r: 1, g: 1, b: 1, a: 1}
+    trailWidth: 0.007
+    explosionEmitterPrefab: {fileID: 1149115680930312, guid: b76cef86fabf4a6488f30f04521ff9c8,
+      type: 2}
+    rocketEmitterPrefab: {fileID: 1991993796967754, guid: 4c2ed6cbf2cb90c4eb7dd24fa8e7c973,
+      type: 2}
+    trailEmitterPrefab: {fileID: 1146848136157582, guid: eaa7610f45b204e44969727246a11f4f,
+      type: 2}
+  - rocketType: 1
+    behaviorFlags: 17
+    damage: 15
+    speed: 2
+    homingSensitivity: 0
+    explodeTime: 7
     explosiveRadius: 0
     randomTime: 0.2
     randomX: 0.005
@@ -67,7 +86,10 @@ MonoBehaviour:
     trailColor: {r: 1, g: 1, b: 1, a: 1}
     trailWidth: 0.007
     explosionEmitterPrefab: {fileID: 0}
-  - rocketType: 1
+    rocketEmitterPrefab: {fileID: 0}
+    trailEmitterPrefab: {fileID: 1415951353483722, guid: c369e0de9779d60459be5725f2a142bc,
+      type: 2}
+  - rocketType: 2
     behaviorFlags: 0
     damage: 30
     speed: 2
@@ -80,13 +102,18 @@ MonoBehaviour:
     randomZ: 0.005
     trailColor: {r: 1, g: 1, b: 1, a: 1}
     trailWidth: 0.007
-    explosionEmitterPrefab: {fileID: 0}
-  - rocketType: 2
+    explosionEmitterPrefab: {fileID: 1149115680930312, guid: b76cef86fabf4a6488f30f04521ff9c8,
+      type: 2}
+    rocketEmitterPrefab: {fileID: 1991993796967754, guid: 4c2ed6cbf2cb90c4eb7dd24fa8e7c973,
+      type: 2}
+    trailEmitterPrefab: {fileID: 1146848136157582, guid: eaa7610f45b204e44969727246a11f4f,
+      type: 2}
+  - rocketType: 3
     behaviorFlags: 14
     damage: 250
     speed: 2
-    homingSensitivity: 0.5
-    explodeTime: 8
+    homingSensitivity: 0.35
+    explodeTime: 12
     explosiveRadius: 3
     randomTime: 0.2
     randomX: 0.001
@@ -94,4 +121,9 @@ MonoBehaviour:
     randomZ: 0.001
     trailColor: {r: 1, g: 0.63985807, b: 0.2205882, a: 1}
     trailWidth: 0.01
-    explosionEmitterPrefab: {fileID: 0}
+    explosionEmitterPrefab: {fileID: 1149115680930312, guid: b17c57db46ad57343afa03d819ccc7b3,
+      type: 2}
+    rocketEmitterPrefab: {fileID: 1991993796967754, guid: eb5e21aaf4d14f34a886d74c9334f6de,
+      type: 2}
+    trailEmitterPrefab: {fileID: 1381081471905298, guid: 25bfeab4f6fd2224ba48cd259ff77d8a,
+      type: 2}

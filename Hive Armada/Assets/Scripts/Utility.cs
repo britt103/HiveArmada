@@ -33,6 +33,11 @@ namespace Hive.Armada
         public static LayerMask roomMask = LayerMask.GetMask("Room");
 
         /// <summary>
+        /// Layer mask for the room and pathing enemies.
+        /// </summary>
+        public static LayerMask roomPathingMask = LayerMask.GetMask("Room", "PathingEnemy");
+
+        /// <summary>
         /// Layer mask for the UI layer
         /// </summary>
         public static LayerMask uiMask = LayerMask.GetMask("UI");
@@ -71,5 +76,10 @@ namespace Hive.Armada
         /// The layer ID number for UICover.
         /// </summary>
         public static int uiCoverLayerId = 11;
+
+        /// <summary>
+        /// The layer ID number for PathingEnemy.
+        /// </summary>
+        public static int pathingEnemyLayerId = 12;
     }
 }

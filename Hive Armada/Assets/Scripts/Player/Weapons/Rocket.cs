@@ -50,7 +50,12 @@ namespace Hive.Armada.Player.Weapons
             /// <summary>
             /// If the rocket should auto-aquire its own target.
             /// </summary>
-            AutoTarget = 1 << 3
+            AutoTarget = 1 << 3,
+
+            /// <summary>
+            /// Disable homing.
+            /// </summary>
+            NoHoming = 1 << 4
         }
 
         /// <summary>
@@ -136,6 +141,26 @@ namespace Hive.Armada.Player.Weapons
         /// Type ID for the explosion emitter.
         /// </summary>
         private int explosionEmitterId;
+
+        /// <summary>
+        /// Type ID for the rocket emitter.
+        /// </summary>
+        private int rocketEmitterId;
+
+        /// <summary>
+        /// The rocket emitter game object.
+        /// </summary>
+        private GameObject rocketEmitter;
+
+        /// <summary>
+        /// Type ID for the rocket trail emitter.
+        /// </summary>
+        private int trailEmitterId;
+
+        /// <summary>
+        /// The rocket trail emitter game object.
+        /// </summary>
+        private GameObject trailEmitter;
 
         /// <summary>
         /// The target object for the rocket to seek.
@@ -244,6 +269,27 @@ namespace Hive.Armada.Player.Weapons
             trailRenderer.endWidth = rocketAttributes.rockets[rocketType].trailWidth;
 
             explosionEmitterId = rocketAttributes.RocketExplosionEmitterIds[rocketType];
+            rocketEmitterId = rocketAttributes.RocketEmitterIds[rocketType];
+            trailEmitterId = rocketAttributes.TrailEmitterIds[rocketType];
+
+            if (rocketEmitterId >= 0)
+            {
+                rocketEmitter =
+                    reference.objectPoolManager.Spawn(rocketEmitterId, transform.position,
+                                                      transform.rotation, transform);
+            }
+
+            if (trailEmitterId >= 0)
+            {
+                trailEmitter =
+                    reference.objectPoolManager.Spawn(trailEmitterId, transform.position,
+                                                      transform.rotation, transform);
+                GetComponent<TrailRenderer>().enabled = false;
+            }
+            else
+            {
+                GetComponent<TrailRenderer>().enabled = true;
+            }
         }
 
         /// <summary>
@@ -260,40 +306,48 @@ namespace Hive.Armada.Player.Weapons
         /// </summary>
         private void Update()
         {
-            if (isHoming)
+            if ((behaviorFlags & RocketFlags.NoHoming) != 0)
             {
-                if (targetPoolableScript != null && targetPoolableScript.IsActive == false ||
-                    targetEnemyScript != null && targetEnemyScript.Health <= 0 ||
-                    target == null || !target.activeSelf)
+                if (isHoming)
                 {
-                    target = null;
-                    targetPoolableScript = null;
-                    targetEnemyScript = null;
-                    isTargetDead = true;
-                    isHoming = false;
-
-                    if ((behaviorFlags & RocketFlags.AutoTarget) != 0)
+                    if (targetPoolableScript != null && targetPoolableScript.IsActive == false ||
+                        targetEnemyScript != null && targetEnemyScript.Health <= 0 ||
+                        target == null || !target.activeSelf)
                     {
-                        AquireTarget();
+                        target = null;
+                        targetPoolableScript = null;
+                        targetEnemyScript = null;
+                        isTargetDead = true;
+                        isHoming = false;
+
+                        if ((behaviorFlags & RocketFlags.AutoTarget) != 0)
+                        {
+                            AquireTarget();
+                        }
+                    }
+
+                    if (targetPoolableScript != null && targetPoolableScript.IsActive ||
+                        targetEnemyScript != null && targetEnemyScript.Health > 0 ||
+                        !isTargetDead)
+                    {
+                        if (target != null)
+                        {
+                            targetPosition = target.transform.position;
+                        }
                     }
                 }
 
-                if (targetPoolableScript != null && targetPoolableScript.IsActive ||
-                    targetEnemyScript != null && targetEnemyScript.Health > 0 ||
-                    !isTargetDead)
+                if (target == null && (behaviorFlags & RocketFlags.AutoTarget) != 0)
                 {
-                    if (target != null)
-                    {
-                        targetPosition = target.transform.position;
-                    }
+                    AquireTarget();
                 }
-            }
 
-            if (isTargetDead || !isHoming)
-            {
-                if (Vector3.Distance(transform.position, targetPosition) < 0.4f)
+                if (isTargetDead || !isHoming)
                 {
-                    Explode();
+                    if (Vector3.Distance(transform.position, targetPosition) < 0.4f)
+                    {
+                        Explode();
+                    }
                 }
             }
 
@@ -325,6 +379,11 @@ namespace Hive.Armada.Player.Weapons
             }
             else
             {
+                if ((behaviorFlags & RocketFlags.AutoTarget) != 0)
+                {
+                    AquireTarget();
+                }
+
                 targetPosition = position;
                 isHoming = false;
             }
@@ -439,9 +498,20 @@ namespace Hive.Armada.Player.Weapons
         /// </summary>
         private void Explode()
         {
+            if (rocketEmitter != null)
+            {
+                reference.objectPoolManager.Despawn(rocketEmitter);
+            }
+
+            if (trailEmitter != null)
+            {
+                reference.objectPoolManager.Despawn(trailEmitter);
+            }
+
             if (explosionEmitterId >= 0)
             {
-                reference.objectPoolManager.Spawn(explosionEmitterId, transform.position);
+                reference.objectPoolManager.Spawn(explosionEmitterId, transform.position,
+                                                  transform.rotation);
             }
 
             if ((behaviorFlags & RocketFlags.ExplosiveDamage) != 0)
@@ -462,7 +532,15 @@ namespace Hive.Armada.Player.Weapons
 
             foreach (Collider enemy in colliders)
             {
-                if (enemy.gameObject.GetInstanceID() != explosionTarget.GetInstanceID())
+                if (explosionTarget != null)
+                {
+                    if (enemy.gameObject.GetInstanceID() != explosionTarget.GetInstanceID())
+                    {
+                        enemy.gameObject.SendMessage("Hit", damage,
+                                                     SendMessageOptions.DontRequireReceiver);
+                    }
+                }
+                else
                 {
                     enemy.gameObject.SendMessage("Hit", damage,
                                                  SendMessageOptions.DontRequireReceiver);

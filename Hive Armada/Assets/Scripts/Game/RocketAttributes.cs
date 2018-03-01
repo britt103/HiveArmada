@@ -36,6 +36,11 @@ namespace Hive.Armada.Game
             RocketPod,
 
             /// <summary>
+            /// Player weapon plasma rockets.
+            /// </summary>
+            Plasma,
+
+            /// <summary>
             /// Ally power-up rockets.
             /// </summary>
             Ally,
@@ -43,7 +48,7 @@ namespace Hive.Armada.Game
             /// <summary>
             /// Area bomb power-up rocket.
             /// </summary>
-            AreaBomb
+            AreaBomb,
         }
 
         /// <summary>
@@ -129,6 +134,16 @@ namespace Hive.Armada.Game
             /// </summary>
             [Header("Emitters")]
             public GameObject explosionEmitterPrefab;
+
+            /// <summary>
+            /// Emitter prefab that represents the rocket.
+            /// </summary>
+            public GameObject rocketEmitterPrefab;
+
+            /// <summary>
+            /// The emitter prefab for the rocket trail.
+            /// </summary>
+            public GameObject trailEmitterPrefab;
         }
 
         /// <summary>
@@ -149,6 +164,16 @@ namespace Hive.Armada.Game
         public int[] RocketExplosionEmitterIds { get; private set; }
 
         /// <summary>
+        /// Array of Type Ids for the rocket emitters.
+        /// </summary>
+        public int[] RocketEmitterIds { get; private set; }
+
+        /// <summary>
+        /// Array of Type Ids for the rocket trail emitters.
+        /// </summary>
+        public int[] TrailEmitterIds { get; private set; }
+
+        /// <summary>
         /// Gets the type identifiers for the rocket emitters.
         /// </summary>
         public void Initialize()
@@ -166,6 +191,38 @@ namespace Hive.Armada.Game
                 else
                 {
                     RocketExplosionEmitterIds[i] = -1;
+                }
+            }
+
+            RocketEmitterIds = new int[rockets.Length];
+
+            for (int i = 0; i < rockets.Length; ++i)
+            {
+                if (rockets[i].rocketEmitterPrefab != null)
+                {
+                    RocketEmitterIds[i] =
+                        reference.objectPoolManager.GetTypeIdentifier(
+                            rockets[i].rocketEmitterPrefab);
+                }
+                else
+                {
+                    RocketEmitterIds[i] = -1;
+                }
+            }
+
+            TrailEmitterIds = new int[rockets.Length];
+
+            for (int i = 0; i < rockets.Length; ++i)
+            {
+                if (rockets[i].trailEmitterPrefab != null)
+                {
+                    TrailEmitterIds[i] =
+                        reference.objectPoolManager.GetTypeIdentifier(
+                            rockets[i].trailEmitterPrefab);
+                }
+                else
+                {
+                    TrailEmitterIds[i] = -1;
                 }
             }
         }

@@ -161,10 +161,25 @@ namespace Hive.Armada.Enemies
         public void FinishedPathing()
         {
             pathingFinished = true;
+        }
+
+        /// <summary>
+        /// Begins boss firing logic.
+        /// </summary>
+        public void StartBoss()
+        {
             ResetAttackPattern();
             StartCoroutine(SelectBehavior(0));
             Hover();
+        }
 
+        /// <summary>
+        /// Stops boss from attacking.
+        /// </summary>
+        public void PauseBoss()
+        {
+            ResetAttackPattern();
+            StartCoroutine(SelectBehavior(3));
         }
 
         /// <summary>
@@ -378,7 +393,7 @@ namespace Hive.Armada.Enemies
 
         protected override void Kill()
         {
-            StartCoroutine(SelectBehavior(3));
+            //Do Nothing
         }
 
         protected override void Reset()

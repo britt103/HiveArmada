@@ -170,6 +170,11 @@ namespace Hive.Armada.Menus
         private List<string> currNames = new List<string>();
 
         /// <summary>
+        /// Entry display names of currently open category.
+        /// </summary>
+        private List<string> currDisplayNames = new List<string>();
+
+        /// <summary>
         /// Entry texts of currently open category.
         /// </summary>
         private List<string> currTexts = new List<string>();
@@ -381,7 +386,7 @@ namespace Hive.Armada.Menus
 
             for (int i = 0; i < entries; ++i)
             {
-                if (i >= currNames.Count && tooFewEntries)
+                if (i >= currDisplayNames.Count && tooFewEntries)
                 {
                     GameObject entryButtonEmpty = Instantiate(entryButtonEmptyPrefab, contentGO.transform);
                     entryButtonEmpty.SetActive(false);
@@ -399,7 +404,7 @@ namespace Hive.Armada.Menus
                     }
                     else
                     {
-                        entryButton.transform.Find("Name").gameObject.GetComponent<Text>().text = currNames[i];
+                        entryButton.transform.Find("Name").gameObject.GetComponent<Text>().text = currDisplayNames[i];
                     }
                 }
             }
@@ -438,7 +443,7 @@ namespace Hive.Armada.Menus
             }
             else
             {
-                entryName.GetComponent<Text>().text = currNames[entryId];
+                entryName.GetComponent<Text>().text = currDisplayNames[entryId];
                 entryText.GetComponent<Text>().text = currTexts[entryId];
                 informationButton.SetActive(true);
                 currEntryPrefab = Instantiate(currPrefabs[entryId], entryPrefabPoint);
@@ -478,18 +483,21 @@ namespace Hive.Armada.Menus
             {
                 case "Powerups":
                     currNames = entryData.powerupNames.ToList();
+                    currDisplayNames = entryData.powerupDisplayNames.ToList();
                     currTexts = entryData.powerupTexts.ToList();
                     currPrefabs = powerupPrefabs.ToList();
                     currLocked = entryData.powerupsLocked.ToList();
                     break;
                 case "Enemies":
                     currNames = entryData.enemyNames.ToList();
+                    currDisplayNames = entryData.enemyDisplayNames.ToList();
                     currTexts = entryData.enemyTexts.ToList();
                     currPrefabs = enemyPrefabs.ToList();
                     currLocked = entryData.enemiesLocked.ToList();
                     break;
                 case "Weapons":
                     currNames = entryData.weaponNames.ToList();
+                    currDisplayNames = entryData.weaponDisplayNames.ToList();
                     currTexts = entryData.weaponTexts.ToList();
                     currPrefabs = weaponPrefabs.ToList();
                     currLocked = entryData.weaponsLocked.ToList();

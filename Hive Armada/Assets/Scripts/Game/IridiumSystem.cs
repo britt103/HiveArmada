@@ -167,6 +167,29 @@ namespace Hive.Armada.Game
 
             return itemNames;
         }
+
+        /// <summary>
+        /// Returns a list of all item display names in specified iridiumData category.
+        /// </summary>
+        /// <returns>List of item display name strings.</returns>
+        public List<string> GetItemDisplayNames(string category)
+        {
+            List<string> itemDisplayNames = new List<string>();
+
+            switch (category)
+            {
+                case "Weapons":
+                    itemDisplayNames = iridiumData.weaponDisplayNames.ToList();
+                    break;
+                default:
+                    Debug.Log("ERROR: Item category could not be identified.");
+                    itemDisplayNames = new List<string>();
+                    break;
+            }
+
+            return itemDisplayNames;
+        }
+
         /// <summary>
         /// Returns a list of all item texts in specified iridiumData category.
         /// </summary>

@@ -137,20 +137,15 @@ namespace Hive.Armada.Enemies
                 if (reference.playerShip != null)
                 {
                     lookTarget = reference.playerShip.transform.position;
+                    transform.LookAt(lookTarget);
                 }
 
                 if (lookTarget != Vector3.negativeInfinity)
                 {
-                    transform.LookAt(lookTarget);
-
                     if (canShoot)
                     {
                         StartCoroutine(Shoot());
                     }
-                }
-                else
-                {
-                    transform.LookAt(new Vector3(0.0f, 0.7f, 0.0f));
                 }
 
                 transform.position = Vector3.Lerp(posA, posB, (Mathf.Sin(theta) + 1.0f) / 2.0f);
@@ -178,7 +173,7 @@ namespace Hive.Armada.Enemies
 
             for (int point = 0; point < 9; ++point)
             {
-                if (projectileArray[point] == true)
+                if (projectileArray[point])
                 {
                     GameObject projectile = objectPoolManager.Spawn(projectileTypeIdentifier, shootPoint[point].position,
                                                        shootPoint[point].rotation);

@@ -306,7 +306,7 @@ namespace Hive.Armada.Player.Weapons
         /// </summary>
         private void Update()
         {
-            if ((behaviorFlags & RocketFlags.NoHoming) != 0)
+            if ((behaviorFlags & RocketFlags.NoHoming) == 0)
             {
                 if (isHoming)
                 {

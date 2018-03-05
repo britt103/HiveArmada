@@ -59,6 +59,8 @@ namespace Hive.Armada.Enemies
         /// </summary>
         protected ReferenceManager reference;
 
+        protected WaveManager waveManager;
+
         /// <summary>
         /// Reference to enemy attributes to initialize/reset this enemy's attributes.
         /// </summary>
@@ -76,10 +78,12 @@ namespace Hive.Armada.Enemies
         protected ObjectPoolManager objectPoolManager;
 
         /// <summary>
-        /// Reference to the subwave that spawned this enemy. Used to inform it
+        /// Reference to the wave that spawned this enemy. Used to inform it
         /// when this enemy is hit for the first time and when it is killed.
         /// </summary>
-        protected Wave wave;
+        protected int wave;
+
+        protected string path;
 
         /// <summary>
         /// Whether or not this enemy has already been initialized with its attributes.
@@ -133,7 +137,7 @@ namespace Hive.Armada.Enemies
 
         /// <summary>
         /// Changes to false on first hit.
-        /// Used to tell the subwave that it can spawn more enemies.
+        /// Used to tell the wave that it can spawn more enemies.
         /// </summary>
         protected bool untouched = true;
 
@@ -193,6 +197,7 @@ namespace Hive.Armada.Enemies
             }
 
             enemyAttributes = reference.enemyAttributes;
+            waveManager = reference.waveManager;
             scoringSystem = reference.scoringSystem;
             objectPoolManager = reference.objectPoolManager;
 
@@ -236,12 +241,20 @@ namespace Hive.Armada.Enemies
         }
 
         /// <summary>
-        /// Notifies the subwave that this enemy has been killed, adds to the player's score
+        /// Notifies the wave that this enemy has been killed, adds to the player's score
         /// and stats, spawns the death particle emitter, and despawns itself.
         /// </summary>
         protected virtual void Kill()
         {
-            wave.EnemyDead();
+            if (!reference.waveManager.IsInfinite)
+            {
+                waveManager.EnemyDead(wave);
+            }
+            else
+            {
+                waveManager.EnemyDead(path);
+            }
+
             reference.scoringSystem.ComboIn(pointValue, transform);
             reference.statistics.EnemyKilled();
             FindObjectOfType<LexiconUnlockData>().AddEnemyUnlock(gameObject.name);
@@ -251,7 +264,7 @@ namespace Hive.Armada.Enemies
         }
 
         /// <summary>
-        /// Tells the subwave to respawn this enemy.
+        /// Tells the wave to respawn this enemy.
         /// </summary>
         protected virtual void SelfDestruct()
         {
@@ -292,12 +305,17 @@ namespace Hive.Armada.Enemies
         }
 
         /// <summary>
-        /// Used to set the wave reference.
+        /// Used to set the wave index.
         /// </summary>
-        /// <param name="wave"> The wave that spawned this enemy </param>
-        public virtual void SetWave(Wave wave)
+        /// <param name="wave"> The index of the wave that spawned this enemy </param>
+        public virtual void SetWave(int wave)
         {
             this.wave = wave;
+        }
+
+        public virtual void SetPath(string path)
+        {
+            this.path = path;
         }
 
         /// <summary>

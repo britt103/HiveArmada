@@ -51,13 +51,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69b8af92f2f02c44c9fe7c18db5cef02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reference: {fileID: 0}
   rockets:
   - rocketType: 0
     behaviorFlags: 1
     damage: 30
-    speed: 2
-    homingSensitivity: 0.3
+    speed: 5
+    homingSensitivity: 0.85
     explodeTime: 7
     explosiveRadius: 0
     randomTime: 0.2

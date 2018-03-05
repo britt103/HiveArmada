@@ -108,7 +108,18 @@ namespace Hive.Armada.Player.Weapons
             {
                 RaycastHit hit;
                 if (Physics.Raycast(transform.position, transform.forward, out hit, 200.0f,
-                                    Utility.roomMask))
+                                    Utility.shootableMask))
+                {
+                    StartCoroutine(Shoot(hit.point));
+                }
+                else if (Physics.SphereCast(transform.position, radius, transform.forward, out hit,
+                                            200.0f,
+                                            Utility.enemyMask))
+                {
+                    StartCoroutine(Shoot(hit.point));
+                }
+                else if (Physics.Raycast(transform.position, transform.forward, out hit, 200.0f,
+                                         Utility.roomMask))
                 {
                     StartCoroutine(Shoot(hit.point));
                 }

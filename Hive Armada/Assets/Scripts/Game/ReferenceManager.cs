@@ -42,6 +42,8 @@ namespace Hive.Armada.Game
 
         public WaveManager waveManager;
 
+        public Infinite infinite;
+
         public ObjectPoolManager objectPoolManager;
 
 		public SceneTransitionManager sceneTransitionManager;
@@ -132,12 +134,22 @@ namespace Hive.Armada.Game
         {
             if (enemyAttributes != null)
             {
-                enemyAttributes.Initialize();
+                enemyAttributes.Initialize(this);
             }
 
             if (objectPoolManager != null)
             {
                 objectPoolManager.Initialize();
+            }
+
+            if (waveManager != null)
+            {
+                waveManager.Initialize(this);
+            }
+
+            if (infinite != null)
+            {
+                infinite.Initialize(this);
             }
 
             if (statistics == null)
@@ -152,7 +164,7 @@ namespace Hive.Armada.Game
 
             if (rocketAttributes != null)
             {
-                rocketAttributes.Initialize();
+                rocketAttributes.Initialize(this);
             }
         }
     }

@@ -125,11 +125,12 @@ namespace Hive.Armada.Enemies
                 if (reference.playerShip != null)
                 {
                     lookTarget = reference.playerShip.transform.position;
+
+                    transform.LookAt(lookTarget);
                 }
+
                 if (lookTarget != Vector3.negativeInfinity)
                 {
-                    transform.LookAt(lookTarget);
-
                     if (canShoot)
                     {
                         for (int i = 0; i < projectileCount; ++i)
@@ -137,10 +138,6 @@ namespace Hive.Armada.Enemies
                             StartCoroutine(Shoot());
                         }
                     }
-                }
-                else
-                {
-                    transform.LookAt(new Vector3(0.0f, 0.7f, 0.0f));
                 }
 
 				if (shaking)

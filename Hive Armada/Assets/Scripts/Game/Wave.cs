@@ -291,7 +291,7 @@ namespace Hive.Armada.Game
 
                     Quaternion rotation;
 
-                    if (reference.playerShip)
+                    if (reference.playerShip != null)
                     {
                         // spawn the enemy looking at the player
                         rotation =
@@ -316,7 +316,7 @@ namespace Hive.Armada.Game
                                 rotation);
 
                         Enemy spawnedEnemyScript = spawned.GetComponent<Enemy>();
-                        spawnedEnemyScript.SetWave(this);
+                        spawnedEnemyScript.SetWave(WaveNumber);
                         spawnedEnemyScript.SetAttackPattern(thisPath.attackPattern);
 
                         Hashtable moveHash = new Hashtable();

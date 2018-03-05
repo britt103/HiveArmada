@@ -181,7 +181,7 @@ namespace Hive.Armada.Enemies
 
             for (int x = 0; x < 25; x++)
             {
-                if (projectileArray[x] == true)
+                if (projectileArray[x])
                 {
                     GameObject projectile =
                         objectPoolManager.Spawn(projectileTypeIdentifier, shootPoint[x].position,

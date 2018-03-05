@@ -153,6 +153,11 @@ namespace Hive.Armada.PowerUps
             GameObject nearestEnemy = null;
             foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
             {
+                if (enemy.layer == Utility.pathingEnemyLayerId)
+                {
+                    continue;
+                }
+
                 positionDifference = enemy.transform.position -
                                      transform.parent.transform.position;
 

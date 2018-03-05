@@ -266,6 +266,8 @@ namespace Hive.Armada.Game
                 "BackRightPath"
             };
 
+            //IsInfinite = true;
+
             //waves = waveLoader.LoadWaves();
         }
 

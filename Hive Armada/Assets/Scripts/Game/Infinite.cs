@@ -77,9 +77,18 @@ namespace Hive.Armada.Game
 
         private int intSpawnChance;
 
+        [Range(0.0f, 100.0f)]
+        public float powerupSpawnChance = 0.8f;
+
+        private int intPowerupSpawnChance;
+
+        private float powerupLowerDelay = 10.0f;
+
+        private float powerupUpperDelay = 30.0f;
+
         private float spawnDelay = 2.0f;
 
-        private float minSpawnDelay = 0.25f;
+        private readonly float minSpawnDelay = 0.25f;
 
         private float currentTime;
 
@@ -101,6 +110,7 @@ namespace Hive.Armada.Game
             waveManager = reference.waveManager;
             Random.InitState((int) DateTime.Now.Ticks);
             intSpawnChance = (int) (spawnChance * 100);
+            intPowerupSpawnChance = (int) (powerupSpawnChance * 100);
 
             chances = new Chances[spawnChances.Length];
             int high = 0;
@@ -182,9 +192,16 @@ namespace Hive.Armada.Game
 
             float endTime = Time.time + waveLength;
 
+            int roll = Random.Range(0, 100);
+
+            if (roll >= 100 - intPowerupSpawnChance)
+            {
+                StartCoroutine(SpawnPowerup());
+            }
+
             while (Time.time < endTime)
             {
-                int roll = Random.Range(0, 100);
+                roll = Random.Range(0, 100);
 
                 if (roll >= 100 - intSpawnChance)
                 {
@@ -304,6 +321,22 @@ namespace Hive.Armada.Game
 
             canSpawnWave = true;
             waveCoroutine = null;
+        }
+
+        private IEnumerator SpawnPowerup()
+        {
+            float delay = Random.Range(powerupLowerDelay, powerupUpperDelay);
+
+            yield return new WaitForSeconds(delay);
+
+            GameObject powerup =
+                waveManager.powerupPrefabs[Random.Range(0, waveManager.powerupPrefabs.Length)];
+
+            Transform spawn =
+                waveManager.powerupSpawnPoints[
+                    Random.Range(0, waveManager.powerupSpawnPoints.Length)];
+
+            Instantiate(powerup, spawn.position, Quaternion.identity);
         }
 
         public void EnemyDead(string path)

@@ -246,6 +246,7 @@ namespace Hive.Armada.Game
             reference = referenceManager;
 
             ObjectPoolManager objectPool = reference.objectPoolManager;
+            GameSettings gameSettings = reference.gameSettings;
 
             EnemyIDs = new[]
             {
@@ -266,6 +267,14 @@ namespace Hive.Armada.Game
                 "BackRightPath"
             };
 
+            if (gameSettings.selectedGameMode == GameSettings.GameMode.SoloInfinite)
+            {
+                IsInfinite = true;
+            }
+            else
+            {
+                IsInfinite = false;
+            }
             //IsInfinite = true;
 
             //waves = waveLoader.LoadWaves();

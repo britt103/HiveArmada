@@ -50,6 +50,8 @@ namespace Hive.Armada.Game
 
         public OptionsValues optionsValues;
 
+        public GameSettings gameSettings;
+
         public PlayerIdleTimer playerIdleTimer;
 
         public IridiumSpawner iridiumSpawner;
@@ -140,6 +142,11 @@ namespace Hive.Armada.Game
             if (objectPoolManager != null)
             {
                 objectPoolManager.Initialize();
+            }
+
+            if (gameSettings == null)
+            {
+                gameSettings = FindObjectOfType<GameSettings>();
             }
 
             if (waveManager != null)

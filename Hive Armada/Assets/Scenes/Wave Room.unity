@@ -7956,6 +7956,12 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114083984002419404, guid: 965c3af37ca71964ea917c79a708bb12,
+        type: 2}
+      propertyPath: enemyDeathEmitters.Array.data[5]
+      value: 
+      objectReference: {fileID: 1960498793399906, guid: b554dfaa0dac8484daee59f7d24b3e9c,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 965c3af37ca71964ea917c79a708bb12, type: 2}
   m_IsPrefabParent: 0
@@ -49608,6 +49614,7 @@ MonoBehaviour:
   objectPoolManager: {fileID: 898325481}
   sceneTransitionManager: {fileID: 1908650250}
   optionsValues: {fileID: 1923599318}
+  gameSettings: {fileID: 0}
   playerIdleTimer: {fileID: 2052364200}
   iridiumSpawner: {fileID: 902762742}
   rocketAttributes: {fileID: 1533610577}

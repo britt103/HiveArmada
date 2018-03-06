@@ -475,11 +475,11 @@ namespace Hive.Armada.Player.Weapons
         {
             while (true)
             {
-                yield return new WaitForSeconds(randomTime);
-
                 randomMovement = new Vector3(Random.Range(-randomX, randomX),
                                              Random.Range(-randomY, randomY),
                                              Random.Range(0, randomZ));
+
+				yield return new WaitForSeconds(randomTime);
             }
         }
 

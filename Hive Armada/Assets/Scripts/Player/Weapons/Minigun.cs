@@ -273,6 +273,11 @@ namespace Hive.Armada.Player.Weapons
                 Debug.LogError(GetType().Name + " - Shot while overheating.");
             }
 
+            if (overheatTickCoroutine != null)
+            {
+                StopCoroutine(overheatTickCoroutine);
+            }
+
             AddOverheat();
 
             GameObject barrel = isLeftFire
@@ -370,6 +375,16 @@ namespace Hive.Armada.Player.Weapons
             {
                 isOverheating = true;
 
+                if (overheatDecreaseDelayCoroutine != null)
+                {
+                    StopCoroutine(overheatDecreaseDelayCoroutine);
+                }
+
+                if (overheatTickCoroutine != null)
+                {
+                    StopCoroutine(overheatTickCoroutine);
+                }
+
                 overheatCoolDownCoroutine = StartCoroutine(OverheatCoolDown());
             }
         }
@@ -418,16 +433,16 @@ namespace Hive.Armada.Player.Weapons
             {
                 for (int i = 0; i < count; ++i)
                 {
+                    yield return new WaitForSeconds(overheatDecreaseTickLength / count);
+
                     RemoveOverheat(amount);
 
                     if (overheatAmount <= 0.0f)
                     {
                         overheatAmount = 0.0f;
                         isCooling = false;
-                        //break;
+                        break;
                     }
-
-                    yield return new WaitForSeconds(overheatDecreaseTickLength / count);
                 }
 
 //                overheatAmount -= overheatDecreaseAmount;

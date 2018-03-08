@@ -120,6 +120,7 @@ namespace Hive.Armada.Game
                 yield return new WaitForSeconds(0.1f);
             }
             bossScript.canActivate = true;
+            bossScript.StartBoss();
             StartCoroutine(WaitForWaveEnd());
             Debug.Log("Boss wave " + currentWave+1);
         }

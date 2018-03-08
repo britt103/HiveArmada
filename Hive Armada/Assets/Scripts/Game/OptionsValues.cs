@@ -135,7 +135,8 @@ namespace Hive.Armada.Game
         public void SetBloom(bool bloom)
         {
             this.bloom = bloom;
-            cameraGO.GetComponent<PostProcessingBehaviour>().profile.bloom.enabled = bloom;
+            //cameraGO.GetComponent<PostProcessingBehaviour>().profile.bloom.enabled = bloom;
+            cameraGO.GetComponent<PostProcessingBehaviour>().profile.vignette.enabled = bloom;
         }
 
         /// <summary>

@@ -193,26 +193,30 @@ namespace Hive.Armada.Enemies
 
             if (reference == null)
             {
-                Debug.LogError(GetType().Name + " - Could not find Reference Manager!");
+                Debug.LogError(GetType().Name +
+                               " - Could not find Reference Manager. Enemy not initialized.");
             }
-
-            enemyAttributes = reference.enemyAttributes;
-            waveManager = reference.waveManager;
-            scoringSystem = reference.scoringSystem;
-            objectPoolManager = reference.objectPoolManager;
-
-            renderers = new List<Renderer>();
-            materials = new List<Material>();
-
-            foreach (Renderer r in gameObject.GetComponentsInChildren<Renderer>())
+            else
             {
-                if (r.gameObject.CompareTag("Emitter") || r.transform.parent.CompareTag("Emitter"))
-                {
-                    continue;
-                }
+                enemyAttributes = reference.enemyAttributes;
+                waveManager = reference.waveManager;
+                scoringSystem = reference.scoringSystem;
+                objectPoolManager = reference.objectPoolManager;
 
-                renderers.Add(r);
-                materials.Add(r.material);
+                renderers = new List<Renderer>();
+                materials = new List<Material>();
+
+                foreach (Renderer r in gameObject.GetComponentsInChildren<Renderer>())
+                {
+                    if (r.gameObject.CompareTag("Emitter") ||
+                        r.transform.parent.CompareTag("Emitter"))
+                    {
+                        continue;
+                    }
+
+                    renderers.Add(r);
+                    materials.Add(r.material);
+                }
             }
         }
 
@@ -222,6 +226,11 @@ namespace Hive.Armada.Enemies
         /// <param name="damage"> How much damage this enemy is taking. </param>
         public virtual void Hit(int damage)
         {
+            if (!pathingComplete)
+            {
+                return;
+            }
+
             Health -= damage;
 
             if (hitFlash == null)
@@ -229,7 +238,7 @@ namespace Hive.Armada.Enemies
                 hitFlash = StartCoroutine(HitFlash());
             }
 
-            if(Health <= 20)
+            if (Health <= 20)
             {
                 shaking = true;
             }
@@ -300,7 +309,7 @@ namespace Hive.Armada.Enemies
         /// </summary>
         protected virtual void OnPathingComplete()
         {
-            gameObject.layer = Utility.enemyLayerId;
+//            gameObject.layer = Utility.enemyLayerId;
             pathingComplete = true;
         }
 
@@ -313,6 +322,10 @@ namespace Hive.Armada.Enemies
             this.wave = wave;
         }
 
+        /// <summary>
+        /// Sets the name of the path this enemy used to spawn.
+        /// </summary>
+        /// <param name="path"> The path name </param>
         public virtual void SetPath(string path)
         {
             this.path = path;
@@ -344,7 +357,7 @@ namespace Hive.Armada.Enemies
         /// </summary>
         protected override void Reset()
         {
-            gameObject.layer = Utility.pathingEnemyLayerId;
+//            gameObject.layer = Utility.pathingEnemyLayerId;
 
             // reset materials
             for (int i = 0; i < renderers.Count; ++i)

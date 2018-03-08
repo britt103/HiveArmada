@@ -61,9 +61,18 @@ namespace Hive.Armada.Player.Weapons
         public GameObject[] right;
 
         /// <summary>
-        /// Amount at which the minigun overheats.
+        /// This is the color the barrels turns when it overheats.
         /// </summary>
         [Header("Overheat")]
+        public Color overheatBarrelColor;
+
+        private Color initialColor;
+
+        public Renderer[] barrelRenderers;
+
+        /// <summary>
+        /// Amount at which the minigun overheats.
+        /// </summary>
         [Tooltip("The amount at which the minigun overheats.")]
         public float overheatMax;
 
@@ -165,6 +174,8 @@ namespace Hive.Armada.Player.Weapons
         /// </summary>
         protected override void SetupWeapon()
         {
+            initialColor = barrelRenderers[0].material.color;
+
             for (int i = 0; i < left.Length; ++i)
             {
                 InitLineRenderer(left[i]);
@@ -346,12 +357,39 @@ namespace Hive.Armada.Player.Weapons
         private void AddOverheat()
         {
             overheatAmount += overheatPerShot;
+            float percent = Mathf.Clamp(overheatAmount / 100.0f, 0.0f, 1.0f);
+            Color currentColor =
+                Color.Lerp(initialColor, overheatBarrelColor, percent);
+
+            foreach (Renderer barrel in barrelRenderers)
+            {
+                barrel.material.color = currentColor;
+            }
 
             if (overheatAmount >= overheatMax)
             {
                 isOverheating = true;
 
                 overheatCoolDownCoroutine = StartCoroutine(OverheatCoolDown());
+            }
+        }
+
+        private void RemoveOverheat(float amount)
+        {
+            overheatAmount -= amount;
+
+            if (overheatAmount < 0.0f)
+            {
+                Debug.Log("Overheat = " + overheatAmount);
+            }
+
+            float percent = Mathf.Clamp(overheatAmount / 100.0f, 0.0f, 1.0f);
+            Color currentColor =
+                Color.Lerp(initialColor, overheatBarrelColor, percent);
+
+            foreach (Renderer barrel in barrelRenderers)
+            {
+                barrel.material.color = currentColor;
             }
         }
 
@@ -374,9 +412,25 @@ namespace Hive.Armada.Player.Weapons
         /// </summary>
         private IEnumerator OverheatTick()
         {
+            int count = (int) (overheatDecreaseTickLength * 90);
+            float amount = overheatDecreaseAmount / count;
             while (isCooling)
             {
-                overheatAmount -= overheatDecreaseAmount;
+                for (int i = 0; i < count; ++i)
+                {
+                    RemoveOverheat(amount);
+
+                    if (overheatAmount <= 0.0f)
+                    {
+                        overheatAmount = 0.0f;
+                        isCooling = false;
+                        //break;
+                    }
+
+                    yield return new WaitForSeconds(overheatDecreaseTickLength / count);
+                }
+
+//                overheatAmount -= overheatDecreaseAmount;
 
                 if (overheatAmount <= 0.0f)
                 {
@@ -385,7 +439,7 @@ namespace Hive.Armada.Player.Weapons
                     break;
                 }
 
-                yield return new WaitForSeconds(overheatDecreaseTickLength);
+                //yield return new WaitForSeconds(overheatDecreaseTickLength);
             }
 
             overheatTickCoroutine = null;
@@ -396,8 +450,18 @@ namespace Hive.Armada.Player.Weapons
         /// </summary>
         private IEnumerator OverheatCoolDown()
         {
-            yield return new WaitForSeconds(overheatCoolDown);
+            int count = (int)(overheatCoolDown * 90);
+            float amount = overheatMax / count;
 
+            Debug.LogWarning(count + " - " + amount + " - " + overheatAmount);
+            for (int i = 0; i < count; ++i)
+            {
+                yield return new WaitForSeconds(overheatCoolDown / count);
+
+                RemoveOverheat(amount);
+            }
+
+            //yield return new WaitForSeconds(overheatCoolDown);
             overheatAmount = 0.0f;
             isOverheating = false;
             overheatCoolDownCoroutine = null;

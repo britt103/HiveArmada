@@ -132,7 +132,7 @@ namespace Hive.Armada.Enemies
         /// </summary>
         private void Update()
         {
-            if (pathingComplete)
+            if (PathingComplete)
             {
                 if (reference.playerShip != null)
                 {

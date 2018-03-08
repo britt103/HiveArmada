@@ -110,7 +110,7 @@ namespace Hive.Armada.Enemies
         /// </summary>
         private void Update()
         {
-            if (pathingComplete)
+            if (PathingComplete)
             {
                 transform.position = Vector3.Lerp(posA, posB, (Mathf.Sin(theta) + 1.0f) / 2.0f);
 

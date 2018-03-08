@@ -15,9 +15,10 @@
 //=============================================================================
 
 using System.Collections;
+using UnityEngine;
 using Hive.Armada.Game;
 using Hive.Armada.Player.Weapons;
-using UnityEngine;
+using Hive.Armada.Enemies;
 
 namespace Hive.Armada.PowerUps
 {
@@ -153,7 +154,15 @@ namespace Hive.Armada.PowerUps
             GameObject nearestEnemy = null;
             foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
             {
-                if (enemy.layer == Utility.pathingEnemyLayerId)
+                Enemy enemyScript = enemy.GetComponent<Enemy>();
+                if (enemyScript != null)
+                {
+                    if (!enemyScript.PathingComplete || !enemyScript.IsActive)
+                    {
+                        continue;
+                    }
+                }
+                else
                 {
                     continue;
                 }

@@ -181,7 +181,7 @@ namespace Hive.Armada.Enemies
         /// <summary>
         /// If this enemy has finished pathing.
         /// </summary>
-        protected bool pathingComplete;
+        public bool PathingComplete { get; private set; }
 
         /// <summary>
         /// Initializes references to ReferenceManager and other managers, list of renderers and
@@ -226,7 +226,7 @@ namespace Hive.Armada.Enemies
         /// <param name="damage"> How much damage this enemy is taking. </param>
         public virtual void Hit(int damage)
         {
-            if (!pathingComplete)
+            if (!PathingComplete)
             {
                 return;
             }
@@ -310,7 +310,7 @@ namespace Hive.Armada.Enemies
         protected virtual void OnPathingComplete()
         {
 //            gameObject.layer = Utility.enemyLayerId;
-            pathingComplete = true;
+            PathingComplete = true;
         }
 
         /// <summary>
@@ -365,7 +365,7 @@ namespace Hive.Armada.Enemies
                 renderers.ElementAt(i).material = materials.ElementAt(i);
             }
 
-            pathingComplete = false;
+            PathingComplete = false;
             hitFlash = null;
             shaking = false;
             maxHealth = enemyAttributes.enemyHealthValues[TypeIdentifier];

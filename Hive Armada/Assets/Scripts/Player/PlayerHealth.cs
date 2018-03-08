@@ -126,6 +126,11 @@ namespace Hive.Armada.Player
         public AudioClip hitSound;
 
         /// <summary>
+        /// Reference to PlayerHitVignette.
+        /// </summary>
+        private PlayerHitVignette playerHitVignette;
+
+        /// <summary>
         /// Initializes health and renderers for hit flashing
         /// </summary>
         private void Start()
@@ -157,6 +162,7 @@ namespace Hive.Armada.Player
             currentHealth = maxHealth;
 
             reference = FindObjectOfType<ReferenceManager>();
+            playerHitVignette = reference.playerHitVignette;
         }
 
         /// <summary>
@@ -177,6 +183,7 @@ namespace Hive.Armada.Player
 
             currentHealth -= damage;
             source.PlayOneShot(hitSound);
+            playerHitVignette.Hit();
 
             if (Utility.isDebug)
             {

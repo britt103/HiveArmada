@@ -49610,6 +49610,7 @@ MonoBehaviour:
   playerShip: {fileID: 0}
   shipPickup: {fileID: 1176633369}
   powerUpStatus: {fileID: 2052364199}
+  playerHitVignette: {fileID: 2052364206}
   menuMain: {fileID: 0}
   menuTitle: {fileID: 0}
   countdown: {fileID: 2146153966}
@@ -49772,6 +49773,19 @@ MonoBehaviour:
 Transform:
   m_PrefabParentObject: {fileID: 447954, guid: dc06161b6d97feb419f45f03b62e14b9, type: 2}
   m_PrefabInternal: {fileID: 2052364197}
+--- !u!114 &2052364206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2052364201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 863c528159f956549b4a9767dcc3b655, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  profile: {fileID: 2052364204}
+  effectLength: 0.5
 --- !u!1 &2089217574
 GameObject:
   m_ObjectHideFlags: 0

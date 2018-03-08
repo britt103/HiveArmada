@@ -68,6 +68,8 @@ namespace Hive.Armada.Game
 
         public PowerUpStatus powerUpStatus;
 
+        public PlayerHitVignette playerHitVignette;
+
         //----------------------------------------
         // 
         // Menus & UI

@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 95046761987547388}
   - component: {fileID: 136916484975758582}
   - component: {fileID: 23490431565518182}
+  - component: {fileID: 114964180673860484}
   m_Layer: 8
   m_Name: Enemy_Kamikaze_Preview
   m_TagString: Untagged
@@ -511,6 +512,17 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114964180673860484
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1250542050544924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f6100fbaff2e4b4ba2198bbd62e8dd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!136 &136916484975758582
 CapsuleCollider:
   m_ObjectHideFlags: 1

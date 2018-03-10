@@ -13,25 +13,39 @@
 
 
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.PostProcessing;
 
 namespace Hive.Armada.Player
 {
+    //Plays hit vignette effect when hit.
     public class PlayerHitVignette : MonoBehaviour
     {
+        /// <summary>
+        /// Reference to PostProcessingBehaviour.
+        /// </summary>
         public PostProcessingBehaviour profile;
 
+        /// <summary>
+        /// Total duration of effect.
+        /// </summary>
         public float effectLength = 0.5f;
 
+        /// <summary>
+        /// Maximum intensity of vignette effect. 
+        /// </summary>
         public float maxIntensity = 0.671f;
 
+        /// <summary>
+        /// State of whether the player has just been hit and the effect is playing.
+        /// </summary>
         private bool hit = false;
 
+        /// <summary>
+        /// Either starts or restarts PlayVignetteEffect when player is hit.
+        /// </summary>
         public void Hit()
         {
-            Debug.Log("Here");
             if (!hit)
             {
                 StartCoroutine(PlayVignetteEffect());
@@ -44,7 +58,10 @@ namespace Hive.Armada.Player
             }
         }
 
-
+        /// <summary>
+        /// Transitions to and then from maximum intensity of vignette effect. Sets intensity to 0
+        /// when effect ends. 
+        /// </summary>
         private IEnumerator PlayVignetteEffect()
         {
             VignetteModel.Settings vm = profile.GetComponent<PostProcessingBehaviour>().profile.vignette.settings;
@@ -67,7 +84,6 @@ namespace Hive.Armada.Player
             profile.GetComponent<PostProcessingBehaviour>().profile.vignette.settings = vm;
             hit = false;
             yield return null;
-
         }
     }
 }

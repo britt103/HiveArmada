@@ -27,8 +27,6 @@ namespace Hive.Armada.Player
 
         public float maxIntensity = 0.671f;
 
-        private float effectDelta = 0.0f;
-
         private bool hit = false;
 
         public void Hit()
@@ -42,7 +40,6 @@ namespace Hive.Armada.Player
             else
             {
                 StopCoroutine(PlayVignetteEffect());
-                effectDelta = 0.0f;
                 StartCoroutine(PlayVignetteEffect());
             }
         }
@@ -51,14 +48,26 @@ namespace Hive.Armada.Player
         private IEnumerator PlayVignetteEffect()
         {
             VignetteModel.Settings vm = profile.GetComponent<PostProcessingBehaviour>().profile.vignette.settings;
-            vm.intensity = Mathf.Lerp(0, maxIntensity, ((Mathf.Sin(effectDelta) + 1.0f) / 2.0f) / effectLength);
-            effectDelta += Time.deltaTime;
-            profile.GetComponent<PostProcessingBehaviour>().profile.vignette.settings = vm;
-            yield return new WaitWhile(() => effectDelta < effectLength);
+
+            for (float i = 0.0f; i <= effectLength / 2; i += Time.deltaTime)
+            {
+                vm.intensity = Mathf.Lerp(0.0f, maxIntensity, i / (effectLength / 2));
+                profile.GetComponent<PostProcessingBehaviour>().profile.vignette.settings = vm;
+                yield return new WaitForSeconds(0.005f);
+            }
+
+            for (float i = effectLength / 2; i >= 0.0f / 2; i -= Time.deltaTime)
+            {
+                vm.intensity = Mathf.Lerp(0.0f, maxIntensity, i / (effectLength / 2));
+                profile.GetComponent<PostProcessingBehaviour>().profile.vignette.settings = vm;
+                yield return new WaitForSeconds(0.005f);
+            }
+
             vm.intensity = 0.0f;
             profile.GetComponent<PostProcessingBehaviour>().profile.vignette.settings = vm;
-            effectDelta = 0.0f;
             hit = false;
+            yield return null;
+
         }
     }
 }

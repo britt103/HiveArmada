@@ -202,12 +202,6 @@ namespace Hive.Armada.Menus
                     float mag = (transform.position - hit.point).magnitude;
                     pointer.endWidth = thickness * Mathf.Max(mag, 1.0f);
                 }
-                //else
-                //{
-                //    ExitLastInteractable();
-                //    aimObject = null;
-                //    isInteractable = false;
-                //}
 
                 //Check for UI interaction
                 if (isInteractable)
@@ -226,6 +220,11 @@ namespace Hive.Armada.Menus
                     else if (aimObject.GetComponent<ScrollbarUIHover>())
                     {
                         aimObject.GetComponent<ScrollbarUIHover>().PassHover();
+                    }
+                    else if (hand.GetStandardInteractionButtonUp() &&
+                        aimObject.GetComponent<PreviewRotation>())
+                    {
+                        aimObject.GetComponent<PreviewRotation>().StopRotating();
                     }
                 }
 
@@ -270,6 +269,10 @@ namespace Hive.Armada.Menus
 
                     ScrollRect scrollRect = aimObject.GetComponentInParent<ScrollRect>();
                     scrollRect.verticalNormalizedPosition = value;
+                }
+                else if (aimObject.GetComponent<PreviewRotation>())
+                {
+                    aimObject.GetComponent<PreviewRotation>().Rotate(pointer.GetPosition(1));
                 }
                 else if (!stay)
                 {
@@ -318,6 +321,10 @@ namespace Hive.Armada.Menus
                 else if (lastInteractableAimObject.GetComponent<ScrollbarUIHover>())
                 {
                     lastInteractableAimObject.GetComponent<ScrollbarUIHover>().PassEndHover();
+                }
+                else if (lastInteractableAimObject.GetComponent<PreviewRotation>())
+                {
+                    lastInteractableAimObject.GetComponent<PreviewRotation>().StopRotating();
                 }
                 
                 lastInteractableAimObject = null;

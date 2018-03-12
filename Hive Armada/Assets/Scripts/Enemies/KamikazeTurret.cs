@@ -64,6 +64,8 @@ namespace Hive.Armada.Enemies
 
         public AudioClip clip;
 
+        private 
+
         /// <summary>
         /// Looks at the player and stores own position.
         /// </summary>
@@ -87,28 +89,16 @@ namespace Hive.Armada.Enemies
             if (player != null)
             {
                 myTransform = transform;
+                myTransform.rotation = Quaternion.Lerp(myTransform.rotation,
+                                                          Quaternion.LookRotation(player.transform.position
+                                                          - myTransform.position),
+                                                          rotationSpeed * Time.deltaTime);
 
-
-                if (Vector3.Distance(transform.position, player.transform.position) >= range)
-                {
-                    myTransform.rotation = Quaternion.Lerp(myTransform.rotation,
-                                                           Quaternion.LookRotation(player.transform.position
-                                                           - myTransform.position),
-                                                           rotationSpeed * Time.deltaTime);
-
-                    myTransform.position += myTransform.forward * moveSpeed * Time.deltaTime;
-                }
-
-                else if (Vector3.Distance(transform.position, player.transform.position) < range)
-                {
-                    if (!inRange)
-                    {
-                        StartCoroutine(InRange());
-                    }
-                }
+                myTransform.position += myTransform.forward * moveSpeed * Time.deltaTime;
+                               
                 if (shaking)
                 {
-                    iTween.ShakePosition(gameObject, new Vector3(0.1f, 0.1f, 0.1f), 0.1f);
+                    iTween.ShakePosition(gameObject, new Vector3(0.001f, 0.001f, 0.001f), 0.01f);
                 }
             }
             else
@@ -145,6 +135,7 @@ namespace Hive.Armada.Enemies
         {
             if (!nearPlayer)
             {
+                Debug.Log("I am near the player");
                 nearPlayer = true;
                 StartCoroutine(InRange());
             }
@@ -155,11 +146,13 @@ namespace Hive.Armada.Enemies
         /// </summary>
         private IEnumerator InRange()
         {
+            Debug.Log("I am in range");
             inRange = true;
+            moveSpeed = (moveSpeed / 2);
             source.PlayOneShot(clip);
             yield return new WaitForSeconds(clip.length);
 
-            if (Vector3.Distance(transform.position, player.transform.position) < range)
+            if (Vector3.Distance(gameObject.transform.position, player.transform.position) < range)
             {
                 player.gameObject.GetComponent<Player.PlayerHealth>().Hit(damage);
             }

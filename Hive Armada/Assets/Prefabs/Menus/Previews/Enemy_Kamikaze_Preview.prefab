@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4321090577729740}
   - component: {fileID: 95046761987547388}
+  - component: {fileID: 114973872399811202}
   - component: {fileID: 136916484975758582}
   - component: {fileID: 23490431565518182}
   m_Layer: 8
@@ -241,7 +242,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: c472bbf5a99cb93428e3bd1f399b92c6, type: 2}
+  - {fileID: 2100000, guid: e50fa3bdc22b6964b916be96f7d9d0ce, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -273,7 +274,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 8822523eaa2d88940be7432b4ba4f706, type: 2}
+  - {fileID: 2100000, guid: eba7adb6e23f0684d85f24671520733f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -305,7 +306,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: c472bbf5a99cb93428e3bd1f399b92c6, type: 2}
+  - {fileID: 2100000, guid: e50fa3bdc22b6964b916be96f7d9d0ce, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -337,7 +338,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: c472bbf5a99cb93428e3bd1f399b92c6, type: 2}
+  - {fileID: 2100000, guid: e50fa3bdc22b6964b916be96f7d9d0ce, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -401,7 +402,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: c472bbf5a99cb93428e3bd1f399b92c6, type: 2}
+  - {fileID: 2100000, guid: e50fa3bdc22b6964b916be96f7d9d0ce, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -433,7 +434,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: c472bbf5a99cb93428e3bd1f399b92c6, type: 2}
+  - {fileID: 2100000, guid: e50fa3bdc22b6964b916be96f7d9d0ce, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -511,6 +512,19 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114973872399811202
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1250542050544924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69c9d640556826b4d98dfaf660a13029, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverDistance: 0.3
+  hoverSpeed: 1
 --- !u!136 &136916484975758582
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -519,7 +533,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 1250542050544924}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.07
   m_Height: 0.3
   m_Direction: 2

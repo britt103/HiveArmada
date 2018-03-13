@@ -37,20 +37,29 @@ namespace Hive.Armada.Game
         }
 
         [Serializable]
+        public struct PowerupSpawnChance
+        {
+            public Powerups powerup;
+
+            [Range(0.0f, 1.0f)]
+            public float percentChance;
+
+            [Range(1, 100)]
+            public int firstWave;
+        }
+
+        [Serializable]
         private struct Chances
         {
-            public readonly int enemyTypeId;
-
             public int LowerLimit { get; private set; }
 
             public int UpperLimit { get; private set; }
 
             public int FirstWave { get; private set; }
 
-            public Chances(int enemyTypeId, int lowerLimit, int upperLimit, int firstWave)
+            public Chances(int lowerLimit, int upperLimit, int firstWave)
                 : this()
             {
-                this.enemyTypeId = enemyTypeId;
                 LowerLimit = lowerLimit;
                 UpperLimit = upperLimit;
                 FirstWave = firstWave;
@@ -66,9 +75,18 @@ namespace Hive.Armada.Game
         private WaveManager waveManager;
 
         [Reorderable("Enemy", false)]
-        public SpawnChance[] spawnChances;
+        public SpawnChance[] enemySpawnChanceSetup;
 
-        private Chances[] chances;
+        private Chances[] enemySpawnChances;
+
+        private int[] typeIds;
+
+        [Reorderable("Powerup", false)]
+        public PowerupSpawnChance[] powerupSpawnChanceSetup;
+
+        private Chances[] powerupSpawnChances;
+
+        public GameObject[] powerupPrefabs;
 
         public float waveLength = 60.0f;
 
@@ -76,6 +94,8 @@ namespace Hive.Armada.Game
         public float spawnChance = 0.8f;
 
         private int intSpawnChance;
+
+        public int minSpawns = 15;
 
         [Range(0.0f, 100.0f)]
         public float powerupSpawnChance = 0.8f;
@@ -108,20 +128,34 @@ namespace Hive.Armada.Game
         {
             reference = referenceManager;
             waveManager = reference.waveManager;
-            Random.InitState((int) DateTime.Now.Ticks);
-            intSpawnChance = (int) (spawnChance * 100);
-            intPowerupSpawnChance = (int) (powerupSpawnChance * 100);
+            Random.InitState((int)DateTime.Now.Ticks);
+            intSpawnChance = (int)(spawnChance * 100);
+            intPowerupSpawnChance = (int)(powerupSpawnChance * 100);
 
-            chances = new Chances[spawnChances.Length];
+            enemySpawnChances = new Chances[enemySpawnChanceSetup.Length];
+            typeIds = new int[enemySpawnChanceSetup.Length];
             int high = 0;
 
-            for (int i = 0; i < chances.Length; ++i)
+            for (int i = 0; i < enemySpawnChances.Length; ++i)
             {
                 int low = high;
-                high += (int) (spawnChances[i].percentChance * 100);
-                int typeId = waveManager.EnemyIDs[(int) spawnChances[i].enemyType];
+                high += (int)(enemySpawnChanceSetup[i].percentChance * 100);
+                typeIds[i] = waveManager.EnemyIDs[(int)enemySpawnChanceSetup[i].enemyType];
 
-                chances[i] = new Chances(typeId, low, high, spawnChances[i].firstWave);
+                enemySpawnChances[i] = new Chances(low, high, enemySpawnChanceSetup[i].firstWave);
+            }
+
+            powerupSpawnChances = new Chances[powerupSpawnChanceSetup.Length];
+            powerupPrefabs = new GameObject[powerupSpawnChanceSetup.Length];
+            high = 0;
+
+            for (int i = 0; i < powerupSpawnChanceSetup.Length; ++i)
+            {
+                int low = high;
+                high += (int)(powerupSpawnChanceSetup[i].percentChance * 100);
+                powerupPrefabs[i] = waveManager.powerupPrefabs[(int)powerupSpawnChanceSetup[i].powerup];
+
+                powerupSpawnChances[i] = new Chances(low, high, powerupSpawnChanceSetup[i].firstWave);
             }
 
             paths = new Hashtable();
@@ -186,6 +220,8 @@ namespace Hive.Armada.Game
 
         private IEnumerator Wave()
         {
+            float maxDelay = minSpawns / waveLength;
+            int spawns = 0;
             spawnDelay = ReduceDelay(spawnDelay, ++currentWave);
 
             Debug.Log("Beginning wave #" + currentWave);
@@ -199,6 +235,8 @@ namespace Hive.Armada.Game
                 StartCoroutine(SpawnPowerup());
             }
 
+            float currentDelay = 0.0f;
+
             while (Time.time < endTime)
             {
                 roll = Random.Range(0, 100);
@@ -209,11 +247,11 @@ namespace Hive.Armada.Game
                     bool lowLevel = false;
                     roll = Random.Range(0, 100);
 
-                    for (int i = 0; i < chances.Length; ++i)
+                    for (int i = 0; i < enemySpawnChances.Length; ++i)
                     {
-                        if (roll >= chances[i].LowerLimit && roll < chances[i].UpperLimit)
+                        if (roll >= enemySpawnChances[i].LowerLimit && roll < enemySpawnChances[i].UpperLimit)
                         {
-                            if (currentWave < chances[i].FirstWave)
+                            if (currentWave < enemySpawnChances[i].FirstWave)
                             {
                                 lowLevel = true;
                                 break;
@@ -263,7 +301,7 @@ namespace Hive.Armada.Game
 
                                     GameObject spawnedEnemy =
                                         reference.objectPoolManager.Spawn(
-                                            chances[i].enemyTypeId, position, rotation);
+                                            typeIds[i], position, rotation);
 
                                     Enemy spawnedEnemyScript = spawnedEnemy.GetComponent<Enemy>();
                                     spawnedEnemyScript.SetPath(path);
@@ -284,10 +322,14 @@ namespace Hive.Armada.Game
 
                                     paths[path] = true;
                                     spawned = true;
+
+                                    ++spawns;
+                                    currentDelay -= maxDelay;
                                 }
                                 else
                                 {
                                     yield return null;
+                                    currentDelay += Time.deltaTime;
                                 }
                             }
 
@@ -297,8 +339,9 @@ namespace Hive.Armada.Game
 
                     if (lowLevel)
                     {
-                        yield return new WaitForSeconds(spawnDelay * Random.Range(0.6f, 0.85f));
-
+                        float delay = spawnDelay * Random.Range(0.6f, 0.85f);
+                        yield return new WaitForSeconds(delay);
+                        currentDelay += delay;
                         continue;
                     }
 
@@ -309,11 +352,19 @@ namespace Hive.Armada.Game
                     else
                     {
                         yield return new WaitForSeconds(spawnDelay);
+                        currentDelay += spawnDelay;
+                    }
+
+                    if (currentDelay >= maxDelay)
+                    {
+
                     }
                 }
                 else
                 {
-                    yield return new WaitForSeconds(spawnDelay * Random.Range(0.6f, 0.85f));
+                    float delay = spawnDelay * Random.Range(0.6f, 0.85f);
+                    yield return new WaitForSeconds(delay);
+                    currentDelay += delay;
                 }
             }
 
@@ -323,20 +374,56 @@ namespace Hive.Armada.Game
             waveCoroutine = null;
         }
 
+        private IEnumerator SpawnEnemy()
+        {
+            yield return null;
+        }
+
         private IEnumerator SpawnPowerup()
         {
             float delay = Random.Range(powerupLowerDelay, powerupUpperDelay);
 
             yield return new WaitForSeconds(delay);
+            
+            bool spawned = false;
 
-            GameObject powerup =
-                waveManager.powerupPrefabs[Random.Range(0, waveManager.powerupPrefabs.Length)];
+            while (!spawned)
+            {
+                int roll = Random.Range(0, 100);
+                bool lowLevel = false;
 
-            Transform spawn =
-                waveManager.powerupSpawnPoints[
-                    Random.Range(0, waveManager.powerupSpawnPoints.Length)];
+                for (int i = 0; i < powerupSpawnChances.Length; ++i)
+                {
+                    if (roll >= powerupSpawnChances[i].LowerLimit && roll < powerupSpawnChances[i].UpperLimit)
+                    {
+                        if (currentWave < powerupSpawnChances[i].FirstWave)
+                        {
+                            lowLevel = true;
+                            break;
+                        }
 
-            Instantiate(powerup, spawn.position, Quaternion.identity);
+                        Transform spawn =
+                            waveManager.powerupSpawnPoints[
+                                Random.Range(0, waveManager.powerupSpawnPoints.Length)];
+
+                        Instantiate(powerupPrefabs[i], spawn.position, Quaternion.identity);
+                        spawned = true;
+                        break;
+                    }
+                }
+
+                if (spawned)
+                {
+                    break;
+                }
+
+                if (lowLevel)
+                {
+                    continue;
+                }
+
+                yield return null;
+            }
         }
 
         public void EnemyDead(string path)

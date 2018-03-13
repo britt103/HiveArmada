@@ -222,5 +222,40 @@ namespace Hive.Armada.Player
 
             hitFlash = null;
         }
+
+        /// <summary>
+        /// Restores one health to the player.
+        /// </summary>
+        public void HealOne()
+        {
+            if ((maxHealth - currentHealth) / 10 == 0)
+            {
+                return;
+            }
+
+            currentHealth += 10;
+
+            int podIndex = (maxHealth - currentHealth) / 10;
+            healthPods[podIndex].GetComponent<Renderer>().material = podIntactMaterial;
+        }
+
+        /// <summary>
+        /// Restores all health to the player.
+        /// </summary>
+        public void HealFull()
+        {
+            if ((maxHealth - currentHealth) / 10 == 0)
+            {
+                return;
+            }
+
+            while ((maxHealth - currentHealth) / 10 != 0)
+            {
+                currentHealth += 10;
+
+                int podIndex = (maxHealth - currentHealth) / 10;
+                healthPods[podIndex].GetComponent<Renderer>().material = podIntactMaterial;
+            }
+        }
     }
 }

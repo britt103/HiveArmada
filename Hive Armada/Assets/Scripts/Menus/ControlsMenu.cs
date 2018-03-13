@@ -40,23 +40,11 @@ namespace Hive.Armada.Menus
     	public AudioClip[] clips;
 
         /// <summary>
-        /// Variable used as a check to make sure audio
-        /// doesn't play over itself
-        /// </summary>
-        private int backCounter = 0;
-
-        /// <summary>
         /// Back button pressed. Navigate to Options Menu.
         /// </summary>
         public void PressBack()
         {
 			source.PlayOneShot(clips[0]);
-            backCounter += 1;
-            if (backCounter > 1)
-            {
-                source.Stop();
-                source.PlayOneShot(clips[0]);
-            }
             transitionManager.Transition(backMenuGO);
         }
     }

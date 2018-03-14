@@ -142,11 +142,6 @@ namespace Hive.Armada.Enemies
         protected bool untouched = true;
 
         /// <summary>
-        /// The position of where the enemy should look.
-        /// </summary>
-        protected Vector3 lookTarget = Vector3.negativeInfinity;
-
-        /// <summary>
         /// Used to prevent HitFlash() from being called a
         /// second time before it is done flashing
         /// </summary>
@@ -174,6 +169,11 @@ namespace Hive.Armada.Enemies
         protected float selfDestructTime;
 
         /// <summary>
+        /// The player's ship.
+        /// </summary>
+        protected GameObject player;
+
+        /// <summary>
         /// Used to shake low health enemies.
         /// </summary>
         protected bool shaking;
@@ -198,6 +198,7 @@ namespace Hive.Armada.Enemies
             }
             else
             {
+                player = reference.shipLookTarget;
                 enemyAttributes = reference.enemyAttributes;
                 waveManager = reference.waveManager;
                 scoringSystem = reference.scoringSystem;
@@ -267,7 +268,7 @@ namespace Hive.Armada.Enemies
             reference.scoringSystem.ComboIn(pointValue, transform);
             reference.statistics.EnemyKilled();
             FindObjectOfType<LexiconUnlockData>().AddEnemyUnlock(gameObject.name);
-            objectPoolManager.Spawn(deathEmitterTypeIdentifier, transform.position,
+            objectPoolManager.Spawn(gameObject, deathEmitterTypeIdentifier, transform.position,
                                     transform.rotation);
             objectPoolManager.Despawn(gameObject);
         }
@@ -277,7 +278,7 @@ namespace Hive.Armada.Enemies
         /// </summary>
         protected virtual void SelfDestruct()
         {
-            objectPoolManager.Spawn(deathEmitterTypeIdentifier, transform.position,
+            objectPoolManager.Spawn(gameObject, deathEmitterTypeIdentifier, transform.position,
                                     transform.rotation);
             objectPoolManager.Despawn(gameObject);
         }

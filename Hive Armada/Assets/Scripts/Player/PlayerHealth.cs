@@ -126,10 +126,22 @@ namespace Hive.Armada.Player
         public AudioClip hitSound;
 
         /// <summary>
+        /// The look target for the player ship.
+        /// </summary>
+        private GameObject lookTarget;
+
+        /// <summary>
         /// Initializes health and renderers for hit flashing
         /// </summary>
         private void Start()
         {
+            reference = FindObjectOfType<ReferenceManager>();
+
+            lookTarget = reference.shipLookTarget;
+            lookTarget.transform.parent = transform;
+            lookTarget.transform.position = transform.position;
+            lookTarget.transform.rotation = transform.rotation;
+
             renderers = new List<Renderer>();
             materials = new List<Material>();
 
@@ -155,8 +167,6 @@ namespace Hive.Armada.Player
             }
 
             currentHealth = maxHealth;
-
-            reference = FindObjectOfType<ReferenceManager>();
         }
 
         /// <summary>
@@ -187,6 +197,7 @@ namespace Hive.Armada.Player
             {
                 if (shipController != null)
                 {
+                    lookTarget.transform.parent = null;
                     Instantiate(deathEmitter, transform.position, transform.rotation);
                     reference.statistics.IsNotAlive();
                     reference.powerUpStatus.tracking = false;

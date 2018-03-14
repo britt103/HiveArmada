@@ -91,11 +91,6 @@ namespace Hive.Armada.Enemies
         private Vector3 posB;
 
         /// <summary>
-        /// The player's ship.
-        /// </summary>
-        private GameObject player;
-
-        /// <summary>
         /// Whether this enemy can shoot or not. Toggles when firing every 1/fireRate seconds.
         /// </summary>
         private bool canShoot = true;
@@ -133,18 +128,11 @@ namespace Hive.Armada.Enemies
         {
             if (PathingComplete)
             {
-                if (reference.playerShip != null)
-                {
-                    lookTarget = reference.playerShip.transform.position;
-                    transform.LookAt(lookTarget);
-                }
+                transform.LookAt(player.transform);
 
-                if (lookTarget != Vector3.negativeInfinity)
+                if (canShoot)
                 {
-                    if (canShoot)
-                    {
-                        StartCoroutine(Shoot());
-                    }
+                    StartCoroutine(Shoot());
                 }
 
                 transform.position = Vector3.Lerp(posA, posB, (Mathf.Sin(theta) + 1.0f) / 2.0f);
@@ -174,7 +162,7 @@ namespace Hive.Armada.Enemies
             {
                 if (projectileArray[point])
                 {
-                    GameObject projectile = objectPoolManager.Spawn(projectileTypeIdentifier, shootPoint[point].position,
+                    GameObject projectile = objectPoolManager.Spawn(gameObject, projectileTypeIdentifier, shootPoint[point].position,
                                                        shootPoint[point].rotation);
                     
                     projectile.GetComponent<Transform>().Rotate(Random.Range(-spread, spread), 

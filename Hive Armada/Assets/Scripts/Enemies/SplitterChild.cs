@@ -49,18 +49,15 @@ namespace Hive.Armada.Enemies
         /// the enemy will shoot
         /// </summary>
         //public bool[] projectileArray;
-
         /// <summary>
         /// Projectile that the turret shoots out
         /// </summary>
         //public GameObject fireProjectile;
-
         /// <summary>
         /// Value that determines what projectile the enemy will shoot
         /// as well as its parameters
         /// </summary>
         //private int fireMode;
-
         /// <summary>
         /// Number of bursts the turret will shoot before going on cooldown
         /// Leave at 1 for regular fire
@@ -72,11 +69,6 @@ namespace Hive.Armada.Enemies
         /// Randomly picks in the range of [-spread, spread] for all 3 axes.
         /// </summary>
         private float spread;
-
-        /// <summary>
-        /// The player's ship.
-        /// </summary>
-        private GameObject player;
 
         /// <summary>
         /// Whether this enemy can shoot or not. Toggles when firing every 1/fireRate seconds.
@@ -93,29 +85,18 @@ namespace Hive.Armada.Enemies
         /// </summary>
         private void Update()
         {
-            if (reference.playerShip != null)
+            transform.LookAt(player.transform);
+
+            if (canShoot)
             {
-                lookTarget = reference.playerShip.transform.position;
+                StartCoroutine(Shoot());
             }
 
-            if (lookTarget != Vector3.negativeInfinity)
+            if (shaking)
             {
-                transform.LookAt(lookTarget);
-
-                if (canShoot)
-                {
-                    StartCoroutine(Shoot());
-                }
-            }
-            else
-            {
-                transform.LookAt(new Vector3(0.0f, 0.7f, 0.0f));
+                iTween.ShakePosition(gameObject, new Vector3(0.1f, 0.1f, 0.1f), 0.1f);
             }
 
-				if (shaking)
-            	{
-                	iTween.ShakePosition(gameObject, new Vector3(0.1f, 0.1f, 0.1f), 0.1f);
-            	}
             SelfDestructCountdown();
         }
 
@@ -128,24 +109,27 @@ namespace Hive.Armada.Enemies
 
             for (int x = 0; x < burstFire; x++)
             {
-                    GameObject projectile =
-                        objectPoolManager.Spawn(projectileTypeIdentifier, shootPoint.position,
-                                                shootPoint.rotation);
+                GameObject projectile =
+                    objectPoolManager.Spawn(gameObject, projectileTypeIdentifier,
+                                            shootPoint.position,
+                                            shootPoint.rotation);
 
-                    projectile.GetComponent<Transform>().Rotate(Random.Range(-spread, spread),
-                                                                Random.Range(-spread, spread),
-                                                                Random.Range(-spread, spread));
+                projectile.GetComponent<Transform>().Rotate(Random.Range(-spread, spread),
+                                                            Random.Range(-spread, spread),
+                                                            Random.Range(-spread, spread));
 
-                    projectile.GetComponent<Rigidbody>().velocity =
-                        projectile.transform.forward * projectileSpeed;
+                projectile.GetComponent<Rigidbody>().velocity =
+                    projectile.transform.forward * projectileSpeed;
 
-                    if (canRotate)
-                    {
-                        StartCoroutine(rotateProjectile(projectile));
-                    }
+                if (canRotate)
+                {
+                    StartCoroutine(rotateProjectile(projectile));
+                }
                 yield return new WaitForSeconds(0.1f);
             }
+
             yield return new WaitForSeconds(fireRate);
+
             canShoot = true;
         }
 
@@ -157,6 +141,7 @@ namespace Hive.Armada.Enemies
                 yield return new WaitForSeconds(0.01f);
             }
         }
+
         /// <summary>
         /// Function that determines the enemy's projectile, firerate,
         /// spread, and projectile speed.
@@ -166,7 +151,7 @@ namespace Hive.Armada.Enemies
         {
             base.SetAttackPattern(attackPattern);
 
-            switch ((int)this.attackPattern)
+            switch ((int) this.attackPattern)
             {
                 case 0:
                     fireRate = 0.6f;
@@ -184,9 +169,9 @@ namespace Hive.Armada.Enemies
             }
         }
 
-        void SetBurstFire(int burst)
+        private void SetBurstFire(int burst)
         {
-            this.burstFire = burst;
+            burstFire = burst;
         }
 
         /// <summary>
@@ -195,7 +180,7 @@ namespace Hive.Armada.Enemies
         protected override void Reset()
         {
             base.Reset();
-            
+
             canShoot = true;
             projectileTypeIdentifier =
                 enemyAttributes.EnemyProjectileTypeIdentifiers[TypeIdentifier];

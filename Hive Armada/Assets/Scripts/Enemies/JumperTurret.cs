@@ -147,7 +147,7 @@ namespace Hive.Armada.Enemies
             canShoot = false;
 
             GameObject projectile =
-                objectPoolManager.Spawn(projectileTypeIdentifier, shootPoint.position,
+                objectPoolManager.Spawn(gameObject, projectileTypeIdentifier, shootPoint.position,
                                         shootPoint.rotation);
 
             projectile.GetComponent<Transform>().Rotate(Random.Range(-spread, spread),

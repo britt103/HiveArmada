@@ -257,7 +257,7 @@ namespace Hive.Armada.PowerUps
         {
             canFire = false;
             GameObject rocket =
-                reference.objectPoolManager.Spawn(rocketTypeId, shootPoint.position,
+                reference.objectPoolManager.Spawn(gameObject, rocketTypeId, shootPoint.position,
                                                   shootPoint.rotation);
             Rocket rocketScript = rocket.GetComponent<Rocket>();
             rocketScript.SetupRocket((int)rocketType);

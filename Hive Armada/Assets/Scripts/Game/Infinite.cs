@@ -66,6 +66,21 @@ namespace Hive.Armada.Game
             }
         }
 
+        [Serializable]
+        private struct CurrentChances
+        {
+            public int LowerLimit { get; private set; }
+
+            public int UpperLimit { get; private set; }
+
+            public CurrentChances(int lowerLimit, int upperLimit)
+                : this()
+            {
+                LowerLimit = lowerLimit;
+                UpperLimit = upperLimit;
+            }
+        }
+
         /// <summary>
         /// Reference manager that holds all needed references
         /// (e.g. spawner, game manager, etc.)
@@ -86,7 +101,7 @@ namespace Hive.Armada.Game
 
         private Chances[] powerupSpawnChances;
 
-        public GameObject[] powerupPrefabs;
+        private GameObject[] powerupPrefabs;
 
         public float waveLength = 60.0f;
 
@@ -95,16 +110,20 @@ namespace Hive.Armada.Game
 
         private int intSpawnChance;
 
-        public int minSpawns = 15;
+        public int minSpawns = 10;
+
+        public int maxSpawns = 25;
+
+        public float preemptTime;
 
         [Range(0.0f, 100.0f)]
         public float powerupSpawnChance = 0.8f;
 
         private int intPowerupSpawnChance;
 
-        private float powerupLowerDelay = 10.0f;
+        private readonly float powerupLowerDelay = 10.0f;
 
-        private float powerupUpperDelay = 30.0f;
+        private readonly float powerupUpperDelay = 30.0f;
 
         private float spawnDelay = 2.0f;
 
@@ -122,15 +141,31 @@ namespace Hive.Armada.Game
 
         private Coroutine waveCoroutine;
 
+        private bool preemptWave;
+
+        private int spawns;
+
+        private bool spawned;
+
+        private bool lowLevel;
+
+        private float maxDelay;
+
+        private float endTime;
+
+        private float currentDelay;
+
+        private CurrentChances[] debugChances;
+
         public bool IsRunning { get; private set; }
 
         public void Initialize(ReferenceManager referenceManager)
         {
             reference = referenceManager;
             waveManager = reference.waveManager;
-            Random.InitState((int)DateTime.Now.Ticks);
-            intSpawnChance = (int)(spawnChance * 100);
-            intPowerupSpawnChance = (int)(powerupSpawnChance * 100);
+            Random.InitState((int) DateTime.Now.Ticks);
+            intSpawnChance = (int) (spawnChance * 100);
+            intPowerupSpawnChance = (int) (powerupSpawnChance * 100);
 
             enemySpawnChances = new Chances[enemySpawnChanceSetup.Length];
             typeIds = new int[enemySpawnChanceSetup.Length];
@@ -139,8 +174,8 @@ namespace Hive.Armada.Game
             for (int i = 0; i < enemySpawnChances.Length; ++i)
             {
                 int low = high;
-                high += (int)(enemySpawnChanceSetup[i].percentChance * 100);
-                typeIds[i] = waveManager.EnemyIDs[(int)enemySpawnChanceSetup[i].enemyType];
+                high += (int) (enemySpawnChanceSetup[i].percentChance * 100);
+                typeIds[i] = waveManager.EnemyIDs[(int) enemySpawnChanceSetup[i].enemyType];
 
                 enemySpawnChances[i] = new Chances(low, high, enemySpawnChanceSetup[i].firstWave);
             }
@@ -152,10 +187,12 @@ namespace Hive.Armada.Game
             for (int i = 0; i < powerupSpawnChanceSetup.Length; ++i)
             {
                 int low = high;
-                high += (int)(powerupSpawnChanceSetup[i].percentChance * 100);
-                powerupPrefabs[i] = waveManager.powerupPrefabs[(int)powerupSpawnChanceSetup[i].powerup];
+                high += (int) (powerupSpawnChanceSetup[i].percentChance * 100);
+                powerupPrefabs[i] =
+                    waveManager.powerupPrefabs[(int) powerupSpawnChanceSetup[i].powerup];
 
-                powerupSpawnChances[i] = new Chances(low, high, powerupSpawnChanceSetup[i].firstWave);
+                powerupSpawnChances[i] =
+                    new Chances(low, high, powerupSpawnChanceSetup[i].firstWave);
             }
 
             paths = new Hashtable();
@@ -200,13 +237,21 @@ namespace Hive.Armada.Game
 
                     currentTime += 0.1f;
 
-                    if (Math.Abs(currentTime % 30.0f) < 0.000001f)
+                    if (preemptWave)
+                    {
+                        preemptWave = false;
+                        currentTime = waveLength + Time.deltaTime;
+                    }
+
+                    if (currentTime >= waveLength)
                     {
                         if (waveCoroutine != null)
                         {
                             StopCoroutine(waveCoroutine);
                             canSpawnWave = true;
                         }
+
+                        currentTime -= waveLength;
                     }
                 }
                 while (!canSpawnWave);
@@ -220,13 +265,13 @@ namespace Hive.Armada.Game
 
         private IEnumerator Wave()
         {
-            float maxDelay = minSpawns / waveLength;
-            int spawns = 0;
+            maxDelay = minSpawns / waveLength;
+            spawns = 0;
             spawnDelay = ReduceDelay(spawnDelay, ++currentWave);
 
             Debug.Log("Beginning wave #" + currentWave);
 
-            float endTime = Time.time + waveLength;
+            endTime = Time.time + waveLength;
 
             int roll = Random.Range(0, 100);
 
@@ -235,135 +280,51 @@ namespace Hive.Armada.Game
                 StartCoroutine(SpawnPowerup());
             }
 
-            float currentDelay = 0.0f;
+            currentDelay = 0.0f;
 
             while (Time.time < endTime)
             {
                 roll = Random.Range(0, 100);
+                spawned = false;
+                lowLevel = false;
 
                 if (roll >= 100 - intSpawnChance)
                 {
-                    bool spawned = false;
-                    bool lowLevel = false;
-                    roll = Random.Range(0, 100);
+                    StartCoroutine(SpawnEnemy());
 
-                    for (int i = 0; i < enemySpawnChances.Length; ++i)
+                    while (!spawned)
                     {
-                        if (roll >= enemySpawnChances[i].LowerLimit && roll < enemySpawnChances[i].UpperLimit)
-                        {
-                            if (currentWave < enemySpawnChances[i].FirstWave)
-                            {
-                                lowLevel = true;
-                                break;
-                            }
-
-                            while (!spawned)
-                            {
-                                string zone =
-                                    waveManager.PathNames
-                                        [Random.Range(0, waveManager.PathNames.Length)];
-
-                                int num = Random.Range(0, 13);
-
-                                string path = zone + num;
-
-                                if (paths[path].Equals(false))
-                                {
-                                    Vector3 position;
-
-                                    if (zone.Equals("CenterPath") ||
-                                        zone.Equals("LeftPath") ||
-                                        zone.Equals("RightPath"))
-                                    {
-                                        position = GameObject.Find("FrontSpawn").transform.position;
-                                    }
-                                    else
-                                    {
-                                        position = GameObject.Find("BackSpawn").transform.position;
-                                    }
-
-                                    Quaternion rotation;
-
-                                    if (reference.playerShip != null)
-                                    {
-                                        // spawn the enemy looking at the player
-                                        rotation =
-                                            Quaternion.LookRotation(
-                                                reference.playerShip.transform.position - position);
-                                    }
-                                    else
-                                    {
-                                        // no player in the scene, spawn looking about where they should be
-                                        rotation =
-                                            Quaternion.LookRotation(
-                                                new Vector3(0.0f, 2.0f, 0.0f) - position);
-                                    }
-
-                                    GameObject spawnedEnemy =
-                                        reference.objectPoolManager.Spawn(
-                                            typeIds[i], position, rotation);
-
-                                    Enemy spawnedEnemyScript = spawnedEnemy.GetComponent<Enemy>();
-                                    spawnedEnemyScript.SetPath(path);
-                                    spawnedEnemyScript.SetAttackPattern(AttackPattern.One);
-
-                                    Hashtable moveHash = new Hashtable();
-
-                                    moveHash.Add("easetype", iTween.EaseType.easeInOutSine);
-                                    moveHash.Add("time", 3.0f);
-                                    moveHash.Add("looktarget",
-                                                 reference.playerShip != null
-                                                     ? reference.playerShip.transform
-                                                     : reference.player.transform);
-                                    moveHash.Add("onComplete", "OnPathingComplete");
-                                    moveHash.Add("onCompleteTarget", spawnedEnemy);
-                                    moveHash.Add("path", iTweenPath.GetPath(path));
-                                    iTween.MoveTo(spawnedEnemy, moveHash);
-
-                                    paths[path] = true;
-                                    spawned = true;
-
-                                    ++spawns;
-                                    currentDelay -= maxDelay;
-                                }
-                                else
-                                {
-                                    yield return null;
-                                    currentDelay += Time.deltaTime;
-                                }
-                            }
-
-                            break;
-                        }
+                        yield return new WaitForSeconds(0.01f);
                     }
 
-                    if (lowLevel)
-                    {
-                        float delay = spawnDelay * Random.Range(0.6f, 0.85f);
-                        yield return new WaitForSeconds(delay);
-                        currentDelay += delay;
-                        continue;
-                    }
+                    spawned = false;
 
-                    if (!spawned)
+                    if (spawns >= maxSpawns)
                     {
-                        Debug.LogError(GetType().Name + " - Did not spawn enemy.");
-                    }
-                    else
-                    {
-                        yield return new WaitForSeconds(spawnDelay);
-                        currentDelay += spawnDelay;
+                        maxSpawns = IncreaseSpawns(maxSpawns, currentWave);
+                        yield return new WaitForSeconds(preemptTime);
+
+                        PreemptWave();
+                        //StopCoroutine(waveCoroutine);
                     }
 
                     if (currentDelay >= maxDelay)
                     {
+                        StartCoroutine(SpawnEnemy());
 
+                        while (!spawned)
+                        {
+                            yield return new WaitForSeconds(0.01f);
+                        }
+
+                        spawned = false;
                     }
                 }
                 else
                 {
                     float delay = spawnDelay * Random.Range(0.6f, 0.85f);
                     yield return new WaitForSeconds(delay);
+
                     currentDelay += delay;
                 }
             }
@@ -376,7 +337,121 @@ namespace Hive.Armada.Game
 
         private IEnumerator SpawnEnemy()
         {
+            int roll = Random.Range(0, 100);
+
+            CurrentChances[] spawnableEnemies = GetSpawnableEnemies();
+
+            bool locSpawned = false;
+
+            for (int i = 0; i < spawnableEnemies.Length; ++i)
+            {
+                if (roll >= spawnableEnemies[i].LowerLimit &&
+                    roll < spawnableEnemies[i].UpperLimit)
+                {
+                    while (!locSpawned)
+                    {
+                        string zone =
+                            waveManager.PathNames
+                                [Random.Range(0, waveManager.PathNames.Length)];
+
+                        int num = Random.Range(0, 13);
+
+                        string path = zone + num;
+
+                        if (paths[path].Equals(false))
+                        {
+                            Vector3 position;
+
+                            if (zone.Equals("CenterPath") ||
+                                zone.Equals("LeftPath") ||
+                                zone.Equals("RightPath"))
+                            {
+                                position = waveManager.enemySpawnPoints[0].position;
+                            }
+                            else
+                            {
+                                position = waveManager.enemySpawnPoints[1].position;
+                            }
+
+                            Quaternion rotation;
+
+                            if (reference.playerShip != null)
+                            {
+                                // spawn the enemy looking at the player
+                                rotation =
+                                    Quaternion.LookRotation(
+                                        reference.playerShip.transform.position - position);
+                            }
+                            else
+                            {
+                                // no player in the scene, spawn looking about where they should be
+                                rotation =
+                                    Quaternion.LookRotation(
+                                        new Vector3(0.0f, 2.0f, 0.0f) - position);
+                            }
+
+                            GameObject spawnedEnemy =
+                                reference.objectPoolManager.Spawn(
+                                    gameObject, typeIds[i], position, rotation);
+
+                            Enemy spawnedEnemyScript = spawnedEnemy.GetComponent<Enemy>();
+                            spawnedEnemyScript.SetPath(path);
+                            spawnedEnemyScript.SetAttackPattern(AttackPattern.One);
+
+                            Hashtable moveHash = new Hashtable
+                                                 {
+                                                     {"easetype", iTween.EaseType.easeInOutSine},
+                                                     {"time", 3.0f},
+                                                     {
+                                                         "looktarget",
+                                                         reference.shipLookTarget.transform
+                                                     },
+                                                     {"onComplete", "OnPathingComplete"},
+                                                     {"onCompleteTarget", spawnedEnemy},
+                                                     {"path", iTweenPath.GetPath(path)}
+                                                 };
+
+                            iTween.MoveTo(spawnedEnemy, moveHash);
+                            paths[path] = true;
+                            locSpawned = true;
+                            ++spawns;
+                            currentDelay -= maxDelay;
+
+                            if (spawns >= maxSpawns)
+                            {
+                                maxSpawns = IncreaseSpawns(maxSpawns, currentWave);
+                                yield return new WaitForSeconds(preemptTime);
+
+                                PreemptWave();
+                            }
+                        }
+                        else
+                        {
+                            yield return null;
+
+                            currentDelay += Time.deltaTime;
+                        }
+                    }
+
+                    break;
+                }
+            }
+
+            if (locSpawned)
+            {
+                yield return new WaitForSeconds(spawnDelay);
+
+                currentDelay += spawnDelay;
+            }
+            else
+            {
+                Debug.LogError(GetType().Name + " - Did not spawn enemy.");
+                spawned = true;
+            }
+
             yield return null;
+
+            spawned = true;
         }
 
         private IEnumerator SpawnPowerup()
@@ -384,17 +459,18 @@ namespace Hive.Armada.Game
             float delay = Random.Range(powerupLowerDelay, powerupUpperDelay);
 
             yield return new WaitForSeconds(delay);
-            
-            bool spawned = false;
 
-            while (!spawned)
+            bool locSpawned = false;
+
+            while (!locSpawned)
             {
                 int roll = Random.Range(0, 100);
                 bool lowLevel = false;
 
                 for (int i = 0; i < powerupSpawnChances.Length; ++i)
                 {
-                    if (roll >= powerupSpawnChances[i].LowerLimit && roll < powerupSpawnChances[i].UpperLimit)
+                    if (roll >= powerupSpawnChances[i].LowerLimit &&
+                        roll < powerupSpawnChances[i].UpperLimit)
                     {
                         if (currentWave < powerupSpawnChances[i].FirstWave)
                         {
@@ -407,17 +483,12 @@ namespace Hive.Armada.Game
                                 Random.Range(0, waveManager.powerupSpawnPoints.Length)];
 
                         Instantiate(powerupPrefabs[i], spawn.position, Quaternion.identity);
-                        spawned = true;
+                        locSpawned = true;
                         break;
                     }
                 }
 
-                if (spawned)
-                {
-                    break;
-                }
-
-                if (lowLevel)
+                if (lowLevel && !locSpawned)
                 {
                     continue;
                 }
@@ -429,6 +500,10 @@ namespace Hive.Armada.Game
         public void EnemyDead(string path)
         {
             paths[path] = false;
+        }
+
+        private void PreemptWave()
+        {
         }
 
         private float ReduceDelay(float delay, int wave)
@@ -450,6 +525,55 @@ namespace Hive.Armada.Game
             }
 
             return Mathf.Clamp(newDelay, minSpawnDelay, 100.0f);
+        }
+
+        private CurrentChances[] GetSpawnableEnemies()
+        {
+            List<CurrentChances> chances = new List<CurrentChances>();
+            int high = 0;
+
+            foreach (Chances enemy in enemySpawnChances)
+            {
+                if (enemy.FirstWave <= currentWave)
+                {
+                    if (enemy.UpperLimit > high)
+                    {
+                        high = enemy.UpperLimit;
+                    }
+
+                    chances.Add(new CurrentChances(enemy.LowerLimit, enemy.UpperLimit));
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+//            CurrentChances[] remappedChances = new CurrentChances[chances.Count];
+
+            for (int i = 0; i < chances.Count; ++i)
+            {
+                int lower = Remap(chances[i].LowerLimit, 0, high, 0, 99);
+                int upper = Remap(chances[i].UpperLimit, 0, high, 0, 99);
+                chances[i] = new CurrentChances(lower, upper);
+//                remappedChances[i] = new CurrentChances(lower, upper);
+            }
+
+            debugChances = chances.ToArray();
+
+            return chances.ToArray();
+        }
+
+        private static int Remap(int x, int a, int b, int c, int d)
+        {
+            float map = ((float) x - a) * (((float) d - c) / ((float) b - a)) + c;
+            return Mathf.RoundToInt(map);
+        }
+
+        private static int IncreaseSpawns(int maxSpawns, int wave)
+        {
+            int spawns = Mathf.Clamp(maxSpawns + wave % 5, 25, 50);
+            return spawns;
         }
     }
 }

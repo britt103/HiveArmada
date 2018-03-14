@@ -46,11 +46,6 @@ namespace Hive.Armada.Enemies
         /// </summary>
         public Transform shootPivot;
 
-        /// <summary>
-        /// Variable that finds the player GameObject
-        /// </summary>
-        private GameObject player;
-
         public GameObject projectile;
 
         /// <summary>
@@ -134,24 +129,7 @@ namespace Hive.Armada.Enemies
                     theta -= Mathf.PI * 2;
                 }
 
-                if (player != null)
-                {
-                    transform.LookAt(reference.playerShip.transform.position);
-
-                    //if (canShoot)
-                    //{
-                    //    StartCoroutine(Shoot());
-                    //}
-                }
-                else
-                {
-                    player = reference.playerShip;
-
-                    if (player == null)
-                    {
-                        transform.LookAt(new Vector3(0.0f, 0.0f, 0.0f));
-                    }
-                }
+                transform.LookAt(player.transform);
             }
         }
 
@@ -209,7 +187,7 @@ namespace Hive.Armada.Enemies
             {
                 if (projectileArray[point] == true)
                 {
-                    GameObject projectile = objectPoolManager.Spawn(projectileTypeIdentifier, shootPoint[point].position,
+                    GameObject projectile = objectPoolManager.Spawn(gameObject, projectileTypeIdentifier, shootPoint[point].position,
                                                        shootPoint[point].rotation);
 
                     randX = Random.Range(-spread, spread);

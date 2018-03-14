@@ -151,7 +151,7 @@ namespace Hive.Armada.Player.Weapons
                 yield return new WaitForSeconds(0.3f / burstAmount);
 
                 GameObject rocket =
-                    reference.objectPoolManager.Spawn(rocketTypeId, barrel.position,
+                    reference.objectPoolManager.Spawn(gameObject, rocketTypeId, barrel.position,
                                                       barrel.rotation);
                 Rocket rocketScript = rocket.GetComponent<Rocket>();
                 rocketScript.SetupRocket(rocketTypeIndex, shipController);

@@ -180,6 +180,9 @@ namespace Hive.Armada.Game
         [Reorderable("Spawn Zone", false)]
         public SpawnZoneBounds[] spawnZonesBounds;
 
+        [Reorderable("Spawn Points", false)]
+        public Transform[] enemySpawnPoints;
+
         /// <summary>
         /// The lower and upper bounds of the powerup spawn zone.
         /// </summary>

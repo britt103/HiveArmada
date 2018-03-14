@@ -275,7 +275,7 @@ namespace Hive.Armada.Player.Weapons
                                          0.0f),
                     new GradientColorKey(rocketAttributes.rockets[rocketType].trailColor,
                                          1.0f)
-                }, new[] { new GradientAlphaKey(1.0f, 0.0f), new GradientAlphaKey(1.0f, 1.0f) });
+                }, new[] {new GradientAlphaKey(1.0f, 0.0f), new GradientAlphaKey(1.0f, 1.0f)});
             trailRenderer.colorGradient = gradient;
             trailRenderer.startWidth = rocketAttributes.rockets[rocketType].trailWidth;
             trailRenderer.endWidth = rocketAttributes.rockets[rocketType].trailWidth;
@@ -287,15 +287,17 @@ namespace Hive.Armada.Player.Weapons
             if (rocketEmitterId >= 0)
             {
                 rocketEmitter =
-                    reference.objectPoolManager.Spawn(rocketEmitterId, transform.position,
-                                                      transform.rotation, transform);
+                    reference.objectPoolManager.Spawn(gameObject, rocketEmitterId,
+                                                      transform.position, transform.rotation,
+                                                      transform);
             }
 
             if (trailEmitterId >= 0)
             {
                 trailEmitter =
-                    reference.objectPoolManager.Spawn(trailEmitterId, transform.position,
-                                                      transform.rotation, transform);
+                    reference.objectPoolManager.Spawn(gameObject, trailEmitterId,
+                                                      transform.position, transform.rotation,
+                                                      transform);
                 GetComponent<TrailRenderer>().enabled = false;
             }
             else
@@ -541,8 +543,8 @@ namespace Hive.Armada.Player.Weapons
 
             if (explosionEmitterId >= 0)
             {
-                reference.objectPoolManager.Spawn(explosionEmitterId, transform.position,
-                                                  transform.rotation);
+                reference.objectPoolManager.Spawn(gameObject, explosionEmitterId,
+                                                  transform.position, transform.rotation);
             }
 
             if ((behaviorFlags & RocketFlags.ExplosiveDamage) != 0)

@@ -68,6 +68,8 @@ namespace Hive.Armada.Game
 
         public GameObject playerShip;
 
+        public GameObject shipLookTarget;
+
         public GameObject shipPickup;
 
         public PowerUpStatus powerUpStatus;
@@ -172,6 +174,11 @@ namespace Hive.Armada.Game
             if (rocketAttributes != null)
             {
                 rocketAttributes.Initialize(this);
+            }
+
+            if (shipLookTarget == null)
+            {
+                shipLookTarget = GameObject.Find("Ship Look Target");
             }
         }
     }

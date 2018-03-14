@@ -153,7 +153,7 @@ namespace Hive.Armada.Player.Weapons
             Transform barrel = barrels[barrelIndex];
 
             GameObject rocket =
-                reference.objectPoolManager.Spawn(rocketTypeId, barrel.position,
+                reference.objectPoolManager.Spawn(gameObject, rocketTypeId, barrel.position,
                                                   barrel.rotation);
             Rocket rocketScript = rocket.GetComponent<Rocket>();
             rocketScript.SetupRocket(rocketTypeIndex, shipController);

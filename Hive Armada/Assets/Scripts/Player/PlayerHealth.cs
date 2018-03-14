@@ -125,10 +125,15 @@ namespace Hive.Armada.Player
         /// </summary>
         public AudioClip hitSound;
 
-        /// <summary>
+		/// <summary>
         /// The look target for the player ship.
         /// </summary>
         private GameObject lookTarget;
+
+        /// <summary>
+        /// Reference to PlayerHitVignette.
+        /// </summary>
+        private PlayerHitVignette playerHitVignette;
 
         /// <summary>
         /// Initializes health and renderers for hit flashing
@@ -167,6 +172,7 @@ namespace Hive.Armada.Player
             }
 
             currentHealth = maxHealth;
+            playerHitVignette = reference.playerHitVignette;
         }
 
         /// <summary>
@@ -187,6 +193,7 @@ namespace Hive.Armada.Player
 
             currentHealth -= damage;
             source.PlayOneShot(hitSound);
+            playerHitVignette.Hit();
 
             if (Utility.isDebug)
             {

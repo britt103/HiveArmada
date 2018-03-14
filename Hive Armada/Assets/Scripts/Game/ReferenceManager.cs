@@ -42,11 +42,15 @@ namespace Hive.Armada.Game
 
         public WaveManager waveManager;
 
+        public Infinite infinite;
+
         public ObjectPoolManager objectPoolManager;
 
 		public SceneTransitionManager sceneTransitionManager;
 
         public OptionsValues optionsValues;
+
+        public GameSettings gameSettings;
 
         public PlayerIdleTimer playerIdleTimer;
 
@@ -63,6 +67,8 @@ namespace Hive.Armada.Game
         public GameObject player;
 
         public GameObject playerShip;
+
+        public GameObject shipLookTarget;
 
         public GameObject shipPickup;
 
@@ -132,12 +138,27 @@ namespace Hive.Armada.Game
         {
             if (enemyAttributes != null)
             {
-                enemyAttributes.Initialize();
+                enemyAttributes.Initialize(this);
             }
 
             if (objectPoolManager != null)
             {
                 objectPoolManager.Initialize();
+            }
+
+            if (gameSettings == null)
+            {
+                gameSettings = FindObjectOfType<GameSettings>();
+            }
+
+            if (waveManager != null)
+            {
+                waveManager.Initialize(this);
+            }
+
+            if (infinite != null)
+            {
+                infinite.Initialize(this);
             }
 
             if (statistics == null)
@@ -152,7 +173,12 @@ namespace Hive.Armada.Game
 
             if (rocketAttributes != null)
             {
-                rocketAttributes.Initialize();
+                rocketAttributes.Initialize(this);
+            }
+
+            if (shipLookTarget == null)
+            {
+                shipLookTarget = GameObject.Find("Ship Look Target");
             }
         }
     }

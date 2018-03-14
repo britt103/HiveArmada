@@ -105,6 +105,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1354098769269350
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4374959536207978}
+  - component: {fileID: 114682050478365914}
+  m_Layer: 0
+  m_Name: Infinite
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1362375941529624
 GameObject:
   m_ObjectHideFlags: 1
@@ -822,6 +838,19 @@ Transform:
   m_Father: {fileID: 4255824000053184}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4374959536207978
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1354098769269350}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4822322694911372}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4418987631310920
 Transform:
   m_ObjectHideFlags: 1
@@ -1071,6 +1100,7 @@ Transform:
   - {fileID: 4849129979563674}
   - {fileID: 4573174793374846}
   - {fileID: 4681233167310184}
+  - {fileID: 4374959536207978}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2160,7 +2190,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -2808,6 +2838,10 @@ MonoBehaviour:
     upperBound: {fileID: 1963367584437976}
   - lowerBound: {fileID: 1980010471472874}
     upperBound: {fileID: 1527274807749606}
+  enemySpawnPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   powerupSpawnZone:
     lowerBound: {fileID: 1500993075055080}
     upperBound: {fileID: 1968716186407222}
@@ -2847,6 +2881,55 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 4cd46af766917844dbf6cd607cc21b9d, type: 3}
   - {fileID: 8300000, guid: 867954fa35d170443bd087da9111f07e, type: 3}
   - {fileID: 8300000, guid: 4eee730fcf3781f4a95835e37488dabf, type: 3}
+--- !u!114 &114682050478365914
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1354098769269350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a1bbd4d9ae64a844bee320343cf43a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemySpawnChanceSetup:
+  - enemyType: 0
+    percentChance: 0.45
+    firstWave: 1
+  - enemyType: 1
+    percentChance: 0.2
+    firstWave: 2
+  - enemyType: 2
+    percentChance: 0.15
+    firstWave: 3
+  - enemyType: 3
+    percentChance: 0.1
+    firstWave: 4
+  - enemyType: 4
+    percentChance: 0.1
+    firstWave: 5
+  powerupSpawnChanceSetup:
+  - powerup: 0
+    percentChance: 0.3
+    firstWave: 1
+  - powerup: 1
+    percentChance: 0.3
+    firstWave: 2
+  - powerup: 2
+    percentChance: 0.2
+    firstWave: 3
+  - powerup: 4
+    percentChance: 0.1
+    firstWave: 4
+  - powerup: 3
+    percentChance: 0.1
+    firstWave: 5
+  waveLength: 60
+  spawnChance: 0.8
+  minSpawns: 15
+  maxSpawns: 25
+  preemptTime: 7
+  powerupSpawnChance: 1
 --- !u!114 &114716578532522766
 MonoBehaviour:
   m_ObjectHideFlags: 1

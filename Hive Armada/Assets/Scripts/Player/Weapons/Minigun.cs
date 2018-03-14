@@ -61,9 +61,16 @@ namespace Hive.Armada.Player.Weapons
         public GameObject[] right;
 
         /// <summary>
-        /// Amount at which the minigun overheats.
+        /// This is the color the barrels turns when it overheats.
         /// </summary>
         [Header("Overheat")]
+        public Color overheatBarrelColor;
+
+        public Renderer[] barrelRenderers;
+
+        /// <summary>
+        /// Amount at which the minigun overheats.
+        /// </summary>
         [Tooltip("The amount at which the minigun overheats.")]
         public float overheatMax;
 
@@ -165,6 +172,12 @@ namespace Hive.Armada.Player.Weapons
         /// </summary>
         protected override void SetupWeapon()
         {
+            foreach (Renderer r in barrelRenderers)
+            {
+                r.material.SetColor("_overheatColor", overheatBarrelColor);
+                r.material.SetFloat("_overheatPercent", 0.0f);
+            }
+
             for (int i = 0; i < left.Length; ++i)
             {
                 InitLineRenderer(left[i]);
@@ -262,6 +275,11 @@ namespace Hive.Armada.Player.Weapons
                 Debug.LogError(GetType().Name + " - Shot while overheating.");
             }
 
+            if (overheatTickCoroutine != null)
+            {
+                StopCoroutine(overheatTickCoroutine);
+            }
+
             AddOverheat();
 
             GameObject barrel = isLeftFire
@@ -346,12 +364,49 @@ namespace Hive.Armada.Player.Weapons
         private void AddOverheat()
         {
             overheatAmount += overheatPerShot;
+            float percent = Mathf.Clamp(overheatAmount / 100.0f, 0.0f, 1.0f);
+
+            foreach (Renderer barrel in barrelRenderers)
+            {
+                barrel.material.SetFloat("_overheatPercent", percent);
+            }
 
             if (overheatAmount >= overheatMax)
             {
                 isOverheating = true;
 
+                if (overheatDecreaseDelayCoroutine != null)
+                {
+                    StopCoroutine(overheatDecreaseDelayCoroutine);
+                }
+
+                if (overheatTickCoroutine != null)
+                {
+                    StopCoroutine(overheatTickCoroutine);
+                }
+
                 overheatCoolDownCoroutine = StartCoroutine(OverheatCoolDown());
+            }
+        }
+
+        /// <summary>
+        /// Removes overheat from the minigun.
+        /// </summary>
+        /// <param name="amount"> The amount to remove </param>
+        private void RemoveOverheat(float amount)
+        {
+            overheatAmount -= amount;
+
+            if (overheatAmount < 0.0f)
+            {
+                Debug.Log("Overheat = " + overheatAmount);
+            }
+
+            float percent = Mathf.Clamp(overheatAmount / 100.0f, 0.0f, 1.0f);
+
+            foreach (Renderer barrel in barrelRenderers)
+            {
+                barrel.material.SetFloat("_overheatPercent", percent);
             }
         }
 
@@ -364,7 +419,10 @@ namespace Hive.Armada.Player.Weapons
             yield return new WaitForSeconds(overheatDecreaseDelay);
 
             isCooling = true;
-            overheatTickCoroutine = StartCoroutine(OverheatTick());
+            if (!isOverheating)
+            {
+                overheatTickCoroutine = StartCoroutine(OverheatTick());
+            }
             overheatDecreaseDelayCoroutine = null;
         }
 
@@ -374,9 +432,41 @@ namespace Hive.Armada.Player.Weapons
         /// </summary>
         private IEnumerator OverheatTick()
         {
+            int count = (int) (overheatDecreaseTickLength * 90);
+            float amount = overheatDecreaseAmount / count;
+
             while (isCooling)
             {
-                overheatAmount -= overheatDecreaseAmount;
+                for (int i = 0; i < count; ++i)
+                {
+                    yield return new WaitForSeconds(overheatDecreaseTickLength / count);
+
+                    if (isOverheating)
+                    {
+                        isCooling = false;
+                        break;
+                    }
+
+                    RemoveOverheat(amount);
+
+                    if (overheatAmount <= 0.0f)
+                    {
+                        overheatAmount = 0.0f;
+                        isCooling = false;
+                        break;
+                    }
+                }
+
+                if (isOverheating)
+                {
+                    isCooling = false;
+                    break;
+                }
+
+                if (!isCooling)
+                {
+                    break;
+                }
 
                 if (overheatAmount <= 0.0f)
                 {
@@ -384,8 +474,6 @@ namespace Hive.Armada.Player.Weapons
                     isCooling = false;
                     break;
                 }
-
-                yield return new WaitForSeconds(overheatDecreaseTickLength);
             }
 
             overheatTickCoroutine = null;
@@ -396,7 +484,25 @@ namespace Hive.Armada.Player.Weapons
         /// </summary>
         private IEnumerator OverheatCoolDown()
         {
-            yield return new WaitForSeconds(overheatCoolDown);
+            if (overheatDecreaseDelayCoroutine != null)
+            {
+                StopCoroutine(overheatDecreaseDelayCoroutine);
+            }
+
+            if (overheatTickCoroutine != null)
+            {
+                StopCoroutine(overheatTickCoroutine);
+            }
+
+            int count = (int)(overheatCoolDown * 90);
+            overheatAmount = 100.0f;
+            float amount = overheatMax / count;
+            for (int i = 0; i < count; ++i)
+            {
+                yield return new WaitForSeconds(overheatCoolDown / count);
+
+                RemoveOverheat(amount);
+            }
 
             overheatAmount = 0.0f;
             isOverheating = false;

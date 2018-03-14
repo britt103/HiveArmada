@@ -177,15 +177,17 @@ namespace Hive.Armada.Game
         /// <summary>
         /// Spawns a pooled object.
         /// </summary>
+        /// <param name="caller"> The object that called Spawn() </param>
         /// <param name="typeIdentifier"> The identifier (index) of the object to spawn </param>
         /// <param name="position"> The position to spawn the object at </param>
         /// <returns> The spawned object </returns>
-        public GameObject Spawn(int typeIdentifier, Vector3 position)
+        public GameObject Spawn(GameObject caller, int typeIdentifier, Vector3 position)
         {
             if (typeIdentifier < 0 || typeIdentifier >= objects.Length)
             {
                 Debug.LogError(GetType().Name + " - Invalid type identifier \"" + typeIdentifier +
-                               "\"!");
+                               "\". Called by \"" + caller.name + "\", instance ID " +
+                               caller.GetInstanceID());
                 return null;
             }
 
@@ -208,16 +210,19 @@ namespace Hive.Armada.Game
         /// <summary>
         /// Spawns a pooled object.
         /// </summary>
+        /// <param name="caller"> The object that called Spawn() </param>
         /// <param name="typeIdentifier"> The identifier (index) of the object to spawn </param>
         /// <param name="position"> The position to spawn the object at </param>
         /// <param name="parent"> New parent for the spawned object </param>
         /// <returns> The spawned object </returns>
-        public GameObject Spawn(int typeIdentifier, Vector3 position, Transform parent)
+        public GameObject Spawn(GameObject caller, int typeIdentifier, Vector3 position,
+                                Transform parent)
         {
             if (typeIdentifier < 0 || typeIdentifier >= objects.Length)
             {
                 Debug.LogError(GetType().Name + " - Invalid type identifier \"" + typeIdentifier +
-                               "\"!");
+                               "\". Called by \"" + caller.name + "\", instance ID " +
+                               caller.GetInstanceID());
                 return null;
             }
 
@@ -241,16 +246,19 @@ namespace Hive.Armada.Game
         /// <summary>
         /// Spawns a pooled object.
         /// </summary>
+        /// <param name="caller"> The object that called Spawn() </param>
         /// <param name="typeIdentifier"> The identifier (index) of the object to spawn </param>
         /// <param name="position"> The position to spawn the object at </param>
         /// <param name="rotation"> The rotation to spawn the object with </param>
         /// <returns> The spawned object </returns>
-        public GameObject Spawn(int typeIdentifier, Vector3 position, Quaternion rotation)
+        public GameObject Spawn(GameObject caller, int typeIdentifier, Vector3 position,
+                                Quaternion rotation)
         {
             if (typeIdentifier < 0 || typeIdentifier >= objects.Length)
             {
                 Debug.LogError(GetType().Name + " - Invalid type identifier \"" + typeIdentifier +
-                               "\"!");
+                               "\". Called by \"" + caller.name + "\", instance ID " +
+                               caller.GetInstanceID());
                 return null;
             }
 
@@ -274,18 +282,21 @@ namespace Hive.Armada.Game
         /// <summary>
         /// Spawns a pooled object.
         /// </summary>
+        /// <param name="caller"> The object that called Spawn() </param>
         /// <param name="typeIdentifier"> The identifier (index) of the object to spawn </param>
         /// <param name="position"> The position to spawn the object at </param>
         /// <param name="rotation"> The rotation to spawn the object with </param>
         /// <param name="parent"> New parent for the spawned object </param>
         /// <returns> The spawned object </returns>
-        public GameObject Spawn(int typeIdentifier, Vector3 position, Quaternion rotation,
+        public GameObject Spawn(GameObject caller, int typeIdentifier, Vector3 position,
+                                Quaternion rotation,
                                 Transform parent)
         {
             if (typeIdentifier < 0 || typeIdentifier >= objects.Length)
             {
                 Debug.LogError(GetType().Name + " - Invalid type identifier \"" + typeIdentifier +
-                               "\"!");
+                               "\". Called by \"" + caller.name + "\", instance ID " +
+                               caller.GetInstanceID());
                 return null;
             }
 

@@ -71,11 +71,6 @@ namespace Hive.Armada.Enemies
         private float spread;
 
         /// <summary>
-        /// The player's ship.
-        /// </summary>
-        private GameObject player;
-
-        /// <summary>
         /// The enemy to spawn when this enemy dies
         /// </summary>
         public GameObject childTurret;
@@ -110,7 +105,7 @@ namespace Hive.Armada.Enemies
         /// </summary>
         private void Update()
         {
-            if (pathingComplete)
+            if (PathingComplete)
             {
                 transform.position = Vector3.Lerp(posA, posB, (Mathf.Sin(theta) + 1.0f) / 2.0f);
 
@@ -121,26 +116,14 @@ namespace Hive.Armada.Enemies
                     theta -= Mathf.PI * 2;
                 }
 
-                if (reference.playerShip != null)
+                transform.LookAt(player.transform);
+
+                if (canShoot)
                 {
-                    lookTarget = reference.playerShip.transform.position;
+                    StartCoroutine(Shoot());
                 }
 
-                if (lookTarget != Vector3.negativeInfinity)
-                {
-                    transform.LookAt(lookTarget);
-
-                    if (canShoot)
-                    {
-                        StartCoroutine(Shoot());
-                    }
-                }
-                else
-                {
-                    transform.LookAt(new Vector3(0.0f, 0.7f, 0.0f));
-                }
-
-				if (shaking)
+                if (shaking)
             	{
                 	iTween.ShakePosition(gameObject, new Vector3(0.1f, 0.1f, 0.1f), 0.1f);
             	}
@@ -181,10 +164,10 @@ namespace Hive.Armada.Enemies
 
             for (int x = 0; x < 25; x++)
             {
-                if (projectileArray[x] == true)
+                if (projectileArray[x])
                 {
                     GameObject projectile =
-                        objectPoolManager.Spawn(projectileTypeIdentifier, shootPoint[x].position,
+                        objectPoolManager.Spawn(gameObject, projectileTypeIdentifier, shootPoint[x].position,
                                                 shootPoint[x].rotation);
 
                     projectile.GetComponent<Transform>().Rotate(Random.Range(-spread, spread),
@@ -311,25 +294,25 @@ namespace Hive.Armada.Enemies
             {
                 int typeIdentifier = objectPoolManager.GetTypeIdentifier(childTurret);
 
-                GameObject child1 = objectPoolManager.Spawn(typeIdentifier, new Vector3(transform.position.x + 0.1f, transform.position.y + 0.1f, transform.position.z), transform.rotation);
+                GameObject child1 = objectPoolManager.Spawn(gameObject, typeIdentifier, new Vector3(transform.position.x + 0.1f, transform.position.y + 0.1f, transform.position.z), transform.rotation);
                 child1.layer = Utility.enemyLayerId;
                 Enemy child1Enemy = child1.GetComponent<Enemy>();
                 child1Enemy.SetWave(wave);
                 child1Enemy.SetAttackPattern(attackPattern);
 
-                GameObject child2 = objectPoolManager.Spawn(typeIdentifier, new Vector3(transform.position.x - 0.1f, transform.position.y - 0.1f, transform.position.z), transform.rotation);
+                GameObject child2 = objectPoolManager.Spawn(gameObject, typeIdentifier, new Vector3(transform.position.x - 0.1f, transform.position.y - 0.1f, transform.position.z), transform.rotation);
                 child2.layer = Utility.enemyLayerId;
                 Enemy child2Enemy = child2.GetComponent<Enemy>();
                 child2Enemy.SetWave(wave);
                 child2Enemy.SetAttackPattern(attackPattern);
 
-                GameObject child3 = objectPoolManager.Spawn(typeIdentifier, new Vector3(transform.position.x + 0.1f, transform.position.y - 0.1f, transform.position.z), transform.rotation);
+                GameObject child3 = objectPoolManager.Spawn(gameObject, typeIdentifier, new Vector3(transform.position.x + 0.1f, transform.position.y - 0.1f, transform.position.z), transform.rotation);
                 child3.layer = Utility.enemyLayerId;
                 Enemy child3Enemy = child3.GetComponent<Enemy>();
                 child3Enemy.SetWave(wave);
                 child3Enemy.SetAttackPattern(attackPattern);
 
-                GameObject child4 = objectPoolManager.Spawn(typeIdentifier, new Vector3(transform.position.x - 0.1f, transform.position.y + 0.1f, transform.position.z), transform.rotation);
+                GameObject child4 = objectPoolManager.Spawn(gameObject, typeIdentifier, new Vector3(transform.position.x - 0.1f, transform.position.y + 0.1f, transform.position.z), transform.rotation);
                 child4.layer = Utility.enemyLayerId;
                 Enemy child4Enemy = child4.GetComponent<Enemy>();
                 child4Enemy.SetWave(wave);

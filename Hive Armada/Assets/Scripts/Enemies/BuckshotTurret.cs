@@ -38,11 +38,6 @@ namespace Hive.Armada.Enemies
         public Transform shootPoint;
 
         /// <summary>
-        /// Variable that finds the player GameObject
-        /// </summary>
-        private GameObject player;
-
-        /// <summary>
         /// Vector3 that holds the player's position
         /// </summary>
         //private Vector3 pos;
@@ -111,7 +106,7 @@ namespace Hive.Armada.Enemies
         /// </summary>
         private void Update()
         {
-            if (pathingComplete)
+            if (PathingComplete)
             {
                 transform.position = Vector3.Lerp(posA, posB, (Mathf.Sin(theta) + 1.0f) / 2.0f);
 
@@ -122,25 +117,14 @@ namespace Hive.Armada.Enemies
                     theta -= Mathf.PI * 2;
                 }
 
-                if (reference.playerShip != null)
-                {
-                    lookTarget = reference.playerShip.transform.position;
-                }
-                if (lookTarget != Vector3.negativeInfinity)
-                {
-                    transform.LookAt(lookTarget);
+                transform.LookAt(player.transform);
 
-                    if (canShoot)
-                    {
-                        for (int i = 0; i < projectileCount; ++i)
-                        {
-                            StartCoroutine(Shoot());
-                        }
-                    }
-                }
-                else
+                if (canShoot)
                 {
-                    transform.LookAt(new Vector3(0.0f, 0.7f, 0.0f));
+                    for (int i = 0; i < projectileCount; ++i)
+                    {
+                        StartCoroutine(Shoot());
+                    }
                 }
 
 				if (shaking)
@@ -183,7 +167,7 @@ namespace Hive.Armada.Enemies
         {
             canShoot = false;
             //Debug.Log("Hi!");
-            GameObject projectile = objectPoolManager.Spawn(projectileTypeIdentifier, shootPoint.position,
+            GameObject projectile = objectPoolManager.Spawn(gameObject, projectileTypeIdentifier, shootPoint.position,
                                         shootPoint.rotation);
             //randX = Random.Range(-spread, spread);
             //randY = Random.Range(-spread, spread);

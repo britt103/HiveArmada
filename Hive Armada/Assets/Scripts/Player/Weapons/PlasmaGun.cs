@@ -108,7 +108,18 @@ namespace Hive.Armada.Player.Weapons
             {
                 RaycastHit hit;
                 if (Physics.Raycast(transform.position, transform.forward, out hit, 200.0f,
-                                    Utility.roomMask))
+                                    Utility.shootableMask))
+                {
+                    StartCoroutine(Shoot(hit.point));
+                }
+                else if (Physics.SphereCast(transform.position, radius, transform.forward, out hit,
+                                            200.0f,
+                                            Utility.enemyMask))
+                {
+                    StartCoroutine(Shoot(hit.point));
+                }
+                else if (Physics.Raycast(transform.position, transform.forward, out hit, 200.0f,
+                                         Utility.roomMask))
                 {
                     StartCoroutine(Shoot(hit.point));
                 }
@@ -142,7 +153,7 @@ namespace Hive.Armada.Player.Weapons
             Transform barrel = barrels[barrelIndex];
 
             GameObject rocket =
-                reference.objectPoolManager.Spawn(rocketTypeId, barrel.position,
+                reference.objectPoolManager.Spawn(gameObject, rocketTypeId, barrel.position,
                                                   barrel.rotation);
             Rocket rocketScript = rocket.GetComponent<Rocket>();
             rocketScript.SetupRocket(rocketTypeIndex, shipController);

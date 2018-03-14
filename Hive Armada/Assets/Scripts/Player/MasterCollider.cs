@@ -143,7 +143,7 @@ namespace Hive.Armada.Player
 
             if (hitEmitterTypeIdentifier >= 0)
             {
-                reference.objectPoolManager.Spawn(hitEmitterTypeIdentifier,
+                reference.objectPoolManager.Spawn(gameObject, hitEmitterTypeIdentifier,
                                                   other.transform.position,
                                                   other.transform.rotation);
                 reference.objectPoolManager.Despawn(other.gameObject);

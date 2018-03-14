@@ -15,9 +15,10 @@
 //=============================================================================
 
 using System.Collections;
+using UnityEngine;
 using Hive.Armada.Game;
 using Hive.Armada.Player.Weapons;
-using UnityEngine;
+using Hive.Armada.Enemies;
 
 namespace Hive.Armada.PowerUps
 {
@@ -153,6 +154,19 @@ namespace Hive.Armada.PowerUps
             GameObject nearestEnemy = null;
             foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
             {
+                Enemy enemyScript = enemy.GetComponent<Enemy>();
+                if (enemyScript != null)
+                {
+                    if (!enemyScript.PathingComplete || !enemyScript.IsActive)
+                    {
+                        continue;
+                    }
+                }
+                else
+                {
+                    continue;
+                }
+
                 positionDifference = enemy.transform.position -
                                      transform.parent.transform.position;
 
@@ -243,7 +257,7 @@ namespace Hive.Armada.PowerUps
         {
             canFire = false;
             GameObject rocket =
-                reference.objectPoolManager.Spawn(rocketTypeId, shootPoint.position,
+                reference.objectPoolManager.Spawn(gameObject, rocketTypeId, shootPoint.position,
                                                   shootPoint.rotation);
             Rocket rocketScript = rocket.GetComponent<Rocket>();
             rocketScript.SetupRocket((int)rocketType);

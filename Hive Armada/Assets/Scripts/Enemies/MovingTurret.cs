@@ -11,7 +11,6 @@
 //=============================================================================
 
 using System.Collections;
-using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -92,11 +91,6 @@ namespace Hive.Armada.Enemies
         private Vector3 posB;
 
         /// <summary>
-        /// The player's ship.
-        /// </summary>
-        private GameObject player;
-
-        /// <summary>
         /// Whether this enemy can shoot or not. Toggles when firing every 1/fireRate seconds.
         /// </summary>
         private bool canShoot = true;
@@ -132,25 +126,13 @@ namespace Hive.Armada.Enemies
         /// </summary>
         private void Update()
         {
-            if (pathingComplete)
+            if (PathingComplete)
             {
-                if (reference.playerShip != null)
-                {
-                    lookTarget = reference.playerShip.transform.position;
-                }
+                transform.LookAt(player.transform);
 
-                if (lookTarget != Vector3.negativeInfinity)
+                if (canShoot)
                 {
-                    transform.LookAt(lookTarget);
-
-                    if (canShoot)
-                    {
-                        StartCoroutine(Shoot());
-                    }
-                }
-                else
-                {
-                    transform.LookAt(new Vector3(0.0f, 0.7f, 0.0f));
+                    StartCoroutine(Shoot());
                 }
 
                 transform.position = Vector3.Lerp(posA, posB, (Mathf.Sin(theta) + 1.0f) / 2.0f);
@@ -178,9 +160,9 @@ namespace Hive.Armada.Enemies
 
             for (int point = 0; point < 9; ++point)
             {
-                if (projectileArray[point] == true)
+                if (projectileArray[point])
                 {
-                    GameObject projectile = objectPoolManager.Spawn(projectileTypeIdentifier, shootPoint[point].position,
+                    GameObject projectile = objectPoolManager.Spawn(gameObject, projectileTypeIdentifier, shootPoint[point].position,
                                                        shootPoint[point].rotation);
                     
                     projectile.GetComponent<Transform>().Rotate(Random.Range(-spread, spread), 

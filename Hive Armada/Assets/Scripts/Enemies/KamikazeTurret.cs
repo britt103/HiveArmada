@@ -21,11 +21,6 @@ namespace Hive.Armada.Enemies
     public class KamikazeTurret : Enemy
     {
         /// <summary>
-        /// The player ship.
-        /// </summary>
-        private GameObject player;
-
-        /// <summary>
         /// Transform of this enemy.
         /// </summary>
         private Transform myTransform;
@@ -130,7 +125,6 @@ namespace Hive.Armada.Enemies
         /// </param>
         private void OnTriggerEnter(Collider other)
         {
-
             if (other.tag == "Player")
             {
                 other.gameObject.GetComponent<Player.PlayerHealth>().Hit(damage);
@@ -161,7 +155,7 @@ namespace Hive.Armada.Enemies
 
             if (Vector3.Distance(transform.position, player.transform.position) < range)
             {
-                player.gameObject.GetComponent<Player.PlayerHealth>().Hit(damage);
+                player.GetComponentInParent<Player.PlayerHealth>().Hit(damage);
             }
             Kill();
         }

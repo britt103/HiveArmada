@@ -150,7 +150,7 @@ namespace Hive.Armada.Game
         /// Reference manager that holds all needed references
         /// (e.g. spawner, game manager, etc.)
         /// </summary>
-        public ReferenceManager reference;
+        private ReferenceManager reference;
 
         /// <summary>
         /// Array of rocket attribute setups.
@@ -176,8 +176,9 @@ namespace Hive.Armada.Game
         /// <summary>
         /// Gets the type identifiers for the rocket emitters.
         /// </summary>
-        public void Initialize()
+        public void Initialize(ReferenceManager referenceManager)
         {
+            reference = referenceManager;
             RocketExplosionEmitterIds = new int[rockets.Length];
 
             for (int i = 0; i < rockets.Length; ++i)

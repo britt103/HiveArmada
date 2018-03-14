@@ -207,6 +207,18 @@ namespace Hive.Armada.Player.Weapons
         /// </summary>
         private Vector3 randomMovement;
 
+        private Vector3 initialMovement;
+
+        /// <summary>
+        /// Smoothly adjusts between current movement and randomMovement.
+        /// </summary>
+        private Vector3 smoothMovement;
+
+        /// <summary>
+        /// Fraction between smoothMovement and randomMovement.
+        /// </summary>
+        private float smoothFrac;
+
         /// <summary>
         /// Deactivates the rocket when it is first created.
         /// </summary>
@@ -275,15 +287,17 @@ namespace Hive.Armada.Player.Weapons
             if (rocketEmitterId >= 0)
             {
                 rocketEmitter =
-                    reference.objectPoolManager.Spawn(rocketEmitterId, transform.position,
-                                                      transform.rotation, transform);
+                    reference.objectPoolManager.Spawn(gameObject, rocketEmitterId,
+                                                      transform.position, transform.rotation,
+                                                      transform);
             }
 
             if (trailEmitterId >= 0)
             {
                 trailEmitter =
-                    reference.objectPoolManager.Spawn(trailEmitterId, transform.position,
-                                                      transform.rotation, transform);
+                    reference.objectPoolManager.Spawn(gameObject, trailEmitterId,
+                                                      transform.position, transform.rotation,
+                                                      transform);
                 GetComponent<TrailRenderer>().enabled = false;
             }
             else
@@ -306,7 +320,7 @@ namespace Hive.Armada.Player.Weapons
         /// </summary>
         private void Update()
         {
-            if ((behaviorFlags & RocketFlags.NoHoming) != 0)
+            if ((behaviorFlags & RocketFlags.NoHoming) == 0)
             {
                 if (isHoming)
                 {
@@ -351,8 +365,11 @@ namespace Hive.Armada.Player.Weapons
                 }
             }
 
+            smoothFrac += Time.deltaTime / randomTime;
+            smoothMovement = Vector3.Lerp(initialMovement, randomMovement, smoothFrac);
+
             transform.Translate(0.0f, 0.0f, speed * Time.deltaTime, Space.Self);
-            transform.Translate(randomMovement);
+            transform.Translate(smoothMovement);
 
             Vector3 relativePosition = targetPosition - transform.position;
             Quaternion rotation = Quaternion.LookRotation(relativePosition);
@@ -388,6 +405,13 @@ namespace Hive.Armada.Player.Weapons
                 isHoming = false;
             }
 
+            smoothFrac = 1.0f;
+            randomMovement = new Vector3(Random.Range(-randomX, randomX),
+                                         Random.Range(-randomY, randomY),
+                                         Random.Range(0.0f, randomZ));
+            smoothMovement = Vector3.zero;
+            initialMovement = Vector3.zero;
+
             StartCoroutine(RandomMovement());
             StartCoroutine(SelfDestruct());
         }
@@ -401,6 +425,13 @@ namespace Hive.Armada.Player.Weapons
         {
             targetPosition = position;
             isHoming = false;
+
+            smoothFrac = 1.0f;
+            randomMovement = new Vector3(Random.Range(-randomX, randomX),
+                                         Random.Range(-randomY, randomY),
+                                         Random.Range(0.0f, randomZ));
+            smoothMovement = Vector3.zero;
+            initialMovement = Vector3.zero;
 
             StartCoroutine(RandomMovement());
             StartCoroutine(SelfDestruct());
@@ -475,11 +506,13 @@ namespace Hive.Armada.Player.Weapons
         {
             while (true)
             {
-                yield return new WaitForSeconds(randomTime);
-
+                smoothFrac = 0.0f;
+                initialMovement = randomMovement;
                 randomMovement = new Vector3(Random.Range(-randomX, randomX),
                                              Random.Range(-randomY, randomY),
-                                             Random.Range(0, randomZ));
+                                             Random.Range(0.0f, randomZ));
+
+                yield return new WaitForSeconds(randomTime);
             }
         }
 
@@ -510,8 +543,8 @@ namespace Hive.Armada.Player.Weapons
 
             if (explosionEmitterId >= 0)
             {
-                reference.objectPoolManager.Spawn(explosionEmitterId, transform.position,
-                                                  transform.rotation);
+                reference.objectPoolManager.Spawn(gameObject, explosionEmitterId,
+                                                  transform.position, transform.rotation);
             }
 
             if ((behaviorFlags & RocketFlags.ExplosiveDamage) != 0)

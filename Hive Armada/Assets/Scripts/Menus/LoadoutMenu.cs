@@ -78,7 +78,7 @@ namespace Hive.Armada.Menus
         /// <summary>
         /// Reference to ShipLoadout.
         /// </summary>
-        private ShipLoadout shipLoadout;
+        private GameSettings gameSettings;
 
         /// <summary>
         /// Reference to Iridium System.
@@ -102,7 +102,7 @@ namespace Hive.Armada.Menus
         void Awake()
         {
             reference = FindObjectOfType<ReferenceManager>();
-            shipLoadout = FindObjectOfType<ShipLoadout>();
+            gameSettings = reference.gameSettings;
             iridiumSystem = FindObjectOfType<IridiumSystem>();
 
             selectedWeapon = initialWeapon;
@@ -162,7 +162,7 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void PressPlay()
         {
-            shipLoadout.weapon = selectedWeapon;
+            gameSettings.weapon = selectedWeapon;
             source.PlayOneShot(clips[0]);
             //StartCoroutine(pressPlaySound());
             //playCount += 1;

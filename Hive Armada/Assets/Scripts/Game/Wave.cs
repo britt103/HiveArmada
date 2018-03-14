@@ -282,16 +282,16 @@ namespace Hive.Armada.Game
                         zone.zone == SpawnZone.FrontLeft ||
                         zone.zone == SpawnZone.FrontRight)
                     {
-                        position = GameObject.Find("FrontSpawn").transform.position;
+                        position = waveManager.enemySpawnPoints[0].position;
                     }
                     else
                     {
-                        position = GameObject.Find("BackSpawn").transform.position;
+                        position = waveManager.enemySpawnPoints[1].position;
                     }
 
                     Quaternion rotation;
 
-                    if (reference.playerShip)
+                    if (reference.playerShip != null)
                     {
                         // spawn the enemy looking at the player
                         rotation =
@@ -311,31 +311,25 @@ namespace Hive.Armada.Game
 
                         GameObject spawned =
                             objectPoolManager.Spawn(
-                                waveManager.EnemyIDs[(int)thisPath.enemy],
+                                gameObject, waveManager.EnemyIDs[(int)thisPath.enemy],
                                 position,
                                 rotation);
 
                         Enemy spawnedEnemyScript = spawned.GetComponent<Enemy>();
-                        spawnedEnemyScript.SetWave(this);
+                        spawnedEnemyScript.SetWave(WaveNumber);
                         spawnedEnemyScript.SetAttackPattern(thisPath.attackPattern);
 
-                        Hashtable moveHash = new Hashtable();
+                        Hashtable moveHash = new Hashtable
+                                             {
+                                                 {"easetype", iTween.EaseType.easeInOutSine},
+                                                 {"time", 3.0f},
+                                                 {"looktarget", reference.shipLookTarget.transform},
+                                                 {"onComplete", "OnPathingComplete"},
+                                                 {"onCompleteTarget", spawned},
+                                                 {"path", iTweenPath.GetPath(pathName)}
+                                             };
 
-                        moveHash.Add("easetype", iTween.EaseType.easeInOutSine);
-                        moveHash.Add("time", 3.0f);
-                        if (reference.playerShip != null)
-                        {
-                            moveHash.Add("looktarget", reference.playerShip.transform);
-                        }
-                        else
-                        {
-                            moveHash.Add("looktarget", reference.player.transform);
-                        }
-                        moveHash.Add("onComplete", "OnPathingComplete");
-                        moveHash.Add("onCompleteTarget", spawned);
-                        moveHash.Add("path", iTweenPath.GetPath(pathName));
                         iTween.MoveTo(spawned, moveHash);
-
                         ++enemiesRemaining;
 
                         if (spawned.name.Contains("Enemy_Splitter"))

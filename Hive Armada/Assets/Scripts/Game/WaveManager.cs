@@ -12,7 +12,6 @@
 
 using System;
 using System.Collections;
-using System.IO;
 using UnityEngine;
 using SubjectNerd.Utilities;
 
@@ -181,6 +180,9 @@ namespace Hive.Armada.Game
         [Reorderable("Spawn Zone", false)]
         public SpawnZoneBounds[] spawnZonesBounds;
 
+        [Reorderable("Spawn Points", false)]
+        public Transform[] enemySpawnPoints;
+
         /// <summary>
         /// The lower and upper bounds of the powerup spawn zone.
         /// </summary>
@@ -237,14 +239,17 @@ namespace Hive.Armada.Game
         /// </summary>
         public bool IsComplete { get; private set; }
 
+        public bool IsInfinite { get; private set; }
+
         /// <summary>
         /// Loads the waves from a file.
         /// </summary>
-        public void Awake()
+        public void Initialize(ReferenceManager referenceManager)
         {
-            reference = GameObject.Find("Reference Manager").GetComponent<ReferenceManager>();
+            reference = referenceManager;
 
             ObjectPoolManager objectPool = reference.objectPoolManager;
+            GameSettings gameSettings = reference.gameSettings;
 
             EnemyIDs = new[]
             {
@@ -265,6 +270,16 @@ namespace Hive.Armada.Game
                 "BackRightPath"
             };
 
+            if (gameSettings.selectedGameMode == GameSettings.GameMode.SoloInfinite)
+            {
+                IsInfinite = true;
+            }
+            else
+            {
+                IsInfinite = false;
+            }
+            //IsInfinite = true;
+
             //waves = waveLoader.LoadWaves();
         }
 
@@ -275,26 +290,35 @@ namespace Hive.Armada.Game
         {
             if (!IsRunning)
             {
-                --startingWave;
+                IsRunning = true;
+                if (!IsInfinite)
+                {
+                    --startingWave;
 
-                if (startingWave <= 0)
-                {
-                    currentWave = 0;
-                }
-                else if (startingWave >= waves.Length)
-                {
-                    currentWave = 0;
+                    if (startingWave <= 0)
+                    {
+                        currentWave = 0;
+                    }
+                    else if (startingWave >= waves.Length)
+                    {
+                        currentWave = 0;
+                    }
+                    else
+                    {
+                        currentWave = startingWave;
+                    }
+
+                    reference.gameMusicSource.Play();
+                    reference.statistics.IsAlive();
+                    reference.iridiumSpawner.gameObject.SetActive(true);
+                    RunWave(currentWave);
                 }
                 else
                 {
-                    currentWave = startingWave;
+                    reference.gameMusicSource.Play();
+                    reference.statistics.IsAlive();
+                    reference.infinite.Run();
                 }
-
-                IsRunning = true;
-                reference.gameMusicSource.Play();
-                reference.statistics.IsAlive();
-				reference.iridiumSpawner.gameObject.SetActive(true);
-                RunWave(currentWave);
             }
         }
 
@@ -371,6 +395,16 @@ namespace Hive.Armada.Game
             }
 
             reference.statistics.WaveComplete();
+        }
+
+        public void EnemyDead(int wave)
+        {
+            waves[wave].EnemyDead();
+        }
+
+        public void EnemyDead(string path)
+        {
+            reference.infinite.EnemyDead(path);
         }
 
         /// <summary>

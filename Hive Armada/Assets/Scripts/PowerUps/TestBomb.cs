@@ -49,7 +49,7 @@ namespace Hive.Armada.PowerUps
             if (typeId >= 0)
             {
                 GameObject rocket =
-                    reference.objectPoolManager.Spawn(typeId, transform.position,
+                    reference.objectPoolManager.Spawn(gameObject, typeId, transform.position,
                                                       transform.rotation);
                 Rocket rocketScript = rocket.GetComponent<Rocket>();
 

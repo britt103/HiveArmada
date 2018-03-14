@@ -11,6 +11,7 @@
 //=============================================================================
 
 using UnityEngine;
+using Hive.Armada.Game;
 
 namespace Hive.Armada.Menus
 {
@@ -55,15 +56,28 @@ namespace Hive.Armada.Menus
     	public AudioClip[] clips;
 
         /// <summary>
+        /// Reference to GameModeSelection.
+        /// </summary>
+        private GameSettings gameSettings;
+
+        /// <summary>
         /// Variables used as a check to make sure audio
         /// doesn't play over itself
         /// </summary>
         private int soloNormalCounter = 0;
-
+        private int soloInfiniteCounter = 0;
         private int backCounter = 0;
 
         /// <summary>
-        /// Called by start button; navigates to Loadout Menu.
+        /// Find references.
+        /// </summary>
+        private void Awake()
+        {
+            gameSettings = FindObjectOfType<GameSettings>();
+        }
+
+        /// <summary>
+        /// Called by start button; navigates to Loadout Menu. Set game mode to SoloNormal.
         /// </summary>
         public void PressSoloNormal()
         {
@@ -74,8 +88,26 @@ namespace Hive.Armada.Menus
                 source.Stop();
                 source.PlayOneShot(clips[0]);
             }
+            gameSettings.selectedGameMode = GameSettings.GameMode.SoloNormal;
             transitionManager.Transition(loadoutGO);
         }
+
+        /// <summary>
+        /// Called by start button; navigates to Loadout Menu. Set game mode to SoloInfinite.
+        /// </summary>
+        public void PressSoloInfinite()
+        {
+            source.PlayOneShot(clips[0]);
+            soloInfiniteCounter += 1;
+            if (soloInfiniteCounter > 1)
+            {
+                source.Stop();
+                source.PlayOneShot(clips[0]);
+            }
+            gameSettings.selectedGameMode = GameSettings.GameMode.SoloInfinite;
+            transitionManager.Transition(loadoutGO);
+        }
+
         /// <summary>
         /// Called by shop button; navigates to Shop Menu.
         /// </summary>

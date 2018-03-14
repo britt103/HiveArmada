@@ -57,7 +57,11 @@ namespace Hive.Armada.Game
         {
             reference = GameObject.Find("Reference Manager").GetComponent<ReferenceManager>();
             system = GetComponent<ParticleSystems>();
-            system.onParticleSystemsDeadEvent += OnParticleSystemsDead;
+
+            if (system != null)
+            {
+                system.onParticleSystemsDeadEvent += OnParticleSystemsDead;
+            }
         }
 
         /// <summary>
@@ -79,8 +83,11 @@ namespace Hive.Armada.Game
         /// </summary>
         private void OnParticleSystemsDead()
         {
-            system.stop();
-            system.clear();
+            if (system != null)
+            {
+                system.stop();
+                system.clear();
+            }
 
             reference.objectPoolManager.Despawn(gameObject);
         }
@@ -90,8 +97,11 @@ namespace Hive.Armada.Game
         /// </summary>
         protected override void Reset()
         {
-            system.stop();
-            system.clear();
+            if (system != null)
+            {
+                system.stop();
+                system.clear();
+            }
         }
     }
 }

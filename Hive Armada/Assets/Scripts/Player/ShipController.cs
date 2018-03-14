@@ -131,7 +131,7 @@ namespace Hive.Armada.Player
 
             newPosesAppliedAction = SteamVR_Events.NewPosesAppliedAction(OnNewPosesApplied);
 
-            SetWeapon(FindObjectOfType<ShipLoadout>().weapon);
+            SetWeapon(reference.gameSettings.weapon);
         }
 
         /// <summary>

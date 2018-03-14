@@ -109,9 +109,9 @@ namespace Hive.Armada.Game
         /// <summary>
         /// Gets the type identifiers for each enemy's projectile prefabs
         /// </summary>
-        public void Initialize()
+        public void Initialize(ReferenceManager referenceManager)
         {
-            reference = transform.parent.GetComponent<ReferenceManager>();
+            reference = referenceManager;
 
             EnemyProjectileTypeIdentifiers = new int[enemyProjectilePrefab.Length];
 

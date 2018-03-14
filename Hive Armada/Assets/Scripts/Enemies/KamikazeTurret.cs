@@ -9,6 +9,7 @@
 //
 //=============================================================================
 
+using Hive.Armada.Player;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
@@ -60,11 +61,21 @@ namespace Hive.Armada.Enemies
         /// </summary>
         private bool inRange;
 
+        /// <summary>
+        /// Audio source for this enemy.
+        /// </summary>
         private AudioSource source;
 
+        /// <summary>
+        /// Audio clip attached to this enemy
+        /// </summary>
         public AudioClip clip;
 
-        private 
+        /// <summary>
+        /// Shield attached to player ship.
+        /// Used to check player damage when exploding.
+        /// </summary>
+        private GameObject playerShield;
 
         /// <summary>
         /// Looks at the player and stores own position.
@@ -76,6 +87,7 @@ namespace Hive.Armada.Enemies
             {
                 player = GameObject.FindGameObjectWithTag("Player");
                 transform.LookAt(player.transform.position);
+                playerShield = player.transform.Find("Shield").gameObject;
             }
             source = GetComponent<AudioSource>();
 
@@ -152,7 +164,7 @@ namespace Hive.Armada.Enemies
             source.PlayOneShot(clip);
             yield return new WaitForSeconds(clip.length);
 
-            if (Vector3.Distance(gameObject.transform.position, player.transform.position) < range)
+            if (playerShield.GetComponent<Collider>().bounds.Contains(gameObject.transform.position))
             {
                 player.gameObject.GetComponent<Player.PlayerHealth>().Hit(damage);
             }

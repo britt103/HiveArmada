@@ -136,7 +136,7 @@ namespace Hive.Armada.Player
 
             if (kamikaze)
             {
-                kamikaze.Hit(1000);
+                kamikaze.Hit(1000, false);
 
                 return;
             }

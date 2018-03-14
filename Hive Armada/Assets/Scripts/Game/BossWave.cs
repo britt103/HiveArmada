@@ -106,7 +106,7 @@ namespace Hive.Armada.Game
             yield return new WaitForSeconds(0.1f);
             boss.SetActive(true);
             iTween.MoveTo(boss, iTween.Hash("path", iTweenPath.GetPath("BossIn"), "easetype", iTween.EaseType.easeInOutSine, "time", 5.0f,
-                                            "looktarget", reference.playerShip,"onComplete", "FinishedPathing","onCompleteTarget", boss));
+                                            "looktarget", reference.shipLookTarget,"onComplete", "OnPathingComplete","onCompleteTarget", boss));
             StartCoroutine(WaitForPathing());          
         }
 
@@ -115,11 +115,12 @@ namespace Hive.Armada.Game
         /// </summary>
         private IEnumerator WaitForPathing()
         {
-            while (!boss.GetComponent<Boss>().pathingFinished)
+            while (!boss.GetComponent<Boss>().PathingComplete)
             {
                 yield return new WaitForSeconds(0.1f);
             }
             bossScript.canActivate = true;
+            bossScript.StartBoss();
             StartCoroutine(WaitForWaveEnd());
             Debug.Log("Boss wave " + currentWave+1);
         }
@@ -139,10 +140,9 @@ namespace Hive.Armada.Game
 
             //play audio on defeat here?
             bossScript.canActivate = false;
-            bossScript.pathingFinished = false;
             bossScript.PauseBoss();
             iTween.MoveTo(boss, iTween.Hash("path", iTweenPath.GetPath("BossOut"), "easetype", iTween.EaseType.easeInOutSine, "time", 5.0f,
-                                            "looktarget", reference.playerShip,"onComplete", "FinishedPathing","onCompleteTarget", boss));
+                                            "looktarget", reference.shipLookTarget,"onComplete", "OnPathingComplete","onCompleteTarget", boss));
             StartCoroutine(WaitForBossOut());
         }
 
@@ -152,7 +152,7 @@ namespace Hive.Armada.Game
         /// </summary>
         private IEnumerator WaitForBossOut()
         {
-            while (!boss.GetComponent<Boss>().pathingFinished)
+            while (!boss.GetComponent<Boss>().PathingComplete)
             {
                 yield return new WaitForSeconds(0.1f);
             }

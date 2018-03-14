@@ -89,22 +89,21 @@ namespace Hive.Armada.Enemies
         private bool canRotate;
 
         public bool canActivate;
-        /// <summary>
-        /// Whether or not this enemy is pathing.
-        /// </summary>
-        public bool pathingFinished;
 
         private float theta;
+
         private Vector3 posA;
+
         private Vector3 posB;
-        public float xMax;
+
         public float yMax;
+
         public float movingSpeed;
 
         /// <summary>
         /// On start, select enemy behavior based on value fireMode
         /// </summary>
-        void Start()
+        private void Start()
         {
             //Reset();
             //ResetAttackPattern();
@@ -120,26 +119,26 @@ namespace Hive.Armada.Enemies
         {
             if (canActivate)
             {
-                transform.position = Vector3.Lerp(posA, posB, (Mathf.Sin(theta) + 1.0f) / 2.0f);
-
-                theta += movingSpeed * Time.deltaTime;
-
-                if (theta > Mathf.PI * 3 / 2)
-                {
-                    theta -= Mathf.PI * 2;
-                }
+//                transform.position = Vector3.Lerp(posA, posB, (Mathf.Sin(theta) + 1.0f) / 2.0f);
+//
+//                theta += movingSpeed * Time.deltaTime;
+//
+//                if (theta > Mathf.PI * 3 / 2)
+//                {
+//                    theta -= Mathf.PI * 2;
+//                }
 
                 transform.LookAt(player.transform);
             }
         }
 
-        /// <summary>
-        /// Called by Bosswave when boss finishes pathing.
-        /// </summary>
-        public void FinishedPathing()
-        {
-            pathingFinished = true;
-        }
+//        /// <summary>
+//        /// Called by Bosswave when boss finishes pathing.
+//        /// </summary>
+//        public void FinishedPathing()
+//        {
+//            pathingFinished = true;
+//        }
 
         /// <summary>
         /// Begins boss firing logic.
@@ -156,6 +155,7 @@ namespace Hive.Armada.Enemies
         /// </summary>
         public void PauseBoss()
         {
+            PathingComplete = false;
             ResetAttackPattern();
             StartCoroutine(SelectBehavior(3));
         }
@@ -165,13 +165,13 @@ namespace Hive.Armada.Enemies
         /// </summary>
         private void Hover()
         {
-            posA = new Vector3(transform.position.x + xMax / 100,
-                transform.position.y + yMax / 100,
-                transform.position.z);
+            posA = new Vector3(transform.position.x,
+                               transform.position.y + yMax / 100,
+                               transform.position.z);
 
-            posB = new Vector3(transform.position.x - xMax / 100,
-                transform.position.y - yMax / 100,
-                transform.position.z);
+            posB = new Vector3(transform.position.x,
+                               transform.position.y - yMax / 100,
+                               transform.position.z);
 
             theta = 0.0f;
         }
@@ -185,21 +185,24 @@ namespace Hive.Armada.Enemies
 
             for (int point = 0; point < 81; ++point)
             {
-                if (projectileArray[point] == true)
+                if (projectileArray[point])
                 {
-                    GameObject projectile = objectPoolManager.Spawn(gameObject, projectileTypeIdentifier, shootPoint[point].position,
-                                                       shootPoint[point].rotation);
+                    GameObject spawnedProjectile = objectPoolManager.Spawn(
+                        gameObject, projectileTypeIdentifier, shootPoint[point].position,
+                        shootPoint[point].rotation);
 
                     randX = Random.Range(-spread, spread);
                     randY = Random.Range(-spread, spread);
                     randZ = Random.Range(-spread, spread);
 
-                    projectile.GetComponent<Transform>().Rotate(randX, randY, randZ);
-                    projectile.GetComponent<Rigidbody>().velocity =
-                        projectile.transform.forward * projectileSpeed;
+                    spawnedProjectile.GetComponent<Transform>().Rotate(randX, randY, randZ);
+                    spawnedProjectile.GetComponent<Rigidbody>().velocity =
+                        spawnedProjectile.transform.forward * projectileSpeed;
                 }
             }
+
             yield return new WaitForSeconds(fireRate);
+
             canShoot = true;
         }
 
@@ -220,40 +223,49 @@ namespace Hive.Armada.Enemies
                 //standard pattern
                 case 0:
                     yield return new WaitForSeconds(1);
+
                     SetAttackPattern(AttackPattern.Four);
-                    for(int i = 0; i < 20; ++i)
+                    for (int i = 0; i < 20; ++i)
                     {
                         StartCoroutine(Shoot());
                         yield return new WaitForSeconds(fireRate);
                     }
+
                     StartCoroutine(SelectBehavior(1));
                     break;
 
                 case 1:
                     yield return new WaitForSeconds(1);
+
                     for (int i = 0; i < 15; ++i)
                     {
                         SetAttackPattern(AttackPattern.Two);
                         StartCoroutine(Shoot());
                         yield return new WaitForSeconds(0.025f);
+
                         SetAttackPattern(AttackPattern.Three);
                         StartCoroutine(Shoot());
                         yield return new WaitForSeconds(0.025f);
+
                         SetAttackPattern(AttackPattern.Four);
                         StartCoroutine(Shoot());
                         yield return new WaitForSeconds(0.025f);
+
                         SetAttackPattern(AttackPattern.Three);
                         StartCoroutine(Shoot());
                         yield return new WaitForSeconds(0.025f);
+
                         SetAttackPattern(AttackPattern.Two);
                         StartCoroutine(Shoot());
                         yield return new WaitForSeconds(fireRate);
                     }
+
                     StartCoroutine(SelectBehavior(2));
                     break;
 
                 case 2:
                     yield return new WaitForSeconds(1);
+
                     ResetAttackPattern();
                     SetAttackPattern(AttackPattern.One);
                     StartCoroutine(RotateProjectile(shootPivot));
@@ -262,14 +274,16 @@ namespace Hive.Armada.Enemies
                         StartCoroutine(Shoot());
                         yield return new WaitForSeconds(0.15f);
                     }
+
                     StartCoroutine(SelectBehavior(0));
                     break;
 
                 case 3:
+
                     //Do nothing
                     break;
-
             }
+
             yield return null;
         }
 
@@ -277,11 +291,11 @@ namespace Hive.Armada.Enemies
         /// Function that determines the enemy's projectile, firerate,
         /// spread, and projectile speed.
         /// </summary>
-        /// <param name="mode">Current Enemy Firemode</param>
+        /// <param name="mode"> Current Enemy Firemode </param>
         public override void SetAttackPattern(AttackPattern attackPattern)
         {
-            int[] myPoints = new int[] { };
-            switch ((int)attackPattern)
+            int[] myPoints = { };
+            switch ((int) attackPattern)
             {
                 case 0:
                     fireRate = 0.1f;
@@ -292,9 +306,13 @@ namespace Hive.Armada.Enemies
                     {
                         projectileArray[i] = true;
                         projectileArray[i * 9] = true;
-                        projectileArray[8 + (9*i)] = true;
+                        projectileArray[8 + 9 * i] = true;
                     }
-                    for (int i = 73; i < 81; ++i) projectileArray[i] = true;
+                    for (int i = 73; i < 81; ++i)
+                    {
+                        projectileArray[i] = true;
+                    }
+
                     return;
 
                 case 1:
@@ -302,10 +320,12 @@ namespace Hive.Armada.Enemies
                     projectileSpeed = 2.5f;
                     spread = 0;
 
-                    myPoints = new int[] {
-                        30, 31, 32,
-                        40,
-                        48, 49, 50 };
+                    myPoints = new[]
+                               {
+                                   30, 31, 32,
+                                   40,
+                                   48, 49, 50
+                               };
 
                     ActivateShootPoints(myPoints, myPoints.Length);
                     return;
@@ -315,14 +335,16 @@ namespace Hive.Armada.Enemies
                     projectileSpeed = 2.5f;
                     spread = 0;
 
-                    myPoints = new int[] {
-                        13,
-                        20, 21, 23, 24,
-                        29, 33,
-                        37, 39, 41, 43,
-                        47, 51,
-                        56, 57, 59, 60,
-                        67 };
+                    myPoints = new[]
+                               {
+                                   13,
+                                   20, 21, 23, 24,
+                                   29, 33,
+                                   37, 39, 41, 43,
+                                   47, 51,
+                                   56, 57, 59, 60,
+                                   67
+                               };
 
                     ActivateShootPoints(myPoints, myPoints.Length);
                     return;
@@ -332,20 +354,23 @@ namespace Hive.Armada.Enemies
                     projectileSpeed = 2.5f;
                     spread = 0;
 
-                    myPoints = new int[] {
-                        4,
-                        11, 12, 14, 15,
-                        19, 20, 22, 24, 25,
-                        28, 34,
-                        36, 38, 42, 44,
-                        46, 52,
-                        55, 56, 58, 60, 61,
-                        65, 66, 68, 69,
-                        76 };
+                    myPoints = new[]
+                               {
+                                   4,
+                                   11, 12, 14, 15,
+                                   19, 20, 22, 24, 25,
+                                   28, 34,
+                                   36, 38, 42, 44,
+                                   46, 52,
+                                   55, 56, 58, 60, 61,
+                                   65, 66, 68, 69,
+                                   76
+                               };
 
                     ActivateShootPoints(myPoints, myPoints.Length);
                     return;
             }
+
             //Debug.Log(myPoints.Length);
         }
 
@@ -353,10 +378,11 @@ namespace Hive.Armada.Enemies
         {
             StopCoroutine(RotateProjectile(shootPivot));
             shootPivot.rotation = transform.rotation;
-            for(int i = 0; i < 81; ++i)
+            for (int i = 0; i < 81; ++i)
             {
                 projectileArray[i] = false;
             }
+
             //Debug.Log("Reset!");
         }
 
@@ -384,42 +410,21 @@ namespace Hive.Armada.Enemies
         /// </summary>
         public void BossReset()
         {
-            //// reset materials
-            //for (int i = 0; i < renderers.Count; ++i)
-            //{
-            //    renderers.ElementAt(i).material = materials.ElementAt(i);
-            //}
+            // reset materials
+            for (int i = 0; i < renderers.Count; ++i)
+            {
+                renderers.ElementAt(i).material = materials.ElementAt(i);
+            }
 
             //hitFlash = null;
             //shaking = false;
             //canShoot = true;
 
             projectileTypeIdentifier = objectPoolManager.GetTypeIdentifier(projectile);
-            //    enemyAttributes.EnemyProjectileTypeIdentifiers[TypeIdentifier];
             maxHealth = 700;
             Health = maxHealth;
-            Debug.Log("Boss Health on boss is"+Health);
-            pathingFinished = false;
-            
-            //fireRate = enemyAttributes.enemyFireRate[TypeIdentifier];
-            //projectileSpeed = enemyAttributes.projectileSpeed;
-            //spread = enemyAttributes.enemySpread[TypeIdentifier];
-            //pointValue = enemyAttributes.enemyScoreValues[TypeIdentifier];
-            //selfDestructTime = enemyAttributes.enemySelfDestructTimes[TypeIdentifier];
-            //spawnEmitter = enemyAttributes.enemySpawnEmitters[TypeIdentifier];
-            //deathEmitter = enemyAttributes.enemyDeathEmitters[TypeIdentifier];
-
-            //if (!isInitialized)
-            //{
-            //    isInitialized = true;
-
-            //    GameObject spawnEmitterObject = Instantiate(spawnEmitter,
-            //                                                transform.position,
-            //                                                transform.rotation, transform);
-            //    spawnEmitterSystem = spawnEmitterObject.GetComponent<ParticleSystems>();
-
-            //    deathEmitterTypeIdentifier = objectPoolManager.GetTypeIdentifier(deathEmitter);
-            //}
+            Debug.Log("Boss Health on boss is" + Health);
+            PathingComplete = false;
         }
     }
 }

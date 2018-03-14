@@ -477,11 +477,8 @@ namespace Hive.Armada.Player.Weapons
             if (other.CompareTag("Enemy"))
             {
                 explosionTarget = other.gameObject;
-                other.GetComponent<Enemy>().Hit(damage * damageMultiplier);
-                if ((behaviorFlags & RocketFlags.HapticFeedback) != 0)
-                {
-                    shipController.hand.controller.TriggerHapticPulse(2500);
-                }
+                other.GetComponent<Enemy>().Hit(damage * damageMultiplier,
+                                                (behaviorFlags & RocketFlags.HapticFeedback) != 0);
                 Explode();
             }
             else if (other.CompareTag("Shootable"))

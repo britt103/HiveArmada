@@ -165,7 +165,7 @@ namespace Hive.Armada.Player.Weapons
 
                 if (hit.collider.gameObject.GetComponent<Enemy>() != null)
                 {
-                    hit.collider.gameObject.GetComponent<Enemy>().Hit(damage * damageMultiplier);
+                    hit.collider.gameObject.GetComponent<Enemy>().Hit(damage * damageMultiplier, true);
                 }
 
                 shipController.hand.controller.TriggerHapticPulse(2500);

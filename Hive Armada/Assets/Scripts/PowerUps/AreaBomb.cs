@@ -168,7 +168,7 @@ namespace Hive.Armada.PowerUps
             {
                 if (objectCollider.gameObject.tag == "Enemy")
                 {
-                    objectCollider.gameObject.GetComponent<Enemies.Enemy>().Hit(100);
+                    objectCollider.gameObject.GetComponent<Enemies.Enemy>().Hit(100, false);
                 }
             }
 

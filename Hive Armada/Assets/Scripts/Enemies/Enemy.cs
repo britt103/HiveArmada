@@ -17,6 +17,7 @@ using System.Linq;
 using UnityEngine;
 using Hive.Armada.Game;
 using Hive.Armada.Menus;
+using Hive.Armada.Player;
 using MirzaBeig.ParticleSystems;
 
 namespace Hive.Armada.Enemies
@@ -181,7 +182,7 @@ namespace Hive.Armada.Enemies
         /// <summary>
         /// If this enemy has finished pathing.
         /// </summary>
-        public bool PathingComplete { get; private set; }
+        public bool PathingComplete { get; protected set; }
 
         /// <summary>
         /// Initializes references to ReferenceManager and other managers, list of renderers and
@@ -225,11 +226,17 @@ namespace Hive.Armada.Enemies
         /// Used to apply damage to an enemy.
         /// </summary>
         /// <param name="damage"> How much damage this enemy is taking. </param>
-        public virtual void Hit(int damage)
+        /// <param name="sendFeedback"> If the hit should trigger a haptic feedback pulse </param>
+        public virtual void Hit(int damage, bool sendFeedback)
         {
             if (!PathingComplete)
             {
                 return;
+            }
+
+            if (sendFeedback)
+            {
+                reference.playerShip.GetComponent<ShipController>().hand.controller.TriggerHapticPulse(2500);
             }
 
             Health -= damage;

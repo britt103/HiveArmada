@@ -602,6 +602,8 @@ namespace Hive.Armada.Player.Weapons
             targetPoolableScript = null;
             targetEnemyScript = null;
             damageMultiplier = 1;
+            rocketEmitter = null;
+            trailEmitter = null;
         }
     }
 }

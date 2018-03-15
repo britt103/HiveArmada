@@ -161,10 +161,14 @@ namespace Hive.Armada.Player.Weapons
         [Header("Audio")]
         public AudioSource source;
 
+        public AudioSource source2d;
+
         /// <summary>
         /// The sound the minigun makes when it fires.
         /// </summary>
         public AudioClip minigunShootSound;
+
+        public AudioClip overheatSound;
 
         /// <summary>
         /// Initializes the LineRenderer's for the minigun tracers and
@@ -484,6 +488,11 @@ namespace Hive.Armada.Player.Weapons
         /// </summary>
         private IEnumerator OverheatCoolDown()
         {
+            if (!source2d.isPlaying)
+            {
+                source2d.PlayOneShot(overheatSound);
+            }
+
             if (overheatDecreaseDelayCoroutine != null)
             {
                 StopCoroutine(overheatDecreaseDelayCoroutine);

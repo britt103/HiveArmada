@@ -30,6 +30,8 @@ namespace Hive.Armada.Player
         /// </summary>
         private Renderer shieldRenderer;
 
+        private Collider shieldCollider;
+
         /// <summary>
         /// Coroutine for the shield timer.
         /// </summary>
@@ -89,6 +91,9 @@ namespace Hive.Armada.Player
         {
             reference = GameObject.Find("Reference Manager").GetComponent<ReferenceManager>();
             shieldRenderer = GetComponent<MeshRenderer>();
+            shieldRenderer.material.SetFloat("_Alpha", 0.0f);
+            shieldCollider = GetComponent<Collider>();
+            shieldCollider.enabled = false;
 
             float totalFlashTime = 0.0f;
             float shieldFlashTime = shieldFlashDuration;
@@ -99,7 +104,7 @@ namespace Hive.Armada.Player
                 shieldFlashTime -= shieldFlashAcceleration;
             }
 
-            shieldAlphaStep = (shieldMaxAlpha - shieldMaxAlpha) / 60.0f;
+            shieldAlphaStep = (shieldMaxAlpha - shieldMinAlpha) / 60.0f;
 
             shieldFlashTimer = shieldDuration - totalFlashTime;
 
@@ -193,6 +198,7 @@ namespace Hive.Armada.Player
             //    r.material.SetFloat("_overheatPercent", 0.0f);
             //}
 
+            shieldCollider.enabled = true;
             shieldRenderer.material.SetFloat("_Alpha", shieldMaxAlpha);
             //shieldRenderer.enabled = true;
 
@@ -204,9 +210,14 @@ namespace Hive.Armada.Player
             float stepTime;
             float currentAlpha = shieldMaxAlpha;
 
+            //Debug.Log(shieldFlashTime);
+            //Debug.Log(shieldAlphaStep);
+
             for (int i = 0; i < 5; ++i)
             {
-                stepTime = shieldFlashTime / 60;
+                stepTime = shieldFlashTime / steps;
+
+                //Debug.Log("stepTime - " + stepTime);
                 for (int s = 0; s < steps; ++s)
                 {
                     currentAlpha = Mathf.Clamp(currentAlpha - shieldAlphaStep, shieldMinAlpha, shieldMaxAlpha);
@@ -214,12 +225,16 @@ namespace Hive.Armada.Player
                     yield return new WaitForSeconds(stepTime);
                 }
 
+                //yield return null;
+
                 for (int s = 0; s < steps; ++s)
                 {
                     currentAlpha = Mathf.Clamp(currentAlpha + shieldAlphaStep, shieldMinAlpha, shieldMaxAlpha);
                     shieldRenderer.material.SetFloat("_Alpha", currentAlpha);
                     yield return new WaitForSeconds(stepTime);
                 }
+
+                //yield return null;
 
                 //shieldRenderer.enabled = false;
                 //yield return new WaitForSeconds(shieldFlashTime);
@@ -231,7 +246,7 @@ namespace Hive.Armada.Player
             }
 
             shieldFlashTime /= 2.0f;
-            stepTime = shieldFlashTime / 60;
+            stepTime = shieldFlashTime / steps;
 
             for (int s = 0; s < steps; ++s)
             {
@@ -240,6 +255,7 @@ namespace Hive.Armada.Player
                 yield return new WaitForSeconds(stepTime);
             }
 
+            shieldCollider.enabled = false;
             ShieldActive = false;
             //shieldRenderer.enabled = false;
             //shieldRenderer.material.SetFloat("_Alpha", 0.0f);

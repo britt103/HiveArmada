@@ -58,7 +58,7 @@ namespace Hive.Armada.Enemies
                 reference.playerShip.GetComponent<PlayerHealth>().Hit(damage);
                 reference.objectPoolManager.Despawn(gameObject);
             }
-            else if (other.CompareTag("Room"))
+            else if (other.CompareTag("Room") || other.CompareTag("ProjectileBounds"))
             {
                 reference.objectPoolManager.Despawn(gameObject);
             }

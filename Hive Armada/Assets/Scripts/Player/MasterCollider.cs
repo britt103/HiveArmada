@@ -30,6 +30,8 @@ namespace Hive.Armada.Player
         /// </summary>
         private Renderer shieldRenderer;
 
+        private Collider shieldCollider;
+
         /// <summary>
         /// Coroutine for the shield timer.
         /// </summary>
@@ -53,6 +55,12 @@ namespace Hive.Armada.Player
         /// </summary>
         [Tooltip("How fast the shield flash speed increases by.")]
         public float shieldFlashAcceleration;
+
+        public float shieldMinAlpha;
+
+        public float shieldMaxAlpha;
+
+        private float shieldAlphaStep;
 
         /// <summary>
         /// How long until the first shield flash.
@@ -83,6 +91,9 @@ namespace Hive.Armada.Player
         {
             reference = GameObject.Find("Reference Manager").GetComponent<ReferenceManager>();
             shieldRenderer = GetComponent<MeshRenderer>();
+            shieldRenderer.material.SetFloat("_Alpha", 0.0f);
+            shieldCollider = GetComponent<Collider>();
+            shieldCollider.enabled = false;
 
             float totalFlashTime = 0.0f;
             float shieldFlashTime = shieldFlashDuration;
@@ -92,6 +103,8 @@ namespace Hive.Armada.Player
                 totalFlashTime += 2.0f * shieldFlashTime;
                 shieldFlashTime -= shieldFlashAcceleration;
             }
+
+            shieldAlphaStep = (shieldMaxAlpha - shieldMinAlpha) / 60.0f;
 
             shieldFlashTimer = shieldDuration - totalFlashTime;
 
@@ -179,25 +192,73 @@ namespace Hive.Armada.Player
         /// </summary>
         private IEnumerator ShieldCountdown()
         {
-            shieldRenderer.enabled = true;
+            //foreach (Renderer r in barrelRenderers)
+            //{
+            //    r.material.SetColor("_overheatColor", overheatBarrelColor);
+            //    r.material.SetFloat("_overheatPercent", 0.0f);
+            //}
+
+            shieldCollider.enabled = true;
+            shieldRenderer.material.SetFloat("_Alpha", shieldMaxAlpha);
+            //shieldRenderer.enabled = true;
 
             yield return new WaitForSeconds(shieldFlashTimer);
 
             float shieldFlashTime = shieldFlashDuration;
+            float finalAlphaStep = shieldMaxAlpha / 60.0f;
+            int steps = 60;
+            float stepTime;
+            float currentAlpha = shieldMaxAlpha;
+
+            //Debug.Log(shieldFlashTime);
+            //Debug.Log(shieldAlphaStep);
 
             for (int i = 0; i < 5; ++i)
             {
-                shieldRenderer.enabled = false;
-                yield return new WaitForSeconds(shieldFlashTime);
+                stepTime = shieldFlashTime / steps;
 
-                shieldRenderer.enabled = true;
-                yield return new WaitForSeconds(shieldFlashTime);
+                //Debug.Log("stepTime - " + stepTime);
+                for (int s = 0; s < steps; ++s)
+                {
+                    currentAlpha = Mathf.Clamp(currentAlpha - shieldAlphaStep, shieldMinAlpha, shieldMaxAlpha);
+                    shieldRenderer.material.SetFloat("_Alpha", currentAlpha);
+                    yield return new WaitForSeconds(stepTime);
+                }
+
+                //yield return null;
+
+                for (int s = 0; s < steps; ++s)
+                {
+                    currentAlpha = Mathf.Clamp(currentAlpha + shieldAlphaStep, shieldMinAlpha, shieldMaxAlpha);
+                    shieldRenderer.material.SetFloat("_Alpha", currentAlpha);
+                    yield return new WaitForSeconds(stepTime);
+                }
+
+                //yield return null;
+
+                //shieldRenderer.enabled = false;
+                //yield return new WaitForSeconds(shieldFlashTime);
+
+                //shieldRenderer.enabled = true;
+                //yield return new WaitForSeconds(shieldFlashTime);
 
                 shieldFlashTime -= shieldFlashAcceleration;
             }
 
+            shieldFlashTime /= 2.0f;
+            stepTime = shieldFlashTime / steps;
+
+            for (int s = 0; s < steps; ++s)
+            {
+                currentAlpha = Mathf.Clamp(currentAlpha - finalAlphaStep, 0.0f, shieldMaxAlpha);
+                shieldRenderer.material.SetFloat("_Alpha", currentAlpha);
+                yield return new WaitForSeconds(stepTime);
+            }
+
+            shieldCollider.enabled = false;
             ShieldActive = false;
-            shieldRenderer.enabled = false;
+            //shieldRenderer.enabled = false;
+            //shieldRenderer.material.SetFloat("_Alpha", 0.0f);
             shieldCoroutine = null;
 
             yield return null;

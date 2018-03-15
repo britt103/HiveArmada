@@ -488,6 +488,7 @@ namespace Hive.Armada.Player.Weapons
                 {
                     shootable.Hit();
                 }
+                shipController.hand.controller.TriggerHapticPulse(2500);
                 Explode();
             }
             else if (other.CompareTag("Room"))

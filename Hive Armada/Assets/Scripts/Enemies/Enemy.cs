@@ -222,6 +222,11 @@ namespace Hive.Armada.Enemies
             }
         }
 
+        public virtual void Hit(int damage)
+        {
+            Hit(damage, false);
+        }
+
         /// <summary>
         /// Used to apply damage to an enemy.
         /// </summary>

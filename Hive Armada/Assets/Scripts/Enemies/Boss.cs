@@ -317,7 +317,7 @@ namespace Hive.Armada.Enemies
 
                 case 1:
                     fireRate = 0.8f;
-                    projectileSpeed = 2.5f;
+                    projectileSpeed = 5;
                     spread = 0;
 
                     myPoints = new[]
@@ -332,7 +332,7 @@ namespace Hive.Armada.Enemies
 
                 case 2:
                     fireRate = 0.8f;
-                    projectileSpeed = 2.5f;
+                    projectileSpeed = 5;
                     spread = 0;
 
                     myPoints = new[]
@@ -351,7 +351,7 @@ namespace Hive.Armada.Enemies
 
                 case 3:
                     fireRate = 0.6f;
-                    projectileSpeed = 2.5f;
+                    projectileSpeed = 5;
                     spread = 0;
 
                     myPoints = new[]

@@ -25,10 +25,16 @@ namespace Hive.Armada.PowerUps
         /// </summary>
         public GameObject awakeEmitter;
 
+        AudioSource source;
+
+        public AudioClip clip;
+
         // Instantiate activation FX. Destroy enemy projectiles. Self-destruct.
         void Start()
         {
             Instantiate(awakeEmitter, transform.position, transform.rotation);
+            source = GameObject.Find("Powerup Audio Source").GetComponent<AudioSource>();
+            source.PlayOneShot(clip);
             foreach (GameObject bullet in GameObject.FindGameObjectsWithTag("Projectile"))
             {
                 Destroy(bullet);

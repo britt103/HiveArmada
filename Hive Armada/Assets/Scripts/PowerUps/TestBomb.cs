@@ -37,12 +37,18 @@ namespace Hive.Armada.PowerUps
         /// </summary>
         public RocketAttributes.RocketType rocketType;
 
+        AudioSource source;
+
+        public AudioClip clip;
+
         /// <summary>
         /// Shoots a bomb and destroys this object.
         /// </summary>
         protected void Awake()
         {
             reference = FindObjectOfType<ReferenceManager>();
+            source = GameObject.Find("Powerup Audio Source").GetComponent<AudioSource>();
+            source.PlayOneShot(clip);
 
             int typeId = reference.objectPoolManager.GetTypeIdentifier(rocketPrefab);
 

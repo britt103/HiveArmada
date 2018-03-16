@@ -78,6 +78,11 @@ namespace Hive.Armada.Player.Weapons
         public AudioClip plasmaGunShootSound;
 
         /// <summary>
+        /// The sounds used when the plasma gun is charging/complete
+        /// </summary>
+        public AudioClip[] plasmaGunChargingSounds;
+
+        /// <summary>
         /// Initializes the rockets and active/inactive pools.
         /// </summary>
         protected override void SetupWeapon()
@@ -170,6 +175,8 @@ namespace Hive.Armada.Player.Weapons
 
         private IEnumerator Reload()
         {
+            source.PlayOneShot(plasmaGunChargingSounds[0]);
+
             yield return new WaitForSeconds(reloadDelay);
 
             yield return new WaitForSeconds(reloadTime / maxAmmo * currentAmmo);
@@ -184,6 +191,8 @@ namespace Hive.Armada.Player.Weapons
 
             //    ++currentAmmo;
             //}
+
+            source.PlayOneShot(plasmaGunChargingSounds[1]);
 
             reloadCoroutine = null;
         }

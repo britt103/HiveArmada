@@ -111,6 +111,7 @@ namespace Hive.Armada.PowerUps
         private void Awake()
         {
             reference = FindObjectOfType<ReferenceManager>();
+            source.PlayOneShot(clips[1]);
             if (reference != null)
             {
                 rocketTypeId = reference.objectPoolManager.GetTypeIdentifier(rocketPrefab);

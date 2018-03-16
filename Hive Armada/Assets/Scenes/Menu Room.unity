@@ -8031,9 +8031,9 @@ MonoBehaviour:
   clips:
   - {fileID: 8300000, guid: d1e46ad8dcf9df34ba9281e76b8cbad0, type: 3}
   startClips:
-  - {fileID: 8300000, guid: 1b1e0ba7c5c29b749af2ea0cd7a76881, type: 3}
-  - {fileID: 8300000, guid: 5e9dd6aee57d0bc499fcb01b1797d1ac, type: 3}
-  - {fileID: 8300000, guid: bb5ef846b17460947b5e7c0875ea1ff6, type: 3}
+  - {fileID: 8300000, guid: 11d45a31ddd13cf4ab0b4cf15e57b29c, type: 3}
+  - {fileID: 8300000, guid: 5b687e147fa85624db00d1ceb6f0b41b, type: 3}
+  - {fileID: 8300000, guid: 35e145daddf286c44a805feff739e052, type: 3}
 --- !u!114 &826943231
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9665,8 +9665,10 @@ MonoBehaviour:
   rocketAttributes: {fileID: 0}
   player: {fileID: 1427451901}
   playerShip: {fileID: 0}
+  shipLookTarget: {fileID: 0}
   shipPickup: {fileID: 0}
   powerUpStatus: {fileID: 0}
+  playerHitVignette: {fileID: 0}
   menuMain: {fileID: 826943228}
   menuTitle: {fileID: 915298439}
   countdown: {fileID: 0}
@@ -17682,6 +17684,11 @@ MonoBehaviour:
   - {fileID: 1205755699}
   - {fileID: 1977383246}
   initialWeapon: 0
+  weaponSelectClips:
+  - {fileID: 8300000, guid: 0087a79639b012d4b802c692736a6438, type: 3}
+  - {fileID: 8300000, guid: c8dd1a7fb44087048b164a55e6b13da4, type: 3}
+  - {fileID: 8300000, guid: 81672b4351597084ab55ae8d6101b848, type: 3}
+  - {fileID: 8300000, guid: 6f696f97afb84ae45a7d32dbe57abb7c, type: 3}
 --- !u!114 &1842956407
 MonoBehaviour:
   m_ObjectHideFlags: 0

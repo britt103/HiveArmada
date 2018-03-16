@@ -27,13 +27,18 @@ namespace Hive.Armada.PowerUps
         /// </summary>
         private ReferenceManager reference;
 
+        AudioSource source;
+
+        public AudioClip clip;
+
         /// <summary>
         /// Runs the master collider shield
         /// </summary>
         private void Awake()
         {
             reference = GameObject.Find("Reference Manager").GetComponent<ReferenceManager>();
-
+            source = GameObject.Find("Powerup Audio Source").GetComponent<AudioSource>();
+            source.PlayOneShot(clip);
             reference.playerShip.GetComponent<ShipController>().masterCollider.ActivateShield();
 
             Destroy(gameObject);

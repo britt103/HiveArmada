@@ -125,6 +125,8 @@ namespace Hive.Armada.Player
         /// </summary>
         public AudioClip hitSound;
 
+        public AudioClip lowHealth;
+
 		/// <summary>
         /// The look target for the player ship.
         /// </summary>
@@ -198,6 +200,11 @@ namespace Hive.Armada.Player
             if (Utility.isDebug)
             {
                 Debug.Log("Hit for " + damage + " damage! Remaining health = " + currentHealth);
+            }
+
+            if (currentHealth <= 10 && currentHealth != 0)
+            {
+                source.PlayOneShot(lowHealth);
             }
 
             if (currentHealth <= 0)

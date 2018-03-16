@@ -6960,6 +6960,7 @@ MonoBehaviour:
     type: 2}
   source: {fileID: 82884209245115158}
   hitSound: {fileID: 8300000, guid: 83cad372b9a3e5b448df2655e0495b4f, type: 3}
+  lowHealth: {fileID: 8300000, guid: b78e97448df1fd54e8532d46501da0e2, type: 3}
 --- !u!114 &114531807416150902
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7008,6 +7009,9 @@ MonoBehaviour:
   plasmaLaunchEmitter: {fileID: 0}
   source: {fileID: 82735810236432742}
   plasmaGunShootSound: {fileID: 0}
+  plasmaGunChargingSounds:
+  - {fileID: 8300000, guid: 0a8b74b3f6623fd41b02f3cc647f6af0, type: 3}
+  - {fileID: 8300000, guid: 13a2ebafe891626408bef5c2cb418cab, type: 3}
 --- !u!114 &114739049526032148
 MonoBehaviour:
   m_ObjectHideFlags: 1

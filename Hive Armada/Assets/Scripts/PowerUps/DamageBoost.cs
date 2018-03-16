@@ -45,12 +45,18 @@ namespace Hive.Armada.PowerUps
         /// </summary>
         public GameObject spawnEmitter;
 
+        AudioSource source;
+
+        public AudioClip clip;
+
         /// <summary>
         /// Spawns the spawn particle emitter and runs the damage boost.
         /// </summary>
         private void Start()
         {
             reference = GameObject.Find("Reference Manager").GetComponent<ReferenceManager>();
+            source = GameObject.Find("Powerup Audio Source").GetComponent<AudioSource>();
+            source.PlayOneShot(clip);
 
             Instantiate(spawnEmitter, reference.playerShip.transform);
             StartCoroutine(Run());

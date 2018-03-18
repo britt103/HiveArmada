@@ -96,6 +96,9 @@ namespace Hive.Armada.Menus
         /// </summary>
         public Slider verticalSlider;
 
+        //Reference to UI Cover GameObjects.
+        public GameObject[] uiCovers;
+
         /// <summary>
         /// Reference to item name text.
         /// </summary>
@@ -357,6 +360,11 @@ namespace Hive.Armada.Menus
                 buyButton.GetComponentInChildren<Text>().color = tempColor;
             }
 
+            foreach (GameObject uiCover in uiCovers)
+            {
+                uiCover.SetActive(false);
+            }
+
             foreach (GameObject categoryButton in categoryButtons)
             {
                 categoryButton.SetActive(false);
@@ -385,6 +393,11 @@ namespace Hive.Armada.Menus
             bought.SetActive(false);
             buyButton.SetActive(false);
             scrollView.SetActive(true);
+
+            foreach (GameObject uiCover in uiCovers)
+            {
+                uiCover.SetActive(true);
+            }
 
             foreach (GameObject categoryButton in categoryButtons)
             {

@@ -22,7 +22,7 @@ namespace Hive.Armada.Menus
         /// <summary>
         /// Sensitivity of rotation. 
         /// </summary>
-        private float sensitivity = 50.0f;
+        private float sensitivity = 40.0f;
 
         /// <summary>
         /// Position of pointer end from which to calculate difference using current pointer
@@ -49,7 +49,7 @@ namespace Hive.Armada.Menus
 
             Vector3 pointerOffset = pointerEndPoint - pointerPosition;
             Vector3 rotation = Vector3.zero;
-            rotation.y = -(pointerOffset.x + pointerOffset.y) * sensitivity;
+            rotation.y = -(pointerOffset.x + pointerOffset.z) * sensitivity;
             transform.Rotate(rotation);
             pointerPosition = pointerEndPoint;
         }

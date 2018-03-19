@@ -83,7 +83,9 @@ namespace Hive.Armada.Menus
         /// </summary>
         public Slider verticalSlider;
 
-        //Reference to UI Cover GameObjects.
+        /// <summary>
+        /// Reference to UI Cover GameObjects.
+        /// </summary>
         public GameObject[] uiCovers;
 
         /// <summary>
@@ -345,7 +347,7 @@ namespace Hive.Armada.Menus
 
             int entries;
             bool tooFewEntries;
-            if (currNames.Count <= numFittableButtons)
+            if (currNames.Count < numFittableButtons)
             {
                 entries = numFittableButtons + 1;
                 tooFewEntries = true;

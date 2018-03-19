@@ -177,16 +177,18 @@ namespace Hive.Armada.Menus
                                 // Do nothing
                             }
                         }
+
+                        AdjustPointer(hit.point, hit.distance);
                     }
                     else
                     {
                         ExitLastInteractable();
                         isInteractable = false;
+
+                        AdjustPointer(transform.position, 0.0f);
                     }
 
                     aimObject = hit.collider.gameObject;
-
-                    AdjustPointer(transform.position, 0.0f);
                 }
                 else if (Physics.Raycast(transform.position, transform.forward,
                     out hit, Mathf.Infinity, Utility.roomMask))

@@ -4,6 +4,7 @@
 // =================================
 
 using UnityEngine;
+using UnityEngine.Events;
 
 // =================================	
 // Define namespace.
@@ -12,17 +13,20 @@ using UnityEngine;
 namespace MirzaBeig
 {
 
-    namespace ParticleSystems
+    namespace Demos
     {
 
-        namespace Demos
+        namespace TheLastParticle
         {
 
             // =================================	
             // Classes.
             // =================================
-            
-            public class FollowMouse : MonoBehaviour
+
+            [ExecuteInEditMode]
+            [System.Serializable]
+
+            public class RandomInvoke_EmitParticle : RandomInvoke
             {
                 // =================================	
                 // Nested classes and structures.
@@ -36,10 +40,10 @@ namespace MirzaBeig
 
                 // ...
 
-                public float speed = 8.0f;
-                public float distanceFromCamera = 5.0f;
+                ParticleSystem ps;
 
-                public bool ignoreTimeScale;
+                public IntRange count = new IntRange(1, 2);
+                public UnityEvent OnEmit;
 
                 // =================================	
                 // Functions.
@@ -47,38 +51,32 @@ namespace MirzaBeig
 
                 // ...
 
-                void Awake()
+                protected override void Start()
                 {
+                    base.Start();
 
+                    ps = GetComponent<ParticleSystem>();
                 }
 
                 // ...
 
-                void Start()
+                protected override void Update()
                 {
-
+                    base.Update();
                 }
 
                 // ...
 
-                void Update()
+                protected override void doSomething()
                 {
-                    Vector3 mousePosition = Input.mousePosition;
-                    mousePosition.z = distanceFromCamera;
+                    base.doSomething();
 
-                    Vector3 mouseScreenToWorld = Camera.main.ScreenToWorldPoint(mousePosition);
+                    ps.Emit(count.random);
 
-                    float deltaTime = !ignoreTimeScale ? Time.deltaTime : Time.unscaledDeltaTime;
-                    Vector3 position = Vector3.Lerp(transform.position, mouseScreenToWorld, 1.0f - Mathf.Exp(-speed * deltaTime));
-
-                    transform.position = position;
-                }
-
-                // ...
-
-                void LateUpdate()
-                {
-
+                    if (OnEmit != null)
+                    {
+                        OnEmit.Invoke();
+                    }
                 }
 
                 // =================================	

@@ -12,17 +12,20 @@ using UnityEngine;
 namespace MirzaBeig
 {
 
-    namespace ParticleSystems
+    namespace Demos
     {
 
-        namespace Demos
+        namespace TheLastParticle
         {
 
             // =================================	
             // Classes.
             // =================================
-            
-            public class FollowMouse : MonoBehaviour
+
+            //[ExecuteInEditMode]
+            [System.Serializable]
+
+            public class CollectableSpawner : MonoBehaviour
             {
                 // =================================	
                 // Nested classes and structures.
@@ -36,10 +39,12 @@ namespace MirzaBeig
 
                 // ...
 
-                public float speed = 8.0f;
-                public float distanceFromCamera = 5.0f;
+                public Collectable collectable;
 
-                public bool ignoreTimeScale;
+                public float collectablesPerSecond = 0.25f;
+                public Vector3 spawnBoxScale = Vector3.one * 10.0f;
+
+                float timer;
 
                 // =================================	
                 // Functions.
@@ -47,38 +52,37 @@ namespace MirzaBeig
 
                 // ...
 
-                void Awake()
-                {
-
-                }
-
-                // ...
-
                 void Start()
                 {
-
+                    timer = 0.0f;
                 }
 
                 // ...
 
                 void Update()
                 {
-                    Vector3 mousePosition = Input.mousePosition;
-                    mousePosition.z = distanceFromCamera;
+                    timer += Time.deltaTime * collectablesPerSecond;
 
-                    Vector3 mouseScreenToWorld = Camera.main.ScreenToWorldPoint(mousePosition);
+                    if (timer >= 1.0f)
+                    {
+                        timer = 0.0f;
 
-                    float deltaTime = !ignoreTimeScale ? Time.deltaTime : Time.unscaledDeltaTime;
-                    Vector3 position = Vector3.Lerp(transform.position, mouseScreenToWorld, 1.0f - Mathf.Exp(-speed * deltaTime));
+                        Vector3 position = transform.position;
+                        Vector3 scale = spawnBoxScale / 2.0f;
 
-                    transform.position = position;
+                        position.x += Random.Range(-scale.x, scale.x);
+                        position.y += Random.Range(-scale.y, scale.y);
+                        position.z += Random.Range(-scale.z, scale.z);
+                                                
+                        Instantiate(collectable, position, Quaternion.identity);
+                    }
                 }
 
                 // ...
 
-                void LateUpdate()
+                void OnDrawGizmos()
                 {
-
+                    Gizmos.DrawWireCube(transform.position, spawnBoxScale);
                 }
 
                 // =================================	

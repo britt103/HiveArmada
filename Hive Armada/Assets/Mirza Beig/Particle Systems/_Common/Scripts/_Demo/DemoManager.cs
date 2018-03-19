@@ -50,7 +50,7 @@ namespace MirzaBeig
 
                 public Vector3 cameraLookAtPosition = new Vector3(0.0f, 3.0f, 0.0f);
 
-                public MouseFollow mouse;
+                public FollowMouse mouse;
 
                 Vector3 targetCameraPosition;
                 Vector3 targetCameraRotation;
@@ -90,8 +90,6 @@ namespace MirzaBeig
 
                 LoopingParticleSystemsManager loopingParticleSystems;
                 OneshotParticleSystemsManager oneshotParticleSystems;
-
-                public GameObject ui;
 
                 public Text particleCountText;
                 public Text currentParticleSystemText;
@@ -241,7 +239,7 @@ namespace MirzaBeig
 
                 // ...
 
-                public void SetLevel(Level level)
+                public void setLevel(Level level)
                 {
                     for (int i = 0; i < levels.Length; i++)
                     {
@@ -264,7 +262,7 @@ namespace MirzaBeig
                 {
                     if (toggle.isOn)
                     {
-                        SetLevel((Level)System.Array.IndexOf(levelToggles, toggle));
+                        setLevel((Level)System.Array.IndexOf(levelToggles, toggle));
                     }
                 }
 
@@ -359,34 +357,6 @@ namespace MirzaBeig
                     else if (Input.GetAxis("Mouse ScrollWheel") > 0)
                     {
                         Previous();
-                    }
-
-                    // Toggle UI.
-
-                    if (Input.GetKeyDown(KeyCode.U))
-                    {
-                        ui.SetActive(!ui.activeSelf);
-                    }
-
-                    // Switch between one-shot and looping prefabs.
-
-                    if (Input.GetKeyDown(KeyCode.O))
-                    {
-                        if (particleMode == ParticleMode.looping)
-                        {
-                            SetToOneshotParticleMode(true);
-                        }
-                        else
-                        {
-                            SetToLoopingParticleMode(true);
-                        }
-                    }
-
-                    // Cycle levels.
-
-                    if (Input.GetKeyDown(KeyCode.L))
-                    {
-                        SetLevel((Level)((int)(currentLevel + 1) % System.Enum.GetNames(typeof(Level)).Length));
                     }
 
                     // Random prefab while holding key.

@@ -12,17 +12,20 @@ using UnityEngine;
 namespace MirzaBeig
 {
 
-    namespace ParticleSystems
+    namespace Demos
     {
 
-        namespace Demos
+        namespace TheLastParticle
         {
 
             // =================================	
             // Classes.
             // =================================
-            
-            public class FollowMouse : MonoBehaviour
+
+            //[ExecuteInEditMode]
+            [System.Serializable]
+
+            public class Collectable : MonoBehaviour
             {
                 // =================================	
                 // Nested classes and structures.
@@ -36,10 +39,10 @@ namespace MirzaBeig
 
                 // ...
 
-                public float speed = 8.0f;
-                public float distanceFromCamera = 5.0f;
+                public GameObject[] deathPrefabs;
 
-                public bool ignoreTimeScale;
+                SetParent sp;
+                ParticleSystems.ParticleSystems ps;
 
                 // =================================	
                 // Functions.
@@ -47,38 +50,28 @@ namespace MirzaBeig
 
                 // ...
 
-                void Awake()
-                {
-
-                }
-
-                // ...
-
                 void Start()
                 {
-
+                    sp = GetComponent<SetParent>();
+                    ps = GetComponentInChildren<ParticleSystems.ParticleSystems>();
                 }
 
                 // ...
 
-                void Update()
+                void OnTriggerEnter(Collider collider)
                 {
-                    Vector3 mousePosition = Input.mousePosition;
-                    mousePosition.z = distanceFromCamera;
+                    if (collider.tag == "Player")
+                    {
+                        sp.run();
+                        ps.stop();
 
-                    Vector3 mouseScreenToWorld = Camera.main.ScreenToWorldPoint(mousePosition);
+                        for (int i = 0; i < deathPrefabs.Length; i++)
+                        {
+                            Instantiate(deathPrefabs[i], transform.position, transform.rotation);
+                        }
 
-                    float deltaTime = !ignoreTimeScale ? Time.deltaTime : Time.unscaledDeltaTime;
-                    Vector3 position = Vector3.Lerp(transform.position, mouseScreenToWorld, 1.0f - Mathf.Exp(-speed * deltaTime));
-
-                    transform.position = position;
-                }
-
-                // ...
-
-                void LateUpdate()
-                {
-
+                        Destroy(gameObject);
+                    }
                 }
 
                 // =================================	

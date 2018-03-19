@@ -11,6 +11,7 @@
 //=============================================================================
 
 using Hive.Armada.Enemies;
+using Hive.Armada.Player;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -71,11 +72,17 @@ namespace Hive.Armada.Game
         private Vector3 spawnPosition;
 
         /// <summary>
+        /// the player's ship.
+        /// </summary>
+        private GameObject player;
+
+        /// <summary>
         /// Sets up logic for spawning the boss.
         /// </summary>
         void Awake()
         {
             reference = GameObject.Find("Reference Manager").GetComponent<ReferenceManager>();
+            player = reference.playerShip;
             waveManager = reference.waveManager;
             bossSpawn = GameObject.Find("Boss Spawn");
             spawnPosition = bossSpawn.transform.position;
@@ -159,6 +166,7 @@ namespace Hive.Armada.Game
             bossScript.BossReset();
             Debug.Log("Boss wave " + currentWave+1 + "Finished");
             boss.SetActive(false);
+            player.GetComponent<PlayerHealth>().HealFull();
             reference.waveManager.BossWaveComplete(currentWave);
         }
     }

@@ -421,7 +421,7 @@ namespace Hive.Armada.Enemies
             //canShoot = true;
 
             projectileTypeIdentifier = objectPoolManager.GetTypeIdentifier(projectile);
-            maxHealth = 700;
+            maxHealth = 1000;
             Health = maxHealth;
             Debug.Log("Boss Health on boss is" + Health);
             PathingComplete = false;

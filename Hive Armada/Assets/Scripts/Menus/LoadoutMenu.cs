@@ -11,10 +11,7 @@
 //
 //=============================================================================
 
-using System;
-using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 using Hive.Armada.Game;
 using Hive.Armada.Player;
 
@@ -61,7 +58,8 @@ namespace Hive.Armada.Menus
         public GameObject[] weaponButtons;
 
         /// <summary>
-        /// Enum of initially selected weapon. Starts as first weapon.
+        /// Enum of initially selected weapon. Starts as first weapon. Overriden by PlayerPrefs
+        /// .defaultWeapon.
         /// </summary>
         public int initialWeapon = 0;
 
@@ -105,7 +103,7 @@ namespace Hive.Armada.Menus
             shipLoadout = FindObjectOfType<ShipLoadout>();
             iridiumSystem = FindObjectOfType<IridiumSystem>();
 
-            selectedWeapon = initialWeapon;
+            selectedWeapon = PlayerPrefs.GetInt("defaultWeapon", initialWeapon);
 
             if (!iridiumSystem.CheckAnyWeaponsUnlocked())
             {
@@ -115,10 +113,17 @@ namespace Hive.Armada.Menus
             {
                 for (int i = 0; i < weaponButtons.Length; i++)
                 {
-                    weaponButtons[i].SetActive(iridiumSystem.CheckWeaponUnlocked(weaponNames[i]));
+                    if (iridiumSystem.CheckWeaponIsPresent(weaponNames[i]))
+                    {
+                        weaponButtons[i].SetActive(iridiumSystem.CheckWeaponUnlocked(weaponNames[i]));
+                    }
+                    else
+                    {
+                        weaponButtons[i].SetActive(true);
+                    }
                 }
 
-                PressWeapon(initialWeapon);
+                PressWeapon(selectedWeapon);
             }
         }
 
@@ -158,11 +163,12 @@ namespace Hive.Armada.Menus
         }
 
         /// <summary>
-        /// Play button pressed. Trigger scene transition to Wave Room.
+        /// Play button pressed. Trigger scene transition to Wave Room. Set defaultWeapon.
         /// </summary>
         public void PressPlay()
         {
             shipLoadout.weapon = selectedWeapon;
+            PlayerPrefs.SetInt("defaultWeapon", selectedWeapon);
             source.PlayOneShot(clips[0]);
             //StartCoroutine(pressPlaySound());
             //playCount += 1;

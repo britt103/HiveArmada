@@ -79,6 +79,8 @@ namespace Hive.Armada.Enemies
         /// </summary>
         public float yMax;
 
+        private bool leftFirst;
+
         /// <summary>
         /// Initial position of this enemy.
         /// </summary>
@@ -106,18 +108,29 @@ namespace Hive.Armada.Enemies
         private float theta;
 
         /// <summary>
+        /// Initialize random state.
+        /// </summary>
+        private void Start()
+        {
+            Random.InitState((int)System.DateTime.Now.Ticks);
+        }
+
+        /// <summary>
         /// Sets the two positions this enemy moves between.
         /// </summary>
         private void SetPosition()
         {
-            posA = new Vector3(transform.position.x - xMax / 2,
-                               transform.position.y - yMax / 2,
+            leftFirst = Random.Range(0, 2) == 1;
+            float percent = Random.Range(0.0f, 1.0f);
+
+            posA = new Vector3(transform.position.x - (xMax * percent),
+                               transform.position.y - (yMax * percent),
                                transform.position.z);
-            posB = new Vector3(transform.position.x + xMax / 2,
-                               transform.position.y + yMax / 2,
+            posB = new Vector3(transform.position.x + (xMax * (1.0f - percent)),
+                               transform.position.y + (yMax * (1.0f - percent)),
                                transform.position.z);
 
-            theta = 0.0f;
+            theta = Mathf.Asin(2 * percent - 1);
         }
 
         /// <summary>
@@ -137,11 +150,23 @@ namespace Hive.Armada.Enemies
 
                 transform.position = Vector3.Lerp(posA, posB, (Mathf.Sin(theta) + 1.0f) / 2.0f);
 
-                theta += movingSpeed * Time.deltaTime;
-
-                if (theta > Mathf.PI * 3 / 2)
+                if (leftFirst)
                 {
-                    theta -= Mathf.PI * 2;
+                    theta -= movingSpeed * Time.deltaTime;
+
+                    if (theta < -Mathf.PI)
+                    {
+                        theta -= 2 * Mathf.PI;
+                    }
+                }
+                else
+                {
+                    theta += movingSpeed * Time.deltaTime;
+
+                    if (theta > Mathf.PI)
+                    {
+                        theta += 2 * Mathf.PI;
+                    }
                 }
 
 				if (shaking)

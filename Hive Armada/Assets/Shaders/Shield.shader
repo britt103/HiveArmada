@@ -25,6 +25,7 @@
 		LOD 100
 		ColorMask RGB
         Cull Back
+		ZWrite Off
 
 		Pass
 		{

@@ -28,9 +28,9 @@ namespace Hive.Armada.Player
         /// <summary>
         /// Renderer for the shield
         /// </summary>
-        private Renderer shieldRenderer;
+        public Renderer shieldRenderer;
 
-        private Collider shieldCollider;
+        public Collider shieldCollider;
 
         /// <summary>
         /// Coroutine for the shield timer.
@@ -90,10 +90,10 @@ namespace Hive.Armada.Player
         private void Awake()
         {
             reference = GameObject.Find("Reference Manager").GetComponent<ReferenceManager>();
-            shieldRenderer = GetComponent<MeshRenderer>();
+            //shieldRenderer = GetComponent<MeshRenderer>();
             shieldRenderer.material.SetFloat("_Alpha", 0.0f);
             shieldRenderer.enabled = false;
-            shieldCollider = GetComponent<Collider>();
+            //shieldCollider = GetComponent<Collider>();
             shieldCollider.enabled = false;
 
             float totalFlashTime = 0.0f;

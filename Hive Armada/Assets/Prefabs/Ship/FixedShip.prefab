@@ -4582,7 +4582,7 @@ MeshRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1345969500397992}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_MotionVectors: 1
@@ -6216,7 +6216,7 @@ MeshCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1345969500397992}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 0
   serializedVersion: 2
   m_Convex: 1
@@ -7064,11 +7064,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2f9a812ca2219d43af15c00271db826, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shieldRenderer: {fileID: 23216581897131352}
+  shieldCollider: {fileID: 64758568887199654}
   shieldDuration: 10
   shieldFlashDuration: 0.25
   shieldFlashAcceleration: 0.1
-  shieldMinAlpha: 0.1
-  shieldMaxAlpha: 0.5
+  shieldMinAlpha: 0.05
+  shieldMaxAlpha: 0.6
   shieldHitEmitter: {fileID: 1577835415642778, guid: 12352e24291685e4592fdef29cf51957,
     type: 2}
 --- !u!136 &136017960359843106

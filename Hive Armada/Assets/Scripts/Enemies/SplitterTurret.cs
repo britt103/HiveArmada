@@ -26,7 +26,9 @@ namespace Hive.Armada.Enemies
         /// <summary>
         /// Type identifier for this enemy's projectiles in objectPoolManager
         /// </summary>
-        private int projectileTypeIdentifier;
+        private short projectileTypeIdentifier = -2;
+
+        private short childTypeIdentifier = -2;
 
         /// <summary>
         /// The point where this enemy shoots from. Arranged in a 5x5 grid as shown below:
@@ -79,6 +81,8 @@ namespace Hive.Armada.Enemies
         /// Distance each child enemy will move when this enemy is destroyed
         /// </summary>
         public float splitDir;
+
+        private Vector3 spawnPoint;
 
         /// <summary>
         /// Whether this enemy can shoot or not. Toggles when firing every 1/fireRate seconds.
@@ -136,6 +140,7 @@ namespace Hive.Armada.Enemies
         /// </summary>
         protected override void OnPathingComplete()
         {
+            spawnPoint = transform.position;
             Hover();
             base.OnPathingComplete();
         }
@@ -290,39 +295,56 @@ namespace Hive.Armada.Enemies
         /// </summary>
         protected override void Kill()
         {
-            if (childTurret != null)
+            if (childTypeIdentifier > 0)
             {
-                int typeIdentifier = objectPoolManager.GetTypeIdentifier(childTurret);
+                for (int i = 1; i <= 4; ++i)
+                {
+                    float xAdj = i % 2 == 0 ? -1.0f : 1.0f;
+                    float yAdj = i == 1 || i == 4 ? 1.0f : -1.0f;
+                    Vector3 spawn = transform.position + new Vector3(xAdj, yAdj, 0.0f);
 
-                GameObject child1 = objectPoolManager.Spawn(gameObject, typeIdentifier, new Vector3(transform.position.x + 0.1f, transform.position.y + 0.1f, transform.position.z), transform.rotation);
-                child1.layer = Utility.enemyLayerId;
-                Enemy child1Enemy = child1.GetComponent<Enemy>();
-                child1Enemy.SetWave(wave);
-                child1Enemy.SetAttackPattern(attackPattern);
-
-                GameObject child2 = objectPoolManager.Spawn(gameObject, typeIdentifier, new Vector3(transform.position.x - 0.1f, transform.position.y - 0.1f, transform.position.z), transform.rotation);
-                child2.layer = Utility.enemyLayerId;
-                Enemy child2Enemy = child2.GetComponent<Enemy>();
-                child2Enemy.SetWave(wave);
-                child2Enemy.SetAttackPattern(attackPattern);
-
-                GameObject child3 = objectPoolManager.Spawn(gameObject, typeIdentifier, new Vector3(transform.position.x + 0.1f, transform.position.y - 0.1f, transform.position.z), transform.rotation);
-                child3.layer = Utility.enemyLayerId;
-                Enemy child3Enemy = child3.GetComponent<Enemy>();
-                child3Enemy.SetWave(wave);
-                child3Enemy.SetAttackPattern(attackPattern);
-
-                GameObject child4 = objectPoolManager.Spawn(gameObject, typeIdentifier, new Vector3(transform.position.x - 0.1f, transform.position.y + 0.1f, transform.position.z), transform.rotation);
-                child4.layer = Utility.enemyLayerId;
-                Enemy child4Enemy = child4.GetComponent<Enemy>();
-                child4Enemy.SetWave(wave);
-                child4Enemy.SetAttackPattern(attackPattern);
-
-                child2.GetComponent<Rigidbody>().AddRelativeForce(new Vector3(transform.position.x + splitDir, transform.position.y + splitDir, transform.position.z));
-                child1.GetComponent<Rigidbody>().AddRelativeForce(new Vector3(transform.position.x - splitDir, transform.position.y - splitDir, transform.position.z));
-                child4.GetComponent<Rigidbody>().AddRelativeForce(new Vector3(transform.position.x + splitDir, transform.position.y - splitDir, transform.position.z));
-                child3.GetComponent<Rigidbody>().AddRelativeForce(new Vector3(transform.position.x - splitDir, transform.position.y + splitDir, transform.position.z));
+                    GameObject child =
+                        objectPoolManager.Spawn(gameObject, childTypeIdentifier, spawn,
+                                                transform.rotation);
+                    Enemy enemy = child.GetComponent<Enemy>();
+                    enemy.SetWave(wave);
+                    enemy.SetAttackPattern(attackPattern);
+                    child.GetComponent<Rigidbody>()
+                         .AddRelativeForce(new Vector3(xAdj, yAdj, 0.0f) * splitDir);
+                }
             }
+
+//            if (childTurret != null)
+//            {
+//                GameObject child1 = objectPoolManager.Spawn(gameObject, childTypeIdentifier, new Vector3(transform.position.x + 0.1f, transform.position.y + 0.1f, transform.position.z), transform.rotation);
+//                child1.layer = Utility.enemyLayerId;
+//                Enemy child1Enemy = child1.GetComponent<Enemy>();
+//                child1Enemy.SetWave(wave);
+//                child1Enemy.SetAttackPattern(attackPattern);
+//
+//                GameObject child2 = objectPoolManager.Spawn(gameObject, childTypeIdentifier, new Vector3(transform.position.x - 0.1f, transform.position.y - 0.1f, transform.position.z), transform.rotation);
+//                child2.layer = Utility.enemyLayerId;
+//                Enemy child2Enemy = child2.GetComponent<Enemy>();
+//                child2Enemy.SetWave(wave);
+//                child2Enemy.SetAttackPattern(attackPattern);
+//
+//                GameObject child3 = objectPoolManager.Spawn(gameObject, childTypeIdentifier, new Vector3(transform.position.x + 0.1f, transform.position.y - 0.1f, transform.position.z), transform.rotation);
+//                child3.layer = Utility.enemyLayerId;
+//                Enemy child3Enemy = child3.GetComponent<Enemy>();
+//                child3Enemy.SetWave(wave);
+//                child3Enemy.SetAttackPattern(attackPattern);
+//
+//                GameObject child4 = objectPoolManager.Spawn(gameObject, childTypeIdentifier, new Vector3(transform.position.x - 0.1f, transform.position.y + 0.1f, transform.position.z), transform.rotation);
+//                child4.layer = Utility.enemyLayerId;
+//                Enemy child4Enemy = child4.GetComponent<Enemy>();
+//                child4Enemy.SetWave(wave);
+//                child4Enemy.SetAttackPattern(attackPattern);
+//
+//                child1.GetComponent<Rigidbody>().AddRelativeForce(new Vector3(transform.position.x + splitDir, transform.position.y + splitDir, transform.position.z));
+//                child2.GetComponent<Rigidbody>().AddRelativeForce(new Vector3(transform.position.x - splitDir, transform.position.y - splitDir, transform.position.z));
+//                child3.GetComponent<Rigidbody>().AddRelativeForce(new Vector3(transform.position.x + splitDir, transform.position.y - splitDir, transform.position.z));
+//                child4.GetComponent<Rigidbody>().AddRelativeForce(new Vector3(transform.position.x - splitDir, transform.position.y + splitDir, transform.position.z));
+//            }
 
             base.Kill();
         }
@@ -337,6 +359,7 @@ namespace Hive.Armada.Enemies
             canShoot = true;
             projectileTypeIdentifier =
                             enemyAttributes.EnemyProjectileTypeIdentifiers[TypeIdentifier];
+            childTypeIdentifier = objectPoolManager.GetTypeIdentifier(childTurret);
             fireRate = enemyAttributes.enemyFireRate[TypeIdentifier];
             projectileSpeed = enemyAttributes.projectileSpeed;
             spread = enemyAttributes.enemySpread[TypeIdentifier];

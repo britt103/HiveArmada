@@ -311,7 +311,7 @@ namespace Hive.Armada.Game
 
                         GameObject spawned =
                             objectPoolManager.Spawn(
-                                gameObject, waveManager.EnemyIDs[(int)thisPath.enemy],
+                                gameObject, (short)waveManager.EnemyIDs[(int)thisPath.enemy],
                                 position,
                                 rotation);
 

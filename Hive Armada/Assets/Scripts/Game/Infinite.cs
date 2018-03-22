@@ -392,7 +392,7 @@ namespace Hive.Armada.Game
 
                             GameObject spawnedEnemy =
                                 reference.objectPoolManager.Spawn(
-                                    gameObject, typeIds[i], position, rotation);
+                                    gameObject, (short)typeIds[i], position, rotation);
 
                             Enemy spawnedEnemyScript = spawnedEnemy.GetComponent<Enemy>();
                             spawnedEnemyScript.SetPath(path);

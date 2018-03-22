@@ -82,7 +82,7 @@ namespace Hive.Armada.Player
         /// <summary>
         /// The type identifier for the shield hit emitter
         /// </summary>
-        private int hitEmitterTypeIdentifier = -1;
+        private short hitEmitterTypeIdentifier;
 
         /// <summary>
         /// Initializes the reference to the Reference Manager
@@ -92,6 +92,7 @@ namespace Hive.Armada.Player
             reference = GameObject.Find("Reference Manager").GetComponent<ReferenceManager>();
             shieldRenderer = GetComponent<MeshRenderer>();
             shieldRenderer.material.SetFloat("_Alpha", 0.0f);
+            shieldRenderer.enabled = false;
             shieldCollider = GetComponent<Collider>();
             shieldCollider.enabled = false;
 
@@ -197,7 +198,7 @@ namespace Hive.Armada.Player
             //    r.material.SetColor("_overheatColor", overheatBarrelColor);
             //    r.material.SetFloat("_overheatPercent", 0.0f);
             //}
-
+            shieldRenderer.enabled = true;
             shieldCollider.enabled = true;
             shieldRenderer.material.SetFloat("_Alpha", shieldMaxAlpha);
             //shieldRenderer.enabled = true;
@@ -255,6 +256,7 @@ namespace Hive.Armada.Player
                 yield return new WaitForSeconds(stepTime);
             }
 
+            shieldRenderer.enabled = false;
             shieldCollider.enabled = false;
             ShieldActive = false;
             //shieldRenderer.enabled = false;

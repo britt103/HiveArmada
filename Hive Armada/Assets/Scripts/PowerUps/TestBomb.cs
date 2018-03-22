@@ -44,7 +44,7 @@ namespace Hive.Armada.PowerUps
         {
             reference = FindObjectOfType<ReferenceManager>();
 
-            int typeId = reference.objectPoolManager.GetTypeIdentifier(rocketPrefab);
+            short typeId = reference.objectPoolManager.GetTypeIdentifier(rocketPrefab);
 
             if (typeId >= 0)
             {

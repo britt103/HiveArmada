@@ -76,7 +76,7 @@ namespace Hive.Armada.PowerUps
         /// <summary>
         /// The type ID needed to spawn the rocket.
         /// </summary>
-        private int rocketTypeId;
+        private short rocketTypeId;
 
         /// <summary>
         /// Rocket type for setting attributes for launched rockets.

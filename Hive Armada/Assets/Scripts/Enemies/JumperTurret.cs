@@ -24,7 +24,7 @@ namespace Hive.Armada.Enemies
         /// <summary>
         /// Type identifier for this enemy's projectiles in objectPoolManager
         /// </summary>
-        private int projectileTypeIdentifier;
+        private short projectileTypeIdentifier;
 
         /// <summary>
         /// The point where this enemy shoots from.

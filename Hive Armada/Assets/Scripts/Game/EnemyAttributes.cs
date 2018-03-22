@@ -57,7 +57,7 @@ namespace Hive.Armada.Game
         /// <summary>
         /// Type identifiers for each enemy's projectile prefab.
         /// </summary>
-        public int[] EnemyProjectileTypeIdentifiers { get; private set; }
+        public short[] EnemyProjectileTypeIdentifiers { get; private set; }
 
         /// <summary>
         /// Fire rate for each enemy type.
@@ -88,7 +88,7 @@ namespace Hive.Armada.Game
         /// <summary>
         /// Type Ids for the enemy death particle emitters.
         /// </summary>
-        public int[] EnemyDeathEmitterTypeIds { get; private set; }
+        public short[] EnemyDeathEmitterTypeIds { get; private set; }
 
         /// <summary>
         /// Damage that the enemy projectiles deal.
@@ -113,7 +113,7 @@ namespace Hive.Armada.Game
         {
             reference = referenceManager;
 
-            EnemyProjectileTypeIdentifiers = new int[enemyProjectilePrefab.Length];
+            EnemyProjectileTypeIdentifiers = new short[enemyProjectilePrefab.Length];
 
             for (int i = 0; i < enemyProjectilePrefab.Length; ++i)
             {
@@ -121,13 +121,13 @@ namespace Hive.Armada.Game
                 {
                     if (reference.objectPoolManager.objects[j].objectPrefab.name.Equals(enemyProjectilePrefab[i].name))
                     {
-                        EnemyProjectileTypeIdentifiers[i] = j;
+                        EnemyProjectileTypeIdentifiers[i] = (short)j;
                         break;
                     }
                 }
             }
 
-            EnemyDeathEmitterTypeIds = new int[enemyDeathEmitters.Length];
+            EnemyDeathEmitterTypeIds = new short[enemyDeathEmitters.Length];
 
             for (int i = 0; i < enemyDeathEmitters.Length; ++i)
             {

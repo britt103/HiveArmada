@@ -89,6 +89,7 @@ namespace Hive.Armada.Game
 
         private WaveManager waveManager;
 
+        [Header("Enemy Setup")]
         [Reorderable("Enemy", false)]
         public SpawnChance[] enemySpawnChanceSetup;
 
@@ -96,6 +97,15 @@ namespace Hive.Armada.Game
 
         private int[] typeIds;
 
+        private Chances[] attackPatternChances =
+        {
+            new Chances(0, 49, 1),
+            new Chances(50, 69, 5),
+            new Chances(70, 84, 7),
+            new Chances(85, 99, 9)
+        };
+
+        [Header("Powerup Setup")]
         [Reorderable("Powerup", false)]
         public PowerupSpawnChance[] powerupSpawnChanceSetup;
 
@@ -103,6 +113,7 @@ namespace Hive.Armada.Game
 
         private GameObject[] powerupPrefabs;
 
+        [Header("Wave Setup")]
         public float waveLength = 60.0f;
 
         [Range(0.0f, 100.0f)]
@@ -113,6 +124,8 @@ namespace Hive.Armada.Game
         public int minSpawns = 10;
 
         public int maxSpawns = 25;
+
+        public int maxEnemies;
 
         public float preemptTime;
 
@@ -145,6 +158,8 @@ namespace Hive.Armada.Game
 
         private int spawns;
 
+        private int enemiesRemaining;
+
         private bool spawned;
 
         private bool lowLevel;
@@ -154,8 +169,6 @@ namespace Hive.Armada.Game
         private float endTime;
 
         private float currentDelay;
-
-        private CurrentChances[] debugChances;
 
         public bool IsRunning { get; private set; }
 
@@ -195,7 +208,7 @@ namespace Hive.Armada.Game
                     new Chances(low, high, powerupSpawnChanceSetup[i].firstWave);
             }
 
-            paths = new Hashtable();
+            paths = new Hashtable {{"child", false}};
 
             foreach (string zone in waveManager.PathNames)
             {
@@ -243,6 +256,11 @@ namespace Hive.Armada.Game
                         currentTime = waveLength + Time.deltaTime;
                     }
 
+                    if (enemiesRemaining >= maxEnemies && spawns < maxSpawns)
+                    {
+                        currentTime -= 0.1f;
+                    }
+
                     if (currentTime >= waveLength)
                     {
                         if (waveCoroutine != null)
@@ -269,6 +287,14 @@ namespace Hive.Armada.Game
             spawns = 0;
             spawnDelay = ReduceDelay(spawnDelay, ++currentWave);
 
+            if (currentWave % 3 == 0)
+            {
+                if (maxEnemies < maxSpawns)
+                {
+                    maxEnemies++;
+                }
+            }
+
             Debug.Log("Beginning wave #" + currentWave);
 
             endTime = Time.time + waveLength;
@@ -284,9 +310,14 @@ namespace Hive.Armada.Game
 
             while (Time.time < endTime)
             {
+                if (enemiesRemaining >= maxEnemies && spawns < maxSpawns)
+                {
+                    endTime += 0.1f;
+                    continue;
+                }
+
                 roll = Random.Range(0, 100);
                 spawned = false;
-                lowLevel = false;
 
                 if (roll >= 100 - intSpawnChance)
                 {
@@ -339,7 +370,7 @@ namespace Hive.Armada.Game
         {
             int roll = Random.Range(0, 100);
 
-            CurrentChances[] spawnableEnemies = GetSpawnableEnemies();
+            CurrentChances[] spawnableEnemies = GetCurrentChances(true);
 
             bool locSpawned = false;
 
@@ -396,7 +427,36 @@ namespace Hive.Armada.Game
 
                             Enemy spawnedEnemyScript = spawnedEnemy.GetComponent<Enemy>();
                             spawnedEnemyScript.SetPath(path);
-                            spawnedEnemyScript.SetAttackPattern(AttackPattern.One);
+
+                            bool patternChosen = false;
+
+                            do
+                            {
+                                roll = Random.Range(0, 100);
+                                CurrentChances[] patternChances = GetCurrentChances(false);
+
+                                for (int p = 0; p < patternChances.Length; ++p)
+                                {
+                                    if (roll >= patternChances[p].LowerLimit &&
+                                        roll < patternChances[p].UpperLimit)
+                                    {
+                                        spawnedEnemyScript.SetAttackPattern((AttackPattern)p);
+                                        patternChosen = true;
+                                    }
+                                }
+
+                                if (patternChosen)
+                                {
+                                    continue;
+                                }
+
+                                yield return null;
+
+                                endTime += Time.deltaTime;
+                            }
+                            while (!patternChosen);
+
+                            //spawnedEnemyScript.SetAttackPattern(AttackPattern.One);
 
                             Hashtable moveHash = new Hashtable
                                                  {
@@ -415,6 +475,7 @@ namespace Hive.Armada.Game
                             paths[path] = true;
                             locSpawned = true;
                             ++spawns;
+                            ++enemiesRemaining;
                             currentDelay -= maxDelay;
 
                             if (spawns >= maxSpawns)
@@ -499,6 +560,11 @@ namespace Hive.Armada.Game
 
         public void EnemyDead(string path)
         {
+            if (--enemiesRemaining < 0)
+            {
+                enemiesRemaining = 0;
+            }
+
             paths[path] = false;
         }
 
@@ -527,21 +593,28 @@ namespace Hive.Armada.Game
             return Mathf.Clamp(newDelay, minSpawnDelay, 100.0f);
         }
 
-        private CurrentChances[] GetSpawnableEnemies()
+        /// <summary>
+        /// Gets the currently available chances for either enemies or attack patterns.
+        /// </summary>
+        /// <param name="isEnemy"> If the chances are for enemies </param>
+        /// <returns> Array of the currently available chances </returns>
+        private CurrentChances[] GetCurrentChances(bool isEnemy)
         {
             List<CurrentChances> chances = new List<CurrentChances>();
             int high = 0;
 
-            foreach (Chances enemy in enemySpawnChances)
+            Chances[] currentChances = isEnemy ? enemySpawnChances : attackPatternChances;
+
+            foreach (Chances chance in currentChances)
             {
-                if (enemy.FirstWave <= currentWave)
+                if (chance.FirstWave <= currentWave)
                 {
-                    if (enemy.UpperLimit > high)
+                    if (chance.UpperLimit > high)
                     {
-                        high = enemy.UpperLimit;
+                        high = chance.UpperLimit;
                     }
 
-                    chances.Add(new CurrentChances(enemy.LowerLimit, enemy.UpperLimit));
+                    chances.Add(new CurrentChances(chance.LowerLimit, chance.UpperLimit));
                 }
                 else
                 {
@@ -549,17 +622,12 @@ namespace Hive.Armada.Game
                 }
             }
 
-//            CurrentChances[] remappedChances = new CurrentChances[chances.Count];
-
             for (int i = 0; i < chances.Count; ++i)
             {
                 int lower = Remap(chances[i].LowerLimit, 0, high, 0, 99);
                 int upper = Remap(chances[i].UpperLimit, 0, high, 0, 99);
                 chances[i] = new CurrentChances(lower, upper);
-//                remappedChances[i] = new CurrentChances(lower, upper);
             }
-
-            debugChances = chances.ToArray();
 
             return chances.ToArray();
         }

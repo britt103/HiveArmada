@@ -3,7 +3,7 @@
 // Perry Sidler
 // 1831784
 // sidle104@mail.chapman.edu
-// CPSC-340-01 & CPSC-344-01
+// CPSC-440-01
 // Group Project
 //
 // 
@@ -102,7 +102,7 @@ namespace Hive.Armada.Player
             for (int i = 0; i < 5; ++i)
             {
                 totalFlashTime += 2.0f * shieldFlashTime;
-                shieldFlashTime -= shieldFlashAcceleration;
+                shieldFlashTime *= shieldFlashAcceleration;
             }
 
             shieldAlphaStep = (shieldMaxAlpha - shieldMinAlpha) / 60.0f;
@@ -176,15 +176,15 @@ namespace Hive.Armada.Player
             if (!ShieldActive)
             {
                 ShieldActive = true;
-            }
 
-            if (shieldCoroutine == null)
-            {
-                shieldCoroutine = StartCoroutine(ShieldCountdown());
-            }
-            else
-            {
-                StopCoroutine(shieldCoroutine);
+                if (shieldCoroutine == null)
+                {
+                    shieldCoroutine = StartCoroutine(ShieldCountdown());
+                }
+                else
+                {
+                    StopCoroutine(shieldCoroutine);
+                }
             }
         }
 
@@ -243,7 +243,7 @@ namespace Hive.Armada.Player
                 //shieldRenderer.enabled = true;
                 //yield return new WaitForSeconds(shieldFlashTime);
 
-                shieldFlashTime -= shieldFlashAcceleration;
+                shieldFlashTime *= shieldFlashAcceleration;
             }
 
             shieldFlashTime /= 2.0f;

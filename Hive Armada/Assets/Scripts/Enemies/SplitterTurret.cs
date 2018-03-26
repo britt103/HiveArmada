@@ -308,9 +308,10 @@ namespace Hive.Armada.Enemies
                                                 transform.rotation);
                     Enemy enemy = child.GetComponent<Enemy>();
                     enemy.SetWave(wave);
+                    enemy.SetPath("child");
                     enemy.SetAttackPattern(attackPattern);
                     child.GetComponent<Rigidbody>()
-                         .AddRelativeForce(new Vector3(xAdj, yAdj, 0.0f) * splitDir);
+                         .AddRelativeForce(new Vector3(xAdj, yAdj, 0.0f) * splitDir * 1.0f);
                 }
             }
 

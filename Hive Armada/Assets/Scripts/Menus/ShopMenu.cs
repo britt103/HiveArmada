@@ -181,6 +181,11 @@ namespace Hive.Armada.Menus
         private List<string> currNames = new List<string>();
 
         /// <summary>
+        /// Item display names of currently open category.
+        /// </summary>
+        private List<string> currDisplayNames = new List<string>();
+
+        /// <summary>
         /// Item texts of currently open category.
         /// </summary>
         private List<string> currTexts = new List<string>();
@@ -259,7 +264,7 @@ namespace Hive.Armada.Menus
 
             for (int i = 0; i < items; ++i)
             {
-                if (i >= currNames.Count && tooFewEntries)
+                if (i >= currDisplayNames.Count && tooFewEntries)
                 {
                     GameObject itemButtonEmpty = Instantiate(itemButtonEmptyPrefab, contentGO.transform);
                     itemButtonEmpty.SetActive(false);
@@ -270,7 +275,7 @@ namespace Hive.Armada.Menus
                     itemButton.GetComponent<ShopItemButton>().id = i;
                     itemButton.GetComponent<ShopItemButton>().shopMenu = this;
                     itemButton.GetComponent<UIHover>().source = source;
-                    itemButton.transform.Find("Name").gameObject.GetComponent<Text>().text = currNames[i];
+                    itemButton.transform.Find("Name").gameObject.GetComponent<Text>().text = currDisplayNames[i];
                 }
             }
         }
@@ -370,7 +375,7 @@ namespace Hive.Armada.Menus
                 categoryButton.SetActive(false);
             }
 
-            itemName.GetComponent<Text>().text = currNames[itemId];
+            itemName.GetComponent<Text>().text = currDisplayNames[itemId];
             itemText.GetComponent<Text>().text = currTexts[itemId];
             itemCost.GetComponent<Text>().text = "Cost: " + currCosts[itemId].ToString();
             iridiumAmount.GetComponent<Text>().text = "Iridium: " + iridiumSystem.GetIridiumAmount().ToString();
@@ -420,6 +425,7 @@ namespace Hive.Armada.Menus
                 case "Weapons":
                     currCategory = category;
                     currNames = iridiumSystem.GetItemNames(category);
+                    currDisplayNames = iridiumSystem.GetItemDisplayNames(category);
                     currTexts = iridiumSystem.GetItemTexts(category);
                     currCosts = iridiumSystem.GetItemCosts(category);
                     currNotBought = iridiumSystem.GetItemsLocked(category);

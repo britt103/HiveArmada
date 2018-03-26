@@ -21,6 +21,11 @@ namespace Hive.Armada.Menus
         public string[] powerupNames;
 
         /// <summary>
+        /// Display name of powerup on each entry.
+        /// </summary>
+        public string[] powerupDisplayNames;
+
+        /// <summary>
         /// Text description for powerup on each entry.
         /// </summary>
         public string[] powerupTexts;
@@ -36,6 +41,11 @@ namespace Hive.Armada.Menus
         public string[] enemyNames;
 
         /// <summary>
+        /// Display name of enemy on each entry.
+        /// </summary>
+        public string[] enemyDisplayNames;
+
+        /// <summary>
         /// Text description for enemy on each entry.
         /// </summary>
         public string[] enemyTexts;
@@ -49,6 +59,11 @@ namespace Hive.Armada.Menus
         /// Name of weapon on each entry.
         /// </summary>
         public string[] weaponNames;
+
+        /// <summary>
+        /// Display name of weapon on each entry.
+        /// </summary>
+        public string[] weaponDisplayNames;
 
         /// <summary>
         /// Text description for weapon on each entry.

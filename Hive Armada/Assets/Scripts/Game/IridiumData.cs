@@ -26,6 +26,11 @@ namespace Hive.Armada.Game
         public string[] weaponNames;
 
         /// <summary>
+        /// Display names of weapon items.
+        /// </summary>
+        public string[] weaponDisplayNames;
+
+        /// <summary>
         /// Descriptions of weapon items.
         /// </summary>
         public string[] weaponTexts;

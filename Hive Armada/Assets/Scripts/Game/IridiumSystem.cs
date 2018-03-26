@@ -147,6 +147,17 @@ namespace Hive.Armada.Game
         }
 
         /// <summary>
+        /// Check if weapon is part of iridium system (used for weapons that are not bought
+        /// through shop).
+        /// </summary>
+        /// <param name="weaponName">Name of weapon to check for.</param>
+        /// <returns>True if weapon found, otherwise false.</returns>
+        public bool CheckWeaponIsPresent(string weaponName)
+        {
+            return iridiumData.weaponNames.Contains(weaponName);
+        }
+
+        /// <summary>
         /// Returns a list of all item names in specified iridiumData category.
         /// </summary>
         /// <returns>List of item name strings.</returns>
@@ -167,6 +178,29 @@ namespace Hive.Armada.Game
 
             return itemNames;
         }
+
+        /// <summary>
+        /// Returns a list of all item display names in specified iridiumData category.
+        /// </summary>
+        /// <returns>List of item display name strings.</returns>
+        public List<string> GetItemDisplayNames(string category)
+        {
+            List<string> itemDisplayNames = new List<string>();
+
+            switch (category)
+            {
+                case "Weapons":
+                    itemDisplayNames = iridiumData.weaponDisplayNames.ToList();
+                    break;
+                default:
+                    Debug.Log("ERROR: Item category could not be identified.");
+                    itemDisplayNames = new List<string>();
+                    break;
+            }
+
+            return itemDisplayNames;
+        }
+
         /// <summary>
         /// Returns a list of all item texts in specified iridiumData category.
         /// </summary>

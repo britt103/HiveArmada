@@ -65,11 +65,23 @@ namespace Hive.Armada.PowerUps
         private bool touched = false;
 
         /// <summary>
+        /// Audio clip to play when player collides with icon
+        /// </summary>
+        public AudioClip clip;
+
+        /// <summary>
+        /// Source to play audio clip from
+        /// </summary>
+        AudioSource source;
+
+        /// <summary>
         /// Find references. Instantiate and rotate FX. Start self-destruct countdown.
         /// </summary>
         private void Awake()
         {
             reference = GameObject.Find("Reference Manager").GetComponent<ReferenceManager>();
+
+            source = GameObject.Find("Powerup Audio Source").GetComponent<AudioSource>();
 
             head = GameObject.Find("VRCamera").transform;
 
@@ -105,6 +117,7 @@ namespace Hive.Armada.PowerUps
                 touched = true;
                 reference.playerShipSource.PlayOneShot(reference.powerupReadySound);
                 status.StorePowerup(powerupPrefab, powerupIconPrefab);
+                source.PlayOneShot(clip);
                 Destroy(transform.parent.gameObject);
             }
         }

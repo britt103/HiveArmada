@@ -109,7 +109,7 @@ namespace Hive.Armada.Player
         [Header("Audio")]
         public AudioSource source;
 
-        public AudioClip[] pickupShipClips;
+        public AudioClip[] startClips;
 
         /// <summary>
         /// Initializes references to Reference Manager and Laser Sight, sets this
@@ -162,6 +162,16 @@ namespace Hive.Armada.Player
             //Random.InitState((int) Time.time);
             //int randNumSound = Random.Range(0, pickupShipClips.Length);
             //source.PlayOneShot(pickupShipClips[randNumSound]);
+
+            source.PlayOneShot(startClips[0]);
+
+            new WaitWhile(() => source.isPlaying);
+
+            source.PlayOneShot(startClips[1]);
+
+            new WaitWhile(() => source.isPlaying);
+
+            source.PlayOneShot(startClips[2]);
 
             if (reference.menuTitle && reference.menuMain)
             {

@@ -9,6 +9,7 @@
 //
 //=============================================================================
 
+using Hive.Armada.Player;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
@@ -55,9 +56,21 @@ namespace Hive.Armada.Enemies
         /// </summary>
         private bool inRange;
 
+        /// <summary>
+        /// Audio source for this enemy.
+        /// </summary>
         private AudioSource source;
 
+        /// <summary>
+        /// Audio clip attached to this enemy
+        /// </summary>
         public AudioClip clip;
+
+        /// <summary>
+        /// Shield attached to player ship.
+        /// Used to check player damage when exploding.
+        /// </summary>
+        private GameObject playerShield;
 
         /// <summary>
         /// Looks at the player and stores own position.
@@ -69,6 +82,7 @@ namespace Hive.Armada.Enemies
             {
                 player = GameObject.FindGameObjectWithTag("Player");
                 transform.LookAt(player.transform.position);
+                playerShield = player.transform.Find("Shield").gameObject;
             }
             source = GetComponent<AudioSource>();
 
@@ -82,28 +96,16 @@ namespace Hive.Armada.Enemies
             if (player != null)
             {
                 myTransform = transform;
+                myTransform.rotation = Quaternion.Lerp(myTransform.rotation,
+                                                          Quaternion.LookRotation(player.transform.position
+                                                          - myTransform.position),
+                                                          rotationSpeed * Time.deltaTime);
 
-
-                if (Vector3.Distance(transform.position, player.transform.position) >= range)
-                {
-                    myTransform.rotation = Quaternion.Lerp(myTransform.rotation,
-                                                           Quaternion.LookRotation(player.transform.position
-                                                           - myTransform.position),
-                                                           rotationSpeed * Time.deltaTime);
-
-                    myTransform.position += myTransform.forward * moveSpeed * Time.deltaTime;
-                }
-
-                else if (Vector3.Distance(transform.position, player.transform.position) < range)
-                {
-                    if (!inRange)
-                    {
-                        StartCoroutine(InRange());
-                    }
-                }
+                myTransform.position += myTransform.forward * moveSpeed * Time.deltaTime;
+                               
                 if (shaking)
                 {
-                    iTween.ShakePosition(gameObject, new Vector3(0.1f, 0.1f, 0.1f), 0.1f);
+                    iTween.ShakePosition(gameObject, new Vector3(0.001f, 0.001f, 0.001f), 0.01f);
                 }
             }
             else
@@ -139,6 +141,7 @@ namespace Hive.Armada.Enemies
         {
             if (!nearPlayer)
             {
+                Debug.Log("I am near the player");
                 nearPlayer = true;
                 StartCoroutine(InRange());
             }
@@ -149,11 +152,13 @@ namespace Hive.Armada.Enemies
         /// </summary>
         private IEnumerator InRange()
         {
+            Debug.Log("I am in range");
             inRange = true;
+            moveSpeed = (moveSpeed / 2);
             source.PlayOneShot(clip);
             yield return new WaitForSeconds(clip.length);
 
-            if (Vector3.Distance(transform.position, player.transform.position) < range)
+            if (playerShield.GetComponent<Collider>().bounds.Contains(gameObject.transform.position))
             {
                 player.GetComponentInParent<Player.PlayerHealth>().Hit(damage);
             }

@@ -140,12 +140,12 @@ namespace Hive.Armada.Player.Weapons
         /// <summary>
         /// Type ID for the explosion emitter.
         /// </summary>
-        private int explosionEmitterId;
+        private short explosionEmitterId;
 
         /// <summary>
         /// Type ID for the rocket emitter.
         /// </summary>
-        private int rocketEmitterId;
+        private short rocketEmitterId;
 
         /// <summary>
         /// The rocket emitter game object.
@@ -155,7 +155,7 @@ namespace Hive.Armada.Player.Weapons
         /// <summary>
         /// Type ID for the rocket trail emitter.
         /// </summary>
-        private int trailEmitterId;
+        private short trailEmitterId;
 
         /// <summary>
         /// The rocket trail emitter game object.

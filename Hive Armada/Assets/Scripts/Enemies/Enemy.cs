@@ -134,7 +134,7 @@ namespace Hive.Armada.Enemies
         /// <summary>
         /// The type identifier needed to spawn the death emitter from the object pool.
         /// </summary>
-        protected int deathEmitterTypeIdentifier;
+        protected short deathEmitterTypeIdentifier = -2;
 
         /// <summary>
         /// Changes to false on first hit.

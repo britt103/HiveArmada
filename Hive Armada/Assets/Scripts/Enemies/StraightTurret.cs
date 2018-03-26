@@ -21,7 +21,7 @@ namespace Hive.Armada.Enemies
         /// <summary>
         /// Type identifier for object pooling purposes
         /// </summary>
-        private int projectileTypeIdentifier;
+        private short projectileTypeIdentifier = -2;
 
         /// <summary>
         /// Projectile that the turret shoots out

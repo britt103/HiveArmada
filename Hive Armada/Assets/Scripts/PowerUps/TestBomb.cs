@@ -54,7 +54,7 @@ namespace Hive.Armada.PowerUps
             bossSource = GameObject.Find("Boss Audio Source").GetComponent<AudioSource>();
             StartCoroutine(pauseForBoss());
 
-            int typeId = reference.objectPoolManager.GetTypeIdentifier(rocketPrefab);
+            short typeId = reference.objectPoolManager.GetTypeIdentifier(rocketPrefab);
 
             if (typeId >= 0)
             {

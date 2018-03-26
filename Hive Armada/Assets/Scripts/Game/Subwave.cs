@@ -622,7 +622,7 @@ namespace Hive.Armada.Game
                     }
 
                     GameObject spawned =
-                        objectPoolManager.Spawn(gameObject, typeIdentifier, position, rotation);
+                        objectPoolManager.Spawn(gameObject, (short)typeIdentifier, position, rotation);
 
                     // initialize enemy subwave reference, EnemySpawn
                     // for respawning, and attack pattern.
@@ -739,7 +739,7 @@ namespace Hive.Armada.Game
                     //}
 
                     GameObject spawned =
-                        objectPoolManager.Spawn(gameObject, respawns[0].typeIdentifier, position);
+                        objectPoolManager.Spawn(gameObject, (short)respawns[0].typeIdentifier, position);
 
                     // set info for the enemy
                     Enemy spawnedEnemyScript = spawned.GetComponent<Enemy>();

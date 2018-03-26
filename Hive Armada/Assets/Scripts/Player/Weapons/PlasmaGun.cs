@@ -53,7 +53,7 @@ namespace Hive.Armada.Player.Weapons
         /// <summary>
         /// The type id for the rockets.
         /// </summary>
-        private int rocketTypeId;
+        private short rocketTypeId;
 
         /// <summary>
         /// Array of transforms for the barrels of the rocket pod.

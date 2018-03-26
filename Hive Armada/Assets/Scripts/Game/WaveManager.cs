@@ -253,7 +253,7 @@ namespace Hive.Armada.Game
 
             EnemyIDs = new[]
             {
-                objectPool.GetTypeIdentifier(enemyTypeSetup.standardEnemyPrefab),
+                (int)objectPool.GetTypeIdentifier(enemyTypeSetup.standardEnemyPrefab),
                 objectPool.GetTypeIdentifier(enemyTypeSetup.buckshotEnemyPrefab),
                 objectPool.GetTypeIdentifier(enemyTypeSetup.movingEnemyPrefab),
                 objectPool.GetTypeIdentifier(enemyTypeSetup.splitterEnemyPrefab),

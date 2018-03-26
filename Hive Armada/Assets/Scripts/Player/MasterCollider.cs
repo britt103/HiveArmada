@@ -3,7 +3,7 @@
 // Perry Sidler
 // 1831784
 // sidle104@mail.chapman.edu
-// CPSC-340-01 & CPSC-344-01
+// CPSC-440-01
 // Group Project
 //
 // 
@@ -28,9 +28,9 @@ namespace Hive.Armada.Player
         /// <summary>
         /// Renderer for the shield
         /// </summary>
-        private Renderer shieldRenderer;
+        public Renderer shieldRenderer;
 
-        private Collider shieldCollider;
+        public Collider shieldCollider;
 
         /// <summary>
         /// Coroutine for the shield timer.
@@ -82,7 +82,7 @@ namespace Hive.Armada.Player
         /// <summary>
         /// The type identifier for the shield hit emitter
         /// </summary>
-        private int hitEmitterTypeIdentifier = -1;
+        private short hitEmitterTypeIdentifier;
 
         /// <summary>
         /// Initializes the reference to the Reference Manager
@@ -90,9 +90,10 @@ namespace Hive.Armada.Player
         private void Awake()
         {
             reference = GameObject.Find("Reference Manager").GetComponent<ReferenceManager>();
-            shieldRenderer = GetComponent<MeshRenderer>();
+            //shieldRenderer = GetComponent<MeshRenderer>();
             shieldRenderer.material.SetFloat("_Alpha", 0.0f);
-            shieldCollider = GetComponent<Collider>();
+            shieldRenderer.enabled = false;
+            //shieldCollider = GetComponent<Collider>();
             shieldCollider.enabled = false;
 
             float totalFlashTime = 0.0f;
@@ -101,7 +102,7 @@ namespace Hive.Armada.Player
             for (int i = 0; i < 5; ++i)
             {
                 totalFlashTime += 2.0f * shieldFlashTime;
-                shieldFlashTime -= shieldFlashAcceleration;
+                shieldFlashTime *= shieldFlashAcceleration;
             }
 
             shieldAlphaStep = (shieldMaxAlpha - shieldMinAlpha) / 60.0f;
@@ -176,15 +177,15 @@ namespace Hive.Armada.Player
             if (!ShieldActive)
             {
                 ShieldActive = true;
-            }
 
-            if (shieldCoroutine == null)
-            {
-                shieldCoroutine = StartCoroutine(ShieldCountdown());
-            }
-            else
-            {
-                StopCoroutine(shieldCoroutine);
+                if (shieldCoroutine == null)
+                {
+                    shieldCoroutine = StartCoroutine(ShieldCountdown());
+                }
+                else
+                {
+                    StopCoroutine(shieldCoroutine);
+                }
             }
         }
 
@@ -198,7 +199,7 @@ namespace Hive.Armada.Player
             //    r.material.SetColor("_overheatColor", overheatBarrelColor);
             //    r.material.SetFloat("_overheatPercent", 0.0f);
             //}
-
+            shieldRenderer.enabled = true;
             shieldCollider.enabled = true;
             shieldRenderer.material.SetFloat("_Alpha", shieldMaxAlpha);
             //shieldRenderer.enabled = true;
@@ -243,7 +244,7 @@ namespace Hive.Armada.Player
                 //shieldRenderer.enabled = true;
                 //yield return new WaitForSeconds(shieldFlashTime);
 
-                shieldFlashTime -= shieldFlashAcceleration;
+                shieldFlashTime *= shieldFlashAcceleration;
             }
 
             shieldFlashTime /= 2.0f;
@@ -256,6 +257,7 @@ namespace Hive.Armada.Player
                 yield return new WaitForSeconds(stepTime);
             }
 
+            shieldRenderer.enabled = false;
             shieldCollider.enabled = false;
             ShieldActive = false;
             //shieldRenderer.enabled = false;

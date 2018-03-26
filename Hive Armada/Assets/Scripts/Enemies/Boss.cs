@@ -22,7 +22,7 @@ namespace Hive.Armada.Enemies
         /// <summary>
         /// Type identifier for object pooling purposes
         /// </summary>
-        private int projectileTypeIdentifier;
+        private short projectileTypeIdentifier;
 
         /// <summary>
         /// Structure resposible for tracking the positions for which bullets

@@ -161,17 +161,17 @@ namespace Hive.Armada.Game
         /// <summary>
         /// Array of Type Ids for the explosion emitters.
         /// </summary>
-        public int[] RocketExplosionEmitterIds { get; private set; }
+        public short[] RocketExplosionEmitterIds { get; private set; }
 
         /// <summary>
         /// Array of Type Ids for the rocket emitters.
         /// </summary>
-        public int[] RocketEmitterIds { get; private set; }
+        public short[] RocketEmitterIds { get; private set; }
 
         /// <summary>
         /// Array of Type Ids for the rocket trail emitters.
         /// </summary>
-        public int[] TrailEmitterIds { get; private set; }
+        public short[] TrailEmitterIds { get; private set; }
 
         /// <summary>
         /// Gets the type identifiers for the rocket emitters.
@@ -179,7 +179,7 @@ namespace Hive.Armada.Game
         public void Initialize(ReferenceManager referenceManager)
         {
             reference = referenceManager;
-            RocketExplosionEmitterIds = new int[rockets.Length];
+            RocketExplosionEmitterIds = new short[rockets.Length];
 
             for (int i = 0; i < rockets.Length; ++i)
             {
@@ -195,7 +195,7 @@ namespace Hive.Armada.Game
                 }
             }
 
-            RocketEmitterIds = new int[rockets.Length];
+            RocketEmitterIds = new short[rockets.Length];
 
             for (int i = 0; i < rockets.Length; ++i)
             {
@@ -211,7 +211,7 @@ namespace Hive.Armada.Game
                 }
             }
 
-            TrailEmitterIds = new int[rockets.Length];
+            TrailEmitterIds = new short[rockets.Length];
 
             for (int i = 0; i < rockets.Length; ++i)
             {

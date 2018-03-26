@@ -15,7 +15,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Hive.Armada.Menu
+namespace Hive.Armada.Menus
 {
     public class ScrollbarSlider : MonoBehaviour
     {

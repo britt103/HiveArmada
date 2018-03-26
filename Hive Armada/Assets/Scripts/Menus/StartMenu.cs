@@ -82,12 +82,6 @@ namespace Hive.Armada.Menus
         public void PressSoloNormal()
         {
 			source.PlayOneShot(clips[0]);
-            soloNormalCounter += 1;
-            if(soloNormalCounter > 1)
-            {
-                source.Stop();
-                source.PlayOneShot(clips[0]);
-            }
             gameSettings.selectedGameMode = GameSettings.GameMode.SoloNormal;
             transitionManager.Transition(loadoutGO);
         }
@@ -123,12 +117,6 @@ namespace Hive.Armada.Menus
         public void PressBack()
         {
             source.PlayOneShot(clips[1]);
-            backCounter += 1;
-            if(backCounter > 1)
-            {
-                source.Stop();
-                source.PlayOneShot(clips[1]);
-            }
             transitionManager.Transition(backMenuGO);
         }
     }

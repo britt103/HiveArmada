@@ -86,8 +86,6 @@ namespace Hive.Armada.Menus
         private IridiumSystem iridiumSystem;
 
         public AudioClip[] weaponSelectClips;
-
-        /// <summary>
         /// Find references. Set display for initial waepon. If no Iridium weapons have been 
         /// unlocked, skip menu.
         /// </summary>

@@ -89,6 +89,11 @@ namespace Hive.Armada.Menus
         public Slider verticalSlider;
 
         /// <summary>
+        /// Reference to UI Cover GameObjects.
+        /// </summary>
+        public GameObject[] uiCovers;
+
+        /// <summary>
         /// Reference to entry name text.
         /// </summary>
         public GameObject entryName;
@@ -347,7 +352,7 @@ namespace Hive.Armada.Menus
 
             int entries;
             bool tooFewEntries;
-            if (currNames.Count <= numFittableButtons)
+            if (currNames.Count < numFittableButtons)
             {
                 entries = numFittableButtons + 1;
                 tooFewEntries = true;
@@ -402,6 +407,11 @@ namespace Hive.Armada.Menus
             entryText.SetActive(true);
             entryValue = entryId;
 
+            foreach(GameObject uiCover in uiCovers)
+            {
+                uiCover.SetActive(false);
+            }
+
             foreach(GameObject categoryButton in categoryButtons)
             {
                 categoryButton.SetActive(false);
@@ -434,6 +444,11 @@ namespace Hive.Armada.Menus
             entryText.SetActive(false);
             scrollView.SetActive(true);
             informationButton.SetActive(false);
+
+            foreach (GameObject uiCover in uiCovers)
+            {
+                uiCover.SetActive(true);
+            }
 
             foreach (GameObject categoryButton in categoryButtons)
             {

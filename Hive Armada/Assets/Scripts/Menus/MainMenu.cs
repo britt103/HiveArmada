@@ -49,19 +49,12 @@ namespace Hive.Armada.Menus
 
         public AudioClip[] startClips;
 
-        private void Awake()
-        {
-            //StartCoroutine(playStartingSounds());
-        }
-
-        private IEnumerator playStartingSounds()
-        {
-            source.PlayOneShot(startClips[0]);
-            yield return new WaitWhile(() => source.isPlaying);
-            source.PlayOneShot(startClips[1]);
-            yield return new WaitWhile(() => source.isPlaying);
-            source.PlayOneShot(startClips[2]);
-        }
+        //private void Awake()
+        //{
+        //    Random.InitState((int) Time.time);
+        //    int randNum = Random.Range(0, startClips.Length);
+        //    source.PlayOneShot(startClips[randNum]);
+        //}
 
         /// <summary>
         /// Start button pressed. Navigate to Start Menu.

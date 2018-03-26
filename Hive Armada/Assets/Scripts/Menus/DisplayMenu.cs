@@ -52,14 +52,6 @@ namespace Hive.Armada.Menus
         private ReferenceManager reference;
 
         /// <summary>
-        /// Variables used to make sure that audio
-        /// doesn't play over itself
-        /// </summary>
-        private int backCounter = 0;
-
-        private int bloomCounter = 0;
-
-        /// <summary>
         /// Find references. 
         /// </summary>
         private void Awake()
@@ -74,12 +66,6 @@ namespace Hive.Armada.Menus
         public void PressBack()
         {
 			source.PlayOneShot(clips[0]);
-            backCounter += 1;
-            if (backCounter > 1)
-            {
-                source.Stop();
-                source.PlayOneShot(clips[0]);
-            }
             reference.optionsValues.SetDisplayPlayerPrefs();
             transitionManager.Transition(backMenuGO);
             gameObject.SetActive(false);
@@ -91,12 +77,6 @@ namespace Hive.Armada.Menus
         public void SetBloom(bool isOn)
         {
             source.PlayOneShot(clips[1]);
-            bloomCounter += 1;
-            if (bloomCounter > 1)
-            {
-                source.Stop();
-                source.PlayOneShot(clips[1]);
-            }
             reference.optionsValues.SetBloom(isOn);
         }
     }

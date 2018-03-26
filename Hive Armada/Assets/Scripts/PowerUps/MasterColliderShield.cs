@@ -10,6 +10,7 @@
 // 
 //=============================================================================
 
+using System.Collections;
 using UnityEngine;
 using Hive.Armada.Game;
 using Hive.Armada.Player;
@@ -29,6 +30,8 @@ namespace Hive.Armada.PowerUps
 
         AudioSource source;
 
+        AudioSource bossSource;
+
         public AudioClip clip;
 
         /// <summary>
@@ -38,10 +41,34 @@ namespace Hive.Armada.PowerUps
         {
             reference = GameObject.Find("Reference Manager").GetComponent<ReferenceManager>();
             source = GameObject.Find("Powerup Audio Source").GetComponent<AudioSource>();
-            source.PlayOneShot(clip);
+            bossSource = GameObject.Find("Boss Audio Source").GetComponent<AudioSource>();
+            StartCoroutine(pauseForBoss());
+
             reference.playerShip.GetComponent<ShipController>().masterCollider.ActivateShield();
 
             Destroy(gameObject);
+        }
+
+        IEnumerator pauseForBoss()
+        {
+            if (bossSource.isPlaying)
+            {
+                yield return new WaitWhile(() => bossSource.isPlaying);
+
+                if (source.isPlaying)
+                {
+                    yield return new WaitWhile(() => source.isPlaying);
+                }
+
+                if (!source.isPlaying)
+                {
+                    source.PlayOneShot(clip);
+                }
+            }
+            else if (!bossSource.isPlaying)
+            {
+                source.PlayOneShot(clip);
+            }
         }
     }
 }

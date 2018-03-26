@@ -51,16 +51,16 @@ namespace Hive.Armada.Menus
 
         private void Awake()
         {
-            StartCoroutine(playStartingSounds());
+            //StartCoroutine(playStartingSounds());
         }
 
         private IEnumerator playStartingSounds()
         {
             source.PlayOneShot(startClips[0]);
             yield return new WaitWhile(() => source.isPlaying);
-            source.PlayOneShot(startClips[0]);
+            source.PlayOneShot(startClips[1]);
             yield return new WaitWhile(() => source.isPlaying);
-            source.PlayOneShot(startClips[0]);
+            source.PlayOneShot(startClips[2]);
         }
 
         /// <summary>

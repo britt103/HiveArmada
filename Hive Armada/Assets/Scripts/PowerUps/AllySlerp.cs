@@ -105,13 +105,17 @@ namespace Hive.Armada.PowerUps
 
         public AudioSource source;
 
+        AudioSource bossSource;
+
         public AudioClip[] clips;
 
         // Instantiate FX and set ship at distance from player ship.
         private void Awake()
         {
             reference = FindObjectOfType<ReferenceManager>();
-            source.PlayOneShot(clips[1]);
+            bossSource = GameObject.Find("Boss Audio Source").GetComponent<AudioSource>();
+            StartCoroutine(pauseForBoss());
+
             if (reference != null)
             {
                 rocketTypeId = reference.objectPoolManager.GetTypeIdentifier(rocketPrefab);
@@ -269,6 +273,28 @@ namespace Hive.Armada.PowerUps
             yield return new WaitForSeconds(1.0f / firerate);
 
             canFire = true;
+        }
+
+        IEnumerator pauseForBoss()
+        {
+            if (bossSource.isPlaying)
+            {
+                yield return new WaitWhile(() => bossSource.isPlaying);
+
+                if (source.isPlaying)
+                {
+                    yield return new WaitWhile(() => source.isPlaying);
+                }
+
+                if (!source.isPlaying)
+                {
+                    source.PlayOneShot(clips[1]);
+                }
+            }
+            else if (!bossSource.isPlaying)
+            {
+                source.PlayOneShot(clips[1]);
+            }
         }
     }
 }

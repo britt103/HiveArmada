@@ -101,6 +101,13 @@ namespace Hive.Armada.Enemies
         public float movingSpeed;
 
         /// <summary>
+        /// Audio source to play boss sounds from
+        /// </summary>
+        AudioSource source;
+
+        public AudioClip clip;
+
+        /// <summary>
         /// On start, select enemy behavior based on value fireMode
         /// </summary>
         private void Start()
@@ -108,6 +115,8 @@ namespace Hive.Armada.Enemies
             //Reset();
             //ResetAttackPattern();
             //StartCoroutine(SelectBehavior(0));
+            source = GameObject.Find("Boss Audio Source").GetComponent<AudioSource>();
+            source.PlayOneShot(clip);
         }
 
         /// <summary>

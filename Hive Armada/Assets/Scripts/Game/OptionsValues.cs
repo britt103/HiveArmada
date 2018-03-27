@@ -10,7 +10,8 @@
 // implements game adjustments using values for sounds, display, etc. Values
 // are stored as variables and as PlayerPrefs. Note: PlayerPrefs do not 
 // support booleans, so conversion is used between boolean and stored int
-// values (0 = false, 1 = true).
+// values (0 = false, 1 = true). In addition, audio sources require the
+// VolumeAdjustment component in order to update volume level.
 //
 //=============================================================================
 
@@ -56,6 +57,16 @@ namespace Hive.Armada.Game
         /// </summary>
         public float defaultFXVolume;
 
+        /// <summary>
+        /// Dialogue volume level.
+        /// </summary>
+        public float dialogueVolume;
+
+        /// <summary>
+        /// Default dialogue volume level.
+        /// </summary>
+        public float defaultDialogueVolume;
+
         [Header("Display")]
         /// <summary>
         /// State of whether bloom is on.
@@ -67,21 +78,52 @@ namespace Hive.Armada.Game
         /// </summary>
         public bool defaultBloom;
 
-        [Header("References")]
         /// <summary>
-        /// Reference to audio source for scene music.
+        /// State of whether color blind mode is on.
         /// </summary>
-        public AudioSource musicAudioSource;
+        public bool colorBlindMode;
 
         /// <summary>
-        /// References to audio sources for scene fx.
+        /// Default color blind mode.
         /// </summary>
-        public AudioSource[] fxAudioSources;
+        public bool defaultColorBlindMode;
+
+        [Header("Gameplay")]
+        /// <summary>
+        /// State of whether aim assist is on.
+        /// </summary>
+        public bool aimAssist;
+
+        /// <summary>
+        /// Default aimAssist.
+        /// </summary>
+        public bool defaultAimAssist;
+
+        /// <summary>
+        /// State of whether score display is on.
+        /// </summary>
+        public bool scoreDisplay;
+
+        /// <summary>
+        /// Default score.
+        /// </summary>
+        public bool defaultScoreDisplay;
+
+        [Header("References")]
+        /// <summary>
+        /// Reference to ReferenceManager.
+        /// </summary>
+        private ReferenceManager reference;
 
         /// <summary>
         /// Reference to player camera gameObject.
         /// </summary>
         public GameObject cameraGO;
+
+        /// <summary>
+        /// Reference to ShipLoadout.
+        /// </summary>
+        private GameSettings gameSettings;
 
         /// <summary>
         /// Find references. Get PlayerPrefs value and set game settings.
@@ -90,10 +132,12 @@ namespace Hive.Armada.Game
         {
             GetPlayerPrefs();
             SetGameValues();
+            reference = FindObjectOfType<ReferenceManager>();
+            gameSettings = reference.gameSettings;
         }
 
         /// <summary>
-        /// Change and store value for masterVolume.
+        /// Store value for masterVolume.
         /// </summary>
         /// <param name="masterVolume">New masterVolume value.</param>
         public void SetMasterVolume(float masterVolume)
@@ -103,28 +147,41 @@ namespace Hive.Armada.Game
         }
 
         /// <summary>
-        /// Change and store value for musicVolume.
+        /// Store value for musicVolume.
         /// </summary>
         /// <param name="musicVolume">New masterVolume value.</param>
         public void SetMusicVolume(float musicVolume)
         {
             this.musicVolume = musicVolume;
-            if (musicAudioSource != null)
+            foreach (VolumeAdjustment volumeAdjustment in FindObjectsOfType<VolumeAdjustment>())
             {
-                musicAudioSource.volume = musicVolume;
+                volumeAdjustment.UpdateVolume();
             }
         }
 
         /// <summary>
-        /// Change and store value for FXVolume.
+        /// Store value for FXVolume.
         /// </summary>
         /// <param name="fxVolume">New fxVolume value.</param>
         public void SetFXVolume(float fxVolume)
         {
             this.fxVolume = fxVolume;
-            foreach (AudioSource fxAudioSource in fxAudioSources)
+            foreach (VolumeAdjustment volumeAdjustment in FindObjectsOfType<VolumeAdjustment>())
             {
-                fxAudioSource.volume = fxVolume;
+                volumeAdjustment.UpdateVolume();
+            }
+        }
+
+        /// <summary>
+        /// Store value for dialogueVolume.
+        /// </summary>
+        /// <param name="dialogueVolume">New dialogue value.</param>
+        public void SetDialogueVolume(float dialogueVolume)
+        {
+            this.dialogueVolume = dialogueVolume;
+            foreach (VolumeAdjustment volumeAdjustment in FindObjectsOfType<VolumeAdjustment>())
+            {
+                volumeAdjustment.UpdateVolume();
             }
         }
 
@@ -139,6 +196,37 @@ namespace Hive.Armada.Game
         }
 
         /// <summary>
+        /// Change and store value for colorBlindMode.
+        /// </summary>
+        /// <param name="colorBlindMode">New colorBlindMode value.</param>
+        public void SetColorBlindMode(bool colorBlindMode)
+        {
+            this.colorBlindMode = colorBlindMode;
+            gameSettings.colorBlindMode = colorBlindMode;
+            //TODO
+        }
+
+        /// <summary>
+        /// Change and store value for aim assist.
+        /// </summary>
+        /// <param name="aimAssist">New aim assist value.</param>
+        public void SetAimAssist(bool aimAssist)
+        {
+            this.aimAssist = aimAssist;
+            gameSettings.aimAssist = aimAssist;
+        }
+
+        /// <summary>
+        /// Change and store value for scoreDisplay.
+        /// </summary>
+        /// <param name="scoreDisplay">New scoreDisplay value.</param>
+        public void SetScoreDisplay(bool scoreDisplay)
+        {
+            this.scoreDisplay = scoreDisplay;
+            gameSettings.scoreDisplay = scoreDisplay;
+        }
+
+        /// <summary>
         /// Set player prefs for sound values.
         /// </summary>
         public void SetSoundPlayerPrefs()
@@ -146,6 +234,7 @@ namespace Hive.Armada.Game
             PlayerPrefs.SetFloat("masterVolume", masterVolume);
             PlayerPrefs.SetFloat("musicVolume", musicVolume);
             PlayerPrefs.SetFloat("fxVolume", fxVolume);
+            PlayerPrefs.SetFloat("dialogueVolume", dialogueVolume);
         }
 
         /// <summary>
@@ -154,6 +243,16 @@ namespace Hive.Armada.Game
         public void SetDisplayPlayerPrefs()
         {
             PlayerPrefs.SetInt("bloom", Convert.ToInt32(bloom));
+            PlayerPrefs.SetInt("colorBlindMode", Convert.ToInt32(colorBlindMode));
+        }
+
+        /// <summary>
+        /// Set player prefs for gameplay values.
+        /// </summary>
+        public void SetGameplayPlayerPrefs()
+        {
+            PlayerPrefs.SetInt("aimAssist", Convert.ToInt32(aimAssist));
+            PlayerPrefs.SetInt("scoreDisplay", Convert.ToInt32(scoreDisplay));
         }
 
         /// <summary>
@@ -163,6 +262,7 @@ namespace Hive.Armada.Game
         {
             SetSoundPlayerPrefs();
             SetDisplayPlayerPrefs();
+            SetGameplayPlayerPrefs();
         }
 
         /// <summary>
@@ -174,9 +274,19 @@ namespace Hive.Armada.Game
             masterVolume = PlayerPrefs.GetFloat("masterVolume", defaultMasterVolume);
             musicVolume = PlayerPrefs.GetFloat("musicVolume", defaultMusicVolume);
             fxVolume = PlayerPrefs.GetFloat("fxVolume", defaultFXVolume);
+            dialogueVolume = PlayerPrefs.GetFloat("dialogueVolume", defaultDialogueVolume);
 
             //Display
-            bloom = Convert.ToBoolean(PlayerPrefs.GetInt("bloom", Convert.ToInt32(defaultBloom)));
+            bloom = Convert.ToBoolean(PlayerPrefs.GetInt("bloom", 
+                Convert.ToInt32(defaultBloom)));
+            colorBlindMode = Convert.ToBoolean(PlayerPrefs.GetInt("colorBlindMode", 
+                Convert.ToInt32(defaultColorBlindMode)));
+
+            //Gameplay
+            aimAssist = Convert.ToBoolean(PlayerPrefs.GetInt("aimAssist", 
+                Convert.ToInt32(defaultAimAssist)));
+            scoreDisplay = Convert.ToBoolean(PlayerPrefs.GetInt("scoreDisplay", 
+                Convert.ToInt32(defaultScoreDisplay)));
         }
 
         /// <summary>
@@ -188,9 +298,15 @@ namespace Hive.Armada.Game
             SetMasterVolume(masterVolume);
             SetMusicVolume(musicVolume);
             SetFXVolume(fxVolume);
+            SetDialogueVolume(dialogueVolume);
 
             //Display
             SetBloom(bloom);
+            SetColorBlindMode(colorBlindMode);
+
+            //Gameplay
+            SetAimAssist(aimAssist);
+            SetScoreDisplay(scoreDisplay);
         }
     }
 }

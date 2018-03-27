@@ -32,6 +32,11 @@ namespace Hive.Armada.Menus
         public GameObject startMenuGO;
 
         /// <summary>
+        /// Reference to Extras Menu.
+        /// </summary>
+        public GameObject extrasMenuGO;
+
+        /// <summary>
         /// Reference to Options Menu.
         /// </summary>
         public GameObject optionsMenuGO;
@@ -76,6 +81,21 @@ namespace Hive.Armada.Menus
                 source.PlayOneShot(clips[0]);
             }
             transitionManager.Transition(startMenuGO);
+        }
+
+        /// <summary>
+        /// Extras button pressed. Navigate to Extras Menu.
+        /// </summary>
+        public void PressExtras()
+        {
+            source.PlayOneShot(clips[0]);
+            //startCounter += 1;
+            //if (startCounter > 1)
+            //{
+            //    source.Stop();
+            //    source.PlayOneShot(clips[0]);
+            //}
+            transitionManager.Transition(extrasMenuGO);
         }
 
         /// <summary>

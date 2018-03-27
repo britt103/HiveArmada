@@ -45,14 +45,9 @@ namespace Hive.Armada.Menus
         public GameObject controlsGO;
 
         /// <summary>
-        /// Reference to Lexicon Menu.
+        /// Reference to Gameplay Menu.
         /// </summary>
-        public GameObject lexiconGO;
-
-        /// <summary>
-        /// Reference to player transform for Lexicon Menu.
-        /// </summary>
-        public Transform lexiconTransform;
+        public GameObject gameplayGO;
 
         /// <summary>
         /// Reference to Intro Menu.
@@ -84,7 +79,7 @@ namespace Hive.Armada.Menus
 
         private int soundCounter = 0;
 
-        private int lexiconCounter = 0;
+        private int gameplayCounter = 0;
 
         private int introCounter = 0;
 
@@ -140,16 +135,16 @@ namespace Hive.Armada.Menus
         /// <summary>
         /// Lexicon button pressed. Navigate to Lexicon Menu.
         /// </summary>
-        public void PressLexicon()
+        public void PressGameplay()
         {
 			source.PlayOneShot(clips[0]);
-            lexiconCounter += 1;
-            if (lexiconCounter > 1)
+            gameplayCounter += 1;
+            if (gameplayCounter > 1)
             {
                 source.Stop();
                 source.PlayOneShot(clips[0]);
             }
-            FindObjectOfType<RoomTransport>().Transport(lexiconTransform, gameObject, lexiconGO);
+            transitionManager.Transition(gameplayGO);
         }
 
         /// <summary>

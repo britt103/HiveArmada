@@ -11,6 +11,7 @@
 //=============================================================================
 
 using UnityEngine;
+using UnityEngine.UI;
 using Hive.Armada.Game;
 
 namespace Hive.Armada.Menus
@@ -31,19 +32,54 @@ namespace Hive.Armada.Menus
         public GameObject backMenuGO;
 
         /// <summary>
+        /// Reference to continue button game object.
+        /// </summary>
+        public GameObject continueButton;
+
+        /// <summary>
         /// Reference to Loadout Menu.
         /// </summary>
         public GameObject loadoutGO;
 
         /// <summary>
-        /// Reference to Shop Menu.
-        /// </summary>
-        public GameObject shopGO;
-
-        /// <summary>
         /// Reference to player transform for Shop Menu.
         /// </summary>
         public Transform shopTransform;
+
+        /// <summary>
+        /// Cells for game modes.
+        /// </summary>
+        public GameObject[] gameModeCells;
+
+        /// <summary>
+        /// UIHover scripts of game mode buttons.
+        /// </summary>
+        public UIHover[] gameModeUIHoverScripts;
+
+        /// <summary>
+        /// Reference to menu ScrollView game object.
+        /// </summary>
+        public GameObject scrollView;
+
+        /// <summary>
+        /// Height of scroll view content cells.
+        /// </summary>
+        public float scrollViewCellHeight;
+
+        /// <summary>
+        /// Length of vertical space between scroll view content cells.
+        /// </summary>
+        public float scrollViewCellVerticalSpacing;
+
+        /// <summary>
+        /// Reference to scrollview vertical scrollbar.
+        /// </summary>
+        public Scrollbar scrollBar;
+
+        /// <summary>
+        /// Reference to vertical slider.
+        /// </summary>
+        public Slider verticalSlider;
 
         /// <summary>
         /// Reference to Menu Audio source.
@@ -61,6 +97,11 @@ namespace Hive.Armada.Menus
         private GameSettings gameSettings;
 
         /// <summary>
+        /// Currently selected game mode.
+        /// </summary>
+        private int selectedGameMode;
+
+        /// <summary>
         /// Variables used as a check to make sure audio
         /// doesn't play over itself
         /// </summary>
@@ -74,47 +115,87 @@ namespace Hive.Armada.Menus
         private void Awake()
         {
             gameSettings = FindObjectOfType<GameSettings>();
+
+            selectedGameMode = PlayerPrefs.GetInt("defaultGameMode", gameModeCells.Length);
+
+            if (selectedGameMode == gameModeCells.Length)
+            {
+                HideContinueButton();
+            }
+            else
+            {
+                ScrollToCell(selectedGameMode);
+                gameModeUIHoverScripts[selectedGameMode].Select();
+            }
         }
 
         /// <summary>
         /// Called by start button; navigates to Loadout Menu. Set game mode to SoloNormal.
         /// </summary>
-        public void PressSoloNormal()
+        public void PressGameMode(GameSettings.GameMode gameMode)
         {
-			source.PlayOneShot(clips[0]);
-            soloNormalCounter += 1;
-            if(soloNormalCounter > 1)
+            if ((GameSettings.GameMode)selectedGameMode != gameMode)
             {
-                source.Stop();
+                if (selectedGameMode == gameModeCells.Length)
+                {
+                    ShowContinueButton();
+                }
+
                 source.PlayOneShot(clips[0]);
+                soloNormalCounter += 1;
+                if (soloNormalCounter > 1)
+                {
+                    source.Stop();
+                    source.PlayOneShot(clips[0]);
+                }
+
+                gameSettings.selectedGameMode = gameMode;
+                gameModeUIHoverScripts[selectedGameMode].EndSelect();
+                selectedGameMode = (int)gameMode;
+                gameModeUIHoverScripts[selectedGameMode].Select();
             }
-            gameSettings.selectedGameMode = GameSettings.GameMode.SoloNormal;
-            transitionManager.Transition(loadoutGO);
         }
 
         /// <summary>
-        /// Called by start button; navigates to Loadout Menu. Set game mode to SoloInfinite.
+        /// Move scroll view to position of specified button.
         /// </summary>
-        public void PressSoloInfinite()
+        /// <param name="gameModeEnum">Num of cell to move to.</param>
+        private void ScrollToCell(int gameModeNum)
         {
-            source.PlayOneShot(clips[0]);
-            soloInfiniteCounter += 1;
-            if (soloInfiniteCounter > 1)
-            {
-                source.Stop();
-                source.PlayOneShot(clips[0]);
-            }
-            gameSettings.selectedGameMode = GameSettings.GameMode.SoloInfinite;
-            transitionManager.Transition(loadoutGO);
+            float totalHeight = (gameModeCells.Length * scrollViewCellHeight) +
+                (Mathf.Max((gameModeCells.Length - 1), 0) * scrollViewCellVerticalSpacing);
+            float buttonHeight = (gameModeNum * scrollViewCellHeight) +
+                (gameModeNum * scrollViewCellVerticalSpacing);
+            float value = buttonHeight / totalHeight;
+            scrollBar.value = 1 - value;
         }
 
         /// <summary>
-        /// Called by shop button; navigates to Shop Menu.
+        /// Make continue button unusable.
         /// </summary>
-        public void PressShop()
+        private void HideContinueButton()
         {
-            source.PlayOneShot(clips[0]);
-            FindObjectOfType<RoomTransport>().Transport(shopTransform, gameObject, shopGO);
+            continueButton.GetComponent<BoxCollider>().enabled = false;
+            Color tempColor = continueButton.GetComponent<Image>().color;
+            tempColor.a = 0.2f;
+            continueButton.GetComponent<Image>().color = tempColor;
+            tempColor = continueButton.GetComponentInChildren<Text>().color;
+            tempColor.a = 0.2f;
+            continueButton.GetComponentInChildren<Text>().color = tempColor;
+        }
+
+        /// <summary>
+        /// Make continue button usable.
+        /// </summary>
+        private void ShowContinueButton()
+        {
+            continueButton.GetComponent<BoxCollider>().enabled = true;
+            Color tempColor = continueButton.GetComponent<Image>().color;
+            tempColor.a = 1.0f;
+            continueButton.GetComponent<Image>().color = tempColor;
+            tempColor = continueButton.GetComponentInChildren<Text>().color;
+            tempColor.a = 1.0f;
+            continueButton.GetComponentInChildren<Text>().color = tempColor;
         }
 
         /// <summary>
@@ -130,6 +211,17 @@ namespace Hive.Armada.Menus
                 source.PlayOneShot(clips[1]);
             }
             transitionManager.Transition(backMenuGO);
+        }
+
+        /// <summary>
+        /// Continue button pressed; navigates to Loadout Menu.
+        /// </summary>
+        public void PressContinue()
+        {
+            source.PlayOneShot(clips[0]);
+
+            PlayerPrefs.SetInt("defaultGameMode", selectedGameMode);
+            transitionManager.Transition(loadoutGO);
         }
     }
 }

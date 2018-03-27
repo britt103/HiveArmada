@@ -27,6 +27,16 @@ namespace Hive.Armada.Game
         private int iridiumAmount;
 
         /// <summary>
+        /// Amount of iridium gained from spawned shootables.
+        /// </summary>
+        private int shootablesIridiumObtained = 0;
+
+        /// <summary>
+        /// Amount of iridium of spawned shootables.
+        /// </summary>
+        private int shootablesIridiumSpawned = 0;
+
+        /// <summary>
         /// Copy of data from Iridium.txt.
         /// </summary>
         private IridiumData iridiumData;
@@ -76,12 +86,39 @@ namespace Hive.Armada.Game
         }
 
         /// <summary>
-        /// Return amount of iridium gained from wave Iridium shootables.
+        /// Add iridium to shootables spawned amonut.
         /// </summary>
-        /// <returns></returns>
-        public int GetShootablesAmount()
+        /// <param name="amount">Amount of iridium to add.</param>
+        public void AddSpawnedShootablesIridium(int amount)
         {
-            return iridiumAmount - iridiumData.amount;
+            shootablesIridiumSpawned += amount;
+        }
+
+        /// <summary>
+        /// Add iridium to shootables obtained amount.
+        /// </summary>
+        /// <param name="amount">Amount of iridium to add.</param>
+        public void AddObtainedShootablesIridium(int amount)
+        {
+            shootablesIridiumObtained += amount;
+        }
+
+        /// <summary>
+        /// Return amount of iridium of spawned shootables.
+        /// </summary>
+        /// <returns>Integer amount of iridium.</returns>
+        public int GetSpawnedShootablesAmount()
+        {
+            return shootablesIridiumSpawned;
+        }
+
+        /// <summary>
+        /// Return amount of iridium gained from spawned shootables.
+        /// </summary>
+        /// <returns>Integer amount of iridium.</returns>
+        public int GetObtainedShootablesAmount()
+        {
+            return shootablesIridiumObtained;
         }
 
         /// <summary>
@@ -91,6 +128,15 @@ namespace Hive.Armada.Game
         public void AddIridium(int amount)
         {
             iridiumAmount += amount;
+        }
+
+        /// <summary>
+        /// Set values of shootables amounts to 0.
+        /// </summary>
+        public void ResetShootablesAmounts()
+        {
+            shootablesIridiumSpawned = 0;
+            shootablesIridiumObtained = 0;
         }
 
         /// <summary>
@@ -144,6 +190,17 @@ namespace Hive.Armada.Game
                 }
             }
             return false;
+        }
+
+        /// <summary>
+        /// Check if weapon is part of iridium system (used for weapons that are not bought
+        /// through shop).
+        /// </summary>
+        /// <param name="weaponName">Name of weapon to check for.</param>
+        /// <returns>True if weapon found, otherwise false.</returns>
+        public bool CheckWeaponIsPresent(string weaponName)
+        {
+            return iridiumData.weaponNames.Contains(weaponName);
         }
 
         /// <summary>

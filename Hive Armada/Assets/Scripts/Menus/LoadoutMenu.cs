@@ -11,12 +11,9 @@
 //
 //=============================================================================
 
-using System;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using Hive.Armada.Game;
-using Hive.Armada.Player;
 
 namespace Hive.Armada.Menus
 {
@@ -36,14 +33,29 @@ namespace Hive.Armada.Menus
         public GameObject backMenuGO;
 
         /// <summary>
-        /// Reference to Menu Audio source.
+        /// Reference to play button game object.
         /// </summary>
-		public AudioSource source;
+        public GameObject playButton;
 
         /// <summary>
-        /// Clips to use with source.
+        /// Reference to menu ScrollView game object.
         /// </summary>
-    	public AudioClip[] clips;
+        public GameObject scrollView;
+
+        /// <summary>
+        /// Height of scroll view content cells.
+        /// </summary>
+        public float scrollViewCellHeight;
+
+        /// <summary>
+        /// Length of vertical space between scroll view content cells.
+        /// </summary>
+        public float scrollViewCellVerticalSpacing;
+
+        /// <summary>
+        /// Reference to scrollview vertical scrollbar.
+        /// </summary>
+        public Scrollbar scrollBar;
 
         /// <summary>
         /// Names of weapons.
@@ -56,14 +68,14 @@ namespace Hive.Armada.Menus
         public int[] weaponEnums;
 
         /// <summary>
-        /// Buttons for weapons.
+        /// Cells for weapons.
         /// </summary>
-        public GameObject[] weaponButtons;
+        public GameObject[] weaponCells;
 
         /// <summary>
-        /// Enum of initially selected weapon. Starts as first weapon.
+        /// UIHover scripts of weapon buttons.
         /// </summary>
-        public int initialWeapon = 0;
+        public UIHover[] weaponUIHoverScripts;
 
         /// <summary>
         /// Currently selected weapon.
@@ -86,6 +98,16 @@ namespace Hive.Armada.Menus
         private IridiumSystem iridiumSystem;
 
         /// <summary>
+        /// Reference to Menu Audio source.
+        /// </summary>
+        public AudioSource source;
+
+        /// <summary>
+        /// Clips to use with source.
+        /// </summary>
+    	public AudioClip[] clips;
+
+        /// <summary>
         /// Variables used as a check to make sure audio
         /// doesn't play over itself
         /// </summary>
@@ -105,20 +127,36 @@ namespace Hive.Armada.Menus
             gameSettings = reference.gameSettings;
             iridiumSystem = FindObjectOfType<IridiumSystem>();
 
-            selectedWeapon = initialWeapon;
-
             if (!iridiumSystem.CheckAnyWeaponsUnlocked())
             {
+                selectedWeapon = (int)GameSettings.Weapon.Laser;
                 PressPlay();
             }
             else
             {
-                for (int i = 0; i < weaponButtons.Length; i++)
+                for (int i = 0; i < weaponCells.Length; i++)
                 {
-                    weaponButtons[i].SetActive(iridiumSystem.CheckWeaponUnlocked(weaponNames[i]));
+                    if (iridiumSystem.CheckWeaponIsPresent(weaponNames[i]))
+                    {
+                        weaponCells[i].SetActive(iridiumSystem.CheckWeaponUnlocked(weaponNames[i]));
+                    }
+                    else
+                    {
+                        weaponCells[i].SetActive(true);
+                    }
                 }
 
-                PressWeapon(initialWeapon);
+                selectedWeapon = PlayerPrefs.GetInt("defaultWeapon", weaponCells.Length);
+
+                if (selectedWeapon == weaponCells.Length)
+                {
+                    HidePlayButton();
+                }
+                else
+                {
+                    ScrollToCell(selectedWeapon);
+                    weaponUIHoverScripts[selectedWeapon].Select();
+                }
             }
         }
 
@@ -136,10 +174,10 @@ namespace Hive.Armada.Menus
                 //    source.Stop();
                 //    source.PlayOneShot(clips[0]);
                 //}
-                weaponButtons[selectedWeapon].GetComponent<UIHover>().EndSelect();
+                weaponUIHoverScripts[selectedWeapon].EndSelect();
                 selectedWeapon = weaponNum;
             }
-            weaponButtons[selectedWeapon].GetComponent<UIHover>().Select();
+            weaponUIHoverScripts[selectedWeapon].Select();
         }
 
         /// <summary>
@@ -158,11 +196,38 @@ namespace Hive.Armada.Menus
         }
 
         /// <summary>
+        /// Move scroll view to position of specified cell.
+        /// </summary>
+        /// <param name="weaponNum">Number of cell to move to.</param>
+        private void ScrollToCell(int weaponNum)
+        {
+            float totalHeight = (weaponCells.Length * scrollViewCellHeight) +
+                (Mathf.Max((weaponCells.Length - 1), 0) * scrollViewCellVerticalSpacing);
+            float buttonHeight = (weaponNum * scrollViewCellHeight) +
+                (weaponNum * scrollViewCellVerticalSpacing);
+            float value = buttonHeight / totalHeight;
+            scrollBar.value = 1 - value;
+        }
+
+        /// <summary>
+        /// Make continue button unusable.
+        /// </summary>
+        private void HidePlayButton()
+        {
+            playButton.GetComponent<BoxCollider>().enabled = false;
+            Color tempColor = playButton.GetComponent<Image>().color;
+            tempColor.a = 0.2f;
+            playButton.GetComponent<Image>().color = tempColor;
+            tempColor = playButton.GetComponentInChildren<Text>().color;
+            tempColor.a = 0.2f;
+            playButton.GetComponentInChildren<Text>().color = tempColor;
+        }
+
+        /// <summary>
         /// Play button pressed. Trigger scene transition to Wave Room.
         /// </summary>
         public void PressPlay()
         {
-            gameSettings.weapon = selectedWeapon;
             source.PlayOneShot(clips[0]);
             //StartCoroutine(pressPlaySound());
             //playCount += 1;
@@ -171,6 +236,8 @@ namespace Hive.Armada.Menus
             //    source.Stop();
             //    source.PlayOneShot(clips[0]);
             //}
+            gameSettings.selectedWeapon = (GameSettings.Weapon)selectedWeapon;
+            PlayerPrefs.SetInt("defaultWeapon", selectedWeapon);
             reference.sceneTransitionManager.TransitionOut("Wave Room");
             gameObject.SetActive(false);
         }

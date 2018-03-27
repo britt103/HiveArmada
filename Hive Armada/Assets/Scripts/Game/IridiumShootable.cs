@@ -63,6 +63,7 @@ namespace Hive.Armada.Game
             base.Awake();
             reference = FindObjectOfType<ReferenceManager>();
             iridiumSystem = FindObjectOfType<IridiumSystem>();
+            iridiumSystem.AddSpawnedShootablesIridium(iridiumValue);
             transform.LookAt(reference.player.transform);
         }
 
@@ -74,7 +75,7 @@ namespace Hive.Armada.Game
             health--;
             if (health <= 0)
             {
-                iridiumSystem.AddIridium(iridiumValue);
+                iridiumSystem.AddObtainedShootablesIridium(iridiumValue);
                 base.Hit();
             }
         }

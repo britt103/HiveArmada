@@ -72,11 +72,6 @@ namespace Hive.Armada.Menus
         public GameObject menuTitle;
 
         /// <summary>
-        /// Reference to description text.
-        /// </summary>
-        public GameObject menuDescription;
-
-        /// <summary>
         /// Reference to category buttons/tabs.
         /// </summary>
         public GameObject[] categoryButtons;
@@ -426,7 +421,6 @@ namespace Hive.Armada.Menus
         {
             source.PlayOneShot(clips[0]);
 
-            menuDescription.SetActive(false);
             menuTitle.GetComponent<Text>().text = category;
             scrollView.SetActive(true);
             SetCurrCategory(category);
@@ -440,7 +434,6 @@ namespace Hive.Armada.Menus
         /// </summary>
         private void CloseCategory()
         {
-            menuDescription.SetActive(true);
             menuTitle.GetComponent<Text>().text = "Shop";
             scrollView.SetActive(false);
             categoryOpen = false;

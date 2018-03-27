@@ -64,11 +64,6 @@ namespace Hive.Armada.Menus
         public GameObject menuTitle;
 
         /// <summary>
-        /// Reference to description text.
-        /// </summary>
-        public GameObject menuDescription;
-
-        /// <summary>
         /// Reference to menu ScrollView game object.
         /// </summary>
         public GameObject scrollView;
@@ -514,7 +509,6 @@ namespace Hive.Armada.Menus
                 source.PlayOneShot(clips[0]);
             }
 
-            menuDescription.SetActive(false);
             menuTitle.GetComponent<Text>().text = category;
             scrollView.SetActive(true);
             SetCurrCategory(category);
@@ -529,7 +523,6 @@ namespace Hive.Armada.Menus
         /// </summary>
         private void CloseCategory()
         {
-            menuDescription.SetActive(true);
             menuTitle.GetComponent<Text>().text = "Lexicon";
             scrollView.SetActive(false);
             categoryOpen = false;

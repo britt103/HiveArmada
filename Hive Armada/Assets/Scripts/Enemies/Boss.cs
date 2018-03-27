@@ -100,6 +100,8 @@ namespace Hive.Armada.Enemies
 
         public float movingSpeed;
 
+        private int wave;
+
         /// <summary>
         /// On start, select enemy behavior based on value fireMode
         /// </summary>
@@ -143,10 +145,11 @@ namespace Hive.Armada.Enemies
         /// <summary>
         /// Begins boss firing logic.
         /// </summary>
-        public void StartBoss()
+        public void StartBoss(int currentwave)
         {
             ResetAttackPattern();
-            StartCoroutine(SelectBehavior(0));
+            wave = currentwave + 1;
+            StartCoroutine(StartBehavior(wave));
             Hover();
         }
 
@@ -157,7 +160,7 @@ namespace Hive.Armada.Enemies
         {
             PathingComplete = false;
             ResetAttackPattern();
-            StartCoroutine(SelectBehavior(3));
+            StopAllCoroutines();
         }
 
         /// <summary>
@@ -212,6 +215,37 @@ namespace Hive.Armada.Enemies
             {
                 pivot.Rotate(0, 0, 1.5f);
                 yield return new WaitForSeconds(0.01f);
+            }
+        }
+
+        public IEnumerator StartBehavior(int wave)
+        {
+            switch (wave)
+            {
+                case 1:
+                    yield return new WaitForSeconds(0.1f);
+                    StartCoroutine(SelectBehavior(0));
+                    break;
+
+                case 2:
+                    yield return new WaitForSeconds(0.1f);
+                    StartCoroutine(SelectBehavior(3));
+                    break;
+
+                case 3:
+                    yield return new WaitForSeconds(0.1f);
+                    StartCoroutine(SelectBehavior(4));
+                    break;
+
+                case 4:
+                    yield return new WaitForSeconds(0.1f);
+                    StartCoroutine(SelectBehavior(2));
+                    break;
+
+                case 5:
+                    yield return new WaitForSeconds(0.1f);
+                    StartCoroutine(SelectBehavior(1));
+                    break;
             }
         }
 

@@ -12,8 +12,9 @@
 //
 //=============================================================================
 
-using Hive.Armada.Game;
+using System.Collections;
 using UnityEngine;
+using Hive.Armada.Game;
 using Hive.Armada.Player;
 
 namespace Hive.Armada.Enemies
@@ -42,6 +43,8 @@ namespace Hive.Armada.Enemies
         private Color originalAlbedo;
 
         private Color originalEmission;
+
+        private float minAlpha;
 
         /// <summary>
         /// Initializes the reference to the Reference Manager
@@ -85,6 +88,16 @@ namespace Hive.Armada.Enemies
         {
             material.SetColor("_Color", albedoColor);
             material.SetColor("_EmissionColor", emissionColor);
+        }
+
+        public void FadeOpacity(bool fadeOut)
+        {
+
+        }
+
+        private IEnumerator Fade(bool fadeOut)
+        {
+            yield return null;
         }
 
         /// <summary>

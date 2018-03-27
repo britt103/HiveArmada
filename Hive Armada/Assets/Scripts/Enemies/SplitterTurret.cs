@@ -94,6 +94,10 @@ namespace Hive.Armada.Enemies
         /// </summary>
         private bool canRotate;
 
+        public Color projectileAlbedoColor;
+
+        public Color projectileEmissionColor;
+
         /// <summary>
         /// Variables for hovering
         /// </summary>
@@ -178,7 +182,8 @@ namespace Hive.Armada.Enemies
                     projectile.GetComponent<Transform>().Rotate(Random.Range(-spread, spread),
                                                                 Random.Range(-spread, spread),
                                                                 Random.Range(-spread, spread));
-
+                    projectile.GetComponent<Projectile>()
+                              .SetColors(projectileAlbedoColor, projectileEmissionColor);
                     projectile.GetComponent<Rigidbody>().velocity =
                         projectile.transform.forward * projectileSpeed;
 

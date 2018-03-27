@@ -82,7 +82,6 @@ namespace Hive.Armada.Game
         void Awake()
         {
             reference = GameObject.Find("Reference Manager").GetComponent<ReferenceManager>();
-            player = reference.playerShip;
             waveManager = reference.waveManager;
             bossSpawn = GameObject.Find("Boss Spawn");
             spawnPosition = bossSpawn.transform.position;
@@ -97,7 +96,8 @@ namespace Hive.Armada.Game
         /// </summary>
         /// <param name="wave"> This wave's index </param>
         public void Run(int wave)
-        {           
+        {
+            player = reference.playerShip;
             currentWave = wave;
             StartCoroutine(RunBoss());            
         }

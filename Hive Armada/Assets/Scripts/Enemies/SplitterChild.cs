@@ -45,20 +45,6 @@ namespace Hive.Armada.Enemies
         private float projectileSpeed;
 
         /// <summary>
-        /// Structure holding bullet prefabs that
-        /// the enemy will shoot
-        /// </summary>
-        //public bool[] projectileArray;
-        /// <summary>
-        /// Projectile that the turret shoots out
-        /// </summary>
-        //public GameObject fireProjectile;
-        /// <summary>
-        /// Value that determines what projectile the enemy will shoot
-        /// as well as its parameters
-        /// </summary>
-        //private int fireMode;
-        /// <summary>
         /// Number of bursts the turret will shoot before going on cooldown
         /// Leave at 1 for regular fire
         /// </summary>

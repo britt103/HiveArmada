@@ -30,9 +30,18 @@ namespace Hive.Armada.Enemies
         private ReferenceManager reference;
 
         /// <summary>
+        /// The renderer for the projectile.
+        /// </summary>
+        private Material material;
+
+        /// <summary>
         /// The amount of damage the projectile takes from the player's health 
         /// </summary>
         private int damage;
+
+        private Color originalAlbedo;
+
+        private Color originalEmission;
 
         /// <summary>
         /// Initializes the reference to the Reference Manager
@@ -40,6 +49,9 @@ namespace Hive.Armada.Enemies
         private void Awake()
         {
             reference = GameObject.Find("Reference Manager").GetComponent<ReferenceManager>();
+            material = GetComponent<Renderer>().material;
+            originalAlbedo = material.GetColor("_Color");
+            originalEmission = material.GetColor("_EmissionColor");
         }
 
         /// <summary>
@@ -65,10 +77,22 @@ namespace Hive.Armada.Enemies
         }
 
         /// <summary>
+        /// Sets the albedo and emission color for the projectile.
+        /// </summary>
+        /// <param name="albedoColor"> The albedo color </param>
+        /// <param name="emissionColor"> The emission color </param>
+        public void SetColors(Color albedoColor, Color emissionColor)
+        {
+            material.SetColor("_Color", albedoColor);
+            material.SetColor("_EmissionColor", emissionColor);
+        }
+
+        /// <summary>
         /// Initializes the damage for the projectile.
         /// </summary>
         protected override void Reset()
         {
+            SetColors(originalAlbedo, originalEmission);
             damage = reference.enemyAttributes.projectileDamage;
         }
     }

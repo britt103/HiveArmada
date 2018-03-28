@@ -11,6 +11,7 @@
 //=============================================================================
 
 using Hive.Armada.Enemies;
+using Hive.Armada.Player;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -71,6 +72,11 @@ namespace Hive.Armada.Game
         private Vector3 spawnPosition;
 
         /// <summary>
+        /// the player's ship.
+        /// </summary>
+        private GameObject player;
+
+        /// <summary>
         /// Sets up logic for spawning the boss.
         /// </summary>
         void Awake()
@@ -90,7 +96,8 @@ namespace Hive.Armada.Game
         /// </summary>
         /// <param name="wave"> This wave's index </param>
         public void Run(int wave)
-        {           
+        {
+            player = reference.playerShip;
             currentWave = wave;
             StartCoroutine(RunBoss());            
         }
@@ -160,7 +167,7 @@ namespace Hive.Armada.Game
             bossScript.BossReset();
             Debug.Log("Boss wave " + currentWave+1 + "Finished");
             boss.SetActive(false);
-            bossScript.Deactivate();
+            player.GetComponent<PlayerHealth>().HealFull();
             reference.waveManager.BossWaveComplete(currentWave);
         }
     }

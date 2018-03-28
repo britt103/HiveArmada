@@ -239,7 +239,7 @@ namespace Hive.Armada.Enemies
                     spread = 0;
                     //canRotate = false;
                     projectileArray[0] = true;
-                    projectileArray[1] = true;
+                    projectileArray[1] = false;
                     projectileArray[2] = false;
                     projectileArray[3] = false;
                     projectileArray[4] = true;

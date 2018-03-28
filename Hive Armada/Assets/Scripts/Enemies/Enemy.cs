@@ -45,7 +45,19 @@ namespace Hive.Armada.Enemies
         /// <summary>
         /// Attack pattern four.
         /// </summary>
-        Four
+        Four,
+
+        Five,
+
+        Six,
+
+        Seven,
+
+        Eight,
+
+        Nine,
+
+        Ten
     }
 
     /// <inheritdoc />

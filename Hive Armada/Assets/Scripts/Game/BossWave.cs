@@ -121,7 +121,7 @@ namespace Hive.Armada.Game
             }
             bossScript.canActivate = true;
             bossScript.Activate();
-            bossScript.StartBoss();
+            bossScript.StartBoss(currentWave);
             StartCoroutine(WaitForWaveEnd());
             Debug.Log("Boss wave " + currentWave+1);
         }

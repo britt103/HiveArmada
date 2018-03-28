@@ -312,7 +312,8 @@ namespace Hive.Armada.Game
             {
                 if (enemiesRemaining >= maxEnemies && spawns < maxSpawns)
                 {
-                    endTime += 0.1f;
+                    yield return null;
+                    endTime += 0.1f + Time.deltaTime;
                     continue;
                 }
 

@@ -12,17 +12,20 @@ using UnityEngine;
 namespace MirzaBeig
 {
 
-    namespace ParticleSystems
+    namespace Demos
     {
 
-        namespace Demos
+        namespace TheLastParticle
         {
 
             // =================================	
             // Classes.
             // =================================
-            
-            public class FollowMouse : MonoBehaviour
+
+            //[ExecuteInEditMode]
+            [System.Serializable]
+
+            public static class Damping
             {
                 // =================================	
                 // Nested classes and structures.
@@ -36,49 +39,23 @@ namespace MirzaBeig
 
                 // ...
 
-                public float speed = 8.0f;
-                public float distanceFromCamera = 5.0f;
-
-                public bool ignoreTimeScale;
-
                 // =================================	
                 // Functions.
                 // =================================
 
                 // ...
 
-                void Awake()
+                public static float dampFloat(float from, float to, float speed, float deltaTime)
                 {
-
+                    return Mathf.Lerp(from, to, 1.0f - Mathf.Exp(-speed * deltaTime));
                 }
-
-                // ...
-
-                void Start()
+                public static Vector3 dampVector3(Vector3 from, Vector3 to, float speed, float deltaTime)
                 {
-
+                    return Vector3.Lerp(from, to, 1.0f - Mathf.Exp(-speed * deltaTime));
                 }
-
-                // ...
-
-                void Update()
+                public static Quaternion dampQuaternion(Quaternion from, Quaternion to, float speed, float deltaTime)
                 {
-                    Vector3 mousePosition = Input.mousePosition;
-                    mousePosition.z = distanceFromCamera;
-
-                    Vector3 mouseScreenToWorld = Camera.main.ScreenToWorldPoint(mousePosition);
-
-                    float deltaTime = !ignoreTimeScale ? Time.deltaTime : Time.unscaledDeltaTime;
-                    Vector3 position = Vector3.Lerp(transform.position, mouseScreenToWorld, 1.0f - Mathf.Exp(-speed * deltaTime));
-
-                    transform.position = position;
-                }
-
-                // ...
-
-                void LateUpdate()
-                {
-
+                    return Quaternion.Slerp(from, to, 1.0f - Mathf.Exp(-speed * deltaTime));
                 }
 
                 // =================================	

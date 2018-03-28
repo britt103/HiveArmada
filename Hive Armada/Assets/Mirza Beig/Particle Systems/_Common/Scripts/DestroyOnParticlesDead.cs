@@ -67,7 +67,6 @@ namespace MirzaBeig
             protected override void Update()
             {
                 base.Update();
-
             }
 
             // ...

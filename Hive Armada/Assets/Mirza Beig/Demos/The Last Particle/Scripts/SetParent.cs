@@ -12,17 +12,20 @@ using UnityEngine;
 namespace MirzaBeig
 {
 
-    namespace ParticleSystems
+    namespace Demos
     {
 
-        namespace Demos
+        namespace TheLastParticle
         {
 
             // =================================	
             // Classes.
             // =================================
-            
-            public class FollowMouse : MonoBehaviour
+
+            //[ExecuteInEditMode]
+            [System.Serializable]
+
+            public class SetParent : MonoBehaviour
             {
                 // =================================	
                 // Nested classes and structures.
@@ -36,49 +39,21 @@ namespace MirzaBeig
 
                 // ...
 
-                public float speed = 8.0f;
-                public float distanceFromCamera = 5.0f;
-
-                public bool ignoreTimeScale;
+                public Transform parent;
+                public GameObject[] objects;
 
                 // =================================	
                 // Functions.
                 // =================================
-
+                
                 // ...
 
-                void Awake()
+                public void run()
                 {
-
-                }
-
-                // ...
-
-                void Start()
-                {
-
-                }
-
-                // ...
-
-                void Update()
-                {
-                    Vector3 mousePosition = Input.mousePosition;
-                    mousePosition.z = distanceFromCamera;
-
-                    Vector3 mouseScreenToWorld = Camera.main.ScreenToWorldPoint(mousePosition);
-
-                    float deltaTime = !ignoreTimeScale ? Time.deltaTime : Time.unscaledDeltaTime;
-                    Vector3 position = Vector3.Lerp(transform.position, mouseScreenToWorld, 1.0f - Mathf.Exp(-speed * deltaTime));
-
-                    transform.position = position;
-                }
-
-                // ...
-
-                void LateUpdate()
-                {
-
+                    for (int i = 0; i < objects.Length; i++)
+                    {
+                        objects[i].transform.SetParent(parent, true);
+                    }
                 }
 
                 // =================================	

@@ -4,6 +4,7 @@
 // =================================
 
 using UnityEngine;
+using UnityEngine.Events;
 
 // =================================	
 // Define namespace.
@@ -12,17 +13,20 @@ using UnityEngine;
 namespace MirzaBeig
 {
 
-    namespace ParticleSystems
+    namespace Demos
     {
 
-        namespace Demos
+        namespace TheLastParticle
         {
 
             // =================================	
             // Classes.
             // =================================
-            
-            public class FollowMouse : MonoBehaviour
+
+            //[ExecuteInEditMode]
+            [System.Serializable]
+
+            public class OnTriggerEvents : MonoBehaviour
             {
                 // =================================	
                 // Nested classes and structures.
@@ -36,10 +40,7 @@ namespace MirzaBeig
 
                 // ...
 
-                public float speed = 8.0f;
-                public float distanceFromCamera = 5.0f;
-
-                public bool ignoreTimeScale;
+                public UnityEvent OnTriggerEvent;
 
                 // =================================	
                 // Functions.
@@ -47,38 +48,12 @@ namespace MirzaBeig
 
                 // ...
 
-                void Awake()
+                void OnTriggerEnter(Collider collider)
                 {
-
-                }
-
-                // ...
-
-                void Start()
-                {
-
-                }
-
-                // ...
-
-                void Update()
-                {
-                    Vector3 mousePosition = Input.mousePosition;
-                    mousePosition.z = distanceFromCamera;
-
-                    Vector3 mouseScreenToWorld = Camera.main.ScreenToWorldPoint(mousePosition);
-
-                    float deltaTime = !ignoreTimeScale ? Time.deltaTime : Time.unscaledDeltaTime;
-                    Vector3 position = Vector3.Lerp(transform.position, mouseScreenToWorld, 1.0f - Mathf.Exp(-speed * deltaTime));
-
-                    transform.position = position;
-                }
-
-                // ...
-
-                void LateUpdate()
-                {
-
+                    if (OnTriggerEvent != null)
+                    {
+                        OnTriggerEvent.Invoke();
+                    }
                 }
 
                 // =================================	

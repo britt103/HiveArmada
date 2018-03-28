@@ -4,6 +4,7 @@
 // =================================
 
 using UnityEngine;
+using MirzaBeig.ParticleSystems;
 
 // =================================	
 // Define namespace.
@@ -12,17 +13,20 @@ using UnityEngine;
 namespace MirzaBeig
 {
 
-    namespace ParticleSystems
+    namespace Demos
     {
 
-        namespace Demos
+        namespace TheLastParticle
         {
 
             // =================================	
             // Classes.
             // =================================
-            
-            public class FollowMouse : MonoBehaviour
+
+            //[ExecuteInEditMode]
+            [System.Serializable]
+
+            public class VolumeAndPitchNoiseOverTime : MonoBehaviour
             {
                 // =================================	
                 // Nested classes and structures.
@@ -36,10 +40,17 @@ namespace MirzaBeig
 
                 // ...
 
-                public float speed = 8.0f;
-                public float distanceFromCamera = 5.0f;
+                AudioSource audioSource;
 
-                public bool ignoreTimeScale;
+                public float baseVolume = 0.5f;
+                public float basePitch = 1.0f;
+
+                // ...
+
+                public MirzaBeig.ParticleSystems.PerlinNoise volumeNoise;
+                public MirzaBeig.ParticleSystems.PerlinNoise pitchNoise;
+
+                public bool unscaledTime;
 
                 // =================================	
                 // Functions.
@@ -47,38 +58,22 @@ namespace MirzaBeig
 
                 // ...
 
-                void Awake()
-                {
-
-                }
-
-                // ...
-
                 void Start()
                 {
+                    audioSource = GetComponent<AudioSource>();
 
+                    volumeNoise.init();
+                    pitchNoise.init();
                 }
 
                 // ...
 
                 void Update()
                 {
-                    Vector3 mousePosition = Input.mousePosition;
-                    mousePosition.z = distanceFromCamera;
+                    float time = !unscaledTime ? Time.time : Time.unscaledTime;
 
-                    Vector3 mouseScreenToWorld = Camera.main.ScreenToWorldPoint(mousePosition);
-
-                    float deltaTime = !ignoreTimeScale ? Time.deltaTime : Time.unscaledDeltaTime;
-                    Vector3 position = Vector3.Lerp(transform.position, mouseScreenToWorld, 1.0f - Mathf.Exp(-speed * deltaTime));
-
-                    transform.position = position;
-                }
-
-                // ...
-
-                void LateUpdate()
-                {
-
+                    audioSource.volume = baseVolume + volumeNoise.GetValue(time);
+                    audioSource.pitch = basePitch + pitchNoise.GetValue(time);
                 }
 
                 // =================================	

@@ -12,17 +12,20 @@ using UnityEngine;
 namespace MirzaBeig
 {
 
-    namespace ParticleSystems
+    namespace Demos
     {
 
-        namespace Demos
+        namespace TheLastParticle
         {
 
             // =================================	
             // Classes.
             // =================================
-            
-            public class FollowMouse : MonoBehaviour
+
+            //[ExecuteInEditMode]
+            [System.Serializable]
+
+            public class AudioPitchAndVolumeByVelocity : MonoBehaviour
             {
                 // =================================	
                 // Nested classes and structures.
@@ -36,10 +39,13 @@ namespace MirzaBeig
 
                 // ...
 
-                public float speed = 8.0f;
-                public float distanceFromCamera = 5.0f;
+                public float maxSpeed = 20.0f;
 
-                public bool ignoreTimeScale;
+                public Vector2 volumeRange = new Vector2(0.5f, 1.0f);
+                public Vector2 pitchRange = new Vector2(0.5f, 2.0f);
+
+                Rigidbody rb;
+                AudioSource audioSource;
 
                 // =================================	
                 // Functions.
@@ -56,29 +62,21 @@ namespace MirzaBeig
 
                 void Start()
                 {
-
-                }
-
-                // ...
-
-                void Update()
-                {
-                    Vector3 mousePosition = Input.mousePosition;
-                    mousePosition.z = distanceFromCamera;
-
-                    Vector3 mouseScreenToWorld = Camera.main.ScreenToWorldPoint(mousePosition);
-
-                    float deltaTime = !ignoreTimeScale ? Time.deltaTime : Time.unscaledDeltaTime;
-                    Vector3 position = Vector3.Lerp(transform.position, mouseScreenToWorld, 1.0f - Mathf.Exp(-speed * deltaTime));
-
-                    transform.position = position;
+                    rb = GetComponentInParent<Rigidbody>();
+                    audioSource = GetComponent<AudioSource>();
                 }
 
                 // ...
 
                 void LateUpdate()
                 {
+                    float speed = rb.velocity.magnitude;
+                    float lerpTimePosition = speed / maxSpeed;
 
+                    lerpTimePosition = Mathf.Clamp01(lerpTimePosition);
+
+                    audioSource.volume = Mathf.Lerp(volumeRange.x, volumeRange.y, lerpTimePosition);
+                    audioSource.pitch = Mathf.Lerp(pitchRange.x, pitchRange.y, lerpTimePosition);
                 }
 
                 // =================================	

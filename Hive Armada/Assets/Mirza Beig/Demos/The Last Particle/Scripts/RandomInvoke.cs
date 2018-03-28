@@ -4,6 +4,7 @@
 // =================================
 
 using UnityEngine;
+using UnityEngine.Events;
 
 // =================================	
 // Define namespace.
@@ -12,17 +13,20 @@ using UnityEngine;
 namespace MirzaBeig
 {
 
-    namespace ParticleSystems
+    namespace Demos
     {
 
-        namespace Demos
+        namespace TheLastParticle
         {
 
             // =================================	
             // Classes.
             // =================================
-            
-            public class FollowMouse : MonoBehaviour
+
+            [ExecuteInEditMode]
+            [System.Serializable]
+
+            public class RandomInvoke : MonoBehaviour
             {
                 // =================================	
                 // Nested classes and structures.
@@ -36,10 +40,10 @@ namespace MirzaBeig
 
                 // ...
 
-                public float speed = 8.0f;
-                public float distanceFromCamera = 5.0f;
+                float timer;
+                float nextInvokeTime;
 
-                public bool ignoreTimeScale;
+                public Vector2 timeRange = new Vector2(2.0f, 5.0f);
 
                 // =================================	
                 // Functions.
@@ -47,36 +51,35 @@ namespace MirzaBeig
 
                 // ...
 
-                void Awake()
+                protected virtual void Start()
                 {
+                    // Even though invoke just calls Invoke, DON'T call the local invoke here!
+                    // Since it will be overriden and made to do more...
 
+                    // NOTE: Invoke doesn't seem to work with inheritance. So I'll just do it manually.
+
+                    nextInvokeTime = Random.Range(timeRange.x, timeRange.y);
                 }
 
                 // ...
 
-                void Start()
+                protected virtual void Update()
                 {
+                    timer += Time.deltaTime;
 
+                    if (timer >= nextInvokeTime)
+                    {
+                        doSomething();
+
+                        timer = 0.0f;
+                        nextInvokeTime = Random.Range(timeRange.x, timeRange.y);
+
+                    }
                 }
 
                 // ...
 
-                void Update()
-                {
-                    Vector3 mousePosition = Input.mousePosition;
-                    mousePosition.z = distanceFromCamera;
-
-                    Vector3 mouseScreenToWorld = Camera.main.ScreenToWorldPoint(mousePosition);
-
-                    float deltaTime = !ignoreTimeScale ? Time.deltaTime : Time.unscaledDeltaTime;
-                    Vector3 position = Vector3.Lerp(transform.position, mouseScreenToWorld, 1.0f - Mathf.Exp(-speed * deltaTime));
-
-                    transform.position = position;
-                }
-
-                // ...
-
-                void LateUpdate()
+                protected virtual void doSomething()
                 {
 
                 }

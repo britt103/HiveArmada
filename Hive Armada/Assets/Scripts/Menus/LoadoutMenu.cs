@@ -129,7 +129,7 @@ namespace Hive.Armada.Menus
                 selectedWeapon = weaponNum;
             }
             weaponButtons[selectedWeapon].GetComponent<UIHover>().Select();
-            source.PlayOneShot(weaponSelectClips[weaponNum]);
+            //source.PlayOneShot(weaponSelectClips[weaponNum]);
         }
 
         /// <summary>

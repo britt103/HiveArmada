@@ -253,7 +253,10 @@ namespace Hive.Armada.Enemies
 
             if (sendFeedback)
             {
-                reference.playerShip.GetComponent<ShipController>().hand.controller.TriggerHapticPulse(2500);
+                if (reference.playerShip != null)
+                {
+                    reference.playerShip.GetComponent<ShipController>().hand.controller.TriggerHapticPulse(2500);
+                }
             }
 
             Health -= damage;

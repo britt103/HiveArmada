@@ -38,11 +38,6 @@ namespace Hive.Armada.Enemies
         public Transform[] shootPoint;
 
         /// <summary>
-        /// Vector3 that holds the player's position
-        /// </summary>
-        //private Vector3 pos;
-
-        /// <summary>
         /// How fast the turret shoots at a given rate
         /// </summary>
         public float fireRate;
@@ -63,21 +58,13 @@ namespace Hive.Armada.Enemies
         public float projectileCount;
 
         /// <summary>
-        /// Value that calculates the next time at which the enemy is able to shoot again
-        /// </summary>
-        //private float fireNext;
-
-        /// <summary>
         /// Whether this enemy can shoot or not. Toggles when firing every 1/fireRate seconds.
         /// </summary>
         private bool canShoot = true;
-        
-        /// <summary>
-        /// Spread values determined by fireCone on each axis
-        /// </summary>
-        //private float randX;
-        //private float randY;
-        //private float randZ;
+
+        public Color projectileAlbedoColor;
+
+        public Color projectileEmissionColor;
 
         /// <summary>
         /// Variables for hovering
@@ -179,6 +166,8 @@ namespace Hive.Armada.Enemies
                     projectile.GetComponent<Transform>().Rotate(Random.Range(-spread, spread),
                                                                 Random.Range(-spread, spread),
                                                                 Random.Range(-spread, spread));
+                    projectile.GetComponent<Projectile>()
+                              .SetColors(projectileAlbedoColor, projectileEmissionColor);
                     projectile.GetComponent<Rigidbody>().velocity =
                         projectile.transform.forward * projectileSpeed;
 

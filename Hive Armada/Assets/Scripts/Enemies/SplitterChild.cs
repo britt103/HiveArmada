@@ -45,20 +45,6 @@ namespace Hive.Armada.Enemies
         private float projectileSpeed;
 
         /// <summary>
-        /// Structure holding bullet prefabs that
-        /// the enemy will shoot
-        /// </summary>
-        //public bool[] projectileArray;
-        /// <summary>
-        /// Projectile that the turret shoots out
-        /// </summary>
-        //public GameObject fireProjectile;
-        /// <summary>
-        /// Value that determines what projectile the enemy will shoot
-        /// as well as its parameters
-        /// </summary>
-        //private int fireMode;
-        /// <summary>
         /// Number of bursts the turret will shoot before going on cooldown
         /// Leave at 1 for regular fire
         /// </summary>
@@ -79,6 +65,10 @@ namespace Hive.Armada.Enemies
         /// Whether or not the projectile being shot rotates.
         /// </summary>
         private bool canRotate;
+
+        public Color projectileAlbedoColor;
+
+        public Color projectileEmissionColor;
 
         /// <summary>
         /// Tries to look at the player and shoot at it when possible. Runs every frame.
@@ -117,7 +107,8 @@ namespace Hive.Armada.Enemies
                 projectile.GetComponent<Transform>().Rotate(Random.Range(-spread, spread),
                                                             Random.Range(-spread, spread),
                                                             Random.Range(-spread, spread));
-
+                projectile.GetComponent<Projectile>()
+                              .SetColors(projectileAlbedoColor, projectileEmissionColor);
                 projectile.GetComponent<Rigidbody>().velocity =
                     projectile.transform.forward * projectileSpeed;
 

@@ -102,6 +102,10 @@ namespace Hive.Armada.Enemies
         /// </summary>
         private bool canRotate;
 
+        public Color projectileAlbedoColor;
+
+        public Color projectileEmissionColor;
+
         /// <summary>
         /// Angle used for moving with Mathf.Sin.
         /// </summary>
@@ -121,7 +125,7 @@ namespace Hive.Armada.Enemies
         private void SetPosition()
         {
             leftFirst = Random.Range(0, 2) == 1;
-            float percent = Random.Range(0.0f, 1.0f);
+            float percent = Random.Range(0.35f, 0.65f);
 
             posA = new Vector3(transform.position.x - (xMax * percent),
                                transform.position.y - (yMax * percent),
@@ -189,10 +193,12 @@ namespace Hive.Armada.Enemies
                 {
                     GameObject projectile = objectPoolManager.Spawn(gameObject, projectileTypeIdentifier, shootPoint[point].position,
                                                        shootPoint[point].rotation);
-                    
-                    projectile.GetComponent<Transform>().Rotate(Random.Range(-spread, spread), 
-                        Random.Range(-spread, spread),
-                        Random.Range(-spread, spread));
+
+                    projectile.GetComponent<Transform>().Rotate(Random.Range(-spread, spread),
+                                                                Random.Range(-spread, spread),
+                                                                Random.Range(-spread, spread));
+                    projectile.GetComponent<Projectile>()
+                              .SetColors(projectileAlbedoColor, projectileEmissionColor);
                     projectile.GetComponent<Rigidbody>().velocity =
                         projectile.transform.forward * projectileSpeed;
 
@@ -233,7 +239,7 @@ namespace Hive.Armada.Enemies
                     spread = 0;
                     //canRotate = false;
                     projectileArray[0] = true;
-                    projectileArray[1] = true;
+                    projectileArray[1] = false;
                     projectileArray[2] = false;
                     projectileArray[3] = false;
                     projectileArray[4] = true;

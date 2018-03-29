@@ -183,6 +183,11 @@ namespace Hive.Armada.Player
         /// <param name="damage"> How much damage to deal </param>
         public void Hit(int damage)
         {
+            if (currentHealth <= 0)
+            {
+                return;
+            }
+
             int podIndex = (maxHealth - currentHealth) / 10;
             healthPods[podIndex].GetComponent<Renderer>().material = podDestroyedMaterial;
 
@@ -211,6 +216,7 @@ namespace Hive.Armada.Player
             {
                 if (shipController != null)
                 {
+                    reference.playerShip = null;
                     lookTarget.transform.parent = null;
                     Instantiate(deathEmitter, transform.position, transform.rotation);
                     reference.statistics.IsNotAlive();
@@ -269,12 +275,12 @@ namespace Hive.Armada.Player
         /// </summary>
         public void HealFull()
         {
-            if ((maxHealth - currentHealth) / 10 == 0)
+            if (currentHealth >= maxHealth)
             {
                 return;
             }
 
-            while ((maxHealth - currentHealth) / 10 != 0)
+            while (currentHealth < maxHealth)
             {
                 currentHealth += 10;
 

@@ -62,6 +62,8 @@ namespace Hive.Armada.Player
 
         private float shieldAlphaStep;
 
+        private const int steps = 30;
+
         /// <summary>
         /// How long until the first shield flash.
         /// </summary>
@@ -90,10 +92,8 @@ namespace Hive.Armada.Player
         private void Awake()
         {
             reference = GameObject.Find("Reference Manager").GetComponent<ReferenceManager>();
-            //shieldRenderer = GetComponent<MeshRenderer>();
             shieldRenderer.material.SetFloat("_Alpha", 0.0f);
             shieldRenderer.enabled = false;
-            //shieldCollider = GetComponent<Collider>();
             shieldCollider.enabled = false;
 
             float totalFlashTime = 0.0f;
@@ -101,18 +101,13 @@ namespace Hive.Armada.Player
 
             for (int i = 0; i < 5; ++i)
             {
-                totalFlashTime += 2.0f * shieldFlashTime;
+                totalFlashTime += shieldFlashTime * 2;
                 shieldFlashTime *= shieldFlashAcceleration;
             }
 
-            shieldAlphaStep = (shieldMaxAlpha - shieldMinAlpha) / 60.0f;
+            shieldAlphaStep = (shieldMaxAlpha - shieldMinAlpha) / steps;
 
             shieldFlashTimer = shieldDuration - totalFlashTime;
-
-            if (shieldFlashTimer >= totalFlashTime)
-            {
-                shieldFlashTimer = shieldDuration / 2.0f;
-            }
 
             if (shieldHitEmitter != null)
             {
@@ -202,24 +197,18 @@ namespace Hive.Armada.Player
             shieldRenderer.enabled = true;
             shieldCollider.enabled = true;
             shieldRenderer.material.SetFloat("_Alpha", shieldMaxAlpha);
-            //shieldRenderer.enabled = true;
 
             yield return new WaitForSeconds(shieldFlashTimer);
 
             float shieldFlashTime = shieldFlashDuration;
-            float finalAlphaStep = shieldMaxAlpha / 60.0f;
-            int steps = 60;
+            float finalAlphaStep = shieldMaxAlpha / steps;
             float stepTime;
             float currentAlpha = shieldMaxAlpha;
-
-            //Debug.Log(shieldFlashTime);
-            //Debug.Log(shieldAlphaStep);
 
             for (int i = 0; i < 5; ++i)
             {
                 stepTime = shieldFlashTime / steps;
 
-                //Debug.Log("stepTime - " + stepTime);
                 for (int s = 0; s < steps; ++s)
                 {
                     currentAlpha = Mathf.Clamp(currentAlpha - shieldAlphaStep, shieldMinAlpha, shieldMaxAlpha);

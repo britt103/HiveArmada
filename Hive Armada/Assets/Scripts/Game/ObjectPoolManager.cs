@@ -78,6 +78,12 @@ namespace Hive.Armada.Game
         }
 
         /// <summary>
+        /// Reference manager that holds all needed references
+        /// (e.g. spawner, game manager, etc.)
+        /// </summary>
+        private ReferenceManager reference;
+
+        /// <summary>
         /// If a pool runs out, should it Instantiate() more objects?
         /// </summary>
         [Tooltip("If a pool runs out, should it Instantiate() more objects?")]
@@ -133,7 +139,7 @@ namespace Hive.Armada.Game
         /// <summary>
         /// Generates all pools
         /// </summary>
-        public void Initialize()
+        public void Initialize(ReferenceManager referenceManager)
         {
             if (isInitialized)
             {
@@ -142,6 +148,7 @@ namespace Hive.Armada.Game
             }
 
             isInitialized = true;
+            reference = referenceManager;
 
             if (objects.Length == 0)
             {
@@ -155,6 +162,7 @@ namespace Hive.Armada.Game
                 //inactivePools = new LinkedList<GameObject>[objects.Length];
                 //activePools = new LinkedList<GameObject>[objects.Length];
                 inactivePools = new Stack<GameObject>[objects.Length];
+
                 //inactivePools[0] = new Stack<GameObject>();
                 activePool = new Hashtable();
 
@@ -177,7 +185,7 @@ namespace Hive.Armada.Game
 
                     for (int n = 0; n < objects[i].amountToPool; ++n)
                     {
-                        AddObject((short)(i /*+ 1*/));
+                        AddObject((short) i);
                     }
                 }
             }
@@ -352,6 +360,7 @@ namespace Hive.Armada.Game
         private GameObject GetObjectToSpawn(short typeIdentifier)
         {
             GameObject spawned = inactivePools[typeIdentifier].Pop();
+
             //Debug.Log();
             Poolable poolable = spawned.GetComponent<Poolable>();
             activePool.Add(poolable.PoolIdentifier, spawned);
@@ -402,7 +411,7 @@ namespace Hive.Armada.Game
             {
                 if (objectType.name.Equals(objects[i].objectPrefab.name))
                 {
-                    return (short)i;
+                    return (short) i;
                 }
             }
 
@@ -457,8 +466,14 @@ namespace Hive.Armada.Game
             {
                 GameObject pooled = Instantiate(objects[typeIdentifier].objectPrefab,
                                                 poolParents[typeIdentifier].transform);
-                pooled.GetComponent<Poolable>().Initialize(typeIdentifier, lastPoolIdentifier++);
+                pooled.GetComponent<Poolable>()
+                      .Initialize(reference, typeIdentifier, lastPoolIdentifier++);
                 inactivePools[typeIdentifier].Push(pooled);
+
+                if (typeIdentifier == reference.enemyAttributes.EnemyProjectileTypeIdentifiers[0])
+                {
+                    reference.enemyAttributes.AddProjectile(pooled);
+                }
             }
             catch (IndexOutOfRangeException e)
             {

@@ -109,8 +109,10 @@ namespace Hive.Armada.Enemies
                                                             Random.Range(-spread, spread));
                 projectile.GetComponent<Projectile>()
                               .SetColors(projectileAlbedoColor, projectileEmissionColor);
-                projectile.GetComponent<Rigidbody>().velocity =
-                    projectile.transform.forward * projectileSpeed;
+                Projectile projectileScript = projectile.GetComponent<Projectile>();
+                projectileScript.Launch(0);
+                //projectile.GetComponent<Rigidbody>().velocity =
+                //    projectile.transform.forward * projectileSpeed;
 
                 if (canRotate)
                 {

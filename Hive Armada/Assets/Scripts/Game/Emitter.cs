@@ -25,12 +25,6 @@ namespace Hive.Armada.Game
     public class Emitter : Poolable
     {
         /// <summary>
-        /// Reference manager that holds all needed references
-        /// (e.g. wave manager, game manager, etc.)
-        /// </summary>
-        private ReferenceManager reference;
-
-        /// <summary>
         /// The particle systems script on this emitter.
         /// </summary>
         private ParticleSystems system;
@@ -53,9 +47,10 @@ namespace Hive.Armada.Game
         /// <summary>
         /// Initialize reference manager reference and system
         /// </summary>
-        private void Awake()
+        protected override void Awake()
         {
-            reference = GameObject.Find("Reference Manager").GetComponent<ReferenceManager>();
+            base.Awake();
+
             system = GetComponent<ParticleSystems>();
 
             if (system != null)

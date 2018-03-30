@@ -25,6 +25,12 @@ namespace Hive.Armada.Game
     public abstract class Poolable : MonoBehaviour
     {
         /// <summary>
+        /// Reference manager that holds all needed references
+        /// (e.g. spawner, game manager, etc.)
+        /// </summary>
+        protected ReferenceManager reference;
+
+        /// <summary>
         /// If this object is currently activated.
         /// Note: This is not the same as gameObject.activeSelf or gameObject.activeInHierarchy
         /// </summary>
@@ -40,12 +46,21 @@ namespace Hive.Armada.Game
         /// </summary>
         public uint PoolIdentifier { get; private set; }
 
+        protected virtual void Awake()
+        {
+            if (reference == null)
+            {
+                reference = FindObjectOfType<ReferenceManager>();
+            }
+        }
+
         /// <summary>
         /// Initializes all attributes to this object's defaults with Reset() and disables it.
         /// </summary>
+        /// <param name="referenceManager"> The reference manager </param>
         /// <param name="typeIdentifier"> The type identifier for this object </param>
         /// <param name="poolIdentifier"> The pool identifier for this object </param>
-        public virtual void Initialize(short typeIdentifier, uint poolIdentifier)
+        public virtual void Initialize(ReferenceManager referenceManager, short typeIdentifier, uint poolIdentifier)
         {
             TypeIdentifier = typeIdentifier;
             PoolIdentifier = poolIdentifier;

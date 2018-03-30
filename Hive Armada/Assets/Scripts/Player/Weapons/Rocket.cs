@@ -59,12 +59,6 @@ namespace Hive.Armada.Player.Weapons
         }
 
         /// <summary>
-        /// Reference manager that holds all needed references
-        /// (e.g. spawner, game manager, etc.)
-        /// </summary>
-        private ReferenceManager reference;
-
-        /// <summary>
         /// Reference to the attributes for all rocket types.
         /// </summary>
         private RocketAttributes rocketAttributes;
@@ -222,9 +216,10 @@ namespace Hive.Armada.Player.Weapons
         /// <summary>
         /// Deactivates the rocket when it is first created.
         /// </summary>
-        private void Awake()
+        protected override void Awake()
         {
-            reference = FindObjectOfType<ReferenceManager>();
+            base.Awake();
+            
             rocketAttributes = reference.rocketAttributes;
             trailRenderer = GetComponent<TrailRenderer>();
         }

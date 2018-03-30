@@ -100,8 +100,6 @@ namespace Hive.Armada.Enemies
 
         public float movingSpeed;
 
-        private int wave;
-
         /// <summary>
         /// Audio source to play boss sounds from
         /// </summary>
@@ -154,10 +152,10 @@ namespace Hive.Armada.Enemies
         /// <summary>
         /// Begins boss firing logic.
         /// </summary>
-        public void StartBoss(int currentwave)
+        public void StartBoss(int currentWave)
         {
             ResetAttackPattern();
-            wave = currentwave + 1;
+            wave = currentWave + 1;
             StartCoroutine(StartBehavior(wave));
             Hover();
         }
@@ -208,8 +206,10 @@ namespace Hive.Armada.Enemies
                     randZ = Random.Range(-spread, spread);
 
                     spawnedProjectile.GetComponent<Transform>().Rotate(randX, randY, randZ);
-                    spawnedProjectile.GetComponent<Rigidbody>().velocity =
-                        spawnedProjectile.transform.forward * projectileSpeed;
+                    Projectile projectileScript = spawnedProjectile.GetComponent<Projectile>();
+                    projectileScript.Launch(0);
+                    //spawnedProjectile.GetComponent<Rigidbody>().velocity =
+                    //    spawnedProjectile.transform.forward * projectileSpeed;
                 }
             }
 
@@ -529,7 +529,7 @@ namespace Hive.Armada.Enemies
             projectileTypeIdentifier = objectPoolManager.GetTypeIdentifier(projectile);
             maxHealth = 1000;
             Health = maxHealth;
-            Debug.Log("Boss Health on boss is" + Health);
+            Debug.Log("Boss Health on boss is " + Health);
             PathingComplete = false;
         }
     }

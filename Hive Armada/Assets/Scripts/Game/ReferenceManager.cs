@@ -145,7 +145,7 @@ namespace Hive.Armada.Game
 
             if (objectPoolManager != null)
             {
-                objectPoolManager.Initialize();
+                objectPoolManager.Initialize(this);
             }
 
             if (gameSettings == null)

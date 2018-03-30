@@ -6,9 +6,7 @@
 // CPSC-340-01 & CPSC-344-01
 // Group Project
 //
-// This class is for the Damage Boost powerup. It has public variables that
-// control how long it lasts for and how much it boosts the player's damage by.
-// The boost behaves as a multiplier to damage done by the player's weapons.
+// 
 //
 //=============================================================================
 
@@ -20,9 +18,9 @@ using Hive.Armada.Player;
 namespace Hive.Armada.PowerUps
 {
     /// <summary>
-    /// Damage boost powerup
+    /// Time warp powerup
     /// </summary>
-    public class DamageBoost : MonoBehaviour
+    public class TimeWarp : MonoBehaviour
     {
         /// <summary>
         /// Reference manager that holds all needed references
@@ -31,14 +29,20 @@ namespace Hive.Armada.PowerUps
         private ReferenceManager reference;
 
         /// <summary>
-        /// Length of the boost, in seconds.
+        /// Length of the warp after the transition, in seconds.
         /// </summary>
-        public float boostLength;
+        public float warpLength;
 
         /// <summary>
-        /// Multiplier of how much to boost damage by.
+        /// How long it takes for the warp to take full effect, in seconds.
         /// </summary>
-        public int boost;
+        public float transitionLength;
+
+        /// <summary>
+        /// How strong the warp is. [0.0, 1.0]
+        /// Strength of 1.0 results in a velocity of 0 for projectiles.
+        /// </summary>
+        public float strength;
 
         /// <summary>
         /// The particle emitter to play when the boost is activated.
@@ -70,11 +74,14 @@ namespace Hive.Armada.PowerUps
         /// </summary>
         private IEnumerator Run()
         {
-            reference.playerShip.GetComponent<ShipController>().SetDamageBoost(boost);
+            reference.enemyAttributes.StartTimeWarp();
 
-            yield return new WaitForSeconds(boostLength);
+            yield return new WaitForSeconds(transitionLength);
 
-            reference.playerShip.GetComponent<ShipController>().SetDamageBoost(1);
+            yield return new WaitForSeconds(warpLength);
+
+            reference.enemyAttributes.StopTimeWarp();
+            
             Destroy(gameObject);
         }
 

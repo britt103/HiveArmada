@@ -112,21 +112,44 @@ namespace Hive.Armada.Player.Weapons
             if (canShoot && currentAmmo > 0)
             {
                 RaycastHit hit;
-                if (Physics.Raycast(transform.position, transform.forward, out hit, 200.0f,
-                                    Utility.shootableMask))
+
+                if (AimAssistActive)
                 {
-                    StartCoroutine(Shoot(hit.point));
+                    if (Physics.SphereCast(transform.position, radius, transform.forward, out hit, 200.0f,
+                                        Utility.shootableMask))
+                    {
+                        StartCoroutine(Shoot(hit.point));
+                    }
+                    else if (Physics.SphereCast(transform.position, radius, transform.forward, out hit,
+                                                200.0f,
+                                                Utility.enemyMask))
+                    {
+                        StartCoroutine(Shoot(hit.point));
+                    }
+                    else if (Physics.Raycast(transform.position, transform.forward, out hit, 200.0f,
+                                             Utility.roomMask))
+                    {
+                        StartCoroutine(Shoot(hit.point));
+                    }
                 }
-                else if (Physics.SphereCast(transform.position, radius, transform.forward, out hit,
-                                            200.0f,
-                                            Utility.enemyMask))
+                else
                 {
-                    StartCoroutine(Shoot(hit.point));
-                }
-                else if (Physics.Raycast(transform.position, transform.forward, out hit, 200.0f,
-                                         Utility.roomMask))
-                {
-                    StartCoroutine(Shoot(hit.point));
+                    if (Physics.Raycast(transform.position, transform.forward, out hit, 200.0f,
+                                        Utility.shootableMask))
+                    {
+                        StartCoroutine(Shoot(hit.point));
+                    }
+                    else if (Physics.Raycast(transform.position, transform.forward, out hit,
+                                                200.0f,
+                                                Utility.enemyMask))
+                    {
+                        StartCoroutine(Shoot(hit.point));
+                    }
+                    else if (Physics.Raycast(transform.position, transform.forward, out hit, 200.0f,
+                                             Utility.roomMask))
+                    {
+                        StartCoroutine(Shoot(hit.point));
+                    }
                 }
             }
         }

@@ -66,12 +66,6 @@ namespace Hive.Armada.Enemies
     /// </summary>
     public abstract class Enemy : Poolable
     {
-        /// <summary>
-        /// Reference manager that holds all needed references
-        /// (e.g. wave manager, game manager, etc.)
-        /// </summary>
-        protected ReferenceManager reference;
-
         protected WaveManager waveManager;
 
         /// <summary>
@@ -200,37 +194,29 @@ namespace Hive.Armada.Enemies
         /// Initializes references to ReferenceManager and other managers, list of renderers and
         /// their materials for HitFlash(), and spawns the spawn particle emitter.
         /// </summary>
-        public virtual void Awake()
+        protected override void Awake()
         {
-            reference = GameObject.Find("Reference Manager").GetComponent<ReferenceManager>();
+            base.Awake();
 
-            if (reference == null)
+            player = reference.shipLookTarget;
+            enemyAttributes = reference.enemyAttributes;
+            waveManager = reference.waveManager;
+            scoringSystem = reference.scoringSystem;
+            objectPoolManager = reference.objectPoolManager;
+
+            renderers = new List<Renderer>();
+            materials = new List<Material>();
+
+            foreach (Renderer r in gameObject.GetComponentsInChildren<Renderer>())
             {
-                Debug.LogError(GetType().Name +
-                               " - Could not find Reference Manager. Enemy not initialized.");
-            }
-            else
-            {
-                player = reference.shipLookTarget;
-                enemyAttributes = reference.enemyAttributes;
-                waveManager = reference.waveManager;
-                scoringSystem = reference.scoringSystem;
-                objectPoolManager = reference.objectPoolManager;
-
-                renderers = new List<Renderer>();
-                materials = new List<Material>();
-
-                foreach (Renderer r in gameObject.GetComponentsInChildren<Renderer>())
+                if (r.gameObject.CompareTag("Emitter") ||
+                    r.transform.parent.CompareTag("Emitter"))
                 {
-                    if (r.gameObject.CompareTag("Emitter") ||
-                        r.transform.parent.CompareTag("Emitter"))
-                    {
-                        continue;
-                    }
-
-                    renderers.Add(r);
-                    materials.Add(r.material);
+                    continue;
                 }
+
+                renderers.Add(r);
+                materials.Add(r.material);
             }
         }
 
@@ -255,7 +241,8 @@ namespace Hive.Armada.Enemies
             {
                 if (reference.playerShip != null)
                 {
-                    reference.playerShip.GetComponent<ShipController>().hand.controller.TriggerHapticPulse(2500);
+                    reference.playerShip.GetComponent<ShipController>().hand.controller
+                             .TriggerHapticPulse(2500);
                 }
             }
 
@@ -337,7 +324,7 @@ namespace Hive.Armada.Enemies
         /// </summary>
         protected virtual void OnPathingComplete()
         {
-//            gameObject.layer = Utility.enemyLayerId;
+            //            gameObject.layer = Utility.enemyLayerId;
             PathingComplete = true;
         }
 
@@ -385,7 +372,7 @@ namespace Hive.Armada.Enemies
         /// </summary>
         protected override void Reset()
         {
-//            gameObject.layer = Utility.pathingEnemyLayerId;
+            //            gameObject.layer = Utility.pathingEnemyLayerId;
 
             // reset materials
             for (int i = 0; i < renderers.Count; ++i)

@@ -164,8 +164,10 @@ namespace Hive.Armada.Enemies
                     projectile.GetComponent<Transform>().Rotate(Random.Range(-spread, spread),
                                                                 Random.Range(-spread, spread),
                                                                 Random.Range(-spread, spread));
-                    projectile.GetComponent<Rigidbody>().velocity =
-                        projectile.transform.forward * projectileSpeed;
+                    Projectile projectileScript = projectile.GetComponent<Projectile>();
+                    projectileScript.Launch(0);
+                    //projectile.GetComponent<Rigidbody>().velocity =
+                    //    projectile.transform.forward * projectileSpeed;
 
                     if (canRotate)
                     {

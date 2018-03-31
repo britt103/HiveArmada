@@ -25,11 +25,7 @@ namespace Hive.Armada.Enemies
     /// </summary>
     public class Projectile : Poolable
     {
-        /// <summary>
-        /// Reference manager that holds all needed references
-        /// (e.g. spawner, game manager, etc.)
-        /// </summary>
-        private ReferenceManager reference;
+        private Rigidbody pRigidbody;
 
         /// <summary>
         /// The renderer for the projectile.
@@ -37,9 +33,13 @@ namespace Hive.Armada.Enemies
         private Material material;
 
         /// <summary>
-        /// The amount of damage the projectile takes from the player's health 
+        /// The amount of damage the projectile takes from the player's health
         /// </summary>
         private int damage;
+
+        /// <summary>
+        /// </summary>
+        public byte ProjectileId { get; private set; }
 
         /// <summary>
         /// The original albedo color, used to reset the color.
@@ -82,14 +82,76 @@ namespace Hive.Armada.Enemies
         private Coroutine fadeCoroutine;
 
         /// <summary>
+        /// The coroutine for the time warp effect.
+        /// </summary>
+        private Coroutine timeWarpCoroutine;
+
+        /// <summary>
         /// Initializes the reference to the Reference Manager
         /// </summary>
-        private void Awake()
+        protected override void Awake()
         {
-            reference = GameObject.Find("Reference Manager").GetComponent<ReferenceManager>();
+            base.Awake();
+
+            pRigidbody = GetComponent<Rigidbody>();
             material = GetComponent<Renderer>().material;
             originalAlbedo = material.GetColor("_Color");
             originalEmission = material.GetColor("_EmissionColor");
+        }
+
+        /// <summary>
+        /// Sets this projectile's speed ID number.
+        /// </summary>
+        /// <param name="id"> The ID to use </param>
+        public void Launch(byte id)
+        {
+            ProjectileId = id;
+
+            pRigidbody.velocity = transform.forward *
+                                  reference.enemyAttributes.projectileSpeeds[ProjectileId];
+
+            if (reference.enemyAttributes.IsTimeWarped)
+            {
+                StartTimeWarp();
+            }
+        }
+
+        /// <summary>
+        /// Sets the velocity of the projectile.
+        /// </summary>
+        /// <param name="velocity"> The new velocity </param>
+        public void SetVelocity(float velocity)
+        {
+            pRigidbody.velocity = transform.forward * velocity;
+        }
+
+        /// <summary>
+        /// Initiates the time warp functionality for the projectile.
+        /// </summary>
+        public void StartTimeWarp()
+        {
+            if (timeWarpCoroutine != null)
+            {
+                StopCoroutine(timeWarpCoroutine);
+            }
+
+            timeWarpCoroutine = StartCoroutine(TimeWarp());
+        }
+
+        /// <summary>
+        /// Updates the velocity as long as the time warp is active.
+        /// </summary>
+        private IEnumerator TimeWarp()
+        {
+            while (reference.enemyAttributes.IsTimeWarped)
+            {
+                pRigidbody.velocity = transform.forward *
+                                      reference.enemyAttributes.projectileSpeeds[ProjectileId];
+
+                yield return null;
+            }
+
+            timeWarpCoroutine = null;
         }
 
         /// <summary>
@@ -102,14 +164,15 @@ namespace Hive.Armada.Enemies
             {
                 if (Utility.isDebug)
                 {
-                    Debug.Log(GetType().Name + " - hit object named \"" + other.gameObject.name + "\"");
+                    Debug.Log(GetType().Name + " - hit object named \"" + other.gameObject.name +
+                              "\"");
                 }
 
                 if (reference.playerShip != null)
                 {
                     reference.playerShip.GetComponent<PlayerHealth>().Hit(damage);
                 }
-                
+
                 reference.objectPoolManager.Despawn(gameObject);
             }
             else if (other.CompareTag("Room") || other.CompareTag("ProjectileBounds"))
@@ -150,24 +213,49 @@ namespace Hive.Armada.Enemies
         /// <param name="fadeOut"> If the projectile should fade out </param>
         private IEnumerator Fade(bool fadeOut)
         {
-            float fadeStep = (1.0f - MIN_ALPHA) / FADE_STEPS * (fadeOut ? -1.0f : 1.0f);
-            float target = fadeOut ? MIN_ALPHA : 1.0f;
-            WaitForSeconds stepTime = new WaitForSeconds((1.0f - MIN_ALPHA) / FADE_STEPS * FADE_TIME);
+            //float fadeStep = (1.0f - MIN_ALPHA) / FADE_STEPS * (fadeOut ? -1.0f : 1.0f);
+            //float target = fadeOut ? MIN_ALPHA : 1.0f;
+            WaitForSeconds stepTime =
+                new WaitForSeconds((1.0f - MIN_ALPHA) / FADE_STEPS * FADE_TIME);
 
-            while (Math.Abs(currentAlpha - target) > 0.001f)
+            //while (Math.Abs(currentAlpha - target) > 0.001f)
+            //{
+            //    currentAlpha += fadeStep;
+            //    currentAlbedo.a = currentAlpha;
+            //    material.SetColor("_Color", currentAlbedo);
+            //    yield return stepTime;
+
+            //    if (currentAlpha < MIN_ALPHA || currentAlpha > 1.0f)
+            //    {
+            //        currentAlpha = fadeOut ? MIN_ALPHA : 1.0f;
+            //        currentAlbedo.a = currentAlpha;
+            //        material.SetColor("_Color", currentAlbedo);
+            //        break;
+            //    }
+            //}
+
+            float start = Time.time;
+            float t = 0.0f;
+
+            while (t < 1.0f)
             {
-                currentAlpha += fadeStep;
+                t = (Time.time - start) / FADE_TIME *
+                    (reference.enemyAttributes.projectileSpeeds[ProjectileId] /
+                     reference.enemyAttributes.projectileSpeedBounds[ProjectileId].maxSpeed);
+
+                if (fadeOut)
+                {
+                    currentAlpha = Mathf.SmoothStep(1.0f, MIN_ALPHA, t);
+                }
+                else
+                {
+                    currentAlpha = Mathf.SmoothStep(MIN_ALPHA, 1.0f, t);
+                }
+
                 currentAlbedo.a = currentAlpha;
                 material.SetColor("_Color", currentAlbedo);
-                yield return stepTime;
 
-                if (currentAlpha < MIN_ALPHA || currentAlpha > 1.0f)
-                {
-                    currentAlpha = fadeOut ? MIN_ALPHA : 1.0f;
-                    currentAlbedo.a = currentAlpha;
-                    material.SetColor("_Color", currentAlbedo);
-                    break;
-                }
+                yield return stepTime;
             }
 
             fadeCoroutine = null;

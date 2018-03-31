@@ -64,6 +64,8 @@ namespace Hive.Armada.Player.Weapons
         /// </summary>
         protected bool canShoot = true;
 
+        protected bool AimAssistActive { get; private set; }
+
         /// <summary>
         /// Initializes the reference to the Reference Manager
         /// </summary>
@@ -75,6 +77,8 @@ namespace Hive.Armada.Player.Weapons
             {
                 Debug.LogError(GetType().Name + " - Could not find Reference Manager!");
             }
+
+            AimAssistActive = true;
         }
 
         /// <summary>

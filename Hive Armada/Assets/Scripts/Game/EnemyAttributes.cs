@@ -28,7 +28,7 @@ namespace Hive.Armada.Game
     /// </summary>
     public class EnemyAttributes : MonoBehaviour
     {
-        private struct Speed
+        public struct Speed
         {
             public readonly float maxSpeed;
 
@@ -143,7 +143,7 @@ namespace Hive.Armada.Game
 
         private float[] stepSizes;
 
-        private Speed[] projectileSpeedBounds;
+        public Speed[] projectileSpeedBounds;
 
         private Coroutine timeWarpCoroutine;
 
@@ -222,76 +222,41 @@ namespace Hive.Armada.Game
         }
 
         /// <summary>
-        /// 
         /// </summary>
         public void StartTimeWarp()
         {
             if (!IsTimeWarped)
             {
                 IsTimeWarped = true;
-                StartCoroutine(WarpIn());
+                StartCoroutine(TimeWarp(true));
             }
         }
 
         /// <summary>
-        /// 
-        /// </summary>
-        private IEnumerator WarpIn()
-        {
-            foreach (Projectile p in projectiles)
-            {
-                if (!p.IsActive)
-                {
-                    continue;
-                }
-
-                p.StartTimeWarp();
-            }
-
-            float start = Time.time;
-            float t = 0.0f;
-
-            while (t < 1.0f)
-            {
-                t = (Time.time - start) / warpTransitionLength;
-
-                for (int p = 0; p < projectileSpeeds.Length; ++p)
-                {
-                    projectileSpeeds[p] = Mathf.SmoothStep(projectileSpeedBounds[p].maxSpeed,
-                                                           projectileSpeedBounds[p].minSpeed, t);
-                }
-
-                yield return new WaitForSeconds(stepTime);
-
-                //t += Time.deltaTime / warpTransitionLength;
-
-                //for (int p = 0; p < projectileSpeeds.Length; ++p)
-                //{
-                //    projectileSpeeds[p] = Mathf.Lerp(projectileSpeedBounds[p].maxSpeed,
-                //                                     projectileSpeedBounds[p].minSpeed,
-                //                                     Mathf.SmoothStep(0.0f, 1.0f, t));
-                //}
-
-                //yield return null;
-            }
-        }
-
-        /// <summary>
-        /// 
         /// </summary>
         public void StopTimeWarp()
         {
             if (IsTimeWarped)
             {
-                StartCoroutine(WarpOut());
+                StartCoroutine(TimeWarp(false));
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        private IEnumerator WarpOut()
+        private IEnumerator TimeWarp(bool isIn)
         {
+            if (isIn)
+            {
+                foreach (Projectile p in projectiles)
+                {
+                    if (!p.IsActive)
+                    {
+                        continue;
+                    }
+
+                    p.StartTimeWarp();
+                }
+            }
+
             float start = Time.time;
             float t = 0.0f;
 
@@ -299,18 +264,32 @@ namespace Hive.Armada.Game
             {
                 t = (Time.time - start) / warpTransitionLength;
 
-                for (int p = 0; p < projectileSpeeds.Length; ++p)
+                if (isIn)
                 {
-                    projectileSpeeds[p] = Mathf.SmoothStep(projectileSpeedBounds[p].minSpeed,
-                                                           projectileSpeedBounds[p].maxSpeed, t);
+                    for (int p = 0; p < projectileSpeeds.Length; ++p)
+                    {
+                        projectileSpeeds[p] = Mathf.SmoothStep(projectileSpeedBounds[p].maxSpeed,
+                                                               projectileSpeedBounds[p].minSpeed,
+                                                               t);
+                    }
+                }
+                else
+                {
+                    for (int p = 0; p < projectileSpeeds.Length; ++p)
+                    {
+                        projectileSpeeds[p] = Mathf.SmoothStep(projectileSpeedBounds[p].minSpeed,
+                                                               projectileSpeedBounds[p].maxSpeed,
+                                                               t);
+                    }
                 }
 
                 yield return new WaitForSeconds(stepTime);
             }
 
-            yield return null;
-
-            IsTimeWarped = false;
+            if (!isIn)
+            {
+                IsTimeWarped = false;
+            }
         }
     }
 }

@@ -105,21 +105,44 @@ namespace Hive.Armada.Player.Weapons
         protected override void Clicked()
         {
             RaycastHit hit;
-            if (Physics.Raycast(transform.position, transform.forward, out hit, 200.0f,
-                                Utility.shootableMask))
+
+            if (AimAssistActive)
             {
-                StartCoroutine(Shoot(hit.collider.gameObject, hit.point, transform.forward));
+                if (Physics.SphereCast(transform.position, radius, transform.forward, out hit, 200.0f,
+                                    Utility.shootableMask))
+                {
+                    StartCoroutine(Shoot(hit.collider.gameObject, hit.point, transform.forward));
+                }
+                else if (Physics.SphereCast(transform.position, radius, transform.forward, out hit,
+                                            200.0f,
+                                            Utility.enemyMask))
+                {
+                    StartCoroutine(Shoot(hit.collider.gameObject, hit.point, transform.forward));
+                }
+                else if (Physics.Raycast(transform.position, transform.forward, out hit, 200.0f,
+                                         Utility.roomMask))
+                {
+                    StartCoroutine(Shoot(null, hit.point, transform.forward));
+                }
             }
-            else if (Physics.SphereCast(transform.position, radius, transform.forward, out hit,
-                                        200.0f,
-                                        Utility.enemyMask))
+            else
             {
-                StartCoroutine(Shoot(hit.collider.gameObject, hit.point, transform.forward));
-            }
-            else if (Physics.Raycast(transform.position, transform.forward, out hit, 200.0f,
-                                     Utility.roomMask))
-            {
-                StartCoroutine(Shoot(null, hit.point, transform.forward));
+                if (Physics.Raycast(transform.position, transform.forward, out hit, 200.0f,
+                                    Utility.shootableMask))
+                {
+                    StartCoroutine(Shoot(hit.collider.gameObject, hit.point, transform.forward));
+                }
+                else if (Physics.Raycast(transform.position, transform.forward, out hit,
+                                            200.0f,
+                                            Utility.enemyMask))
+                {
+                    StartCoroutine(Shoot(hit.collider.gameObject, hit.point, transform.forward));
+                }
+                else if (Physics.Raycast(transform.position, transform.forward, out hit, 200.0f,
+                                         Utility.roomMask))
+                {
+                    StartCoroutine(Shoot(null, hit.point, transform.forward));
+                }
             }
         }
 
@@ -167,10 +190,6 @@ namespace Hive.Armada.Player.Weapons
                             rocketScript.Launch(target, position);
                             launched = true;
                         }
-                        //else
-                        //{
-                        //    Debug.LogWarning(GetType().Name + " - Target is not active.");
-                        //}
                     }
 
                     if (!launched)
@@ -183,10 +202,6 @@ namespace Hive.Armada.Player.Weapons
                                 launched = true;
                             }
                         }
-                        //else
-                        //{
-                        //    Debug.LogWarning(GetType().Name + " - Target is not alive.");
-                        //}
                     }
 
                     if (!launched)
@@ -196,10 +211,6 @@ namespace Hive.Armada.Player.Weapons
                             rocketScript.Launch(target, position);
                             launched = true;
                         }
-                        //else
-                        //{
-                        //    Debug.LogWarning(GetType().Name + " - Target is not active.");
-                        //}
                     }
                 }
                 else

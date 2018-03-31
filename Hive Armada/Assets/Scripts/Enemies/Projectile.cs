@@ -38,7 +38,6 @@ namespace Hive.Armada.Enemies
         private int damage;
 
         /// <summary>
-        /// 
         /// </summary>
         public byte ProjectileId { get; private set; }
 
@@ -214,25 +213,49 @@ namespace Hive.Armada.Enemies
         /// <param name="fadeOut"> If the projectile should fade out </param>
         private IEnumerator Fade(bool fadeOut)
         {
-            float fadeStep = (1.0f - MIN_ALPHA) / FADE_STEPS * (fadeOut ? -1.0f : 1.0f);
-            float target = fadeOut ? MIN_ALPHA : 1.0f;
+            //float fadeStep = (1.0f - MIN_ALPHA) / FADE_STEPS * (fadeOut ? -1.0f : 1.0f);
+            //float target = fadeOut ? MIN_ALPHA : 1.0f;
             WaitForSeconds stepTime =
                 new WaitForSeconds((1.0f - MIN_ALPHA) / FADE_STEPS * FADE_TIME);
 
-            while (Math.Abs(currentAlpha - target) > 0.001f)
+            //while (Math.Abs(currentAlpha - target) > 0.001f)
+            //{
+            //    currentAlpha += fadeStep;
+            //    currentAlbedo.a = currentAlpha;
+            //    material.SetColor("_Color", currentAlbedo);
+            //    yield return stepTime;
+
+            //    if (currentAlpha < MIN_ALPHA || currentAlpha > 1.0f)
+            //    {
+            //        currentAlpha = fadeOut ? MIN_ALPHA : 1.0f;
+            //        currentAlbedo.a = currentAlpha;
+            //        material.SetColor("_Color", currentAlbedo);
+            //        break;
+            //    }
+            //}
+
+            float start = Time.time;
+            float t = 0.0f;
+
+            while (t < 1.0f)
             {
-                currentAlpha += fadeStep;
+                t = (Time.time - start) / FADE_TIME *
+                    (reference.enemyAttributes.projectileSpeeds[ProjectileId] /
+                     reference.enemyAttributes.projectileSpeedBounds[ProjectileId].maxSpeed);
+
+                if (fadeOut)
+                {
+                    currentAlpha = Mathf.SmoothStep(1.0f, MIN_ALPHA, t);
+                }
+                else
+                {
+                    currentAlpha = Mathf.SmoothStep(MIN_ALPHA, 1.0f, t);
+                }
+
                 currentAlbedo.a = currentAlpha;
                 material.SetColor("_Color", currentAlbedo);
-                yield return stepTime;
 
-                if (currentAlpha < MIN_ALPHA || currentAlpha > 1.0f)
-                {
-                    currentAlpha = fadeOut ? MIN_ALPHA : 1.0f;
-                    currentAlbedo.a = currentAlpha;
-                    material.SetColor("_Color", currentAlbedo);
-                    break;
-                }
+                yield return stepTime;
             }
 
             fadeCoroutine = null;

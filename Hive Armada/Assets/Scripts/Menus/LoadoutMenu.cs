@@ -55,11 +55,6 @@ namespace Hive.Armada.Menus
         public float scrollViewCellVerticalSpacing;
 
         /// <summary>
-        /// Reference to scrollview vertical scrollbar.
-        /// </summary>
-        public Scrollbar scrollBar;
-
-        /// <summary>
         /// Names of weapons.
         /// </summary>
         public string[] weaponNames;
@@ -153,7 +148,6 @@ namespace Hive.Armada.Menus
             }
             else
             {
-                scrollBar.value = 0.5f;
                 for (int i = 0; i < weaponCells.Length; i++)
                 {
                     if (!fixedWeaponCells.Contains(weaponCells[i]))
@@ -178,26 +172,15 @@ namespace Hive.Armada.Menus
                     HidePlayButton();
                     selectionMade = false;
                     ScrollToCell(0, activeCells);
-                    //StartCoroutine(DelayedScrollToCell(0, activeCells));
                 }
                 else
                 {
                     ShowPlayButton();
                     weaponUIHoverScripts[selectedWeapon].Select();
                     selectionMade = true;
-                    //StartCoroutine(DelayedScrollToCell(selectedWeapon, activeCells));
                     ScrollToCell(selectedWeapon, activeCells);
                 }
             }
-        }
-
-        private IEnumerator DelayedScrollToCell(int weaponNum, int activeCells)
-        {
-            yield return new WaitForSeconds(0.0000001f);
-            float scrollStep = 1.0f / (activeCells - 1.0f);
-            scrollBar.value = 1.0f - scrollStep * weaponNum;
-            print(weaponNum);
-            print(activeCells);
         }
 
         /// <summary>
@@ -247,7 +230,7 @@ namespace Hive.Armada.Menus
         {
             float scrollStep = 1.0f / (activeCells - 1.0f);
             float scrollValue = 1.0f - scrollStep * weaponNum;
-            scrollBar.value = scrollValue;
+            scrollView.gameObject.GetComponent<ScrollRect>().verticalNormalizedPosition = scrollValue;
         }
 
         /// <summary>

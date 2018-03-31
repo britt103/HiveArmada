@@ -72,11 +72,6 @@ namespace Hive.Armada.Menus
         public float scrollViewCellVerticalSpacing;
 
         /// <summary>
-        /// Reference to scrollview vertical scrollbar.
-        /// </summary>
-        public Scrollbar scrollBar;
-
-        /// <summary>
         /// Reference to Menu Audio source.
         /// </summary>
 		public AudioSource source;
@@ -176,7 +171,9 @@ namespace Hive.Armada.Menus
         private void ScrollToCell(int gameModeNum)
         {
             float scrollStep = 1.0f / (gameModeCells.Length - 1.0f);
-            scrollBar.value = 1.0f - scrollStep * gameModeNum;
+            float scrollValue = 1.0f - scrollStep * gameModeNum;
+            scrollView.gameObject.GetComponent<ScrollRect>().verticalNormalizedPosition 
+                = scrollValue;
         }
 
         /// <summary>

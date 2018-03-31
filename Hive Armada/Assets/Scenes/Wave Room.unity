@@ -954,6 +954,7 @@ GameObject:
   m_Component:
   - component: {fileID: 114958227}
   - component: {fileID: 114958228}
+  - component: {fileID: 114958229}
   m_Layer: 0
   m_Name: Transition Source
   m_TagString: Untagged
@@ -1054,6 +1055,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &114958229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 114958226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c772834c140a0ab498793d6548e13561, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  category: 1
 --- !u!1 &127326002
 GameObject:
   m_ObjectHideFlags: 0
@@ -1063,6 +1076,7 @@ GameObject:
   m_Component:
   - component: {fileID: 127326004}
   - component: {fileID: 127326003}
+  - component: {fileID: 127326005}
   m_Layer: 0
   m_Name: Ambient Track
   m_TagString: Untagged
@@ -1163,6 +1177,18 @@ Transform:
   m_Father: {fileID: 1414931094}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &127326005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 127326002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c772834c140a0ab498793d6548e13561, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  category: 0
 --- !u!1 &128077516
 GameObject:
   m_ObjectHideFlags: 0
@@ -2798,6 +2824,7 @@ GameObject:
   m_Component:
   - component: {fileID: 257247244}
   - component: {fileID: 257247245}
+  - component: {fileID: 257247246}
   m_Layer: 0
   m_Name: Game Music
   m_TagString: Untagged
@@ -2898,6 +2925,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &257247246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 257247243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c772834c140a0ab498793d6548e13561, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  category: 0
 --- !u!1 &268885152
 GameObject:
   m_ObjectHideFlags: 0
@@ -39424,7 +39463,7 @@ Prefab:
     - target: {fileID: 114508135794012018, guid: 6503730551a61ef4ebeca6bd91b11120,
         type: 2}
       propertyPath: startingWave
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6503730551a61ef4ebeca6bd91b11120, type: 2}
@@ -47448,6 +47487,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1910466693}
   - component: {fileID: 1910466692}
+  - component: {fileID: 1910466694}
   m_Layer: 0
   m_Name: Red Alert
   m_TagString: Untagged
@@ -47548,6 +47588,18 @@ Transform:
   m_Father: {fileID: 1414931094}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1910466694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1910466691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c772834c140a0ab498793d6548e13561, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  category: 1
 --- !u!1 &1914942170
 GameObject:
   m_ObjectHideFlags: 0
@@ -47736,14 +47788,16 @@ MonoBehaviour:
   defaultMusicVolume: 1
   fxVolume: 0
   defaultFXVolume: 0.6
+  dialogueVolume: 0
+  defaultDialogueVolume: 0
   bloom: 0
   defaultBloom: 0
-  musicAudioSource: {fileID: 257247245}
-  fxAudioSources:
-  - {fileID: 127326003}
-  - {fileID: 1910466692}
-  - {fileID: 114958228}
-  - {fileID: 1732903678}
+  colorBlindMode: 0
+  defaultColorBlindMode: 0
+  aimAssist: 0
+  defaultAimAssist: 0
+  scoreDisplay: 0
+  defaultScoreDisplay: 0
   cameraGO: {fileID: 2052364201}
 --- !u!1 &1925687260
 GameObject:

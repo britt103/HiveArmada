@@ -279,7 +279,7 @@ namespace Hive.Armada.Enemies
 
             reference.scoringSystem.ComboIn(pointValue, transform);
             reference.statistics.EnemyKilled();
-            FindObjectOfType<LexiconUnlockData>().AddEnemyUnlock(gameObject.name);
+            FindObjectOfType<BestiaryUnlockData>().AddEnemyUnlock(gameObject.name);
             objectPoolManager.Spawn(gameObject, deathEmitterTypeIdentifier, transform.position,
                                     transform.rotation);
             objectPoolManager.Despawn(gameObject);

@@ -11,6 +11,8 @@
 //
 //=============================================================================
 
+using System.Collections;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using Hive.Armada.Game;
@@ -78,6 +80,11 @@ namespace Hive.Armada.Menus
         public UIHover[] weaponUIHoverScripts;
 
         /// <summary>
+        /// Cells for weapons that are unlocked by default.
+        /// </summary>
+        public GameObject[] fixedWeaponCells;
+
+        /// <summary>
         /// Currently selected weapon.
         /// </summary>
         private int selectedWeapon;
@@ -118,15 +125,27 @@ namespace Hive.Armada.Menus
         private int playCount = 0;
 
         /// <summary>
-        /// Find references. Set display for initial waepon. If no Iridium weapons have been 
-        /// unlocked, skip menu.
+        /// State of whether a weapon has been selected.
         /// </summary>
-        void Awake()
+        private bool selectionMade;
+
+        /// <summary>
+        /// Find references. 
+        /// </summary>
+        private void Awake()
         {
             reference = FindObjectOfType<ReferenceManager>();
             gameSettings = reference.gameSettings;
             iridiumSystem = FindObjectOfType<IridiumSystem>();
+        }
 
+        /// <summary>
+        /// Set display for initial waepon. If no Iridium weapons have been 
+        /// unlocked, skip menu.
+        /// </summary>
+        private void OnEnable()
+        {
+            int activeCells = 0;
             if (!iridiumSystem.CheckAnyWeaponsUnlocked())
             {
                 selectedWeapon = (int)GameSettings.Weapon.Laser;
@@ -134,15 +153,21 @@ namespace Hive.Armada.Menus
             }
             else
             {
+                scrollBar.value = 0.5f;
                 for (int i = 0; i < weaponCells.Length; i++)
                 {
-                    if (iridiumSystem.CheckWeaponIsPresent(weaponNames[i]))
+                    if (!fixedWeaponCells.Contains(weaponCells[i]))
                     {
                         weaponCells[i].SetActive(iridiumSystem.CheckWeaponUnlocked(weaponNames[i]));
+                        if (weaponCells[i].activeSelf)
+                        {
+                            activeCells++;
+                        }
                     }
                     else
                     {
                         weaponCells[i].SetActive(true);
+                        activeCells++;
                     }
                 }
 
@@ -151,13 +176,28 @@ namespace Hive.Armada.Menus
                 if (selectedWeapon == weaponCells.Length)
                 {
                     HidePlayButton();
+                    selectionMade = false;
+                    ScrollToCell(0, activeCells);
+                    //StartCoroutine(DelayedScrollToCell(0, activeCells));
                 }
                 else
                 {
-                    ScrollToCell(selectedWeapon);
+                    ShowPlayButton();
                     weaponUIHoverScripts[selectedWeapon].Select();
+                    selectionMade = true;
+                    //StartCoroutine(DelayedScrollToCell(selectedWeapon, activeCells));
+                    ScrollToCell(selectedWeapon, activeCells);
                 }
             }
+        }
+
+        private IEnumerator DelayedScrollToCell(int weaponNum, int activeCells)
+        {
+            yield return new WaitForSeconds(0.0000001f);
+            float scrollStep = 1.0f / (activeCells - 1.0f);
+            scrollBar.value = 1.0f - scrollStep * weaponNum;
+            print(weaponNum);
+            print(activeCells);
         }
 
         /// <summary>
@@ -174,7 +214,10 @@ namespace Hive.Armada.Menus
                 //    source.Stop();
                 //    source.PlayOneShot(clips[0]);
                 //}
-                weaponUIHoverScripts[selectedWeapon].EndSelect();
+                if (selectionMade)
+                {
+                    weaponUIHoverScripts[selectedWeapon].EndSelect();
+                }
                 selectedWeapon = weaponNum;
             }
             weaponUIHoverScripts[selectedWeapon].Select();
@@ -199,14 +242,12 @@ namespace Hive.Armada.Menus
         /// Move scroll view to position of specified cell.
         /// </summary>
         /// <param name="weaponNum">Number of cell to move to.</param>
-        private void ScrollToCell(int weaponNum)
+        /// <param name="activeCells">Number of active cells in content.</param>
+        private void ScrollToCell(int weaponNum, int activeCells)
         {
-            float totalHeight = (weaponCells.Length * scrollViewCellHeight) +
-                (Mathf.Max((weaponCells.Length - 1), 0) * scrollViewCellVerticalSpacing);
-            float buttonHeight = (weaponNum * scrollViewCellHeight) +
-                (weaponNum * scrollViewCellVerticalSpacing);
-            float value = buttonHeight / totalHeight;
-            scrollBar.value = 1 - value;
+            float scrollStep = 1.0f / (activeCells - 1.0f);
+            float scrollValue = 1.0f - scrollStep * weaponNum;
+            scrollBar.value = scrollValue;
         }
 
         /// <summary>
@@ -218,9 +259,17 @@ namespace Hive.Armada.Menus
             Color tempColor = playButton.GetComponent<Image>().color;
             tempColor.a = 0.2f;
             playButton.GetComponent<Image>().color = tempColor;
-            tempColor = playButton.GetComponentInChildren<Text>().color;
-            tempColor.a = 0.2f;
-            playButton.GetComponentInChildren<Text>().color = tempColor;
+        }
+
+        /// <summary>
+        /// Make continue button usable.
+        /// </summary>
+        private void ShowPlayButton()
+        {
+            playButton.GetComponent<BoxCollider>().enabled = true;
+            Color tempColor = playButton.GetComponent<Image>().color;
+            tempColor.a = 1.0f;
+            playButton.GetComponent<Image>().color = tempColor;
         }
 
         /// <summary>
@@ -239,7 +288,6 @@ namespace Hive.Armada.Menus
             gameSettings.selectedWeapon = (GameSettings.Weapon)selectedWeapon;
             PlayerPrefs.SetInt("defaultWeapon", selectedWeapon);
             reference.sceneTransitionManager.TransitionOut("Wave Room");
-            gameObject.SetActive(false);
         }
 
         //private IEnumerator pressPlaySound()

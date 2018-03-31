@@ -6,8 +6,8 @@
 // CPSC-440-01
 // Group Project
 //
-// LexiconEntryButton stores an identifier for the corresponding Lexicon entry
-// and calls LexiconMenu when its button has been clicked.
+// BestiaryEntryButton stores an identifier for the corresponding Bestiary entry
+// and calls BestiaryMenu when its button has been clicked.
 //
 //=============================================================================
 
@@ -16,26 +16,26 @@ using UnityEngine;
 namespace Hive.Armada.Menus
 {
     /// <summary>
-    /// Stores Lexicon entry identifier and calls LexiconMenu.
+    /// Stores Bestiary entry identifier and calls BestiaryMenu.
     /// </summary>
-    public class LexiconEntryButton : MonoBehaviour
+    public class BestiaryEntryButton : MonoBehaviour
     {
         /// <summary>
-        /// Index of corresponding object within Lexicon entries.
+        /// Index of corresponding object within Bestiary entries.
         /// </summary>
         public int id;
 
         /// <summary>
-        /// Reference to Lexicon Menu.
+        /// Reference to Bestiary Menu.
         /// </summary>
-        public LexiconMenu lexiconMenu;
+        public BestiaryMenu BestiaryMenu;
 
         /// <summary>
-        /// Open corresponding Lexicon entry through Lexicon Menu.
+        /// Open corresponding Bestiary entry through Bestiary Menu.
         /// </summary>
         public void PressButton()
         {
-            lexiconMenu.OpenEntry(id);
+            BestiaryMenu.OpenEntry(id);
         }
     }
 }

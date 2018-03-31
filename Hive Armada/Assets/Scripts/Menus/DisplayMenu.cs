@@ -73,7 +73,7 @@ namespace Hive.Armada.Menus
         {
             reference = FindObjectOfType<ReferenceManager>();
             bloomToggle.isOn = reference.optionsValues.bloom;
-            //colorBlindModeToggle.isON = reference.optionsValues.colorBlindMode;
+            colorBlindModeToggle.isOn = reference.optionsValues.colorBlindMode;
         }
 
         /// <summary>
@@ -119,7 +119,7 @@ namespace Hive.Armada.Menus
                 source.Stop();
                 source.PlayOneShot(clips[1]);
             }
-            //reference.optionsValues.SetColorBlindMode(isOn);
+            reference.optionsValues.SetColorBlindMode(isOn);
         }
     }
 }

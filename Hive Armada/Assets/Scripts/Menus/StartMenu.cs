@@ -77,11 +77,6 @@ namespace Hive.Armada.Menus
         public Scrollbar scrollBar;
 
         /// <summary>
-        /// Reference to vertical slider.
-        /// </summary>
-        public Slider verticalSlider;
-
-        /// <summary>
         /// Reference to Menu Audio source.
         /// </summary>
 		public AudioSource source;
@@ -102,6 +97,11 @@ namespace Hive.Armada.Menus
         private int selectedGameMode;
 
         /// <summary>
+        /// State of whether a game mode has been selected.
+        /// </summary>
+        private bool selectionMade;
+
+        /// <summary>
         /// Variables used as a check to make sure audio
         /// doesn't play over itself
         /// </summary>
@@ -115,26 +115,36 @@ namespace Hive.Armada.Menus
         private void Awake()
         {
             gameSettings = FindObjectOfType<GameSettings>();
+        }
 
+        /// <summary>
+        /// Get default selected game mode. Setup menu based on default selection.
+        /// </summary>
+        private void OnEnable()
+        {
             selectedGameMode = PlayerPrefs.GetInt("defaultGameMode", gameModeCells.Length);
 
             if (selectedGameMode == gameModeCells.Length)
             {
+                ScrollToCell(0);
                 HideContinueButton();
+                selectionMade = false;
             }
             else
             {
                 ScrollToCell(selectedGameMode);
+                ShowContinueButton();
                 gameModeUIHoverScripts[selectedGameMode].Select();
+                selectionMade = true;
             }
         }
 
         /// <summary>
         /// Called by start button; navigates to Loadout Menu. Set game mode to SoloNormal.
         /// </summary>
-        public void PressGameMode(GameSettings.GameMode gameMode)
+        public void PressGameMode(int gameModeNum)
         {
-            if ((GameSettings.GameMode)selectedGameMode != gameMode)
+            if (selectedGameMode != gameModeNum)
             {
                 if (selectedGameMode == gameModeCells.Length)
                 {
@@ -149,9 +159,12 @@ namespace Hive.Armada.Menus
                     source.PlayOneShot(clips[0]);
                 }
 
-                gameSettings.selectedGameMode = gameMode;
-                gameModeUIHoverScripts[selectedGameMode].EndSelect();
-                selectedGameMode = (int)gameMode;
+                if (selectionMade)
+                {
+                    gameModeUIHoverScripts[selectedGameMode].EndSelect();
+                    selectionMade = true;
+                }
+                selectedGameMode = gameModeNum;
                 gameModeUIHoverScripts[selectedGameMode].Select();
             }
         }
@@ -162,12 +175,8 @@ namespace Hive.Armada.Menus
         /// <param name="gameModeEnum">Num of cell to move to.</param>
         private void ScrollToCell(int gameModeNum)
         {
-            float totalHeight = (gameModeCells.Length * scrollViewCellHeight) +
-                (Mathf.Max((gameModeCells.Length - 1), 0) * scrollViewCellVerticalSpacing);
-            float buttonHeight = (gameModeNum * scrollViewCellHeight) +
-                (gameModeNum * scrollViewCellVerticalSpacing);
-            float value = buttonHeight / totalHeight;
-            scrollBar.value = 1 - value;
+            float scrollStep = 1.0f / (gameModeCells.Length - 1.0f);
+            scrollBar.value = 1.0f - scrollStep * gameModeNum;
         }
 
         /// <summary>
@@ -179,9 +188,6 @@ namespace Hive.Armada.Menus
             Color tempColor = continueButton.GetComponent<Image>().color;
             tempColor.a = 0.2f;
             continueButton.GetComponent<Image>().color = tempColor;
-            tempColor = continueButton.GetComponentInChildren<Text>().color;
-            tempColor.a = 0.2f;
-            continueButton.GetComponentInChildren<Text>().color = tempColor;
         }
 
         /// <summary>
@@ -193,9 +199,6 @@ namespace Hive.Armada.Menus
             Color tempColor = continueButton.GetComponent<Image>().color;
             tempColor.a = 1.0f;
             continueButton.GetComponent<Image>().color = tempColor;
-            tempColor = continueButton.GetComponentInChildren<Text>().color;
-            tempColor.a = 1.0f;
-            continueButton.GetComponentInChildren<Text>().color = tempColor;
         }
 
         /// <summary>
@@ -210,6 +213,9 @@ namespace Hive.Armada.Menus
                 source.Stop();
                 source.PlayOneShot(clips[1]);
             }
+            gameModeUIHoverScripts[selectedGameMode].EndSelect();
+            HideContinueButton();
+            selectionMade = false;
             transitionManager.Transition(backMenuGO);
         }
 
@@ -220,6 +226,7 @@ namespace Hive.Armada.Menus
         {
             source.PlayOneShot(clips[0]);
 
+            gameSettings.selectedGameMode = (GameSettings.GameMode)selectedGameMode;
             PlayerPrefs.SetInt("defaultGameMode", selectedGameMode);
             transitionManager.Transition(loadoutGO);
         }

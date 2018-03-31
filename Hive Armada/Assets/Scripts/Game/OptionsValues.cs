@@ -67,6 +67,11 @@ namespace Hive.Armada.Game
         /// </summary>
         public float defaultDialogueVolume;
 
+        /// <summary>
+        /// References to Volume Adjustment components.
+        /// </summary>
+        private VolumeAdjustment[] volumeAdjustments;
+
         [Header("Display")]
         /// <summary>
         /// State of whether bloom is on.
@@ -126,14 +131,21 @@ namespace Hive.Armada.Game
         private GameSettings gameSettings;
 
         /// <summary>
+        /// State of whether the Awake function has finished execution.
+        /// </summary>
+        private bool awakeFinished = false;
+
+        /// <summary>
         /// Find references. Get PlayerPrefs value and set game settings.
         /// </summary>
         private void Awake()
         {
             GetPlayerPrefs();
-            SetGameValues();
             reference = FindObjectOfType<ReferenceManager>();
-            gameSettings = reference.gameSettings;
+            volumeAdjustments = FindObjectsOfType<VolumeAdjustment>();
+            //gameSettings = reference.gameSettings;
+            gameSettings = FindObjectOfType<GameSettings>();
+            SetAwakeGameValues();
         }
 
         /// <summary>
@@ -153,9 +165,12 @@ namespace Hive.Armada.Game
         public void SetMusicVolume(float musicVolume)
         {
             this.musicVolume = musicVolume;
-            foreach (VolumeAdjustment volumeAdjustment in FindObjectsOfType<VolumeAdjustment>())
+            foreach (VolumeAdjustment volumeAdjustment in volumeAdjustments)
             {
-                volumeAdjustment.UpdateVolume();
+                if (volumeAdjustment.category == VolumeAdjustment.AudioSourceCategory.Music)
+                {
+                    volumeAdjustment.UpdateVolume();
+                }
             }
         }
 
@@ -166,9 +181,12 @@ namespace Hive.Armada.Game
         public void SetFXVolume(float fxVolume)
         {
             this.fxVolume = fxVolume;
-            foreach (VolumeAdjustment volumeAdjustment in FindObjectsOfType<VolumeAdjustment>())
+            foreach (VolumeAdjustment volumeAdjustment in volumeAdjustments)
             {
-                volumeAdjustment.UpdateVolume();
+                if (volumeAdjustment.category == VolumeAdjustment.AudioSourceCategory.FX)
+                {
+                    volumeAdjustment.UpdateVolume();
+                }
             }
         }
 
@@ -179,9 +197,12 @@ namespace Hive.Armada.Game
         public void SetDialogueVolume(float dialogueVolume)
         {
             this.dialogueVolume = dialogueVolume;
-            foreach (VolumeAdjustment volumeAdjustment in FindObjectsOfType<VolumeAdjustment>())
+            foreach (VolumeAdjustment volumeAdjustment in volumeAdjustments)
             {
-                volumeAdjustment.UpdateVolume();
+                if (volumeAdjustment.category == VolumeAdjustment.AudioSourceCategory.Dialogue)
+                {
+                    volumeAdjustment.UpdateVolume();
+                }
             }
         }
 
@@ -290,16 +311,10 @@ namespace Hive.Armada.Game
         }
 
         /// <summary>
-        /// Set in-game values.
+        /// Set in-game values for objects/components that do not update independently.
         /// </summary>
-        private void SetGameValues()
+        private void SetAwakeGameValues()
         {
-            //Sound
-            SetMasterVolume(masterVolume);
-            SetMusicVolume(musicVolume);
-            SetFXVolume(fxVolume);
-            SetDialogueVolume(dialogueVolume);
-
             //Display
             SetBloom(bloom);
             SetColorBlindMode(colorBlindMode);

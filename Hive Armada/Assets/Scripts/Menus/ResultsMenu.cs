@@ -35,6 +35,21 @@ namespace Hive.Armada.Menus
         public GameObject continueMenuGO;
 
         /// <summary>
+        /// Reference to scroll view content.
+        /// </summary>
+        public GameObject scrollViewContent;
+
+        /// <summary>
+        /// Reference to vertical scrollbar.
+        /// </summary>
+        public Scrollbar scrollbar;
+
+        /// <summary>
+        /// Reference to vertical slider.
+        /// </summary>
+        public Slider verticalSlider;
+
+        /// <summary>
         /// Reference to Menu Audio source.
         /// </summary>
         public AudioSource source;
@@ -103,6 +118,11 @@ namespace Hive.Armada.Menus
         /// Reference to Text GameObject for kills stat.
         /// </summary>
         public GameObject killsTextGO;
+
+        /// <summary>
+        /// Number of cells that can fit in scroll view content without scrolling.
+        /// </summary>
+        public int numFittableCells;
 
         /// <summary>
         /// Reference to ReferenceManager.
@@ -182,6 +202,17 @@ namespace Hive.Armada.Menus
             if (killsTextGO)
             {
                 killsTextGO.GetComponent<Text>().text = "Kills: " + stats.totalEnemiesKilled;
+            }
+
+            if (scrollViewContent.transform.childCount <= numFittableCells)
+            {
+                scrollbar.gameObject.GetComponent<BoxCollider>().enabled = false;
+                verticalSlider.gameObject.SetActive(false);
+            }
+            else
+            {
+                scrollbar.gameObject.GetComponent<BoxCollider>().enabled = true;
+                verticalSlider.gameObject.SetActive(true);
             }
 
             stats.ResetTotals();

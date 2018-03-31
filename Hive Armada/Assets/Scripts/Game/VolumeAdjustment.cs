@@ -51,7 +51,7 @@ namespace Hive.Armada.Game
         /// <summary>
         /// Find references. Update volume.
         /// </summary>
-        void Awake()
+        void Start()
         {
             audioSource = gameObject.GetComponent<AudioSource>();
             reference = FindObjectOfType<ReferenceManager>();

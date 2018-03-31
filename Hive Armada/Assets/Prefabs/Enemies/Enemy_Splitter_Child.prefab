@@ -293,6 +293,7 @@ GameObject:
   - component: {fileID: 114821499881510718}
   - component: {fileID: 114822191600306730}
   - component: {fileID: 82747368214572024}
+  - component: {fileID: 114657278815061252}
   - component: {fileID: 54058060058004714}
   m_Layer: 9
   m_Name: Enemy_Splitter_Child
@@ -1321,6 +1322,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 825b9e53228f63b46be1c883787bc410, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114657278815061252
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1618603837932422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c772834c140a0ab498793d6548e13561, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  category: 1
 --- !u!114 &114821499881510718
 MonoBehaviour:
   m_ObjectHideFlags: 1

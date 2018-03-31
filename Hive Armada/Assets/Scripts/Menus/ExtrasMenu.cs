@@ -15,7 +15,7 @@ using UnityEngine;
 namespace Hive.Armada.Menus
 {
     /// <summary>
-    /// Contains navigation functions for the Shop and Lexicon menus.
+    /// Contains navigation functions for the Shop and Bestiary menus.
     /// </summary>
     public class ExtrasMenu : MonoBehaviour
     {
@@ -35,14 +35,14 @@ namespace Hive.Armada.Menus
         public Transform shopTransform;
 
         /// <summary>
-        /// Reference to Lexicon Menu.
+        /// Reference to Bestiary Menu.
         /// </summary>
-        public GameObject lexiconMenuGO;
+        public GameObject bestiaryMenuGO;
 
         /// <summary>
-        /// Reference to player transform for Lexicon Menu.
+        /// Reference to player transform for Bestiary Menu.
         /// </summary>
-        public Transform lexiconTransform;
+        public Transform bestiaryTransform;
 
         /// <summary>
         /// Reference to menu to go to when back is pressed.
@@ -75,9 +75,9 @@ namespace Hive.Armada.Menus
         }
 
         /// <summary>
-        /// Lexicon button pressed. Navigate to Lexicon Menu.
+        /// Bestiary button pressed. Navigate to Bestiary Menu.
         /// </summary>
-        public void PressLexicon()
+        public void PressBestiary()
         {
             source.PlayOneShot(clips[0]);
             //startCounter += 1;
@@ -86,7 +86,7 @@ namespace Hive.Armada.Menus
             //    source.Stop();
             //    source.PlayOneShot(clips[0]);
             //}
-            FindObjectOfType<RoomTransport>().Transport(lexiconTransform, gameObject, lexiconMenuGO);
+            FindObjectOfType<RoomTransport>().Transport(bestiaryTransform, gameObject, bestiaryMenuGO);
         }
 
         /// <summary>

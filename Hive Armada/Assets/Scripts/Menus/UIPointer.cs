@@ -249,9 +249,9 @@ namespace Hive.Armada.Menus
             {
                 if (aimObject.GetComponent<Slider>())
                 {
-                    float centerX = aimObject.GetComponent<BoxCollider>().center.x;
-                    float maxX = centerX + aimObject.GetComponent<BoxCollider>().bounds.extents.x;
-                    float minX = centerX - aimObject.GetComponent<BoxCollider>().bounds.extents.x;
+                    float displacement = aimObject.GetComponent<RectTransform>().position.x;
+                    float maxX = displacement + aimObject.GetComponent<BoxCollider>().bounds.extents.x;
+                    float minX = displacement - aimObject.GetComponent<BoxCollider>().bounds.extents.x;
                     float pointerX = pointer.GetPosition(1).x;
                     if (pointerX > minX && pointerX < maxX)
                     {

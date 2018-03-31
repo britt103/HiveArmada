@@ -42,9 +42,9 @@ namespace Hive.Armada.Menus
         public MenuTransitionManager transitionManager;
 
         /// <summary>
-        /// Reference to Lexicon Menu GO.
+        /// Reference to Bestiary Menu GO.
         /// </summary>
-        public GameObject lexiconGO;
+        public GameObject BestiaryGO;
 
         /// <summary>
         /// Reference to menu to go to when back is pressed.
@@ -62,9 +62,9 @@ namespace Hive.Armada.Menus
         private IridiumSystem iridiumSystem;
 
         /// <summary>
-        /// Reference to LexiconUnlockData.
+        /// Reference to BestiaryUnlockData.
         /// </summary>
-        private LexiconUnlockData lexiconUnlockData;
+        private BestiaryUnlockData BestiaryUnlockData;
 
         /// <summary>
         /// Reference to menu title text.
@@ -153,7 +153,7 @@ namespace Hive.Armada.Menus
         public GameObject contentGO;
 
         /// <summary>
-        /// References to prefabs used in powerup entries. Order must match Lexicon.txt.
+        /// References to prefabs used in powerup entries. Order must match Bestiary.txt.
         /// </summary>
         public GameObject[] weaponPrefabs;
 
@@ -219,7 +219,7 @@ namespace Hive.Armada.Menus
         void Start()
         {
             iridiumSystem = FindObjectOfType<IridiumSystem>();
-            lexiconUnlockData = FindObjectOfType<LexiconUnlockData>();
+            BestiaryUnlockData = FindObjectOfType<BestiaryUnlockData>();
         }
 
         /// <summary>
@@ -275,9 +275,8 @@ namespace Hive.Armada.Menus
             if (iridiumSystem.PayIridium(currCosts[currItemId]))
             {
                 iridiumSystem.UnlockItem(currCategory, currNames[currItemId]);
-                lexiconUnlockData.AddWeaponUnlock(currNames[currItemId]);
-                lexiconGO.SetActive(true);
-                lexiconGO.SetActive(false);
+                BestiaryGO.SetActive(true);
+                BestiaryGO.SetActive(false);
                 currNotBought[currItemId] = false;
                 PressBack();
             }
@@ -408,7 +407,7 @@ namespace Hive.Armada.Menus
                     currPrefabs = weaponPrefabs.ToList();
                     break;
                 default:
-                    Debug.Log("ERROR: Lexicon menu category could not be identified.");
+                    Debug.Log("ERROR: Bestiary menu category could not be identified.");
                     break;
             }
         }

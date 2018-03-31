@@ -133,7 +133,7 @@ namespace Hive.Armada.Menus
         }
 
         /// <summary>
-        /// Lexicon button pressed. Navigate to Lexicon Menu.
+        /// Bestiary button pressed. Navigate to Bestiary Menu.
         /// </summary>
         public void PressGameplay()
         {

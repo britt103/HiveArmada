@@ -59,8 +59,11 @@ public class SteamVR_LoadLevel : MonoBehaviour
     public Font progressTextFont;
     public FontStyle progressTextFontStyle;
     public int progressTextFontSize;
+    public Color progressTextColor;
     public int progressTextWidth;
     public int progressTextHeight;
+    public int progressTextX;
+    public int progressTextY;
 
     // Sizes of overlays.
     public float loadingScreenWidthInMeters = 6.0f;
@@ -71,7 +74,7 @@ public class SteamVR_LoadLevel : MonoBehaviour
 
     // Optional overrides for where to display loading screen and progress bar overlays.
     // Otherwise defaults to using this object's transform.
-    public Transform loadingScreenTransform, progressBarTransform;
+    public Transform loadingScreenTransform, progressTextTransform;
 
     // Optional skybox override textures.
     public Texture front, back, left, right, top, bottom;
@@ -103,7 +106,7 @@ public class SteamVR_LoadLevel : MonoBehaviour
     RenderTexture renderTexture; // used to render progress bar
 
     ulong loadingScreenOverlayHandle = OpenVR.k_ulOverlayHandleInvalid;
-    ulong progressBarOverlayHandle = OpenVR.k_ulOverlayHandleInvalid;
+    ulong progressTextOverlayHandle = OpenVR.k_ulOverlayHandleInvalid;
 
     public bool autoTriggerOnEnable = false;
 
@@ -132,23 +135,23 @@ public class SteamVR_LoadLevel : MonoBehaviour
         loader.Trigger();
     }
 
-    // Updates progress bar.
+    // Updates progress text.
     void OnGUI()
     {
         if (_active != this)
             return;
 
-        // Optionally create an overlay for our progress bar to use, separate from the loading screen.
-        if (!progressTextFont)
+        // Optionally create an overlay for our progress text to use, separate from the loading screen.
+        if (progressTextFont)
         {
-            if (progressBarOverlayHandle == OpenVR.k_ulOverlayHandleInvalid)
-                progressBarOverlayHandle = GetOverlayHandle("progressBar", progressBarTransform != null ? progressBarTransform : transform, progressBarWidthInMeters);
+            if (progressTextOverlayHandle == OpenVR.k_ulOverlayHandleInvalid)
+                progressTextOverlayHandle = GetOverlayHandle("progressBar", progressTextTransform != null ? progressTextTransform : transform, progressBarWidthInMeters);
 
-            if (progressBarOverlayHandle != OpenVR.k_ulOverlayHandleInvalid)
+            if (progressTextOverlayHandle != OpenVR.k_ulOverlayHandleInvalid)
             {
                 var progress = (async != null) ? async.progress : 0.0f;
 
-                // Use the full bar size for everything.
+                // Use the full text size for everything.
                 var w = progressTextWidth;
                 var h = progressTextHeight;
 
@@ -167,17 +170,16 @@ public class SteamVR_LoadLevel : MonoBehaviour
 
                 GUILayout.BeginArea(new Rect(0, 0, w, h));
 
-                //GUI.DrawTexture(new Rect(0, 0, w, h), progressBarEmpty);
-
                 GUIStyle style = new GUIStyle();
                 style.font = progressTextFont;
                 style.fontStyle = progressTextFontStyle;
                 style.fontSize = progressTextFontSize;
+                style.normal.textColor = progressTextColor;
+                style.alignment = TextAnchor.MiddleCenter;
 
-                GUI.Label(new Rect(0, 0, w, h), Convert.ToString(progress) + "%", style);
+                GUIContent content = new GUIContent();
 
-                // Reveal the full bar texture based on progress.
-                //GUI.DrawTextureWithTexCoords(new Rect(0, 0, progress * w, h), progressBarFull, new Rect(0.0f, 0.0f, progress, 1.0f));
+                GUI.Label(new Rect(progressTextX, progressTextY, w, h), Math.Truncate(progress).ToString(), style);
 
                 GUILayout.EndArea();
 
@@ -191,7 +193,7 @@ public class SteamVR_LoadLevel : MonoBehaviour
                     texture.handle = renderTexture.GetNativeTexturePtr();
                     texture.eType = SteamVR.instance.textureType;
                     texture.eColorSpace = EColorSpace.Auto;
-                    overlay.SetOverlayTexture(progressBarOverlayHandle, ref texture);
+                    overlay.SetOverlayTexture(progressTextOverlayHandle, ref texture);
                 }
             }
         }
@@ -249,8 +251,8 @@ public class SteamVR_LoadLevel : MonoBehaviour
             if (loadingScreenOverlayHandle != OpenVR.k_ulOverlayHandleInvalid)
                 overlay.SetOverlayAlpha(loadingScreenOverlayHandle, alpha);
 
-            if (progressBarOverlayHandle != OpenVR.k_ulOverlayHandleInvalid)
-                overlay.SetOverlayAlpha(progressBarOverlayHandle, alpha);
+            if (progressTextOverlayHandle != OpenVR.k_ulOverlayHandleInvalid)
+                overlay.SetOverlayAlpha(progressTextOverlayHandle, alpha);
         }
     }
 
@@ -457,8 +459,8 @@ public class SteamVR_LoadLevel : MonoBehaviour
 
         if (overlay != null)
         {
-            if (progressBarOverlayHandle != OpenVR.k_ulOverlayHandleInvalid)
-                overlay.HideOverlay(progressBarOverlayHandle);
+            if (progressTextOverlayHandle != OpenVR.k_ulOverlayHandleInvalid)
+                overlay.HideOverlay(progressTextOverlayHandle);
             if (loadingScreenOverlayHandle != OpenVR.k_ulOverlayHandleInvalid)
                 overlay.HideOverlay(loadingScreenOverlayHandle);
         }

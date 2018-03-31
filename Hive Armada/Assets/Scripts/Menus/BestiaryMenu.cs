@@ -96,7 +96,12 @@ namespace Hive.Armada.Menus
         /// <summary>
         /// Reference to environment object on top of table.
         /// </summary>
-        public GameObject tableDecoration;
+        public GameObject armada;
+
+        /// <summary>
+        /// Y rotation of armada.
+        /// </summary>
+        private float armadaYRotation;
 
         [Header("Content")]
         /// <summary>
@@ -194,7 +199,8 @@ namespace Hive.Armada.Menus
             UpdateUnlocks();
             GetEnemyData();
             GenerateContent();
-            tableDecoration.SetActive(false);
+            armadaYRotation = armada.transform.rotation.eulerAngles.y;
+            armada.SetActive(false);
             scrollbar.value = 1;
         }
 
@@ -250,7 +256,10 @@ namespace Hive.Armada.Menus
             }
             else
             {
-                tableDecoration.SetActive(true);
+                Vector3 rotation = armada.transform.eulerAngles;
+                rotation.y = armadaYRotation;
+                armada.transform.Rotate(rotation);
+                armada.SetActive(true);
                 FindObjectOfType<RoomTransport>().Transport(backMenuTransform, gameObject,
                     backMenuGO);
             }
@@ -355,7 +364,15 @@ namespace Hive.Armada.Menus
                 entryName.GetComponent<Text>().text = enemyNames[entryId];
                 entryText.GetComponent<Text>().text = enemyTexts[entryId];
                 informationButton.SetActive(true);
-                currEntryPrefab = Instantiate(enemyPrefabs[entryId], entryPrefabPoint);
+                if (enemyNames[entryId] == "Armada")
+                {
+                    armada.SetActive(true);
+                }
+                else
+                {
+                    currEntryPrefab = Instantiate(enemyPrefabs[entryId - 1], entryPrefabPoint);
+                }
+                
             }
 
             entryOpen = true;
@@ -372,7 +389,14 @@ namespace Hive.Armada.Menus
             scrollView.SetActive(true);
             informationButton.SetActive(false);
 
-            Destroy(currEntryPrefab);
+            if (entryName.GetComponent<Text>().text == "Armada")
+            {
+                armada.SetActive(false);
+            }
+            else
+            {
+                Destroy(currEntryPrefab);
+            }
 
             entryOpen = false;
         }

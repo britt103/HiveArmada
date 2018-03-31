@@ -45,16 +45,6 @@ namespace Hive.Armada.Menus
         public GameObject scrollView;
 
         /// <summary>
-        /// Height of scroll view content cells.
-        /// </summary>
-        public float scrollViewCellHeight;
-
-        /// <summary>
-        /// Length of vertical space between scroll view content cells.
-        /// </summary>
-        public float scrollViewCellVerticalSpacing;
-
-        /// <summary>
         /// Names of weapons.
         /// </summary>
         public string[] weaponNames;
@@ -185,7 +175,12 @@ namespace Hive.Armada.Menus
                 {
                     weaponUIHoverScripts[selectedWeapon].EndSelect();
                 }
+                else
+                {
+                    ShowPlayButton();
+                }
                 selectedWeapon = weaponNum;
+                selectionMade = true;
             }
             weaponUIHoverScripts[selectedWeapon].Select();
         }

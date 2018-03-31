@@ -2878,18 +2878,17 @@ MonoBehaviour:
   contentGO: {fileID: 1122051256}
   menuTitle: {fileID: 778337143}
   scrollView: {fileID: 932757153}
-  scrollbar: {fileID: 0}
+  scrollbar: {fileID: 1915115530}
   verticalSlider: {fileID: 823290308}
   entryName: {fileID: 2020462795}
   entryText: {fileID: 646774272}
   numFittableButtons: 3
-  tableDecoration: {fileID: 1816551254}
+  armada: {fileID: 1816551254}
   entryButtonPrefab: {fileID: 1586695209148668, guid: 1e49ab34b698f404eb452c3ab5a2e179,
     type: 2}
   entryButtonEmptyPrefab: {fileID: 1586695209148668, guid: 58156894728292d48a2c0ca239ddd6bd,
     type: 2}
   enemyPrefabs:
-  - {fileID: 1251115117559252, guid: bb76aded69bdf73409b069ef92a4f98c, type: 2}
   - {fileID: 1509759630503974, guid: 5f5bc8bc2ff0fe74b87b8c9be708ee0d, type: 2}
   - {fileID: 1320547421668860, guid: 5836aa741520a304196fa7a10d571aa4, type: 2}
   - {fileID: 1657808963477230, guid: 66395fdcae2d8de4ea2bd1a544b34cbb, type: 2}
@@ -6092,7 +6091,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 491.5, y: -1830}
+  m_AnchoredPosition: {x: 491.5, y: -1845}
   m_SizeDelta: {x: 950, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &507086745
@@ -7657,7 +7656,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 686844031}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.2520094
+  m_Size: 0.25023472
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -8272,7 +8271,7 @@ RectTransform:
   m_Father: {fileID: 1826273756}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.7479906}
+  m_AnchorMin: {x: 0, y: 0.7497653}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
@@ -15567,7 +15566,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 491.5, y: -800}
+  m_AnchoredPosition: {x: 491.5, y: -805}
   m_SizeDelta: {x: 950, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1259177302
@@ -15926,7 +15925,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: -0.00024414062}
-  m_SizeDelta: {x: 0, y: 2115}
+  m_SizeDelta: {x: 0, y: 2130}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1286667728
 MonoBehaviour:
@@ -15972,7 +15971,7 @@ MonoBehaviour:
   m_StartCorner: 0
   m_StartAxis: 0
   m_CellSize: {x: 950, y: 500}
-  m_Spacing: {x: 0, y: 15}
+  m_Spacing: {x: 0, y: 40}
   m_Constraint: 1
   m_ConstraintCount: 1
 --- !u!1 &1291430484
@@ -18316,17 +18315,20 @@ MonoBehaviour:
   internalProcessArgs: 
   loadAdditive: 0
   loadAsync: 1
-  loadingScreen: {fileID: 0}
+  loadingScreen: {fileID: 2800000, guid: ca3d252c24306c9418fcdce34abc1c2d, type: 3}
   progressTextFont: {fileID: 12800000, guid: 443111e9d0dc0d146b606fe148c773a3, type: 3}
   progressTextFontStyle: 0
-  progressTextFontSize: 200
+  progressTextFontSize: 100
+  progressTextColor: {r: 0.5137255, g: 0.8980392, b: 1, a: 1}
   progressTextWidth: 1000
-  progressTextHeight: 300
+  progressTextHeight: 1000
+  progressTextX: 0
+  progressTextY: 0
   loadingScreenWidthInMeters: 6
   progressBarWidthInMeters: 3
   loadingScreenDistance: 0
   loadingScreenTransform: {fileID: 1611461873}
-  progressBarTransform: {fileID: 1611461873}
+  progressTextTransform: {fileID: 0}
   front: {fileID: 2800000, guid: 08d77fe4d80b22845b618eaffd7fc02a, type: 3}
   back: {fileID: 2800000, guid: 38f8ff2d52c1b294bb224af38844e95b, type: 3}
   left: {fileID: 2800000, guid: 68418038d982ac04a8ec4e451fe3c321, type: 3}
@@ -20511,7 +20513,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 491.5, y: -1315}
+  m_AnchoredPosition: {x: 491.5, y: -1325}
   m_SizeDelta: {x: 950, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1605588752
@@ -22390,6 +22392,30 @@ Transform:
   m_PrefabParentObject: {fileID: 4518066333087910, guid: bb76aded69bdf73409b069ef92a4f98c,
     type: 2}
   m_PrefabInternal: {fileID: 1551558050}
+--- !u!135 &1816551256
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1816551254}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 130
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1816551257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1816551254}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0858de2f2f0dc3e449544ef1c7684719, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 1
 --- !u!1 &1820918945
 GameObject:
   m_ObjectHideFlags: 0
@@ -22780,8 +22806,6 @@ MonoBehaviour:
   backMenuGO: {fileID: 282538043}
   playButton: {fileID: 1046473952}
   scrollView: {fileID: 603055973}
-  scrollViewCellHeight: 500
-  scrollViewCellVerticalSpacing: 15
   weaponNames:
   - Laser
   - Minigun

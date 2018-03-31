@@ -210,7 +210,10 @@ namespace Hive.Armada.Menus
                 source.Stop();
                 source.PlayOneShot(clips[1]);
             }
-            gameModeUIHoverScripts[selectedGameMode].EndSelect();
+            if (selectionMade)
+            {
+                gameModeUIHoverScripts[selectedGameMode].EndSelect();
+            }
             HideContinueButton();
             selectionMade = false;
             transitionManager.Transition(backMenuGO);

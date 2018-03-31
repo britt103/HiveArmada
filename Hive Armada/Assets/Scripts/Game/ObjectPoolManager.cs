@@ -126,9 +126,11 @@ namespace Hive.Armada.Game
         /// Array of queues for each object to pool.
         /// These queues will hold the objects that are currently activated in the scene.
         /// </summary>
-        //private LinkedList<GameObject>[] activePools;
         private Hashtable activePool;
 
+        /// <summary>
+        /// The last pool identifier used.
+        /// </summary>
         private uint lastPoolIdentifier;
 
         /// <summary>
@@ -159,11 +161,7 @@ namespace Hive.Armada.Game
                 poolParents = new GameObject[objects.Length];
                 parentNames = new string[objects.Length];
 
-                //inactivePools = new LinkedList<GameObject>[objects.Length];
-                //activePools = new LinkedList<GameObject>[objects.Length];
                 inactivePools = new Stack<GameObject>[objects.Length];
-
-                //inactivePools[0] = new Stack<GameObject>();
                 activePool = new Hashtable();
 
                 for (int i = 0; i < objects.Length; ++i)
@@ -175,8 +173,6 @@ namespace Hive.Armada.Game
                         continue;
                     }
 
-                    //inactivePools[i] = new LinkedList<GameObject>();
-                    //activePools[i] = new LinkedList<GameObject>();
                     inactivePools[i] = new Stack<GameObject>();
 
                     poolParents[i] = Instantiate(poolParentPrefab, gameObject.transform);
@@ -185,7 +181,7 @@ namespace Hive.Armada.Game
 
                     for (int n = 0; n < objects[i].amountToPool; ++n)
                     {
-                        AddObject((short) i);
+                        AddObject((short)(i));
                     }
                 }
             }
@@ -200,30 +196,7 @@ namespace Hive.Armada.Game
         /// <returns> The spawned object </returns>
         public GameObject Spawn(GameObject caller, short typeIdentifier, Vector3 position)
         {
-            //            if (typeIdentifier < 0 || typeIdentifier >= objects.Length)
-            //            {
-            //                Debug.LogError(GetType().Name + " - Invalid type identifier \"" + typeIdentifier +
-            //                               "\". Called by \"" + caller.name + "\", instance ID " +
-            //                               caller.GetInstanceID());
-            //                return null;
-            //            }
-            //
-            //            if (inactivePools[typeIdentifier].Count == 0)
-            //            {
-            //                ExpandPool(typeIdentifier);
-            //            }
-            //
-            //            //LinkedListNode<GameObject> spawnedNode = inactivePools[typeIdentifier].First;
-            //            //GameObject spawned = spawnedNode.Value;
-            //            //inactivePools[typeIdentifier].RemoveFirst();
-            //            //activePools[typeIdentifier].AddLast(spawnedNode);
-            //
-            //            GameObject spawned = GetObjectToSpawn(typeIdentifier);
-            //
-            //            spawned.transform.position = position;
-            //            spawned.GetComponent<Poolable>().Activate();
-
-            return Spawn(caller, typeIdentifier, position, null, null);
+            return SpawnObject(caller, typeIdentifier, position, null, null);
         }
 
         /// <summary>
@@ -237,31 +210,7 @@ namespace Hive.Armada.Game
         public GameObject Spawn(GameObject caller, short typeIdentifier, Vector3 position,
                                 Transform parent)
         {
-            //            if (typeIdentifier < 0 || typeIdentifier >= objects.Length)
-            //            {
-            //                Debug.LogError(GetType().Name + " - Invalid type identifier \"" + typeIdentifier +
-            //                               "\". Called by \"" + caller.name + "\", instance ID " +
-            //                               caller.GetInstanceID());
-            //                return null;
-            //            }
-            //
-            //            if (inactivePools[typeIdentifier].Count == 0)
-            //            {
-            //                ExpandPool(typeIdentifier);
-            //            }
-            //
-            //            //LinkedListNode<GameObject> spawnedNode = inactivePools[typeIdentifier].First;
-            //            //GameObject spawned = spawnedNode.Value;
-            //            //inactivePools[typeIdentifier].RemoveFirst();
-            //            //activePools[typeIdentifier].AddLast(spawnedNode);
-            //
-            //            GameObject spawned = GetObjectToSpawn(typeIdentifier);
-            //
-            //            spawned.transform.position = position;
-            //            spawned.transform.parent = parent;
-            //            spawned.GetComponent<Poolable>().Activate();
-
-            return Spawn(caller, typeIdentifier, position, null, parent);
+            return SpawnObject(caller, typeIdentifier, position, null, parent);
         }
 
         /// <summary>
@@ -275,31 +224,7 @@ namespace Hive.Armada.Game
         public GameObject Spawn(GameObject caller, short typeIdentifier, Vector3 position,
                                 Quaternion rotation)
         {
-            //            if (typeIdentifier < 0 || typeIdentifier >= objects.Length)
-            //            {
-            //                Debug.LogError(GetType().Name + " - Invalid type identifier \"" + typeIdentifier +
-            //                               "\". Called by \"" + caller.name + "\", instance ID " +
-            //                               caller.GetInstanceID());
-            //                return null;
-            //            }
-
-            //            if (inactivePools[typeIdentifier].Count == 0)
-            //            {
-            //                ExpandPool(typeIdentifier);
-            //            }
-            //
-            //            //            LinkedListNode<GameObject> spawnedNode = inactivePools[typeIdentifier].First;
-            //            //            GameObject spawned = spawnedNode.Value;
-            //            //            inactivePools[typeIdentifier].RemoveFirst();
-            //            //            activePools[typeIdentifier].AddLast(spawnedNode);
-            //
-            //            GameObject spawned = GetObjectToSpawn(typeIdentifier);
-            //
-            //            spawned.transform.position = position;
-            //            spawned.transform.rotation = rotation;
-            //            spawned.GetComponent<Poolable>().Activate();
-
-            return Spawn(caller, typeIdentifier, position, rotation, null);
+            return SpawnObject(caller, typeIdentifier, position, rotation, null);
         }
 
         /// <summary>
@@ -311,7 +236,23 @@ namespace Hive.Armada.Game
         /// <param name="rotation"> The rotation to spawn the object with </param>
         /// <param name="parent"> New parent for the spawned object </param>
         /// <returns> The spawned object </returns>
-        public GameObject Spawn(GameObject caller, short typeIdentifier, Vector3? position,
+        public GameObject Spawn(GameObject caller, short typeIdentifier, Vector3 position,
+                                Quaternion rotation,
+                                Transform parent)
+        {
+            return SpawnObject(caller, typeIdentifier, position, rotation, parent);
+        }
+
+        /// <summary>
+        /// Spawns a pooled object.
+        /// </summary>
+        /// <param name="caller"> The object that called Spawn() </param>
+        /// <param name="typeIdentifier"> The identifier (index) of the object to spawn </param>
+        /// <param name="position"> The position to spawn the object at </param>
+        /// <param name="rotation"> The rotation to spawn the object with </param>
+        /// <param name="parent"> New parent for the spawned object </param>
+        /// <returns> The spawned object </returns>
+        private GameObject SpawnObject(GameObject caller, short typeIdentifier, Vector3? position,
                                 Quaternion? rotation,
                                 Transform parent)
         {
@@ -357,11 +298,14 @@ namespace Hive.Armada.Game
             return spawned;
         }
 
+        /// <summary>
+        /// Gets the first object in the corresponding pool and adds it to the active pool.
+        /// </summary>
+        /// <param name="typeIdentifier"> The identifier (index) of the object to spawn </param>
+        /// <returns> The object to spawn </returns>
         private GameObject GetObjectToSpawn(short typeIdentifier)
         {
             GameObject spawned = inactivePools[typeIdentifier].Pop();
-
-            //Debug.Log();
             Poolable poolable = spawned.GetComponent<Poolable>();
             activePool.Add(poolable.PoolIdentifier, spawned);
 
@@ -383,14 +327,15 @@ namespace Hive.Armada.Game
 
                 poolable.Deactivate();
 
+                objectToDespawn.transform.parent =
+                    poolParents[typeIdentifier].transform;
+                objectToDespawn.transform.localPosition = Vector3.zero;
+
                 if (activePool.Contains(poolable.PoolIdentifier))
                 {
                     activePool.Remove(poolable.PoolIdentifier);
                     inactivePools[typeIdentifier].Push(objectToDespawn);
                 }
-
-                objectToDespawn.transform.parent =
-                    poolParents[typeIdentifier].transform;
             }
             else
             {

@@ -69,7 +69,7 @@ namespace Hive.Armada.Enemies
         /// <summary>
         /// Length of the fade in seconds.
         /// </summary>
-        private const float FADE_TIME = 0.08f;
+        private const float FADE_TIME = 0.05f;
 
         /// <summary>
         /// Number of steps the fade should be broken into.

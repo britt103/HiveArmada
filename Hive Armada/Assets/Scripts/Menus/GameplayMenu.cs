@@ -57,16 +57,6 @@ namespace Hive.Armada.Menus
         private ReferenceManager reference;
 
         /// <summary>
-        /// Variables used to make sure that audio
-        /// doesn't play over itself
-        /// </summary>
-        private int backCounter = 0;
-
-        private int aimAssistCounter = 0;
-
-        private int scoreCounter = 0;
-
-        /// <summary>
         /// Find references. 
         /// </summary>
         private void Awake()
@@ -82,12 +72,6 @@ namespace Hive.Armada.Menus
         public void PressBack()
         {
             source.PlayOneShot(clips[0]);
-            backCounter += 1;
-            if (backCounter > 1)
-            {
-                source.Stop();
-                source.PlayOneShot(clips[0]);
-            }
             reference.optionsValues.SetDisplayPlayerPrefs();
             transitionManager.Transition(backMenuGO);
         }
@@ -97,11 +81,13 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void SetAimAssist(bool isOn)
         {
-            source.PlayOneShot(clips[1]);
-            aimAssistCounter += 1;
-            if (aimAssistCounter > 1)
+            if (source.isPlaying)
             {
-                source.Stop();
+                new WaitWhile(() => source.isPlaying);
+                source.PlayOneShot(clips[1]);
+            }
+            else
+            {
                 source.PlayOneShot(clips[1]);
             }
             reference.optionsValues.SetAimAssist(isOn);
@@ -112,11 +98,13 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void SetScoreDisplay(bool isOn)
         {
-            source.PlayOneShot(clips[1]);
-            scoreCounter += 1;
-            if (scoreCounter > 1)
+            if (source.isPlaying)
             {
-                source.Stop();
+                new WaitWhile(() => source.isPlaying);
+                source.PlayOneShot(clips[1]);
+            }
+            else
+            {
                 source.PlayOneShot(clips[1]);
             }
             reference.optionsValues.SetScoreDisplay(isOn);

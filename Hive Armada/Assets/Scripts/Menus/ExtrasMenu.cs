@@ -65,12 +65,6 @@ namespace Hive.Armada.Menus
         public void PressShop()
         {
             source.PlayOneShot(clips[0]);
-            //startCounter += 1;
-            //if (startCounter > 1)
-            //{
-            //    source.Stop();
-            //    source.PlayOneShot(clips[0]);
-            //}
             FindObjectOfType<RoomTransport>().Transport(shopTransform, gameObject, shopMenuGO);
         }
 
@@ -80,12 +74,6 @@ namespace Hive.Armada.Menus
         public void PressBestiary()
         {
             source.PlayOneShot(clips[0]);
-            //startCounter += 1;
-            //if (startCounter > 1)
-            //{
-            //    source.Stop();
-            //    source.PlayOneShot(clips[0]);
-            //}
             FindObjectOfType<RoomTransport>().Transport(bestiaryTransform, gameObject, bestiaryMenuGO);
         }
 
@@ -95,12 +83,6 @@ namespace Hive.Armada.Menus
         public void PressBack()
         {
             source.PlayOneShot(clips[1]);
-            //backCounter += 1;
-            //if (backCounter > 1)
-            //{
-            //    source.Stop();
-            //    source.PlayOneShot(clips[1]);
-            //}
             transitionManager.Transition(backMenuGO);
         }
     }

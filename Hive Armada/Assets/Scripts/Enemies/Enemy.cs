@@ -372,8 +372,6 @@ namespace Hive.Armada.Enemies
         /// </summary>
         protected override void Reset()
         {
-            //            gameObject.layer = Utility.pathingEnemyLayerId;
-
             // reset materials
             for (int i = 0; i < renderers.Count; ++i)
             {

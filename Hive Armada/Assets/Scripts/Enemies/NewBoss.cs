@@ -1,27 +1,46 @@
 ﻿//=============================================================================
-//
-// Miguel Gotao
-// 2264941
-// gotao100@mail.chapman.edu
-// CPSC-340-01 & CPSC-344-01
+// 
+// Perry Sidler
+// 1831784
+// sidle104@mail.chapman.edu
+// CPSC-440-01
 // Group Project
-//
-// Behavior of the recurring boss throughout the game
-//
+// 
+// 
+// 
 //=============================================================================
 
 using System.Collections;
 using System.Linq;
 using UnityEngine;
+using Hive.Armada.Game;
+using Hive.Armada.Player;
 
 namespace Hive.Armada.Enemies
 {
-    public class Boss : Enemy
+    public class NewBoss : Enemy
     {
+        public enum BossStates
+        {
+            Patrol,
+            Idle,
+            Combat,
+            TransitionToCombat,
+            TransitionFromCombat,
+            Intro
+        }
+
+        [Header("Combat")]
+        public GameObject projectilePrefab;
+
         /// <summary>
         /// Type identifier for object pooling purposes
         /// </summary>
         private short projectileTypeIdentifier;
+
+        public Color projectileAlbedoColor;
+
+        public Color projectileEmissionColor;
 
         /// <summary>
         /// Structure resposible for tracking the positions for which bullets
@@ -44,8 +63,6 @@ namespace Hive.Armada.Enemies
         /// Transform of the shoot point, to be used for altering attack patterns
         /// </summary>
         public Transform shootPivot;
-
-        public GameObject projectile;
 
         /// <summary>
         /// How fast the turret shoots at a given rate
@@ -87,39 +104,62 @@ namespace Hive.Armada.Enemies
         /// </summary>
         private bool canRotate;
 
-        public bool canActivate;
+        [Header("Health")]
+        public int[] health;
 
-        private float theta;
+        public GameObject eyes;
 
-        private Vector3 posA;
+        public Material eyeIntactMaterial;
 
-        private Vector3 posB;
+        public Material eyeDestroyedMaterial;
 
-        public float yMax;
+        /// <summary>
+        /// The strength of the boss looking at the player.
+        /// </summary>
+        [Range(0, 5)]
+        public int lookStrength;
 
-        private float t;
-
-        private float start;
-
-        public float movingSpeed;
+        public GameObject lookTarget;
 
         /// <summary>
         /// Audio source to play boss sounds from
         /// </summary>
-        AudioSource source;
+        [Header("Audio")]
+        public AudioSource source;
 
-        public AudioClip clip;
+        public AudioClip introClip;
+
+        [Header("Hover")]
+        public bool hoverEnabled;
+
+        public float hoverDistance;
+
+        public float hoverTime;
+
+        private float hoverPercent;
+
+        private Vector3 hoverStart;
+
+        private Vector3 hoverEnd;
+
+        private Coroutine hoverCoroutine;
+
+        public bool IsSpeaking { get; private set; }
+
+        public bool LookAtTarget { get; private set; }
+
+        public BossStates State { get; private set; }
+
+        public GameObject testPlayer;
 
         /// <summary>
-        /// On start, select enemy behavior based on value fireMode
+        /// 
         /// </summary>
-        private void Start()
+        protected override void Awake()
         {
-            //Reset();
-            //ResetAttackPattern();
-            //StartCoroutine(SelectBehavior(0));
-            source = GameObject.Find("Boss Audio Source").GetComponent<AudioSource>();
-            source.PlayOneShot(clip);
+            base.Awake();
+
+            testPlayer = GameObject.Find("SphereASDF");
         }
 
         /// <summary>
@@ -129,80 +169,127 @@ namespace Hive.Armada.Enemies
         /// </summary>
         private void Update()
         {
-            if (PathingComplete)
+            if (LookAtTarget)
             {
-                transform.position = Vector3.Lerp(posA, posB, (Mathf.Sin(theta) + 1.0f) / 2.0f);
-
-                theta += movingSpeed * Time.deltaTime;
-
-                if (theta > Mathf.PI)
+                if (lookTarget == null)
                 {
-                    theta -= Mathf.PI * 2;
+                    lookTarget = testPlayer;
                 }
+
+                Quaternion to = Quaternion.LookRotation(lookTarget.transform.position - transform.position);
+
+                transform.rotation = Quaternion.Slerp(transform.rotation, to, lookStrength * Time.deltaTime);
             }
 
-            if (canActivate)
+            if (State == BossStates.Combat)
             {
-                //transform.position = Vector3.Lerp(posA, posB, (Mathf.Sin(theta) + 1.0f) / 2.0f);
+                if (canShoot)
+                {
+                    StartCoroutine(Shoot());
+                }
+            }
+        }
 
-                //theta += movingSpeed * Time.deltaTime;
-
-                //if (theta > Mathf.PI)
-                //{
-                //    theta -= Mathf.PI * 2;
-                //}
-
-                transform.LookAt(player.transform);
+        public void TransitionState(BossStates newState)
+        {
+            switch ((int)newState)
+            {
+                case 0:
+                    break;
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    // play intro audio
+                    if (source != null)
+                    {
+                        if (introClip != null)
+                        {
+                            source.PlayOneShot(introClip);
+                        }
+                        else
+                        {
+                            Debug.LogError(GetType().Name + " - \"introClip\" is not set.");
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError(GetType().Name + " - \"source\" is not set.");
+                    }
+                    break;
+                default:
+                    break;
             }
         }
 
         /// <summary>
         /// This is run after the enemy has completed its path.
-        /// Calls Hover function to set positions to hover between
+        /// Calls hover function to set hover endpoints
         /// </summary>
         protected override void OnPathingComplete()
         {
             SetHover();
+            //SetLookTarget(reference.playerShip);
+            SetLookTarget(testPlayer);
+            LookAtTarget = true;
+
+            if (hoverEnabled)
+            {
+                StartCoroutine(Hover(hoverStart, hoverEnd));
+            }
+
             base.OnPathingComplete();
         }
 
         /// <summary>
-        /// Function that creates 2 vector 3's to float up and down with a Sin()
+        /// Sets the start and end points for the hover effect.
         /// </summary>
         private void SetHover()
         {
-            start = Time.time;
-            t = 0.5f;
-            posA = new Vector3(transform.position.x,
-                               transform.position.y + yMax / 2,
-                               transform.position.z);
-
-            posB = new Vector3(transform.position.x,
-                               transform.position.y - yMax / 2,
-                               transform.position.z);
-
-            theta = 0.0f;
+            hoverStart = transform.position;
+            hoverEnd = new Vector3(transform.position.x,
+                                   transform.position.y + hoverDistance,
+                                   transform.position.z);
         }
 
         /// <summary>
-        /// Begins boss firing logic.
+        /// 
         /// </summary>
-        public void StartBoss(int currentWave)
+        /// <param name="start"> The start point </param>
+        /// <param name="end"> The end point </param>
+        private IEnumerator Hover(Vector3 start, Vector3 end)
         {
-            ResetAttackPattern();
-            wave = currentWave + 1;
-            StartCoroutine(StartBehavior(wave));
-            SetHover();
+            hoverPercent = 0.0f;
+
+            while (hoverPercent <= 1.0f)
+            {
+                hoverPercent += Time.deltaTime / hoverTime;
+                transform.position = Vector3.Lerp(start, end, Mathf.SmoothStep(0.0f, 1.0f, hoverPercent));
+                yield return null;
+            }
+
+            if (hoverEnabled)
+            {
+                hoverCoroutine = StartCoroutine(Hover(end, start));
+            }
+            else
+            {
+                hoverCoroutine = null;
+            }
         }
 
         /// <summary>
-        /// Stops boss from attacking.
+        /// Sets the look target for the boss.
         /// </summary>
-        public void PauseBoss()
+        /// <param name="target"> The new look target </param>
+        public void SetLookTarget(GameObject target)
         {
-            PathingComplete = false;
-            ResetAttackPattern();
-            StopAllCoroutines();
+            lookTarget = target;
         }
 
         /// <summary>
@@ -227,8 +314,6 @@ namespace Hive.Armada.Enemies
                     spawnedProjectile.GetComponent<Transform>().Rotate(randX, randY, randZ);
                     Projectile projectileScript = spawnedProjectile.GetComponent<Projectile>();
                     projectileScript.Launch(0);
-                    //spawnedProjectile.GetComponent<Rigidbody>().velocity =
-                    //    spawnedProjectile.transform.forward * projectileSpeed;
                 }
             }
 
@@ -237,6 +322,10 @@ namespace Hive.Armada.Enemies
             canShoot = true;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pivot"></param>
         private IEnumerator RotateProjectile(Transform pivot)
         {
             while (true)
@@ -246,6 +335,11 @@ namespace Hive.Armada.Enemies
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="wave"></param>
+        /// <returns></returns>
         public IEnumerator StartBehavior(int wave)
         {
             switch (wave)
@@ -277,9 +371,13 @@ namespace Hive.Armada.Enemies
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="behavior"></param>
+        /// <returns></returns>
         private IEnumerator SelectBehavior(int behavior)
         {
-            //Debug.Log(behavior);
             switch (behavior)
             {
                 //standard pattern
@@ -495,22 +593,26 @@ namespace Hive.Armada.Enemies
                     ActivateShootPoints(myPoints, myPoints.Length);
                     return;
             }
-
-            //Debug.Log(myPoints.Length);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private void ResetAttackPattern()
         {
             StopCoroutine(RotateProjectile(shootPivot));
             shootPivot.rotation = transform.rotation;
-            for (int i = 0; i < 81; ++i)
+            for (int i = 0; i < projectileArray.Length; ++i)
             {
                 projectileArray[i] = false;
             }
-
-            //Debug.Log("Reset!");
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="points"></param>
+        /// <param name="length"></param>
         private void ActivateShootPoints(int[] points, int length)
         {
             ResetAttackPattern();
@@ -520,20 +622,19 @@ namespace Hive.Armada.Enemies
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         protected override void Kill()
         {
-            //Do Nothing
-        }
-
-        protected override void Reset()
-        {
-            //Do Nothing
+            // Do a thing so Boss Manager knows I am defeated.
+            // add score, popup on eye that is shutting off
         }
 
         /// <summary>
-        /// Resets attributes to this enemy's defaults from enemyAttributes.
+        /// 
         /// </summary>
-        public void BossReset()
+        protected override void Reset()
         {
             // reset materials
             for (int i = 0; i < renderers.Count; ++i)
@@ -541,14 +642,10 @@ namespace Hive.Armada.Enemies
                 renderers.ElementAt(i).material = materials.ElementAt(i);
             }
 
-            //hitFlash = null;
-            //shaking = false;
-            //canShoot = true;
-
-            projectileTypeIdentifier = objectPoolManager.GetTypeIdentifier(projectile);
-            maxHealth = 1000;
+            canShoot = false;
+            projectileTypeIdentifier = objectPoolManager.GetTypeIdentifier(projectilePrefab);
+            maxHealth = health[wave];
             Health = maxHealth;
-            Debug.Log("Boss Health on boss is " + Health);
             PathingComplete = false;
         }
     }

@@ -62,6 +62,7 @@ namespace Hive.Armada.Game
         /// <param name="poolIdentifier"> The pool identifier for this object </param>
         public virtual void Initialize(ReferenceManager referenceManager, short typeIdentifier, uint poolIdentifier)
         {
+            reference = referenceManager;
             TypeIdentifier = typeIdentifier;
             PoolIdentifier = poolIdentifier;
             Deactivate();

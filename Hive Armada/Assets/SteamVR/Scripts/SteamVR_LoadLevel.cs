@@ -62,8 +62,6 @@ public class SteamVR_LoadLevel : MonoBehaviour
     public Color progressTextColor;
     public int progressTextWidth;
     public int progressTextHeight;
-    public int progressTextX;
-    public int progressTextY;
 
     // Sizes of overlays.
     public float loadingScreenWidthInMeters = 6.0f;
@@ -145,7 +143,7 @@ public class SteamVR_LoadLevel : MonoBehaviour
         if (progressTextFont)
         {
             if (progressTextOverlayHandle == OpenVR.k_ulOverlayHandleInvalid)
-                progressTextOverlayHandle = GetOverlayHandle("progressBar", progressTextTransform != null ? progressTextTransform : transform, progressBarWidthInMeters);
+                progressTextOverlayHandle = GetOverlayHandle("progressText", progressTextTransform != null ? progressTextTransform : transform, progressBarWidthInMeters);
 
             if (progressTextOverlayHandle != OpenVR.k_ulOverlayHandleInvalid)
             {
@@ -179,7 +177,7 @@ public class SteamVR_LoadLevel : MonoBehaviour
 
                 GUIContent content = new GUIContent();
 
-                GUI.Label(new Rect(progressTextX, progressTextY, w, h), Math.Truncate(progress).ToString(), style);
+                GUI.Label(new Rect(0, 0, w, h), Math.Truncate(progress * 100).ToString(), style);
 
                 GUILayout.EndArea();
 

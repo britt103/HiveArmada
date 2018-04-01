@@ -12,7 +12,6 @@
 //=============================================================================
 
 using System.Linq;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -40,11 +39,6 @@ namespace Hive.Armada.Menus
         /// Reference to Menu Transition Manager.
         /// </summary>
         public MenuTransitionManager transitionManager;
-
-        /// <summary>
-        /// Reference to Bestiary Menu GO.
-        /// </summary>
-        public GameObject BestiaryGO;
 
         /// <summary>
         /// Reference to menu to go to when back is pressed.
@@ -232,6 +226,23 @@ namespace Hive.Armada.Menus
                 Destroy(contentGO.transform.GetChild(i).gameObject);
             }
 
+            List<int> removalIndices = new List<int>();
+            for (int i = 0; i < currNames.Count; i++)
+            {
+                if (currCosts[i] == 0)
+                {
+                    removalIndices.Add(i);
+                }
+            }
+
+            foreach (int index in removalIndices)
+            {
+                currNames.RemoveAt(index);
+                currTexts.RemoveAt(index);
+                currCosts.RemoveAt(index);
+                currNotBought.RemoveAt(index);
+            }
+
             int items;
             bool tooFewEntries;
             if (currNames.Count <= numFittableButtons)
@@ -275,8 +286,6 @@ namespace Hive.Armada.Menus
             if (iridiumSystem.PayIridium(currCosts[currItemId]))
             {
                 iridiumSystem.UnlockItem(currCategory, currNames[currItemId]);
-                BestiaryGO.SetActive(true);
-                BestiaryGO.SetActive(false);
                 currNotBought[currItemId] = false;
                 PressBack();
             }

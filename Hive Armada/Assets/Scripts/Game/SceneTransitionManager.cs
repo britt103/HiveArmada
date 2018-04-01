@@ -122,9 +122,7 @@ namespace Hive.Armada.Game
             if (SceneManager.GetActiveScene().name == "Menu Room")
             {
                 if (sceneInfo.runFinished)
-                {
-                    reference.menuMain.transform.parent.transform.Find("Results Menu")
-                        .gameObject.SetActive(true);
+                { 
                     sceneInfo.runFinished = false;
                 }
                 else
@@ -265,6 +263,9 @@ namespace Hive.Armada.Game
                 {
                     pointer.gameObject.SetActive(true);
                 }
+
+                reference.menuMain.transform.parent.transform.Find("Results Menu")
+                    .gameObject.SetActive(true);
             }
 
             else if (sceneName == "Wave Room")

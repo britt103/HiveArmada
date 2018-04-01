@@ -153,19 +153,19 @@ namespace Hive.Armada.Menus
 
             int iridiumScoreAmount = (int)(stats.totalScore * 0.2);
 
-            if (stats.won)
-            {
-                victoryDefeatTextGO.GetComponent<Text>().text = victoryMessage;
-                victoryDefeatTextGO.GetComponent<Text>().color = victoryColor;
-            }
-            else
-            {
-                victoryDefeatTextGO.GetComponent<Text>().text = defeatMessage;
-                victoryDefeatTextGO.GetComponent<Text>().color = defeatColor;
-            }
-
             if (gameSettings.selectedGameMode == GameSettings.GameMode.SoloNormal)
             {
+                if (stats.won)
+                {
+                    victoryDefeatTextGO.GetComponent<Text>().text = victoryMessage;
+                    victoryDefeatTextGO.GetComponent<Text>().color = victoryColor;
+                }
+                else
+                {
+                    victoryDefeatTextGO.GetComponent<Text>().text = defeatMessage;
+                    victoryDefeatTextGO.GetComponent<Text>().color = defeatColor;
+                }
+
                 scoreTextGO.GetComponent<Text>().text = "Score: " + stats.totalScore;
 
                 int iridiumShootablesSpawnedAmount = iridiumSystem.GetSpawnedShootablesAmount();
@@ -178,6 +178,9 @@ namespace Hive.Armada.Menus
 
             else if (gameSettings.selectedGameMode == GameSettings.GameMode.SoloInfinite)
             {
+                victoryDefeatTextGO.GetComponent<Text>().text = "Results";
+                victoryDefeatTextGO.GetComponent<Text>().color = victoryColor;
+
                 TimeSpan time = TimeSpan.FromSeconds(stats.totalAliveTime);
 
                 string timeOutput;

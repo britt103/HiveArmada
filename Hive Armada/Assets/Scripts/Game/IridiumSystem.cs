@@ -159,14 +159,14 @@ namespace Hive.Armada.Game
         }
 
         /// <summary>
-        /// Check if multiple weapons have been unlocked.
+        /// Check if multiple weapons have been unlocked. Fixed weapons like Laser ignored.
         /// </summary>
         /// <returns>State of whether multiple weapons have been unlocked.</returns>
         public bool CheckAnyWeaponsUnlocked()
-        {
-            foreach (bool locked in iridiumData.weaponsLocked)
+        { 
+            for (int i = 0; i < iridiumData.weaponsLocked.Length; i++)
             {
-                if (!locked)
+                if (!iridiumData.weaponsLocked[i] && iridiumData.weaponCosts[i] > 0)
                 {
                     return true;
                 }

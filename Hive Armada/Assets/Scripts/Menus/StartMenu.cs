@@ -32,9 +32,19 @@ namespace Hive.Armada.Menus
         public GameObject backMenuGO;
 
         /// <summary>
+        /// Reference to description game object.
+        /// </summary>
+        public GameObject description;
+
+        /// <summary>
         /// Reference to continue button game object.
         /// </summary>
         public GameObject continueButton;
+
+        /// <summary>
+        /// Reference to play button game object.
+        /// </summary>
+        public GameObject playButton;
 
         /// <summary>
         /// Reference to Loadout Menu.
@@ -47,29 +57,19 @@ namespace Hive.Armada.Menus
         public Transform shopTransform;
 
         /// <summary>
-        /// Cells for game modes.
+        /// Buttons for game modes.
         /// </summary>
-        public GameObject[] gameModeCells;
+        public GameObject[] gameModeButtons;
+
+        /// <summary>
+        /// Descriptions of game modes.
+        /// </summary>
+        public string[] gameModeDescriptions;
 
         /// <summary>
         /// UIHover scripts of game mode buttons.
         /// </summary>
         public UIHover[] gameModeUIHoverScripts;
-
-        /// <summary>
-        /// Reference to menu ScrollView game object.
-        /// </summary>
-        public GameObject scrollView;
-
-        /// <summary>
-        /// Height of scroll view content cells.
-        /// </summary>
-        public float scrollViewCellHeight;
-
-        /// <summary>
-        /// Length of vertical space between scroll view content cells.
-        /// </summary>
-        public float scrollViewCellVerticalSpacing;
 
         /// <summary>
         /// Reference to Menu Audio source.
@@ -105,11 +105,23 @@ namespace Hive.Armada.Menus
         private int backCounter = 0;
 
         /// <summary>
+        /// Reference to refetrence manager.
+        /// </summary>
+        private ReferenceManager reference;
+
+        /// <summary>
+        /// Reference to iridium system.
+        /// </summary>
+        private IridiumSystem iridiumSystem;
+
+        /// <summary>
         /// Find references.
         /// </summary>
         private void Awake()
         {
-            gameSettings = FindObjectOfType<GameSettings>();
+            reference = FindObjectOfType<ReferenceManager>();
+            gameSettings = reference.gameSettings;
+            iridiumSystem = FindObjectOfType<IridiumSystem>();
         }
 
         /// <summary>
@@ -117,19 +129,29 @@ namespace Hive.Armada.Menus
         /// </summary>
         private void OnEnable()
         {
-            selectedGameMode = PlayerPrefs.GetInt("defaultGameMode", gameModeCells.Length);
+            selectedGameMode = PlayerPrefs.GetInt("defaultGameMode", gameModeButtons.Length);
 
-            if (selectedGameMode == gameModeCells.Length)
+            if (!iridiumSystem.CheckAnyWeaponsUnlocked())
             {
-                ScrollToCell(0);
-                HideContinueButton();
+                continueButton.SetActive(false);
+                playButton.SetActive(true);
+            }
+            else
+            {
+                continueButton.SetActive(true);
+                playButton.SetActive(false);
+            }
+
+            if (selectedGameMode == gameModeButtons.Length)
+            {
+                HideButton();
                 selectionMade = false;
             }
             else
             {
-                ScrollToCell(selectedGameMode);
-                ShowContinueButton();
+                ShowButton();
                 gameModeUIHoverScripts[selectedGameMode].Select();
+                description.GetComponent<Text>().text = gameModeDescriptions[selectedGameMode];
                 selectionMade = true;
             }
         }
@@ -141,9 +163,9 @@ namespace Hive.Armada.Menus
         {
             if (selectedGameMode != gameModeNum)
             {
-                if (selectedGameMode == gameModeCells.Length)
+                if (selectedGameMode == gameModeButtons.Length)
                 {
-                    ShowContinueButton();
+                    ShowButton();
                 }
 
                 source.PlayOneShot(clips[0]);
@@ -161,41 +183,56 @@ namespace Hive.Armada.Menus
                 }
                 selectedGameMode = gameModeNum;
                 gameModeUIHoverScripts[selectedGameMode].Select();
+                description.GetComponent<Text>().text = gameModeDescriptions[selectedGameMode];
             }
         }
 
         /// <summary>
-        /// Move scroll view to position of specified button.
+        /// Make continue/play button unusable.
         /// </summary>
-        /// <param name="gameModeEnum">Num of cell to move to.</param>
-        private void ScrollToCell(int gameModeNum)
+        private void HideButton()
         {
-            float scrollStep = 1.0f / (gameModeCells.Length - 1.0f);
-            float scrollValue = 1.0f - scrollStep * gameModeNum;
-            scrollView.gameObject.GetComponent<ScrollRect>().verticalNormalizedPosition 
-                = scrollValue;
+            if (continueButton.activeSelf)
+            {
+                continueButton.GetComponent<BoxCollider>().enabled = false;
+                Color tempColor = continueButton.GetComponent<Image>().color;
+                tempColor.a = 0.2f;
+                continueButton.GetComponent<Image>().color = tempColor;
+            }
+            else
+            {
+                playButton.GetComponent<BoxCollider>().enabled = false;
+                Color tempColor = playButton.GetComponent<Image>().color;
+                tempColor.a = 0.2f;
+                playButton.GetComponent<Image>().color = tempColor;
+                tempColor = playButton.GetComponentInChildren<Text>().color;
+                tempColor.a = 0.2f;
+                playButton.GetComponentInChildren<Text>().color = tempColor;
+            }
         }
 
         /// <summary>
-        /// Make continue button unusable.
+        /// Make continue/play button usable.
         /// </summary>
-        private void HideContinueButton()
+        private void ShowButton()
         {
-            continueButton.GetComponent<BoxCollider>().enabled = false;
-            Color tempColor = continueButton.GetComponent<Image>().color;
-            tempColor.a = 0.2f;
-            continueButton.GetComponent<Image>().color = tempColor;
-        }
-
-        /// <summary>
-        /// Make continue button usable.
-        /// </summary>
-        private void ShowContinueButton()
-        {
-            continueButton.GetComponent<BoxCollider>().enabled = true;
-            Color tempColor = continueButton.GetComponent<Image>().color;
-            tempColor.a = 1.0f;
-            continueButton.GetComponent<Image>().color = tempColor;
+            if (continueButton.activeSelf)
+            {
+                continueButton.GetComponent<BoxCollider>().enabled = true;
+                Color tempColor = continueButton.GetComponent<Image>().color;
+                tempColor.a = 1.0f;
+                continueButton.GetComponent<Image>().color = tempColor;
+            }
+            else
+            {
+                playButton.GetComponent<BoxCollider>().enabled = true;
+                Color tempColor = playButton.GetComponent<Image>().color;
+                tempColor.a = 1.0f;
+                playButton.GetComponent<Image>().color = tempColor;
+                tempColor = playButton.GetComponentInChildren<Text>().color;
+                tempColor.a = 1.0f;
+                playButton.GetComponentInChildren<Text>().color = tempColor;
+            }
         }
 
         /// <summary>
@@ -214,7 +251,7 @@ namespace Hive.Armada.Menus
             {
                 gameModeUIHoverScripts[selectedGameMode].EndSelect();
             }
-            HideContinueButton();
+            HideButton();
             selectionMade = false;
             transitionManager.Transition(backMenuGO);
         }

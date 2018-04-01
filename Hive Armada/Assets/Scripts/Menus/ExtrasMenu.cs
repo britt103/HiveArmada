@@ -78,6 +78,15 @@ namespace Hive.Armada.Menus
         }
 
         /// <summary>
+        /// Credits button pressed. 
+        /// </summary>
+        public void PressCredits()
+        {
+            source.PlayOneShot(clips[0]);
+            
+        }
+
+        /// <summary>
         /// Back button pressed; navigates to Main Menu.
         /// </summary>
         public void PressBack()

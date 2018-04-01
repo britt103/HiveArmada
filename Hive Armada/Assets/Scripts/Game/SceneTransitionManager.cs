@@ -85,6 +85,16 @@ namespace Hive.Armada.Game
         public SteamVR_LoadLevel steamVRLoadLevel;
 
         /// <summary>
+        /// Texture to display when loading in/out of normal mode.
+        /// </summary>
+        public Texture normalModeLoadingScreen;
+
+        /// <summary>
+        /// Textture to display when loading in/out of infinite mode.
+        /// </summary>
+        public Texture infiniteModeLoadingScreen;
+
+        /// <summary>
         /// Reference to instantiated emitter.
         /// </summary>
         private GameObject emitterGO;
@@ -110,6 +120,11 @@ namespace Hive.Armada.Game
         private UIPointer[] uiPointers;
 
         /// <summary>
+        /// Reference to game settings.
+        /// </summary>
+        private GameSettings gameSettings;
+
+        /// <summary>
         /// Find references. Implement in transition on scene start. 
         /// Minimize effect start times to audio clip length.
         /// Activate appropriate menu in Menu Room.
@@ -118,6 +133,7 @@ namespace Hive.Armada.Game
         {
             reference = FindObjectOfType<ReferenceManager>();
             sceneInfo = FindObjectOfType<SceneInfo>();
+            gameSettings = FindObjectOfType<GameSettings>();
 
             if (SceneManager.GetActiveScene().name == "Menu Room")
             {
@@ -182,6 +198,15 @@ namespace Hive.Armada.Game
                     {
                         pointer.gameObject.SetActive(false);
                     }
+                }
+
+                if (gameSettings.selectedGameMode == GameSettings.GameMode.SoloNormal)
+                {
+                    steamVRLoadLevel.loadingScreen = normalModeLoadingScreen;
+                }
+                else if (gameSettings.selectedGameMode == GameSettings.GameMode.SoloInfinite)
+                {
+                    steamVRLoadLevel.loadingScreen = infiniteModeLoadingScreen;
                 }
 
                 StartCoroutine(FadeOut());

@@ -16647,9 +16647,15 @@ MonoBehaviour:
   playButton: {fileID: 1571152212}
   loadoutGO: {fileID: 1842956404}
   shopTransform: {fileID: 1259177303}
-  gameModeButtons: []
-  gameModeDescriptions: []
-  gameModeUIHoverScripts: []
+  gameModeButtons:
+  - {fileID: 253897686}
+  - {fileID: 1353892793}
+  gameModeDescriptions:
+  - This is the description for the Normal game mode.
+  - This is the description for the Infinite game mode.
+  gameModeUIHoverScripts:
+  - {fileID: 253897688}
+  - {fileID: 1353892799}
   source: {fileID: 672012772}
   clips:
   - {fileID: 8300000, guid: d1e46ad8dcf9df34ba9281e76b8cbad0, type: 3}
@@ -56493,9 +56499,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transitionManager: {fileID: 1126301701}
   continueMenuGO: {fileID: 826943228}
-  scrollViewContent: {fileID: 0}
-  scrollbar: {fileID: 0}
-  verticalSlider: {fileID: 0}
+  scrollViewContent: {fileID: 719596578}
+  scrollbar: {fileID: 138360146}
+  verticalSlider: {fileID: 1192374090}
   source: {fileID: 672012772}
   clips:
   - {fileID: 8300000, guid: d1e46ad8dcf9df34ba9281e76b8cbad0, type: 3}
@@ -56503,14 +56509,14 @@ MonoBehaviour:
   iridiumScoreMultiplier: 0.2
   victoryDefeatTextGO: {fileID: 1498811197}
   victoryMessage: Victory!
-  victoryColor: {r: 0, g: 0, b: 0, a: 0}
+  victoryColor: {r: 0.5137255, g: 0.8980392, b: 1, a: 1}
   defeatMessage: Defeat!
-  defeatColor: {r: 0, g: 0, b: 0, a: 0}
+  defeatColor: {r: 1, g: 0, b: 0, a: 1}
   scoreTextGO: {fileID: 302370858}
   iridiumTextGO: {fileID: 836521069}
   timeTextGO: {fileID: 703796762}
   killsTextGO: {fileID: 439573910}
-  numFittableCells: 0
+  numFittableCells: 3
 --- !u!114 &828213809
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -98957,23 +98963,36 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   transitionManager: {fileID: 1126301701}
-  scrollbar: {fileID: 0}
-  verticalSlider: {fileID: 0}
+  scrollbar: {fileID: 655872663}
+  verticalSlider: {fileID: 1994451606}
   backMenuGO: {fileID: 282538043}
-  playButton: {fileID: 0}
-  weaponDescription: {fileID: 0}
-  weaponIcon: {fileID: 0}
-  scrollView: {fileID: 0}
-  numFittableCells: 0
+  playButton: {fileID: 1789519615}
+  weaponDescription: {fileID: 245532876}
+  weaponIcon: {fileID: 671276934}
+  scrollView: {fileID: 603055973}
+  numFittableCells: 2
   weaponNames:
   - Laser
   - Minigun
   - Rocket Pods
   - Plasma Gun
-  weaponIcons: []
-  weaponCells: []
-  weaponUIHoverScripts: []
-  fixedWeaponCells: []
+  weaponIcons:
+  - {fileID: 21300000, guid: 622f2c8292054444da09802160a75159, type: 3}
+  - {fileID: 21300000, guid: 4c68e717c0427e143a1e89aa1e1074b4, type: 3}
+  - {fileID: 21300000, guid: ce3248f5f0ae2544782479fa4b97261a, type: 3}
+  - {fileID: 21300000, guid: 1702b477ae008654384b90a51c4e172f, type: 3}
+  weaponCells:
+  - {fileID: 327233942}
+  - {fileID: 717251662}
+  - {fileID: 1333091329}
+  - {fileID: 834110116}
+  weaponUIHoverScripts:
+  - {fileID: 1649512225}
+  - {fileID: 1336982767}
+  - {fileID: 1121604702}
+  - {fileID: 1320624619}
+  fixedWeaponCells:
+  - {fileID: 327233942}
   source: {fileID: 672012772}
   clips:
   - {fileID: 8300000, guid: d1e46ad8dcf9df34ba9281e76b8cbad0, type: 3}

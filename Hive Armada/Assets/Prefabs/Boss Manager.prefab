@@ -36,7 +36,7 @@ GameObject:
   - component: {fileID: 4987610985499152}
   - component: {fileID: 114674513279994408}
   m_Layer: 0
-  m_Name: PatrolLeftToCenterPath01
+  m_Name: Patrol-L2C-Path02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -51,7 +51,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4996176177740656}
   m_Layer: 0
-  m_Name: Patrol Left Paths
+  m_Name: Patrol Center-to-Left Paths
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -67,7 +67,7 @@ GameObject:
   - component: {fileID: 4859612868451386}
   - component: {fileID: 114802343244482552}
   m_Layer: 0
-  m_Name: PatrolRightToCenterPath01
+  m_Name: Patrol-R2C-Path01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -83,7 +83,7 @@ GameObject:
   - component: {fileID: 4062309879021208}
   - component: {fileID: 114562836722310112}
   m_Layer: 0
-  m_Name: PatrolCenterPath01
+  m_Name: Patrol-C2R-Path01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -114,21 +114,6 @@ GameObject:
   - component: {fileID: 4009941346691100}
   m_Layer: 0
   m_Name: Patrol Right-to-Center Paths
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &1287616212210892
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4374945645218566}
-  m_Layer: 0
-  m_Name: Patrol Right Paths
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -165,6 +150,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1429424485950346
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4442209537891936}
+  - component: {fileID: 114445492468155246}
+  m_Layer: 0
+  m_Name: Spawn to Patrol Path
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1516433489806232
 GameObject:
   m_ObjectHideFlags: 1
@@ -175,6 +176,22 @@ GameObject:
   - component: {fileID: 4658429661916310}
   m_Layer: 0
   m_Name: Idle Left Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1558309062130668
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4622816600100266}
+  - component: {fileID: 114242228021231466}
+  m_Layer: 0
+  m_Name: Patrol-L2C-Path01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -225,22 +242,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1724188976962476
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4654991182602874}
-  - component: {fileID: 114064674859734228}
-  m_Layer: 0
-  m_Name: PatrolRightPath01
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &1858355257104318
 GameObject:
   m_ObjectHideFlags: 1
@@ -250,7 +251,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4293427652960576}
   m_Layer: 0
-  m_Name: Patrol Center Paths
+  m_Name: Patrol Center-to-Right Paths
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -266,7 +267,23 @@ GameObject:
   - component: {fileID: 4224115075879536}
   - component: {fileID: 114785997933356054}
   m_Layer: 0
-  m_Name: PatrolLeftPath01
+  m_Name: Patrol-C2L-Path02
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1978322404890600
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4084691062565570}
+  - component: {fileID: 114143619546904376}
+  m_Layer: 0
+  m_Name: Patrol-C2L-Path01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -314,6 +331,19 @@ Transform:
   m_Father: {fileID: 4293427652960576}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4084691062565570
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1978322404890600}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4996176177740656}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4127074893793690
 Transform:
   m_ObjectHideFlags: 1
@@ -324,6 +354,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 4622816600100266}
   - {fileID: 4987610985499152}
   m_Father: {fileID: 4905463383173784}
   m_RootOrder: 1
@@ -356,7 +387,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4996176177740656}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4282310537424440
 Transform:
@@ -398,31 +429,30 @@ Transform:
   m_Father: {fileID: 4905463383173784}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4374945645218566
+--- !u!4 &4442209537891936
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1287616212210892}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_GameObject: {fileID: 1429424485950346}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 4654991182602874}
+  m_Children: []
   m_Father: {fileID: 4905463383173784}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4654991182602874
+--- !u!4 &4622816600100266
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1724188976962476}
+  m_GameObject: {fileID: 1558309062130668}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 4374945645218566}
+  m_Father: {fileID: 4127074893793690}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4658429661916310
@@ -445,7 +475,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1991503995760520}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 4, z: 6.5}
+  m_LocalPosition: {x: 0, y: 3, z: 6.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4133632191563870}
@@ -507,7 +537,7 @@ Transform:
   - {fileID: 4127074893793690}
   - {fileID: 4293427652960576}
   - {fileID: 4009941346691100}
-  - {fileID: 4374945645218566}
+  - {fileID: 4442209537891936}
   m_Father: {fileID: 4877362978195390}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -522,7 +552,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4127074893793690}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4996176177740656
 Transform:
@@ -534,30 +564,11 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 4084691062565570}
   - {fileID: 4224115075879536}
   m_Father: {fileID: 4905463383173784}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114064674859734228
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1724188976962476}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a80152e2d63236f4cb97b9acba77fbb9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pathName: PatrolRightPath01
-  pathColor: {r: 0.8206897, g: 0, b: 1, a: 1}
-  nodes:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  nodeCount: 2
-  initialized: 1
-  initialName: New Path 5
-  pathVisible: 1
 --- !u!114 &114104757298970070
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -575,16 +586,85 @@ MonoBehaviour:
   patrolCenterPoint: {fileID: 4290406866662354}
   idleLeftPoint: {fileID: 4658429661916310}
   idleRightPoint: {fileID: 4830085057088068}
-  patrolLPaths:
+  spawnToPatrolPath: {fileID: 114445492468155246}
+  patrolCLPaths:
+  - {fileID: 114143619546904376}
   - {fileID: 114785997933356054}
   patrolLCPaths:
+  - {fileID: 114242228021231466}
   - {fileID: 114674513279994408}
-  patrolCPaths:
+  patrolCRPaths:
   - {fileID: 114562836722310112}
   patrolRCPaths:
   - {fileID: 114802343244482552}
-  patrolRPaths:
-  - {fileID: 114064674859734228}
+  source: {fileID: 0}
+  introClip: {fileID: 0}
+--- !u!114 &114143619546904376
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1978322404890600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a80152e2d63236f4cb97b9acba77fbb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pathName: Patrol-C2L-Path01
+  pathColor: {r: 0.8206897, g: 0, b: 1, a: 1}
+  nodes:
+  - {x: 0, y: 8, z: 12.5}
+  - {x: -3.3816903, y: 8.862635, z: 11.232698}
+  - {x: -5.507568, y: 8.284021, z: 10.750184}
+  - {x: -7, y: 8, z: 9}
+  nodeCount: 4
+  initialized: 1
+  initialName: New Path 1
+  pathVisible: 1
+--- !u!114 &114242228021231466
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1558309062130668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a80152e2d63236f4cb97b9acba77fbb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pathName: Patrol-L2C-Path01
+  pathColor: {r: 0.8206897, g: 0, b: 1, a: 1}
+  nodes:
+  - {x: -7, y: 8, z: 9}
+  - {x: -5.7337, y: 8.057957, z: 11.124713}
+  - {x: -2.921987, y: 7.8408456, z: 11.842983}
+  - {x: 0, y: 8, z: 12.5}
+  nodeCount: 4
+  initialized: 1
+  initialName: New Path 2
+  pathVisible: 1
+--- !u!114 &114445492468155246
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1429424485950346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a80152e2d63236f4cb97b9acba77fbb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pathName: Spawn2PatrolPath
+  pathColor: {r: 0.81960785, g: 0, b: 1, a: 1}
+  nodes:
+  - {x: 0, y: 4, z: 8}
+  - {x: 0, y: 5.849788, z: 9.083162}
+  - {x: 0, y: 7.460624, z: 10.855646}
+  - {x: 0, y: 8, z: 12.5}
+  nodeCount: 4
+  initialized: 1
+  initialName: New Path 1
+  pathVisible: 1
 --- !u!114 &114562836722310112
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -596,11 +676,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a80152e2d63236f4cb97b9acba77fbb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pathName: PatrolCenterPath01
+  pathName: Patrol-C2R-Path01
   pathColor: {r: 0.8206897, g: 0, b: 1, a: 1}
   nodes:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 8, z: 12.5}
+  - {x: 7, y: 8, z: 9}
   nodeCount: 2
   initialized: 1
   initialName: New Path 3
@@ -616,12 +696,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a80152e2d63236f4cb97b9acba77fbb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pathName: PatrolLeftToCenterPath01
+  pathName: Patrol-L2C-Path02
   pathColor: {r: 0.8206897, g: 0, b: 1, a: 1}
   nodes:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  nodeCount: 2
+  - {x: -7, y: 8, z: 9}
+  - {x: -4.6887627, y: 7.2522354, z: 10.332426}
+  - {x: -2.921987, y: 7.513357, z: 11.677591}
+  - {x: 0, y: 8, z: 12.5}
+  nodeCount: 4
   initialized: 1
   initialName: New Path 2
   pathVisible: 1
@@ -636,12 +718,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a80152e2d63236f4cb97b9acba77fbb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pathName: PatrolLeftPath01
+  pathName: Patrol-C2L-Path02
   pathColor: {r: 0.8206897, g: 0, b: 1, a: 1}
   nodes:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  nodeCount: 2
+  - {x: 0, y: 8, z: 12.5}
+  - {x: -3.030811, y: 8.2456875, z: 10.384321}
+  - {x: -5.1781855, y: 7.6847563, z: 10.218792}
+  - {x: -7, y: 8, z: 9}
+  nodeCount: 4
   initialized: 1
   initialName: New Path 1
   pathVisible: 1
@@ -656,11 +740,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a80152e2d63236f4cb97b9acba77fbb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pathName: PatrolRightToCenterPath01
+  pathName: Patrol-R2C-Path01
   pathColor: {r: 0.8206897, g: 0, b: 1, a: 1}
   nodes:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
+  - {x: 7, y: 8, z: 9}
+  - {x: 0, y: 8, z: 12.5}
   nodeCount: 2
   initialized: 1
   initialName: New Path 4

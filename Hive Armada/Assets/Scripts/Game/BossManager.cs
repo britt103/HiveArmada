@@ -49,20 +49,19 @@ namespace Hive.Armada.Game
         public Transform idleRightPoint;
 
         [Header("Paths")]
+        public iTweenPath spawnToPatrolPath;
+
         [Reorderable("Path", false)]
-        public iTweenPath[] patrolLPaths;
+        public iTweenPath[] patrolCLPaths;
 
         [Reorderable("Path", false)]
         public iTweenPath[] patrolLCPaths;
 
         [Reorderable("Path", false)]
-        public iTweenPath[] patrolCPaths;
+        public iTweenPath[] patrolCRPaths;
 
         [Reorderable("Path", false)]
         public iTweenPath[] patrolRCPaths;
-
-        [Reorderable("Path", false)]
-        public iTweenPath[] patrolRPaths;
 
         [Header("Audio")]
         public AudioSource source;
@@ -95,17 +94,7 @@ namespace Hive.Armada.Game
                 bossObject = Instantiate(bossPrefab, bossSpawn.position, bossSpawn.rotation, transform);
                 bossScript = bossObject.GetComponent<NewBoss>();
 
-                //Hashtable moveHash = new Hashtable
-                //                             {
-                //                                 {"easetype", iTween.EaseType.easeOutSine},
-                //                                 {"time", 8.0f},
-                //                                 {"orienttopath", true},
-                //                                 {"onComplete", "OnPathingComplete"},
-                //                                 {"onCompleteTarget", bossObject},
-                //                                 {"path", iTweenPath.GetPath(bossIntroPath.pathName)}
-                //                             };
-                //iTween.MoveTo(bossObject, moveHash);
-                bossScript.SendMessage("OnPathingComplete");
+                //bossScript.SendMessage("OnPathingComplete");
                 TransitionState(NewBoss.BossStates.Intro);
             }
             else

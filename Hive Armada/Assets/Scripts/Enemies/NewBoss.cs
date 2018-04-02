@@ -10,11 +10,12 @@
 // 
 //=============================================================================
 
+using System;
+using Hive.Armada.Game;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
-using Hive.Armada.Game;
-using Hive.Armada.Player;
+using Random = UnityEngine.Random;
 
 namespace Hive.Armada.Enemies
 {
@@ -23,10 +24,28 @@ namespace Hive.Armada.Enemies
         public enum BossStates
         {
             Patrol,
+
             Idle,
+
             Combat,
+
             TransitionToCombat,
+
             TransitionFromCombat,
+
+            Intro
+        }
+
+        private enum BossPosition
+        {
+            PatrolCenter,
+
+            PatrolLeft,
+
+            PatrolRight,
+
+            Combat,
+
             Intro
         }
 
@@ -144,6 +163,8 @@ namespace Hive.Armada.Enemies
 
         private Coroutine hoverCoroutine;
 
+        private BossPosition currentPosition;
+
         public bool IsSpeaking { get; private set; }
 
         public bool LookAtTarget { get; private set; }
@@ -152,14 +173,24 @@ namespace Hive.Armada.Enemies
 
         public GameObject testPlayer;
 
+        public bool PatrolIsLeft { get; private set; }
+
+        public bool PatrolIsInward { get; private set; }
+
+        private BossManager bossManager;
+
         /// <summary>
-        /// 
         /// </summary>
         protected override void Awake()
         {
             base.Awake();
-
+            bossManager = FindObjectOfType<BossManager>();
             testPlayer = GameObject.Find("SphereASDF");
+            source = GameObject.Find("Boss Audio Source").GetComponent<AudioSource>();
+            Random.InitState((int) DateTime.Now.Ticks);
+            SetLookTarget(testPlayer);
+            LookAtTarget = true;
+            currentPosition = BossPosition.Intro;
         }
 
         /// <summary>
@@ -176,9 +207,11 @@ namespace Hive.Armada.Enemies
                     lookTarget = testPlayer;
                 }
 
-                Quaternion to = Quaternion.LookRotation(lookTarget.transform.position - transform.position);
+                Quaternion to =
+                    Quaternion.LookRotation(lookTarget.transform.position - transform.position);
 
-                transform.rotation = Quaternion.Slerp(transform.rotation, to, lookStrength * Time.deltaTime);
+                transform.rotation =
+                    Quaternion.Slerp(transform.rotation, to, lookStrength * Time.deltaTime);
             }
 
             if (State == BossStates.Combat)
@@ -190,21 +223,27 @@ namespace Hive.Armada.Enemies
             }
         }
 
+        /// <summary>
+        /// </summary>
+        /// <param name="newState"> </param>
         public void TransitionState(BossStates newState)
         {
-            switch ((int)newState)
+            State = newState;
+            switch (newState)
             {
-                case 0:
+                case BossStates.Patrol:
+                    StartCoroutine(PatrolWait());
                     break;
-                case 1:
+                case BossStates.Idle:
                     break;
-                case 2:
+                case BossStates.Combat:
                     break;
-                case 3:
+                case BossStates.TransitionToCombat:
                     break;
-                case 4:
+                case BossStates.TransitionFromCombat:
                     break;
-                case 5:
+                case BossStates.Intro:
+
                     // play intro audio
                     if (source != null)
                     {
@@ -221,10 +260,142 @@ namespace Hive.Armada.Enemies
                     {
                         Debug.LogError(GetType().Name + " - \"source\" is not set.");
                     }
+
+                    StartCoroutine(IntroWait());
                     break;
                 default:
                     break;
             }
+        }
+
+        /// <summary>
+        /// </summary>
+        private void StartPatrol()
+        {
+            if (currentPosition == BossPosition.PatrolCenter)
+            {
+                PickPath();
+            }
+            else
+            {
+                Hashtable moveHash = new Hashtable
+                                     {
+                                         {"easetype", iTween.EaseType.easeInOutSine},
+                                         {"time", 7.0f},
+                                         {"onComplete", "OnPatrolComplete"},
+                                         {"onCompleteTarget", gameObject}
+                                     };
+
+                if (currentPosition == BossPosition.PatrolLeft)
+                {
+                    moveHash.Add(
+                        "path",
+                        iTweenPath.GetPath(bossManager
+                                               .patrolLCPaths[
+                                               Random.Range(0, bossManager.patrolLCPaths.Length)]
+                                               .pathName));
+                    PatrolIsLeft = false;
+                    PatrolIsInward = false;
+                    currentPosition = BossPosition.PatrolCenter;
+                }
+                else if (currentPosition == BossPosition.PatrolRight)
+                {
+                    moveHash.Add(
+                        "path",
+                        iTweenPath.GetPath(bossManager
+                                               .patrolRCPaths[
+                                               Random.Range(0, bossManager.patrolRCPaths.Length)]
+                                               .pathName));
+                    PatrolIsLeft = true;
+                    PatrolIsInward = false;
+                    currentPosition = BossPosition.PatrolCenter;
+                }
+                else
+                {
+                    Debug.LogError(GetType().Name +
+                                   " - boss is not in center, left, or right patrol positions.");
+                }
+            }
+        }
+
+        /// <summary>
+        /// </summary>
+        private void OnPatrolComplete()
+        {
+            PathingComplete = true;
+
+            if (State != BossStates.Patrol)
+            {
+                return;
+            }
+
+            PickPath();
+        }
+
+        private void PickPath()
+        {
+            PathingComplete = false;
+
+            Hashtable moveHash = new Hashtable
+                                 {
+                                     {"easetype", iTween.EaseType.easeInOutSine},
+                                     {"time", 7.0f},
+                                     {"onComplete", "OnPatrolComplete"},
+                                     {"onCompleteTarget", gameObject}
+                                 };
+
+            if (PatrolIsLeft)
+            {
+                if (PatrolIsInward)
+                {
+                    moveHash.Add(
+                        "path",
+                        iTweenPath.GetPath(bossManager
+                                               .patrolLCPaths[
+                                               Random.Range(0, bossManager.patrolLCPaths.Length)]
+                                               .pathName));
+                    PatrolIsLeft = false;
+                    currentPosition = BossPosition.PatrolCenter;
+                }
+                else
+                {
+                    moveHash.Add(
+                        "path",
+                        iTweenPath.GetPath(bossManager
+                                               .patrolCLPaths[
+                                               Random.Range(0, bossManager.patrolCLPaths.Length)]
+                                               .pathName));
+                    currentPosition = BossPosition.PatrolLeft;
+                }
+            }
+            else
+            {
+                if (PatrolIsInward)
+                {
+                    moveHash.Add(
+                        "path",
+                        iTweenPath.GetPath(bossManager
+                                               .patrolRCPaths[
+                                               Random.Range(0, bossManager.patrolRCPaths.Length)]
+                                               .pathName));
+                    PatrolIsLeft = true;
+                    currentPosition = BossPosition.PatrolCenter;
+                }
+                else
+                {
+                    moveHash.Add(
+                        "path",
+                        iTweenPath.GetPath(bossManager
+                                               .patrolCRPaths[
+                                               Random.Range(0, bossManager.patrolCRPaths.Length)]
+                                               .pathName));
+                    currentPosition = BossPosition.PatrolRight;
+                }
+            }
+
+            PatrolIsInward = !PatrolIsInward;
+
+            iTween.MoveTo(gameObject, moveHash);
         }
 
         /// <summary>
@@ -233,15 +404,15 @@ namespace Hive.Armada.Enemies
         /// </summary>
         protected override void OnPathingComplete()
         {
-            SetHover();
+            //SetHover();
             //SetLookTarget(reference.playerShip);
             SetLookTarget(testPlayer);
             LookAtTarget = true;
 
-            if (hoverEnabled)
-            {
-                StartCoroutine(Hover(hoverStart, hoverEnd));
-            }
+            //if (hoverEnabled)
+            //{
+            //    StartCoroutine(Hover(hoverStart, hoverEnd));
+            //}
 
             base.OnPathingComplete();
         }
@@ -258,7 +429,6 @@ namespace Hive.Armada.Enemies
         }
 
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="start"> The start point </param>
         /// <param name="end"> The end point </param>
@@ -269,7 +439,8 @@ namespace Hive.Armada.Enemies
             while (hoverPercent <= 1.0f)
             {
                 hoverPercent += Time.deltaTime / hoverTime;
-                transform.position = Vector3.Lerp(start, end, Mathf.SmoothStep(0.0f, 1.0f, hoverPercent));
+                transform.position =
+                    Vector3.Lerp(start, end, Mathf.SmoothStep(0.0f, 1.0f, hoverPercent));
                 yield return null;
             }
 
@@ -290,6 +461,39 @@ namespace Hive.Armada.Enemies
         public void SetLookTarget(GameObject target)
         {
             lookTarget = target;
+        }
+
+        /// <summary>
+        /// Waits for the intro audio to finish, then tells the boss to patrol.
+        /// </summary>
+        private IEnumerator IntroWait()
+        {
+            yield return new WaitWhile(() => source.isPlaying);
+
+            Hashtable moveHash = new Hashtable
+                                 {
+                                     {"easetype", iTween.EaseType.easeInOutSine},
+                                     {"time", 4.0f},
+                                     {"onComplete", "OnPathingComplete"},
+                                     {"onCompleteTarget", gameObject},
+                                     {
+                                         "path",
+                                         iTweenPath.GetPath(bossManager.spawnToPatrolPath.pathName)
+                                     }
+                                 };
+            iTween.MoveTo(gameObject, moveHash);
+            currentPosition = BossPosition.PatrolCenter;
+            TransitionState(BossStates.Patrol);
+        }
+
+        /// <summary>
+        /// Wait until the previous pathing is complete.
+        /// </summary>
+        private IEnumerator PatrolWait()
+        {
+            yield return new WaitWhile(() => !PathingComplete);
+
+            StartPatrol();
         }
 
         /// <summary>
@@ -323,9 +527,8 @@ namespace Hive.Armada.Enemies
         }
 
         /// <summary>
-        /// 
         /// </summary>
-        /// <param name="pivot"></param>
+        /// <param name="pivot"> </param>
         private IEnumerator RotateProjectile(Transform pivot)
         {
             while (true)
@@ -336,46 +539,49 @@ namespace Hive.Armada.Enemies
         }
 
         /// <summary>
-        /// 
         /// </summary>
-        /// <param name="wave"></param>
-        /// <returns></returns>
+        /// <param name="wave"> </param>
+        /// <returns> </returns>
         public IEnumerator StartBehavior(int wave)
         {
             switch (wave)
             {
                 case 1:
                     yield return new WaitForSeconds(0.1f);
+
                     StartCoroutine(SelectBehavior(0));
                     break;
 
                 case 2:
                     yield return new WaitForSeconds(0.1f);
+
                     StartCoroutine(SelectBehavior(3));
                     break;
 
                 case 3:
                     yield return new WaitForSeconds(0.1f);
+
                     StartCoroutine(SelectBehavior(4));
                     break;
 
                 case 4:
                     yield return new WaitForSeconds(0.1f);
+
                     StartCoroutine(SelectBehavior(2));
                     break;
 
                 case 5:
                     yield return new WaitForSeconds(0.1f);
+
                     StartCoroutine(SelectBehavior(1));
                     break;
             }
         }
 
         /// <summary>
-        /// 
         /// </summary>
-        /// <param name="behavior"></param>
-        /// <returns></returns>
+        /// <param name="behavior"> </param>
+        /// <returns> </returns>
         private IEnumerator SelectBehavior(int behavior)
         {
             switch (behavior)
@@ -394,7 +600,7 @@ namespace Hive.Armada.Enemies
                     StartCoroutine(SelectBehavior(1));
                     break;
 
-                    //ball pattern
+                //ball pattern
                 case 1:
                     yield return new WaitForSeconds(1);
 
@@ -424,7 +630,7 @@ namespace Hive.Armada.Enemies
                     StartCoroutine(SelectBehavior(2));
                     break;
 
-                    //tunnel pattern
+                //tunnel pattern
                 case 2:
                     yield return new WaitForSeconds(1);
 
@@ -443,31 +649,37 @@ namespace Hive.Armada.Enemies
                 //spread pattern
                 case 3:
                     yield return new WaitForSeconds(1);
+
                     SetAttackPattern(AttackPattern.Five);
-                    for(int i = 0; i < 10; ++i)
+                    for (int i = 0; i < 10; ++i)
                     {
-                        for(int j = 0; j < 3; ++j)
+                        for (int j = 0; j < 3; ++j)
                         {
-                            for(int k = 0; k < 2; ++k)
+                            for (int k = 0; k < 2; ++k)
                             {
                                 StartCoroutine(Shoot());
                             }
+
                             yield return new WaitForSeconds(0.2f);
                         }
+
                         yield return new WaitForSeconds(fireRate);
                     }
+
                     break;
-                
+
                 //clover pattern
                 case 4:
                     yield return new WaitForSeconds(1);
+
                     SetAttackPattern(AttackPattern.Six);
                     StartCoroutine(RotateProjectile(shootPivot));
-                    for(int i = 0; i < 15; ++i)
+                    for (int i = 0; i < 15; ++i)
                     {
                         StartCoroutine(Shoot());
                         yield return new WaitForSeconds(fireRate);
                     }
+
                     break;
             }
 
@@ -478,10 +690,10 @@ namespace Hive.Armada.Enemies
         /// Function that determines the enemy's projectile, firerate,
         /// spread, and projectile speed.
         /// </summary>
-        /// <param name="mode"> Current Enemy Firemode </param>
+        /// <param name="attackPattern"> The new attack pattern </param>
         public override void SetAttackPattern(AttackPattern attackPattern)
         {
-            int[] myPoints = { };
+            int[] myPoints;
             switch ((int) attackPattern)
             {
                 case 0:
@@ -563,11 +775,11 @@ namespace Hive.Armada.Enemies
                     spread = 1;
 
                     myPoints = new[]
-                    {
-                        30, 32,
-                        40,
-                        48, 50
-                    };
+                               {
+                                   30, 32,
+                                   40,
+                                   48, 50
+                               };
 
                     ActivateShootPoints(myPoints, myPoints.Length);
                     return;
@@ -578,17 +790,17 @@ namespace Hive.Armada.Enemies
                     spread = 0;
 
                     myPoints = new[]
-                    {
-                        4,
-                        12, 14,
-                        21, 23,
-                        28, 29, 31, 33, 34,
-                        36, 40, 44,
-                        46, 47, 49, 51, 52,
-                        57, 59,
-                        66, 68,
-                        76
-                    };
+                               {
+                                   4,
+                                   12, 14,
+                                   21, 23,
+                                   28, 29, 31, 33, 34,
+                                   36, 40, 44,
+                                   46, 47, 49, 51, 52,
+                                   57, 59,
+                                   66, 68,
+                                   76
+                               };
 
                     ActivateShootPoints(myPoints, myPoints.Length);
                     return;
@@ -596,7 +808,6 @@ namespace Hive.Armada.Enemies
         }
 
         /// <summary>
-        /// 
         /// </summary>
         private void ResetAttackPattern()
         {
@@ -609,10 +820,9 @@ namespace Hive.Armada.Enemies
         }
 
         /// <summary>
-        /// 
         /// </summary>
-        /// <param name="points"></param>
-        /// <param name="length"></param>
+        /// <param name="points"> </param>
+        /// <param name="length"> </param>
         private void ActivateShootPoints(int[] points, int length)
         {
             ResetAttackPattern();
@@ -623,7 +833,6 @@ namespace Hive.Armada.Enemies
         }
 
         /// <summary>
-        /// 
         /// </summary>
         protected override void Kill()
         {
@@ -632,7 +841,6 @@ namespace Hive.Armada.Enemies
         }
 
         /// <summary>
-        /// 
         /// </summary>
         protected override void Reset()
         {

@@ -17,6 +17,7 @@ using System.Collections;
 using UnityEngine;
 using Hive.Armada.Game;
 using Hive.Armada.Player;
+using MirzaBeig.ParticleSystems;
 
 namespace Hive.Armada.Enemies
 {
@@ -26,6 +27,8 @@ namespace Hive.Armada.Enemies
     public class Projectile : Poolable
     {
         private Rigidbody pRigidbody;
+
+        public ParticleSystems trailEmitter;
 
         /// <summary>
         /// The renderer for the projectile.
@@ -143,6 +146,7 @@ namespace Hive.Armada.Enemies
         /// </summary>
         private IEnumerator TimeWarp()
         {
+            trailEmitter.play();
             while (reference.enemyAttributes.IsTimeWarped)
             {
                 pRigidbody.velocity = transform.forward *
@@ -151,6 +155,8 @@ namespace Hive.Armada.Enemies
                 yield return null;
             }
 
+            trailEmitter.stop();
+            trailEmitter.clear();
             timeWarpCoroutine = null;
         }
 

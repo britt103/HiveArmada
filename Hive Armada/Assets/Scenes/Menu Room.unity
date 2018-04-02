@@ -81499,8 +81499,10 @@ MonoBehaviour:
   emitterOutStartTime: 0
   emitterPoint: {fileID: 1427451914}
   steamVRLoadLevel: {fileID: 1450906471}
-  normalModeLoadingScreen: {fileID: 0}
-  infiniteModeLoadingScreen: {fileID: 0}
+  normalModeLoadingScreen: {fileID: 2800000, guid: 8ee4b90c4dbd73744bf9e9859ebf91b9,
+    type: 3}
+  infiniteModeLoadingScreen: {fileID: 2800000, guid: cf74d5135be8fa74a96b7e6b2d3b09e2,
+    type: 3}
 --- !u!114 &1450906471
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -81518,17 +81520,17 @@ MonoBehaviour:
   loadAdditive: 0
   loadAsync: 1
   loadingScreen: {fileID: 2800000, guid: 8ee4b90c4dbd73744bf9e9859ebf91b9, type: 3}
-  progressTextFont: {fileID: 0}
+  progressTextFont: {fileID: 12800000, guid: 443111e9d0dc0d146b606fe148c773a3, type: 3}
   progressTextFontStyle: 0
-  progressTextFontSize: 0
-  progressTextColor: {r: 0, g: 0, b: 0, a: 0}
-  progressTextWidth: 0
-  progressTextHeight: 0
+  progressTextFontSize: 100
+  progressTextColor: {r: 0.5137255, g: 0.8980392, b: 1, a: 1}
+  progressTextWidth: 1000
+  progressTextHeight: 1000
   loadingScreenWidthInMeters: 6
   progressBarWidthInMeters: 3
   loadingScreenDistance: 0
   loadingScreenTransform: {fileID: 881171001}
-  progressTextTransform: {fileID: 0}
+  progressTextTransform: {fileID: 1083631767}
   front: {fileID: 2800000, guid: 08d77fe4d80b22845b618eaffd7fc02a, type: 3}
   back: {fileID: 2800000, guid: 38f8ff2d52c1b294bb224af38844e95b, type: 3}
   left: {fileID: 2800000, guid: 68418038d982ac04a8ec4e451fe3c321, type: 3}

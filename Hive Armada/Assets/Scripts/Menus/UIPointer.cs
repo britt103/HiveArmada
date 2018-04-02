@@ -35,11 +35,6 @@ namespace Hive.Armada.Menus
         private LineRenderer pointer;
 
         /// <summary>
-        /// Reference to SteamVR_LaserPointer.
-        /// </summary>
-        public SteamVR_LaserPointer cubePointer;
-
-        /// <summary>
         /// Material used in pointer.
         /// </summary>
         public Material laserMaterial;
@@ -143,20 +138,22 @@ namespace Hive.Armada.Menus
                             Physics.Raycast(transform.position, transform.forward,
                             out hit, Mathf.Infinity, Utility.roomMask);
                         }
-
-                        AdjustPointer(hit.point, hit.distance);
                     }
                     else
                     {
                         Physics.Raycast(transform.position, transform.forward,
                             out hit, Mathf.Infinity, Utility.roomMask);
-
-                        AdjustPointer(hit.point, hit.distance);
                     }
 
                     ExitLastInteractable();
                     aimObject = null;
                     isInteractable = false;
+
+                    pointer.SetPosition(0, transform.position);
+                    pointer.SetPosition(1, hit.point);
+
+                    float mag = (transform.position - hit.point).magnitude;
+                    pointer.endWidth = thickness * Mathf.Max(mag, 1.0f);
                 }
 
                 else if (Physics.Raycast(transform.position, transform.forward,
@@ -177,18 +174,20 @@ namespace Hive.Armada.Menus
                                 // Do nothing
                             }
                         }
-
-                        AdjustPointer(hit.point, hit.distance);
                     }
                     else
                     {
                         ExitLastInteractable();
                         isInteractable = false;
-
-                        AdjustPointer(transform.position, 0.0f);
                     }
 
                     aimObject = hit.collider.gameObject;
+
+                    pointer.SetPosition(0, transform.position);
+                    pointer.SetPosition(1, hit.point);
+
+                    float mag = (transform.position - hit.point).magnitude;
+                    pointer.endWidth = thickness * Mathf.Max(mag, 1.0f);
                 }
                 else if (Physics.Raycast(transform.position, transform.forward,
                     out hit, Mathf.Infinity, Utility.roomMask))
@@ -197,8 +196,18 @@ namespace Hive.Armada.Menus
                     aimObject = null;
                     isInteractable = false;
 
-                    AdjustPointer(hit.point, hit.distance);
+                    pointer.SetPosition(0, transform.position);
+                    pointer.SetPosition(1, hit.point);
+
+                    float mag = (transform.position - hit.point).magnitude;
+                    pointer.endWidth = thickness * Mathf.Max(mag, 1.0f);
                 }
+                //else
+                //{
+                //    ExitLastInteractable();
+                //    aimObject = null;
+                //    isInteractable = false;
+                //}
 
                 //Check for UI interaction
                 if (isInteractable)
@@ -218,11 +227,6 @@ namespace Hive.Armada.Menus
                     {
                         aimObject.GetComponent<ScrollbarUIHover>().PassHover();
                     }
-                    else if (hand.GetStandardInteractionButtonUp() &&
-                        aimObject.GetComponent<PreviewRotation>())
-                    {
-                        aimObject.GetComponent<PreviewRotation>().StopRotating();
-                    }
                 }
 
                 if (hand.GetStandardInteractionButtonDown())
@@ -237,35 +241,18 @@ namespace Hive.Armada.Menus
         }
 
         /// <summary>
-        /// Adjust pointer length and end width.
-        /// </summary>
-        /// <param name="hitPoint">Position of raycast hit.</param>
-        /// <param name="hitDistance">Distance of raycast hit.</param>
-        private void AdjustPointer(Vector3 hitPoint, float hitDistance)
-        {
-            pointer.SetPosition(0, transform.position);
-            pointer.SetPosition(1, hitPoint);
-            pointer.endWidth = thickness * Mathf.Max(hitDistance, 1.0f);
-        }
-
-        /// <summary>
         /// Sent every frame while the trigger is pressed
         /// </summary>
         public void TriggerUpdate(bool stay)
         {
             if (isInteractable)
             {
-                RaycastHit hit;
-
-                Physics.Raycast(transform.position, transform.forward,
-                        out hit, Mathf.Infinity, Utility.uiMask);
-
                 if (aimObject.GetComponent<Slider>())
                 {
-                    float centerX = aimObject.GetComponent<BoxCollider>().center.x;
-                    float maxX = centerX + aimObject.GetComponent<BoxCollider>().bounds.extents.x;
-                    float minX = centerX - aimObject.GetComponent<BoxCollider>().bounds.extents.x;
-                    float pointerX = hit.point.x;
+                    float displacement = aimObject.GetComponent<RectTransform>().position.x;
+                    float maxX = displacement + aimObject.GetComponent<BoxCollider>().bounds.extents.x;
+                    float minX = displacement - aimObject.GetComponent<BoxCollider>().bounds.extents.x;
+                    float pointerX = pointer.GetPosition(1).x;
                     if (pointerX > minX && pointerX < maxX)
                     {
                         float value = (pointerX - minX) / (maxX - minX);
@@ -278,15 +265,11 @@ namespace Hive.Armada.Menus
                     float centerY = aimObject.gameObject.transform.TransformPoint(localCenter).y;
                     float maxY = centerY + aimObject.GetComponent<BoxCollider>().bounds.extents.y;
                     float minY = centerY - aimObject.GetComponent<BoxCollider>().bounds.extents.y;
-                    float pointerY = hit.point.y;
+                    float pointerY = pointer.GetPosition(1).y;
                     float value = (pointerY - minY) / (maxY - minY);
 
                     ScrollRect scrollRect = aimObject.GetComponentInParent<ScrollRect>();
                     scrollRect.verticalNormalizedPosition = value;
-                }
-                else if (aimObject.GetComponent<PreviewRotation>())
-                {
-                    aimObject.GetComponent<PreviewRotation>().Rotate(pointer.GetPosition(1));
                 }
                 else if (!stay)
                 {
@@ -316,8 +299,6 @@ namespace Hive.Armada.Menus
             pointer.startWidth = thickness;
             pointer.endWidth = thickness;
 
-            cubePointer.enabled = true;
-
             menus = GameObject.Find("Menus");
 
             initialized = true;
@@ -337,10 +318,6 @@ namespace Hive.Armada.Menus
                 else if (lastInteractableAimObject.GetComponent<ScrollbarUIHover>())
                 {
                     lastInteractableAimObject.GetComponent<ScrollbarUIHover>().PassEndHover();
-                }
-                else if (lastInteractableAimObject.GetComponent<PreviewRotation>())
-                {
-                    lastInteractableAimObject.GetComponent<PreviewRotation>().StopRotating();
                 }
                 
                 lastInteractableAimObject = null;

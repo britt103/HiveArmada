@@ -48,16 +48,6 @@ namespace Hive.Armada.Game
         private IridiumSystem iridiumSystem;
 
         /// <summary>
-        /// Audio source to play clip from
-        /// </summary>
-        AudioSource source;
-
-        /// <summary>
-        /// Clip to play when iridium is destroyed
-        /// </summary>
-        public AudioClip clip;
-
-        /// <summary>
         /// Start self destruct coroutine.
         /// </summary>
         void Start()
@@ -73,8 +63,8 @@ namespace Hive.Armada.Game
             base.Awake();
             reference = FindObjectOfType<ReferenceManager>();
             iridiumSystem = FindObjectOfType<IridiumSystem>();
+            iridiumSystem.AddSpawnedShootablesIridium(iridiumValue);
             transform.LookAt(reference.player.transform);
-            source = GameObject.Find("Iridium Audio Source").GetComponent<AudioSource>();
         }
 
         /// <summary>
@@ -85,8 +75,7 @@ namespace Hive.Armada.Game
             health--;
             if (health <= 0)
             {
-                iridiumSystem.AddIridium(iridiumValue);
-                source.PlayOneShot(clip);
+                iridiumSystem.AddObtainedShootablesIridium(iridiumValue);
                 base.Hit();
             }
         }

@@ -71,9 +71,9 @@ namespace Hive.Armada.PowerUps
         private PlayerStats stats;
 
         /// <summary>
-        /// Reference to LexiconUnlockData.
+        /// Reference to BestiaryUnlockData.
         /// </summary>
-        private LexiconUnlockData unlockData;
+        private BestiaryUnlockData unlockData;
 
         /// <summary>
         /// Reference to active hand.
@@ -91,7 +91,7 @@ namespace Hive.Armada.PowerUps
         private void Start()
         {
             stats = FindObjectOfType<PlayerStats>();
-            unlockData = FindObjectOfType<LexiconUnlockData>();
+            unlockData = FindObjectOfType<BestiaryUnlockData>();
         }
 
         /// <summary>
@@ -104,7 +104,6 @@ namespace Hive.Armada.PowerUps
                 if (hand.controller.GetPressDown(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad))
                 {
                     stats.PowerupUsed(powerups.Peek().name);
-                    unlockData.AddPowerupUnlock(powerups.Peek().name);
                     Instantiate(powerups.Dequeue(), powerupPoint);
                     RemoveDisplayIcon();
                 }

@@ -35,8 +35,34 @@ namespace Hive.Armada.Game
         public GameMode selectedGameMode;
 
         /// <summary>
-        /// Weapon number.
+        /// Enums for different weapons.
         /// </summary>
-        public int weapon;
+        public enum Weapon
+        {
+            Laser,
+            Minigun,
+            RocketPods,
+            Plasma
+        }
+
+        /// <summary>
+        /// Weapon enum.
+        /// </summary>
+        public Weapon selectedWeapon;
+
+        /// <summary>
+        /// State of whether aim assist is on.
+        /// </summary>
+        public bool aimAssist;
+
+        /// <summary>
+        /// State of whether score display is on.
+        /// </summary>
+        public bool scoreDisplay;
+
+        /// <summary>
+        /// State of whether color blind mode is on.
+        /// </summary>
+        public bool colorBlindMode;
     }
 }

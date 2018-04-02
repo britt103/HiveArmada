@@ -45,14 +45,9 @@ namespace Hive.Armada.Menus
         public GameObject controlsGO;
 
         /// <summary>
-        /// Reference to Lexicon Menu.
+        /// Reference to Gameplay Menu.
         /// </summary>
-        public GameObject lexiconGO;
-
-        /// <summary>
-        /// Reference to player transform for Lexicon Menu.
-        /// </summary>
-        public Transform lexiconTransform;
+        public GameObject gameplayGO;
 
         /// <summary>
         /// Reference to Intro Menu.
@@ -75,11 +70,35 @@ namespace Hive.Armada.Menus
     	public AudioClip[] clips;
 
         /// <summary>
+        /// Variables used as a check to make sure audio
+        /// doesn't play over itself
+        /// </summary>
+        private int controlsCounter = 0;
+
+        private int displayCounter = 0;
+
+        private int soundCounter = 0;
+
+        private int gameplayCounter = 0;
+
+        private int introCounter = 0;
+
+        private int creditsCounter = 0;
+
+        private int backCounter = 0;
+
+        /// <summary>
         /// Controls button pressed. Navigate to Controls Menu.
         /// </summary>
         public void PressControls()
         {
 			source.PlayOneShot(clips[0]);
+            controlsCounter += 1;
+            if (controlsCounter > 1)
+            {
+                source.Stop();
+                source.PlayOneShot(clips[0]);
+            }
             transitionManager.Transition(controlsGO);
         }
 
@@ -89,6 +108,12 @@ namespace Hive.Armada.Menus
         public void PressDisplay()
         {
 			source.PlayOneShot(clips[0]);
+            displayCounter += 1;
+            if (displayCounter > 1)
+            {
+                source.Stop();
+                source.PlayOneShot(clips[0]);
+            }
             transitionManager.Transition(displayGO);
         }
 
@@ -98,16 +123,28 @@ namespace Hive.Armada.Menus
         public void PressSound()
         {
 			source.PlayOneShot(clips[0]);
+            soundCounter += 1;
+            if (soundCounter > 1)
+            {
+                source.Stop();
+                source.PlayOneShot(clips[0]);
+            }
             transitionManager.Transition(soundGO);
         }
 
         /// <summary>
-        /// Lexicon button pressed. Navigate to Lexicon Menu.
+        /// Bestiary button pressed. Navigate to Bestiary Menu.
         /// </summary>
-        public void PressLexicon()
+        public void PressGameplay()
         {
 			source.PlayOneShot(clips[0]);
-            FindObjectOfType<RoomTransport>().Transport(lexiconTransform, gameObject, lexiconGO);
+            gameplayCounter += 1;
+            if (gameplayCounter > 1)
+            {
+                source.Stop();
+                source.PlayOneShot(clips[0]);
+            }
+            transitionManager.Transition(gameplayGO);
         }
 
         /// <summary>
@@ -116,6 +153,12 @@ namespace Hive.Armada.Menus
         public void PressIntro()
         {
 			source.PlayOneShot(clips[0]);
+            introCounter += 1;
+            if (introCounter > 1)
+            {
+                source.Stop();
+                source.PlayOneShot(clips[0]);
+            }
             //transitionManager.Transition(introGO);
             Debug.Log("Intro button pressed");
         }
@@ -126,6 +169,12 @@ namespace Hive.Armada.Menus
         public void PressCredits()
         {
 			source.PlayOneShot(clips[0]);
+            creditsCounter += 1;
+            if (creditsCounter > 1)
+            {
+                source.Stop();
+                source.PlayOneShot(clips[0]);
+            }
             //transitionManager.Transition(creditsGO);
             Debug.Log("Credits button pressed");
         }
@@ -136,6 +185,12 @@ namespace Hive.Armada.Menus
         public void PressBack()
         {
 			source.PlayOneShot(clips[1]);
+            backCounter += 1;
+            if (backCounter > 1)
+            {
+                source.Stop();
+                source.PlayOneShot(clips[1]);
+            }
             transitionManager.Transition(backMenuGO);  
         }
     }

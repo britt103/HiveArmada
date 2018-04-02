@@ -57,6 +57,11 @@ namespace Hive.Armada.Menus
         public Slider fxVolumeSlider;
 
         /// <summary>
+        /// Reference to dialogue volume slider
+        /// </summary>
+        public Slider dialogueVolumeSlider;
+
+        /// <summary>
         /// Reference to Reference Manager.
         /// </summary>
         private ReferenceManager reference;
@@ -70,6 +75,7 @@ namespace Hive.Armada.Menus
             masterVolumeSlider.value = reference.optionsValues.masterVolume;
             musicVolumeSlider.value = reference.optionsValues.musicVolume;
             fxVolumeSlider.value = reference.optionsValues.fxVolume;
+            dialogueVolumeSlider.value = reference.optionsValues.dialogueVolume;
         }
 
         /// <summary>
@@ -105,6 +111,14 @@ namespace Hive.Armada.Menus
         public void AdjustFXVolume(float value)
         {
             reference.optionsValues.SetFXVolume(value);
+        }
+
+        /// <summary>
+        /// Change fx volume based on dialogueVolumeSlider value.
+        /// </summary>
+        public void AdjustDialogueVolume(float value)
+        {
+            reference.optionsValues.SetDialogueVolume(value);
         }
     }
 }

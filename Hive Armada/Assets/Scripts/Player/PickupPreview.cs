@@ -46,7 +46,7 @@ namespace Hive.Armada.Player
 
             if (reference != null)
             {
-                switch (reference.gameSettings.weapon)
+                switch ((int)reference.gameSettings.selectedWeapon)
                 {
                     case 1:
                         minigun.SetActive(true);

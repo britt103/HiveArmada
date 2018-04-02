@@ -12,7 +12,6 @@
 //=============================================================================
 
 using System.Linq;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -42,11 +41,6 @@ namespace Hive.Armada.Menus
         public MenuTransitionManager transitionManager;
 
         /// <summary>
-        /// Reference to Lexicon Menu GO.
-        /// </summary>
-        public GameObject lexiconGO;
-
-        /// <summary>
         /// Reference to menu to go to when back is pressed.
         /// </summary>
         public GameObject backMenuGO;
@@ -62,19 +56,14 @@ namespace Hive.Armada.Menus
         private IridiumSystem iridiumSystem;
 
         /// <summary>
-        /// Reference to LexiconUnlockData.
+        /// Reference to BestiaryUnlockData.
         /// </summary>
-        private LexiconUnlockData lexiconUnlockData;
+        private BestiaryUnlockData BestiaryUnlockData;
 
         /// <summary>
         /// Reference to menu title text.
         /// </summary>
         public GameObject menuTitle;
-
-        /// <summary>
-        /// Reference to description text.
-        /// </summary>
-        public GameObject menuDescription;
 
         /// <summary>
         /// Reference to category buttons/tabs.
@@ -161,7 +150,7 @@ namespace Hive.Armada.Menus
         public GameObject contentGO;
 
         /// <summary>
-        /// References to prefabs used in powerup entries. Order must match Lexicon.txt.
+        /// References to prefabs used in powerup entries. Order must match Bestiary.txt.
         /// </summary>
         public GameObject[] weaponPrefabs;
 
@@ -232,7 +221,7 @@ namespace Hive.Armada.Menus
         void Start()
         {
             iridiumSystem = FindObjectOfType<IridiumSystem>();
-            lexiconUnlockData = FindObjectOfType<LexiconUnlockData>();
+            BestiaryUnlockData = FindObjectOfType<BestiaryUnlockData>();
         }
 
         /// <summary>
@@ -243,6 +232,23 @@ namespace Hive.Armada.Menus
             for (int i = 0; i < contentGO.transform.childCount; i++)
             {
                 Destroy(contentGO.transform.GetChild(i).gameObject);
+            }
+
+            List<int> removalIndices = new List<int>();
+            for (int i = 0; i < currNames.Count; i++)
+            {
+                if (currCosts[i] == 0)
+                {
+                    removalIndices.Add(i);
+                }
+            }
+
+            foreach (int index in removalIndices)
+            {
+                currNames.RemoveAt(index);
+                currTexts.RemoveAt(index);
+                currCosts.RemoveAt(index);
+                currNotBought.RemoveAt(index);
             }
 
             int items;
@@ -288,9 +294,6 @@ namespace Hive.Armada.Menus
             if (iridiumSystem.PayIridium(currCosts[currItemId]))
             {
                 iridiumSystem.UnlockItem(currCategory, currNames[currItemId]);
-                lexiconUnlockData.AddWeaponUnlock(currNames[currItemId]);
-                lexiconGO.SetActive(true);
-                lexiconGO.SetActive(false);
                 currNotBought[currItemId] = false;
                 PressBack();
             }
@@ -432,7 +435,7 @@ namespace Hive.Armada.Menus
                     currPrefabs = weaponPrefabs.ToList();
                     break;
                 default:
-                    Debug.Log("ERROR: Lexicon menu category could not be identified.");
+                    Debug.Log("ERROR: Bestiary menu category could not be identified.");
                     break;
             }
         }
@@ -445,7 +448,6 @@ namespace Hive.Armada.Menus
         {
             source.PlayOneShot(clips[0]);
 
-            menuDescription.SetActive(false);
             menuTitle.GetComponent<Text>().text = category;
             scrollView.SetActive(true);
             SetCurrCategory(category);
@@ -459,7 +461,6 @@ namespace Hive.Armada.Menus
         /// </summary>
         private void CloseCategory()
         {
-            menuDescription.SetActive(true);
             menuTitle.GetComponent<Text>().text = "Shop";
             scrollView.SetActive(false);
             categoryOpen = false;

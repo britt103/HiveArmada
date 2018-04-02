@@ -323,12 +323,14 @@ namespace Hive.Armada.Game
         }
 
         /// <summary>
-        /// Begins running the waves from the waves array
+        /// Begins running the waves from the waves array. Remove any stored powerups
+        /// from previous wave.
         /// </summary>
         /// <param name="wave"> The index of the wave to run </param>
         private void RunWave(int wave)
         {
             StartCoroutine(WaveNumberDisplay(wave));
+            reference.powerUpStatus.RemoveStoredPowerups();
         }
 
         /// <summary>

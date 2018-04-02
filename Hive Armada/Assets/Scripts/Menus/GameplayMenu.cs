@@ -6,7 +6,7 @@
 // CPSC-340-01 & CPSC-344-01
 // Group Project
 //
-// DisplayMenu controls interactions with the Display Menu.
+// GameplayMenu controls interactions with the Gameplay Menu.
 //
 //=============================================================================
 
@@ -17,9 +17,9 @@ using Hive.Armada.Game;
 namespace Hive.Armada.Menus
 {
     /// <summary>
-    /// Controls interactions with Display Menu.
+    /// Controls interactions with Gameplay Menu.
     /// </summary>
-    public class DisplayMenu : MonoBehaviour
+    public class GameplayMenu : MonoBehaviour
     {
         /// <summary>
         /// Reference to Menu Transition Manager.
@@ -42,14 +42,14 @@ namespace Hive.Armada.Menus
     	public AudioClip[] clips;
 
         /// <summary>
-        /// Reference to Bloom Toggle.
+        /// Reference to Aim Assist Toggle.
         /// </summary>
-        public Toggle bloomToggle;
+        public Toggle aimAssistToggle;
 
         /// <summary>
-        /// Reference to Color Blind Mode Toggle.
+        /// Reference to Score Display Toggle.
         /// </summary>
-        public Toggle colorBlindModeToggle;
+        public Toggle scoreDisplayToggle;
 
         /// <summary>
         /// Reference to Reference Manager.
@@ -57,23 +57,13 @@ namespace Hive.Armada.Menus
         private ReferenceManager reference;
 
         /// <summary>
-        /// Variables used to make sure that audio
-        /// doesn't play over itself
-        /// </summary>
-        private int backCounter = 0;
-
-        private int bloomCounter = 0;
-
-        private int colorBlindModeCounter = 0;
-
-        /// <summary>
         /// Find references. 
         /// </summary>
         private void Awake()
         {
             reference = FindObjectOfType<ReferenceManager>();
-            bloomToggle.isOn = reference.optionsValues.bloom;
-            colorBlindModeToggle.isOn = reference.optionsValues.colorBlindMode;
+            aimAssistToggle.isOn = reference.optionsValues.aimAssist;
+            scoreDisplayToggle.isOn = reference.optionsValues.scoreDisplay;
         }
 
         /// <summary>
@@ -81,45 +71,43 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void PressBack()
         {
-			source.PlayOneShot(clips[0]);
-            backCounter += 1;
-            if (backCounter > 1)
-            {
-                source.Stop();
-                source.PlayOneShot(clips[0]);
-            }
+            source.PlayOneShot(clips[0]);
             reference.optionsValues.SetDisplayPlayerPrefs();
             transitionManager.Transition(backMenuGO);
         }
 
         /// <summary>
-        /// Change bloom setting based on bloomToggle value.
+        /// Change aimAssist setting based on aimAssistToggle value.
         /// </summary>
-        public void SetBloom(bool isOn)
+        public void SetAimAssist(bool isOn)
         {
-            source.PlayOneShot(clips[1]);
-            bloomCounter += 1;
-            if (bloomCounter > 1)
+            if (source.isPlaying)
             {
-                source.Stop();
+                new WaitWhile(() => source.isPlaying);
                 source.PlayOneShot(clips[1]);
             }
-            reference.optionsValues.SetBloom(isOn);
+            else
+            {
+                source.PlayOneShot(clips[1]);
+            }
+            reference.optionsValues.SetAimAssist(isOn);
         }
 
         /// <summary>
-        /// Change color blind mode setting based on colorBlindModeToggle value.
+        /// Change score setting based on scoreDisplayToggle value.
         /// </summary>
-        public void SetColorBlindMode(bool isOn)
+        public void SetScoreDisplay(bool isOn)
         {
-            source.PlayOneShot(clips[1]);
-            colorBlindModeCounter += 1;
-            if (colorBlindModeCounter > 1)
+            if (source.isPlaying)
             {
-                source.Stop();
+                new WaitWhile(() => source.isPlaying);
                 source.PlayOneShot(clips[1]);
             }
-            reference.optionsValues.SetColorBlindMode(isOn);
+            else
+            {
+                source.PlayOneShot(clips[1]);
+            }
+            reference.optionsValues.SetScoreDisplay(isOn);
         }
     }
 }

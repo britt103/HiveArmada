@@ -26,7 +26,7 @@ namespace Hive.Armada.Menus
         public int id;
 
         /// <summary>
-        /// Reference to Lexicon Menu.
+        /// Reference to Shop Menu.
         /// </summary>
         public ShopMenu shopMenu;
 

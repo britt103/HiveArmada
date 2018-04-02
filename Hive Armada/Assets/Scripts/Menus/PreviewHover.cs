@@ -6,7 +6,7 @@
 // CPSC-440-01
 // Group Project
 //
-// This class enables the lexicon previews to hover.
+// This class enables the Bestiary previews to hover.
 //
 //=============================================================================
 
@@ -15,7 +15,7 @@ using UnityEngine;
 namespace Hive.Armada.Menus
 {
     /// <summary>
-    /// Simple hover for lexicon previews.
+    /// Simple hover for Bestiary previews.
     /// </summary>
     public class PreviewHover : MonoBehaviour
     {

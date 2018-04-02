@@ -132,7 +132,7 @@ namespace Hive.Armada.Player
 
             newPosesAppliedAction = SteamVR_Events.NewPosesAppliedAction(OnNewPosesApplied);
 
-            SetWeapon(reference.gameSettings.weapon);
+            SetWeapon((int)reference.gameSettings.selectedWeapon);
         }
 
         /// <summary>

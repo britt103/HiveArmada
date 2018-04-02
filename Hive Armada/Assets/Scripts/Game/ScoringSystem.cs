@@ -111,6 +111,7 @@ namespace Hive.Armada.Game
             //comboBank *= comboMultiplier;
             //int comboOut = (int)comboBank;
             //AddScore(comboOut);
+            reference.statistics.Combo(comboSequence);
             comboMultiplier = 1;
             comboSequence = 0;
         }
@@ -145,13 +146,13 @@ namespace Hive.Armada.Game
                 comboActive = true;
                 comboSequence = 1;
                 comboMultiplier = 1;
-                comboTimer = 3;
+                comboTimer = 4;
                 points *= comboMultiplier;
                 StartCoroutine(StartCombo());
             }
             else if (comboActive == true)
             {
-                comboTimer = 3;
+                comboTimer = 4;
                 ++comboSequence;
                 switch (comboSequence)
                 {

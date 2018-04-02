@@ -62,6 +62,11 @@ namespace Hive.Armada.Player
         public int totalEnemiesKilled = 0;
 
         /// <summary>
+        /// Best combo achieved by player in the current run.
+        /// </summary>
+        public int bestCombo = 0;
+
+        /// <summary>
         /// Time player has been firing in the current wave.
         /// </summary>
         [NonSerialized]
@@ -217,6 +222,7 @@ namespace Hive.Armada.Player
                       "Waves Finished: " + waves + "\n" +
                       "Total Score: " + totalScore + "\n" +
                       "Total Enemies Killed: " + totalEnemiesKilled + "\n" +
+                      "Best Combo: " + bestCombo + "\n" +
                       "Total Time Holding Down Trigger: " + totalFiringTime + "\n" +
                       weaponsOutput + powerupsOutput +
                       "Total Time Alive: " + totalAliveTime + "\n" +
@@ -251,6 +257,7 @@ namespace Hive.Armada.Player
                       "Wave: " + waves + "\n" +
                       "Current Score: " + score + "\n" +
                       "Enemies Killed: " + enemiesKilled + "\n" +
+                      "Best Combo: " + bestCombo + "\n" +
                       "Time Holding Down Trigger: " + firingTime + "\n" +
                       weaponsOutput + powerupsOutput +
                       "Time Alive: " + aliveTime + "\n" +
@@ -300,6 +307,7 @@ namespace Hive.Armada.Player
             aliveTime = 0;
             isAlive = false;
             enemiesKilled = 0;
+            bestCombo = 0;
             firingTime = 0;
             score = 0;
             isFiring = false;
@@ -380,6 +388,18 @@ namespace Hive.Armada.Player
         public void EnemyKilled()
         {
             enemiesKilled++;
+        }
+
+        /// <summary>
+        /// Set current best combo of run
+        /// </summary>
+        /// <param name="combo">latest combo that ended</param>
+        public void Combo(int combo)
+        {
+            if(combo > bestCombo)
+            {
+                bestCombo = combo;
+            }
         }
 
         /// <summary>

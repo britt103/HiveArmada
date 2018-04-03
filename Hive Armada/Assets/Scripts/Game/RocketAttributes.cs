@@ -144,6 +144,9 @@ namespace Hive.Armada.Game
             /// The emitter prefab for the rocket trail.
             /// </summary>
             public GameObject trailEmitterPrefab;
+
+            [Header("Audio")]
+            public AudioClip explosionClip;
         }
 
         /// <summary>

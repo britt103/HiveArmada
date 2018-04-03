@@ -171,7 +171,7 @@ namespace Hive.Armada.Enemies
 
         public BossStates State { get; private set; }
 
-        public GameObject testPlayer;
+        public GameObject testTarget;
 
         public bool PatrolIsLeft { get; private set; }
 
@@ -185,10 +185,10 @@ namespace Hive.Armada.Enemies
         {
             base.Awake();
             bossManager = FindObjectOfType<BossManager>();
-            testPlayer = GameObject.Find("SphereASDF");
+            testTarget = GameObject.Find("SphereASDF");
             source = GameObject.Find("Boss Audio Source").GetComponent<AudioSource>();
             Random.InitState((int) DateTime.Now.Ticks);
-            SetLookTarget(testPlayer);
+            SetLookTarget(testTarget);
             LookAtTarget = true;
             currentPosition = BossPosition.Intro;
         }
@@ -204,7 +204,7 @@ namespace Hive.Armada.Enemies
             {
                 if (lookTarget == null)
                 {
-                    lookTarget = testPlayer;
+                    lookTarget = testTarget;
                 }
 
                 Quaternion to =
@@ -406,7 +406,7 @@ namespace Hive.Armada.Enemies
         {
             //SetHover();
             //SetLookTarget(reference.playerShip);
-            SetLookTarget(testPlayer);
+            SetLookTarget(testTarget);
             LookAtTarget = true;
 
             //if (hoverEnabled)

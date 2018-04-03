@@ -5014,10 +5014,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f582c549bdd7a9c4a94e9e4413b65d59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flashColor: {fileID: 0}
-  projectilePrefab: {fileID: 0}
-  projectileAlbedoColor: {r: 0, g: 0, b: 0, a: 0}
-  projectileEmissionColor: {r: 0, g: 0, b: 0, a: 0}
+  flashColor: {fileID: 2100000, guid: 1db15971033ba594294b4f0c035f7da8, type: 2}
+  projectilePrefab: {fileID: 1590670541974036, guid: 0f837641c26eee64eaa72bd67b35506d,
+    type: 2}
+  projectileAlbedoColor: {r: 1, g: 1, b: 1, a: 1}
+  projectileEmissionColor: {r: 1, g: 0.9206897, b: 0.66176474, a: 1}
   projectileArray: 
   behaviorArray: 
   shootPoint: []
@@ -5027,12 +5028,13 @@ MonoBehaviour:
   spread: 0
   health: 
   eyes: {fileID: 0}
-  eyeIntactMaterial: {fileID: 0}
-  eyeDestroyedMaterial: {fileID: 0}
+  eyeIntactMaterial: {fileID: 2100000, guid: 07abe57a32ebdd241a8a538972e88731, type: 2}
+  eyeDestroyedMaterial: {fileID: 2100000, guid: b3933fbfb4da791448407e1d88b4a341,
+    type: 2}
   lookStrength: 2
   lookTarget: {fileID: 0}
   source: {fileID: 0}
-  introClip: {fileID: 0}
+  introClip: {fileID: 8300000, guid: 5b687e147fa85624db00d1ceb6f0b41b, type: 3}
   hoverEnabled: 1
   hoverDistance: 0.8
   hoverTime: 2

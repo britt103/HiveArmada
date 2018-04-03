@@ -87,14 +87,10 @@ namespace Hive.Armada.Game
         /// <param name="referenceManager"> The reference manager </param>
         public void Initialize(ReferenceManager referenceManager)
         {
-            //reference = referenceManager;
-
             if (bossPrefab != null)
             {
                 bossObject = Instantiate(bossPrefab, bossSpawn.position, bossSpawn.rotation, transform);
                 bossScript = bossObject.GetComponent<NewBoss>();
-
-                //bossScript.SendMessage("OnPathingComplete");
                 TransitionState(NewBoss.BossStates.Intro);
             }
             else

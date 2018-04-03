@@ -49,6 +49,8 @@ namespace Hive.Armada.Enemies
             Intro
         }
 
+        private BossManager bossManager;
+
         [Header("Combat")]
         public GameObject projectilePrefab;
 
@@ -169,34 +171,36 @@ namespace Hive.Armada.Enemies
 
         public bool LookAtTarget { get; private set; }
 
-        public BossStates State { get; private set; }
+        public BossStates CurrentState { get; private set; }
 
-        public GameObject testTarget;
+        public BossStates NextState { get; private set; }
 
         public bool PatrolIsLeft { get; private set; }
 
         public bool PatrolIsInward { get; private set; }
 
-        private BossManager bossManager;
+        private Coroutine introWaitCoroutine;
+
+        private Coroutine patrolWaitCoroutine;
 
         /// <summary>
         /// </summary>
         protected override void Awake()
         {
             base.Awake();
-            bossManager = FindObjectOfType<BossManager>();
-            testTarget = GameObject.Find("SphereASDF");
+
+            bossManager = reference.bossManager;
+            lookTarget = GameObject.Find("Ship Look Target");
             source = GameObject.Find("Boss Audio Source").GetComponent<AudioSource>();
+
             Random.InitState((int) DateTime.Now.Ticks);
-            SetLookTarget(testTarget);
+            SetLookTarget(lookTarget);
             LookAtTarget = true;
             currentPosition = BossPosition.Intro;
         }
 
         /// <summary>
-        /// tracks player and shoots projectiles in that direction, while being slightly
-        /// swayed via the spread value set by user. If player is not found automatically
-        /// finds player, otherwise do nothing.
+        /// 
         /// </summary>
         private void Update()
         {
@@ -204,7 +208,7 @@ namespace Hive.Armada.Enemies
             {
                 if (lookTarget == null)
                 {
-                    lookTarget = testTarget;
+                    lookTarget = GameObject.Find("Ship Look Target");
                 }
 
                 Quaternion to =
@@ -214,7 +218,7 @@ namespace Hive.Armada.Enemies
                     Quaternion.Slerp(transform.rotation, to, lookStrength * Time.deltaTime);
             }
 
-            if (State == BossStates.Combat)
+            if (CurrentState == BossStates.Combat)
             {
                 if (canShoot)
                 {
@@ -228,11 +232,14 @@ namespace Hive.Armada.Enemies
         /// <param name="newState"> </param>
         public void TransitionState(BossStates newState)
         {
-            State = newState;
+            NextState = newState;
             switch (newState)
             {
                 case BossStates.Patrol:
-                    StartCoroutine(PatrolWait());
+                    if (patrolWaitCoroutine == null)
+                    {
+                        patrolWaitCoroutine = StartCoroutine(PatrolWait());
+                    }
                     break;
                 case BossStates.Idle:
                     break;
@@ -261,7 +268,7 @@ namespace Hive.Armada.Enemies
                         Debug.LogError(GetType().Name + " - \"source\" is not set.");
                     }
 
-                    StartCoroutine(IntroWait());
+                    introWaitCoroutine = StartCoroutine(IntroWait());
                     break;
                 default:
                     break;
@@ -324,7 +331,7 @@ namespace Hive.Armada.Enemies
         {
             PathingComplete = true;
 
-            if (State != BossStates.Patrol)
+            if (CurrentState != BossStates.Patrol)
             {
                 return;
             }
@@ -399,25 +406,6 @@ namespace Hive.Armada.Enemies
         }
 
         /// <summary>
-        /// This is run after the enemy has completed its path.
-        /// Calls hover function to set hover endpoints
-        /// </summary>
-        protected override void OnPathingComplete()
-        {
-            //SetHover();
-            //SetLookTarget(reference.playerShip);
-            SetLookTarget(testTarget);
-            LookAtTarget = true;
-
-            //if (hoverEnabled)
-            //{
-            //    StartCoroutine(Hover(hoverStart, hoverEnd));
-            //}
-
-            base.OnPathingComplete();
-        }
-
-        /// <summary>
         /// Sets the start and end points for the hover effect.
         /// </summary>
         private void SetHover()
@@ -468,6 +456,8 @@ namespace Hive.Armada.Enemies
         /// </summary>
         private IEnumerator IntroWait()
         {
+            CurrentState = NextState;
+
             yield return new WaitWhile(() => source.isPlaying);
 
             Hashtable moveHash = new Hashtable
@@ -484,6 +474,7 @@ namespace Hive.Armada.Enemies
             iTween.MoveTo(gameObject, moveHash);
             currentPosition = BossPosition.PatrolCenter;
             TransitionState(BossStates.Patrol);
+            introWaitCoroutine = null;
         }
 
         /// <summary>
@@ -493,7 +484,14 @@ namespace Hive.Armada.Enemies
         {
             yield return new WaitWhile(() => !PathingComplete);
 
-            StartPatrol();
+            if (NextState == BossStates.Patrol)
+            {
+                CurrentState = NextState;
+
+                StartPatrol();
+            }
+
+            patrolWaitCoroutine = null;
         }
 
         /// <summary>

@@ -46,6 +46,8 @@ namespace Hive.Armada.Game
 
         public ObjectPoolManager objectPoolManager;
 
+        public BossManager bossManager;
+
 		public SceneTransitionManager sceneTransitionManager;
 
         public OptionsValues optionsValues;

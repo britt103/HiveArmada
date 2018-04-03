@@ -154,9 +154,7 @@ namespace Hive.Armada.Enemies
 
                 yield return null;
             }
-
             trailEmitter.stop();
-            trailEmitter.clear();
             timeWarpCoroutine = null;
         }
 

@@ -126,7 +126,7 @@ namespace Hive.Armada.Game
         /// Array of queues for each object to pool.
         /// These queues will hold the objects that are currently activated in the scene.
         /// </summary>
-        private Hashtable activePool;
+        private Dictionary<uint, GameObject> activePool;
 
         /// <summary>
         /// The last pool identifier used.
@@ -162,7 +162,7 @@ namespace Hive.Armada.Game
                 parentNames = new string[objects.Length];
 
                 inactivePools = new Stack<GameObject>[objects.Length];
-                activePool = new Hashtable();
+                activePool = new Dictionary<uint, GameObject>();
 
                 for (int i = 0; i < objects.Length; ++i)
                 {
@@ -331,7 +331,7 @@ namespace Hive.Armada.Game
                     poolParents[typeIdentifier].transform;
                 objectToDespawn.transform.localPosition = Vector3.zero;
 
-                if (activePool.Contains(poolable.PoolIdentifier))
+                if (activePool.ContainsKey(poolable.PoolIdentifier))
                 {
                     activePool.Remove(poolable.PoolIdentifier);
                     inactivePools[typeIdentifier].Push(objectToDespawn);

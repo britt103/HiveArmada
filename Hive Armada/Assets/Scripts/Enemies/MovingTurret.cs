@@ -125,7 +125,7 @@ namespace Hive.Armada.Enemies
         private void SetPosition()
         {
             leftFirst = Random.Range(0, 2) == 1;
-            float percent = Random.Range(0.35f, 0.65f);
+            float percent = Random.Range(0.4f, 0.6f);
 
             posA = new Vector3(transform.position.x - (xMax * percent),
                                transform.position.y - (yMax * percent),

@@ -324,7 +324,6 @@ namespace Hive.Armada.Enemies
         /// </summary>
         protected virtual void OnPathingComplete()
         {
-            //            gameObject.layer = Utility.enemyLayerId;
             PathingComplete = true;
         }
 

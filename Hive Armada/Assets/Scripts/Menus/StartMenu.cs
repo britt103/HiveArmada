@@ -97,14 +97,6 @@ namespace Hive.Armada.Menus
         private bool selectionMade;
 
         /// <summary>
-        /// Variables used as a check to make sure audio
-        /// doesn't play over itself
-        /// </summary>
-        private int soloNormalCounter = 0;
-        private int soloInfiniteCounter = 0;
-        private int backCounter = 0;
-
-        /// <summary>
         /// Reference to refetrence manager.
         /// </summary>
         private ReferenceManager reference;
@@ -169,12 +161,6 @@ namespace Hive.Armada.Menus
                 }
 
                 source.PlayOneShot(clips[0]);
-                soloNormalCounter += 1;
-                if (soloNormalCounter > 1)
-                {
-                    source.Stop();
-                    source.PlayOneShot(clips[0]);
-                }
 
                 if (selectionMade)
                 {
@@ -241,12 +227,6 @@ namespace Hive.Armada.Menus
         public void PressBack()
         {
             source.PlayOneShot(clips[1]);
-            backCounter += 1;
-            if(backCounter > 1)
-            {
-                source.Stop();
-                source.PlayOneShot(clips[1]);
-            }
             if (selectionMade)
             {
                 gameModeUIHoverScripts[selectedGameMode].EndSelect();

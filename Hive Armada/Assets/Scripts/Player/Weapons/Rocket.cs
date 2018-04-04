@@ -213,6 +213,10 @@ namespace Hive.Armada.Player.Weapons
         /// </summary>
         private float smoothFrac;
 
+        public AudioSource source;
+
+        private AudioClip clip;
+
         /// <summary>
         /// Deactivates the rocket when it is first created.
         /// </summary>
@@ -261,6 +265,7 @@ namespace Hive.Armada.Player.Weapons
             randomX = rocketAttributes.rockets[rocketType].randomX;
             randomY = rocketAttributes.rockets[rocketType].randomY;
             randomZ = rocketAttributes.rockets[rocketType].randomZ;
+            clip = rocketAttributes.rockets[rocketType].explosionClip;
 
             Gradient gradient = new Gradient();
             gradient.SetKeys(

@@ -11,6 +11,7 @@
 //
 //=============================================================================
 
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -123,6 +124,8 @@ namespace Hive.Armada.Menus
         /// Reference to Menu Audio source.
         /// </summary>
         public AudioSource source;
+
+        public AudioSource zenaSource;
 
         /// <summary>
         /// Clips to use with source.
@@ -279,10 +282,26 @@ namespace Hive.Armada.Menus
         public void PressPlay()
         {
             source.PlayOneShot(clips[0]);
+            //StartCoroutine(pressPlaySounds());
+
             gameSettings.selectedWeapon = (GameSettings.Weapon)selectedWeapon;
             PlayerPrefs.SetInt("defaultWeapon", selectedWeapon);
             reference.sceneTransitionManager.TransitionOut("Wave Room");
             gameObject.SetActive(false);
+        }
+
+        IEnumerator pressPlaySounds()
+        {
+            yield return new WaitForSeconds(0.3f);
+            int playSoundIndex = Random.Range(2, clips.Length);
+            if (zenaSource.isPlaying)
+            {
+                new WaitWhile(() => source.isPlaying);
+            }
+            else
+            {
+                zenaSource.PlayOneShot(clips[playSoundIndex]);
+            }
         }
     }
 }

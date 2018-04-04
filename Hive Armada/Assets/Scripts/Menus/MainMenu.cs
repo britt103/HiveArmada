@@ -47,6 +47,8 @@ namespace Hive.Armada.Menus
         /// </summary>
         public AudioSource source;
 
+        public AudioSource zenaSource;
+
         /// <summary>
         /// Clips to use with source.
         /// </summary>
@@ -54,12 +56,14 @@ namespace Hive.Armada.Menus
 
         public AudioClip[] startClips;
 
-        //private void Awake()
-        //{
-        //    Random.InitState((int) Time.time);
-        //    int randNum = Random.Range(0, startClips.Length);
-        //    source.PlayOneShot(startClips[randNum]);
-        //}
+        private void Awake()
+        {
+            //Random.InitState((int)Time.time);
+            //StartCoroutine(playMenuSound());
+
+            //IF STARTING SOUNDS ARE GOING TO BE 1 CLIP
+            //zenaSource.PlayOneShot(startClips[0]);
+        }
 
         /// <summary>
         /// Start button pressed. Navigate to Start Menu.
@@ -76,12 +80,6 @@ namespace Hive.Armada.Menus
         public void PressExtras()
         {
             source.PlayOneShot(clips[0]);
-            //startCounter += 1;
-            //if (startCounter > 1)
-            //{
-            //    source.Stop();
-            //    source.PlayOneShot(clips[0]);
-            //}
             transitionManager.Transition(extrasMenuGO);
         }
 
@@ -108,5 +106,28 @@ namespace Hive.Armada.Menus
                 Application.Quit();
             }
         }
+
+        //IEnumerator playmenusound()
+        //{
+        //    //IF STARTING SOUNDS ARE GOING TO BE SEPARATE CLIPS
+        //    if (source.isPlaying)
+        //    {
+        //        yield return new WaitWhile(() => source.isPlaying);
+        //        for (int i = 0; i < clips.Length; i++)
+        //        {
+        //            zenaSource.PlayOneShot(clips[i]);
+        //            yield return new WaitWhile(() => source.isPlaying);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        for (int j = 0; j < clips.Length; j++)
+        //        {
+        //            zenaSource.PlayOneShot(clips[j]);
+        //            yield return new WaitWhile(() => source.isPlaying);
+        //        }
+        //    }
+        //    //IF STARTING SOUNDS ARE GOING TO BE 1 CLIP LOOK BACK AT THE AWAKE FUNCTION
+        //}
     }
 }

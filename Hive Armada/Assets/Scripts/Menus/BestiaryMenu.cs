@@ -48,6 +48,8 @@ namespace Hive.Armada.Menus
         /// </summary>
         public AudioSource source;
 
+        public AudioSource zenaSource;
+
         /// <summary>
         /// Clips to use with source.
         /// </summary>
@@ -165,14 +167,6 @@ namespace Hive.Armada.Menus
         private BestiaryUnlockData unlockData;
 
         /// <summary>
-        /// Variables used to make sure audio
-        /// doesn't play over itself
-        /// </summary>
-        private int backCounter = 0;
-
-        private int entryCounter = 0;
-
-        /// <summary>
         /// Reference to the information button used for
         /// playing dialogue about the selected item
         /// </summary>
@@ -243,12 +237,6 @@ namespace Hive.Armada.Menus
         public void PressBack()
         {
             source.PlayOneShot(clips[1]);
-            backCounter += 1;
-            if (backCounter > 1)
-            {
-                source.Stop();
-                source.PlayOneShot(clips[1]);
-            }
 
             if (entryOpen)
             {
@@ -340,12 +328,6 @@ namespace Hive.Armada.Menus
         public void OpenEntry(int entryId)
         {
             source.PlayOneShot(clips[0]);
-            entryCounter += 1;
-            if (entryCounter > 1)
-            {
-                source.Stop();
-                source.PlayOneShot(clips[0]);
-            }
 
             menuTitle.SetActive(false);
             scrollView.SetActive(false);
@@ -457,20 +439,15 @@ namespace Hive.Armada.Menus
 
         IEnumerator InformationAudio()
         {
-            if (source.isPlaying)
+            if (zenaSource.isPlaying)
             {
-                yield return new WaitWhile(() => source.isPlaying);
+                yield return new WaitWhile(() => zenaSource.isPlaying);
+                zenaSource.PlayOneShot(enemiesAudio[entryValue]);
             }
             else
             {
-                source.PlayOneShot(enemiesAudio[entryValue]);
+                zenaSource.PlayOneShot(enemiesAudio[entryValue]);
             }
-            //enemyCounter += 1;
-            //if (enemyCounter > 1)
-            //{
-            //    source.Stop();
-            //    source.PlayOneShot(enemiesAudio[entryValue]);
-            //}
         }
     }
 }

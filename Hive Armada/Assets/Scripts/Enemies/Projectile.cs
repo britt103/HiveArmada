@@ -238,7 +238,7 @@ namespace Hive.Armada.Enemies
                                reference.enemyAttributes.projectileSpeedBounds[ProjectileId]
                                         .maxSpeed;
 
-            float scaledFadeTime = FADE_TIME * alphaScale * speedScale;
+            float scaledFadeTime = FADE_TIME * alphaScale / speedScale;
 
             //Debug.LogWarning(PoolIdentifier + " - (" + FADE_TIME + ", " + alphaScale + ", " +
             //                 speedScale + ", " + scaledFadeTime + ")");
@@ -247,14 +247,7 @@ namespace Hive.Armada.Enemies
             {
                 t += Time.deltaTime / scaledFadeTime;
 
-                if (fadeOut)
-                {
-                    currentAlpha = Mathf.SmoothStep(currentAlpha, MIN_ALPHA, t);
-                }
-                else
-                {
-                    currentAlpha = Mathf.SmoothStep(currentAlpha, MAX_ALPHA, t);
-                }
+                currentAlpha = Mathf.SmoothStep(currentAlpha, fadeOut ? MIN_ALPHA : MAX_ALPHA, t);
 
                 currentAlbedo.a = currentAlpha;
                 material.SetColor("_Color", currentAlbedo);

@@ -10,13 +10,12 @@
 // 
 //=============================================================================
 
-using System;
-using System.Collections;
-using UnityEngine;
 using Hive.Armada.Enemies;
-using Hive.Armada.Game;
 using Hive.Armada.Player;
 using SubjectNerd.Utilities;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace Hive.Armada.Game
 {
@@ -48,6 +47,8 @@ namespace Hive.Armada.Game
 
         public Transform idleRightPoint;
 
+        public Dictionary<string, Transform> bossPoints;
+
         [Header("Paths")]
         public iTweenPath spawnToPatrolPath;
 
@@ -63,22 +64,59 @@ namespace Hive.Armada.Game
         [Reorderable("Path", false)]
         public iTweenPath[] patrolRCPaths;
 
+        [Reorderable("Path", false)]
+        public iTweenPath[] combatToLPaths;
+
+        [Reorderable("Path", false)]
+        public iTweenPath[] combatFromLPaths;
+
+        [Reorderable("Path", false)]
+        public iTweenPath[] combatToCPaths;
+
+        [Reorderable("Path", false)]
+        public iTweenPath[] combatFromCPaths;
+
+        [Reorderable("Path", false)]
+        public iTweenPath[] combatToRPaths;
+
+        [Reorderable("Path", false)]
+        public iTweenPath[] combatFromRPaths;
+
+        public Dictionary<string, iTweenPath[]> bossPaths;
+
         [Header("Audio")]
         public AudioSource source;
 
         public AudioClip introClip;
 
-        public NewBoss.BossStates CurrentState { get; private set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
         public bool IsInitialized { get; private set; }
 
         private void Awake()
         {
-            source.PlayOneShot(introClip);
-            Initialize(null);
+            bossPaths = new Dictionary<string, iTweenPath[]>
+                        {
+                            {"patrolCL", patrolCLPaths},
+                            {"patrolLC", patrolLCPaths},
+                            {"patrolCR", patrolCRPaths},
+                            {"patrolRC", patrolRCPaths},
+                            {"combatToL", combatToLPaths},
+                            {"combatFromL", combatFromLPaths},
+                            {"combatToC", combatToCPaths},
+                            {"combatFromC", combatFromCPaths},
+                            {"combatToR", combatToRPaths},
+                            {"combatFromR", combatFromRPaths}
+                        };
+
+            bossPoints = new Dictionary<string, Transform>
+                         {
+                             {"bossSpawn", bossSpawn},
+                             {"combat", combatPoint},
+                             {"patrol", patrolCenterPoint},
+                             {"idleLeft", idleLeftPoint},
+                             {"idleRight", idleRightPoint}
+                         };
+
+            Initialize(FindObjectOfType<ReferenceManager>());
         }
 
         /// <summary>
@@ -87,39 +125,63 @@ namespace Hive.Armada.Game
         /// <param name="referenceManager"> The reference manager </param>
         public void Initialize(ReferenceManager referenceManager)
         {
-            if (bossPrefab != null)
+            if (!IsInitialized)
             {
-                bossObject = Instantiate(bossPrefab, bossSpawn.position, bossSpawn.rotation, transform);
-                bossScript = bossObject.GetComponent<NewBoss>();
-                TransitionState(NewBoss.BossStates.Intro);
-            }
-            else
-            {
-                Debug.LogError(GetType().Name + " - bossPrefab is not set.");
+                if (bossPrefab != null)
+                {
+                    IsInitialized = true;
+                    ObjectPoolManager opm = reference.objectPoolManager;
+
+                    bossObject = opm.Spawn(gameObject, opm.GetTypeIdentifier(bossPrefab),
+                                           bossSpawn.position, bossSpawn.rotation, transform);
+
+                    //bossObject = Instantiate(bossPrefab, bossSpawn.position, bossSpawn.rotation,
+                    //                         transform);
+                    bossScript = bossObject.GetComponent<NewBoss>();
+                    TransitionState(BossStates.Intro);
+                }
+                else
+                {
+                    Debug.LogError(GetType().Name + " - bossPrefab is not set.");
+                }
             }
         }
 
-        private void TransitionState(NewBoss.BossStates newState)
+        /// <summary>
+        /// Tells the boss to transition state.
+        /// </summary>
+        /// <param name="newState"> The new state to transition to </param>
+        private void TransitionState(BossStates newState)
         {
-            switch ((int)newState)
+            bossScript.TransitionState(newState);
+        }
+
+        /// <summary>
+        /// Tells the boss to enter combat.
+        /// </summary>
+        /// <param name="currentWave"> Index of the current wave </param>
+        public void EnterBoss(int currentWave)
+        {
+            bossScript.SetWave(currentWave);
+            TransitionState(BossStates.TransitionToCombat);
+        }
+
+        /// <summary>
+        /// Tells the wave manager that the boss is done.
+        /// </summary>
+        /// <param name="currentWave"> Index of the current wave </param>
+        public void BossDead(int currentWave)
+        {
+            if (currentWave < reference.waveManager.waves.Length - 1)
             {
-                case 0:
-                    break;
-                case 1:
-                    break;
-                case 2:
-                    break;
-                case 3:
-                    break;
-                case 4:
-                    break;
-                case 5:
-                    // play intro audio
-                    bossScript.TransitionState(newState);
-                    break;
-                default:
-                    break;
+                if (reference.playerShip != null)
+                {
+                    reference.playerShip.GetComponent<PlayerHealth>().HealFull();
+                }
             }
+
+            reference.waveManager.BossWaveComplete(currentWave);
+            Debug.Log(GetType().Name + " - Boss finished for Wave " + (currentWave + 1));
         }
     }
 }

@@ -62,6 +62,11 @@ namespace Hive.Armada.Enemies
         private float currentAlpha = 1.0f;
 
         /// <summary>
+        /// The maximum value for the alpha.
+        /// </summary>
+        private const float MAX_ALPHA = 1.0f;
+
+        /// <summary>
         /// The minimum value for the alpha.
         /// </summary>
         private const float MIN_ALPHA = 0.1f;
@@ -69,7 +74,7 @@ namespace Hive.Armada.Enemies
         /// <summary>
         /// Length of the fade in seconds.
         /// </summary>
-        private const float FADE_TIME = 0.05f;
+        private const float FADE_TIME = 0.5f;
 
         /// <summary>
         /// Number of steps the fade should be broken into.
@@ -97,6 +102,7 @@ namespace Hive.Armada.Enemies
             material = GetComponent<Renderer>().material;
             originalAlbedo = material.GetColor("_Color");
             originalEmission = material.GetColor("_EmissionColor");
+            currentAlpha = 1.0f;
         }
 
         /// <summary>
@@ -213,49 +219,47 @@ namespace Hive.Armada.Enemies
         /// <param name="fadeOut"> If the projectile should fade out </param>
         private IEnumerator Fade(bool fadeOut)
         {
-            //float fadeStep = (1.0f - MIN_ALPHA) / FADE_STEPS * (fadeOut ? -1.0f : 1.0f);
-            //float target = fadeOut ? MIN_ALPHA : 1.0f;
-            WaitForSeconds stepTime =
-                new WaitForSeconds((1.0f - MIN_ALPHA) / FADE_STEPS * FADE_TIME);
-
-            //while (Math.Abs(currentAlpha - target) > 0.001f)
-            //{
-            //    currentAlpha += fadeStep;
-            //    currentAlbedo.a = currentAlpha;
-            //    material.SetColor("_Color", currentAlbedo);
-            //    yield return stepTime;
-
-            //    if (currentAlpha < MIN_ALPHA || currentAlpha > 1.0f)
-            //    {
-            //        currentAlpha = fadeOut ? MIN_ALPHA : 1.0f;
-            //        currentAlbedo.a = currentAlpha;
-            //        material.SetColor("_Color", currentAlbedo);
-            //        break;
-            //    }
-            //}
-
-            float start = Time.time;
             float t = 0.0f;
+            float alphaScale;
+
+            // Scale based on current alpha. So partially faded projectiles fade quicker.
+            if (fadeOut)
+            {
+                alphaScale = (currentAlpha - MIN_ALPHA) / (MAX_ALPHA - MIN_ALPHA);
+            }
+            else
+            {
+                alphaScale = (MAX_ALPHA - currentAlpha) / (MAX_ALPHA - MIN_ALPHA);
+            }
+
+            // Scaled based on projectile speed.
+            // Projectiles that are time -warped should fade slower.
+            float speedScale = reference.enemyAttributes.projectileSpeeds[ProjectileId] /
+                               reference.enemyAttributes.projectileSpeedBounds[ProjectileId]
+                                        .maxSpeed;
+
+            float scaledFadeTime = FADE_TIME * alphaScale * speedScale;
+
+            //Debug.LogWarning(PoolIdentifier + " - (" + FADE_TIME + ", " + alphaScale + ", " +
+            //                 speedScale + ", " + scaledFadeTime + ")");
 
             while (t < 1.0f)
             {
-                t = (Time.time - start) / FADE_TIME *
-                    (reference.enemyAttributes.projectileSpeeds[ProjectileId] /
-                     reference.enemyAttributes.projectileSpeedBounds[ProjectileId].maxSpeed);
+                t += Time.deltaTime / scaledFadeTime;
 
                 if (fadeOut)
                 {
-                    currentAlpha = Mathf.SmoothStep(1.0f, MIN_ALPHA, t);
+                    currentAlpha = Mathf.SmoothStep(currentAlpha, MIN_ALPHA, t);
                 }
                 else
                 {
-                    currentAlpha = Mathf.SmoothStep(MIN_ALPHA, 1.0f, t);
+                    currentAlpha = Mathf.SmoothStep(currentAlpha, MAX_ALPHA, t);
                 }
 
                 currentAlbedo.a = currentAlpha;
                 material.SetColor("_Color", currentAlbedo);
 
-                yield return stepTime;
+                yield return null;
             }
 
             fadeCoroutine = null;

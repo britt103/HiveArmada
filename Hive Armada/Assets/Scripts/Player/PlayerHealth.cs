@@ -127,6 +127,8 @@ namespace Hive.Armada.Player
 
         public AudioClip lowHealth;
 
+        public AudioClip heal;
+
 		/// <summary>
         /// The look target for the player ship.
         /// </summary>
@@ -286,6 +288,20 @@ namespace Hive.Armada.Player
 
                 int podIndex = (maxHealth - currentHealth) / 10;
                 healthPods[podIndex].GetComponent<Renderer>().material = podIntactMaterial;
+                StartCoroutine(playHealSound());
+            }
+        }
+
+        IEnumerator playHealSound()
+        {
+            if (source.isPlaying)
+            {
+                yield return new WaitWhile(() => source.isPlaying);
+                source.PlayOneShot(heal);
+            }
+            else
+            {
+                source.PlayOneShot(heal);
             }
         }
     }

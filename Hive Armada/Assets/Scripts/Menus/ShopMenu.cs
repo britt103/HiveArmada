@@ -30,6 +30,8 @@ namespace Hive.Armada.Menus
         /// </summary>
         public AudioSource source;
 
+        public AudioSource zenaSource;
+
         /// <summary>
         /// Clips to use with source.
         /// </summary>
@@ -222,6 +224,21 @@ namespace Hive.Armada.Menus
         {
             iridiumSystem = FindObjectOfType<IridiumSystem>();
             BestiaryUnlockData = FindObjectOfType<BestiaryUnlockData>();
+
+            //int shopIndex = Random.Range(3, clips.Length);
+            ////ASSUMES FIRST VISIT TO THE SHOP
+            //if (iridiumSystem.GetIridiumAmount() < 0)
+            //{
+            //    zenaSource.PlayOneShot(clips[2]);
+            //}
+
+            ////ASSUMES SUBSEQUENT VISIT TO SHOP
+            ////NEED TO ADD RANDOM RANGE CHOOSER
+            //else if (iridiumSystem.GetIridiumAmount() > 0)
+            //{
+            //    zenaSource.PlayOneShot(clips[shopIndex]);
+            //}
+
         }
 
         /// <summary>
@@ -291,8 +308,17 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void BuyItem()
         {
+            /* NEED TO ADD SOUNDS INTO THE ARRAY THEN UNCOMMENT
+             * SOUNDS: (ACCORDING TO DIALOGUE DOC)
+             *      TAKE THIS
+             *      WONDERFUL
+             *      A NICE REWARD
+             *      YOU'LL LIKE THAT ONE
+             */
+            //int purchaseSound = Random.Range(2, clips.Length);
             if (iridiumSystem.PayIridium(currCosts[currItemId]))
             {
+                //zenaSource.PlayOneShot(clips[purchaseSound]);
                 iridiumSystem.UnlockItem(currCategory, currNames[currItemId]);
                 currNotBought[currItemId] = false;
                 PressBack();

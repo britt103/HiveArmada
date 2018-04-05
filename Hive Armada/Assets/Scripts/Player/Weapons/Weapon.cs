@@ -78,7 +78,7 @@ namespace Hive.Armada.Player.Weapons
                 Debug.LogError(GetType().Name + " - Could not find Reference Manager!");
             }
 
-            AimAssistActive = true;
+            AimAssistActive = reference.gameSettings != null ? reference.gameSettings.aimAssist : true;
         }
 
         /// <summary>

@@ -46,7 +46,7 @@ namespace Hive.Armada.Game
 
         public ObjectPoolManager objectPoolManager;
 
-		public SceneTransitionManager sceneTransitionManager;
+        public SceneTransitionManager sceneTransitionManager;
 
         public OptionsValues optionsValues;
 
@@ -69,6 +69,8 @@ namespace Hive.Armada.Game
         //----------------------------------------
         [Header("Player")]
         public GameObject player;
+
+        public GameObject playerLookTarget;
 
         public GameObject playerShip;
 
@@ -186,6 +188,9 @@ namespace Hive.Armada.Game
             {
                 shipLookTarget = GameObject.Find("Ship Look Target");
             }
+
+            playerLookTarget.transform.parent = GameObject.Find("VRCamera").transform;
+            playerLookTarget.transform.localPosition = Vector3.zero;
         }
     }
 }

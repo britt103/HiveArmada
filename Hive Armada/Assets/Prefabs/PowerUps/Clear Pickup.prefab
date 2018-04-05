@@ -35,6 +35,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4418247407078522}
+  - component: {fileID: 114798819643852502}
   m_Layer: 0
   m_Name: Clear Pickup
   m_TagString: Untagged
@@ -98,7 +99,7 @@ Transform:
   m_GameObject: {fileID: 1883553688479776}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.018257875, y: 0.018257868, z: 0.018257868}
+  m_LocalScale: {x: 0.018, y: 0.018, z: 0.018}
   m_Children:
   - {fileID: 4902655862308112}
   m_Father: {fileID: 4418247407078522}
@@ -222,6 +223,27 @@ MonoBehaviour:
   powerupPrefab: {fileID: 1207937996568046, guid: 5201957c382643d49b6f06c526e35261,
     type: 2}
   powerupIconPrefab: {fileID: 1868741766282424, guid: 0510bea4423ccc24cbf64766265dc463,
+    type: 2}
+  spawnEmitter: {fileID: 1193291957623802, guid: 51c6bc2ff295f4044856c670e54c787e,
+    type: 2}
+  pickupEmitter: {fileID: 1259133097534382, guid: 1711805e42329424da4fd6ed64443373,
+    type: 2}
+  lifeTime: 10
+  clip: {fileID: 8300000, guid: 2be3b6318a2217d42985fc52874676f6, type: 3}
+--- !u!114 &114798819643852502
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1430950907871662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47d3e22cf11a83f45afc683114b104a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  powerupPrefab: {fileID: 1207937996568046, guid: 5201957c382643d49b6f06c526e35261,
+    type: 2}
+  powerupIconPrefab: {fileID: 1213645829024432, guid: 5a0f6a28ad3e7ff46b4a8b13d90c30ca,
     type: 2}
   spawnEmitter: {fileID: 1193291957623802, guid: 51c6bc2ff295f4044856c670e54c787e,
     type: 2}

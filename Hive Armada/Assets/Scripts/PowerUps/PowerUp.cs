@@ -87,15 +87,15 @@ namespace Hive.Armada.PowerUps
 
             if (spawnEmitter)
             {
-                Instantiate(spawnEmitter, transform.parent.position, transform.parent.rotation, transform.parent);
+                Instantiate(spawnEmitter, transform.position, transform.rotation, transform);
             }
             if (pickupEmitter)
             {
-                Instantiate(pickupEmitter, transform.parent.position, transform.parent.rotation, transform.parent);
+                Instantiate(pickupEmitter, transform.position, transform.rotation, transform);
             }
             
             status = reference.powerUpStatus;
-            Destroy(transform.parent.gameObject, lifeTime);
+            Destroy(transform.gameObject, lifeTime);
         }
 
         /// <summary>
@@ -103,7 +103,7 @@ namespace Hive.Armada.PowerUps
         /// </summary>
         private void Update()
         {
-            gameObject.transform.parent.LookAt(head);
+            gameObject.transform.LookAt(head);
         }
 
         /// <summary>
@@ -118,7 +118,7 @@ namespace Hive.Armada.PowerUps
                 reference.playerShipSource.PlayOneShot(reference.powerupReadySound);
                 status.StorePowerup(powerupPrefab, powerupIconPrefab);
                 source.PlayOneShot(clip);
-                Destroy(transform.parent.gameObject);
+                Destroy(transform.gameObject);
             }
         }
     }

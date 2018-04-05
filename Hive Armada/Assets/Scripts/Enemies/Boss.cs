@@ -310,10 +310,14 @@ namespace Hive.Armada.Enemies
                     ResetAttackPattern();
                     SetAttackPattern(AttackPattern.One);
                     StartCoroutine(RotateProjectile(shootPivot, 1.5f));
-                    for (int i = 0; i < 100; ++i)
+                    for (int i = 0; i < 10; ++i)
                     {
-                        StartCoroutine(Shoot());
-                        yield return new WaitForSeconds(0.15f);
+                        for(int j = 0; j < 10; ++j)
+                        {
+                            StartCoroutine(Shoot());
+                            yield return new WaitForSeconds(0.15f);
+                        }
+
                     }
                     break;
 
@@ -340,7 +344,7 @@ namespace Hive.Armada.Enemies
                     yield return new WaitForSeconds(1);
                     SetAttackPattern(AttackPattern.Six);
                     StartCoroutine(RotateProjectile(shootPivot, 2.0f));
-                    for(int i = 0; i < 15; ++i)
+                    for(int i = 0; i < 25; ++i)
                     {
                         StartCoroutine(Shoot());
                         yield return new WaitForSeconds(fireRate);
@@ -352,7 +356,7 @@ namespace Hive.Armada.Enemies
                     yield return new WaitForSeconds(1);
                     SetAttackPattern(AttackPattern.Seven);
                     StartCoroutine(RotateProjectile(shootPivot, 1.5f));
-                    for (int i = 0; i < 100; ++i)
+                    for (int i = 0; i < 75; ++i)
                     {
                         StartCoroutine(Shoot());
                         yield return new WaitForSeconds(0.15f);
@@ -362,18 +366,18 @@ namespace Hive.Armada.Enemies
                 //oscilatting halves
                 case 6:
                     yield return new WaitForSeconds(1);
-                    for (int i = 0; i < 8; ++i)
+                    for (int i = 0; i < 10; ++i)
                     {
                         SetAttackPattern(AttackPattern.Eight);
-                        StartCoroutine(RotateProjectile(shootPivot, 1.5f));
-                        for (int j = 0; j < 25; ++j)
+                        //StartCoroutine(RotateProjectile(shootPivot, 1.5f));
+                        for (int j = 0; j < 5; ++j)
                         {
                             StartCoroutine(Shoot());
                             yield return new WaitForSeconds(0.15f);
                         }
                         SetAttackPattern(AttackPattern.Nine);
-                        StartCoroutine(RotateProjectile(shootPivot, -1.5f));
-                        for (int j = 0; j < 25; ++j)
+                        //StartCoroutine(RotateProjectile(shootPivot, -1.5f));
+                        for (int j = 0; j < 5; ++j)
                         {
                             StartCoroutine(Shoot());
                             yield return new WaitForSeconds(0.15f);
@@ -396,7 +400,7 @@ namespace Hive.Armada.Enemies
             switch ((int) attackPattern)
             {
                 case 0:
-                    fireRate = 0.1f;
+                    fireRate = 1f;
                     projectileSpeed = 3;
                     spread = 0;
                     for (int i = 0; i < 9; ++i)
@@ -414,7 +418,7 @@ namespace Hive.Armada.Enemies
 
                 case 1:
                     fireRate = 0.8f;
-                    projectileSpeed = 3;
+                    projectileSpeed = 4;
                     spread = 0;
 
                     myPoints = new[]
@@ -429,7 +433,7 @@ namespace Hive.Armada.Enemies
 
                 case 2:
                     fireRate = 0.8f;
-                    projectileSpeed = 3;
+                    projectileSpeed = 4;
                     spread = 0;
 
                     myPoints = new[]
@@ -448,7 +452,7 @@ namespace Hive.Armada.Enemies
 
                 case 3:
                     fireRate = 0.6f;
-                    projectileSpeed = 3;
+                    projectileSpeed = 4;
                     spread = 0;
 
                     myPoints = new[]
@@ -468,8 +472,8 @@ namespace Hive.Armada.Enemies
                     return;
 
                 case 4:
-                    fireRate = 1f;
-                    projectileSpeed = 3;
+                    fireRate = 2f;
+                    projectileSpeed = 4;
                     spread = 1;
 
                     myPoints = new[]
@@ -484,7 +488,7 @@ namespace Hive.Armada.Enemies
 
                 case 5:
                     fireRate = 1;
-                    projectileSpeed = 3;
+                    projectileSpeed = 4;
                     spread = 0;
 
                     myPoints = new[]
@@ -505,16 +509,14 @@ namespace Hive.Armada.Enemies
 
                 case 6:
                     fireRate = 0.1f;
-                    projectileSpeed = 3;
+                    projectileSpeed = 4;
                     spread = 0;
 
                     myPoints = new[]
                     {
                         4,
-                        10, 16,
+                        22,
                         36, 44,
-                        57,
-                        64, 70,
                         76
                     };
 
@@ -523,15 +525,15 @@ namespace Hive.Armada.Enemies
 
                 case 7:
                     fireRate = 0.1f;
-                    projectileSpeed = 3;
+                    projectileSpeed = 4;
                     spread = 0;
 
                     myPoints = new[]
                     {
-                        20, 24,
-                        30, 32,
-                        37, 38, 42, 43,
-
+                        14,
+                        20, 21, 23, 24,
+                        30, 31, 32,
+                        38, 39, 41, 42
                     };
 
                     ActivateShootPoints(myPoints, myPoints.Length);
@@ -539,14 +541,15 @@ namespace Hive.Armada.Enemies
 
                 case 8:
                     fireRate = 0.1f;
-                    projectileSpeed = 3;
+                    projectileSpeed = 4;
                     spread = 0;
 
                     myPoints = new[]
                     {
-                        37, 38, 42, 43,
-                        48, 50,
-                        56, 60,
+                        38, 39, 41, 42,
+                        48, 49, 50,
+                        56, 57, 59, 60,
+                        67
                     };
 
                     ActivateShootPoints(myPoints, myPoints.Length);

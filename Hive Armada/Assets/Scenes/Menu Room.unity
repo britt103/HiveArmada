@@ -16127,7 +16127,7 @@ MonoBehaviour:
   entryName: {fileID: 2020462795}
   entryText: {fileID: 646774272}
   numFittableButtons: 4
-  armada: {fileID: 1816551254}
+  armadaPreviewGO: {fileID: 1816551254}
   entryButtonPrefab: {fileID: 1586695209148668, guid: 1e49ab34b698f404eb452c3ab5a2e179,
     type: 2}
   entryButtonEmptyPrefab: {fileID: 1586695209148668, guid: 58156894728292d48a2c0ca239ddd6bd,
@@ -76803,7 +76803,7 @@ MonoBehaviour:
   iridiumAmount: {fileID: 726194988}
   bought: {fileID: 1468754812}
   buyButton: {fileID: 1541471983}
-  tableDecoration: {fileID: 1816551254}
+  armadaPreviewGO: {fileID: 1816551254}
   itemButtonPrefab: {fileID: 1586695209148668, guid: 88cd59f13817d02468dcdfc0a967f66a,
     type: 2}
   itemButtonEmptyPrefab: {fileID: 1586695209148668, guid: 275540b67202f3046b5524976c7a9f18,
@@ -76825,6 +76825,7 @@ MonoBehaviour:
   - '+Something
 
     -Another thing'
+  - "+High damage potential\r\n-Regenerating ammo pool; requires resource management\r\n"
 --- !u!114 &1343310013
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -98983,7 +98984,7 @@ SphereCollider:
   m_GameObject: {fileID: 1816551254}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 130
   m_Center: {x: 0, y: 0, z: 0}

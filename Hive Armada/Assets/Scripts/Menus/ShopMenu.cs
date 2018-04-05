@@ -121,9 +121,9 @@ namespace Hive.Armada.Menus
         public GameObject buyButton;
 
         /// <summary>
-        /// Reference to environment object on top of table.
+        /// Reference to armada preview game object on top of table.
         /// </summary>
-        public GameObject tableDecoration;
+        public GameObject armadaPreviewGO;
 
         [Header("Content")]
         /// <summary>
@@ -221,7 +221,7 @@ namespace Hive.Armada.Menus
         /// </summary>
         private void OnEnable()
         {
-            tableDecoration.SetActive(false);
+            armadaPreviewGO.SetActive(false);
         }
 
         // Find IridiumSystem.
@@ -326,7 +326,7 @@ namespace Hive.Armada.Menus
             }
             else
             {
-                tableDecoration.SetActive(true);
+                armadaPreviewGO.SetActive(true);
                 FindObjectOfType<RoomTransport>().Transport(backMenuTransform, gameObject,
                     backMenuGO);
             }

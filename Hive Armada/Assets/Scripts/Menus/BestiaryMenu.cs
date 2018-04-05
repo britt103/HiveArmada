@@ -96,7 +96,7 @@ namespace Hive.Armada.Menus
         /// <summary>
         /// Reference to environment object on top of table.
         /// </summary>
-        public GameObject armada;
+        public GameObject armadaPreviewGO;
 
         /// <summary>
         /// Y rotation of armada.
@@ -199,8 +199,8 @@ namespace Hive.Armada.Menus
             UpdateUnlocks();
             GetEnemyData();
             GenerateContent();
-            armadaYRotation = armada.transform.rotation.eulerAngles.y;
-            armada.SetActive(false);
+            armadaYRotation = armadaPreviewGO.transform.rotation.eulerAngles.y;
+            armadaPreviewGO.SetActive(false);
             scrollbar.value = 1;
         }
 
@@ -256,10 +256,10 @@ namespace Hive.Armada.Menus
             }
             else
             {
-                Vector3 rotation = armada.transform.eulerAngles;
+                Vector3 rotation = armadaPreviewGO.transform.eulerAngles;
                 rotation.y = armadaYRotation;
-                armada.transform.Rotate(rotation);
-                armada.SetActive(true);
+                armadaPreviewGO.transform.rotation = Quaternion.Euler(rotation);
+                armadaPreviewGO.SetActive(true);
                 FindObjectOfType<RoomTransport>().Transport(backMenuTransform, gameObject,
                     backMenuGO);
             }
@@ -366,8 +366,8 @@ namespace Hive.Armada.Menus
                 informationButton.SetActive(true);
                 if (enemyNames[entryId] == "Armada")
                 {
-                    armada.SetActive(true);
-                    armada.layer = Utility.uiMask;
+                    armadaPreviewGO.GetComponent<SphereCollider>().enabled = true;
+                    armadaPreviewGO.SetActive(true);
                 }
                 else
                 {
@@ -392,8 +392,11 @@ namespace Hive.Armada.Menus
 
             if (entryName.GetComponent<Text>().text == "Armada")
             {
-                armada.layer = Utility.roomMask;
-                armada.SetActive(false);
+                Vector3 rotation = armadaPreviewGO.transform.eulerAngles;
+                rotation.y = armadaYRotation;
+                armadaPreviewGO.transform.rotation = Quaternion.Euler(rotation);
+                armadaPreviewGO.GetComponent<SphereCollider>().enabled = false;
+                armadaPreviewGO.SetActive(false);
             }
             else
             {

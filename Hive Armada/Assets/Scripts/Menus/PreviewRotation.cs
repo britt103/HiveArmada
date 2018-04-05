@@ -70,7 +70,6 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void StopRotating()
         {
-            Debug.Log("Here");
             isRotating = false;
         }
     }

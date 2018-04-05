@@ -238,7 +238,7 @@ namespace Hive.Armada.Menus
                 }
                 else if (hand.GetStandardInteractionButtonUp())
                 {
-                    if (aimObject.GetComponent<PreviewRotation>())
+                    if (aimObject && aimObject.GetComponent<PreviewRotation>())
                     {
                         aimObject.GetComponent<PreviewRotation>().StopRotating();
                     }

@@ -10,6 +10,7 @@
 //
 //=============================================================================
 
+using Hive.Armada.Game;
 using UnityEngine;
 
 namespace Hive.Armada.Menus
@@ -19,6 +20,11 @@ namespace Hive.Armada.Menus
     /// </summary>
     public class ControlsMenu : MonoBehaviour
     {
+        /// <summary>
+        /// Reference to ReferenceManager.
+        /// </summary>
+        private ReferenceManager reference;
+
         /// <summary>
         /// Reference to Menu Transition Manager.
         /// </summary>
@@ -34,17 +40,17 @@ namespace Hive.Armada.Menus
         /// </summary>
 		public AudioSource source;
 
-        /// <summary>
-        /// Clips to use with source.
-        /// </summary>
-    	public AudioClip[] clips;
+        private void Awake()
+        {
+            reference = FindObjectOfType<ReferenceManager>();
+        }
 
         /// <summary>
         /// Back button pressed. Navigate to Options Menu.
         /// </summary>
         public void PressBack()
         {
-			source.PlayOneShot(clips[0]);
+            source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
             transitionManager.Transition(backMenuGO);
         }
     }

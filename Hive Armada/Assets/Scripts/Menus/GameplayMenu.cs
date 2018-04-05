@@ -37,11 +37,6 @@ namespace Hive.Armada.Menus
 		public AudioSource source;
 
         /// <summary>
-        /// Clips to use with source.
-        /// </summary>
-    	public AudioClip[] clips;
-
-        /// <summary>
         /// Reference to Aim Assist Toggle.
         /// </summary>
         public Toggle aimAssistToggle;
@@ -71,7 +66,7 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void PressBack()
         {
-            source.PlayOneShot(clips[0]);
+            source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
             reference.optionsValues.SetDisplayPlayerPrefs();
             transitionManager.Transition(backMenuGO);
         }
@@ -81,15 +76,7 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void SetAimAssist(bool isOn)
         {
-            if (source.isPlaying)
-            {
-                new WaitWhile(() => source.isPlaying);
-                source.PlayOneShot(clips[1]);
-            }
-            else
-            {
-                source.PlayOneShot(clips[1]);
-            }
+            source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
             reference.optionsValues.SetAimAssist(isOn);
         }
 
@@ -98,15 +85,7 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void SetScoreDisplay(bool isOn)
         {
-            if (source.isPlaying)
-            {
-                new WaitWhile(() => source.isPlaying);
-                source.PlayOneShot(clips[1]);
-            }
-            else
-            {
-                source.PlayOneShot(clips[1]);
-            }
+            source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
             reference.optionsValues.SetScoreDisplay(isOn);
         }
     }

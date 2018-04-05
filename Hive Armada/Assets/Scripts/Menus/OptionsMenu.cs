@@ -10,6 +10,7 @@
 //
 //=============================================================================
 
+using Hive.Armada.Game;
 using UnityEngine;
 
 namespace Hive.Armada.Menus
@@ -60,14 +61,14 @@ namespace Hive.Armada.Menus
         public GameObject creditsGO;
 
         /// <summary>
+        /// Reference to ReferenceManager.
+        /// </summary>
+        private ReferenceManager reference;
+
+        /// <summary>
         /// Reference to Menu Audio source.
         /// </summary>
 		public AudioSource source;
-
-        /// <summary>
-        /// Clips to use with source.
-        /// </summary>
-    	public AudioClip[] clips;
 
         /// <summary>
         /// Variables used as a check to make sure audio
@@ -87,18 +88,17 @@ namespace Hive.Armada.Menus
 
         private int backCounter = 0;
 
+        private void Awake()
+        {
+            reference = FindObjectOfType<ReferenceManager>();
+        }
+
         /// <summary>
         /// Controls button pressed. Navigate to Controls Menu.
         /// </summary>
         public void PressControls()
         {
-			source.PlayOneShot(clips[0]);
-            controlsCounter += 1;
-            if (controlsCounter > 1)
-            {
-                source.Stop();
-                source.PlayOneShot(clips[0]);
-            }
+            source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
             transitionManager.Transition(controlsGO);
         }
 
@@ -107,13 +107,7 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void PressDisplay()
         {
-			source.PlayOneShot(clips[0]);
-            displayCounter += 1;
-            if (displayCounter > 1)
-            {
-                source.Stop();
-                source.PlayOneShot(clips[0]);
-            }
+            source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
             transitionManager.Transition(displayGO);
         }
 
@@ -122,13 +116,7 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void PressSound()
         {
-			source.PlayOneShot(clips[0]);
-            soundCounter += 1;
-            if (soundCounter > 1)
-            {
-                source.Stop();
-                source.PlayOneShot(clips[0]);
-            }
+            source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
             transitionManager.Transition(soundGO);
         }
 
@@ -137,13 +125,7 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void PressGameplay()
         {
-			source.PlayOneShot(clips[0]);
-            gameplayCounter += 1;
-            if (gameplayCounter > 1)
-            {
-                source.Stop();
-                source.PlayOneShot(clips[0]);
-            }
+            source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
             transitionManager.Transition(gameplayGO);
         }
 
@@ -152,13 +134,7 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void PressIntro()
         {
-			source.PlayOneShot(clips[0]);
-            introCounter += 1;
-            if (introCounter > 1)
-            {
-                source.Stop();
-                source.PlayOneShot(clips[0]);
-            }
+            source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
             //transitionManager.Transition(introGO);
             Debug.Log("Intro button pressed");
         }
@@ -168,13 +144,7 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void PressCredits()
         {
-			source.PlayOneShot(clips[0]);
-            creditsCounter += 1;
-            if (creditsCounter > 1)
-            {
-                source.Stop();
-                source.PlayOneShot(clips[0]);
-            }
+            source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
             //transitionManager.Transition(creditsGO);
             Debug.Log("Credits button pressed");
         }
@@ -184,13 +154,7 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void PressBack()
         {
-			source.PlayOneShot(clips[1]);
-            backCounter += 1;
-            if (backCounter > 1)
-            {
-                source.Stop();
-                source.PlayOneShot(clips[1]);
-            }
+            source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
             transitionManager.Transition(backMenuGO);  
         }
     }

@@ -77,11 +77,6 @@ namespace Hive.Armada.Menus
 		public AudioSource source;
 
         /// <summary>
-        /// Clips to use with source.
-        /// </summary>
-    	public AudioClip[] clips;
-
-        /// <summary>
         /// Reference to GameModeSelection.
         /// </summary>
         private GameSettings gameSettings;
@@ -160,7 +155,7 @@ namespace Hive.Armada.Menus
                     ShowButton();
                 }
 
-                source.PlayOneShot(clips[0]);
+                source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
 
                 if (selectionMade)
                 {
@@ -226,7 +221,7 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void PressBack()
         {
-            source.PlayOneShot(clips[1]);
+            source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
             if (selectionMade)
             {
                 gameModeUIHoverScripts[selectedGameMode].EndSelect();
@@ -241,7 +236,7 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void PressContinue()
         {
-            source.PlayOneShot(clips[0]);
+            source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
 
             gameSettings.selectedGameMode = (GameSettings.GameMode)selectedGameMode;
             PlayerPrefs.SetInt("defaultGameMode", selectedGameMode);

@@ -58,6 +58,8 @@ namespace Hive.Armada.Game
 
         public RocketAttributes rocketAttributes;
 
+        public MenuSounds menuSounds;
+
         //----------------------------------------
         // 
         // Player

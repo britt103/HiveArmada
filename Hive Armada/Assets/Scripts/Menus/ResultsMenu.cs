@@ -55,11 +55,6 @@ namespace Hive.Armada.Menus
         public AudioSource source;
 
         /// <summary>
-        /// Clips to use with source.
-        /// </summary>
-    	public AudioClip[] clips;
-
-        /// <summary>
         /// Refernece to IridiumSystem.
         /// </summary>
         private IridiumSystem iridiumSystem;
@@ -231,13 +226,15 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void PressContinue()
         {
-            source.PlayOneShot(clips[0]);
-            continueCounter += 1;
-            if (continueCounter > 1)
-            {
-                source.Stop();
-                source.PlayOneShot(clips[0]);
-            }
+            //// What is this code, Marc?
+            //source.PlayOneShot(clips[0]);
+            //continueCounter += 1;
+            //if (continueCounter > 1)
+            //{
+            //    source.Stop();
+            //    source.PlayOneShot(clips[0]);
+            //}
+            source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
             transitionManager.Transition(continueMenuGO);
         }
     }

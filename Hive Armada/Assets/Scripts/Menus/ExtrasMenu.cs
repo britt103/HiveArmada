@@ -10,6 +10,7 @@
 //
 //=============================================================================
 
+using Hive.Armada.Game;
 using UnityEngine;
 
 namespace Hive.Armada.Menus
@@ -19,6 +20,11 @@ namespace Hive.Armada.Menus
     /// </summary>
     public class ExtrasMenu : MonoBehaviour
     {
+        /// <summary>
+        /// Reference to ReferenceManager.
+        /// </summary>
+        private ReferenceManager reference;
+
         /// <summary>
         /// Reference to Menu Transition Manager.
         /// </summary>
@@ -54,17 +60,17 @@ namespace Hive.Armada.Menus
         /// </summary>
         public AudioSource source;
 
-        /// <summary>
-        /// Clips to use with source.
-        /// </summary>
-        public AudioClip[] clips;
+        private void Awake()
+        {
+            reference = FindObjectOfType<ReferenceManager>();
+        }
 
         /// <summary>
         /// Start button pressed. Navigate to Shop Menu.
         /// </summary>
         public void PressShop()
         {
-            source.PlayOneShot(clips[0]);
+            source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
             FindObjectOfType<RoomTransport>().Transport(shopTransform, gameObject, shopMenuGO);
         }
 
@@ -73,7 +79,7 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void PressBestiary()
         {
-            source.PlayOneShot(clips[0]);
+            source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
             FindObjectOfType<RoomTransport>().Transport(bestiaryTransform, gameObject, bestiaryMenuGO);
         }
 
@@ -82,8 +88,8 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void PressCredits()
         {
-            source.PlayOneShot(clips[0]);
-            
+            source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
+
         }
 
         /// <summary>
@@ -91,7 +97,7 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void PressBack()
         {
-            source.PlayOneShot(clips[1]);
+            source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
             transitionManager.Transition(backMenuGO);
         }
     }

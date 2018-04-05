@@ -37,11 +37,6 @@ namespace Hive.Armada.Menus
         public AudioSource source;
 
         /// <summary>
-        /// Clips to use with source.
-        /// </summary>
-    	public AudioClip[] clips;
-
-        /// <summary>
         /// Reference to master volume slider
         /// </summary>
         public Slider masterVolumeSlider;
@@ -83,7 +78,7 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void PressBack()
         {
-			source.PlayOneShot(clips[0]);
+            source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
             reference.optionsValues.SetSoundPlayerPrefs();
             transitionManager.Transition(backMenuGO);
         }

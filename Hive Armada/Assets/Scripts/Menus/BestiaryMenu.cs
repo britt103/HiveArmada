@@ -17,6 +17,7 @@ using System.IO;
 using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
+using Hive.Armada.Game;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -27,10 +28,15 @@ namespace Hive.Armada.Menus
     /// </summary>
     public class BestiaryMenu : MonoBehaviour
     {
-        [Header("References")]
+        /// <summary>
+        /// Reference to ReferenceManager.
+        /// </summary>
+        private ReferenceManager reference;
+
         /// <summary>
         /// Reference to Menu Transition Manager.
         /// </summary>
+        [Header("References")]
         public MenuTransitionManager transitionManager;
 
         /// <summary>
@@ -49,11 +55,6 @@ namespace Hive.Armada.Menus
         public AudioSource source;
 
         public AudioSource zenaSource;
-
-        /// <summary>
-        /// Clips to use with source.
-        /// </summary>
-    	public AudioClip[] clips;
 
         /// <summary>
         /// Refernce to Content gameObject in Scroll View.
@@ -183,6 +184,11 @@ namespace Hive.Armada.Menus
         /// </summary>
         public AudioClip[] enemiesAudio;
 
+        private void Awake()
+        {
+            reference = FindObjectOfType<ReferenceManager>();
+        }
+
         /// <summary>
         /// Read in data. Disable game object near Bestiary area. Update unlocks.
         /// </summary>
@@ -236,7 +242,7 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void PressBack()
         {
-            source.PlayOneShot(clips[1]);
+            source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
 
             if (entryOpen)
             {
@@ -327,7 +333,7 @@ namespace Hive.Armada.Menus
         /// <param name="entryId">Index of selected entry.</param>
         public void OpenEntry(int entryId)
         {
-            source.PlayOneShot(clips[0]);
+            source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
 
             menuTitle.SetActive(false);
             scrollView.SetActive(false);

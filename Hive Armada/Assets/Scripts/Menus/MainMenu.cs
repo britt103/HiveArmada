@@ -13,6 +13,7 @@
 using UnityEditor;
 using UnityEngine;
 using System.Collections;
+using Hive.Armada.Game;
 
 namespace Hive.Armada.Menus
 {
@@ -22,6 +23,11 @@ namespace Hive.Armada.Menus
     /// </summary>
     public class MainMenu : MonoBehaviour
     {
+        /// <summary>
+        /// Reference to ReferenceManager.
+        /// </summary>
+        private ReferenceManager reference;
+
         /// <summary>
         /// Reference to Menu Transition Manager.
         /// </summary>
@@ -49,20 +55,9 @@ namespace Hive.Armada.Menus
 
         public AudioSource zenaSource;
 
-        /// <summary>
-        /// Clips to use with source.
-        /// </summary>
-        public AudioClip[] clips;
-
-        public AudioClip[] startClips;
-
         private void Awake()
         {
-            //Random.InitState((int)Time.time);
-            //StartCoroutine(playMenuSound());
-
-            //IF STARTING SOUNDS ARE GOING TO BE 1 CLIP
-            //zenaSource.PlayOneShot(startClips[0]);
+            reference = FindObjectOfType<ReferenceManager>();
         }
 
         /// <summary>
@@ -70,7 +65,7 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void PressStart()
         {
-            source.PlayOneShot(clips[0]);
+            source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
             transitionManager.Transition(startMenuGO);
         }
 
@@ -79,7 +74,7 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void PressExtras()
         {
-            source.PlayOneShot(clips[0]);
+            source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
             transitionManager.Transition(extrasMenuGO);
         }
 
@@ -88,7 +83,7 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void PressOptions()
         {
-            source.PlayOneShot(clips[0]);
+            source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
             transitionManager.Transition(optionsMenuGO);
         }
 

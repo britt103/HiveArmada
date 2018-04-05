@@ -213,7 +213,7 @@ namespace Hive.Armada.Menus
         {
             if (weaponNum != selectedWeapon)
             {
-                source.PlayOneShot(clips[0]);
+                source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
                 if (selectionMade)
                 {
                     weaponUIHoverScripts[selectedWeapon].EndSelect();
@@ -237,7 +237,7 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void PressBack()
         {
-            source.PlayOneShot(clips[1]);
+            source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
             weaponUIHoverScripts[selectedWeapon].EndSelect();
             transitionManager.Transition(backMenuGO);
         }
@@ -281,7 +281,7 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void PressPlay()
         {
-            source.PlayOneShot(clips[0]);
+            source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
             //StartCoroutine(pressPlaySounds());
 
             gameSettings.selectedWeapon = (GameSettings.Weapon)selectedWeapon;

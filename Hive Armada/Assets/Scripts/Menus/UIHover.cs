@@ -13,6 +13,7 @@
 //
 //=============================================================================
 
+using Hive.Armada.Game;
 using UnityEngine;
 
 namespace Hive.Armada.Menus
@@ -22,6 +23,8 @@ namespace Hive.Armada.Menus
     /// </summary>
     public class UIHover : MonoBehaviour
     {
+        private ReferenceManager reference;
+
         /// <summary>
         /// Reference to gameobject with image of active sprite.
         /// </summary>
@@ -33,11 +36,6 @@ namespace Hive.Armada.Menus
         public AudioSource source;
 
         /// <summary>
-        /// Reference to audio clip for source.
-        /// </summary>
-        public AudioClip hoverClip;
-
-        /// <summary>
         /// State of whether UI is being hovered over.
         /// </summary>
         private bool isHovering = false;
@@ -46,6 +44,11 @@ namespace Hive.Armada.Menus
         /// State of whether UI has been selected.
         /// </summary>
         private bool isSelected = false;
+
+        private void Awake()
+        {
+            reference = FindObjectOfType<ReferenceManager>();
+        }
 
         /// <summary>
         /// Prevent hovering on enable.
@@ -64,7 +67,7 @@ namespace Hive.Armada.Menus
             {
                 isHovering = true;
                 activeSpriteImageGO.SetActive(true);
-                source.PlayOneShot(hoverClip); 
+                source.PlayOneShot(reference.menuSounds.menuButtonHoverSound);
             }
         }
 

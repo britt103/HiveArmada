@@ -24,18 +24,15 @@ namespace Hive.Armada.Menus
     /// </summary>
     public class ShopMenu : MonoBehaviour
     {
-        [Header("References")]
+        private ReferenceManager reference;
+
         /// <summary>
         /// Reference to Menu Audio source.
         /// </summary>
+        /// [Header("References")]
         public AudioSource source;
 
         public AudioSource zenaSource;
-
-        /// <summary>
-        /// Clips to use with source.
-        /// </summary>
-    	public AudioClip[] clips;
 
         /// <summary>
         /// Reference to Menu Transition Manager.
@@ -211,6 +208,11 @@ namespace Hive.Armada.Menus
         /// </summary>
         private bool categoryOpen = false;
 
+        private void Awake()
+        {
+            reference = FindObjectOfType<ReferenceManager>();
+        }
+
         /// <summary>
         /// Disable game object near Shop area.
         /// </summary>
@@ -314,11 +316,14 @@ namespace Hive.Armada.Menus
              *      WONDERFUL
              *      A NICE REWARD
              *      YOU'LL LIKE THAT ONE
+             *      
+             * Don't forget to actually do work...
              */
             //int purchaseSound = Random.Range(2, clips.Length);
             if (iridiumSystem.PayIridium(currCosts[currItemId]))
             {
                 //zenaSource.PlayOneShot(clips[purchaseSound]);
+                source.PlayOneShot(reference.menuSounds.shopPurchaseSound);
                 iridiumSystem.UnlockItem(currCategory, currNames[currItemId]);
                 currNotBought[currItemId] = false;
                 PressBack();
@@ -331,7 +336,7 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void PressBack()
         {
-            source.PlayOneShot(clips[1]);
+            source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
 
             if (itemOpen)
             {
@@ -355,7 +360,7 @@ namespace Hive.Armada.Menus
         /// <param name="itemId">Index of selected item.</param>
         public void OpenItem(int itemId)
         {
-            source.PlayOneShot(clips[0]);
+            source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
 
             menuTitle.SetActive(false);
             scrollView.SetActive(false);
@@ -472,7 +477,7 @@ namespace Hive.Armada.Menus
         /// <param name="category">Name of category to open.</param>
         public void OpenCategory(string category)
         {
-            source.PlayOneShot(clips[0]);
+            source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
 
             menuTitle.GetComponent<Text>().text = category;
             scrollView.SetActive(true);

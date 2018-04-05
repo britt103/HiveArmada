@@ -37,11 +37,6 @@ namespace Hive.Armada.Menus
 		public AudioSource source;
 
         /// <summary>
-        /// Clips to use with source.
-        /// </summary>
-    	public AudioClip[] clips;
-
-        /// <summary>
         /// Reference to Bloom Toggle.
         /// </summary>
         public Toggle bloomToggle;
@@ -81,13 +76,7 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void PressBack()
         {
-			source.PlayOneShot(clips[0]);
-            backCounter += 1;
-            if (backCounter > 1)
-            {
-                source.Stop();
-                source.PlayOneShot(clips[0]);
-            }
+            source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
             reference.optionsValues.SetDisplayPlayerPrefs();
             transitionManager.Transition(backMenuGO);
         }
@@ -97,13 +86,7 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void SetBloom(bool isOn)
         {
-            source.PlayOneShot(clips[1]);
-            bloomCounter += 1;
-            if (bloomCounter > 1)
-            {
-                source.Stop();
-                source.PlayOneShot(clips[1]);
-            }
+            source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
             reference.optionsValues.SetBloom(isOn);
         }
 
@@ -112,13 +95,7 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void SetColorBlindMode(bool isOn)
         {
-            source.PlayOneShot(clips[1]);
-            colorBlindModeCounter += 1;
-            if (colorBlindModeCounter > 1)
-            {
-                source.Stop();
-                source.PlayOneShot(clips[1]);
-            }
+            source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
             reference.optionsValues.SetColorBlindMode(isOn);
         }
     }

@@ -862,7 +862,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activeSpriteImageGO: {fileID: 1930405012}
   source: {fileID: 672012772}
-  hoverClip: {fileID: 8300000, guid: 079c843f2bd9e8b47aa3bd85d01c7677, type: 3}
 --- !u!114 &90217554
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1081,7 +1080,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1540012152
+  randomSeed: 1107365812
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -4740,7 +4739,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activeSpriteImageGO: {fileID: 1380783623}
   source: {fileID: 672012772}
-  hoverClip: {fileID: 8300000, guid: 079c843f2bd9e8b47aa3bd85d01c7677, type: 3}
 --- !u!65 &120237862
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4987,7 +4985,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activeSpriteImageGO: {fileID: 1047787345}
   source: {fileID: 672012772}
-  hoverClip: {fileID: 8300000, guid: 079c843f2bd9e8b47aa3bd85d01c7677, type: 3}
 --- !u!1 &138360141
 GameObject:
   m_ObjectHideFlags: 0
@@ -5206,7 +5203,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activeSpriteImageGO: {fileID: 1782341525}
   source: {fileID: 672012772}
-  hoverClip: {fileID: 8300000, guid: 079c843f2bd9e8b47aa3bd85d01c7677, type: 3}
 --- !u!65 &142266369
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15958,7 +15954,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activeSpriteImageGO: {fileID: 655792634}
   source: {fileID: 672012772}
-  hoverClip: {fileID: 8300000, guid: 079c843f2bd9e8b47aa3bd85d01c7677, type: 3}
 --- !u!65 &253897689
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -16117,9 +16112,6 @@ MonoBehaviour:
   backMenuTransform: {fileID: 74587087}
   source: {fileID: 348827174}
   zenaSource: {fileID: 1389186944}
-  clips:
-  - {fileID: 8300000, guid: 080170fb7e06da1458a3bac11ee173a3, type: 3}
-  - {fileID: 8300000, guid: d1e46ad8dcf9df34ba9281e76b8cbad0, type: 3}
   contentGO: {fileID: 1122051256}
   menuTitle: {fileID: 778337143}
   scrollView: {fileID: 932757153}
@@ -16658,9 +16650,6 @@ MonoBehaviour:
   - {fileID: 253897688}
   - {fileID: 1353892799}
   source: {fileID: 672012772}
-  clips:
-  - {fileID: 8300000, guid: d1e46ad8dcf9df34ba9281e76b8cbad0, type: 3}
-  - {fileID: 8300000, guid: 080170fb7e06da1458a3bac11ee173a3, type: 3}
 --- !u!114 &282538046
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17135,7 +17124,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1884026603
+  randomSeed: -1447893856
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -24540,6 +24529,128 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 394903886}
+--- !u!1 &403185354
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 403185355}
+  - component: {fileID: 403185357}
+  - component: {fileID: 403185356}
+  m_Layer: 0
+  m_Name: Ambient Sound 02
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &403185355
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 403185354}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.54, z: -11.26}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1872562390}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &403185356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 403185354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c772834c140a0ab498793d6548e13561, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  category: 1
+--- !u!82 &403185357
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 403185354}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 9ef69d008428663438b2f044a0cbb1db, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!1 &403951884
 GameObject:
   m_ObjectHideFlags: 0
@@ -24782,7 +24893,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -209278870
+  randomSeed: 709743800
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -28178,7 +28289,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activeSpriteImageGO: {fileID: 1555038531}
   source: {fileID: 672012772}
-  hoverClip: {fileID: 8300000, guid: 079c843f2bd9e8b47aa3bd85d01c7677, type: 3}
 --- !u!1 &438543409
 GameObject:
   m_ObjectHideFlags: 0
@@ -28853,7 +28963,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activeSpriteImageGO: {fileID: 311077860}
   source: {fileID: 348827174}
-  hoverClip: {fileID: 8300000, guid: 079c843f2bd9e8b47aa3bd85d01c7677, type: 3}
 --- !u!65 &507086748
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -29316,7 +29425,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1866142157
+  randomSeed: -1598573747
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -32894,7 +33003,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activeSpriteImageGO: {fileID: 272185005}
   source: {fileID: 672012772}
-  hoverClip: {fileID: 8300000, guid: 079c843f2bd9e8b47aa3bd85d01c7677, type: 3}
 --- !u!65 &565639339
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -33334,9 +33442,6 @@ MonoBehaviour:
   bestiaryTransform: {fileID: 962172805}
   backMenuGO: {fileID: 826943228}
   source: {fileID: 672012772}
-  clips:
-  - {fileID: 8300000, guid: d1e46ad8dcf9df34ba9281e76b8cbad0, type: 3}
-  - {fileID: 8300000, guid: 080170fb7e06da1458a3bac11ee173a3, type: 3}
 --- !u!1 &642304031
 GameObject:
   m_ObjectHideFlags: 0
@@ -34004,7 +34109,128 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activeSpriteImageGO: {fileID: 878280950}
   source: {fileID: 672012772}
-  hoverClip: {fileID: 8300000, guid: 079c843f2bd9e8b47aa3bd85d01c7677, type: 3}
+--- !u!1 &659340591
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 659340592}
+  - component: {fileID: 659340594}
+  - component: {fileID: 659340593}
+  m_Layer: 0
+  m_Name: Ambient Sound 01
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &659340592
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 659340591}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.93}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1872562390}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &659340593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 659340591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c772834c140a0ab498793d6548e13561, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  category: 1
+--- !u!82 &659340594
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 659340591}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 9ef69d008428663438b2f044a0cbb1db, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!1 &660388663
 GameObject:
   m_ObjectHideFlags: 0
@@ -34337,6 +34563,51 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   category: 1
+--- !u!1 &672696020
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 672696021}
+  - component: {fileID: 672696022}
+  m_Layer: 0
+  m_Name: Menu Sounds
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &672696021
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 672696020}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1865536015}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &672696022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 672696020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2586591a3511ab14cbe3199c319e4f6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  menuButtonHoverSound: {fileID: 8300000, guid: 079c843f2bd9e8b47aa3bd85d01c7677,
+    type: 3}
+  menuButtonSelectSound: {fileID: 8300000, guid: d1e46ad8dcf9df34ba9281e76b8cbad0,
+    type: 3}
+  shopPurchaseSound: {fileID: 8300000, guid: 3be5fd08285fb8741ad80a05d90c2f5e, type: 3}
 --- !u!1 &674950637
 GameObject:
   m_ObjectHideFlags: 0
@@ -34576,7 +34847,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activeSpriteImageGO: {fileID: 669004848}
   source: {fileID: 672012772}
-  hoverClip: {fileID: 8300000, guid: 079c843f2bd9e8b47aa3bd85d01c7677, type: 3}
 --- !u!114 &690139846
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35368,7 +35638,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1829967366
+  randomSeed: 299428336
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -38606,9 +38876,6 @@ MonoBehaviour:
   introGO: {fileID: 0}
   creditsGO: {fileID: 0}
   source: {fileID: 672012772}
-  clips:
-  - {fileID: 8300000, guid: d1e46ad8dcf9df34ba9281e76b8cbad0, type: 3}
-  - {fileID: 8300000, guid: 080170fb7e06da1458a3bac11ee173a3, type: 3}
 --- !u!114 &734662591
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -42373,7 +42640,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 620913216
+  randomSeed: -705400364
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -45668,8 +45935,6 @@ MonoBehaviour:
   transitionManager: {fileID: 1126301701}
   backMenuGO: {fileID: 734662588}
   source: {fileID: 672012772}
-  clips:
-  - {fileID: 8300000, guid: 080170fb7e06da1458a3bac11ee173a3, type: 3}
 --- !u!114 &762669958
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45864,7 +46129,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activeSpriteImageGO: {fileID: 978684549}
   source: {fileID: 672012772}
-  hoverClip: {fileID: 8300000, guid: 079c843f2bd9e8b47aa3bd85d01c7677, type: 3}
 --- !u!1 &774759940
 GameObject:
   m_ObjectHideFlags: 0
@@ -49458,7 +49722,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1947309368
+  randomSeed: 1237410271
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -52852,7 +53116,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -649995307
+  randomSeed: -50206673
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -56190,7 +56454,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activeSpriteImageGO: {fileID: 375580579}
   source: {fileID: 672012772}
-  hoverClip: {fileID: 8300000, guid: 079c843f2bd9e8b47aa3bd85d01c7677, type: 3}
 --- !u!65 &812901016
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -56442,7 +56705,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activeSpriteImageGO: {fileID: 555904123}
   source: {fileID: 348827174}
-  hoverClip: {fileID: 8300000, guid: 079c843f2bd9e8b47aa3bd85d01c7677, type: 3}
 --- !u!1 &826943228
 GameObject:
   m_ObjectHideFlags: 0
@@ -56502,12 +56764,6 @@ MonoBehaviour:
   optionsMenuGO: {fileID: 734662588}
   source: {fileID: 672012772}
   zenaSource: {fileID: 864231558}
-  clips:
-  - {fileID: 8300000, guid: d1e46ad8dcf9df34ba9281e76b8cbad0, type: 3}
-  startClips:
-  - {fileID: 8300000, guid: 11d45a31ddd13cf4ab0b4cf15e57b29c, type: 3}
-  - {fileID: 8300000, guid: 5b687e147fa85624db00d1ceb6f0b41b, type: 3}
-  - {fileID: 8300000, guid: 35e145daddf286c44a805feff739e052, type: 3}
 --- !u!114 &826943231
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -56612,9 +56868,6 @@ MonoBehaviour:
   scrollbar: {fileID: 138360146}
   verticalSlider: {fileID: 1192374090}
   source: {fileID: 672012772}
-  clips:
-  - {fileID: 8300000, guid: d1e46ad8dcf9df34ba9281e76b8cbad0, type: 3}
-  - {fileID: 8300000, guid: 080170fb7e06da1458a3bac11ee173a3, type: 3}
   iridiumScoreMultiplier: 0.2
   victoryDefeatTextGO: {fileID: 1498811197}
   victoryMessage: Victory!
@@ -56922,7 +57175,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: b0361981a74db5f4d9ae1dab71ab8e3b, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.5
+  m_Volume: 1
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -57778,7 +58031,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1865536015}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &908284914
 MonoBehaviour:
@@ -61673,7 +61926,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activeSpriteImageGO: {fileID: 356058728}
   source: {fileID: 672012772}
-  hoverClip: {fileID: 8300000, guid: 079c843f2bd9e8b47aa3bd85d01c7677, type: 3}
 --- !u!114 &975818227 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114919008409284714, guid: a6a71f82a25185b4187b5e38b2efd17b,
@@ -61801,6 +62053,8 @@ MonoBehaviour:
   playerIdleTimer: {fileID: 0}
   iridiumSpawner: {fileID: 0}
   rocketAttributes: {fileID: 0}
+  menuSounds: {fileID: 672696022}
+  dialoguePlayer: {fileID: 1423517436}
   player: {fileID: 1427451901}
   playerShip: {fileID: 0}
   shipLookTarget: {fileID: 0}
@@ -61870,7 +62124,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activeSpriteImageGO: {fileID: 1199845401}
   source: {fileID: 672012772}
-  hoverClip: {fileID: 8300000, guid: 079c843f2bd9e8b47aa3bd85d01c7677, type: 3}
 --- !u!65 &986570361
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -62265,7 +62518,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activeSpriteImageGO: {fileID: 1475908722}
   source: {fileID: 672012772}
-  hoverClip: {fileID: 8300000, guid: 079c843f2bd9e8b47aa3bd85d01c7677, type: 3}
 --- !u!1 &1030813877
 GameObject:
   m_ObjectHideFlags: 0
@@ -62577,7 +62829,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activeSpriteImageGO: {fileID: 646062011}
   source: {fileID: 672012772}
-  hoverClip: {fileID: 8300000, guid: 079c843f2bd9e8b47aa3bd85d01c7677, type: 3}
 --- !u!65 &1060974469
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -63420,7 +63671,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activeSpriteImageGO: {fileID: 477956128}
   source: {fileID: 672012772}
-  hoverClip: {fileID: 8300000, guid: 079c843f2bd9e8b47aa3bd85d01c7677, type: 3}
 --- !u!1 &1121604700
 GameObject:
   m_ObjectHideFlags: 0
@@ -63474,7 +63724,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activeSpriteImageGO: {fileID: 968233133}
   source: {fileID: 672012772}
-  hoverClip: {fileID: 8300000, guid: 079c843f2bd9e8b47aa3bd85d01c7677, type: 3}
 --- !u!65 &1121604703
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -64653,7 +64902,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activeSpriteImageGO: {fileID: 290724589}
   source: {fileID: 672012772}
-  hoverClip: {fileID: 8300000, guid: 079c843f2bd9e8b47aa3bd85d01c7677, type: 3}
 --- !u!114 &1175344307 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114514788217243534, guid: a6a71f82a25185b4187b5e38b2efd17b,
@@ -64894,7 +65142,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activeSpriteImageGO: {fileID: 756065303}
   source: {fileID: 672012772}
-  hoverClip: {fileID: 8300000, guid: 079c843f2bd9e8b47aa3bd85d01c7677, type: 3}
 --- !u!1 &1185889970
 GameObject:
   m_ObjectHideFlags: 0
@@ -65081,7 +65328,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activeSpriteImageGO: {fileID: 1193771596}
   source: {fileID: 348827174}
-  hoverClip: {fileID: 8300000, guid: 079c843f2bd9e8b47aa3bd85d01c7677, type: 3}
 --- !u!114 &1192374090
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65416,7 +65662,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activeSpriteImageGO: {fileID: 1087358086}
   source: {fileID: 672012772}
-  hoverClip: {fileID: 8300000, guid: 079c843f2bd9e8b47aa3bd85d01c7677, type: 3}
 --- !u!1 &1209573049
 GameObject:
   m_ObjectHideFlags: 0
@@ -72985,9 +73230,6 @@ MonoBehaviour:
   transitionManager: {fileID: 1126301701}
   backMenuGO: {fileID: 734662588}
   source: {fileID: 672012772}
-  clips:
-  - {fileID: 8300000, guid: 080170fb7e06da1458a3bac11ee173a3, type: 3}
-  - {fileID: 8300000, guid: 080170fb7e06da1458a3bac11ee173a3, type: 3}
   masterVolumeSlider: {fileID: 1591028100}
   musicVolumeSlider: {fileID: 565639337}
   fxVolumeSlider: {fileID: 690139846}
@@ -73182,7 +73424,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 491167211
+  randomSeed: 991845000
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -76482,7 +76724,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activeSpriteImageGO: {fileID: 207658290}
   source: {fileID: 672012772}
-  hoverClip: {fileID: 8300000, guid: 079c843f2bd9e8b47aa3bd85d01c7677, type: 3}
 --- !u!65 &1320624620
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -76667,7 +76908,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activeSpriteImageGO: {fileID: 1187978810}
   source: {fileID: 672012772}
-  hoverClip: {fileID: 8300000, guid: 079c843f2bd9e8b47aa3bd85d01c7677, type: 3}
 --- !u!65 &1336982768
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -76901,9 +77141,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   source: {fileID: 1299273403}
   zenaSource: {fileID: 1548525379}
-  clips:
-  - {fileID: 8300000, guid: 080170fb7e06da1458a3bac11ee173a3, type: 3}
-  - {fileID: 8300000, guid: d1e46ad8dcf9df34ba9281e76b8cbad0, type: 3}
   transitionManager: {fileID: 1126301701}
   backMenuGO: {fileID: 641515464}
   backMenuTransform: {fileID: 74587087}
@@ -77239,7 +77476,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activeSpriteImageGO: {fileID: 832355452}
   source: {fileID: 672012772}
-  hoverClip: {fileID: 8300000, guid: 079c843f2bd9e8b47aa3bd85d01c7677, type: 3}
 --- !u!1 &1362003904
 GameObject:
   m_ObjectHideFlags: 0
@@ -77465,7 +77701,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activeSpriteImageGO: {fileID: 327120296}
   source: {fileID: 672012772}
-  hoverClip: {fileID: 8300000, guid: 079c843f2bd9e8b47aa3bd85d01c7677, type: 3}
 --- !u!1 &1380783623
 GameObject:
   m_ObjectHideFlags: 0
@@ -77851,7 +78086,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activeSpriteImageGO: {fileID: 1641544991}
   source: {fileID: 348827174}
-  hoverClip: {fileID: 8300000, guid: 079c843f2bd9e8b47aa3bd85d01c7677, type: 3}
 --- !u!65 &1390656319
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -81426,6 +81660,143 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
+--- !u!1 &1423517432
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1423517433}
+  - component: {fileID: 1423517436}
+  - component: {fileID: 1423517435}
+  - component: {fileID: 1423517434}
+  m_Layer: 0
+  m_Name: Dialogue Player
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1423517433
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1423517432}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1865536015}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1423517434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1423517432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c772834c140a0ab498793d6548e13561, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  category: 2
+--- !u!82 &1423517435
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1423517432}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+--- !u!114 &1423517436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1423517432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d01a93f3163c6114a8935e5be8881cfa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  source: {fileID: 1423517435}
+  lineDelay: 1.5
+  clipDelay: 0.8
 --- !u!1 &1424241476
 GameObject:
   m_ObjectHideFlags: 0
@@ -81794,7 +82165,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activeSpriteImageGO: {fileID: 394903886}
   source: {fileID: 672012772}
-  hoverClip: {fileID: 8300000, guid: 079c843f2bd9e8b47aa3bd85d01c7677, type: 3}
 --- !u!1 &1450906468
 GameObject:
   m_ObjectHideFlags: 0
@@ -81823,7 +82193,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1865536015}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1450906470
 MonoBehaviour:
@@ -81881,14 +82251,14 @@ MonoBehaviour:
   loadingScreenDistance: 0
   loadingScreenTransform: {fileID: 881171001}
   progressTextTransform: {fileID: 1083631767}
-  front: {fileID: 2800000, guid: 08d77fe4d80b22845b618eaffd7fc02a, type: 3}
-  back: {fileID: 2800000, guid: 38f8ff2d52c1b294bb224af38844e95b, type: 3}
-  left: {fileID: 2800000, guid: 68418038d982ac04a8ec4e451fe3c321, type: 3}
-  right: {fileID: 2800000, guid: fa65142c511f9274c93bbaf369d8eee6, type: 3}
-  top: {fileID: 2800000, guid: 7922bc56613df194bb252be0e3de89f7, type: 3}
-  bottom: {fileID: 2800000, guid: b84c4c42856bbd24a81deaf30faba211, type: 3}
+  front: {fileID: 0}
+  back: {fileID: 0}
+  left: {fileID: 0}
+  right: {fileID: 0}
+  top: {fileID: 0}
+  bottom: {fileID: 0}
   backgroundColor: {r: 0, g: 0, b: 0, a: 1}
-  showGrid: 0
+  showGrid: 1
   fadeOutTime: 0
   fadeInTime: 0
   postLoadSettleTime: 1
@@ -82027,7 +82397,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activeSpriteImageGO: {fileID: 1293554995}
   source: {fileID: 1299273403}
-  hoverClip: {fileID: 8300000, guid: 079c843f2bd9e8b47aa3bd85d01c7677, type: 3}
 --- !u!1 &1456607377
 GameObject:
   m_ObjectHideFlags: 0
@@ -82724,7 +83093,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activeSpriteImageGO: {fileID: 529934919}
   source: {fileID: 1299273403}
-  hoverClip: {fileID: 8300000, guid: 079c843f2bd9e8b47aa3bd85d01c7677, type: 3}
 --- !u!65 &1541471986
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -83311,7 +83679,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1750571372
+  randomSeed: -964611279
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -86680,7 +87048,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activeSpriteImageGO: {fileID: 94305006}
   source: {fileID: 672012772}
-  hoverClip: {fileID: 8300000, guid: 079c843f2bd9e8b47aa3bd85d01c7677, type: 3}
 --- !u!1 &1571152212
 GameObject:
   m_ObjectHideFlags: 0
@@ -86734,7 +87101,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activeSpriteImageGO: {fileID: 48212547}
   source: {fileID: 672012772}
-  hoverClip: {fileID: 8300000, guid: 079c843f2bd9e8b47aa3bd85d01c7677, type: 3}
 --- !u!65 &1571152215
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -87091,7 +87457,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activeSpriteImageGO: {fileID: 1811886128}
   source: {fileID: 672012772}
-  hoverClip: {fileID: 8300000, guid: 079c843f2bd9e8b47aa3bd85d01c7677, type: 3}
 --- !u!1 &1592087765
 GameObject:
   m_ObjectHideFlags: 0
@@ -94464,7 +94829,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activeSpriteImageGO: {fileID: 1916238563}
   source: {fileID: 1299273403}
-  hoverClip: {fileID: 8300000, guid: 079c843f2bd9e8b47aa3bd85d01c7677, type: 3}
 --- !u!65 &1641021146
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -94703,7 +95067,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activeSpriteImageGO: {fileID: 216690840}
   source: {fileID: 672012772}
-  hoverClip: {fileID: 8300000, guid: 079c843f2bd9e8b47aa3bd85d01c7677, type: 3}
 --- !u!65 &1649512226
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -94927,7 +95290,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activeSpriteImageGO: {fileID: 1150322386}
   source: {fileID: 672012772}
-  hoverClip: {fileID: 8300000, guid: 079c843f2bd9e8b47aa3bd85d01c7677, type: 3}
 --- !u!65 &1696838093
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -95174,7 +95536,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activeSpriteImageGO: {fileID: 1610520575}
   source: {fileID: 672012772}
-  hoverClip: {fileID: 8300000, guid: 079c843f2bd9e8b47aa3bd85d01c7677, type: 3}
 --- !u!1 &1702531675
 GameObject:
   m_ObjectHideFlags: 0
@@ -98794,9 +99155,6 @@ MonoBehaviour:
   transitionManager: {fileID: 1126301701}
   backMenuGO: {fileID: 734662588}
   source: {fileID: 672012772}
-  clips:
-  - {fileID: 8300000, guid: 080170fb7e06da1458a3bac11ee173a3, type: 3}
-  - {fileID: 8300000, guid: d1e46ad8dcf9df34ba9281e76b8cbad0, type: 3}
   bloomToggle: {fileID: 719259524}
   colorBlindModeToggle: {fileID: 538549195}
 --- !u!114 &1787720816
@@ -98942,7 +99300,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activeSpriteImageGO: {fileID: 347571368}
   source: {fileID: 672012772}
-  hoverClip: {fileID: 8300000, guid: 079c843f2bd9e8b47aa3bd85d01c7677, type: 3}
 --- !u!65 &1789519618
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -102876,6 +103233,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 983984714}
+  - {fileID: 1423517433}
+  - {fileID: 672696021}
   - {fileID: 1450906469}
   - {fileID: 908284913}
   m_Father: {fileID: 0}
@@ -102919,6 +103278,8 @@ Transform:
   m_Children:
   - {fileID: 1966993753}
   - {fileID: 840597579}
+  - {fileID: 659340592}
+  - {fileID: 403185355}
   m_Father: {fileID: 808282844}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -106375,7 +106736,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activeSpriteImageGO: {fileID: 279997281}
   source: {fileID: 1299273403}
-  hoverClip: {fileID: 8300000, guid: 079c843f2bd9e8b47aa3bd85d01c7677, type: 3}
 --- !u!65 &1882936435
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -113907,7 +114267,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activeSpriteImageGO: {fileID: 2018498004}
   source: {fileID: 348827174}
-  hoverClip: {fileID: 8300000, guid: 079c843f2bd9e8b47aa3bd85d01c7677, type: 3}
 --- !u!114 &1994451606
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114009,7 +114368,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activeSpriteImageGO: {fileID: 1133027745}
   source: {fileID: 672012772}
-  hoverClip: {fileID: 8300000, guid: 079c843f2bd9e8b47aa3bd85d01c7677, type: 3}
 --- !u!65 &2007871596
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -121508,9 +121866,6 @@ MonoBehaviour:
   transitionManager: {fileID: 1126301701}
   backMenuGO: {fileID: 734662588}
   source: {fileID: 672012772}
-  clips:
-  - {fileID: 8300000, guid: d1e46ad8dcf9df34ba9281e76b8cbad0, type: 3}
-  - {fileID: 8300000, guid: 080170fb7e06da1458a3bac11ee173a3, type: 3}
   aimAssistToggle: {fileID: 2025826044}
   scoreDisplayToggle: {fileID: 1486899168}
 --- !u!114 &2134346449
@@ -121677,7 +122032,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 837316796
+  randomSeed: 1892595456
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -125009,7 +125364,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -2121290124
+  randomSeed: -354093695
   InitialModule:
     serializedVersion: 3
     enabled: 1

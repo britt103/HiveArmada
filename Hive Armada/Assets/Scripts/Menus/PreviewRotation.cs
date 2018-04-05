@@ -19,6 +19,8 @@ namespace Hive.Armada.Menus
     /// </summary>
     public class PreviewRotation : MonoBehaviour
     {
+        public bool inBestiary = true;
+
         /// <summary>
         /// Sensitivity of rotation. 
         /// </summary>
@@ -46,12 +48,21 @@ namespace Hive.Armada.Menus
                 pointerPosition = pointerEndPoint;
                 isRotating = true;
             }
-
-            Vector3 pointerOffset = pointerEndPoint - pointerPosition;
-            Vector3 rotation = Vector3.zero;
-            rotation.y = -(pointerOffset.x + pointerOffset.z) * sensitivity;
-            transform.Rotate(rotation);
-            pointerPosition = pointerEndPoint;
+            else
+            {
+                Vector3 pointerOffset = pointerEndPoint - pointerPosition;
+                Vector3 rotation = Vector3.zero;
+                if (inBestiary)
+                {
+                    rotation.y = -(pointerOffset.x + pointerOffset.z) * sensitivity;
+                }
+                else
+                {
+                    rotation.y = (-pointerOffset.x + pointerOffset.z) * sensitivity;
+                }
+                transform.Rotate(rotation);
+                pointerPosition = pointerEndPoint;
+            }
         }
 
         /// <summary>
@@ -59,6 +70,7 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void StopRotating()
         {
+            Debug.Log("Here");
             isRotating = false;
         }
     }

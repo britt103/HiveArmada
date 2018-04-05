@@ -236,6 +236,13 @@ namespace Hive.Armada.Menus
                 {
                     TriggerUpdate(true);
                 }
+                else if (hand.GetStandardInteractionButtonUp())
+                {
+                    if (aimObject.GetComponent<PreviewRotation>())
+                    {
+                        aimObject.GetComponent<PreviewRotation>().StopRotating();
+                    }
+                }
             }
         }
 

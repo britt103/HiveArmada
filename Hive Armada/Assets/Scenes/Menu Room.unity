@@ -16651,8 +16651,15 @@ MonoBehaviour:
   - {fileID: 253897686}
   - {fileID: 1353892793}
   gameModeDescriptions:
-  - This is the description for the Normal game mode.
-  - This is the description for the Infinite game mode.
+  - Begin a raid on an Armada ship to take out its Orbiter. The road will be perilous,
+    as the Armada will not let you face their Orbiter without throwing all they have
+    at you. Take control of your First-Class Starchaser and shoot your way through
+    five intense waves of bullet hell action. Will Humanity lose another battle against
+    the Armada, or will you be able to turn the tide on the war against them?
+  - 'Throw yourself into the gauntlet of a neverending onslaught of Armada drones.
+    A test of skill, wits, and improvisation, see how far you can last with the odds
+    continually ramping against you. You will lose this fight. Question is: how many
+    of the armada can you take down in your blaze of glory?'
   gameModeUIHoverScripts:
   - {fileID: 253897688}
   - {fileID: 1353892799}
@@ -76808,8 +76815,16 @@ MonoBehaviour:
   - {fileID: 1876590022084866, guid: b3622917491f3f1499e7119b1d13b7d7, type: 2}
   - {fileID: 1876590022084866, guid: b3622917491f3f1499e7119b1d13b7d7, type: 2}
   - {fileID: 1876590022084866, guid: b3622917491f3f1499e7119b1d13b7d7, type: 2}
-  - {fileID: 1876590022084866, guid: b3622917491f3f1499e7119b1d13b7d7, type: 2}
-  - {fileID: 1876590022084866, guid: b3622917491f3f1499e7119b1d13b7d7, type: 2}
+  weaponStats:
+  - '+High accuracy and DPS
+
+    -Overheats after overuse'
+  - '+Burst potential
+
+    -Short cooldown between shots; precise aim required'
+  - '+Something
+
+    -Another thing'
 --- !u!114 &1343310013
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -77560,6 +77575,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1389186945}
   - component: {fileID: 1389186944}
+  - component: {fileID: 1389186946}
   m_Layer: 0
   m_Name: Dialogue Audio
   m_TagString: Untagged
@@ -77660,6 +77676,18 @@ Transform:
   m_Father: {fileID: 905820121}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1389186946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1389186943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c772834c140a0ab498793d6548e13561, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  category: 2
 --- !u!1 &1390656316
 GameObject:
   m_ObjectHideFlags: 0
@@ -98970,6 +98998,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0858de2f2f0dc3e449544ef1c7684719, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inBestiary: 1
 --- !u!1 &1822867579
 GameObject:
   m_ObjectHideFlags: 0
@@ -109639,7 +109668,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1279198518}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.99999994
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -117640,7 +117669,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1240769441}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.9999999
+  m_Size: 0.9999998
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

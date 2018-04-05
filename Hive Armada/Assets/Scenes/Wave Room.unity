@@ -119,7 +119,7 @@ GameObject:
   - component: {fileID: 4274935}
   - component: {fileID: 4274937}
   - component: {fileID: 4274936}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Long38
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -190,7 +190,7 @@ GameObject:
   - component: {fileID: 5640726}
   - component: {fileID: 5640728}
   - component: {fileID: 5640727}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Long31
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -261,7 +261,7 @@ GameObject:
   - component: {fileID: 7693587}
   - component: {fileID: 7693589}
   - component: {fileID: 7693588}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Elbow1 5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -332,7 +332,8 @@ GameObject:
   - component: {fileID: 20691371}
   - component: {fileID: 20691373}
   - component: {fileID: 20691372}
-  m_Layer: 0
+  - component: {fileID: 20691374}
+  m_Layer: 8
   m_Name: pCylinder4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -393,6 +394,20 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 20691370}
   m_Mesh: {fileID: 4300016, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
+--- !u!64 &20691374
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 20691370}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 1
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300016, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
 --- !u!1 &26463494
 GameObject:
   m_ObjectHideFlags: 0
@@ -403,7 +418,7 @@ GameObject:
   - component: {fileID: 26463495}
   - component: {fileID: 26463497}
   - component: {fileID: 26463496}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Long27
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -474,7 +489,7 @@ GameObject:
   - component: {fileID: 44180192}
   - component: {fileID: 44180194}
   - component: {fileID: 44180193}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Long1 7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -627,7 +642,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 52807340}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wires_Hanging_Playarea_Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -660,7 +675,7 @@ GameObject:
   - component: {fileID: 66983704}
   - component: {fileID: 66983706}
   - component: {fileID: 66983705}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pCylinder13
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -731,7 +746,7 @@ GameObject:
   - component: {fileID: 74457213}
   - component: {fileID: 74457215}
   - component: {fileID: 74457214}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Elbow5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -802,7 +817,7 @@ GameObject:
   - component: {fileID: 83708465}
   - component: {fileID: 83708467}
   - component: {fileID: 83708466}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pillar_Back_Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -873,7 +888,7 @@ GameObject:
   - component: {fileID: 101138399}
   - component: {fileID: 101138401}
   - component: {fileID: 101138400}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Hanger3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1328,7 +1343,8 @@ GameObject:
   - component: {fileID: 130871740}
   - component: {fileID: 130871742}
   - component: {fileID: 130871741}
-  m_Layer: 0
+  - component: {fileID: 130871743}
+  m_Layer: 8
   m_Name: Pipe_Long1 6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1389,6 +1405,20 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 130871739}
   m_Mesh: {fileID: 4300188, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
+--- !u!64 &130871743
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 130871739}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 1
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300188, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
 --- !u!1 &147693850
 GameObject:
   m_ObjectHideFlags: 0
@@ -1399,7 +1429,7 @@ GameObject:
   - component: {fileID: 147693851}
   - component: {fileID: 147693853}
   - component: {fileID: 147693852}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: L_bracket_short 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1552,7 +1582,7 @@ GameObject:
   - component: {fileID: 155430025}
   - component: {fileID: 155430027}
   - component: {fileID: 155430026}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wire1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1623,7 +1653,8 @@ GameObject:
   - component: {fileID: 159057676}
   - component: {fileID: 159057678}
   - component: {fileID: 159057677}
-  m_Layer: 0
+  - component: {fileID: 159057679}
+  m_Layer: 8
   m_Name: Pipe_Elbow1 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1683,6 +1714,20 @@ MeshFilter:
     type: 3}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 159057675}
+  m_Mesh: {fileID: 4300198, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
+--- !u!64 &159057679
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 159057675}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 1
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300198, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
 --- !u!1001 &160874939
 Prefab:
@@ -1751,7 +1796,7 @@ GameObject:
   - component: {fileID: 166127153}
   - component: {fileID: 166127155}
   - component: {fileID: 166127154}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Banner_Forward_Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1823,7 +1868,7 @@ GameObject:
   - component: {fileID: 173139668}
   - component: {fileID: 173139670}
   - component: {fileID: 173139669}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wire_hanging14
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1894,7 +1939,7 @@ GameObject:
   - component: {fileID: 177310275}
   - component: {fileID: 177310277}
   - component: {fileID: 177310276}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Room_Cap2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1965,7 +2010,7 @@ GameObject:
   - component: {fileID: 180635801}
   - component: {fileID: 180635803}
   - component: {fileID: 180635802}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Long30
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2036,7 +2081,7 @@ GameObject:
   - component: {fileID: 186248782}
   - component: {fileID: 186248784}
   - component: {fileID: 186248783}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Short2 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2107,7 +2152,8 @@ GameObject:
   - component: {fileID: 186336845}
   - component: {fileID: 186336847}
   - component: {fileID: 186336846}
-  m_Layer: 0
+  - component: {fileID: 186336848}
+  m_Layer: 8
   m_Name: polySurface6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2170,6 +2216,20 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 186336844}
   m_Mesh: {fileID: 4300394, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
+--- !u!64 &186336848
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 186336844}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 1
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300394, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
 --- !u!1 &188602522
 GameObject:
   m_ObjectHideFlags: 0
@@ -2180,7 +2240,7 @@ GameObject:
   - component: {fileID: 188602523}
   - component: {fileID: 188602525}
   - component: {fileID: 188602524}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pCylinder12
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2251,7 +2311,7 @@ GameObject:
   - component: {fileID: 190165759}
   - component: {fileID: 190165761}
   - component: {fileID: 190165760}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Banner_Back_Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2349,7 +2409,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 196101561}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipes_Left2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2389,7 +2449,7 @@ GameObject:
   - component: {fileID: 204272701}
   - component: {fileID: 204272703}
   - component: {fileID: 204272702}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Short2 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2460,7 +2520,7 @@ GameObject:
   - component: {fileID: 207952564}
   - component: {fileID: 207952566}
   - component: {fileID: 207952565}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Short2 5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2531,7 +2591,8 @@ GameObject:
   - component: {fileID: 209038995}
   - component: {fileID: 209038997}
   - component: {fileID: 209038996}
-  m_Layer: 0
+  - component: {fileID: 209038998}
+  m_Layer: 8
   m_Name: Motor_Track
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2592,6 +2653,20 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 209038994}
   m_Mesh: {fileID: 4300032, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
+--- !u!64 &209038998
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 209038994}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 1
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300032, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
 --- !u!1 &217761663
 GameObject:
   m_ObjectHideFlags: 0
@@ -2602,7 +2677,8 @@ GameObject:
   - component: {fileID: 217761664}
   - component: {fileID: 217761666}
   - component: {fileID: 217761665}
-  m_Layer: 0
+  - component: {fileID: 217761667}
+  m_Layer: 8
   m_Name: Pipe_Long3 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2663,6 +2739,20 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 217761663}
   m_Mesh: {fileID: 4300184, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
+--- !u!64 &217761667
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 217761663}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 1
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300184, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
 --- !u!1 &224472901
 GameObject:
   m_ObjectHideFlags: 0
@@ -2673,7 +2763,7 @@ GameObject:
   - component: {fileID: 224472902}
   - component: {fileID: 224472904}
   - component: {fileID: 224472903}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Long19
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2742,7 +2832,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 242179133}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipes_Back2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2783,7 +2873,7 @@ GameObject:
   - component: {fileID: 242796935}
   - component: {fileID: 242796937}
   - component: {fileID: 242796936}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Long3 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2854,7 +2944,7 @@ GameObject:
   - component: {fileID: 255525138}
   - component: {fileID: 255525140}
   - component: {fileID: 255525139}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: L_bracket_long 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3034,7 +3124,7 @@ GameObject:
   - component: {fileID: 268885153}
   - component: {fileID: 268885155}
   - component: {fileID: 268885154}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Long32
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3105,7 +3195,7 @@ GameObject:
   - component: {fileID: 285445002}
   - component: {fileID: 285445004}
   - component: {fileID: 285445003}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Hanger1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3174,7 +3264,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 293502511}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: L_Brackets_Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3208,7 +3298,7 @@ GameObject:
   - component: {fileID: 298848281}
   - component: {fileID: 298848283}
   - component: {fileID: 298848282}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Elbow7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3374,7 +3464,7 @@ GameObject:
   - component: {fileID: 322447201}
   - component: {fileID: 322447203}
   - component: {fileID: 322447202}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Long2 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3554,7 +3644,7 @@ GameObject:
   - component: {fileID: 328127393}
   - component: {fileID: 328127395}
   - component: {fileID: 328127394}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Room_Shell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3676,7 +3766,7 @@ GameObject:
   - component: {fileID: 331668180}
   - component: {fileID: 331668182}
   - component: {fileID: 331668181}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Long7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3747,7 +3837,7 @@ GameObject:
   - component: {fileID: 344313590}
   - component: {fileID: 344313592}
   - component: {fileID: 344313591}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pillar_Back_Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4078,7 +4168,7 @@ GameObject:
   - component: {fileID: 396401182}
   - component: {fileID: 396401184}
   - component: {fileID: 396401183}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Long29
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4149,7 +4239,7 @@ GameObject:
   - component: {fileID: 397484868}
   - component: {fileID: 397484870}
   - component: {fileID: 397484869}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pillar_Forward_Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4220,7 +4310,7 @@ GameObject:
   - component: {fileID: 400182106}
   - component: {fileID: 400182108}
   - component: {fileID: 400182107}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Long7 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4371,7 +4461,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 404670484}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wires_Hanging_Forward_Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4405,7 +4495,7 @@ GameObject:
   - component: {fileID: 408382066}
   - component: {fileID: 408382068}
   - component: {fileID: 408382067}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Long2 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4476,7 +4566,7 @@ GameObject:
   - component: {fileID: 411014191}
   - component: {fileID: 411014193}
   - component: {fileID: 411014192}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wire6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4545,7 +4635,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 412368207}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wires_Hanging_Middle_Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4625,7 +4715,7 @@ GameObject:
   - component: {fileID: 423939589}
   - component: {fileID: 423939591}
   - component: {fileID: 423939590}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Long13
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4694,7 +4784,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 427159011}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipes_Right2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4731,7 +4821,8 @@ GameObject:
   - component: {fileID: 427955934}
   - component: {fileID: 427955936}
   - component: {fileID: 427955935}
-  m_Layer: 0
+  - component: {fileID: 427955937}
+  m_Layer: 8
   m_Name: Pipe_Long7 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4792,6 +4883,20 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 427955933}
   m_Mesh: {fileID: 4300258, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
+--- !u!64 &427955937
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 427955933}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 1
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300258, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
 --- !u!1 &433980295
 GameObject:
   m_ObjectHideFlags: 0
@@ -4802,7 +4907,7 @@ GameObject:
   - component: {fileID: 433980296}
   - component: {fileID: 433980298}
   - component: {fileID: 433980297}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Elbow1 6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4968,7 +5073,7 @@ GameObject:
   - component: {fileID: 440853574}
   - component: {fileID: 440853576}
   - component: {fileID: 440853575}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wire_hanging2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5039,7 +5144,8 @@ GameObject:
   - component: {fileID: 450409535}
   - component: {fileID: 450409537}
   - component: {fileID: 450409536}
-  m_Layer: 0
+  - component: {fileID: 450409538}
+  m_Layer: 8
   m_Name: Pipe_Long2 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5100,6 +5206,20 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 450409534}
   m_Mesh: {fileID: 4300202, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
+--- !u!64 &450409538
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 450409534}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 1
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300202, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
 --- !u!1 &456716062
 GameObject:
   m_ObjectHideFlags: 0
@@ -5110,7 +5230,8 @@ GameObject:
   - component: {fileID: 456716063}
   - component: {fileID: 456716065}
   - component: {fileID: 456716064}
-  m_Layer: 0
+  - component: {fileID: 456716066}
+  m_Layer: 8
   m_Name: Blade2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5171,6 +5292,20 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 456716062}
   m_Mesh: {fileID: 4300026, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
+--- !u!64 &456716066
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 456716062}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 1
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300026, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
 --- !u!1 &465192162
 GameObject:
   m_ObjectHideFlags: 0
@@ -5181,7 +5316,7 @@ GameObject:
   - component: {fileID: 465192163}
   - component: {fileID: 465192165}
   - component: {fileID: 465192164}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pCylinder10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5252,7 +5387,7 @@ GameObject:
   - component: {fileID: 470716766}
   - component: {fileID: 470716768}
   - component: {fileID: 470716767}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Long9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5323,7 +5458,7 @@ GameObject:
   - component: {fileID: 481907456}
   - component: {fileID: 481907458}
   - component: {fileID: 481907457}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Long3 5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5428,7 +5563,7 @@ GameObject:
   - component: {fileID: 500941167}
   - component: {fileID: 500941169}
   - component: {fileID: 500941168}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Long12
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5499,7 +5634,8 @@ GameObject:
   - component: {fileID: 509929286}
   - component: {fileID: 509929288}
   - component: {fileID: 509929287}
-  m_Layer: 0
+  - component: {fileID: 509929289}
+  m_Layer: 8
   m_Name: Pipe_Long4 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5560,6 +5696,20 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 509929285}
   m_Mesh: {fileID: 4300214, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
+--- !u!64 &509929289
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 509929285}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 1
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300214, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
 --- !u!1 &510934846
 GameObject:
   m_ObjectHideFlags: 0
@@ -5570,7 +5720,8 @@ GameObject:
   - component: {fileID: 510934847}
   - component: {fileID: 510934849}
   - component: {fileID: 510934848}
-  m_Layer: 0
+  - component: {fileID: 510934850}
+  m_Layer: 8
   m_Name: Pipe_Elbow2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5631,6 +5782,20 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 510934846}
   m_Mesh: {fileID: 4300192, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
+--- !u!64 &510934850
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 510934846}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 1
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300192, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
 --- !u!1 &512091929
 GameObject:
   m_ObjectHideFlags: 0
@@ -5641,7 +5806,7 @@ GameObject:
   - component: {fileID: 512091930}
   - component: {fileID: 512091932}
   - component: {fileID: 512091931}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Long6 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5710,7 +5875,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 520561578}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wires_Hanging_Forward_Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5744,7 +5909,7 @@ GameObject:
   - component: {fileID: 532843300}
   - component: {fileID: 532843302}
   - component: {fileID: 532843301}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wire_hanging6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5815,7 +5980,7 @@ GameObject:
   - component: {fileID: 539728668}
   - component: {fileID: 539728670}
   - component: {fileID: 539728669}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wire_hanging11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5886,7 +6051,7 @@ GameObject:
   - component: {fileID: 542284343}
   - component: {fileID: 542284345}
   - component: {fileID: 542284344}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Long38 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5957,7 +6122,7 @@ GameObject:
   - component: {fileID: 560327899}
   - component: {fileID: 560327901}
   - component: {fileID: 560327900}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Elbow6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6028,7 +6193,7 @@ GameObject:
   - component: {fileID: 563919223}
   - component: {fileID: 563919225}
   - component: {fileID: 563919224}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Hanger2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6099,7 +6264,7 @@ GameObject:
   - component: {fileID: 576582854}
   - component: {fileID: 576582856}
   - component: {fileID: 576582855}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wire_hanging18
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6202,7 +6367,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 581780405}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipes_Ceiling_Cap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6263,7 +6428,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 585142285}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pillars_Forward
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6299,7 +6464,7 @@ GameObject:
   - component: {fileID: 587322383}
   - component: {fileID: 587322385}
   - component: {fileID: 587322384}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wire_hanging1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6370,7 +6535,7 @@ GameObject:
   - component: {fileID: 595939272}
   - component: {fileID: 595939274}
   - component: {fileID: 595939273}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Long10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6441,7 +6606,7 @@ GameObject:
   - component: {fileID: 600555447}
   - component: {fileID: 600555449}
   - component: {fileID: 600555448}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pillar_Cap_Forward_Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6512,7 +6677,7 @@ GameObject:
   - component: {fileID: 601058391}
   - component: {fileID: 601058393}
   - component: {fileID: 601058392}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6583,7 +6748,7 @@ GameObject:
   - component: {fileID: 610238508}
   - component: {fileID: 610238510}
   - component: {fileID: 610238509}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Long18
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6736,7 +6901,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 618461961}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pillars_Back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6771,7 +6936,7 @@ GameObject:
   - component: {fileID: 630505005}
   - component: {fileID: 630505007}
   - component: {fileID: 630505006}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pillar_Forward_Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6840,7 +7005,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 631985760}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pillars_Playarea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6873,7 +7038,7 @@ GameObject:
   - component: {fileID: 639439806}
   - component: {fileID: 639439808}
   - component: {fileID: 639439807}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Long24
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6944,7 +7109,7 @@ GameObject:
   - component: {fileID: 646845526}
   - component: {fileID: 646845528}
   - component: {fileID: 646845527}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wire3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7062,7 +7227,8 @@ GameObject:
   - component: {fileID: 660233567}
   - component: {fileID: 660233569}
   - component: {fileID: 660233568}
-  m_Layer: 0
+  - component: {fileID: 660233570}
+  m_Layer: 8
   m_Name: Pipe_Long5 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7123,6 +7289,20 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 660233566}
   m_Mesh: {fileID: 4300216, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
+--- !u!64 &660233570
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 660233566}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 1
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300216, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
 --- !u!1 &663722637
 GameObject:
   m_ObjectHideFlags: 0
@@ -7133,7 +7313,7 @@ GameObject:
   - component: {fileID: 663722638}
   - component: {fileID: 663722640}
   - component: {fileID: 663722639}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Long3 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7204,7 +7384,7 @@ GameObject:
   - component: {fileID: 691782949}
   - component: {fileID: 691782951}
   - component: {fileID: 691782950}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Long26
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7275,7 +7455,7 @@ GameObject:
   - component: {fileID: 692786268}
   - component: {fileID: 692786270}
   - component: {fileID: 692786269}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: L_bracket_short
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7346,7 +7526,7 @@ GameObject:
   - component: {fileID: 696017568}
   - component: {fileID: 696017570}
   - component: {fileID: 696017569}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7607,7 +7787,7 @@ GameObject:
   - component: {fileID: 743067262}
   - component: {fileID: 743067264}
   - component: {fileID: 743067263}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Long5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7678,7 +7858,7 @@ GameObject:
   - component: {fileID: 750884872}
   - component: {fileID: 750884874}
   - component: {fileID: 750884873}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pillar_Cap_Back_Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7825,7 +8005,7 @@ GameObject:
   - component: {fileID: 761153052}
   - component: {fileID: 761153054}
   - component: {fileID: 761153053}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8045,7 +8225,7 @@ GameObject:
   - component: {fileID: 780545445}
   - component: {fileID: 780545447}
   - component: {fileID: 780545446}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: L_bracket_short2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8267,7 +8447,8 @@ GameObject:
   - component: {fileID: 810918946}
   - component: {fileID: 810918948}
   - component: {fileID: 810918947}
-  m_Layer: 0
+  - component: {fileID: 810918949}
+  m_Layer: 8
   m_Name: Pipe_Long3 7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8328,6 +8509,20 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 810918945}
   m_Mesh: {fileID: 4300252, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
+--- !u!64 &810918949
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 810918945}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 1
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300252, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
 --- !u!1 &819769671
 GameObject:
   m_ObjectHideFlags: 0
@@ -8338,7 +8533,8 @@ GameObject:
   - component: {fileID: 819769672}
   - component: {fileID: 819769674}
   - component: {fileID: 819769673}
-  m_Layer: 0
+  - component: {fileID: 819769675}
+  m_Layer: 8
   m_Name: polySurface2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8401,6 +8597,20 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 819769671}
   m_Mesh: {fileID: 4300382, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
+--- !u!64 &819769675
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 819769671}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 1
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300382, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
 --- !u!1 &828380765
 GameObject:
   m_ObjectHideFlags: 0
@@ -8411,7 +8621,8 @@ GameObject:
   - component: {fileID: 828380766}
   - component: {fileID: 828380768}
   - component: {fileID: 828380767}
-  m_Layer: 0
+  - component: {fileID: 828380769}
+  m_Layer: 8
   m_Name: Pipe_Elbow3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8472,6 +8683,20 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 828380765}
   m_Mesh: {fileID: 4300194, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
+--- !u!64 &828380769
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 828380765}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 1
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300194, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
 --- !u!1 &830075147
 GameObject:
   m_ObjectHideFlags: 0
@@ -8482,7 +8707,7 @@ GameObject:
   - component: {fileID: 830075148}
   - component: {fileID: 830075150}
   - component: {fileID: 830075149}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Long1 5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8551,7 +8776,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 830477267}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipes_Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8585,7 +8810,7 @@ GameObject:
   - component: {fileID: 833127669}
   - component: {fileID: 833127671}
   - component: {fileID: 833127670}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wire_hanging16
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8721,7 +8946,7 @@ GameObject:
   - component: {fileID: 835233394}
   - component: {fileID: 835233396}
   - component: {fileID: 835233395}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wire4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8792,7 +9017,7 @@ GameObject:
   - component: {fileID: 837134230}
   - component: {fileID: 837134232}
   - component: {fileID: 837134231}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Long28
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8863,7 +9088,7 @@ GameObject:
   - component: {fileID: 841679223}
   - component: {fileID: 841679225}
   - component: {fileID: 841679224}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Long21
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8934,7 +9159,7 @@ GameObject:
   - component: {fileID: 843270210}
   - component: {fileID: 843270212}
   - component: {fileID: 843270211}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pillar_Cap_Back_Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9005,7 +9230,7 @@ GameObject:
   - component: {fileID: 844007617}
   - component: {fileID: 844007619}
   - component: {fileID: 844007618}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wire_hanging7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9076,7 +9301,7 @@ GameObject:
   - component: {fileID: 861511337}
   - component: {fileID: 861511339}
   - component: {fileID: 861511338}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: L_bracket_long1 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9147,7 +9372,8 @@ GameObject:
   - component: {fileID: 865992379}
   - component: {fileID: 865992381}
   - component: {fileID: 865992380}
-  m_Layer: 0
+  - component: {fileID: 865992382}
+  m_Layer: 8
   m_Name: Pipe_Long2 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9207,6 +9433,20 @@ MeshFilter:
     type: 3}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 865992378}
+  m_Mesh: {fileID: 4300182, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
+--- !u!64 &865992382
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 865992378}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 1
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300182, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
 --- !u!1 &891970937
 GameObject:
@@ -12452,7 +12692,7 @@ GameObject:
   - component: {fileID: 1813871440}
   - component: {fileID: 897064454}
   - component: {fileID: 897064453}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Playarea_Platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12510,7 +12750,7 @@ GameObject:
   - component: {fileID: 898012224}
   - component: {fileID: 898012226}
   - component: {fileID: 898012225}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pCylinder7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12727,7 +12967,7 @@ GameObject:
   - component: {fileID: 911362818}
   - component: {fileID: 911362820}
   - component: {fileID: 911362819}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Long2 5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12798,7 +13038,7 @@ GameObject:
   - component: {fileID: 913193963}
   - component: {fileID: 913193965}
   - component: {fileID: 913193964}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wire_hanging12
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12869,7 +13109,7 @@ GameObject:
   - component: {fileID: 916722612}
   - component: {fileID: 916722614}
   - component: {fileID: 916722613}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Long39
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12940,7 +13180,8 @@ GameObject:
   - component: {fileID: 918371216}
   - component: {fileID: 918371218}
   - component: {fileID: 918371217}
-  m_Layer: 0
+  - component: {fileID: 918371219}
+  m_Layer: 8
   m_Name: Blade4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13001,6 +13242,20 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 918371215}
   m_Mesh: {fileID: 4300030, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
+--- !u!64 &918371219
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 918371215}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 1
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300030, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
 --- !u!1 &920956507
 GameObject:
   m_ObjectHideFlags: 0
@@ -13011,7 +13266,7 @@ GameObject:
   - component: {fileID: 920956508}
   - component: {fileID: 920956510}
   - component: {fileID: 920956509}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Elbow1 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13082,7 +13337,7 @@ GameObject:
   - component: {fileID: 921318522}
   - component: {fileID: 921318524}
   - component: {fileID: 921318523}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wire_hanging
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13267,7 +13522,7 @@ GameObject:
   - component: {fileID: 942774490}
   - component: {fileID: 942774492}
   - component: {fileID: 942774491}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Playarea_Shell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13338,7 +13593,7 @@ GameObject:
   - component: {fileID: 946773577}
   - component: {fileID: 946773579}
   - component: {fileID: 946773578}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Banner_Back_Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16837,7 +17092,7 @@ GameObject:
   - component: {fileID: 956464069}
   - component: {fileID: 956464071}
   - component: {fileID: 956464070}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Elbow1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16908,7 +17163,7 @@ GameObject:
   - component: {fileID: 964231558}
   - component: {fileID: 964231560}
   - component: {fileID: 964231559}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Long23
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16979,7 +17234,7 @@ GameObject:
   - component: {fileID: 974511055}
   - component: {fileID: 974511057}
   - component: {fileID: 974511056}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: L_bracket_short3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17050,7 +17305,7 @@ GameObject:
   - component: {fileID: 978895469}
   - component: {fileID: 978895471}
   - component: {fileID: 978895470}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Long25
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17121,7 +17376,7 @@ GameObject:
   - component: {fileID: 979719338}
   - component: {fileID: 979719340}
   - component: {fileID: 979719339}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Long35
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17192,7 +17447,8 @@ GameObject:
   - component: {fileID: 983094230}
   - component: {fileID: 983094232}
   - component: {fileID: 983094231}
-  m_Layer: 0
+  - component: {fileID: 983094233}
+  m_Layer: 8
   m_Name: Blade1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17252,6 +17508,20 @@ MeshFilter:
     type: 3}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 983094229}
+  m_Mesh: {fileID: 4300024, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
+--- !u!64 &983094233
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 983094229}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 1
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300024, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
 --- !u!1 &997904648
 GameObject:
@@ -20642,7 +20912,7 @@ GameObject:
   - component: {fileID: 1005026070}
   - component: {fileID: 1005026072}
   - component: {fileID: 1005026071}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pillar_Playarea_Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20713,7 +20983,7 @@ GameObject:
   - component: {fileID: 1008453557}
   - component: {fileID: 1008453559}
   - component: {fileID: 1008453558}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: L_bracket_long 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20784,7 +21054,7 @@ GameObject:
   - component: {fileID: 1010112079}
   - component: {fileID: 1010112081}
   - component: {fileID: 1010112080}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: L_bracket_short1 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20855,7 +21125,8 @@ GameObject:
   - component: {fileID: 1015986423}
   - component: {fileID: 1015986425}
   - component: {fileID: 1015986424}
-  m_Layer: 0
+  - component: {fileID: 1015986426}
+  m_Layer: 8
   m_Name: Pipe_Long7 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20916,6 +21187,20 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1015986422}
   m_Mesh: {fileID: 4300244, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
+--- !u!64 &1015986426
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1015986422}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 1
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300244, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
 --- !u!1 &1017102656
 GameObject:
   m_ObjectHideFlags: 0
@@ -20926,7 +21211,7 @@ GameObject:
   - component: {fileID: 1017102657}
   - component: {fileID: 1017102659}
   - component: {fileID: 1017102658}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20995,7 +21280,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1018956475}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wires_Horizontal_Forward
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21026,7 +21311,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1033138456}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: L_Brackets_Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21060,7 +21345,7 @@ GameObject:
   - component: {fileID: 1042388692}
   - component: {fileID: 1042388694}
   - component: {fileID: 1042388693}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pillar_Playarea_Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21131,7 +21416,7 @@ GameObject:
   - component: {fileID: 1049585426}
   - component: {fileID: 1049585428}
   - component: {fileID: 1049585427}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: L_bracket_long2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21202,7 +21487,7 @@ GameObject:
   - component: {fileID: 1060452372}
   - component: {fileID: 1060452374}
   - component: {fileID: 1060452373}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Short2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24507,7 +24792,7 @@ GameObject:
   - component: {fileID: 1092499842}
   - component: {fileID: 1092499844}
   - component: {fileID: 1092499843}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Long2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24660,7 +24945,7 @@ GameObject:
   - component: {fileID: 1096551757}
   - component: {fileID: 1096551759}
   - component: {fileID: 1096551758}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Rail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24731,7 +25016,8 @@ GameObject:
   - component: {fileID: 1096670412}
   - component: {fileID: 1096670414}
   - component: {fileID: 1096670413}
-  m_Layer: 0
+  - component: {fileID: 1096670415}
+  m_Layer: 8
   m_Name: Pipe_Short1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24792,6 +25078,20 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1096670411}
   m_Mesh: {fileID: 4300196, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
+--- !u!64 &1096670415
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1096670411}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 1
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300196, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
 --- !u!1 &1110714958
 GameObject:
   m_ObjectHideFlags: 0
@@ -24800,7 +25100,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1110714959}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wires_Horizontal_Middle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24834,7 +25134,7 @@ GameObject:
   - component: {fileID: 1112512436}
   - component: {fileID: 1112512438}
   - component: {fileID: 1112512437}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pCylinder3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24905,7 +25205,7 @@ GameObject:
   - component: {fileID: 1122693774}
   - component: {fileID: 1122693776}
   - component: {fileID: 1122693775}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wires_Hanging_Middle_Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24976,7 +25276,7 @@ GameObject:
   - component: {fileID: 1123887017}
   - component: {fileID: 1123887019}
   - component: {fileID: 1123887018}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: L_bracket_short2 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25158,7 +25458,7 @@ GameObject:
   - component: {fileID: 1138647202}
   - component: {fileID: 1138647204}
   - component: {fileID: 1138647203}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Long1 8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25229,7 +25529,7 @@ GameObject:
   - component: {fileID: 1143636809}
   - component: {fileID: 1143636811}
   - component: {fileID: 1143636810}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Long37
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25300,7 +25600,7 @@ GameObject:
   - component: {fileID: 1144138276}
   - component: {fileID: 1144138278}
   - component: {fileID: 1144138277}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Elbow1 7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25371,7 +25671,7 @@ GameObject:
   - component: {fileID: 1149258968}
   - component: {fileID: 1149258970}
   - component: {fileID: 1149258969}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Banner_Forward_Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25515,7 +25815,8 @@ GameObject:
   - component: {fileID: 1168640687}
   - component: {fileID: 1168640689}
   - component: {fileID: 1168640688}
-  m_Layer: 0
+  - component: {fileID: 1168640690}
+  m_Layer: 8
   m_Name: Pipe_Long6 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25576,6 +25877,20 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1168640686}
   m_Mesh: {fileID: 4300256, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
+--- !u!64 &1168640690
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1168640686}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 1
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300256, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
 --- !u!1 &1170536646
 GameObject:
   m_ObjectHideFlags: 0
@@ -25586,7 +25901,7 @@ GameObject:
   - component: {fileID: 1170536647}
   - component: {fileID: 1170536649}
   - component: {fileID: 1170536648}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Long4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25657,7 +25972,7 @@ GameObject:
   - component: {fileID: 1172128807}
   - component: {fileID: 1172128809}
   - component: {fileID: 1172128808}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Long11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25830,7 +26145,7 @@ GameObject:
   - component: {fileID: 1185349391}
   - component: {fileID: 1185349393}
   - component: {fileID: 1185349392}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Elbow1 8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25901,7 +26216,7 @@ GameObject:
   - component: {fileID: 1193673480}
   - component: {fileID: 1193673482}
   - component: {fileID: 1193673481}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pCylinder11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25972,7 +26287,7 @@ GameObject:
   - component: {fileID: 1212658426}
   - component: {fileID: 1212658428}
   - component: {fileID: 1212658427}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Rail 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26043,7 +26358,7 @@ GameObject:
   - component: {fileID: 1216429294}
   - component: {fileID: 1216429296}
   - component: {fileID: 1216429295}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Long3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26114,7 +26429,7 @@ GameObject:
   - component: {fileID: 1218202547}
   - component: {fileID: 1218202549}
   - component: {fileID: 1218202548}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Short2 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26250,7 +26565,8 @@ GameObject:
   - component: {fileID: 1256436703}
   - component: {fileID: 1256436705}
   - component: {fileID: 1256436704}
-  m_Layer: 0
+  - component: {fileID: 1256436706}
+  m_Layer: 8
   m_Name: Pipe_Long2 8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26311,6 +26627,20 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1256436702}
   m_Mesh: {fileID: 4300250, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
+--- !u!64 &1256436706
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1256436702}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 1
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300250, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
 --- !u!1 &1257719479
 GameObject:
   m_ObjectHideFlags: 0
@@ -26321,7 +26651,7 @@ GameObject:
   - component: {fileID: 1257719480}
   - component: {fileID: 1257719482}
   - component: {fileID: 1257719481}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Rail 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26392,7 +26722,8 @@ GameObject:
   - component: {fileID: 1260546630}
   - component: {fileID: 1260546632}
   - component: {fileID: 1260546631}
-  m_Layer: 0
+  - component: {fileID: 1260546633}
+  m_Layer: 8
   m_Name: Pipe_Long2 7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26453,6 +26784,20 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1260546629}
   m_Mesh: {fileID: 4300236, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
+--- !u!64 &1260546633
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1260546629}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 1
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300236, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
 --- !u!1 &1260817439
 GameObject:
   m_ObjectHideFlags: 0
@@ -26463,7 +26808,7 @@ GameObject:
   - component: {fileID: 1260817440}
   - component: {fileID: 1260817442}
   - component: {fileID: 1260817441}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: L_bracket_short1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29805,7 +30150,7 @@ GameObject:
   - component: {fileID: 1275919758}
   - component: {fileID: 1275919760}
   - component: {fileID: 1275919759}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Elbow4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29874,7 +30219,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1277815935}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Support_Forward
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29908,7 +30253,7 @@ GameObject:
   - component: {fileID: 1299556724}
   - component: {fileID: 1299556726}
   - component: {fileID: 1299556725}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Hanger4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29979,7 +30324,8 @@ GameObject:
   - component: {fileID: 1302429415}
   - component: {fileID: 1302429417}
   - component: {fileID: 1302429416}
-  m_Layer: 0
+  - component: {fileID: 1302429418}
+  m_Layer: 8
   m_Name: Pipe_Long6 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30040,6 +30386,20 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1302429414}
   m_Mesh: {fileID: 4300242, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
+--- !u!64 &1302429418
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1302429414}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 1
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300242, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
 --- !u!1 &1307185783
 GameObject:
   m_ObjectHideFlags: 0
@@ -30050,7 +30410,7 @@ GameObject:
   - component: {fileID: 1307185784}
   - component: {fileID: 1307185786}
   - component: {fileID: 1307185785}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Long33
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30121,7 +30481,7 @@ GameObject:
   - component: {fileID: 1310000488}
   - component: {fileID: 1310000490}
   - component: {fileID: 1310000489}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Long17
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30192,7 +30552,7 @@ GameObject:
   - component: {fileID: 1313141879}
   - component: {fileID: 1313141881}
   - component: {fileID: 1313141880}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Short3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30263,7 +30623,7 @@ GameObject:
   - component: {fileID: 1318908268}
   - component: {fileID: 1318908270}
   - component: {fileID: 1318908269}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Long22
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30335,7 +30695,7 @@ GameObject:
   - component: {fileID: 1338146209}
   - component: {fileID: 1338146208}
   - component: {fileID: 1338146207}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30429,7 +30789,8 @@ GameObject:
   - component: {fileID: 1376125502}
   - component: {fileID: 1376125504}
   - component: {fileID: 1376125503}
-  m_Layer: 0
+  - component: {fileID: 1376125505}
+  m_Layer: 8
   m_Name: polySurface3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30491,6 +30852,20 @@ MeshFilter:
     type: 3}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1376125501}
+  m_Mesh: {fileID: 4300388, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
+--- !u!64 &1376125505
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1376125501}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 1
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300388, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
 --- !u!1 &1377375827
 GameObject:
@@ -30609,7 +30984,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1378437772}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Hanging_Platforms_Playarea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30644,7 +31019,8 @@ GameObject:
   - component: {fileID: 1383774950}
   - component: {fileID: 1383774952}
   - component: {fileID: 1383774951}
-  m_Layer: 0
+  - component: {fileID: 1383774953}
+  m_Layer: 8
   m_Name: Pipe_Long2 6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30705,6 +31081,20 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1383774949}
   m_Mesh: {fileID: 4300190, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
+--- !u!64 &1383774953
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1383774949}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 1
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300190, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
 --- !u!1 &1386548536
 GameObject:
   m_ObjectHideFlags: 0
@@ -30715,7 +31105,7 @@ GameObject:
   - component: {fileID: 1386548537}
   - component: {fileID: 1386548539}
   - component: {fileID: 1386548538}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Short2 6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34184,7 +34574,7 @@ GameObject:
   - component: {fileID: 1442946139}
   - component: {fileID: 1442946141}
   - component: {fileID: 1442946140}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Room_Cap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34255,7 +34645,8 @@ GameObject:
   - component: {fileID: 1448947899}
   - component: {fileID: 1448947901}
   - component: {fileID: 1448947900}
-  m_Layer: 0
+  - component: {fileID: 1448947902}
+  m_Layer: 8
   m_Name: Pipe_Elbow4 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34316,6 +34707,20 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1448947898}
   m_Mesh: {fileID: 4300208, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
+--- !u!64 &1448947902
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1448947898}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 1
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300208, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
 --- !u!1 &1451046621
 GameObject:
   m_ObjectHideFlags: 0
@@ -34326,7 +34731,7 @@ GameObject:
   - component: {fileID: 1451046622}
   - component: {fileID: 1451046624}
   - component: {fileID: 1451046623}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Long1 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34490,7 +34895,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1452142922}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipes_Left3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34611,7 +35016,8 @@ GameObject:
   - component: {fileID: 1459234544}
   - component: {fileID: 1459234546}
   - component: {fileID: 1459234545}
-  m_Layer: 0
+  - component: {fileID: 1459234547}
+  m_Layer: 8
   m_Name: Pipe_Elbow5 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34672,6 +35078,20 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1459234543}
   m_Mesh: {fileID: 4300212, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
+--- !u!64 &1459234547
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1459234543}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 1
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300212, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
 --- !u!1 &1461885233
 GameObject:
   m_ObjectHideFlags: 0
@@ -34682,7 +35102,7 @@ GameObject:
   - component: {fileID: 1461885234}
   - component: {fileID: 1461885236}
   - component: {fileID: 1461885235}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wire_hanging8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34753,7 +35173,8 @@ GameObject:
   - component: {fileID: 1484741539}
   - component: {fileID: 1484741541}
   - component: {fileID: 1484741540}
-  m_Layer: 0
+  - component: {fileID: 1484741542}
+  m_Layer: 8
   m_Name: Blade3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34814,6 +35235,20 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1484741538}
   m_Mesh: {fileID: 4300028, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
+--- !u!64 &1484741542
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1484741538}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 1
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300028, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
 --- !u!1 &1487967751
 GameObject:
   m_ObjectHideFlags: 0
@@ -34822,7 +35257,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1487967752}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Banners
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34945,7 +35380,7 @@ GameObject:
   - component: {fileID: 1500382537}
   - component: {fileID: 1500382539}
   - component: {fileID: 1500382538}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wire_hanging3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -35016,7 +35451,7 @@ GameObject:
   - component: {fileID: 1511534825}
   - component: {fileID: 1511534827}
   - component: {fileID: 1511534826}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wire_hanging9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -35098,7 +35533,8 @@ GameObject:
   - component: {fileID: 1535253965}
   - component: {fileID: 1535253967}
   - component: {fileID: 1535253966}
-  m_Layer: 0
+  - component: {fileID: 1535253968}
+  m_Layer: 8
   m_Name: pCylinder5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -35158,6 +35594,20 @@ MeshFilter:
     type: 3}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1535253964}
+  m_Mesh: {fileID: 4300014, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
+--- !u!64 &1535253968
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1535253964}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 1
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300014, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
 --- !u!1 &1537673239
 GameObject:
@@ -35249,7 +35699,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1540304728}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipes_Right3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -35384,7 +35834,7 @@ GameObject:
   - component: {fileID: 1548270682}
   - component: {fileID: 1548270684}
   - component: {fileID: 1548270683}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: L_bracket_short3 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38817,7 +39267,7 @@ GameObject:
   - component: {fileID: 1554848831}
   - component: {fileID: 1554848833}
   - component: {fileID: 1554848832}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pillar_Cap_Forward_Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38888,7 +39338,7 @@ GameObject:
   - component: {fileID: 1556820244}
   - component: {fileID: 1556820246}
   - component: {fileID: 1556820245}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: L_bracket_long1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38959,7 +39409,7 @@ GameObject:
   - component: {fileID: 1564371790}
   - component: {fileID: 1564371792}
   - component: {fileID: 1564371791}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: L_bracket_long1 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39030,7 +39480,7 @@ GameObject:
   - component: {fileID: 1566160444}
   - component: {fileID: 1566160446}
   - component: {fileID: 1566160445}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Rail_Back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39101,7 +39551,8 @@ GameObject:
   - component: {fileID: 1573347245}
   - component: {fileID: 1573347247}
   - component: {fileID: 1573347246}
-  m_Layer: 0
+  - component: {fileID: 1573347248}
+  m_Layer: 8
   m_Name: pCylinder6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39162,6 +39613,20 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1573347244}
   m_Mesh: {fileID: 4300012, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
+--- !u!64 &1573347248
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1573347244}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 1
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300012, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
 --- !u!1 &1573579333
 GameObject:
   m_ObjectHideFlags: 0
@@ -39172,7 +39637,7 @@ GameObject:
   - component: {fileID: 1573579334}
   - component: {fileID: 1573579336}
   - component: {fileID: 1573579335}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Long34
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39243,7 +39708,7 @@ GameObject:
   - component: {fileID: 1582322578}
   - component: {fileID: 1582322580}
   - component: {fileID: 1582322579}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wire_hanging4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39314,7 +39779,7 @@ GameObject:
   - component: {fileID: 1583510163}
   - component: {fileID: 1583510165}
   - component: {fileID: 1583510164}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Long6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39498,7 +39963,7 @@ GameObject:
   - component: {fileID: 1595794180}
   - component: {fileID: 1595794182}
   - component: {fileID: 1595794181}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Long8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39569,7 +40034,7 @@ GameObject:
   - component: {fileID: 1597586762}
   - component: {fileID: 1597586764}
   - component: {fileID: 1597586763}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39640,7 +40105,7 @@ GameObject:
   - component: {fileID: 1602387177}
   - component: {fileID: 1602387179}
   - component: {fileID: 1602387178}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: L_bracket_long
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39711,7 +40176,8 @@ GameObject:
   - component: {fileID: 1645212830}
   - component: {fileID: 1645212832}
   - component: {fileID: 1645212831}
-  m_Layer: 0
+  - component: {fileID: 1645212833}
+  m_Layer: 8
   m_Name: Pipe_Long1 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39772,6 +40238,20 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1645212829}
   m_Mesh: {fileID: 4300180, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
+--- !u!64 &1645212833
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1645212829}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 1
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300180, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
 --- !u!1 &1659878583
 GameObject:
   m_ObjectHideFlags: 0
@@ -39810,7 +40290,7 @@ GameObject:
   - component: {fileID: 1663073059}
   - component: {fileID: 1663073061}
   - component: {fileID: 1663073060}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Long6 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39989,7 +40469,7 @@ GameObject:
   - component: {fileID: 1690118312}
   - component: {fileID: 1690118314}
   - component: {fileID: 1690118313}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: L_bracket_long2 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40058,7 +40538,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1697048139}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: transform3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43528,7 +44008,7 @@ GameObject:
   - component: {fileID: 1720772257}
   - component: {fileID: 1720772259}
   - component: {fileID: 1720772258}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Long1 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43773,7 +44253,8 @@ GameObject:
   - component: {fileID: 1740651068}
   - component: {fileID: 1740651070}
   - component: {fileID: 1740651069}
-  m_Layer: 0
+  - component: {fileID: 1740651071}
+  m_Layer: 8
   m_Name: polySurface8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43836,6 +44317,20 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1740651067}
   m_Mesh: {fileID: 4300400, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
+--- !u!64 &1740651071
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1740651067}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 1
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300400, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
 --- !u!1 &1797995387
 GameObject:
   m_ObjectHideFlags: 0
@@ -43846,7 +44341,7 @@ GameObject:
   - component: {fileID: 1797995388}
   - component: {fileID: 1797995390}
   - component: {fileID: 1797995389}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43917,7 +44412,7 @@ GameObject:
   - component: {fileID: 1805377762}
   - component: {fileID: 1805377764}
   - component: {fileID: 1805377763}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Elbow1 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44054,7 +44549,8 @@ GameObject:
   - component: {fileID: 1813871445}
   - component: {fileID: 1813871444}
   - component: {fileID: 1813871442}
-  m_Layer: 0
+  - component: {fileID: 1813871446}
+  m_Layer: 8
   m_Name: Motor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44131,6 +44627,20 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1813871441}
   m_Mesh: {fileID: 4300022, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
+--- !u!64 &1813871446
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1813871441}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 1
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300022, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
 --- !u!1 &1816850952
 GameObject:
   m_ObjectHideFlags: 0
@@ -44141,7 +44651,7 @@ GameObject:
   - component: {fileID: 1816850953}
   - component: {fileID: 1816850955}
   - component: {fileID: 1816850954}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pCylinder14
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44210,7 +44720,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1835270649}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipes_Back1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44248,7 +44758,7 @@ GameObject:
   - component: {fileID: 1835840759}
   - component: {fileID: 1835840761}
   - component: {fileID: 1835840760}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pCylinder15
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44319,7 +44829,7 @@ GameObject:
   - component: {fileID: 1840530295}
   - component: {fileID: 1840530297}
   - component: {fileID: 1840530296}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Short5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47624,7 +48134,7 @@ GameObject:
   - component: {fileID: 1865089696}
   - component: {fileID: 1865089698}
   - component: {fileID: 1865089697}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Elbow1 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47695,7 +48205,8 @@ GameObject:
   - component: {fileID: 1865827731}
   - component: {fileID: 1865827733}
   - component: {fileID: 1865827732}
-  m_Layer: 0
+  - component: {fileID: 1865827734}
+  m_Layer: 8
   m_Name: Pipe_Long3 6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47756,6 +48267,20 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1865827730}
   m_Mesh: {fileID: 4300238, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
+--- !u!64 &1865827734
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1865827730}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 1
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300238, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
 --- !u!1 &1872607894
 GameObject:
   m_ObjectHideFlags: 0
@@ -47766,7 +48291,8 @@ GameObject:
   - component: {fileID: 1872607895}
   - component: {fileID: 1872607897}
   - component: {fileID: 1872607896}
-  m_Layer: 0
+  - component: {fileID: 1872607898}
+  m_Layer: 8
   m_Name: Pipe_Long1 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47827,6 +48353,20 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1872607894}
   m_Mesh: {fileID: 4300200, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
+--- !u!64 &1872607898
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1872607894}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 1
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300200, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
 --- !u!4 &1879080189 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4684116384836694, guid: 0dc75584cc781d5478a1bf74b6b3eaed,
@@ -47842,7 +48382,7 @@ GameObject:
   - component: {fileID: 1879238978}
   - component: {fileID: 1879238980}
   - component: {fileID: 1879238979}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Short4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47913,7 +48453,7 @@ GameObject:
   - component: {fileID: 1884184755}
   - component: {fileID: 1884184757}
   - component: {fileID: 1884184756}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Elbow9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47984,7 +48524,8 @@ GameObject:
   - component: {fileID: 1899901746}
   - component: {fileID: 1899901748}
   - component: {fileID: 1899901747}
-  m_Layer: 0
+  - component: {fileID: 1899901749}
+  m_Layer: 8
   m_Name: Pipe_Long3 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48044,6 +48585,20 @@ MeshFilter:
     type: 3}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1899901745}
+  m_Mesh: {fileID: 4300204, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
+--- !u!64 &1899901749
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1899901745}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 1
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300204, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
 --- !u!1 &1904336394
 GameObject:
@@ -48292,7 +48847,8 @@ GameObject:
   - component: {fileID: 1914942171}
   - component: {fileID: 1914942173}
   - component: {fileID: 1914942172}
-  m_Layer: 0
+  - component: {fileID: 1914942174}
+  m_Layer: 8
   m_Name: Pipe_Short3 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48353,6 +48909,20 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1914942170}
   m_Mesh: {fileID: 4300210, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
+--- !u!64 &1914942174
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1914942170}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 1
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300210, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
 --- !u!1 &1921571011
 GameObject:
   m_ObjectHideFlags: 0
@@ -48363,7 +48933,7 @@ GameObject:
   - component: {fileID: 1921571012}
   - component: {fileID: 1921571014}
   - component: {fileID: 1921571013}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pillar_Playarea_Back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48491,7 +49061,7 @@ GameObject:
   - component: {fileID: 1925687261}
   - component: {fileID: 1925687263}
   - component: {fileID: 1925687262}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wire_hanging13
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48715,7 +49285,7 @@ GameObject:
   - component: {fileID: 1949921588}
   - component: {fileID: 1949921590}
   - component: {fileID: 1949921589}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Long1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48815,7 +49385,7 @@ GameObject:
   - component: {fileID: 1955824526}
   - component: {fileID: 1955824525}
   - component: {fileID: 1955824524}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Plane (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48898,7 +49468,7 @@ GameObject:
   - component: {fileID: 1971656349}
   - component: {fileID: 1971656351}
   - component: {fileID: 1971656350}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Long36
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48967,7 +49537,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1984792374}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipes_Ceiling
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49002,7 +49572,7 @@ GameObject:
   - component: {fileID: 1985894465}
   - component: {fileID: 1985894467}
   - component: {fileID: 1985894466}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wire_hanging15
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49073,7 +49643,7 @@ GameObject:
   - component: {fileID: 1994358048}
   - component: {fileID: 1994358050}
   - component: {fileID: 1994358049}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wire_hanging17
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49142,7 +49712,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 2007347242}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wires_Hanging_Playarea_Back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49174,7 +49744,7 @@ GameObject:
   - component: {fileID: 2007896145}
   - component: {fileID: 2007896147}
   - component: {fileID: 2007896146}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Long7 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49245,7 +49815,7 @@ GameObject:
   - component: {fileID: 2009657900}
   - component: {fileID: 2009657902}
   - component: {fileID: 2009657901}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: L_bracket_long2 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49347,7 +49917,7 @@ GameObject:
   - component: {fileID: 2020359519}
   - component: {fileID: 2020359521}
   - component: {fileID: 2020359520}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wire_hanging5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49416,7 +49986,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 2024099422}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipes_Back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49454,7 +50024,7 @@ GameObject:
   - component: {fileID: 2042425868}
   - component: {fileID: 2042425870}
   - component: {fileID: 2042425869}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Elbow8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49523,7 +50093,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 2046781487}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipes_Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49628,7 +50198,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 2048830070}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Support_Middle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49695,7 +50265,7 @@ GameObject:
   - component: {fileID: 2089217575}
   - component: {fileID: 2089217577}
   - component: {fileID: 2089217576}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Short2 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49764,7 +50334,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 2090777727}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wires_Hanging_Playarea_Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49797,7 +50367,7 @@ GameObject:
   - component: {fileID: 2095414390}
   - component: {fileID: 2095414392}
   - component: {fileID: 2095414391}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Long20
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49868,7 +50438,7 @@ GameObject:
   - component: {fileID: 2102158975}
   - component: {fileID: 2102158977}
   - component: {fileID: 2102158976}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wire2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49938,9 +50508,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1813871439}
   - component: {fileID: 2119437742}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Room_04_07
-  m_TagString: Untagged
+  m_TagString: Room
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -49971,7 +50541,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 2123709498}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe_Support_Back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -50005,7 +50575,7 @@ GameObject:
   - component: {fileID: 2123901942}
   - component: {fileID: 2123901944}
   - component: {fileID: 2123901943}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wire5
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -99,11 +99,11 @@ namespace Hive.Armada.Game
                             {"patrolLC", patrolLCPaths},
                             {"patrolCR", patrolCRPaths},
                             {"patrolRC", patrolRCPaths},
-                            {"combatToL", combatToLPaths},
+                            //{"combatToL", combatToLPaths},
                             {"combatFromL", combatFromLPaths},
                             {"combatToC", combatToCPaths},
                             {"combatFromC", combatFromCPaths},
-                            {"combatToR", combatToRPaths},
+                            //{"combatToR", combatToRPaths},
                             {"combatFromR", combatFromRPaths}
                         };
 

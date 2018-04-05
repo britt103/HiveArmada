@@ -76,24 +76,24 @@ namespace Hive.Armada.Game
             comboActive = false;
         }
 
-        /// <summary>
-        /// Test function for when Vive is unavailable
-        /// </summary>
-        public void Update()
-        {
-            if (Input.GetKeyDown("space"))
-            {
-                ComboIn(10, reference.player.transform);
-                //Debug.Log("Sequence: " + comboSequence);
-                //Debug.Log("Multiplier: " + comboMultiplier);
-            }
-        }
+        ///// <summary>
+        ///// Test function for when Vive is unavailable
+        ///// </summary>
+        //public void Update()
+        //{
+        //    if (Input.GetKeyDown("space"))
+        //    {
+        //        ComboIn(10, reference.player.transform);
+        //        //Debug.Log("Sequence: " + comboSequence);
+        //        //Debug.Log("Multiplier: " + comboMultiplier);
+        //    }
+        //}
 
         /// <summary>
         /// Main combo function. When the combo timer reacher zero, the bank
         /// is calculated with multiplier and sent to PlayerStats.
         /// </summary>
-        public IEnumerator StartCombo()
+        private IEnumerator StartCombo()
         {
             do
             {
@@ -119,7 +119,7 @@ namespace Hive.Armada.Game
         /// Adds points to the player's score.
         /// </summary>
         /// <param name="points"> Number of points to add </param>
-        public void AddScore(int points)
+        private void AddScore(int points)
         {
             score += points;
             reference.statistics.AddScore(points);

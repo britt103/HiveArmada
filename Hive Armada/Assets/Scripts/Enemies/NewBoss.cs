@@ -3,6 +3,11 @@
 // Perry Sidler
 // 1831784
 // sidle104@mail.chapman.edu
+// 
+// Miguel Gotao
+// 2264941
+// gotao100@mail.chapman.edu
+// 
 // CPSC-440-01
 // Group Project
 // 
@@ -14,28 +19,32 @@ using System;
 using Hive.Armada.Game;
 using System.Collections;
 using System.Linq;
+using Hive.Armada.Player;
+using SubjectNerd.Utilities;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace Hive.Armada.Enemies
 {
+    public enum BossStates
+    {
+        Patrol,
+
+        Idle,
+
+        Combat,
+
+        TransitionToCombat,
+
+        TransitionFromCombat,
+
+        Intro,
+
+        Death
+    }
+
     public class NewBoss : Enemy
     {
-        public enum BossStates
-        {
-            Patrol,
-
-            Idle,
-
-            Combat,
-
-            TransitionToCombat,
-
-            TransitionFromCombat,
-
-            Intro
-        }
-
         private enum BossPosition
         {
             PatrolCenter,
@@ -50,6 +59,9 @@ namespace Hive.Armada.Enemies
         }
 
         private BossManager bossManager;
+
+        [Reorderable("Wave", false)]
+        public int[] scoreValues;
 
         [Header("Combat")]
         public GameObject projectilePrefab;
@@ -67,18 +79,18 @@ namespace Hive.Armada.Enemies
         /// Structure resposible for tracking the positions for which bullets
         /// are going to be spawned from, dependent on firing pattern.
         /// </summary>
-        public bool[] projectileArray;
+        private bool[] projectileArray;
 
         /// <summary>
         /// Structure responsible for what behavior the boss is going to use
         /// </summary>
-        public int[] behaviorArray;
+        private int[] behaviorArray;
 
         /// <summary>
         /// Positions from which bullets are initially shot from
         /// Positions are arranged in a 9x9 grid
         /// </summary>
-        public Transform[] shootPoint;
+        public Transform[] shootPoints;
 
         /// <summary>
         /// Transform of the shoot point, to be used for altering attack patterns
@@ -88,17 +100,17 @@ namespace Hive.Armada.Enemies
         /// <summary>
         /// How fast the turret shoots at a given rate
         /// </summary>
-        public float fireRate;
+        private float fireRate;
 
         /// <summary>
         /// The rate at which enemy projectiles travel
         /// </summary>
-        public float projectileSpeed;
+        private float projectileSpeed;
 
         /// <summary>
         /// Size of conical spread the bullets travel within
         /// </summary>
-        public float spread;
+        private float spread;
 
         /// <summary>
         /// Value that determines what projectile the enemy will shoot
@@ -128,11 +140,16 @@ namespace Hive.Armada.Enemies
         [Header("Health")]
         public int[] health;
 
-        public GameObject eyes;
+        [Reorderable("Eye", false)]
+        public GameObject[] eyes;
 
         public Material eyeIntactMaterial;
 
         public Material eyeDestroyedMaterial;
+
+        public int Lives { get; private set; }
+
+        private int currentEye;
 
         /// <summary>
         /// The strength of the boss looking at the player.
@@ -148,7 +165,7 @@ namespace Hive.Armada.Enemies
         [Header("Audio")]
         public AudioSource source;
 
-        public AudioClip introClip;
+        public AudioClip[] introClips;
 
         [Header("Hover")]
         public bool hoverEnabled;
@@ -163,25 +180,45 @@ namespace Hive.Armada.Enemies
 
         private Vector3 hoverEnd;
 
-        private Coroutine hoverCoroutine;
-
         private BossPosition currentPosition;
+
+        public bool IsAlive { get; private set; }
+
+        public bool IsHovering { get; private set; }
 
         public bool IsSpeaking { get; private set; }
 
         public bool LookAtTarget { get; private set; }
 
-        public BossStates CurrentState { get; private set; }
-
-        public BossStates NextState { get; private set; }
-
         public bool PatrolIsLeft { get; private set; }
 
         public bool PatrolIsInward { get; private set; }
 
-        private Coroutine introWaitCoroutine;
+        public BossStates CurrentState { get; private set; }
+
+        public BossStates NextState { get; private set; }
+
+        private Coroutine hoverCoroutine;
+
+        private Coroutine introSpeakCoroutine;
 
         private Coroutine patrolWaitCoroutine;
+
+        private Coroutine idleWaitCoroutine;
+
+        private Coroutine combatWaitCoroutine;
+
+        /// <summary>
+        /// This is the combat coroutine. SelectBehavior()
+        /// loops infinitely as long as the boss is alive.
+        /// </summary>
+        private Coroutine selectBehaviorCoroutine;
+
+        private Coroutine combatRotationCoroutine;
+
+        private Coroutine transitionToCombatCoroutine;
+
+        private Coroutine transitionFromCombatCoroutine;
 
         /// <summary>
         /// </summary>
@@ -197,10 +234,28 @@ namespace Hive.Armada.Enemies
             SetLookTarget(lookTarget);
             LookAtTarget = true;
             currentPosition = BossPosition.Intro;
+
+            Lives = eyes.Length;
+
+            if (Lives <= 0)
+            {
+                Debug.LogError(GetType().Name + " - Boss 'eyes' are not setup. 'Lives' = " + Lives);
+            }
+
+            foreach (GameObject eye in eyes)
+            {
+                eye.GetComponent<Renderer>().material = eyeIntactMaterial;
+            }
+
+            if (shootPoints.Length <= 0)
+            {
+                Debug.LogError(GetType().Name + " - ");
+            }
+
+            projectileArray = new bool[shootPoints.Length];
         }
 
         /// <summary>
-        /// 
         /// </summary>
         private void Update()
         {
@@ -218,21 +273,90 @@ namespace Hive.Armada.Enemies
                     Quaternion.Slerp(transform.rotation, to, lookStrength * Time.deltaTime);
             }
 
-            if (CurrentState == BossStates.Combat)
+            if (shaking)
             {
-                if (canShoot)
-                {
-                    StartCoroutine(Shoot());
-                }
+                iTween.ShakePosition(gameObject, new Vector3(0.05f, 0.05f, 0.05f), 0.2f);
             }
+
+            //if (CurrentState == BossStates.Combat)
+            //{
+            //    if (canShoot)
+            //    {
+            //        if (shootCoroutine == null)
+            //        {
+            //            shootCoroutine = StartCoroutine(Shoot());
+            //        }
+            //        else
+            //        {
+            //            Debug.LogWarning(GetType().Name +
+            //                             " - Cannot shoot because \"shootCoroutine\" is not null.");
+            //        }
+            //    }
+            //}
         }
 
         /// <summary>
+        /// Sets the look target for the boss.
         /// </summary>
-        /// <param name="newState"> </param>
+        /// <param name="target"> The new look target </param>
+        public void SetLookTarget(GameObject target)
+        {
+            lookTarget = target;
+        }
+
+        /// <summary>
+        /// Sets the NextState for the boss and starts the
+        /// Coroutine for the corresponding behavior.
+        /// </summary>
+        /// <param name="newState"> The next state the boss should transition to </param>
         public void TransitionState(BossStates newState)
         {
-            NextState = newState;
+            if (CurrentState != BossStates.Combat)
+            {
+                NextState = newState;
+            }
+            else
+            {
+                if (newState != BossStates.TransitionFromCombat || newState != BossStates.Death)
+                {
+                    if (newState == BossStates.Combat)
+                    {
+                        Debug.LogWarning(GetType().Name + " - Trying to transition boss to" +
+                                         " \"Combat\" state while already in \"Combat\" state.");
+                    }
+                    else
+                    {
+                        string badState;
+
+                        switch (newState)
+                        {
+                            case BossStates.Patrol:
+                                badState = "Patrol";
+                                break;
+                            case BossStates.Idle:
+                                badState = "Idle";
+                                break;
+                            case BossStates.TransitionToCombat:
+                                badState = "TransitionToCombat";
+                                break;
+                            case BossStates.Intro:
+                                badState = "Intro";
+                                break;
+                            default:
+                                badState = "UNKNOWN";
+                                break;
+                        }
+
+                        Debug.LogWarning(GetType().Name + " - Trying to transition boss to \"" +
+                                         badState + "\" state while in \"Combat\" state.");
+                    }
+
+                    return;
+                }
+
+                NextState = newState;
+            }
+
             switch (newState)
             {
                 case BossStates.Patrol:
@@ -242,37 +366,109 @@ namespace Hive.Armada.Enemies
                     }
                     break;
                 case BossStates.Idle:
+                    if (idleWaitCoroutine == null)
+                    {
+                        idleWaitCoroutine = StartCoroutine(IdleWait());
+                    }
                     break;
                 case BossStates.Combat:
+                    if (combatWaitCoroutine == null)
+                    {
+                        combatWaitCoroutine = StartCoroutine(CombatWait());
+                    }
+                    else
+                    {
+                        Debug.LogError(GetType().Name + " - \"combatWaitCoroutine\" is not null.");
+                    }
                     break;
                 case BossStates.TransitionToCombat:
+                    if (transitionToCombatCoroutine == null)
+                    {
+                        transitionToCombatCoroutine = StartCoroutine(TransitionToCombat());
+                    }
+                    else
+                    {
+                        Debug.LogError(GetType().Name +
+                                       " - \"transitionToCombatCoroutine\" is not null.");
+                    }
                     break;
                 case BossStates.TransitionFromCombat:
+                    if (transitionFromCombatCoroutine == null)
+                    {
+                        transitionFromCombatCoroutine = StartCoroutine(TransitionFromCombat());
+                    }
+                    else
+                    {
+                        Debug.LogError(GetType().Name +
+                                       " - \"transitionFromCombatCoroutine\" is not null.");
+                    }
                     break;
                 case BossStates.Intro:
 
                     // play intro audio
                     if (source != null)
                     {
-                        if (introClip != null)
+                        if (introClips.Length > 0)
                         {
-                            source.PlayOneShot(introClip);
+                            IsSpeaking = true;
+                            if (introSpeakCoroutine == null)
+                            {
+                                introSpeakCoroutine = StartCoroutine(IntroSpeak());
+                            }
+                            else
+                            {
+                                Debug.LogError(GetType().Name +
+                                               " - \"introSpeakCoroutine\" is not null.");
+                            }
                         }
                         else
                         {
-                            Debug.LogError(GetType().Name + " - \"introClip\" is not set.");
+                            Debug.LogError(GetType().Name + " - \"introClips\" is empty.");
                         }
                     }
                     else
                     {
                         Debug.LogError(GetType().Name + " - \"source\" is not set.");
                     }
-
-                    introWaitCoroutine = StartCoroutine(IntroWait());
+                    break;
+                case BossStates.Death:
                     break;
                 default:
                     break;
             }
+        }
+
+        #region Patrol
+
+        /// <summary>
+        /// Wait until the previous pathing is complete.
+        /// </summary>
+        private IEnumerator PatrolWait()
+        {
+            if (!IsHovering)
+            {
+                yield return new WaitWhile(() => !PathingComplete);
+            }
+            else
+            {
+                hoverEnabled = false;
+                yield return new WaitWhile(() => !IsHovering);
+            }
+
+            PathingComplete = false;
+
+            if (NextState == BossStates.Patrol)
+            {
+                CurrentState = NextState;
+
+                StartPatrol();
+            }
+            else
+            {
+                PathingComplete = true;
+            }
+
+            patrolWaitCoroutine = null;
         }
 
         /// <summary>
@@ -293,35 +489,34 @@ namespace Hive.Armada.Enemies
                                          {"onCompleteTarget", gameObject}
                                      };
 
+                iTweenPath[] paths;
                 if (currentPosition == BossPosition.PatrolLeft)
                 {
-                    moveHash.Add(
-                        "path",
-                        iTweenPath.GetPath(bossManager
-                                               .patrolLCPaths[
-                                               Random.Range(0, bossManager.patrolLCPaths.Length)]
-                                               .pathName));
+                    paths = bossManager.bossPaths["patrolLC"];
                     PatrolIsLeft = false;
                     PatrolIsInward = false;
                     currentPosition = BossPosition.PatrolCenter;
                 }
                 else if (currentPosition == BossPosition.PatrolRight)
                 {
-                    moveHash.Add(
-                        "path",
-                        iTweenPath.GetPath(bossManager
-                                               .patrolRCPaths[
-                                               Random.Range(0, bossManager.patrolRCPaths.Length)]
-                                               .pathName));
+                    paths = bossManager.bossPaths["patrolRC"];
                     PatrolIsLeft = true;
                     PatrolIsInward = false;
                     currentPosition = BossPosition.PatrolCenter;
                 }
                 else
                 {
+                    paths = bossManager.bossPaths["patrolCL"];
+                    PatrolIsLeft = true;
+                    PatrolIsInward = false;
                     Debug.LogError(GetType().Name +
                                    " - boss is not in center, left, or right patrol positions.");
                 }
+
+                moveHash.Add(
+                    "path", iTweenPath.GetPath(paths[Random.Range(0, paths.Length)].pathName));
+
+                iTween.MoveTo(gameObject, moveHash);
             }
         }
 
@@ -329,16 +524,17 @@ namespace Hive.Armada.Enemies
         /// </summary>
         private void OnPatrolComplete()
         {
-            PathingComplete = true;
-
-            if (CurrentState != BossStates.Patrol)
+            if (CurrentState != BossStates.Patrol || NextState != BossStates.Patrol)
             {
+                PathingComplete = true;
                 return;
             }
 
             PickPath();
         }
 
+        /// <summary>
+        /// </summary>
         private void PickPath()
         {
             PathingComplete = false;
@@ -405,6 +601,43 @@ namespace Hive.Armada.Enemies
             iTween.MoveTo(gameObject, moveHash);
         }
 
+        #endregion
+
+        #region Idle
+
+        /// <summary>
+        /// </summary>
+        private IEnumerator IdleWait()
+        {
+            yield return new WaitWhile(() => !PathingComplete);
+
+            PathingComplete = false;
+
+            if (NextState == BossStates.Idle)
+            {
+                CurrentState = NextState;
+                StartHover();
+            }
+        }
+
+        /// <summary>
+        /// Sets the hover endpoints and then begins the hover coroutine.
+        /// </summary>
+        private void StartHover()
+        {
+            if (hoverCoroutine == null)
+            {
+                SetHover();
+                hoverEnabled = true;
+                IsHovering = true;
+                hoverCoroutine = StartCoroutine(Hover(hoverStart, hoverEnd));
+            }
+            else
+            {
+                Debug.LogError(GetType().Name + " - \"hoverCoroutine\" is not null.");
+            }
+        }
+
         /// <summary>
         /// Sets the start and end points for the hover effect.
         /// </summary>
@@ -417,6 +650,7 @@ namespace Hive.Armada.Enemies
         }
 
         /// <summary>
+        /// Hovers the boss from 'start' to 'end'
         /// </summary>
         /// <param name="start"> The start point </param>
         /// <param name="end"> The end point </param>
@@ -438,27 +672,28 @@ namespace Hive.Armada.Enemies
             }
             else
             {
-                hoverCoroutine = null;
+                IsHovering = false;
+                hoverCoroutine =  null;
             }
         }
 
-        /// <summary>
-        /// Sets the look target for the boss.
-        /// </summary>
-        /// <param name="target"> The new look target </param>
-        public void SetLookTarget(GameObject target)
-        {
-            lookTarget = target;
-        }
+        #endregion
 
         /// <summary>
-        /// Waits for the intro audio to finish, then tells the boss to patrol.
+        /// The boss says its opening lines and then moves to patrol.
         /// </summary>
-        private IEnumerator IntroWait()
+        private IEnumerator IntroSpeak()
         {
             CurrentState = NextState;
 
-            yield return new WaitWhile(() => source.isPlaying);
+            yield return new WaitForSeconds(1.0f);
+
+            for (int i = 0; i < introClips.Length; ++i)
+            {
+                yield return new WaitForSeconds(1.0f);
+            }
+
+            IsSpeaking = false;
 
             Hashtable moveHash = new Hashtable
                                  {
@@ -474,25 +709,137 @@ namespace Hive.Armada.Enemies
             iTween.MoveTo(gameObject, moveHash);
             currentPosition = BossPosition.PatrolCenter;
             TransitionState(BossStates.Patrol);
-            introWaitCoroutine = null;
+            introSpeakCoroutine = null;
         }
 
-        /// <summary>
-        /// Wait until the previous pathing is complete.
-        /// </summary>
-        private IEnumerator PatrolWait()
-        {
-            yield return new WaitWhile(() => !PathingComplete);
+        #region CombatTransitions
 
-            if (NextState == BossStates.Patrol)
+        /// <summary>
+        /// Waits until the previous state is finished, then transitions the boss to combat.
+        /// </summary>
+        private IEnumerator TransitionToCombat()
+        {
+            if (!IsHovering)
+            {
+                yield return new WaitWhile(() => !PathingComplete);
+            }
+            else
+            {
+                hoverEnabled = false;
+                yield return new WaitWhile(() => !IsHovering);
+            }
+
+            PathingComplete = false;
+
+            if (NextState == BossStates.TransitionToCombat)
             {
                 CurrentState = NextState;
 
-                StartPatrol();
+                Hashtable moveHash = new Hashtable
+                                     {
+                                         {"easetype", iTween.EaseType.easeInOutSine},
+                                         {"time", 4.0f},
+                                         {"onComplete", "OnPathingComplete"},
+                                         {"onCompleteTarget", gameObject}
+                                     };
+
+                iTweenPath[] paths;
+                switch (currentPosition)
+                {
+                    case BossPosition.PatrolCenter:
+                        paths = bossManager.bossPaths["combatFromC"];
+                        break;
+                    case BossPosition.PatrolLeft:
+                        paths = bossManager.bossPaths["combatFromL"];
+                        break;
+                    case BossPosition.PatrolRight:
+                        paths = bossManager.bossPaths["combatFromR"];
+                        break;
+                    default:
+                        paths = bossManager.bossPaths["combatFromC"];
+                        break;
+                }
+
+                moveHash.Add(
+                    "path", iTweenPath.GetPath(paths[Random.Range(0, paths.Length)].pathName));
+
+                iTween.MoveTo(gameObject, moveHash);
+                currentPosition = BossPosition.Combat;
+
+                TransitionState(BossStates.Combat);
             }
 
-            patrolWaitCoroutine = null;
+            transitionToCombatCoroutine = null;
         }
+
+        /// <summary>
+        /// Waits until the previous state is finished, then
+        /// transitions the boss from the combat point.
+        /// </summary>
+        private IEnumerator TransitionFromCombat()
+        {
+            yield return new WaitWhile(() => NextState == BossStates.Combat);
+
+            if (IsHovering)
+            {
+                hoverEnabled = false;
+                yield return new WaitWhile(() => !IsHovering);
+            }
+
+            PathingComplete = false;
+
+            if (NextState == BossStates.TransitionFromCombat)
+            {
+                CurrentState = NextState;
+
+                Hashtable moveHash = new Hashtable
+                                     {
+                                         {"easetype", iTween.EaseType.easeInOutSine},
+                                         {"time", 4.0f},
+                                         {"onComplete", "OnPathingComplete"},
+                                         {"onCompleteTarget", gameObject}
+                                     };
+
+                iTweenPath[] paths = bossManager.bossPaths["combatToC"];
+
+                moveHash.Add(
+                    "path", iTweenPath.GetPath(paths[Random.Range(0, paths.Length)].pathName));
+
+                iTween.MoveTo(gameObject, moveHash);
+                currentPosition = BossPosition.PatrolCenter;
+
+                TransitionState(BossStates.Patrol);
+            }
+        }
+
+        #endregion
+
+        /// <summary>
+        /// </summary>
+        private IEnumerator CombatWait()
+        {
+            if (!IsHovering)
+            {
+                yield return new WaitWhile(() => !PathingComplete);
+            }
+            else
+            {
+                hoverEnabled = false;
+                yield return new WaitWhile(() => !IsHovering);
+            }
+
+            PathingComplete = false;
+
+            if (NextState == BossStates.Combat)
+            {
+                CurrentState = NextState;
+                StartHover();
+
+                StartCoroutine(StartBehavior());
+            }
+        }
+
+        #region Shooting
 
         /// <summary>
         /// Fires projectiles in a pattern determined by the firemode at the player.
@@ -505,23 +852,28 @@ namespace Hive.Armada.Enemies
             {
                 if (projectileArray[point])
                 {
-                    GameObject spawnedProjectile = objectPoolManager.Spawn(
-                        gameObject, projectileTypeIdentifier, shootPoint[point].position,
-                        shootPoint[point].rotation);
+                    GameObject projectile = objectPoolManager.Spawn(
+                        gameObject, projectileTypeIdentifier, shootPoints[point].position,
+                        shootPoints[point].rotation);
 
-                    randX = Random.Range(-spread, spread);
-                    randY = Random.Range(-spread, spread);
-                    randZ = Random.Range(-spread, spread);
-
-                    spawnedProjectile.GetComponent<Transform>().Rotate(randX, randY, randZ);
-                    Projectile projectileScript = spawnedProjectile.GetComponent<Projectile>();
+                    projectile.GetComponent<Projectile>()
+                              .SetColors(projectileAlbedoColor, projectileEmissionColor);
+                    projectile.GetComponent<Transform>().Rotate(Random.Range(-spread, spread),
+                                                                Random.Range(-spread, spread),
+                                                                Random.Range(-spread, spread));
+                    Projectile projectileScript = projectile.GetComponent<Projectile>();
                     projectileScript.Launch(0);
                 }
             }
 
             yield return new WaitForSeconds(fireRate);
 
-            canShoot = true;
+            //shootCoroutine = null;
+
+            if (CurrentState == BossStates.Combat)
+            {
+                canShoot = true;
+            }
         }
 
         /// <summary>
@@ -529,7 +881,7 @@ namespace Hive.Armada.Enemies
         /// <param name="pivot"> </param>
         private IEnumerator RotateProjectile(Transform pivot)
         {
-            while (true)
+            while (canRotate)
             {
                 pivot.Rotate(0, 0, 1.5f);
                 yield return new WaitForSeconds(0.01f);
@@ -538,55 +890,60 @@ namespace Hive.Armada.Enemies
 
         /// <summary>
         /// </summary>
-        /// <param name="wave"> </param>
         /// <returns> </returns>
-        public IEnumerator StartBehavior(int wave)
+        public IEnumerator StartBehavior()
         {
-            switch (wave)
+            if (selectBehaviorCoroutine == null)
             {
-                case 1:
-                    yield return new WaitForSeconds(0.1f);
+                switch (wave)
+                {
+                    case 0:
+                        yield return new WaitForSeconds(0.1f);
 
-                    StartCoroutine(SelectBehavior(0));
-                    break;
+                        selectBehaviorCoroutine = StartCoroutine(SelectBehavior(0));
+                        break;
 
-                case 2:
-                    yield return new WaitForSeconds(0.1f);
+                    case 1:
+                        yield return new WaitForSeconds(0.1f);
 
-                    StartCoroutine(SelectBehavior(3));
-                    break;
+                        selectBehaviorCoroutine = StartCoroutine(SelectBehavior(3));
+                        break;
 
-                case 3:
-                    yield return new WaitForSeconds(0.1f);
+                    case 2:
+                        yield return new WaitForSeconds(0.1f);
 
-                    StartCoroutine(SelectBehavior(4));
-                    break;
+                        selectBehaviorCoroutine = StartCoroutine(SelectBehavior(4));
+                        break;
 
-                case 4:
-                    yield return new WaitForSeconds(0.1f);
+                    case 3:
+                        yield return new WaitForSeconds(0.1f);
 
-                    StartCoroutine(SelectBehavior(2));
-                    break;
+                        selectBehaviorCoroutine = StartCoroutine(SelectBehavior(2));
+                        break;
 
-                case 5:
-                    yield return new WaitForSeconds(0.1f);
+                    case 4:
+                        yield return new WaitForSeconds(0.1f);
 
-                    StartCoroutine(SelectBehavior(1));
-                    break;
+                        selectBehaviorCoroutine = StartCoroutine(SelectBehavior(1));
+                        break;
+                }
+            }
+            else
+            {
+                Debug.LogError(GetType().Name + " - selectBehaviorCoroutine is not null.");
             }
         }
 
         /// <summary>
         /// </summary>
         /// <param name="behavior"> </param>
-        /// <returns> </returns>
         private IEnumerator SelectBehavior(int behavior)
         {
             switch (behavior)
             {
                 //standard pattern
                 case 0:
-                    yield return new WaitForSeconds(1);
+                    yield return new WaitForSeconds(1.0f);
 
                     SetAttackPattern(AttackPattern.Four);
                     for (int i = 0; i < 10; ++i)
@@ -595,12 +952,12 @@ namespace Hive.Armada.Enemies
                         yield return new WaitForSeconds(fireRate);
                     }
 
-                    StartCoroutine(SelectBehavior(1));
+                    selectBehaviorCoroutine = StartCoroutine(SelectBehavior(1));
                     break;
 
                 //ball pattern
                 case 1:
-                    yield return new WaitForSeconds(1);
+                    yield return new WaitForSeconds(1.0f);
 
                     for (int i = 0; i < 10; ++i)
                     {
@@ -625,12 +982,12 @@ namespace Hive.Armada.Enemies
                         yield return new WaitForSeconds(fireRate);
                     }
 
-                    StartCoroutine(SelectBehavior(2));
+                    selectBehaviorCoroutine = StartCoroutine(SelectBehavior(2));
                     break;
 
                 //tunnel pattern
                 case 2:
-                    yield return new WaitForSeconds(1);
+                    yield return new WaitForSeconds(1.0f);
 
                     ResetAttackPattern();
                     SetAttackPattern(AttackPattern.One);
@@ -641,12 +998,12 @@ namespace Hive.Armada.Enemies
                         yield return new WaitForSeconds(0.15f);
                     }
 
-                    StartCoroutine(SelectBehavior(0));
+                    selectBehaviorCoroutine = StartCoroutine(SelectBehavior(0));
                     break;
 
                 //spread pattern
                 case 3:
-                    yield return new WaitForSeconds(1);
+                    yield return new WaitForSeconds(1.0f);
 
                     SetAttackPattern(AttackPattern.Five);
                     for (int i = 0; i < 10; ++i)
@@ -668,7 +1025,7 @@ namespace Hive.Armada.Enemies
 
                 //clover pattern
                 case 4:
-                    yield return new WaitForSeconds(1);
+                    yield return new WaitForSeconds(1.0f);
 
                     SetAttackPattern(AttackPattern.Six);
                     StartCoroutine(RotateProjectile(shootPivot));
@@ -680,8 +1037,6 @@ namespace Hive.Armada.Enemies
 
                     break;
             }
-
-            yield return null;
         }
 
         /// <summary>
@@ -830,12 +1185,94 @@ namespace Hive.Armada.Enemies
             }
         }
 
+        #endregion
+
+        #region BaseEnemyOverrides
+
         /// <summary>
+        /// Used to apply damage to an enemy.
+        /// </summary>
+        /// <param name="damage"> How much damage this enemy is taking. </param>
+        /// <param name="sendFeedback"> If the hit should trigger a haptic feedback pulse </param>
+        public override void Hit(int damage, bool sendFeedback)
+        {
+            if (!CurrentState.Equals(BossStates.Combat))
+            {
+                return;
+            }
+
+            if (sendFeedback)
+            {
+                if (reference.playerShip != null)
+                {
+                    reference.playerShip.GetComponent<ShipController>().hand.controller
+                             .TriggerHapticPulse(2500);
+                }
+            }
+
+            Health -= damage;
+
+            if (hitFlash == null)
+            {
+                hitFlash = StartCoroutine(HitFlash());
+            }
+
+            if (Health <= 20)
+            {
+                shaking = true;
+            }
+
+            if (Health <= 0)
+            {
+                IsAlive = false;
+                Kill();
+            }
+        }
+
+        /// <summary>
+        /// Stops the boss from shooting, destroys an eye, adds score, and
+        /// transitions it out of combat.
         /// </summary>
         protected override void Kill()
         {
+            try
+            {
+                StopCoroutine(selectBehaviorCoroutine);
+            }
+            catch (Exception)
+            {
+                // ignore errors because we never actually set
+                // selectBehaviorCoroutine to null before now
+            }
+
+            selectBehaviorCoroutine = null;
+            canRotate = false;
+            shaking = false;
+            hoverEnabled = false;
+            canShoot = false;
+            shootPivot.localRotation = Quaternion.identity;
+            --Lives;
+
+            //if (shootCoroutine != null)
+            //{
+            //    StopCoroutine(shootCoroutine);
+            //    shootCoroutine = null;
+            //}
+
             // Do a thing so Boss Manager knows I am defeated.
             // add score, popup on eye that is shutting off
+
+            GameObject eye = eyes[currentEye++];
+
+            // TODO: Play eye explosion emitter.
+            eye.GetComponent<Renderer>().material = eyeDestroyedMaterial;
+            reference.scoringSystem.ComboIn(pointValue, eye.transform);
+
+            //eyes[currentEye++].tag = "Emitter";
+
+            hoverEnabled = false;
+            TransitionState(Lives > 0 ? BossStates.TransitionFromCombat : BossStates.Death);
+            reference.waveManager.BossWaveComplete(wave);
         }
 
         /// <summary>
@@ -854,5 +1291,7 @@ namespace Hive.Armada.Enemies
             Health = maxHealth;
             PathingComplete = false;
         }
+
+        #endregion
     }
 }

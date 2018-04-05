@@ -60,6 +60,8 @@ namespace Hive.Armada.Game
 
         public MenuSounds menuSounds;
 
+        public DialoguePlayer dialoguePlayer;
+
         //----------------------------------------
         // 
         // Player

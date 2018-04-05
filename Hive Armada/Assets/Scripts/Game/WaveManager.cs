@@ -229,6 +229,14 @@ namespace Hive.Armada.Game
         [Reorderable("Sound")]
         public AudioClip[] waveCountSounds;
 
+        public AudioSource firstEnemySource;
+
+        public AudioClip[] firstEnemyClips;
+
+        public AudioSource bossAudioSource;
+
+        public AudioClip[] bossAudioClips;
+
         /// <summary>
         /// If there are currently waves running.
         /// </summary>
@@ -348,6 +356,8 @@ namespace Hive.Armada.Game
             reference.menuWaveNumberDisplay.gameObject.SetActive(false);
 
             waves[wave].Run(wave);
+
+            StartCoroutine(PlayFirstEnemyAudio(wave));
         }
 
         private void RunBossWave(int wave)
@@ -369,6 +379,7 @@ namespace Hive.Armada.Game
 
             if (waves.Length >= currentWave)
             {
+                StartCoroutine(PlayBossAudio(wave));
                 RunBossWave(currentWave);
             }
             else
@@ -420,6 +431,20 @@ namespace Hive.Armada.Game
             yield return new WaitForSeconds(0.9f);
 
             waveCountSource.PlayOneShot(waveCountSounds[wave]);
+        }
+        private IEnumerator PlayFirstEnemyAudio(int wave)
+        {
+            yield return new WaitForSeconds(1.0f);
+
+            firstEnemySource.PlayOneShot(firstEnemyClips[wave]);
+
+            yield return new WaitForSeconds(firstEnemyClips[wave].length);
+        }
+        private IEnumerator PlayBossAudio(int wave)
+        {
+            bossAudioSource.PlayOneShot(bossAudioClips[wave]);
+
+            yield return new WaitForSeconds(bossAudioClips[wave].length);
         }
     }
 }

@@ -94,7 +94,6 @@ namespace Hive.Armada.Player
             reference = GameObject.Find("Reference Manager").GetComponent<ReferenceManager>();
             shieldRenderer.material.SetFloat("_Alpha", 0.0f);
             shieldRenderer.enabled = false;
-            shieldCollider.enabled = false;
 
             float totalFlashTime = 0.0f;
             float shieldFlashTime = shieldFlashDuration;
@@ -195,7 +194,6 @@ namespace Hive.Armada.Player
             //    r.material.SetFloat("_overheatPercent", 0.0f);
             //}
             shieldRenderer.enabled = true;
-            shieldCollider.enabled = true;
             shieldRenderer.material.SetFloat("_Alpha", shieldMaxAlpha);
 
             yield return new WaitForSeconds(shieldFlashTimer);
@@ -247,7 +245,6 @@ namespace Hive.Armada.Player
             }
 
             shieldRenderer.enabled = false;
-            shieldCollider.enabled = false;
             ShieldActive = false;
             //shieldRenderer.enabled = false;
             //shieldRenderer.material.SetFloat("_Alpha", 0.0f);

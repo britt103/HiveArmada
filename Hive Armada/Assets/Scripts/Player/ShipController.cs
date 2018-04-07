@@ -110,7 +110,15 @@ namespace Hive.Armada.Player
         [Header("Audio")]
         public AudioSource source;
 
+        /// <summary>
+        /// Helper dialogue that plays when the ship is grabbed.
+        /// </summary>
         public AudioClip[] startClips;
+
+        /// <summary>
+        /// Helper dialogue that tells the player which weapon they have.
+        /// </summary>
+        public AudioClip[] weaponStartClips;
 
         /// <summary>
         /// Initializes references to Reference Manager and Laser Sight, sets this
@@ -209,6 +217,10 @@ namespace Hive.Armada.Player
 
                 source.PlayOneShot(startClips[i]);
             }
+
+            yield return new WaitWhile(() => source.isPlaying);
+
+            source.PlayOneShot(weaponStartClips[currentWeapon]);
         }
 
         /// <summary>

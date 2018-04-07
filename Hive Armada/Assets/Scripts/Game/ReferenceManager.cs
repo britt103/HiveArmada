@@ -84,6 +84,8 @@ namespace Hive.Armada.Game
 
         public PlayerHitVignette playerHitVignette;
 
+        public ScoreDisplay playerScoreDisplay;
+
         //----------------------------------------
         // 
         // Menus & UI

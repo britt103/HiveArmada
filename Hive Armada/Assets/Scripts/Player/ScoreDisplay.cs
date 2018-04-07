@@ -29,9 +29,19 @@ namespace Hive.Armada.Player
         private ReferenceManager reference;
 
         /// <summary>
+        /// Where the canvas should face.
+        /// </summary>
+        private GameObject playerLookTarget;
+
+        /// <summary>
         /// The canvas with all of the score display UI on it.
         /// </summary>
         public Canvas displayCanvas;
+
+        /// <summary>
+        /// The game object for the display canvas.
+        /// </summary>
+        private GameObject displayCanvasObject;
 
         /// <summary>
         /// The 
@@ -92,6 +102,9 @@ namespace Hive.Armada.Player
                 {
                     if (reference.gameSettings.scoreDisplay)
                     {
+                        displayCanvasObject = displayCanvas.gameObject;
+                        playerLookTarget = reference.playerLookTarget;
+
                         if (scoreText != null)
                         {
                             SetScore(0);
@@ -115,6 +128,7 @@ namespace Hive.Armada.Player
                     else
                     {
                         displayCanvas.enabled = false;
+                        this.enabled = false;
                     }
                 }
                 else
@@ -122,6 +136,16 @@ namespace Hive.Armada.Player
                     Debug.LogError(GetType().Name + " - scoreCanvas is null.");
                 }
             }
+        }
+
+        /// <summary>
+        /// Makes the display canvas face the HMD.
+        /// </summary>
+        private void Update()
+        {
+            displayCanvasObject.transform.rotation = 
+                        Quaternion.LookRotation(displayCanvasObject.transform.position - 
+                                                playerLookTarget.transform.position);
         }
 
         /// <summary>

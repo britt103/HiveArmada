@@ -262,7 +262,7 @@ namespace Hive.Armada.Menus
             {
                 if (aimObject.GetComponent<Slider>())
                 {
-                    if (interactingSlider && interactingSlider.GetInstanceID() == aimObject.GetInstanceID())
+                    if (interactingSlider && aimObject && interactingSlider.GetInstanceID() == aimObject.GetInstanceID())
                     {
                         float displacement = aimObject.GetComponent<RectTransform>().position.x;
                         float maxX = displacement + aimObject.GetComponent<BoxCollider>().bounds.extents.x;

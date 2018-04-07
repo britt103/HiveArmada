@@ -55,7 +55,6 @@ GameObject:
   - component: {fileID: 64932545544585638}
   - component: {fileID: 23860908095294158}
   - component: {fileID: 54246505636988692}
-  - component: {fileID: 114765813799696734}
   m_Layer: 0
   m_Name: Icon
   m_TagString: Untagged
@@ -209,27 +208,6 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &114765813799696734
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1883553688479776}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47d3e22cf11a83f45afc683114b104a8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  powerupPrefab: {fileID: 1207937996568046, guid: 5201957c382643d49b6f06c526e35261,
-    type: 2}
-  powerupIconPrefab: {fileID: 1868741766282424, guid: 0510bea4423ccc24cbf64766265dc463,
-    type: 2}
-  spawnEmitter: {fileID: 1193291957623802, guid: 51c6bc2ff295f4044856c670e54c787e,
-    type: 2}
-  pickupEmitter: {fileID: 1259133097534382, guid: 1711805e42329424da4fd6ed64443373,
-    type: 2}
-  lifeTime: 10
-  clip: {fileID: 8300000, guid: 2be3b6318a2217d42985fc52874676f6, type: 3}
 --- !u!114 &114798819643852502
 MonoBehaviour:
   m_ObjectHideFlags: 1

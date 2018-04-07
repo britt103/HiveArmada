@@ -39357,18 +39357,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 734662588}
---- !u!65 &734662593
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 734662588}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1525, y: 850, z: 0}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &738282760
 GameObject:
   m_ObjectHideFlags: 0
@@ -42669,6 +42657,18 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
+--- !u!65 &734662593
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 734662588}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1525, y: 850, z: 0}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &745021386
 Prefab:
   m_ObjectHideFlags: 0
@@ -62649,6 +62649,7 @@ MonoBehaviour:
   waveManager: {fileID: 0}
   infinite: {fileID: 0}
   objectPoolManager: {fileID: 0}
+  bossManager: {fileID: 0}
   sceneTransitionManager: {fileID: 1450906470}
   optionsValues: {fileID: 908284914}
   gameSettings: {fileID: 0}
@@ -73864,18 +73865,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1304263424}
---- !u!65 &1304263429
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1304263424}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1525, y: 850, z: 0}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1306212501
 GameObject:
   m_ObjectHideFlags: 0
@@ -77643,6 +77632,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1336982765}
+--- !u!65 &1304263429
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1304263424}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1525, y: 850, z: 0}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1337376074
 GameObject:
   m_ObjectHideFlags: 0
@@ -100831,18 +100832,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1842956404}
---- !u!65 &1842956409
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1842956404}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1525, y: 850, z: 0}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1851053608
 GameObject:
   m_ObjectHideFlags: 0
@@ -104143,6 +104132,18 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
+--- !u!65 &1842956409
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1842956404}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1525, y: 850, z: 0}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1865536014
 GameObject:
   m_ObjectHideFlags: 0
@@ -107551,7 +107552,7 @@ Transform:
   - {fileID: 517412374}
   - {fileID: 1177595137}
   m_Father: {fileID: 808282844}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1879535666
 GameObject:
@@ -111704,8 +111705,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0.02, y: 0.87, z: 4.71}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1132163647}
+  m_Children: [{fileID: 1132163647}]
   m_Father: {fileID: 967214717}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}

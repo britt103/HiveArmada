@@ -324,7 +324,6 @@ namespace Hive.Armada.Enemies
         /// </summary>
         protected virtual void OnPathingComplete()
         {
-            //            gameObject.layer = Utility.enemyLayerId;
             PathingComplete = true;
         }
 
@@ -372,8 +371,6 @@ namespace Hive.Armada.Enemies
         /// </summary>
         protected override void Reset()
         {
-            //            gameObject.layer = Utility.pathingEnemyLayerId;
-
             // reset materials
             for (int i = 0; i < renderers.Count; ++i)
             {

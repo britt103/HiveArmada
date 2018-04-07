@@ -13,7 +13,6 @@
 using System.Collections;
 using System.Linq;
 using UnityEngine;
-using MirzaBeig.ParticleSystems;
 
 namespace Hive.Armada.Enemies
 {
@@ -98,6 +97,10 @@ namespace Hive.Armada.Enemies
 
         public float yMax;
 
+        private float t;
+
+        private float start;
+
         public float movingSpeed;
 
         /// <summary>
@@ -126,28 +129,60 @@ namespace Hive.Armada.Enemies
         /// </summary>
         private void Update()
         {
+            if (PathingComplete)
+            {
+                transform.position = Vector3.Lerp(posA, posB, (Mathf.Sin(theta) + 1.0f) / 2.0f);
+
+                theta += movingSpeed * Time.deltaTime;
+
+                if (theta > Mathf.PI)
+                {
+                    theta -= Mathf.PI * 2;
+                }
+            }
+
             if (canActivate)
             {
-//                transform.position = Vector3.Lerp(posA, posB, (Mathf.Sin(theta) + 1.0f) / 2.0f);
-//
-//                theta += movingSpeed * Time.deltaTime;
-//
-//                if (theta > Mathf.PI * 3 / 2)
-//                {
-//                    theta -= Mathf.PI * 2;
-//                }
+                //transform.position = Vector3.Lerp(posA, posB, (Mathf.Sin(theta) + 1.0f) / 2.0f);
+
+                //theta += movingSpeed * Time.deltaTime;
+
+                //if (theta > Mathf.PI)
+                //{
+                //    theta -= Mathf.PI * 2;
+                //}
 
                 transform.LookAt(player.transform);
             }
         }
 
-//        /// <summary>
-//        /// Called by Bosswave when boss finishes pathing.
-//        /// </summary>
-//        public void FinishedPathing()
-//        {
-//            pathingFinished = true;
-//        }
+        /// <summary>
+        /// This is run after the enemy has completed its path.
+        /// Calls Hover function to set positions to hover between
+        /// </summary>
+        protected override void OnPathingComplete()
+        {
+            SetHover();
+            base.OnPathingComplete();
+        }
+
+        /// <summary>
+        /// Function that creates 2 vector 3's to float up and down with a Sin()
+        /// </summary>
+        private void SetHover()
+        {
+            start = Time.time;
+            t = 0.5f;
+            posA = new Vector3(transform.position.x,
+                               transform.position.y + yMax / 2,
+                               transform.position.z);
+
+            posB = new Vector3(transform.position.x,
+                               transform.position.y - yMax / 2,
+                               transform.position.z);
+
+            theta = 0.0f;
+        }
 
         /// <summary>
         /// Begins boss firing logic.
@@ -157,7 +192,7 @@ namespace Hive.Armada.Enemies
             ResetAttackPattern();
             wave = currentWave + 1;
             StartCoroutine(StartBehavior(wave));
-            Hover();
+            SetHover();
         }
 
         /// <summary>
@@ -168,22 +203,6 @@ namespace Hive.Armada.Enemies
             PathingComplete = false;
             ResetAttackPattern();
             StopAllCoroutines();
-        }
-
-        /// <summary>
-        /// Function that creates 2 vector 3's to float up and down with a Sin()
-        /// </summary>
-        private void Hover()
-        {
-            posA = new Vector3(transform.position.x,
-                               transform.position.y + yMax / 100,
-                               transform.position.z);
-
-            posB = new Vector3(transform.position.x,
-                               transform.position.y - yMax / 100,
-                               transform.position.z);
-
-            theta = 0.0f;
         }
 
         /// <summary>

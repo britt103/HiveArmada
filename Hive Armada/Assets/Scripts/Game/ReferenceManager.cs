@@ -46,7 +46,9 @@ namespace Hive.Armada.Game
 
         public ObjectPoolManager objectPoolManager;
 
-        public SceneTransitionManager sceneTransitionManager;
+        public BossManager bossManager;
+
+		public SceneTransitionManager sceneTransitionManager;
 
         public OptionsValues optionsValues;
 
@@ -191,6 +193,14 @@ namespace Hive.Armada.Game
 
             playerLookTarget.transform.parent = GameObject.Find("VRCamera").transform;
             playerLookTarget.transform.localPosition = Vector3.zero;
+
+            if (bossManager != null)
+            {
+                if (gameSettings.selectedGameMode == GameSettings.GameMode.SoloNormal)
+                {
+                    bossManager.Initialize(this);
+                }
+            }
         }
     }
 }

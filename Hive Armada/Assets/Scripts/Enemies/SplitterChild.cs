@@ -40,11 +40,6 @@ namespace Hive.Armada.Enemies
         private float fireRate;
 
         /// <summary>
-        /// How fast the projectiles move.
-        /// </summary>
-        private float projectileSpeed;
-
-        /// <summary>
         /// Number of bursts the turret will shoot before going on cooldown
         /// Leave at 1 for regular fire
         /// </summary>
@@ -111,8 +106,6 @@ namespace Hive.Armada.Enemies
                               .SetColors(projectileAlbedoColor, projectileEmissionColor);
                 Projectile projectileScript = projectile.GetComponent<Projectile>();
                 projectileScript.Launch(0);
-                //projectile.GetComponent<Rigidbody>().velocity =
-                //    projectile.transform.forward * projectileSpeed;
 
                 if (canRotate)
                 {
@@ -148,14 +141,12 @@ namespace Hive.Armada.Enemies
             {
                 case 0:
                     fireRate = 0.6f;
-                    projectileSpeed = 1.5f;
                     spread = 2;
                     burstFire = 3;
                     break;
 
                 case 1:
                     fireRate = 1.2f;
-                    projectileSpeed = 1.5f;
                     spread = 0;
                     burstFire = 5;
                     break;
@@ -179,7 +170,6 @@ namespace Hive.Armada.Enemies
             projectileTypeIdentifier =
                 enemyAttributes.EnemyProjectileTypeIdentifiers[TypeIdentifier];
             fireRate = enemyAttributes.enemyFireRate[TypeIdentifier];
-            projectileSpeed = enemyAttributes.projectileSpeed;
             spread = enemyAttributes.enemySpread[TypeIdentifier];
             spawnEmitter = enemyAttributes.enemySpawnEmitters[TypeIdentifier];
 

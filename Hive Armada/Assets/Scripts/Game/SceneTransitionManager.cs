@@ -293,10 +293,10 @@ namespace Hive.Armada.Game
                     .gameObject.SetActive(true);
             }
 
-            else if (sceneName == "Wave Room")
-            {
-                reference.shipPickup.SetActive(true);
-            }
+            //else if (sceneName == "Wave Room")
+            //{
+            //    reference.shipPickup.SetActive(true);
+            //}
 
             isTransitioning = false;
         }

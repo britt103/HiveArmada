@@ -62,34 +62,11 @@ namespace Hive.Armada.Game
     /// </summary>
     public enum EnemyType
     {
-        /// <summary>
-        /// 
-        /// </summary>
         Standard,
-
-        /// <summary>
-        /// 
-        /// </summary>
         Buckshot,
-
-        /// <summary>
-        /// 
-        /// </summary>
         Moving,
-
-        /// <summary>
-        /// 
-        /// </summary>
         Splitter,
-
-        /// <summary>
-        /// 
-        /// </summary>
         Kamikaze,
-
-        /// <summary>
-        /// 
-        /// </summary>
         SplitterChild
     }
 
@@ -100,39 +77,21 @@ namespace Hive.Armada.Game
     [Serializable]
     public struct EnemyTypeSetup
     {
-        /// <summary>
-        /// 
-        /// </summary>
         [Tooltip("The prefab for the Standard enemy.")]
         public GameObject standardEnemyPrefab;
 
-        /// <summary>
-        /// 
-        /// </summary>
         [Tooltip("The prefab for the Buckshot enemy.")]
         public GameObject buckshotEnemyPrefab;
 
-        /// <summary>
-        /// 
-        /// </summary>
         [Tooltip("The prefab for the Moving enemy.")]
         public GameObject movingEnemyPrefab;
 
-        /// <summary>
-        /// 
-        /// </summary>
         [Tooltip("The prefab for the Splitter enemy.")]
         public GameObject splitterEnemyPrefab;
 
-        /// <summary>
-        /// 
-        /// </summary>
         [Tooltip("The prefab for the Kamikaze enemy.")]
         public GameObject kamikazeEnemyPrefab;
 
-        /// <summary>
-        /// 
-        /// </summary>
         [Tooltip("The prefab for the Splitter Child enemy.")]
         public GameObject splitterChildEnemyPrefab;
     }
@@ -164,6 +123,8 @@ namespace Hive.Armada.Game
         /// (e.g. spawner, game manager, etc.)
         /// </summary>
         private ReferenceManager reference;
+
+        public BossManager bossManager;
 
         public WaveLoader waveLoader;
 
@@ -213,8 +174,6 @@ namespace Hive.Armada.Game
         /// The index for the wave that is currently running.
         /// </summary>
         private int currentWave;
-
-        public BossWave bossWave;
 
         /// <summary>
         /// The source to play the wave count from.
@@ -278,15 +237,7 @@ namespace Hive.Armada.Game
                 "BackRightPath"
             };
 
-            if (gameSettings.selectedGameMode == GameSettings.GameMode.SoloInfinite)
-            {
-                IsInfinite = true;
-            }
-            else
-            {
-                IsInfinite = false;
-            }
-            //IsInfinite = true;
+            IsInfinite = gameSettings.selectedGameMode == GameSettings.GameMode.SoloInfinite;
 
             //waves = waveLoader.LoadWaves();
         }
@@ -347,13 +298,15 @@ namespace Hive.Armada.Game
         /// <param name="wave"> The index of the wave being run </param>
         private IEnumerator WaveNumberDisplay(int wave)
         {
-            StartCoroutine(PlayWaveCount(wave + 1));
-            reference.menuWaveNumberDisplay.gameObject.SetActive(true);
-            reference.menuWaveNumberDisplay.text = "Wave: " + (wave + 1);
+            //StartCoroutine(PlayWaveCount(wave + 1));
+            //reference.menuWaveNumberDisplay.gameObject.SetActive(true);
+            //reference.menuWaveNumberDisplay.text = "Wave: " + (wave + 1);
 
-            yield return new WaitForSeconds(2.0f);
+            //yield return new WaitForSeconds(2.0f);
 
-            reference.menuWaveNumberDisplay.gameObject.SetActive(false);
+            //reference.menuWaveNumberDisplay.gameObject.SetActive(false);
+
+            yield return new WaitForSeconds(1.0f);
 
             waves[wave].Run(wave);
 
@@ -362,7 +315,7 @@ namespace Hive.Armada.Game
 
         private void RunBossWave(int wave)
         {
-            bossWave.GetComponent<BossWave>().Run(wave);
+            bossManager.EnterBoss(wave);
         }
 
         /// <summary>
@@ -389,9 +342,8 @@ namespace Hive.Armada.Game
 
                 reference.sceneTransitionManager.TransitionOut("Menu Room");
             }
-
-            //reference.statistics.WaveComplete();
         }
+        
         public void BossWaveComplete(int wave)
         {
             if (waves.Length > ++currentWave)

@@ -41,7 +41,7 @@ public class AllyPosition : MonoBehaviour {
         int pos = Random.Range(0, allyPosition.Length);
         gameObject.transform.position = allyPosition[pos].transform.position;
         Hover();
-        StartCoroutine(PlayAllyAudio(pos));
+        //StartCoroutine(PlayAllyAudio(pos));
 	}
     /// <summary>
     /// Moves ship up and down over time.

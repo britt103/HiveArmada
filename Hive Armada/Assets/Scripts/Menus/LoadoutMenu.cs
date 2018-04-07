@@ -238,7 +238,10 @@ namespace Hive.Armada.Menus
         public void PressBack()
         {
             source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
-            weaponUIHoverScripts[selectedWeapon].EndSelect();
+            if (selectedWeapon != weaponCells.Length)
+            {
+                weaponUIHoverScripts[selectedWeapon].EndSelect();
+            }
             transitionManager.Transition(backMenuGO);
         }
 

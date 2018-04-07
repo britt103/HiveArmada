@@ -184,6 +184,14 @@ namespace Hive.Armada.Game
             {
                 shipLookTarget = GameObject.Find("Ship Look Target");
             }
+
+            if (bossManager != null)
+            {
+                if (gameSettings.selectedGameMode == GameSettings.GameMode.SoloNormal)
+                {
+                    bossManager.Initialize(this);
+                }
+            }
         }
     }
 }

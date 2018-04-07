@@ -2702,6 +2702,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3d90499657332545b7792f018b1dea4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bossManager: {fileID: 0}
   waveLoader: {fileID: 114727511158786194}
   enemyTypeSetup:
     standardEnemyPrefab: {fileID: 1509759630503974, guid: 67ec74fbac061154dbc45b81c0d2859c,
@@ -2746,14 +2747,13 @@ MonoBehaviour:
   - {fileID: 1430950907871662, guid: 7df1875ad51abb947a452aa3ae9c278c, type: 2}
   - {fileID: 1430950907871662, guid: 52c7705900351a041985de599bdf104a, type: 2}
   - {fileID: 1430950907871662, guid: d9f3eb7f8e8b18341a147a1b1db98563, type: 2}
-  startingWave: 3
+  startingWave: 1
   waves:
   - {fileID: 114083042273622394}
   - {fileID: 114782196733954012}
   - {fileID: 114716578532522766}
   - {fileID: 114069306157670186}
   - {fileID: 114982984793684692}
-  bossWave: {fileID: 114070921658505556}
   waveCountSource: {fileID: 0}
   waveCountSounds:
   - {fileID: 8300000, guid: 3f9a996c2ac253c45880e98853da7fdf, type: 3}

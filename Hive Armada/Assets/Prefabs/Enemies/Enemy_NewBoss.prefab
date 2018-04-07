@@ -5018,8 +5018,8 @@ MonoBehaviour:
   scoreValues: 32000000
   projectilePrefab: {fileID: 1590670541974036, guid: 0f837641c26eee64eaa72bd67b35506d,
     type: 2}
-  projectileAlbedoColor: {r: 1, g: 1, b: 1, a: 1}
-  projectileEmissionColor: {r: 1, g: 0.9206897, b: 0.66176474, a: 1}
+  projectileAlbedoColor: {r: 1, g: 0.5568628, b: 0, a: 1}
+  projectileEmissionColor: {r: 1, g: 0.99674165, b: 0.99264705, a: 1}
   shootPoints:
   - {fileID: 4196681409980144}
   - {fileID: 4053499942562254}
@@ -5105,20 +5105,23 @@ MonoBehaviour:
   shootPivot: {fileID: 4235632089867506}
   health: e80300004c040000b004000014050000dc050000
   eyes:
-  - {fileID: 1389725121740696}
-  - {fileID: 1889834288067770}
-  - {fileID: 1575746134387084}
-  - {fileID: 1266238717899784}
   - {fileID: 1146334272683052}
+  - {fileID: 1266238717899784}
+  - {fileID: 1575746134387084}
+  - {fileID: 1889834288067770}
+  - {fileID: 1389725121740696}
   eyeIntactMaterial: {fileID: 2100000, guid: 07abe57a32ebdd241a8a538972e88731, type: 2}
   eyeDestroyedMaterial: {fileID: 2100000, guid: b3933fbfb4da791448407e1d88b4a341,
     type: 2}
   lookStrength: 2
   lookTarget: {fileID: 0}
   source: {fileID: 0}
-  introClips: []
+  introClips:
+  - {fileID: 8300000, guid: 922e315ae384f4d459db5273e89c8b6e, type: 3}
+  - {fileID: 8300000, guid: 5453070926aa13142ba14019d4b6002d, type: 3}
+  - {fileID: 8300000, guid: ec3b25e628bebd344a99a2db1b11e9db, type: 3}
   hoverEnabled: 1
-  hoverDistance: 0.7
+  hoverDistance: 0.1
   hoverTime: 1.5
 --- !u!135 &135047146297909978
 SphereCollider:

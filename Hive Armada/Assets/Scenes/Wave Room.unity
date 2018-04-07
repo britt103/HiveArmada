@@ -34049,48 +34049,6 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
---- !u!1001 &1436575093
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4418247407078522, guid: 52c7705900351a041985de599bdf104a, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4418247407078522, guid: 52c7705900351a041985de599bdf104a, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 1.015
-      objectReference: {fileID: 0}
-    - target: {fileID: 4418247407078522, guid: 52c7705900351a041985de599bdf104a, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0.529
-      objectReference: {fileID: 0}
-    - target: {fileID: 4418247407078522, guid: 52c7705900351a041985de599bdf104a, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4418247407078522, guid: 52c7705900351a041985de599bdf104a, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4418247407078522, guid: 52c7705900351a041985de599bdf104a, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4418247407078522, guid: 52c7705900351a041985de599bdf104a, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4418247407078522, guid: 52c7705900351a041985de599bdf104a, type: 2}
-      propertyPath: m_RootOrder
-      value: 6
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 52c7705900351a041985de599bdf104a, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &1442946138
 GameObject:
   m_ObjectHideFlags: 0
@@ -39948,6 +39906,11 @@ Prefab:
       objectReference: {fileID: 2047074952}
     - target: {fileID: 114508135794012018, guid: 6503730551a61ef4ebeca6bd91b11120,
         type: 2}
+      propertyPath: bossManager
+      value: 
+      objectReference: {fileID: 259180520}
+    - target: {fileID: 114508135794012018, guid: 6503730551a61ef4ebeca6bd91b11120,
+        type: 2}
       propertyPath: enemySpawnPoints.Array.data[0]
       value: 
       objectReference: {fileID: 160874942}
@@ -39966,16 +39929,6 @@ Prefab:
       propertyPath: waveCountSource
       value: 
       objectReference: {fileID: 1732903678}
-    - target: {fileID: 114508135794012018, guid: 6503730551a61ef4ebeca6bd91b11120,
-        type: 2}
-      propertyPath: startingWave
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114083042273622394, guid: 6503730551a61ef4ebeca6bd91b11120,
-        type: 2}
-      propertyPath: setupSpawnGroups.Array.data[8].powerupSpawn.powerup
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6503730551a61ef4ebeca6bd91b11120, type: 2}
   m_IsPrefabParent: 0

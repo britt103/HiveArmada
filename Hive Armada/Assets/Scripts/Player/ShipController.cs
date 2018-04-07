@@ -3,7 +3,7 @@
 // Perry Sidler
 // 1831784
 // sidle104@mail.chapman.edu
-// CPSC-340-01 & CPSC-344-01
+// CPSC-440-01, CPSC-340-01 & CPSC-344-01
 // Group Project
 // 
 // This class handles the ship that the player picks up. It includes all
@@ -165,13 +165,35 @@ namespace Hive.Armada.Player
                 reference.menuTitle.SetActive(false);
                 reference.menuMain.SetActive(true);
             }
+
             if (reference.powerUpStatus)
             {
                 reference.powerUpStatus.BeginTracking();
             }
-            if (reference.countdown)
+
+            if (reference.gameSettings.selectedGameMode == GameSettings.GameMode.SoloNormal)
             {
-                reference.countdown.SetActive(true);
+                if (reference.waveManager != null)
+                {
+                    reference.waveManager.Run();
+                }
+                else
+                {
+                    Debug.LogError(GetType().Name +
+                                   " - Reference.WaveManager is null. Cannot call Run().");
+                }
+            }
+            else
+            {
+                if (reference.countdown)
+                {
+                    reference.countdown.SetActive(true);
+                }
+                else
+                {
+                    Debug.LogError(
+                        GetType().Name + " - Reference.Countdown is null. Cannot enable.");
+                }
             }
 
             reference.shipPickup.SetActive(false);

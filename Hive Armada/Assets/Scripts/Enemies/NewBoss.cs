@@ -18,6 +18,7 @@
 using System;
 using Hive.Armada.Game;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using Hive.Armada.Player;
 using SubjectNerd.Utilities;
@@ -143,6 +144,8 @@ namespace Hive.Armada.Enemies
         [Reorderable("Eye", false)]
         public GameObject[] eyes;
 
+        private Renderer[] eyeRenderers;
+
         public Material eyeIntactMaterial;
 
         public Material eyeDestroyedMaterial;
@@ -235,6 +238,8 @@ namespace Hive.Armada.Enemies
             LookAtTarget = true;
             currentPosition = BossPosition.Intro;
 
+            currentEye = 0;
+
             Lives = eyes.Length;
 
             if (Lives <= 0)
@@ -242,9 +247,28 @@ namespace Hive.Armada.Enemies
                 Debug.LogError(GetType().Name + " - Boss 'eyes' are not setup. 'Lives' = " + Lives);
             }
 
-            foreach (GameObject eye in eyes)
+            renderers.Clear();
+            materials.Clear();
+
+            for (int i = 0; i < eyes.Length; ++i)
             {
-                eye.GetComponent<Renderer>().material = eyeIntactMaterial;
+                eyes[i].GetComponent<Renderer>().material = eyeIntactMaterial;
+            }
+
+            foreach (Renderer r in gameObject.GetComponentsInChildren<Renderer>())
+            {
+                if (r.gameObject.CompareTag("Emitter") || r.transform.parent.CompareTag("Emitter"))
+                {
+                    continue;
+                }
+
+                if (r.material.name.Contains("PodIntact"))
+                {
+                    continue;
+                }
+
+                renderers.Add(r);
+                materials.Add(r.material);
             }
 
             if (shootPoints.Length <= 0)
@@ -277,22 +301,6 @@ namespace Hive.Armada.Enemies
             {
                 iTween.ShakePosition(gameObject, new Vector3(0.05f, 0.05f, 0.05f), 0.2f);
             }
-
-            //if (CurrentState == BossStates.Combat)
-            //{
-            //    if (canShoot)
-            //    {
-            //        if (shootCoroutine == null)
-            //        {
-            //            shootCoroutine = StartCoroutine(Shoot());
-            //        }
-            //        else
-            //        {
-            //            Debug.LogWarning(GetType().Name +
-            //                             " - Cannot shoot because \"shootCoroutine\" is not null.");
-            //        }
-            //    }
-            //}
         }
 
         /// <summary>
@@ -302,6 +310,11 @@ namespace Hive.Armada.Enemies
         public void SetLookTarget(GameObject target)
         {
             lookTarget = target;
+        }
+
+        private void OnDialogueComplete()
+        {
+            IsSpeaking = false;
         }
 
         /// <summary>
@@ -317,7 +330,7 @@ namespace Hive.Armada.Enemies
             }
             else
             {
-                if (newState != BossStates.TransitionFromCombat || newState != BossStates.Death)
+                if (newState != BossStates.TransitionFromCombat && newState != BossStates.Death)
                 {
                     if (newState == BossStates.Combat)
                     {
@@ -343,7 +356,7 @@ namespace Hive.Armada.Enemies
                                 badState = "Intro";
                                 break;
                             default:
-                                badState = "UNKNOWN";
+                                badState = ((int)newState).ToString();
                                 break;
                         }
 
@@ -432,8 +445,6 @@ namespace Hive.Armada.Enemies
                     }
                     break;
                 case BossStates.Death:
-                    break;
-                default:
                     break;
             }
         }
@@ -618,6 +629,8 @@ namespace Hive.Armada.Enemies
                 CurrentState = NextState;
                 StartHover();
             }
+
+            idleWaitCoroutine = null;
         }
 
         /// <summary>
@@ -686,14 +699,40 @@ namespace Hive.Armada.Enemies
         {
             CurrentState = NextState;
 
+            eyeRenderers = new Renderer[eyes.Length];
+
+            for (int i = 0; i < eyes.Length; ++i)
+            {
+
+                Renderer eyeRenderer = eyes[i].GetComponent<Renderer>();
+
+                if (eyeRenderer != null)
+                {
+                    eyeRenderers[i] = eyeRenderer;
+                    eyeRenderers[i].material = eyeIntactMaterial;
+                }
+                else
+                {
+                    Debug.LogError(i + " null");
+                }
+            }
+
             yield return new WaitForSeconds(1.0f);
 
-            for (int i = 0; i < introClips.Length; ++i)
+            // pass array of clips to DialoguePlayer
+
+            foreach (AudioClip clip in introClips)
             {
-                yield return new WaitForSeconds(1.0f);
+                source.PlayOneShot(clip);
+
+                yield return new WaitWhile(() => source.isPlaying);
+
+                yield return new WaitForSeconds(0.8f);
             }
 
             IsSpeaking = false;
+
+            reference.shipPickup.SetActive(true);
 
             Hashtable moveHash = new Hashtable
                                  {
@@ -810,6 +849,8 @@ namespace Hive.Armada.Enemies
 
                 TransitionState(BossStates.Patrol);
             }
+
+            transitionFromCombatCoroutine = null;
         }
 
         #endregion
@@ -833,10 +874,17 @@ namespace Hive.Armada.Enemies
             if (NextState == BossStates.Combat)
             {
                 CurrentState = NextState;
+
+                maxHealth = health[wave];
+                Health = maxHealth;
+
+                IsAlive = true;
                 StartHover();
 
                 StartCoroutine(StartBehavior());
             }
+
+            combatWaitCoroutine = null;
         }
 
         #region Shooting
@@ -1210,6 +1258,11 @@ namespace Hive.Armada.Enemies
                 }
             }
 
+            if (!IsAlive)
+            {
+                return;
+            }
+
             Health -= damage;
 
             if (hitFlash == null)
@@ -1253,22 +1306,15 @@ namespace Hive.Armada.Enemies
             shootPivot.localRotation = Quaternion.identity;
             --Lives;
 
-            //if (shootCoroutine != null)
-            //{
-            //    StopCoroutine(shootCoroutine);
-            //    shootCoroutine = null;
-            //}
-
-            // Do a thing so Boss Manager knows I am defeated.
-            // add score, popup on eye that is shutting off
-
-            GameObject eye = eyes[currentEye++];
-
-            // TODO: Play eye explosion emitter.
-            eye.GetComponent<Renderer>().material = eyeDestroyedMaterial;
-            reference.scoringSystem.ComboIn(pointValue, eye.transform);
-
-            //eyes[currentEye++].tag = "Emitter";
+            eyeRenderers[Lives].material = eyeDestroyedMaterial;
+            eyes[Lives].GetComponent<Renderer>().material = eyeDestroyedMaterial;
+            reference.scoringSystem.ComboIn(pointValue, eyes[Lives].transform);
+            ParticleSystem eyeEmitter = eyes[Lives].transform.GetChild(0).GetComponent<ParticleSystem>();
+            if (eyeEmitter != null)
+            {
+                eyeEmitter.Clear();
+                eyeEmitter.Play();
+            }
 
             hoverEnabled = false;
             TransitionState(Lives > 0 ? BossStates.TransitionFromCombat : BossStates.Death);

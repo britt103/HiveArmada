@@ -115,8 +115,6 @@ namespace Hive.Armada.Game
                              {"idleLeft", idleLeftPoint},
                              {"idleRight", idleRightPoint}
                          };
-
-            Initialize(FindObjectOfType<ReferenceManager>());
         }
 
         /// <summary>
@@ -127,6 +125,8 @@ namespace Hive.Armada.Game
         {
             if (!IsInitialized)
             {
+                reference = referenceManager;
+
                 if (bossPrefab != null)
                 {
                     IsInitialized = true;

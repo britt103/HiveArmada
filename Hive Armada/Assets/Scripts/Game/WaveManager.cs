@@ -384,6 +384,7 @@ namespace Hive.Armada.Game
 
             waveCountSource.PlayOneShot(waveCountSounds[wave]);
         }
+
         private IEnumerator PlayFirstEnemyAudio(int wave)
         {
             yield return new WaitForSeconds(1.0f);
@@ -392,6 +393,7 @@ namespace Hive.Armada.Game
 
             yield return new WaitForSeconds(firstEnemyClips[wave].length);
         }
+
         private IEnumerator PlayBossAudio(int wave)
         {
             bossAudioSource.PlayOneShot(bossAudioClips[wave]);

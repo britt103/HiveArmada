@@ -1920,6 +1920,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32f88d2e4e2145841b244ef941011dbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lookStrength: 2
+  lookTarget: {fileID: 0}
   allySource: {fileID: 0}
   allyClips:
   - {fileID: 0}
@@ -1933,9 +1935,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  xMax: 0
-  yMax: 0
-  movingSpeed: 0
+  hoverDistance: 1
+  hoverTime: 2
 --- !u!198 &198875448348258002
 ParticleSystem:
   m_ObjectHideFlags: 1

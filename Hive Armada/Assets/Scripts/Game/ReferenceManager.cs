@@ -18,6 +18,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Hive.Armada.Player;
 using Hive.Armada.PowerUps;
+using System;
 
 namespace Hive.Armada.Game
 {
@@ -191,8 +192,23 @@ namespace Hive.Armada.Game
                 shipLookTarget = GameObject.Find("Ship Look Target");
             }
 
-            playerLookTarget.transform.parent = GameObject.Find("VRCamera").transform;
-            playerLookTarget.transform.localPosition = Vector3.zero;
+            try
+            {
+                playerLookTarget.transform.parent = GameObject.Find("VRCamera").transform;
+                playerLookTarget.transform.localPosition = Vector3.zero;
+            }
+            catch (Exception)
+            {
+                try
+                {
+                    playerLookTarget.transform.parent = GameObject.Find("FallbackObjects").transform;
+                    playerLookTarget.transform.localPosition = Vector3.zero;
+                }
+                catch (Exception)
+                {
+                    Debug.LogError(GetType().Name + " - Cannot find VRCamera and FallbackObjects.");
+                }
+            }
 
             if (bossManager != null)
             {

@@ -61,8 +61,8 @@ namespace Hive.Armada.Game
         public bool scoreDisplay;
 
         /// <summary>
-        /// State of whether color blind mode is on.
+        /// Type of color blind mode.
         /// </summary>
-        public bool colorBlindMode;
+        public ColorBlindMode.Mode colorBlindMode;
     }
 }

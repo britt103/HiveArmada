@@ -12,15 +12,18 @@
 // CPSC-340-01 & CPSC-344-01
 // Group Project
 //
-// Added progress text to replace progress bar.
+// Added progress text to replace progress bar. Added application of post
+// processing behavior to camera in loading area.
 //
 //=============================================================================
 
 using UnityEngine;
+using UnityEngine.PostProcessing;
 using System;
+using System.IO;
 using System.Collections;
 using Valve.VR;
-using System.IO;
+
 
 public class SteamVR_LoadLevel : MonoBehaviour
 {
@@ -49,6 +52,9 @@ public class SteamVR_LoadLevel : MonoBehaviour
 
     // Async load causes crashes in some apps.
     public bool loadAsync = true;
+
+
+    public PostProcessingProfile postProcessingProfile;
 
     // Optional logo texture.
     public Texture loadingScreen;
@@ -257,6 +263,9 @@ public class SteamVR_LoadLevel : MonoBehaviour
     // Corourtine to handle all the steps across loading boundaries.
     IEnumerator LoadLevel()
     {
+        PostProcessingBehaviour postProcessingBehavior = FindObjectOfType<PostProcessingBehaviour>();
+        postProcessingBehavior.profile = postProcessingProfile;
+
         // Optionally rotate loading screen transform around the camera into view.
         // We assume here that the loading screen is already facing toward the origin,
         // and that the progress bar transform (if any) is a child and will follow along.

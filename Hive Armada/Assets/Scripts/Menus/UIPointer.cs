@@ -75,6 +75,8 @@ namespace Hive.Armada.Menus
         /// </summary>
         private GameObject aimObject;
 
+        private GameObject interactingSlider;
+
         /// <summary>
         /// Reference to last touched interactable.
         /// </summary>
@@ -230,11 +232,23 @@ namespace Hive.Armada.Menus
 
                 if (hand.GetStandardInteractionButtonDown())
                 {
+                    if (aimObject != null)
+                    {
+                        if (aimObject.GetComponent<Slider>() != null)
+                        {
+                            interactingSlider = aimObject;
+                        }
+                    }
+
                     TriggerUpdate(false);
                 }
                 else if (hand.GetStandardInteractionButton())
                 {
                     TriggerUpdate(true);
+                }
+                else if (hand.GetStandardInteractionButtonUp())
+                {
+                    interactingSlider = null;
                 }
             }
         }
@@ -248,14 +262,17 @@ namespace Hive.Armada.Menus
             {
                 if (aimObject.GetComponent<Slider>())
                 {
-                    float displacement = aimObject.GetComponent<RectTransform>().position.x;
-                    float maxX = displacement + aimObject.GetComponent<BoxCollider>().bounds.extents.x;
-                    float minX = displacement - aimObject.GetComponent<BoxCollider>().bounds.extents.x;
-                    float pointerX = pointer.GetPosition(1).x;
-                    if (pointerX > minX && pointerX < maxX)
+                    if (interactingSlider.GetInstanceID() == aimObject.GetInstanceID())
                     {
-                        float value = (pointerX - minX) / (maxX - minX);
-                        aimObject.GetComponent<Slider>().value = value;
+                        float displacement = aimObject.GetComponent<RectTransform>().position.x;
+                        float maxX = displacement + aimObject.GetComponent<BoxCollider>().bounds.extents.x;
+                        float minX = displacement - aimObject.GetComponent<BoxCollider>().bounds.extents.x;
+                        float pointerX = pointer.GetPosition(1).x;
+                        if (pointerX > minX && pointerX < maxX)
+                        {
+                            float value = (pointerX - minX) / (maxX - minX);
+                            aimObject.GetComponent<Slider>().value = value;
+                        }
                     }
                 }
                 else if (aimObject.GetComponent<Scrollbar>())

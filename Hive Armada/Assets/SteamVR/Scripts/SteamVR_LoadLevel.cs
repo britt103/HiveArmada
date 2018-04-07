@@ -24,7 +24,6 @@ using System.IO;
 using System.Collections;
 using Valve.VR;
 
-
 public class SteamVR_LoadLevel : MonoBehaviour
 {
     private static SteamVR_LoadLevel _active = null;

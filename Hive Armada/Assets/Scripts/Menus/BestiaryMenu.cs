@@ -355,7 +355,7 @@ namespace Hive.Armada.Menus
                 if (enemyNames[entryId] == "Armada")
                 {
                     armada.SetActive(true);
-                    armada.layer = Utility.uiMask;
+                    armada.layer = Utility.uiLayerId;
                 }
                 else
                 {
@@ -380,7 +380,7 @@ namespace Hive.Armada.Menus
 
             if (entryName.GetComponent<Text>().text == "Armada")
             {
-                armada.layer = Utility.roomMask;
+                armada.layer = Utility.roomLayerId;
                 armada.SetActive(false);
             }
             else

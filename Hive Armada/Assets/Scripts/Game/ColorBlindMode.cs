@@ -7,7 +7,7 @@
 // Group Project
 //
 // ColorBlindMode stores color channel values for the different color blind 
-// modes.
+// modes and applies them to the post processing profile.
 //
 //=============================================================================
 
@@ -17,13 +17,19 @@ using UnityEngine.PostProcessing;
 
 namespace Hive.Armada.Game
 {
+    /// <summary>
+    /// Stores and changes color channel values.
+    /// </summary>
     public class ColorBlindMode : MonoBehaviour
     {
+        /// <summary>
+        /// Reference to player camera game object.
+        /// </summary>
+        public GameObject cameraGO;
 
-        public PostProcessingProfile postProcessingProfile;
-
-        private ColorGradingModel.ChannelMixerSettings channelMixerSettings;
-
+        /// <summary>
+        /// Enum for different named color blind modes. 
+        /// </summary>
         public enum Mode
         {
             Standard,
@@ -32,6 +38,9 @@ namespace Hive.Armada.Game
             Tritanopia
         }
 
+        /// <summary>
+        /// Struct associating modes with channel values.
+        /// </summary>
         [Serializable]
         public struct ModeData
         {
@@ -44,22 +53,28 @@ namespace Hive.Armada.Game
             public Vector3 blueChannel;
         }
 
+        /// <summary>
+        /// Collection of mode data.
+        /// </summary>
         public ModeData[] modes;
 
-        private void Awake()
-        {
-            channelMixerSettings = postProcessingProfile.colorGrading.settings.channelMixer;
-        }
-
+        /// <summary>
+        /// Apply channel mixer values based on specified mode.
+        /// </summary>
+        /// <param name="mode">Mode to get new values from.</param>
         public void SetMode(Mode mode)
         {
+            cameraGO.GetComponent<PostProcessingBehaviour>().profile.colorGrading.enabled = true;
+
             foreach (ModeData modeData in modes)
             {
                 if (modeData.mode == mode)
                 {
-                    channelMixerSettings.red = modeData.redChannel;
-                    channelMixerSettings.green = modeData.greenChannel;
-                    channelMixerSettings.blue = modeData.blueChannel;
+                    ColorGradingModel.Settings cgms = cameraGO.GetComponent<PostProcessingBehaviour>().profile.colorGrading.settings;
+                    cgms.channelMixer.red = modeData.redChannel;
+                    cgms.channelMixer.green = modeData.greenChannel;
+                    cgms.channelMixer.blue = modeData.blueChannel;
+                    cameraGO.GetComponent<PostProcessingBehaviour>().profile.colorGrading.settings = cgms;
                     break;
                 }
             }

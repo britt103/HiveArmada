@@ -1083,9 +1083,32 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114283707910920700, guid: 35e15fd7fc96afe41a7c51cd3f1cc6a2,
+        type: 2}
+      propertyPath: profile
+      value: 
+      objectReference: {fileID: 11400000, guid: b80f6cc871cdb204597825c150bdef57,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 35e15fd7fc96afe41a7c51cd3f1cc6a2, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &111755391 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1215068107560540, guid: 35e15fd7fc96afe41a7c51cd3f1cc6a2,
+    type: 2}
+  m_PrefabInternal: {fileID: 111755390}
+--- !u!114 &111755392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 111755391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  profile: {fileID: 11400000, guid: b80f6cc871cdb204597825c150bdef57, type: 2}
 --- !u!1 &114958226
 GameObject:
   m_ObjectHideFlags: 0
@@ -49718,8 +49741,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f546255e010f2974c9d5ed8ff5a11342, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  postProcessingProfile: {fileID: 11400000, guid: 71dce651fb2da5b4580371ce14af7725,
-    type: 2}
+  cameraGO: {fileID: 2052364201}
   modes:
   - mode: 0
     redChannel: {x: 1, y: 0, z: 0}
@@ -49727,7 +49749,7 @@ MonoBehaviour:
     blueChannel: {x: 0, y: 0, z: 1}
   - mode: 0
     redChannel: {x: 0.56667, y: 0.43333, z: 0}
-    greenChannel: {x: 0.55833, y: 44.167, z: 0}
+    greenChannel: {x: 0.55833, y: 0.44167, z: 0}
     blueChannel: {x: 0, y: 0.24167, z: 0.75833}
   - mode: 0
     redChannel: {x: 0.625, y: 0.375, z: 0}

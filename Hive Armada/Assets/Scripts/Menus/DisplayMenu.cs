@@ -136,31 +136,44 @@ namespace Hive.Armada.Menus
             {
                 foreach (ColorBlindModeButton button in colorBlindModeButtons)
                 {
-                    button.buttonGO.SetActive(true);
-                    button.buttonGO.GetComponent<UIHover>().EndSelect();
+                    button.buttonGO.SetActive(true); 
                 }
 
-                SetColorBlindMode(ColorBlindMode.Mode.Standard);
+                colorBlindModeButtons[0].buttonGO.GetComponent<UIHover>().Select();
+                SetColorBlindMode(colorBlindModeButtons[0].buttonGO);
             }
             else
             {
                 foreach (ColorBlindModeButton button in colorBlindModeButtons)
                 {
                     button.buttonGO.SetActive(false);
-                    colorBlindModeButtons[0].buttonGO.GetComponent<UIHover>().Select();
+                    button.buttonGO.GetComponent<UIHover>().EndSelect();
                 }
 
-                SetColorBlindMode(colorBlindModeButtons[0].mode);
+                reference.optionsValues.SetColorBlindMode(ColorBlindMode.Mode.Standard);
             }
         }
 
         /// <summary>
-        /// Change color blind mode setting.
+        /// Set color blind mode from button.
         /// </summary>
-        public void SetColorBlindMode(ColorBlindMode.Mode mode)
+        /// <param name="buttonGO">Game Object of button that was pressed.</param>
+        public void SetColorBlindMode(GameObject buttonGO)
         {
             source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
-            reference.optionsValues.SetColorBlindMode(mode);
+
+            foreach (ColorBlindModeButton button in colorBlindModeButtons)
+            {
+                if (button.buttonGO == buttonGO)
+                {
+                    button.buttonGO.GetComponent<UIHover>().Select();
+                    reference.optionsValues.SetColorBlindMode(button.mode);
+                }
+                else
+                {
+                    button.buttonGO.GetComponent<UIHover>().EndSelect();
+                }
+            }
         }
     }
 }

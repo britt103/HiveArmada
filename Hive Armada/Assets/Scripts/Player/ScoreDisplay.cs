@@ -202,7 +202,8 @@ namespace Hive.Armada.Player
         /// </summary>
         private void UpdateScoreText()
         {
-            scoreText.text = score.ToString("n");
+            scoreText.text = string.Format("{0:n0}", score);
+            //score.ToString("{0:n0}")
         }
 
         private void UpdateMultiplierText(Color color)

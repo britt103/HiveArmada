@@ -19,6 +19,7 @@
 
 using System.Collections;
 using UnityEngine;
+using Hive.Armada.Player;
 
 namespace Hive.Armada.Game
 {
@@ -30,7 +31,12 @@ namespace Hive.Armada.Game
         /// <summary>
         /// Reference Manager
         /// </summary>
-        public ReferenceManager reference;
+        private ReferenceManager reference;
+
+        /// <summary>
+        /// The player score display.
+        /// </summary>
+        private ScoreDisplay scoreDisplay;
 
         /// <summary>
         /// The player's score.
@@ -67,13 +73,25 @@ namespace Hive.Armada.Game
         /// </summary>
         private bool comboActive;
 
-        public void Start()
+        private void Awake()
         {
+            reference = FindObjectOfType<ReferenceManager>();
+
+            if (reference == null)
+            {
+                Debug.LogError(GetType().Name + " - Unable to find reference manager.");
+            }
+
             mEmitter = null;
             comboTimer = 0;
             comboSequence = 0;
-            comboMultiplier = 1;
+            SetMultiplier(1);
             comboActive = false;
+        }
+
+        public void SetScoreDisplay(ScoreDisplay playerScoreDisplay)
+        {
+            scoreDisplay = playerScoreDisplay;
         }
 
         ///// <summary>
@@ -112,7 +130,7 @@ namespace Hive.Armada.Game
             //int comboOut = (int)comboBank;
             //AddScore(comboOut);
             reference.statistics.Combo(comboSequence);
-            comboMultiplier = 1;
+            SetMultiplier(1);
             comboSequence = 0;
         }
 
@@ -124,6 +142,11 @@ namespace Hive.Armada.Game
         {
             score += points;
             reference.statistics.AddScore(points);
+
+            if (scoreDisplay != null)
+            {
+                scoreDisplay.AddScore(points);
+            }
         }
 
         /// <summary>
@@ -145,7 +168,7 @@ namespace Hive.Armada.Game
             {
                 comboActive = true;
                 comboSequence = 1;
-                comboMultiplier = 1;
+                SetMultiplier(1);
                 comboTimer = 4;
                 points *= comboMultiplier;
                 StartCoroutine(StartCombo());
@@ -157,16 +180,26 @@ namespace Hive.Armada.Game
                 switch (comboSequence)
                 {
                     case 3:
-                        comboMultiplier = 5;
+                        SetMultiplier(5);
                         break;
                     case 5:
-                        comboMultiplier = 10;
+                        SetMultiplier(10);
                         break;
                 }
                 points *= comboMultiplier;
             }
             AddScore(points);
             spawnPointEmitter(points, pointLocation);
+        }
+
+        private void SetMultiplier(int multiplier)
+        {
+            comboMultiplier = multiplier;
+
+            if (scoreDisplay != null)
+            {
+                scoreDisplay.SetMultiplier(multiplier);
+            }
         }
 
         /// <summary>

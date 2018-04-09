@@ -327,7 +327,7 @@ namespace Hive.Armada.Menus
                     }
                     else
                     {
-                        entryButton.transform.Find("Name").gameObject.GetComponent<Text>().text = enemyNames[i];
+                        entryButton.transform.Find("Name").gameObject.GetComponent<Text>().text = enemyDisplayNames[i];
                     }
                 }
             }
@@ -361,10 +361,11 @@ namespace Hive.Armada.Menus
             }
             else
             {
-                entryName.GetComponent<Text>().text = enemyNames[entryId];
+                entryName.GetComponent<Text>().text = enemyDisplayNames[entryId];
                 entryText.GetComponent<Text>().text = enemyTexts[entryId];
                 informationButton.SetActive(true);
-                if (enemyNames[entryId] == "Armada")
+
+                if (entryId == 0)
                 {
                     armadaPreviewGO.GetComponent<SphereCollider>().enabled = true;
                     armadaPreviewGO.SetActive(true);
@@ -390,7 +391,7 @@ namespace Hive.Armada.Menus
             scrollView.SetActive(true);
             informationButton.SetActive(false);
 
-            if (entryName.GetComponent<Text>().text == "Armada")
+            if (entryName.GetComponent<Text>().text == enemyDisplayNames[0])
             {
                 Vector3 rotation = armadaPreviewGO.transform.eulerAngles;
                 rotation.y = armadaYRotation;
@@ -412,6 +413,7 @@ namespace Hive.Armada.Menus
         private void GetEnemyData()
         {
             enemyNames = entryData.enemyNames.ToList();
+            enemyDisplayNames = entryData.enemyDisplayNames.ToList();
             enemyTexts = entryData.enemyTexts.ToList();
             enemiesLocked = entryData.enemiesLocked.ToList();
         }

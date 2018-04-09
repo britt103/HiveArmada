@@ -154,12 +154,12 @@ namespace Hive.Armada.Menus
         /// <summary>
         /// References to prefabs used in powerup entries. Order must match Iridium.txt.
         /// </summary>
-        public GameObject[] weaponPrefabs;
+        public List<GameObject> weaponPrefabs;
         [TextArea]
         /// <summary>
         /// Stat descriptions for each weapon. Order must match Iridium.txt.
         /// </summary>
-        public string[] weaponStats;
+        public List<string> weaponStats;
 
         /// <summary>
         /// Id of currently open item.
@@ -258,6 +258,8 @@ namespace Hive.Armada.Menus
                 currTexts.RemoveAt(index);
                 currCosts.RemoveAt(index);
                 currNotBought.RemoveAt(index);
+                weaponPrefabs.RemoveAt(index);
+                weaponStats.RemoveAt(index);
             }
 
             int items;
@@ -451,7 +453,7 @@ namespace Hive.Armada.Menus
                     currTexts = iridiumSystem.GetItemTexts(category);
                     currCosts = iridiumSystem.GetItemCosts(category);
                     currNotBought = iridiumSystem.GetItemsLocked(category);
-                    currPrefabs = weaponPrefabs.ToList();
+                    currPrefabs = weaponPrefabs;
                     break;
                 default:
                     Debug.Log("ERROR: Bestiary menu category could not be identified.");
@@ -472,6 +474,9 @@ namespace Hive.Armada.Menus
             SetCurrCategory(category);
             GenerateContent();
             scrollBar.value = 1;
+
+            categoryButtons[0].GetComponent<UIHover>().Select();
+
             categoryOpen = true;
         }
 
@@ -482,6 +487,9 @@ namespace Hive.Armada.Menus
         {
             menuTitle.GetComponent<Text>().text = "Shop";
             scrollView.SetActive(false);
+
+            categoryButtons[0].GetComponent<UIHover>().EndSelect();
+
             categoryOpen = false;
         }
     }

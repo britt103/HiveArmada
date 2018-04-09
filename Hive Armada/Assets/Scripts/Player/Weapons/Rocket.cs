@@ -161,6 +161,8 @@ namespace Hive.Armada.Player.Weapons
         /// </summary>
         private GameObject target;
 
+        private int targetEnemyId;
+
         /// <summary>
         /// Reference to the poolable script on the target.
         /// </summary>
@@ -324,10 +326,25 @@ namespace Hive.Armada.Player.Weapons
             {
                 if (isHoming)
                 {
-                    if (targetPoolableScript != null && targetPoolableScript.IsActive == false ||
+                    if (targetEnemyId != targetEnemyScript.EnemyId)
+                    {
+                        // clear target because it died and has respawned
+                        target = null;
+                        targetPoolableScript = null;
+                        targetEnemyScript = null;
+                        isTargetDead = true;
+                        isHoming = false;
+
+                        if ((behaviorFlags & RocketFlags.AutoTarget) != 0)
+                        {
+                            AquireTarget();
+                        }
+                    }
+                    else if (targetPoolableScript != null && !targetPoolableScript.IsActive ||
                         targetEnemyScript != null && targetEnemyScript.Health <= 0 ||
                         target == null || !target.activeSelf)
                     {
+                        // clear target because it is dead or deactivated
                         target = null;
                         targetPoolableScript = null;
                         targetEnemyScript = null;
@@ -344,6 +361,7 @@ namespace Hive.Armada.Player.Weapons
                         targetEnemyScript != null && targetEnemyScript.Health > 0 ||
                         !isTargetDead)
                     {
+                        // update the target position if it is alive and not null
                         if (target != null)
                         {
                             targetPosition = target.transform.position;
@@ -393,6 +411,15 @@ namespace Hive.Armada.Player.Weapons
 
                 targetPoolableScript = target.GetComponent<Poolable>();
                 targetEnemyScript = target.GetComponent<Enemy>();
+
+                if (targetEnemyScript != null)
+                {
+                    targetEnemyId = targetEnemyScript.EnemyId;
+                }
+                else
+                {
+                    targetEnemyId = -1;
+                }
             }
             else
             {

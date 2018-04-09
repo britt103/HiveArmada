@@ -84,6 +84,8 @@ namespace Hive.Armada.Enemies
         /// </summary>
         protected ObjectPoolManager objectPoolManager;
 
+        public int EnemyId { get; private set; }
+
         /// <summary>
         /// Reference to the wave that spawned this enemy. Used to inform it
         /// when this enemy is hit for the first time and when it is killed.
@@ -220,6 +222,11 @@ namespace Hive.Armada.Enemies
             }
         }
 
+        protected void OnEnable()
+        {
+            SetEnemyId(enemyAttributes.GetNextEnemyId());
+        }
+
         public virtual void Hit(int damage)
         {
             Hit(damage, false);
@@ -325,6 +332,11 @@ namespace Hive.Armada.Enemies
         protected virtual void OnPathingComplete()
         {
             PathingComplete = true;
+        }
+
+        public virtual void SetEnemyId(int enemyId)
+        {
+            EnemyId = enemyId;
         }
 
         /// <summary>

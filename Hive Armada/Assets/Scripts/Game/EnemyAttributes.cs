@@ -13,6 +13,7 @@
 // 
 //=============================================================================
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
@@ -147,6 +148,8 @@ namespace Hive.Armada.Game
 
         private Coroutine timeWarpCoroutine;
 
+        private int enemyId;
+
         /// <summary>
         /// Gets the type identifiers for each enemy's projectile prefabs
         /// </summary>
@@ -205,6 +208,8 @@ namespace Hive.Armada.Game
                 float min = projectileSpeeds[i] * (1.0f - warpStrength);
                 projectileSpeedBounds[i] = new Speed(projectileSpeeds[i], min);
             }
+
+            enemyId = 0;
         }
 
         /// <summary>
@@ -290,6 +295,16 @@ namespace Hive.Armada.Game
             {
                 IsTimeWarped = false;
             }
+        }
+
+        public int GetNextEnemyId()
+        {
+            if (enemyId == int.MaxValue)
+            {
+                enemyId = 0;
+            }
+
+            return enemyId++;
         }
     }
 }

@@ -161,14 +161,15 @@ namespace Hive.Armada.Menus
                     victoryDefeatTextGO.GetComponent<Text>().color = defeatColor;
                 }
 
-                scoreTextGO.GetComponent<Text>().text = "Score: " + stats.totalScore;
+                scoreTextGO.GetComponent<Text>().text = "Score: " + string.Format("{0:n0}", stats.totalScore);
 
                 int iridiumShootablesSpawnedAmount = iridiumSystem.GetSpawnedShootablesAmount();
                 int iridiumShootablesObtainedAmount = iridiumSystem.GetObtainedShootablesAmount();
 
                 iridiumTextGO.GetComponent<Text>().text = "Iridium: " +
-                    iridiumScoreAmount + ", " + iridiumShootablesObtainedAmount + " obtained / " +
-                    iridiumShootablesSpawnedAmount + " spawned";
+                    string.Format("{0:n0}", iridiumScoreAmount) + ", " + 
+                    string.Format("{0:n0}", iridiumShootablesObtainedAmount) + " obtained / " +
+                    string.Format("{0:n0}", iridiumShootablesSpawnedAmount) + " spawned";
             }
 
             else if (gameSettings.selectedGameMode == GameSettings.GameMode.SoloInfinite)

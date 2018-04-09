@@ -1095,6 +1095,7 @@ GameObject:
   m_Component:
   - component: {fileID: 114958227}
   - component: {fileID: 114958228}
+  - component: {fileID: 114958229}
   m_Layer: 0
   m_Name: Transition Source
   m_TagString: Untagged
@@ -1195,6 +1196,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &114958229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 114958226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c772834c140a0ab498793d6548e13561, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  category: 1
 --- !u!1001 &118873476
 Prefab:
   m_ObjectHideFlags: 0
@@ -1246,6 +1259,7 @@ GameObject:
   m_Component:
   - component: {fileID: 127326004}
   - component: {fileID: 127326003}
+  - component: {fileID: 127326005}
   m_Layer: 0
   m_Name: Ambient Track
   m_TagString: Untagged
@@ -1346,6 +1360,18 @@ Transform:
   m_Father: {fileID: 1414931094}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &127326005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 127326002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c772834c140a0ab498793d6548e13561, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  category: 0
 --- !u!1 &128077516
 GameObject:
   m_ObjectHideFlags: 0
@@ -3195,6 +3221,7 @@ GameObject:
   m_Component:
   - component: {fileID: 257247244}
   - component: {fileID: 257247245}
+  - component: {fileID: 257247246}
   m_Layer: 0
   m_Name: Game Music
   m_TagString: Untagged
@@ -3295,6 +3322,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &257247246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 257247243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c772834c140a0ab498793d6548e13561, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  category: 0
 --- !u!114 &259180520 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114104757298970070, guid: eee2dcd0033f54b44bf796b2ee2bb9a3,
@@ -3721,6 +3760,7 @@ GameObject:
   m_Component:
   - component: {fileID: 325292411}
   - component: {fileID: 325292412}
+  - component: {fileID: 325292413}
   m_Layer: 0
   m_Name: Powerup Audio Source
   m_TagString: Untagged
@@ -3821,6 +3861,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &325292413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 325292410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c772834c140a0ab498793d6548e13561, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  category: 1
 --- !u!1 &328127392
 GameObject:
   m_ObjectHideFlags: 0
@@ -4244,6 +4296,7 @@ GameObject:
   m_Component:
   - component: {fileID: 374091250}
   - component: {fileID: 374091251}
+  - component: {fileID: 374091252}
   m_Layer: 0
   m_Name: Boss Audio Source
   m_TagString: Untagged
@@ -4344,6 +4397,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &374091252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 374091249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c772834c140a0ab498793d6548e13561, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  category: 2
 --- !u!1 &396401181
 GameObject:
   m_ObjectHideFlags: 0
@@ -21488,6 +21553,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1040573945}
   - component: {fileID: 1040573946}
+  - component: {fileID: 1040573947}
   m_Layer: 0
   m_Name: FirstEnemyAudio
   m_TagString: Untagged
@@ -21588,6 +21654,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &1040573947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1040573944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c772834c140a0ab498793d6548e13561, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  category: 2
 --- !u!1 &1042388691
 GameObject:
   m_ObjectHideFlags: 0
@@ -31157,6 +31235,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1377375828}
   - component: {fileID: 1377375829}
+  - component: {fileID: 1377375830}
   m_Layer: 0
   m_Name: Iridium Audio Source
   m_TagString: Untagged
@@ -31257,6 +31336,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &1377375830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1377375827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c772834c140a0ab498793d6548e13561, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  category: 1
 --- !u!1 &1378437771
 GameObject:
   m_ObjectHideFlags: 0
@@ -40926,6 +41017,23 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6503730551a61ef4ebeca6bd91b11120, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1699631050 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1482604555976536, guid: 6503730551a61ef4ebeca6bd91b11120,
+    type: 2}
+  m_PrefabInternal: {fileID: 1699631049}
+--- !u!114 &1699631051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1699631050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c772834c140a0ab498793d6548e13561, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  category: 2
 --- !u!1 &1710574922
 GameObject:
   m_ObjectHideFlags: 0
@@ -44434,6 +44542,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1732903677}
   - component: {fileID: 1732903678}
+  - component: {fileID: 1732903679}
   m_Layer: 0
   m_Name: Wave
   m_TagString: Untagged
@@ -44534,6 +44643,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &1732903679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1732903676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c772834c140a0ab498793d6548e13561, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  category: 2
 --- !u!1 &1740651067
 GameObject:
   m_ObjectHideFlags: 0
@@ -49028,6 +49149,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1910466693}
   - component: {fileID: 1910466692}
+  - component: {fileID: 1910466694}
   m_Layer: 0
   m_Name: Red Alert
   m_TagString: Untagged
@@ -49128,6 +49250,18 @@ Transform:
   m_Father: {fileID: 1414931094}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1910466694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1910466691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c772834c140a0ab498793d6548e13561, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  category: 1
 --- !u!1 &1914942170
 GameObject:
   m_ObjectHideFlags: 0
@@ -49457,6 +49591,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1937185396}
   - component: {fileID: 1937185397}
+  - component: {fileID: 1937185398}
   m_Layer: 0
   m_Name: BossTaunts
   m_TagString: Untagged
@@ -49557,6 +49692,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &1937185398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1937185395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c772834c140a0ab498793d6548e13561, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  category: 2
 --- !u!1 &1939732466
 GameObject:
   m_ObjectHideFlags: 0

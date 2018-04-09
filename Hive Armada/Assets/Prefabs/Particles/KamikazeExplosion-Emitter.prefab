@@ -92,6 +92,7 @@ GameObject:
   - component: {fileID: 114870508549695056}
   - component: {fileID: 198587158019232900}
   - component: {fileID: 82978706249438846}
+  - component: {fileID: 114670910033390486}
   m_Layer: 0
   m_Name: KamikazeExplosion-Emitter
   m_TagString: Emitter
@@ -263,6 +264,18 @@ MonoBehaviour:
   source: {fileID: 82978706249438846}
   clips:
   - {fileID: 0}
+--- !u!114 &114670910033390486
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1960498793399906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c772834c140a0ab498793d6548e13561, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  category: 1
 --- !u!114 &114870508549695056
 MonoBehaviour:
   m_ObjectHideFlags: 1

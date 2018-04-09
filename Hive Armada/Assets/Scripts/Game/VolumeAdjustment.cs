@@ -76,6 +76,9 @@ namespace Hive.Armada.Game
                 case AudioSourceCategory.Dialogue:
                     audioSource.volume = optionsValues.dialogueVolume;
                     break;
+                default:
+                    Debug.Log("Audio category not recognized on " + gameObject.name);
+                    break;
             }
         }
     }

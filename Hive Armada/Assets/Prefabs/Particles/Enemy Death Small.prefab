@@ -41,6 +41,7 @@ GameObject:
   - component: {fileID: 114928662516503236}
   - component: {fileID: 198448325701674270}
   - component: {fileID: 82849863776380614}
+  - component: {fileID: 114313465172950010}
   m_Layer: 0
   m_Name: Enemy Death Small
   m_TagString: Emitter
@@ -217,6 +218,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &114313465172950010
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1112362033134432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c772834c140a0ab498793d6548e13561, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  category: 1
 --- !u!114 &114768285715067590
 MonoBehaviour:
   m_ObjectHideFlags: 1

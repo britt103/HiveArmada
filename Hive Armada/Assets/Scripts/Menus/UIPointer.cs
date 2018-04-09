@@ -248,7 +248,12 @@ namespace Hive.Armada.Menus
                 }
                 else if (hand.GetStandardInteractionButtonUp())
                 {
-                    interactingSlider = null;
+					interactingSlider = null;
+					
+                    if (aimObject && aimObject.GetComponent<PreviewRotation>())
+                    {
+                        aimObject.GetComponent<PreviewRotation>().StopRotating();
+                    }
                 }
             }
         }

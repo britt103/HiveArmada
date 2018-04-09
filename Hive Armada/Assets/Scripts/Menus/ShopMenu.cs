@@ -84,7 +84,9 @@ namespace Hive.Armada.Menus
         /// </summary>
         public Slider verticalSlider;
 
-        //Reference to UI Cover GameObjects.
+        /// <summary>
+        /// Reference to UI Cover GameObjects.
+        /// </summary>
         public GameObject[] uiCovers;
 
         /// <summary>
@@ -118,9 +120,9 @@ namespace Hive.Armada.Menus
         public GameObject buyButton;
 
         /// <summary>
-        /// Reference to environment object on top of table.
+        /// Reference to armada preview game object on top of table.
         /// </summary>
-        public GameObject tableDecoration;
+        public GameObject armadaPreviewGO;
 
         [Header("Content")]
         /// <summary>
@@ -149,9 +151,14 @@ namespace Hive.Armada.Menus
         public GameObject contentGO;
 
         /// <summary>
-        /// References to prefabs used in powerup entries. Order must match Bestiary.txt.
+        /// References to prefabs used in powerup entries. Order must match Iridium.txt.
         /// </summary>
-        public GameObject[] weaponPrefabs;
+        public List<GameObject> weaponPrefabs;
+        [TextArea]
+        /// <summary>
+        /// Stat descriptions for each weapon. Order must match Iridium.txt.
+        /// </summary>
+        public List<string> weaponStats;
 
         /// <summary>
         /// Id of currently open item.
@@ -218,7 +225,7 @@ namespace Hive.Armada.Menus
         /// </summary>
         private void OnEnable()
         {
-            tableDecoration.SetActive(false);
+            armadaPreviewGO.SetActive(false);
         }
 
         // Find IridiumSystem.
@@ -264,10 +271,14 @@ namespace Hive.Armada.Menus
 
             foreach (int index in removalIndices)
             {
+                Debug.Log("Removed: " + currNames[index]);
                 currNames.RemoveAt(index);
+                currDisplayNames.RemoveAt(index);
                 currTexts.RemoveAt(index);
                 currCosts.RemoveAt(index);
                 currNotBought.RemoveAt(index);
+                weaponPrefabs.RemoveAt(index);
+                weaponStats.RemoveAt(index);
             }
 
             int items;
@@ -348,7 +359,7 @@ namespace Hive.Armada.Menus
             }
             else
             {
-                tableDecoration.SetActive(true);
+                armadaPreviewGO.SetActive(true);
                 FindObjectOfType<RoomTransport>().Transport(backMenuTransform, gameObject,
                     backMenuGO);
             }
@@ -410,7 +421,17 @@ namespace Hive.Armada.Menus
             }
 
             itemName.GetComponent<Text>().text = currDisplayNames[itemId];
-            itemText.GetComponent<Text>().text = currTexts[itemId];
+
+            if(currCategory == "Weapons")
+            {
+                itemText.GetComponent<Text>().text = currTexts[itemId] + "\n" 
+                    + weaponStats[itemId];
+            }
+            else
+            {
+                itemText.GetComponent<Text>().text = currTexts[itemId];
+            }
+            
             itemCost.GetComponent<Text>().text = "Cost: " + currCosts[itemId].ToString();
             iridiumAmount.GetComponent<Text>().text = "Iridium: " + iridiumSystem.GetIridiumAmount().ToString();
             currItemId = itemId;
@@ -463,7 +484,7 @@ namespace Hive.Armada.Menus
                     currTexts = iridiumSystem.GetItemTexts(category);
                     currCosts = iridiumSystem.GetItemCosts(category);
                     currNotBought = iridiumSystem.GetItemsLocked(category);
-                    currPrefabs = weaponPrefabs.ToList();
+                    currPrefabs = weaponPrefabs;
                     break;
                 default:
                     Debug.Log("ERROR: Bestiary menu category could not be identified.");
@@ -484,6 +505,9 @@ namespace Hive.Armada.Menus
             SetCurrCategory(category);
             GenerateContent();
             scrollBar.value = 1;
+
+            categoryButtons[0].GetComponent<UIHover>().Select();
+
             categoryOpen = true;
         }
 
@@ -494,6 +518,9 @@ namespace Hive.Armada.Menus
         {
             menuTitle.GetComponent<Text>().text = "Shop";
             scrollView.SetActive(false);
+
+            categoryButtons[0].GetComponent<UIHover>().EndSelect();
+
             categoryOpen = false;
         }
     }

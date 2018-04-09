@@ -131,10 +131,9 @@ namespace Hive.Armada.Player
             {
                 if (kamikaze != null)
                 {
-                    Debug.Log("Kamikaze isn't null");
                     kamikaze.NearPlayer();
                 }
-                Debug.Log("Kamikaze was null");
+
                 return;
             }
 

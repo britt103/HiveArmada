@@ -208,6 +208,9 @@ namespace Hive.Armada.Game
 
         public bool IsInfinite { get; private set; }
 
+        [HideInInspector]
+        public bool spawnedPowerupOnce;
+
         /// <summary>
         /// Loads the waves from a file.
         /// </summary>
@@ -278,6 +281,8 @@ namespace Hive.Armada.Game
                     reference.statistics.IsAlive();
                     reference.infinite.Run();
                 }
+
+                reference.tooltips.SpawnShootEnemies();
             }
         }
 

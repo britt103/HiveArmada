@@ -13,6 +13,7 @@
 // 
 //=============================================================================
 
+using System.Collections;
 using UnityEngine;
 using MirzaBeig.ParticleSystems;
 
@@ -84,7 +85,26 @@ namespace Hive.Armada.Game
                 system.clear();
             }
 
+            StartCoroutine(WaitForAudio());
+        }
+
+        private IEnumerator WaitForAudio()
+        {
+            if (source != null)
+            {
+                yield return new WaitWhile(() => source.isPlaying);
+            }
+            else
+            {
+                yield return null;
+            }
+
             reference.objectPoolManager.Despawn(gameObject);
+        }
+
+        public void PlaySound(AudioClip clip)
+        {
+            source.PlayOneShot(clip);
         }
 
         /// <summary>

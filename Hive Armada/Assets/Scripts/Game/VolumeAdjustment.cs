@@ -48,6 +48,10 @@ namespace Hive.Armada.Game
         /// </summary>
         private OptionsValues optionsValues;
 
+        [Tooltip("The base volume for this audio source.")]
+        [Range(0.0f, 1.0f)]
+        public float baseVolume = 1.0f;
+
         /// <summary>
         /// Find references. Update volume.
         /// </summary>
@@ -68,13 +72,13 @@ namespace Hive.Armada.Game
             switch (category)
             {
                 case AudioSourceCategory.Music:
-                    audioSource.volume = optionsValues.musicVolume;
+                    audioSource.volume = baseVolume * optionsValues.musicVolume;
                     break;
                 case AudioSourceCategory.FX:
-                    audioSource.volume = optionsValues.fxVolume;
+                    audioSource.volume = baseVolume * optionsValues.fxVolume;
                     break;
                 case AudioSourceCategory.Dialogue:
-                    audioSource.volume = optionsValues.dialogueVolume;
+                    audioSource.volume = baseVolume * optionsValues.dialogueVolume;
                     break;
                 default:
                     Debug.Log("Audio category not recognized on " + gameObject.name);

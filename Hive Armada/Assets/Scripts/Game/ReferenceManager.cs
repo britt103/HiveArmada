@@ -65,6 +65,8 @@ namespace Hive.Armada.Game
 
         public DialoguePlayer dialoguePlayer;
 
+        public Tooltips tooltips;
+
         //----------------------------------------
         // 
         // Player
@@ -218,6 +220,17 @@ namespace Hive.Armada.Game
                 {
                     bossManager.Initialize(this);
                 }
+            }
+
+            if (gameSettings.selectedGameMode == GameSettings.GameMode.SoloInfinite)
+            {
+                shipPickup.SetActive(true);
+                tooltips.SpawnGrabShip();
+            }
+
+            if (tooltips != null)
+            {
+                tooltips.Initialize(this);
             }
         }
     }

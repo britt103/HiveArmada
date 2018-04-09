@@ -13,6 +13,7 @@
 //=============================================================================
 
 using System.Collections.Generic;
+using Hive.Armada.Game;
 using UnityEngine;
 using Hive.Armada.Menus;
 using Hive.Armada.Player;
@@ -25,6 +26,8 @@ namespace Hive.Armada.PowerUps
     /// </summary>
     public class PowerUpStatus : MonoBehaviour
     {
+        private ReferenceManager reference;
+
         /// <summary>
         /// Queue containing powerup prefabs.
         /// </summary>
@@ -85,11 +88,14 @@ namespace Hive.Armada.PowerUps
         /// </summary>
         public bool tracking = false;
 
+        private bool usedPowerupOnce;
+
         /// <summary>
         /// Find references.
         /// </summary>
         private void Start()
         {
+            reference = FindObjectOfType<ReferenceManager>();
             stats = FindObjectOfType<PlayerStats>();
             unlockData = FindObjectOfType<BestiaryUnlockData>();
         }
@@ -106,6 +112,12 @@ namespace Hive.Armada.PowerUps
                     stats.PowerupUsed(powerups.Peek().name);
                     Instantiate(powerups.Dequeue(), powerupPoint);
                     RemoveDisplayIcon();
+
+                    if (!usedPowerupOnce)
+                    {
+                        usedPowerupOnce = true;
+                        reference.tooltips.PowerupUsed();
+                    }
                 }
             }
         }
@@ -116,7 +128,7 @@ namespace Hive.Armada.PowerUps
         public void BeginTracking()
         {
             tracking = true;
-            shipGO = gameObject.GetComponentInChildren<ShipController>().gameObject;
+            shipGO = reference.playerShip;
             hand = shipGO.GetComponentInParent<Hand>();
             powerupPoint = shipGO.transform.Find("Powerup Point");
             iconPoint = shipGO.transform.Find("Powerup Icon Point");
@@ -133,6 +145,7 @@ namespace Hive.Armada.PowerUps
             GameObject newIcon = Instantiate(powerupIconPrefab, iconPoint);
             powerupIcons.Enqueue(newIcon);
             UpdateDisplayIcon(newIcon);
+            reference.tooltips.SpawnUsePowerup();
         }
 
         /// <summary>

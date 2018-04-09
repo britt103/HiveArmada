@@ -147,6 +147,8 @@ namespace Hive.Armada.Game
 
             [Header("Audio")]
             public AudioClip explosionClip;
+
+            public AudioClip trailClip;
         }
 
         /// <summary>

@@ -345,6 +345,12 @@ namespace Hive.Armada.Game
                     Vector3 spawnPoint = waveManager.powerupSpawnPoints[(int)group.powerupSpawn.powerupSpawn - 1].position;
 
                     Instantiate(waveManager.powerupPrefabs[(int)group.powerupSpawn.powerup], spawnPoint, Quaternion.identity);
+
+                    if (!waveManager.spawnedPowerupOnce)
+                    {
+                        waveManager.spawnedPowerupOnce = true;
+                        reference.tooltips.SpawnGrabPowerup((int)group.powerupSpawn.powerupSpawn - 1);
+                    }
                 }
             }
 

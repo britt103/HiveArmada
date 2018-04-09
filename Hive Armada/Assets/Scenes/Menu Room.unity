@@ -24196,6 +24196,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   category: 1
+  baseVolume: 1
 --- !u!1 &349880499
 GameObject:
   m_ObjectHideFlags: 0
@@ -24775,6 +24776,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   category: 1
+  baseVolume: 1
 --- !u!82 &403185357
 AudioSource:
   m_ObjectHideFlags: 0
@@ -34537,6 +34539,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   category: 1
+  baseVolume: 1
 --- !u!82 &659340594
 AudioSource:
   m_ObjectHideFlags: 0
@@ -34949,6 +34952,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   category: 1
+  baseVolume: 1
 --- !u!1 &672696020
 GameObject:
   m_ObjectHideFlags: 0
@@ -57580,6 +57584,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   category: 0
+  baseVolume: 1
 --- !u!1 &855631679
 GameObject:
   m_ObjectHideFlags: 0
@@ -57914,6 +57919,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   category: 2
+  baseVolume: 1
 --- !u!4 &864231560
 Transform:
   m_ObjectHideFlags: 0
@@ -62571,6 +62577,7 @@ MonoBehaviour:
   rocketAttributes: {fileID: 0}
   menuSounds: {fileID: 672696022}
   dialoguePlayer: {fileID: 1423517436}
+  tooltips: {fileID: 0}
   player: {fileID: 1427451901}
   playerLookTarget: {fileID: 1091618556}
   playerShip: {fileID: 0}
@@ -63833,6 +63840,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1091618557}
+  - component: {fileID: 1091618560}
+  - component: {fileID: 1091618559}
+  - component: {fileID: 1091618558}
   m_Layer: 0
   m_Name: Player Look Target
   m_TagString: Untagged
@@ -63853,6 +63863,59 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!64 &1091618558
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1091618556}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300004, guid: fcfaeab2cf65e1e478080cc7b2ce5302, type: 3}
+--- !u!23 &1091618559
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1091618556}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &1091618560
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1091618556}
+  m_Mesh: {fileID: 4300004, guid: fcfaeab2cf65e1e478080cc7b2ce5302, type: 3}
 --- !u!1 &1093303256
 GameObject:
   m_ObjectHideFlags: 0
@@ -73555,6 +73618,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   category: 1
+  baseVolume: 1
 --- !u!1 &1303814331
 GameObject:
   m_ObjectHideFlags: 0
@@ -78629,6 +78693,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   category: 2
+  baseVolume: 1
 --- !u!1 &1390656316
 GameObject:
   m_ObjectHideFlags: 0
@@ -82298,6 +82363,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   category: 2
+  baseVolume: 1
 --- !u!82 &1423517435
 AudioSource:
   m_ObjectHideFlags: 0
@@ -84072,6 +84138,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   category: 2
+  baseVolume: 1
 --- !u!4 &1548525381
 Transform:
   m_ObjectHideFlags: 0
@@ -84122,10 +84189,6 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4293468170130984, guid: 1223243598415ab41bb3cc1b1cc27df7, type: 2}
       propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1539450896675050, guid: 1223243598415ab41bb3cc1b1cc27df7, type: 2}
-      propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -111579,6 +111642,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   category: 1
+  baseVolume: 1
 --- !u!1 &1970734183
 GameObject:
   m_ObjectHideFlags: 0

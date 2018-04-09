@@ -71,11 +71,12 @@ MonoBehaviour:
     trailEmitterPrefab: {fileID: 1960874980371040, guid: d0b15749a6c8b1446a88d7576c461f35,
       type: 2}
     explosionClip: {fileID: 8300000, guid: 2d9dc4903f87fbe4384be61f1d6af7a6, type: 3}
+    trailClip: {fileID: 8300000, guid: e624d9a40e20d71498145c130df1ae05, type: 3}
   - rocketType: 1
-    behaviorFlags: 17
+    behaviorFlags: 1
     damage: 30
     speed: 5
-    homingSensitivity: 0
+    homingSensitivity: 0.2
     explodeTime: 7
     explosiveRadius: 0
     randomTime: 0.2
@@ -89,6 +90,7 @@ MonoBehaviour:
     trailEmitterPrefab: {fileID: 1415951353483722, guid: c369e0de9779d60459be5725f2a142bc,
       type: 2}
     explosionClip: {fileID: 0}
+    trailClip: {fileID: 0}
   - rocketType: 2
     behaviorFlags: 0
     damage: 30
@@ -107,7 +109,8 @@ MonoBehaviour:
     rocketEmitterPrefab: {fileID: 0}
     trailEmitterPrefab: {fileID: 1960874980371040, guid: d0b15749a6c8b1446a88d7576c461f35,
       type: 2}
-    explosionClip: {fileID: 0}
+    explosionClip: {fileID: 8300000, guid: 2d9dc4903f87fbe4384be61f1d6af7a6, type: 3}
+    trailClip: {fileID: 8300000, guid: e624d9a40e20d71498145c130df1ae05, type: 3}
   - rocketType: 3
     behaviorFlags: 14
     damage: 250
@@ -128,3 +131,4 @@ MonoBehaviour:
     trailEmitterPrefab: {fileID: 1381081471905298, guid: 25bfeab4f6fd2224ba48cd259ff77d8a,
       type: 2}
     explosionClip: {fileID: 0}
+    trailClip: {fileID: 0}

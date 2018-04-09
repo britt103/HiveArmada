@@ -126,7 +126,8 @@ namespace Hive.Armada.Player
         /// </summary>
         private void Awake()
         {
-            reference = GameObject.Find("Reference Manager").GetComponent<ReferenceManager>();
+            reference = FindObjectOfType<ReferenceManager>();
+            newPosesAppliedAction = SteamVR_Events.NewPosesAppliedAction(OnNewPosesApplied);
 
             if (reference == null)
             {
@@ -136,11 +137,73 @@ namespace Hive.Armada.Player
             {
                 reference.playerShip = gameObject;
                 reference.playerShipSource = source;
+
+                reference.tooltips.ShipGrabbed();
+
+                SetWeapon((int)reference.gameSettings.selectedWeapon);
+
+                if (reference.shipPickup)
+                {
+                    reference.shipPickup.SetActive(false);
+                }
+
+                if (reference.menuTitle && reference.menuMain)
+                {
+                    reference.menuTitle.SetActive(false);
+                    reference.menuMain.SetActive(true);
+                }
+
+                if (reference.powerUpStatus)
+                {
+                    reference.powerUpStatus.BeginTracking();
+                }
+
+                if (reference.gameSettings.selectedGameMode == GameSettings.GameMode.SoloNormal)
+                {
+                    if (reference.waveManager != null)
+                    {
+                        reference.waveManager.Run();
+                    }
+                    else
+                    {
+                        Debug.LogError(GetType().Name +
+                                       " - Reference.WaveManager is null. Cannot call Run().");
+                    }
+                }
+                else
+                {
+                    if (reference.countdown)
+                    {
+                        reference.countdown.SetActive(true);
+                    }
+                    else
+                    {
+                        Debug.LogError(
+                            GetType().Name + " - Reference.Countdown is null. Cannot enable.");
+                    }
+                }
+
+                StartCoroutine(IntroAudio());
+                reference.tooltips.SpawnProtectShip();
+            }
+        }
+
+        private IEnumerator IntroAudio()
+        {
+            yield return new WaitForSeconds(2.0f);
+            yield return new WaitWhile(() => reference.bossManager.IsSpeaking);
+            yield return new WaitForSeconds(2.0f);
+
+            AudioClip[] introAudio = new AudioClip[startClips.Length + 1];
+
+            for (int i = 0; i < startClips.Length; ++i)
+            {
+                introAudio[i] = startClips[i];
             }
 
-            newPosesAppliedAction = SteamVR_Events.NewPosesAppliedAction(OnNewPosesApplied);
+            introAudio[introAudio.Length - 1] = weaponStartClips[currentWeapon];
 
-            SetWeapon((int)reference.gameSettings.selectedWeapon);
+            reference.dialoguePlayer.EnqueueDialogue(gameObject, introAudio);
         }
 
         /// <summary>
@@ -162,65 +225,6 @@ namespace Hive.Armada.Player
         public void OnAttachedToHand(Hand attachedHand)
         {
             hand = attachedHand;
-
-            if (reference.shipPickup)
-            {
-                reference.shipPickup.SetActive(false);
-            }
-
-            if (reference.menuTitle && reference.menuMain)
-            {
-                reference.menuTitle.SetActive(false);
-                reference.menuMain.SetActive(true);
-            }
-
-            if (reference.powerUpStatus)
-            {
-                reference.powerUpStatus.BeginTracking();
-            }
-
-            if (reference.gameSettings.selectedGameMode == GameSettings.GameMode.SoloNormal)
-            {
-                if (reference.waveManager != null)
-                {
-                    reference.waveManager.Run();
-                }
-                else
-                {
-                    Debug.LogError(GetType().Name +
-                                   " - Reference.WaveManager is null. Cannot call Run().");
-                }
-            }
-            else
-            {
-                if (reference.countdown)
-                {
-                    reference.countdown.SetActive(true);
-                }
-                else
-                {
-                    Debug.LogError(
-                        GetType().Name + " - Reference.Countdown is null. Cannot enable.");
-                }
-            }
-
-            reference.shipPickup.SetActive(false);
-
-            StartCoroutine(IntroAudio());
-        }
-
-        private IEnumerator IntroAudio()
-        {
-            for (int i = 0; i < startClips.Length; ++i)
-            {
-                yield return new WaitWhile(() => source.isPlaying);
-
-                source.PlayOneShot(startClips[i]);
-            }
-
-            yield return new WaitWhile(() => source.isPlaying);
-
-            source.PlayOneShot(weaponStartClips[currentWeapon]);
         }
 
         /// <summary>

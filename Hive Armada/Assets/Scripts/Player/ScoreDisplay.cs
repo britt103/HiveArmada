@@ -143,9 +143,9 @@ namespace Hive.Armada.Player
         /// </summary>
         private void Update()
         {
-            displayCanvasObject.transform.rotation = 
-                        Quaternion.LookRotation(displayCanvasObject.transform.position - 
-                                                playerLookTarget.transform.position);
+            displayCanvasObject.transform.rotation =
+                Quaternion.LookRotation(displayCanvasObject.transform.position -
+                                        playerLookTarget.transform.position);
         }
 
         /// <summary>

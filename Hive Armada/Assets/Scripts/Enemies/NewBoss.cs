@@ -721,18 +721,19 @@ namespace Hive.Armada.Enemies
 
             // pass array of clips to DialoguePlayer
 
-            foreach (AudioClip clip in introClips)
-            {
-                source.PlayOneShot(clip);
+            //foreach (AudioClip clip in introClips)
+            //{
+            //    source.PlayOneShot(clip);
 
-                yield return new WaitWhile(() => source.isPlaying);
+            //    yield return new WaitWhile(() => source.isPlaying);
 
-                yield return new WaitForSeconds(0.8f);
-            }
+            //    yield return new WaitForSeconds(0.8f);
+            //}
 
             IsSpeaking = false;
 
             reference.shipPickup.SetActive(true);
+            reference.tooltips.SpawnGrabShip();
 
             Hashtable moveHash = new Hashtable
                                  {

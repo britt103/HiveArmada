@@ -540,11 +540,18 @@ namespace Hive.Armada.Game
                             break;
                         }
 
-                        Transform spawn =
-                            waveManager.powerupSpawnPoints[
-                                Random.Range(0, waveManager.powerupSpawnPoints.Length)];
+                        int spawnPoint = Random.Range(0, waveManager.powerupSpawnPoints.Length);
+
+                        Transform spawn = waveManager.powerupSpawnPoints[spawnPoint];
 
                         Instantiate(powerupPrefabs[i], spawn.position, Quaternion.identity);
+
+                        if (!waveManager.spawnedPowerupOnce)
+                        {
+                            waveManager.spawnedPowerupOnce = true;
+                            reference.tooltips.SpawnGrabPowerup(spawnPoint);
+                        }
+
                         locSpawned = true;
                         break;
                     }

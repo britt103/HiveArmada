@@ -91,6 +91,8 @@ namespace Hive.Armada.Game
 
         public bool IsInitialized { get; private set; }
 
+        public bool IsSpeaking { get; private set; }
+
         private void Awake()
         {
             bossPaths = new Dictionary<string, iTweenPath[]>
@@ -182,6 +184,11 @@ namespace Hive.Armada.Game
 
             reference.waveManager.BossWaveComplete(currentWave);
             Debug.Log(GetType().Name + " - Boss finished for Wave " + (currentWave + 1));
+        }
+
+        public void SetSpeaking(bool speaking)
+        {
+            IsSpeaking = speaking;
         }
     }
 }

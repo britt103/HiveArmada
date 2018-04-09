@@ -217,7 +217,9 @@ namespace Hive.Armada.Player.Weapons
 
         public AudioSource source;
 
-        private AudioClip clip;
+        private AudioClip trailClip;
+
+        private AudioClip explosionClip;
 
         /// <summary>
         /// Deactivates the rocket when it is first created.
@@ -267,7 +269,8 @@ namespace Hive.Armada.Player.Weapons
             randomX = rocketAttributes.rockets[rocketType].randomX;
             randomY = rocketAttributes.rockets[rocketType].randomY;
             randomZ = rocketAttributes.rockets[rocketType].randomZ;
-            clip = rocketAttributes.rockets[rocketType].explosionClip;
+            explosionClip = rocketAttributes.rockets[rocketType].explosionClip;
+            trailClip = rocketAttributes.rockets[rocketType].trailClip;
 
             Gradient gradient = new Gradient();
             gradient.SetKeys(
@@ -439,6 +442,14 @@ namespace Hive.Armada.Player.Weapons
             smoothMovement = Vector3.zero;
             initialMovement = Vector3.zero;
 
+            if (trailClip != null)
+            {
+                source.PlayOneShot(trailClip);
+                //source.loop = true;
+                //source.clip = trailClip;
+                //source.Play();
+            }
+
             StartCoroutine(RandomMovement());
             StartCoroutine(SelfDestruct());
         }
@@ -459,6 +470,14 @@ namespace Hive.Armada.Player.Weapons
                                          Random.Range(0.0f, randomZ));
             smoothMovement = Vector3.zero;
             initialMovement = Vector3.zero;
+
+            if (trailClip != null)
+            {
+                source.PlayOneShot(trailClip);
+                //source.loop = true;
+                //source.clip = trailClip;
+                //source.Play();
+            }
 
             StartCoroutine(RandomMovement());
             StartCoroutine(SelfDestruct());
@@ -493,6 +512,13 @@ namespace Hive.Armada.Player.Weapons
                 isHoming = true;
                 isTargetDead = false;
             }
+        }
+
+        private void OnDisable()
+        {
+            source.Stop();
+            source.loop = false;
+            source.clip = null;
         }
 
         /// <summary>
@@ -568,8 +594,18 @@ namespace Hive.Armada.Player.Weapons
 
             if (explosionEmitterId >= 0)
             {
-                reference.objectPoolManager.Spawn(gameObject, explosionEmitterId,
+                GameObject explosionEmitterObject = reference.objectPoolManager.Spawn(gameObject, explosionEmitterId,
                                                   transform.position, transform.rotation);
+
+                if (explosionClip != null)
+                {
+                    Emitter explosionEmitter = explosionEmitterObject.GetComponent<Emitter>();
+
+                    if (explosionEmitter != null)
+                    {
+                        explosionEmitter.PlaySound(explosionClip);
+                    }
+                }
             }
 
             if ((behaviorFlags & RocketFlags.ExplosiveDamage) != 0)

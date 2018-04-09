@@ -154,8 +154,6 @@ namespace Hive.Armada.Player.Weapons
         /// <param name="forward"> The forward vector at the time of shooting </param>
         private IEnumerator Shoot(GameObject target, Vector3 position, Vector3 forward)
         {
-            source.PlayOneShot(rocketPodLaunchSound);
-
             canShoot = false;
 
             reference.statistics.IsFiring();
@@ -220,6 +218,8 @@ namespace Hive.Armada.Player.Weapons
                     rocketScript.Launch(null, position);
                     launched = true;
                 }
+
+                source.PlayOneShot(rocketPodLaunchSound);
 
                 if (!launched)
                 {

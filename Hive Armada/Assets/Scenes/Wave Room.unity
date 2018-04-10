@@ -2733,7 +2733,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 421848038}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &229293520
 MonoBehaviour:
@@ -4688,9 +4688,9 @@ Transform:
   - {fileID: 898325482}
   - {fileID: 331214255}
   - {fileID: 1699631050}
-  - {fileID: 955107106}
   - {fileID: 1631219986}
   - {fileID: 1879080189}
+  - {fileID: 955107106}
   - {fileID: 229293519}
   - {fileID: 1077584951}
   - {fileID: 1908650249}
@@ -12873,7 +12873,7 @@ Transform:
   m_Children:
   - {fileID: 2010568140}
   m_Father: {fileID: 421848038}
-  m_RootOrder: 9
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &902762742
 MonoBehaviour:
@@ -40069,6 +40069,18 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114471007866272358, guid: 33896937bf8020d479da75be3e09e081,
+        type: 2}
+      propertyPath: rockets.Array.data[1].trailEmitterPrefab
+      value: 
+      objectReference: {fileID: 1788717384506216, guid: dd40749d25fcfca4c91c323671d3ec43,
+        type: 2}
+    - target: {fileID: 114471007866272358, guid: 33896937bf8020d479da75be3e09e081,
+        type: 2}
+      propertyPath: rockets.Array.data[1].explosionEmitterPrefab
+      value: 
+      objectReference: {fileID: 1025333438804948, guid: f5982d85cb5633d4e82fb12777d2c573,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 33896937bf8020d479da75be3e09e081, type: 2}
   m_IsPrefabParent: 0
@@ -48924,7 +48936,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 421848038}
-  m_RootOrder: 7
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1908650250
 MonoBehaviour:
@@ -49304,7 +49316,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 421848038}
-  m_RootOrder: 8
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1923599318
 MonoBehaviour:
@@ -49708,7 +49720,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 421848038}
-  m_RootOrder: 9
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1943424998
 MonoBehaviour:

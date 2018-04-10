@@ -55,6 +55,8 @@ namespace Hive.Armada.Game
 
         public GameSettings gameSettings;
 
+        public ColorBlindMode colorBlindMode;
+
         public PlayerIdleTimer playerIdleTimer;
 
         public IridiumSpawner iridiumSpawner;
@@ -164,6 +166,11 @@ namespace Hive.Armada.Game
             if (gameSettings == null)
             {
                 gameSettings = FindObjectOfType<GameSettings>();
+            }
+
+            if (colorBlindMode == null)
+            {
+                colorBlindMode = FindObjectOfType<ColorBlindMode>();
             }
 
             if (waveManager != null)

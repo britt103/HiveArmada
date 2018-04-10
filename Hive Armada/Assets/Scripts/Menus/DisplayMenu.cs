@@ -10,6 +10,7 @@
 //
 //=============================================================================
 
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using Hive.Armada.Game;
@@ -47,6 +48,21 @@ namespace Hive.Armada.Menus
         public Toggle colorBlindModeToggle;
 
         /// <summary>
+        /// Represents a color blind mode button GO and its associated ColorBlindMode.Mode.
+        /// </summary>
+        [Serializable]
+        public struct ColorBlindModeButton
+        {
+            public ColorBlindMode.Mode mode;
+            public GameObject buttonGO;
+        }
+
+        /// <summary>
+        /// References to color blind mode buttons.
+        /// </summary>
+        public ColorBlindModeButton[] colorBlindModeButtons;
+
+        /// <summary>
         /// Reference to Reference Manager.
         /// </summary>
         private ReferenceManager reference;
@@ -68,7 +84,27 @@ namespace Hive.Armada.Menus
         {
             reference = FindObjectOfType<ReferenceManager>();
             bloomToggle.isOn = reference.optionsValues.bloom;
-            colorBlindModeToggle.isOn = reference.optionsValues.colorBlindMode;
+
+            if (reference.optionsValues.colorBlindMode == ColorBlindMode.Mode.Standard)
+            {
+                colorBlindModeToggle.isOn = false;
+                foreach (ColorBlindModeButton button in colorBlindModeButtons)
+                {
+                    button.buttonGO.SetActive(false);
+                }
+            }
+            else
+            {
+                colorBlindModeToggle.isOn = true;
+                foreach (ColorBlindModeButton button in colorBlindModeButtons)
+                {
+                    button.buttonGO.SetActive(true);
+                    if (button.mode == reference.optionsValues.colorBlindMode)
+                    {
+                        button.buttonGO.GetComponent<UIHover>().Select();
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -91,12 +127,53 @@ namespace Hive.Armada.Menus
         }
 
         /// <summary>
-        /// Change color blind mode setting based on colorBlindModeToggle value.
+        /// Toggle whether color blind mode is active (using a non-standard mode).
         /// </summary>
-        public void SetColorBlindMode(bool isOn)
+        /// <param name="isOn"></param>
+        public void ToggleColorBlindMode(bool isOn)
+        {
+            if (isOn)
+            {
+                foreach (ColorBlindModeButton button in colorBlindModeButtons)
+                {
+                    button.buttonGO.SetActive(true); 
+                }
+
+                colorBlindModeButtons[0].buttonGO.GetComponent<UIHover>().Select();
+                SetColorBlindMode(colorBlindModeButtons[0].buttonGO);
+            }
+            else
+            {
+                foreach (ColorBlindModeButton button in colorBlindModeButtons)
+                {
+                    button.buttonGO.SetActive(false);
+                    button.buttonGO.GetComponent<UIHover>().EndSelect();
+                }
+
+                reference.optionsValues.SetColorBlindMode(ColorBlindMode.Mode.Standard);
+            }
+        }
+
+        /// <summary>
+        /// Set color blind mode from button.
+        /// </summary>
+        /// <param name="buttonGO">Game Object of button that was pressed.</param>
+        public void SetColorBlindMode(GameObject buttonGO)
         {
             source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
-            reference.optionsValues.SetColorBlindMode(isOn);
+
+            foreach (ColorBlindModeButton button in colorBlindModeButtons)
+            {
+                if (button.buttonGO == buttonGO)
+                {
+                    button.buttonGO.GetComponent<UIHover>().Select();
+                    reference.optionsValues.SetColorBlindMode(button.mode);
+                }
+                else
+                {
+                    button.buttonGO.GetComponent<UIHover>().EndSelect();
+                }
+            }
         }
     }
 }

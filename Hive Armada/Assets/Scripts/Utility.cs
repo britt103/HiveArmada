@@ -58,6 +58,11 @@ namespace Hive.Armada
         public static LayerMask laserMenuMask = LayerMask.GetMask("UI", "Room");
 
         /// <summary>
+        /// The layer ID number for UI.
+        /// </summary>
+        public static int uiLayerId = 5;
+
+        /// <summary>
         /// The layer ID number for Room.
         /// </summary>
         public static int roomLayerId = 8;

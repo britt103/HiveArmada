@@ -84,14 +84,14 @@ namespace Hive.Armada.Game
         public bool defaultBloom;
 
         /// <summary>
-        /// State of whether color blind mode is on.
+        /// Type of color blind mode.
         /// </summary>
-        public bool colorBlindMode;
+        public ColorBlindMode.Mode colorBlindMode;
 
         /// <summary>
         /// Default color blind mode.
         /// </summary>
-        public bool defaultColorBlindMode;
+        public ColorBlindMode.Mode defaultColorBlindMode;
 
         [Header("Gameplay")]
         /// <summary>
@@ -220,11 +220,11 @@ namespace Hive.Armada.Game
         /// Change and store value for colorBlindMode.
         /// </summary>
         /// <param name="colorBlindMode">New colorBlindMode value.</param>
-        public void SetColorBlindMode(bool colorBlindMode)
+        public void SetColorBlindMode(ColorBlindMode.Mode colorBlindMode)
         {
             this.colorBlindMode = colorBlindMode;
             gameSettings.colorBlindMode = colorBlindMode;
-            //TODO
+            reference.colorBlindMode.SetMode(colorBlindMode);
         }
 
         /// <summary>
@@ -300,8 +300,7 @@ namespace Hive.Armada.Game
             //Display
             bloom = Convert.ToBoolean(PlayerPrefs.GetInt("bloom", 
                 Convert.ToInt32(defaultBloom)));
-            colorBlindMode = Convert.ToBoolean(PlayerPrefs.GetInt("colorBlindMode", 
-                Convert.ToInt32(defaultColorBlindMode)));
+            colorBlindMode = (ColorBlindMode.Mode)PlayerPrefs.GetInt("colorBlindMode", Convert.ToInt32(defaultColorBlindMode));
 
             //Gameplay
             aimAssist = Convert.ToBoolean(PlayerPrefs.GetInt("aimAssist", 

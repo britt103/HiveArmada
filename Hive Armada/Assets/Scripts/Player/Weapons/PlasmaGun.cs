@@ -14,6 +14,7 @@ using System.Collections;
 using UnityEngine;
 using Hive.Armada.Game;
 using UnityEditor;
+using Hive.Armada.Enemies;
 
 namespace Hive.Armada.Player.Weapons
 {
@@ -118,18 +119,18 @@ namespace Hive.Armada.Player.Weapons
                     if (Physics.SphereCast(transform.position, radius, transform.forward, out hit, 200.0f,
                                         Utility.shootableMask))
                     {
-                        StartCoroutine(Shoot(hit.point));
+                        StartCoroutine(Shoot(hit.collider.gameObject, hit.point, transform.forward));
                     }
                     else if (Physics.SphereCast(transform.position, radius, transform.forward, out hit,
                                                 200.0f,
                                                 Utility.enemyMask))
                     {
-                        StartCoroutine(Shoot(hit.point));
+                        StartCoroutine(Shoot(hit.collider.gameObject, hit.point, transform.forward));
                     }
                     else if (Physics.Raycast(transform.position, transform.forward, out hit, 200.0f,
                                              Utility.roomMask))
                     {
-                        StartCoroutine(Shoot(hit.point));
+                        StartCoroutine(Shoot(null, hit.point, transform.forward));
                     }
                 }
                 else
@@ -137,18 +138,18 @@ namespace Hive.Armada.Player.Weapons
                     if (Physics.Raycast(transform.position, transform.forward, out hit, 200.0f,
                                         Utility.shootableMask))
                     {
-                        StartCoroutine(Shoot(hit.point));
+                        StartCoroutine(Shoot(hit.collider.gameObject, hit.point, transform.forward));
                     }
                     else if (Physics.Raycast(transform.position, transform.forward, out hit,
                                                 200.0f,
                                                 Utility.enemyMask))
                     {
-                        StartCoroutine(Shoot(hit.point));
+                        StartCoroutine(Shoot(hit.collider.gameObject, hit.point, transform.forward));
                     }
                     else if (Physics.Raycast(transform.position, transform.forward, out hit, 200.0f,
                                              Utility.roomMask))
                     {
-                        StartCoroutine(Shoot(hit.point));
+                        StartCoroutine(Shoot(null, hit.point, transform.forward));
                     }
                 }
             }
@@ -158,7 +159,7 @@ namespace Hive.Armada.Player.Weapons
         /// Shoots plasma. Cycles through the barrels.
         /// </summary>
         /// <param name="position"> The position to launch the plasma at </param>
-        private IEnumerator Shoot(Vector3 position)
+        private IEnumerator Shoot(GameObject target, Vector3 position, Vector3 forward)
         {
             canShoot = false;
 
@@ -181,12 +182,68 @@ namespace Hive.Armada.Player.Weapons
             Transform barrel = barrels[barrelIndex];
 
             GameObject rocket =
-                reference.objectPoolManager.Spawn(gameObject, rocketTypeId, barrel.position,
-                                                  barrel.rotation);
+                    reference.objectPoolManager.Spawn(gameObject, rocketTypeId, barrel.position,
+                                                      barrel.rotation);
             Rocket rocketScript = rocket.GetComponent<Rocket>();
             rocketScript.SetupRocket(rocketTypeIndex, shipController);
             rocketScript.SetDamageMultiplier(damageMultiplier);
-            rocketScript.Launch(position);
+
+            bool launched = false;
+            if (target != null)
+            {
+                if (target.GetComponent<Poolable>() != null)
+                {
+                    if (target.GetComponent<Poolable>().IsActive)
+                    {
+                        rocketScript.Launch(target, position);
+                        launched = true;
+                    }
+                }
+
+                if (!launched)
+                {
+                    if (target.GetComponent<Enemy>() != null)
+                    {
+                        if (target.GetComponent<Enemy>().Health > 0)
+                        {
+                            rocketScript.Launch(target, position);
+                            launched = true;
+                        }
+                    }
+                }
+
+                if (!launched)
+                {
+                    if (target.activeInHierarchy && target.activeSelf)
+                    {
+                        rocketScript.Launch(target, position);
+                        launched = true;
+                    }
+                }
+            }
+            else
+            {
+                rocketScript.Launch(null, position);
+                launched = true;
+            }
+
+            //source.PlayOneShot(rocketPodLaunchSound);
+
+            if (!launched)
+            {
+                RaycastHit hit;
+                if (Physics.Raycast(position, forward, out hit, 200.0f,
+                                    Utility.roomMask))
+                {
+                    rocketScript.Launch(null, hit.point);
+                }
+                else
+                {
+                    Debug.LogWarning(GetType().Name +
+                                     " - Unable to redirect from invalid target to room.");
+                    reference.objectPoolManager.Despawn(rocket);
+                }
+            }
 
             yield return new WaitForSeconds(1.0f / fireRate);
 

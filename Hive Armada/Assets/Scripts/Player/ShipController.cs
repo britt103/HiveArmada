@@ -155,7 +155,7 @@ namespace Hive.Armada.Player
 
                 if (reference.powerUpStatus)
                 {
-                    reference.powerUpStatus.BeginTracking();
+                    reference.powerUpStatus.BeginTracking(reference, hand);
                 }
 
                 if (reference.gameSettings.selectedGameMode == GameSettings.GameMode.SoloNormal)

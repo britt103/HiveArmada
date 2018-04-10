@@ -159,12 +159,23 @@ namespace Hive.Armada.PowerUps
             GameObject nearestEnemy = null;
             foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
             {
+                NewBoss newBoss = enemy.GetComponent<NewBoss>();
                 Enemy enemyScript = enemy.GetComponent<Enemy>();
                 if (enemyScript != null)
                 {
-                    if (!enemyScript.PathingComplete || !enemyScript.IsActive)
+                    if (newBoss == null)
                     {
-                        continue;
+                        if (!enemyScript.PathingComplete || !enemyScript.IsActive)
+                        {
+                            continue;
+                        }
+                    }
+                    else
+                    {
+                        if (newBoss.CurrentState != BossStates.Combat)
+                        {
+                            continue;
+                        }
                     }
                 }
                 else

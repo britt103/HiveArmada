@@ -329,7 +329,7 @@ namespace Hive.Armada.Player.Weapons
             {
                 if (isHoming)
                 {
-                    if (targetEnemyId != targetEnemyScript.EnemyId)
+                    if (target != null && target.CompareTag("Enemy") && targetEnemyScript != null && targetEnemyId != targetEnemyScript.EnemyId)
                     {
                         // clear target because it died and has respawned
                         target = null;

@@ -18,6 +18,7 @@ using UnityEngine;
 using Hive.Armada.Menus;
 using Hive.Armada.Player;
 using Valve.VR.InteractionSystem;
+using System;
 
 namespace Hive.Armada.PowerUps
 {
@@ -88,17 +89,9 @@ namespace Hive.Armada.PowerUps
         /// </summary>
         public bool tracking = false;
 
-        private bool usedPowerupOnce;
+        private bool grabbedPowerup;
 
-        /// <summary>
-        /// Find references.
-        /// </summary>
-        private void Start()
-        {
-            reference = FindObjectOfType<ReferenceManager>();
-            stats = FindObjectOfType<PlayerStats>();
-            unlockData = FindObjectOfType<BestiaryUnlockData>();
-        }
+        private bool usedPowerupOnce;
 
         /// <summary>
         /// Activate powerup and tooltip if input is detected.
@@ -107,7 +100,7 @@ namespace Hive.Armada.PowerUps
         {
             if (tracking && powerups.Count > 0)
             {
-                if (hand.controller.GetPressDown(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad))
+                if (hand != null && hand.controller.GetPressDown(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad))
                 {
                     stats.PowerupUsed(powerups.Peek().name);
                     Instantiate(powerups.Dequeue(), powerupPoint);
@@ -119,17 +112,32 @@ namespace Hive.Armada.PowerUps
                         reference.tooltips.PowerupUsed();
                     }
                 }
+                else if (hand == null)
+                {
+                    try
+                    {
+                        hand = FindObjectOfType<ShipController>().hand;
+                    }
+                    catch (Exception)
+                    {
+                        //
+                    }
+                }
             }
         }
 
         /// <summary>
         /// Trigger PowerupStatus to start tracking and find references.
         /// </summary>
-        public void BeginTracking()
+        public void BeginTracking(ReferenceManager referenceManager, Hand hand)
         {
+            reference = referenceManager;
+            stats = FindObjectOfType<PlayerStats>();
+            unlockData = FindObjectOfType<BestiaryUnlockData>();
             tracking = true;
             shipGO = reference.playerShip;
-            hand = shipGO.GetComponentInParent<Hand>();
+            this.hand = hand;
+            //hand = shipGO.GetComponentInParent<Hand>();
             powerupPoint = shipGO.transform.Find("Powerup Point");
             iconPoint = shipGO.transform.Find("Powerup Icon Point");
         }
@@ -141,6 +149,12 @@ namespace Hive.Armada.PowerUps
         /// <param name="powerupIconPrefab">GameObject of powerup icon</param>
         public void StorePowerup(GameObject powerupPrefab, GameObject powerupIconPrefab)
         {
+            if (!grabbedPowerup)
+            {
+                grabbedPowerup = true;
+                reference.tooltips.PowerupGrabbed();
+            }
+
             powerups.Enqueue(powerupPrefab);
             GameObject newIcon = Instantiate(powerupIconPrefab, iconPoint);
             powerupIcons.Enqueue(newIcon);

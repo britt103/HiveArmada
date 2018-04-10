@@ -1310,12 +1310,12 @@ namespace Hive.Armada.Enemies
             eyeRenderers[Lives].material = eyeDestroyedMaterial;
             eyes[Lives].GetComponent<Renderer>().material = eyeDestroyedMaterial;
             reference.scoringSystem.ComboIn(pointValue, eyes[Lives].transform);
-            ParticleSystem eyeEmitter = eyes[Lives].transform.GetChild(0).GetComponent<ParticleSystem>();
-            if (eyeEmitter != null)
-            {
-                eyeEmitter.Clear();
-                eyeEmitter.Play();
-            }
+            //ParticleSystem eyeEmitter = eyes[Lives].transform.GetChild(0).GetComponent<ParticleSystem>();
+            //if (eyeEmitter != null)
+            //{
+            //    eyeEmitter.Clear();
+            //    eyeEmitter.Play();
+            //}
 
             hoverEnabled = false;
             TransitionState(Lives > 0 ? BossStates.TransitionFromCombat : BossStates.Death);

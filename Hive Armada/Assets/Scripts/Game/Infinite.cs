@@ -429,6 +429,8 @@ namespace Hive.Armada.Game
                             Enemy spawnedEnemyScript = spawnedEnemy.GetComponent<Enemy>();
                             spawnedEnemyScript.SetPath(path);
 
+                            spawnedEnemy.SendMessage("SetPath", path, SendMessageOptions.DontRequireReceiver);
+
                             bool patternChosen = false;
 
                             do

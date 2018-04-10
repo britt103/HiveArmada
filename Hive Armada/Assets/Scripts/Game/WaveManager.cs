@@ -270,6 +270,11 @@ namespace Hive.Armada.Game
                         currentWave = startingWave;
                     }
 
+                    if (reference == null)
+                    {
+                        reference = FindObjectOfType<ReferenceManager>();
+                    }
+
                     reference.gameMusicSource.Play();
                     reference.statistics.IsAlive();
                     reference.iridiumSpawner.gameObject.SetActive(true);

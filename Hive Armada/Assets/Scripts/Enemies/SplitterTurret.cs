@@ -317,8 +317,8 @@ namespace Hive.Armada.Enemies
                     enemy.SetWave(wave);
                     enemy.SetPath("child");
                     enemy.SetAttackPattern(attackPattern);
-                    child.GetComponent<Rigidbody>()
-                         .AddRelativeForce(new Vector3(xAdj, yAdj, 0.0f) * splitDir * 1.0f);
+                    //child.GetComponent<Rigidbody>()
+                    //     .AddRelativeForce(new Vector3(xAdj, yAdj, 0.0f) * splitDir * 1.0f);
                 }
             }
 

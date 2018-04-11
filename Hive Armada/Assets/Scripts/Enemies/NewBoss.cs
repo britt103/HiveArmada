@@ -250,19 +250,14 @@ namespace Hive.Armada.Enemies
             renderers.Clear();
             materials.Clear();
 
-            for (int i = 0; i < eyes.Length; ++i)
-            {
-                eyes[i].GetComponent<Renderer>().material = eyeIntactMaterial;
-            }
+            //for (int i = 0; i < eyes.Length; ++i)
+            //{
+            //    eyes[i].GetComponent<Renderer>().material = eyeIntactMaterial;
+            //}
 
             foreach (Renderer r in gameObject.GetComponentsInChildren<Renderer>())
             {
                 if (r.gameObject.CompareTag("Emitter") || r.transform.parent.CompareTag("Emitter"))
-                {
-                    continue;
-                }
-
-                if (r.material.name.Contains("PodIntact"))
                 {
                     continue;
                 }

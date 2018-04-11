@@ -46,19 +46,9 @@ namespace Hive.Armada.Enemies
         private float fireRate;
 
         /// <summary>
-        /// How fast the projectiles move.
-        /// </summary>
-        private float projectileSpeed;
-
-        /// <summary>
         /// Structure holding the current firing pattern
         /// </summary>
         public bool[] projectileArray;
-
-        /// <summary>
-        /// Projectile that the turret shoots out
-        /// </summary>
-        public GameObject fireProjectile;
 
         /// <summary>
         /// Value that determines what projectile the enemy will shoot
@@ -81,8 +71,6 @@ namespace Hive.Armada.Enemies
         /// Distance each child enemy will move when this enemy is destroyed
         /// </summary>
         public float splitDir;
-
-        private Vector3 spawnPoint;
 
         /// <summary>
         /// Whether this enemy can shoot or not. Toggles when firing every 1/fireRate seconds.
@@ -144,7 +132,6 @@ namespace Hive.Armada.Enemies
         /// </summary>
         protected override void OnPathingComplete()
         {
-            spawnPoint = transform.position;
             Hover();
             base.OnPathingComplete();
         }
@@ -222,7 +209,6 @@ namespace Hive.Armada.Enemies
                 //X-pattern
                 case 0:
                     fireRate = 1.2f;
-                    projectileSpeed = 1.5f;
                     spread = 0;
 
                     projectileArray[0] = true;
@@ -260,7 +246,6 @@ namespace Hive.Armada.Enemies
                 //inverse-X
                 case 1:
                     fireRate = 1.2f;
-                    projectileSpeed = 1.5f;
                     spread = 0;
 
                     projectileArray[0] = true;
@@ -369,7 +354,6 @@ namespace Hive.Armada.Enemies
                             enemyAttributes.EnemyProjectileTypeIdentifiers[TypeIdentifier];
             childTypeIdentifier = objectPoolManager.GetTypeIdentifier(childTurret);
             fireRate = enemyAttributes.enemyFireRate[TypeIdentifier];
-            projectileSpeed = enemyAttributes.projectileSpeed;
             spread = enemyAttributes.enemySpread[TypeIdentifier];
         }
     }

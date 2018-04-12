@@ -983,11 +983,12 @@ namespace Hive.Armada.Enemies
         /// <param name="behavior"> </param>
         private IEnumerator SelectBehavior(int behavior)
         {
+            //Debug.Log(behavior);
             switch (behavior)
             {
                 //standard pattern
                 case 0:
-                    yield return new WaitForSeconds(1.0f);
+                    yield return new WaitForSeconds(1);
 
                     SetAttackPattern(AttackPattern.Four);
                     for (int i = 0; i < 10; ++i)
@@ -995,13 +996,11 @@ namespace Hive.Armada.Enemies
                         StartCoroutine(Shoot());
                         yield return new WaitForSeconds(fireRate);
                     }
-
-                    selectBehaviorCoroutine = StartCoroutine(SelectBehavior(1));
                     break;
 
                 //ball pattern
                 case 1:
-                    yield return new WaitForSeconds(1.0f);
+                    yield return new WaitForSeconds(1);
 
                     for (int i = 0; i < 10; ++i)
                     {
@@ -1023,64 +1022,110 @@ namespace Hive.Armada.Enemies
 
                         SetAttackPattern(AttackPattern.Two);
                         StartCoroutine(Shoot());
-                        yield return new WaitForSeconds(fireRate);
+                        yield return new WaitForSeconds(2);
                     }
-
-                    selectBehaviorCoroutine = StartCoroutine(SelectBehavior(2));
                     break;
 
                 //tunnel pattern
                 case 2:
-                    yield return new WaitForSeconds(1.0f);
+                    yield return new WaitForSeconds(1);
 
                     ResetAttackPattern();
-                    SetAttackPattern(AttackPattern.One);
+                    canRotate = true;
                     StartCoroutine(RotateProjectile(shootPivot));
-                    for (int i = 0; i < 100; ++i)
+                    for (int i = 0; i < 5; ++i)
                     {
-                        StartCoroutine(Shoot());
-                        yield return new WaitForSeconds(0.15f);
+                        SetAttackPattern(AttackPattern.One);
+                        for (int j = 0; j < 5; ++j)
+                        {
+                            StartCoroutine(Shoot());
+                            yield return new WaitForSeconds(0.15f);
+                        }
+                        SetAttackPattern(AttackPattern.Ten);
+                        yield return new WaitForSeconds(0.3f);
+                        for (int j = 0; j < 5; ++j)
+                        {
+                            StartCoroutine(Shoot());
+                            yield return new WaitForSeconds(0.15f);
+                        }
+                        yield return new WaitForSeconds(1);
                     }
-
-                    selectBehaviorCoroutine = StartCoroutine(SelectBehavior(0));
                     break;
 
                 //spread pattern
                 case 3:
-                    yield return new WaitForSeconds(1.0f);
-
+                    yield return new WaitForSeconds(1);
                     SetAttackPattern(AttackPattern.Five);
                     for (int i = 0; i < 10; ++i)
                     {
                         for (int j = 0; j < 3; ++j)
                         {
-                            for (int k = 0; k < 2; ++k)
+                            for (int k = 0; k < 3; ++k)
                             {
                                 StartCoroutine(Shoot());
                             }
-
                             yield return new WaitForSeconds(0.2f);
                         }
-
                         yield return new WaitForSeconds(fireRate);
                     }
-
                     break;
 
                 //clover pattern
                 case 4:
-                    yield return new WaitForSeconds(1.0f);
-
+                    yield return new WaitForSeconds(1);
                     SetAttackPattern(AttackPattern.Six);
+                    canRotate = true;
                     StartCoroutine(RotateProjectile(shootPivot));
-                    for (int i = 0; i < 15; ++i)
+                    for (int i = 0; i < 25; ++i)
                     {
                         StartCoroutine(Shoot());
                         yield return new WaitForSeconds(fireRate);
                     }
+                    break;
 
+                //spiral pattern
+                case 5:
+                    yield return new WaitForSeconds(1);
+                    SetAttackPattern(AttackPattern.Seven);
+                    canRotate = true;
+                    StartCoroutine(RotateProjectile(shootPivot));
+                    for (int i = 0; i < 75; ++i)
+                    {
+                        StartCoroutine(Shoot());
+                        yield return new WaitForSeconds(0.15f);
+                    }
+                    break;
+
+                //oscilatting halves
+                case 6:
+                    yield return new WaitForSeconds(1);
+                    for (int i = 0; i < 10; ++i)
+                    {
+                        SetAttackPattern(AttackPattern.Eight);
+                        canRotate = true;
+                        //StartCoroutine(RotateProjectile(shootPivot, 1.5f));
+                        for (int j = 0; j < 5; ++j)
+                        {
+                            StartCoroutine(Shoot());
+                            yield return new WaitForSeconds(0.15f);
+                        }
+                        SetAttackPattern(AttackPattern.Nine);
+                        canRotate = true;
+                        //yield return new WaitForSeconds(1);
+                        //StartCoroutine(RotateProjectile(shootPivot, -1.5f));
+                        for (int j = 0; j < 5; ++j)
+                        {
+                            StartCoroutine(Shoot());
+                            yield return new WaitForSeconds(0.15f);
+                        }
+                        yield return new WaitForSeconds(1.5f);
+                    }
                     break;
             }
+            int me = Random.Range(0, 7);
+            StartCoroutine(SelectBehavior(me));
+            Debug.Log("Switched to " + me);
+            yield return null;
         }
 
         /// <summary>
@@ -1090,25 +1135,26 @@ namespace Hive.Armada.Enemies
         /// <param name="attackPattern"> The new attack pattern </param>
         public override void SetAttackPattern(AttackPattern attackPattern)
         {
-            int[] myPoints;
-            switch ((int) attackPattern)
+            int[] myPoints = { };
+            switch ((int)attackPattern)
             {
                 case 0:
-                    fireRate = 0.1f;
-                    projectileSpeed = 1.5f;
+                    fireRate = 0.8f;
+                    projectileSpeed = 5;
                     spread = 0;
-                    StartCoroutine(RotateProjectile(shootPivot));
-                    for (int i = 0; i < 9; ++i)
-                    {
-                        projectileArray[i] = true;
-                        projectileArray[i * 9] = true;
-                        projectileArray[8 + 9 * i] = true;
-                    }
-                    for (int i = 73; i < 81; ++i)
-                    {
-                        projectileArray[i] = true;
-                    }
 
+                    myPoints = new[]
+                               {
+                                   10, 11, 12, 13, 14, 15, 16,
+                                   19, 25,
+                                   28, 34,
+                                   37, 43,
+                                   46, 52,
+                                   55, 61,
+                                   64, 65, 66, 67, 68, 69, 70
+                               };
+
+                    ActivateShootPoints(myPoints, myPoints.Length);
                     return;
 
                 case 1:
@@ -1167,47 +1213,113 @@ namespace Hive.Armada.Enemies
                     return;
 
                 case 4:
-                    fireRate = 1f;
-                    projectileSpeed = 3;
+                    fireRate = 2f;
+                    projectileSpeed = 5;
                     spread = 1;
 
                     myPoints = new[]
-                               {
-                                   30, 32,
-                                   40,
-                                   48, 50
-                               };
+                    {
+                        30, 32,
+                        40,
+                        48, 50
+                    };
 
                     ActivateShootPoints(myPoints, myPoints.Length);
                     return;
 
                 case 5:
                     fireRate = 1;
-                    projectileSpeed = 4;
+                    projectileSpeed = 5;
+                    spread = 0;
+
+                    myPoints = new[]
+                    {
+                        4,
+                        12, 14,
+                        21, 23,
+                        28, 29, 31, 33, 34,
+                        36, 40, 44,
+                        46, 47, 49, 51, 52,
+                        57, 59,
+                        66, 68,
+                        76
+                    };
+
+                    ActivateShootPoints(myPoints, myPoints.Length);
+                    return;
+
+                case 6:
+                    fireRate = 0.1f;
+                    projectileSpeed = 5;
+                    spread = 0;
+
+                    myPoints = new[]
+                    {
+                        4,
+                        22,
+                        36, 44,
+                        76
+                    };
+
+                    ActivateShootPoints(myPoints, myPoints.Length);
+                    return;
+
+                case 7:
+                    fireRate = 0.1f;
+                    projectileSpeed = 5;
+                    spread = 0;
+
+                    myPoints = new[]
+                    {
+                        14,
+                        20, 21, 23, 24,
+                        30, 31, 32,
+                        38, 39, 41, 42
+                    };
+
+                    ActivateShootPoints(myPoints, myPoints.Length);
+                    return;
+
+                case 8:
+                    fireRate = 0.1f;
+                    projectileSpeed = 5;
+                    spread = 0;
+
+                    myPoints = new[]
+                    {
+                        38, 39, 41, 42,
+                        48, 49, 50,
+                        56, 57, 59, 60,
+                        67
+                    };
+
+                    ActivateShootPoints(myPoints, myPoints.Length);
+                    return;
+
+                case 9:
+                    fireRate = 0.8f;
+                    projectileSpeed = 5;
                     spread = 0;
 
                     myPoints = new[]
                                {
-                                   4,
-                                   12, 14,
-                                   21, 23,
-                                   28, 29, 31, 33, 34,
-                                   36, 40, 44,
-                                   46, 47, 49, 51, 52,
-                                   57, 59,
-                                   66, 68,
-                                   76
+                                   30, 31, 32,
+                                   39, 41,
+                                   48, 49, 50
                                };
 
                     ActivateShootPoints(myPoints, myPoints.Length);
                     return;
             }
+
+            //Debug.Log(myPoints.Length);
         }
 
         /// <summary>
         /// </summary>
         private void ResetAttackPattern()
         {
+            canRotate = false;
             StopCoroutine(RotateProjectile(shootPivot));
             shootPivot.rotation = transform.rotation;
             for (int i = 0; i < projectileArray.Length; ++i)

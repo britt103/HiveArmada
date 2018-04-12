@@ -33,7 +33,7 @@
 		Blend SrcAlpha OneMinusSrcAlpha
 		LOD 100
 		ColorMask RGB
-        Cull Back
+        Cull Off
 
 		Pass
 		{

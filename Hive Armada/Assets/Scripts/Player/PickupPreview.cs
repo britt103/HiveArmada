@@ -50,9 +50,15 @@ namespace Hive.Armada.Player
                 {
                     case 1:
                         minigun.SetActive(true);
+                        rocketPods.SetActive(false);
                         break;
                     case 2:
+                        minigun.SetActive(false);
                         rocketPods.SetActive(true);
+                        break;
+                    default:
+                        minigun.SetActive(false);
+                        rocketPods.SetActive(false);
                         break;
                 }
             }

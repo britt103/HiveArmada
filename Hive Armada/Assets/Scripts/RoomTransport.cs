@@ -58,6 +58,7 @@ namespace Hive.Armada
 
             player.transform.position = newTransform.position;
             player.transform.rotation = newTransform.rotation;
+            player.transform.localScale = newTransform.localScale;
 
             SteamVR_Fade.Start(fadeColor, 0.0f);
             SteamVR_Fade.Start(Color.clear, transitionLength / 2.0f);

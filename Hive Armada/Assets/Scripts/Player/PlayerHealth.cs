@@ -166,11 +166,6 @@ namespace Hive.Armada.Player
                     continue;
                 }
 
-                if (r.gameObject.name.Contains("pod_"))
-                {
-                    continue;
-                }
-
                 renderers.Add(r);
                 materials.Add(r.material);
             }

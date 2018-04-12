@@ -147,12 +147,6 @@ namespace Hive.Armada.Player
                     reference.shipPickup.SetActive(false);
                 }
 
-                if (reference.menuTitle && reference.menuMain)
-                {
-                    reference.menuTitle.SetActive(false);
-                    reference.menuMain.SetActive(true);
-                }
-
                 if (reference.powerUpStatus)
                 {
                     reference.powerUpStatus.BeginTracking(reference, hand);

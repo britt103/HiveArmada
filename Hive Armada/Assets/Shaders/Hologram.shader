@@ -63,8 +63,10 @@
 			};
 
 			sampler2D _MainTex;
+			sampler2D _EmissionTex;
 			sampler2D _FlickerTex;
 			float4 _MainTex_ST;
+			float4 _EmissionTex_ST;
 			float4 _MainColor;
 			float4 _RimColor;
 			float _RimPower;
@@ -128,6 +130,7 @@
 
 				return col;
 			}
+
 			ENDCG
 		}
 	}

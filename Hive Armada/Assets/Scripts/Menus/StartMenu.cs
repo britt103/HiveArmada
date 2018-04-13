@@ -125,8 +125,8 @@ namespace Hive.Armada.Menus
             }
             else
             {
-                continueButton.SetActive(true);
                 playButton.SetActive(false);
+                continueButton.SetActive(true);
             }
 
             if (selectedGameMode == gameModeButtons.Length)
@@ -138,7 +138,7 @@ namespace Hive.Armada.Menus
             {
                 ShowButton();
                 gameModeUIHoverScripts[selectedGameMode].Select();
-                description.GetComponent<Text>().text = gameModeDescriptions[selectedGameMode];
+                //description.GetComponent<Text>().text = gameModeDescriptions[selectedGameMode];
                 selectionMade = true;
             }
         }
@@ -164,7 +164,7 @@ namespace Hive.Armada.Menus
                 }
                 selectedGameMode = gameModeNum;
                 gameModeUIHoverScripts[selectedGameMode].Select();
-                description.GetComponent<Text>().text = gameModeDescriptions[selectedGameMode];
+                //description.GetComponent<Text>().text = gameModeDescriptions[selectedGameMode];
             }
         }
 

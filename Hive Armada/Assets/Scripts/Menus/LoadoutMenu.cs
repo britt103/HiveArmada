@@ -17,6 +17,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using Hive.Armada.Game;
+using SubjectNerd.Utilities;
 
 namespace Hive.Armada.Menus
 {
@@ -31,29 +32,28 @@ namespace Hive.Armada.Menus
         public MenuTransitionManager transitionManager;
 
         /// <summary>
-        /// Reference to vertical scrollbar.
-        /// </summary>
-        public Scrollbar scrollbar;
-
-        /// <summary>
-        /// Reference to vertical slider.
-        /// </summary>
-        public Slider verticalSlider;
-
-        /// <summary>
         /// Reference to menu to go to when back is pressed.
         /// </summary>
-        public GameObject backMenuGO;
+        public GameObject previousMenu;
 
         /// <summary>
         /// Reference to play button game object.
         /// </summary>
+        [Space]
         public GameObject playButton;
 
-        /// <summary>
-        /// Reference to description game object.
-        /// </summary>
-        public GameObject weaponDescription;
+        public GameObject selectWeaponText;
+
+        public GameObject statsText;
+
+        public GameObject currentText;
+
+        public GameObject currentWeaponText;
+
+        [Reorderable("Weapon", false)]
+        public GameObject[] weaponStatsTexts;
+
+        private string[] weaponDisplayNames;
 
         /// <summary>
         /// Reference to icon image game object.
@@ -61,44 +61,35 @@ namespace Hive.Armada.Menus
         public GameObject weaponIcon;
 
         /// <summary>
-        /// Reference to menu ScrollView game object.
-        /// </summary>
-        public GameObject scrollView;
-
-        /// <summary>
-        /// Number of cells that are completely visible in view at a time.
-        /// </summary>
-        public int numFittableCells;
-
-        /// <summary>
         /// Names of weapons.
         /// </summary>
+        [Space]
+        [Reorderable("Weapon", false)]
         public string[] weaponNames;
 
         /// <summary>
         /// Icons of weapons, in order.
         /// </summary>
+        [Reorderable("Weapon", false)]
         public Sprite[] weaponIcons;
 
         /// <summary>
         /// Cells for weapons.
         /// </summary>
+        [Reorderable("Weapon", false)]
         public GameObject[] weaponCells;
 
         /// <summary>
         /// UIHover scripts of weapon buttons.
         /// </summary>
-        public UIHover[] weaponUIHoverScripts;
+        [Reorderable("Weapon", false)]
+        public UIHover[] weaponUiHoverScripts;
 
         /// <summary>
         /// Cells for weapons that are unlocked by default.
         /// </summary>
+        [Reorderable("Weapon", false)]
         public GameObject[] fixedWeaponCells;
-
-        /// <summary>
-        /// List of weapon texts.
-        /// </summary>
-        private List<string> weaponTexts;
 
         /// <summary>
         /// Currently selected weapon.
@@ -123,6 +114,7 @@ namespace Hive.Armada.Menus
         /// <summary>
         /// Reference to Menu Audio source.
         /// </summary>
+        [Header("Audio")]
         public AudioSource source;
 
         public AudioSource zenaSource;
@@ -130,6 +122,7 @@ namespace Hive.Armada.Menus
         /// <summary>
         /// Clips to use with source.
         /// </summary>
+        [Reorderable("Clip", false)]
     	public AudioClip[] clips;
 
         /// <summary>
@@ -145,6 +138,13 @@ namespace Hive.Armada.Menus
             reference = FindObjectOfType<ReferenceManager>();
             gameSettings = reference.gameSettings;
             iridiumSystem = FindObjectOfType<IridiumSystem>();
+
+            weaponDisplayNames = new string[weaponCells.Length];
+
+            for (int i = 0; i < weaponCells.Length; ++i)
+            {
+                weaponDisplayNames[i] = weaponCells[i].GetComponentInChildren<Text>().text;
+            }
         }
 
         /// <summary>
@@ -153,9 +153,6 @@ namespace Hive.Armada.Menus
         /// </summary>
         private void OnEnable()
         {
-            weaponTexts = iridiumSystem.GetItemTexts("Weapons");
-
-            int activeCells = 0;
             if (!iridiumSystem.CheckAnyWeaponsUnlocked())
             {
                 selectedWeapon = (int)GameSettings.Weapon.Laser;
@@ -166,10 +163,6 @@ namespace Hive.Armada.Menus
                 for (int i = 0; i < weaponCells.Length; i++)
                 {
                     weaponCells[i].SetActive(iridiumSystem.CheckWeaponUnlocked(weaponNames[i]));
-                    if (weaponCells[i].activeSelf)
-                    {
-                        activeCells++;
-                    }
                 }
 
                 selectedWeapon = PlayerPrefs.GetInt("defaultWeapon", weaponCells.Length);
@@ -178,31 +171,35 @@ namespace Hive.Armada.Menus
                 {
                     HidePlayButton();
                     selectionMade = false;
-                    weaponDescription.GetComponent<Text>().text = "";
                     weaponIcon.SetActive(false);
-                    ScrollToCell(0, activeCells);
+                    selectWeaponText.SetActive(true);
+                    SetActiveStats(-1);
+                    statsText.SetActive(false);
+                    currentText.SetActive(false);
+                    currentWeaponText.SetActive(false);
                 }
                 else
                 {
                     ShowPlayButton();
-                    weaponUIHoverScripts[selectedWeapon].Select();
+                    weaponUiHoverScripts[selectedWeapon].Select();
                     selectionMade = true;
-                    weaponDescription.GetComponent<Text>().text = weaponTexts[selectedWeapon];
+                    selectWeaponText.SetActive(false);
+                    statsText.SetActive(true);
+                    SetActiveStats(selectedWeapon);
+                    currentText.SetActive(true);
+                    currentWeaponText.SetActive(true);
+                    currentWeaponText.GetComponent<Text>().text = weaponDisplayNames[selectedWeapon];
                     weaponIcon.SetActive(true);
                     weaponIcon.GetComponent<Image>().sprite = weaponIcons[selectedWeapon];
-                    ScrollToCell(selectedWeapon, activeCells);
                 }
+            }
+        }
 
-                if (activeCells <= numFittableCells)
-                {
-                    scrollbar.gameObject.GetComponent<BoxCollider>().enabled = false;
-                    verticalSlider.gameObject.SetActive(false);
-                }
-                else
-                {
-                    scrollbar.gameObject.GetComponent<BoxCollider>().enabled = true;
-                    verticalSlider.gameObject.SetActive(true);
-                }
+        private void SetActiveStats(int weapon)
+        {
+            for (int i = 0; i < weaponStatsTexts.Length; ++i)
+            {
+                weaponStatsTexts[i].SetActive(weapon == i);
             }
         }
 
@@ -216,20 +213,27 @@ namespace Hive.Armada.Menus
                 source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
                 if (selectionMade)
                 {
-                    weaponUIHoverScripts[selectedWeapon].EndSelect();
+                    weaponUiHoverScripts[selectedWeapon].EndSelect();
                 }
                 else
                 {
                     ShowPlayButton();
                 }
+
+                PlayerPrefs.SetInt("defaultWeapon", weaponNum);
                 selectedWeapon = weaponNum;
                 selectionMade = true;
-                weaponDescription.GetComponent<Text>().text = weaponTexts[selectedWeapon];
+                selectWeaponText.SetActive(false);
+                statsText.SetActive(true);
+                SetActiveStats(selectedWeapon);
+                currentText.SetActive(true);
+                currentWeaponText.SetActive(true);
+                currentWeaponText.GetComponent<Text>().text = weaponDisplayNames[selectedWeapon];
                 weaponIcon.SetActive(true);
                 weaponIcon.GetComponent<Image>().sprite = weaponIcons[selectedWeapon];
 
             }
-            weaponUIHoverScripts[selectedWeapon].Select();
+            weaponUiHoverScripts[selectedWeapon].Select();
         }
 
         /// <summary>
@@ -240,21 +244,9 @@ namespace Hive.Armada.Menus
             source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
             if (selectedWeapon != weaponCells.Length)
             {
-                weaponUIHoverScripts[selectedWeapon].EndSelect();
+                weaponUiHoverScripts[selectedWeapon].EndSelect();
             }
-            transitionManager.Transition(backMenuGO);
-        }
-
-        /// <summary>
-        /// Move scroll view to position of specified cell.
-        /// </summary>
-        /// <param name="weaponNum">Number of cell to move to.</param>
-        /// <param name="activeCells">Number of active cells in content.</param>
-        private void ScrollToCell(int weaponNum, int activeCells)
-        {
-            float scrollStep = 1.0f / (activeCells - 1.0f);
-            float scrollValue = 1.0f - scrollStep * weaponNum;
-            scrollView.gameObject.GetComponent<ScrollRect>().verticalNormalizedPosition = scrollValue;
+            transitionManager.Transition(previousMenu);
         }
 
         /// <summary>
@@ -293,18 +285,18 @@ namespace Hive.Armada.Menus
             gameObject.SetActive(false);
         }
 
-        IEnumerator pressPlaySounds()
-        {
-            yield return new WaitForSeconds(0.3f);
-            int playSoundIndex = Random.Range(2, clips.Length);
-            if (zenaSource.isPlaying)
-            {
-                new WaitWhile(() => source.isPlaying);
-            }
-            else
-            {
-                zenaSource.PlayOneShot(clips[playSoundIndex]);
-            }
-        }
+        //private IEnumerator pressPlaySounds()
+        //{
+        //    yield return new WaitForSeconds(0.3f);
+        //    int playSoundIndex = Random.Range(2, clips.Length);
+        //    if (zenaSource.isPlaying)
+        //    {
+        //        new WaitWhile(() => source.isPlaying);
+        //    }
+        //    else
+        //    {
+        //        zenaSource.PlayOneShot(clips[playSoundIndex]);
+        //    }
+        //}
     }
 }

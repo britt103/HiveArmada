@@ -24,38 +24,38 @@ namespace Hive.Armada.Player
     /// </summary>
     public class ProjectileProximity : MonoBehaviour
     {
-        /// <summary>
-        /// Fades out the transparency of projectiles that get too close to the camera.
-        /// </summary>
-        /// <param name="other"> The entering object's collider </param>
-        private void OnTriggerEnter(Collider other)
-        {
-            if (other.CompareTag("Projectile"))
-            {
-                Projectile projectile = other.GetComponent<Projectile>();
+        ///// <summary>
+        ///// Fades out the transparency of projectiles that get too close to the camera.
+        ///// </summary>
+        ///// <param name="other"> The entering object's collider </param>
+        //private void OnTriggerEnter(Collider other)
+        //{
+        //    if (other.CompareTag("Projectile"))
+        //    {
+        //        Projectile projectile = other.GetComponent<Projectile>();
 
-                if (projectile != null)
-                {
-                    projectile.FadeOpacity(true);
-                }
-            }
-        }
+        //        if (projectile != null)
+        //        {
+        //            projectile.FadeOpacity(true);
+        //        }
+        //    }
+        //}
 
-        /// <summary>
-        /// Fades in the transparency of projectiles that get too close to the camera.
-        /// </summary>
-        /// <param name="other"> The exiting object's collider </param>
-        private void OnTriggerExit(Collider other)
-        {
-            if (other.CompareTag("Projectile"))
-            {
-                Projectile projectile = other.GetComponent<Projectile>();
+        ///// <summary>
+        ///// Fades in the transparency of projectiles that get too close to the camera.
+        ///// </summary>
+        ///// <param name="other"> The exiting object's collider </param>
+        //private void OnTriggerExit(Collider other)
+        //{
+        //    if (other.CompareTag("Projectile"))
+        //    {
+        //        Projectile projectile = other.GetComponent<Projectile>();
 
-                if (projectile != null)
-                {
-                    projectile.FadeOpacity(false);
-                }
-            }
-        }
+        //        if (projectile != null)
+        //        {
+        //            projectile.FadeOpacity(false);
+        //        }
+        //    }
+        //}
     }
 }

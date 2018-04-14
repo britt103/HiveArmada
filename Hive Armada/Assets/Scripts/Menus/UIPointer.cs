@@ -35,11 +35,6 @@ namespace Hive.Armada.Menus
         private LineRenderer pointer;
 
         /// <summary>
-        /// Material used in pointer.
-        /// </summary>
-        public Material laserMaterial;
-
-        /// <summary>
         /// Alignment of pointer.
         /// </summary>
         [Tooltip("View makes line face camera. Local makes the line face the direction of the transform component")]
@@ -76,6 +71,8 @@ namespace Hive.Armada.Menus
         private GameObject aimObject;
 
         private GameObject interactingSlider;
+
+        private GameObject interactingPreview;
 
         /// <summary>
         /// Reference to last touched interactable.
@@ -137,6 +134,7 @@ namespace Hive.Armada.Menus
                 if (Physics.Raycast(transform.position, transform.forward,
                     out hit, 500.0f, Utility.uiCoverMask))
                 {
+                    interactingPreview = null;
                     if (Physics.Raycast(transform.position, transform.forward,
                         out hit, 500.0f, Utility.uiMask))
                     {
@@ -198,6 +196,7 @@ namespace Hive.Armada.Menus
                 else if (Physics.Raycast(transform.position, transform.forward,
                     out hit, Mathf.Infinity, Utility.roomMask))
                 {
+                    interactingPreview = null;
                     ExitLastInteractable();
                     aimObject = null;
                     isInteractable = false;
@@ -237,6 +236,11 @@ namespace Hive.Armada.Menus
                         {
                             interactingSlider = aimObject;
                         }
+
+                        if (aimObject.GetComponent<PreviewRotation>() != null)
+                        {
+                            interactingPreview = aimObject;
+                        }
                     }
 
                     TriggerUpdate(false);
@@ -248,6 +252,7 @@ namespace Hive.Armada.Menus
                 else if (hand.GetStandardInteractionButtonUp())
                 {
 					interactingSlider = null;
+                    interactingPreview = null;
 					
                     if (aimObject && aimObject.GetComponent<PreviewRotation>())
                     {
@@ -293,7 +298,11 @@ namespace Hive.Armada.Menus
                 }
                 else if (aimObject.GetComponent<PreviewRotation>())
                 {
-                    aimObject.GetComponent<PreviewRotation>().Rotate(pointer.GetPosition(1));
+                    if (aimObject && interactingPreview && aimObject.GetInstanceID() ==
+                        interactingPreview.GetInstanceID())
+                    {
+                        aimObject.GetComponent<PreviewRotation>().Rotate(pointer.GetPosition(1));
+                    }
                 }
                 else if (!stay)
                 {
@@ -315,7 +324,10 @@ namespace Hive.Armada.Menus
             gradient.SetKeys(
                 new GradientColorKey[] { new GradientColorKey(color, 0.0f), new GradientColorKey(color, 1.0f), },
                 new GradientAlphaKey[] { new GradientAlphaKey(color.a, 0.0f), new GradientAlphaKey(color.a, 1.0f), });
-            pointer.material = laserMaterial;
+            Material newMaterial = new Material(Shader.Find("Unlit/Color"));
+            newMaterial.SetColor("_Color", color);
+            pointer.GetComponent<Renderer>().material = newMaterial;
+            pointer.material = newMaterial;
             pointer.shadowCastingMode = castShadows;
             pointer.receiveShadows = receiveShadows;
             pointer.alignment = alignment;

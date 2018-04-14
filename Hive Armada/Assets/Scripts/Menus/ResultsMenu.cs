@@ -32,7 +32,7 @@ namespace Hive.Armada.Menus
         /// <summary>
         /// Reference to menu to go to when back is pressed.
         /// </summary>
-        public GameObject continueMenuGO;
+        public GameObject nextMenu;
 
         /// <summary>
         /// Reference to scroll view content.
@@ -72,7 +72,7 @@ namespace Hive.Armada.Menus
         /// <summary>
         /// Reference to Text GameObjecft for victory/defeat.
         /// </summary>
-        public GameObject victoryDefeatTextGO;
+        public Text victoryDefeatText;
 
         /// <summary>
         /// Message to display if player wins.
@@ -97,22 +97,34 @@ namespace Hive.Armada.Menus
         /// <summary>
         /// Reference to Text GameObject for score stat.
         /// </summary>
-        public GameObject scoreTextGO;
+        public Text scoreText;
+
+        public Text scoreValue;
 
         /// <summary>
         /// Reference to Iridium text GO.
         /// </summary>
-        public GameObject iridiumTextGO;
+        public Text iridiumText;
+
+        public Text iridiumValue;
+
+        public Text iridiumSpawnedText;
 
         /// <summary>
         /// Reference to Text GameObject for time stat.
         /// </summary>
-        public GameObject timeTextGO;
+        public Text timeText;
+
+        public Text timeValue;
 
         /// <summary>
         /// Reference to Text GameObject for kills stat.
         /// </summary>
-        public GameObject killsTextGO;
+        public Text killsText;
+
+        public Text killsValue;
+
+        public GameObject statShift;
 
         /// <summary>
         /// Number of cells that can fit in scroll view content without scrolling.
@@ -136,71 +148,77 @@ namespace Hive.Armada.Menus
         private int continueCounter = 0;
 
         /// <summary>
-        /// Find references. Get and set results values. Reset stats totals. 
+        /// Find references. Get and set results values. Reset stats totals.
         /// Calculate Iridium totals.
         /// </summary>
-        void Awake()
+        private void Awake()
         {
             iridiumSystem = FindObjectOfType<IridiumSystem>();
             reference = FindObjectOfType<ReferenceManager>();
             gameSettings = reference.gameSettings;
             stats = reference.statistics;
 
-            int iridiumScoreAmount = (int)(stats.totalScore * 0.2);
+            int iridiumScoreAmount = (int) (stats.totalScore * 0.2);
 
             if (gameSettings.selectedGameMode == GameSettings.GameMode.SoloNormal)
             {
                 if (stats.won)
                 {
-                    victoryDefeatTextGO.GetComponent<Text>().text = victoryMessage;
-                    victoryDefeatTextGO.GetComponent<Text>().color = victoryColor;
+                    victoryDefeatText.text = victoryMessage;
+                    victoryDefeatText.color = victoryColor;
                 }
                 else
                 {
-                    victoryDefeatTextGO.GetComponent<Text>().text = defeatMessage;
-                    victoryDefeatTextGO.GetComponent<Text>().color = defeatColor;
+                    victoryDefeatText.text = defeatMessage;
+                    victoryDefeatText.color = defeatColor;
                 }
-
-                scoreTextGO.GetComponent<Text>().text = "Score: " + string.Format("{0:n0}", stats.totalScore);
-
-                int iridiumShootablesSpawnedAmount = iridiumSystem.GetSpawnedShootablesAmount();
-                int iridiumShootablesObtainedAmount = iridiumSystem.GetObtainedShootablesAmount();
-
-                iridiumTextGO.GetComponent<Text>().text = "Iridium: " +
-                    string.Format("{0:n0}", iridiumScoreAmount) + ", " + 
-                    string.Format("{0:n0}", iridiumShootablesObtainedAmount) + " obtained / " +
-                    string.Format("{0:n0}", iridiumShootablesSpawnedAmount) + " spawned";
             }
-
             else if (gameSettings.selectedGameMode == GameSettings.GameMode.SoloInfinite)
             {
-                victoryDefeatTextGO.GetComponent<Text>().text = "Results";
-                victoryDefeatTextGO.GetComponent<Text>().color = victoryColor;
+                statShift.GetComponent<RectTransform>().anchoredPosition3D =
+                    new Vector3(0.0f, -50.0f, 0.0f);
+
+                victoryDefeatText.text = "Results";
+                victoryDefeatText.color = victoryColor;
 
                 TimeSpan time = TimeSpan.FromSeconds(stats.totalAliveTime);
 
-                string timeOutput;
-                if (time.Seconds < 60)
+                string format;
+                if (time.Hours > 0)
                 {
-                    timeOutput = string.Format("{0:D2} sec", time.Seconds);
+                    format = "H:mm:ss";
                 }
-                else if (time.Minutes < 60)
+                else if (time.Minutes > 9)
                 {
-                    timeOutput = string.Format("{0:D2} min {1:D2} sec", time.Minutes, time.Seconds);
+                    format = "mm:ss";
                 }
                 else
                 {
-                    timeOutput = string.Format("{0:D2} hrs {1:D2} min {2:D2} sec", time.Hours, time.Minutes, time.Seconds);
+                    format = "m:ss";
                 }
 
-                timeTextGO.GetComponent<Text>().text = "Time: " + timeOutput;
+                timeText.text = "Time:";
+                timeValue.text = new DateTime(time.Ticks).ToString(format);
             }
 
-            //wavesTextGO.GetComponent<Text>().text = "Waves: " + stats.waves;
-            
-            if (killsTextGO)
+            scoreText.text = "Score:";
+            scoreValue.text = string.Format("{0:n0}", stats.totalScore);
+
+            int iridiumShootablesSpawnedAmount = iridiumSystem.GetSpawnedShootablesAmount();
+            int iridiumShootablesObtainedAmount = iridiumSystem.GetObtainedShootablesAmount();
+
+            iridiumText.text = "Iridium:";
+            iridiumValue.text = string.Format("{0:n0}", iridiumScoreAmount);
+            iridiumSpawnedText.text = string.Format("{0:n0} / {1:n0} total",
+                                                    iridiumShootablesObtainedAmount,
+                                                    iridiumShootablesSpawnedAmount);
+
+            //wavesTextGO.text = "Waves: " + stats.waves;
+
+            if (killsText)
             {
-                killsTextGO.GetComponent<Text>().text = "Kills: " + stats.totalEnemiesKilled;
+                killsText.text = "Kills:";
+                killsValue.text = stats.totalEnemiesKilled.ToString();
             }
 
             if (scrollViewContent.transform.childCount <= numFittableCells)
@@ -218,7 +236,7 @@ namespace Hive.Armada.Menus
             iridiumSystem.ResetShootablesAmounts();
             iridiumSystem.AddIridium(iridiumScoreAmount);
             iridiumSystem.WriteIridiumFile();
-			transitionManager.currMenu = gameObject;
+            transitionManager.currMenu = gameObject;
         }
 
         /// <summary>
@@ -236,8 +254,7 @@ namespace Hive.Armada.Menus
             //    source.PlayOneShot(clips[0]);
             //}
             source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
-            transitionManager.Transition(continueMenuGO);
+            transitionManager.Transition(nextMenu);
         }
     }
 }
-

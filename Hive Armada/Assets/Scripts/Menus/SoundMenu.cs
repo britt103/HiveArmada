@@ -56,6 +56,14 @@ namespace Hive.Armada.Menus
         /// </summary>
         public Slider dialogueVolumeSlider;
 
+        public Text masterVolume;
+
+        public Text musicVolume;
+
+        public Text effectsVolume;
+
+        public Text dialogueVolume;
+
         /// <summary>
         /// Reference to Reference Manager.
         /// </summary>
@@ -71,6 +79,10 @@ namespace Hive.Armada.Menus
             musicVolumeSlider.value = reference.optionsValues.musicVolume;
             fxVolumeSlider.value = reference.optionsValues.fxVolume;
             dialogueVolumeSlider.value = reference.optionsValues.dialogueVolume;
+            masterVolume.text = string.Format("{0:0%}", masterVolumeSlider.value);
+            musicVolume.text = string.Format("{0:0%}", musicVolumeSlider.value);
+            effectsVolume.text = string.Format("{0:0%}", fxVolumeSlider.value);
+            dialogueVolume.text = string.Format("{0:0%}", dialogueVolumeSlider.value);
         }
 
         /// <summary>
@@ -90,6 +102,7 @@ namespace Hive.Armada.Menus
         public void AdjustMasterVolume(float value)
         {
             reference.optionsValues.SetMasterVolume(value);
+            masterVolume.text = string.Format("{0:0%}", value);
         }
 
         /// <summary>
@@ -98,6 +111,7 @@ namespace Hive.Armada.Menus
         public void AdjustMusicVolume(float value)
         {
             reference.optionsValues.SetMusicVolume(value);
+            musicVolume.text = string.Format("{0:0%}", value);
         }
 
         /// <summary>
@@ -106,6 +120,7 @@ namespace Hive.Armada.Menus
         public void AdjustFXVolume(float value)
         {
             reference.optionsValues.SetFXVolume(value);
+            effectsVolume.text = string.Format("{0:0%}", value);
         }
 
         /// <summary>
@@ -114,6 +129,7 @@ namespace Hive.Armada.Menus
         public void AdjustDialogueVolume(float value)
         {
             reference.optionsValues.SetDialogueVolume(value);
+            dialogueVolume.text = string.Format("{0:0%}", value);
         }
     }
 }

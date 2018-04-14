@@ -26,6 +26,8 @@ public class SteamVR_LaserPointer : MonoBehaviour
     public event PointerEventHandler PointerIn;
     public event PointerEventHandler PointerOut;
 
+    public float playerScale = 1.0f;
+
     Transform previousContact = null;
 
 	// Use this for initialization
@@ -130,12 +132,12 @@ public class SteamVR_LaserPointer : MonoBehaviour
 
         if (controller != null && controller.triggerPressed)
         {
-            pointer.transform.localScale = new Vector3(thickness * 5f, thickness * 5f, dist);
+            pointer.transform.localScale = new Vector3(thickness * 5f, thickness * 5f, dist / playerScale);
         }
         else
         {
-            pointer.transform.localScale = new Vector3(thickness, thickness, dist);
+            pointer.transform.localScale = new Vector3(thickness, thickness, dist / playerScale);
         }
-        pointer.transform.localPosition = new Vector3(0f, 0f, dist/2f);
+        pointer.transform.localPosition = new Vector3(0f, 0f, dist/2f / playerScale);
     }
 }

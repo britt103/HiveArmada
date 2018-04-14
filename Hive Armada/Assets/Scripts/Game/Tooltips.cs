@@ -10,9 +10,11 @@
 // 
 //=============================================================================
 
+using System;
 using System.Collections;
 using SubjectNerd.Utilities;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Hive.Armada.Game
 {
@@ -93,12 +95,50 @@ namespace Hive.Armada.Game
 
         public Coroutine usePowerupCoroutine;
 
+        private float fadeTime = 0.5f;
+
+        private Coroutine usePowerupFadeCoroutine;
+
+        private int[] instanceIds;
+
         /// <summary>
         /// Sets reference.
         /// </summary>
         public void Initialize(ReferenceManager referenceManager)
         {
             reference = referenceManager;
+            instanceIds = new int[5];
+        }
+
+        private IEnumerator FadeOutTooltip(GameObject tooltip)
+        {
+            if (tooltip == null)
+            {
+                yield break;
+            }
+
+            bool found = false;
+            for (int i = 0; i < instanceIds.Length; ++i)
+            {
+                if (tooltip.GetInstanceID() == instanceIds[i])
+                {
+                    instanceIds[i] = 0;
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found)
+            {
+                yield break;
+            }
+
+            tooltip.GetComponentInChildren<Image>().CrossFadeAlpha(0.0f, fadeTime, false);
+            tooltip.GetComponentInChildren<Text>().CrossFadeAlpha(0.0f, fadeTime, false);
+
+            yield return new WaitForSeconds(fadeTime);
+
+            Destroy(tooltip);
         }
 
         #region GrabShip
@@ -130,6 +170,11 @@ namespace Hive.Armada.Game
 
             grabShipTooltip = Instantiate(grabShipTooltipPrefab, grabShipSpawn.position,
                                           Quaternion.identity, grabShipSpawn);
+            instanceIds[0] = grabShipTooltip.GetInstanceID();
+            grabShipTooltip.GetComponentInChildren<Image>().CrossFadeAlpha(0.0f, 0.0f, false);
+            grabShipTooltip.GetComponentInChildren<Image>().CrossFadeAlpha(1.0f, fadeTime, false);
+            grabShipTooltip.GetComponentInChildren<Text>().CrossFadeAlpha(0.0f, 0.0f, false);
+            grabShipTooltip.GetComponentInChildren<Text>().CrossFadeAlpha(1.0f, fadeTime, false);
 
             grabShipCoroutine = null;
         }
@@ -146,7 +191,7 @@ namespace Hive.Armada.Game
             }
 
             GrabShip = true;
-            Destroy(grabShipTooltip);
+            StartCoroutine(FadeOutTooltip(grabShipTooltip));
         }
 
         #endregion
@@ -178,10 +223,15 @@ namespace Hive.Armada.Game
         {
             protectShipTooltip = Instantiate(protectShipTooltipPrefab, protectShipSpawn.position,
                                              Quaternion.identity, protectShipSpawn);
+            instanceIds[1] = protectShipTooltip.GetInstanceID();
+            protectShipTooltip.GetComponentInChildren<Image>().CrossFadeAlpha(0.0f, 0.0f, false);
+            protectShipTooltip.GetComponentInChildren<Image>().CrossFadeAlpha(1.0f, fadeTime, false);
+            protectShipTooltip.GetComponentInChildren<Text>().CrossFadeAlpha(0.0f, 0.0f, false);
+            protectShipTooltip.GetComponentInChildren<Text>().CrossFadeAlpha(1.0f, fadeTime, false);
 
             yield return new WaitForSeconds(protectShipLength);
 
-            Destroy(protectShipTooltip);
+            StartCoroutine(FadeOutTooltip(protectShipTooltip));
 
             protectShipCoroutine = null;
         }
@@ -213,12 +263,19 @@ namespace Hive.Armada.Game
         /// </summary>
         private IEnumerator ShootEnemiesWait()
         {
+            yield return new WaitForSeconds(3.0f);
+
             shootEnemiesTooltip = Instantiate(shootEnemiesTooltipPrefab, shootEnemiesSpawn.position,
                                               Quaternion.identity, shootEnemiesSpawn);
+            instanceIds[2] = shootEnemiesTooltip.GetInstanceID();
+            shootEnemiesTooltip.GetComponentInChildren<Image>().CrossFadeAlpha(0.0f, 0.0f, false);
+            shootEnemiesTooltip.GetComponentInChildren<Image>().CrossFadeAlpha(1.0f, fadeTime, false);
+            shootEnemiesTooltip.GetComponentInChildren<Text>().CrossFadeAlpha(0.0f, 0.0f, false);
+            shootEnemiesTooltip.GetComponentInChildren<Text>().CrossFadeAlpha(1.0f, fadeTime, false);
 
             yield return new WaitForSeconds(shootEnemiesLength);
 
-            Destroy(shootEnemiesTooltip);
+            StartCoroutine(FadeOutTooltip(shootEnemiesTooltip));
 
             shootEnemiesCoroutine = null;
         }
@@ -270,6 +327,11 @@ namespace Hive.Armada.Game
                                              grabPowerupSpawn[powerupSpawnPoint].position,
                                              Quaternion.identity,
                                              grabPowerupSpawn[powerupSpawnPoint]);
+            instanceIds[3] = grabPowerupTooltip.GetInstanceID();
+            grabPowerupTooltip.GetComponentInChildren<Image>().CrossFadeAlpha(0.0f, 0.0f, false);
+            grabPowerupTooltip.GetComponentInChildren<Image>().CrossFadeAlpha(1.0f, fadeTime, false);
+            grabPowerupTooltip.GetComponentInChildren<Text>().CrossFadeAlpha(0.0f, 0.0f, false);
+            grabPowerupTooltip.GetComponentInChildren<Text>().CrossFadeAlpha(1.0f, fadeTime, false);
 
             grabPowerupCoroutine = null;
         }
@@ -286,7 +348,7 @@ namespace Hive.Armada.Game
             }
 
             GrabPowerup = true;
-            Destroy(grabPowerupTooltip);
+            StartCoroutine(FadeOutTooltip(grabPowerupTooltip));
         }
 
         #endregion
@@ -321,6 +383,21 @@ namespace Hive.Armada.Game
 
             usePowerupTooltip = Instantiate(usePowerupTooltipPrefab, usePowerupSpawn.position,
                                             Quaternion.identity, usePowerupSpawn);
+            instanceIds[4] = usePowerupTooltip.GetInstanceID();
+            usePowerupTooltip.GetComponentInChildren<Image>().CrossFadeAlpha(0.0f, 0.0f, false);
+            usePowerupTooltip.GetComponentInChildren<Image>().CrossFadeAlpha(1.0f, fadeTime, false);
+            usePowerupTooltip.GetComponentInChildren<Text>().CrossFadeAlpha(0.0f, 0.0f, false);
+            usePowerupTooltip.GetComponentInChildren<Text>().CrossFadeAlpha(1.0f, fadeTime, false);
+
+            yield return new WaitForSeconds(8.0f);
+
+            if (usePowerupTooltip != null)
+            {
+                if (usePowerupFadeCoroutine == null)
+                {
+                    usePowerupFadeCoroutine = StartCoroutine(FadeOutTooltip(usePowerupTooltip));
+                }
+            }
 
             usePowerupCoroutine = null;
         }
@@ -337,7 +414,11 @@ namespace Hive.Armada.Game
             }
 
             UsePowerup = true;
-            Destroy(usePowerupTooltip);
+
+            if (usePowerupFadeCoroutine == null)
+            {
+                usePowerupFadeCoroutine = StartCoroutine(FadeOutTooltip(usePowerupTooltip));
+            }
         }
 
         #endregion

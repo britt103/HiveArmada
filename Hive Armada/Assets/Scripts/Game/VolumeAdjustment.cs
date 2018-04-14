@@ -11,6 +11,7 @@
 //
 //=============================================================================
 
+using System;
 using UnityEngine;
 
 namespace Hive.Armada.Game
@@ -55,11 +56,16 @@ namespace Hive.Armada.Game
         /// <summary>
         /// Find references. Update volume.
         /// </summary>
-        void Start()
+        private void Start()
         {
-            audioSource = gameObject.GetComponent<AudioSource>();
+            audioSource = GetComponent<AudioSource>();
             reference = FindObjectOfType<ReferenceManager>();
             optionsValues = reference.optionsValues;
+
+            if (optionsValues == null)
+            {
+                optionsValues = FindObjectOfType<OptionsValues>();
+            }
 
             UpdateVolume();
         }

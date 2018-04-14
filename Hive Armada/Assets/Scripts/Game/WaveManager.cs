@@ -218,8 +218,10 @@ namespace Hive.Armada.Game
         {
             reference = referenceManager;
 
+            Debug.LogWarning("asldkfjasdlfkjasldkfj " + referenceManager);
+
             ObjectPoolManager objectPool = reference.objectPoolManager;
-            GameSettings gameSettings = reference.gameSettings;
+            IsInfinite = reference.gameSettings.selectedGameMode == GameSettings.GameMode.SoloNormal;
 
             EnemyIDs = new[]
             {
@@ -240,8 +242,6 @@ namespace Hive.Armada.Game
                 "BackRightPath"
             };
 
-            IsInfinite = gameSettings.selectedGameMode == GameSettings.GameMode.SoloInfinite;
-
             //waves = waveLoader.LoadWaves();
         }
 
@@ -253,6 +253,15 @@ namespace Hive.Armada.Game
             if (!IsRunning)
             {
                 IsRunning = true;
+
+                if (reference == null)
+                {
+                    reference = FindObjectOfType<ReferenceManager>();
+                }
+
+                IsInfinite = reference.gameSettings.selectedGameMode ==
+                             GameSettings.GameMode.SoloInfinite;
+
                 if (!IsInfinite)
                 {
                     --startingWave;
@@ -268,11 +277,6 @@ namespace Hive.Armada.Game
                     else
                     {
                         currentWave = startingWave;
-                    }
-
-                    if (reference == null)
-                    {
-                        reference = FindObjectOfType<ReferenceManager>();
                     }
 
                     reference.gameMusicSource.Play();

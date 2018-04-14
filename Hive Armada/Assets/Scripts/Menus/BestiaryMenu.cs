@@ -116,10 +116,16 @@ namespace Hive.Armada.Menus
         /// </summary>
         private float armadaYRotation;
 
-        [Header("Content")]
+        public ScrollRect scrollRect;
+
+        public GameObject previewLighting;
+
+        private RectTransform[] buttons;
+
         /// <summary>
         /// Prefab for Bestiary entry button.
         /// </summary>
+        [Header("Content")]
         public GameObject entryButtonPrefab;
 
         /// <summary>
@@ -165,7 +171,7 @@ namespace Hive.Armada.Menus
         /// <summary>
         /// State of whether an entry is currently open.
         /// </summary>
-        private bool entryOpen = false;
+        private bool entryOpen;
 
         /// <summary>
         /// Object storing entry information.
@@ -232,7 +238,7 @@ namespace Hive.Armada.Menus
         }
 
         /// <summary>
-        /// Unlock entries using names from BestiaryUnlockData. Update 
+        /// Unlock entries using names from BestiaryUnlockData. Update
         /// BestiaryEntryData Json file.
         /// </summary>
         private void UpdateUnlocks()
@@ -262,17 +268,18 @@ namespace Hive.Armada.Menus
             {
                 Vector3 rotation = armadaPreviewGO.transform.eulerAngles;
                 rotation.y = armadaYRotation;
+                previewLighting.SetActive(false);
                 armadaPreviewGO.transform.rotation = Quaternion.Euler(rotation);
                 armadaPreviewGO.SetActive(true);
                 FindObjectOfType<RoomTransport>().Transport(backMenuTransform, gameObject,
-                    backMenuGO);
+                                                            backMenuGO);
             }
         }
 
         /// <summary>
         /// Unlock the enemy entry associated with the provided name.
         /// </summary>
-        /// <param name="name">Name of entry to unlock.</param>
+        /// <param name="name"> Name of entry to unlock. </param>
         public void UnlockEnemy(string name)
         {
             for (int i = 0; i < entryData.enemyNames.Length; ++i)
@@ -305,33 +312,40 @@ namespace Hive.Armada.Menus
             }
             else
             {
-                entries =  enemyNames.Capacity;
+                entries = enemyNames.Capacity;
                 tooFewEntries = false;
                 scrollbar.gameObject.GetComponent<BoxCollider>().enabled = true;
                 verticalSlider.gameObject.SetActive(true);
             }
 
+            buttons = new RectTransform[entries];
+
             for (int i = 0; i < entries; ++i)
             {
                 if (i >= enemyNames.Count && tooFewEntries)
                 {
-                    GameObject entryButtonEmpty = Instantiate(entryButtonEmptyPrefab, contentGO.transform);
+                    GameObject entryButtonEmpty =
+                        Instantiate(entryButtonEmptyPrefab, contentGO.transform);
+                    buttons[i] = entryButtonEmpty.GetComponent<RectTransform>();
                     entryButtonEmpty.SetActive(false);
                 }
                 else
                 {
                     GameObject entryButton = Instantiate(entryButtonPrefab, contentGO.transform);
+                    buttons[i] = entryButton.GetComponent<RectTransform>();
                     entryButton.GetComponent<BestiaryEntryButton>().id = i;
                     entryButton.GetComponent<BestiaryEntryButton>().BestiaryMenu = this;
                     entryButton.GetComponent<UIHover>().source = source;
                     if (enemiesLocked[i])
                     {
-                        entryButton.transform.Find("Name").gameObject.GetComponent<Text>().text = entryData.lockedName;
+                        entryButton.transform.Find("Name").gameObject.GetComponent<Text>().text =
+                            entryData.lockedName;
                         entryButton.GetComponent<BoxCollider>().enabled = false;
                     }
                     else
                     {
-                        entryButton.transform.Find("Name").gameObject.GetComponent<Text>().text = enemyDisplayNames[i];
+                        entryButton.transform.Find("Name").gameObject.GetComponent<Text>().text =
+                            enemyDisplayNames[i];
                     }
                 }
             }
@@ -340,7 +354,7 @@ namespace Hive.Armada.Menus
         /// <summary>
         /// Open entry view and fill entry name and text with corresponding values.
         /// </summary>
-        /// <param name="entryId">Index of selected entry.</param>
+        /// <param name="entryId"> Index of selected entry. </param>
         public void OpenEntry(int entryId)
         {
             source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
@@ -368,14 +382,15 @@ namespace Hive.Armada.Menus
 
                 if (entryId == 0)
                 {
+                    previewLighting.SetActive(false);
                     armadaPreviewGO.GetComponent<SphereCollider>().enabled = true;
                     armadaPreviewGO.SetActive(true);
                 }
                 else
                 {
                     currEntryPrefab = Instantiate(enemyPrefabs[entryId - 1], entryPrefabPoint);
+                    previewLighting.SetActive(true);
                 }
-                
             }
 
             entryOpen = true;
@@ -408,6 +423,7 @@ namespace Hive.Armada.Menus
                 Destroy(currEntryPrefab);
             }
 
+            previewLighting.SetActive(false);
             entryOpen = false;
         }
 
@@ -429,6 +445,7 @@ namespace Hive.Armada.Menus
         public void Information()
         {
             StartCoroutine(InformationAudio());
+
             //switch(entryCategory)
             //{
             //    case "Powerups":
@@ -464,11 +481,12 @@ namespace Hive.Armada.Menus
             //}
         }
 
-        IEnumerator InformationAudio()
+        private IEnumerator InformationAudio()
         {
             if (zenaSource.isPlaying)
             {
                 yield return new WaitWhile(() => zenaSource.isPlaying);
+
                 zenaSource.PlayOneShot(enemiesAudio[entryValue]);
             }
             else

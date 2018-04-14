@@ -209,12 +209,12 @@ namespace Hive.Armada.Enemies
         /// <param name="fadeOut"> If the projectile should fade out </param>
         public void FadeOpacity(bool fadeOut)
         {
-            if (fadeCoroutine != null)
-            {
-                StopCoroutine(fadeCoroutine);
-            }
+            //if (fadeCoroutine != null)
+            //{
+            //    StopCoroutine(fadeCoroutine);
+            //}
 
-            fadeCoroutine = StartCoroutine(Fade(fadeOut));
+            //fadeCoroutine = StartCoroutine(Fade(fadeOut));
         }
 
         /// <summary>

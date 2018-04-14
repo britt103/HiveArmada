@@ -78,12 +78,15 @@ namespace Hive.Armada.Enemies
         void Start()
         {
             Reset();
-            if (player != null)
+
+            if (player == null)
             {
-                player = GameObject.FindGameObjectWithTag("Player");
-                transform.LookAt(player.transform.position);
-                playerShield = player.transform.Find("Shield").gameObject;
+                player = reference.playerShip;
             }
+
+            transform.LookAt(player.transform.position);
+            playerShield = FindObjectOfType<MasterCollider>().gameObject;
+
             source = GetComponent<AudioSource>();
 
         }

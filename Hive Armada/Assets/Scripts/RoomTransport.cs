@@ -59,6 +59,12 @@ namespace Hive.Armada
             player.transform.position = newTransform.position;
             player.transform.rotation = newTransform.rotation;
             player.transform.localScale = newTransform.localScale;
+            SteamVR_LaserPointer[]
+                pointers = player.GetComponentsInChildren<SteamVR_LaserPointer>();
+            foreach (SteamVR_LaserPointer pointer in pointers)
+            {
+                pointer.playerScale = newTransform.localScale.x;
+            }
 
             SteamVR_Fade.Start(fadeColor, 0.0f);
             SteamVR_Fade.Start(Color.clear, transitionLength / 2.0f);

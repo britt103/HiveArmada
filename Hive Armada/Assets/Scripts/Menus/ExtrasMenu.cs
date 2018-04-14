@@ -10,6 +10,7 @@
 //
 //=============================================================================
 
+using System.Collections;
 using Hive.Armada.Game;
 using UnityEngine;
 
@@ -55,6 +56,8 @@ namespace Hive.Armada.Menus
         /// </summary>
         public GameObject backMenuGO;
 
+        private bool isInteractable = false;
+
         /// <summary>
         /// Reference to Menu Audio source.
         /// </summary>
@@ -65,11 +68,33 @@ namespace Hive.Armada.Menus
             reference = FindObjectOfType<ReferenceManager>();
         }
 
+        private void OnEnable()
+        {
+            StartCoroutine(InteractDelay());
+        }
+
+        private void OnDisable()
+        {
+            isInteractable = false;
+        }
+
+        private IEnumerator InteractDelay()
+        {
+            yield return new WaitForSeconds(Utility.interactDelay);
+
+            isInteractable = true;
+        }
+
         /// <summary>
         /// Start button pressed. Navigate to Shop Menu.
         /// </summary>
         public void PressShop()
         {
+            if (!isInteractable)
+            {
+                return;
+            }
+
             source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
             FindObjectOfType<RoomTransport>().Transport(shopTransform, gameObject, shopMenuGO);
         }
@@ -79,6 +104,11 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void PressBestiary()
         {
+            if (!isInteractable)
+            {
+                return;
+            }
+
             source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
             FindObjectOfType<RoomTransport>().Transport(bestiaryTransform, gameObject, bestiaryMenuGO);
         }
@@ -88,6 +118,11 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void PressCredits()
         {
+            if (!isInteractable)
+            {
+                return;
+            }
+
             source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
 
         }
@@ -97,6 +132,11 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void PressBack()
         {
+            if (!isInteractable)
+            {
+                return;
+            }
+
             source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
             transitionManager.Transition(backMenuGO);
         }

@@ -11,6 +11,7 @@
 //
 //=============================================================================
 
+using System;
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
@@ -89,30 +90,37 @@ namespace Hive.Armada.Menus
         /// </summary>
         public GameObject[] uiCovers;
 
+        public GameObject previewLighting;
+
+        [Header("Sections")]
+        public GameObject itemSection;
+
+        public GameObject iridiumSection;
+
+        public GameObject purchaseSection;
+
         /// <summary>
         /// Reference to item name text.
         /// </summary>
-        public GameObject itemName;
+        [Header("Text")]
+        public Text itemName;
 
         /// <summary>
         /// Reference to item text text.
         /// </summary>
-        public GameObject itemText;
+        public Text itemDescription;
 
         /// <summary>
         /// Reference to item cost text.
         /// </summary>
-        public GameObject itemCost;
+        public Text itemCost;
 
         /// <summary>
         /// Reference to iridium amount text.
         /// </summary>
-        public GameObject iridiumAmount;
+        public Text iridiumAmount;
 
-        /// <summary>
-        /// Reference to bought text.
-        /// </summary>
-        public GameObject bought;
+        public GameObject purchased;
 
         /// <summary>
         /// Reference to buy button.
@@ -125,6 +133,7 @@ namespace Hive.Armada.Menus
         public GameObject armadaPreviewGO;
 
         [Header("Content")]
+
         /// <summary>
         /// Prefab for item button.
         /// </summary>
@@ -154,10 +163,11 @@ namespace Hive.Armada.Menus
         /// References to prefabs used in powerup entries. Order must match Iridium.txt.
         /// </summary>
         public List<GameObject> weaponPrefabs;
-        [TextArea]
+
         /// <summary>
         /// Stat descriptions for each weapon. Order must match Iridium.txt.
         /// </summary>
+        [TextArea]
         public List<string> weaponStats;
 
         /// <summary>
@@ -208,12 +218,12 @@ namespace Hive.Armada.Menus
         /// <summary>
         /// State of whether an item is currently open.
         /// </summary>
-        private bool itemOpen = false;
+        private bool itemOpen;
 
         /// <summary>
         /// State of whether a category is currently open.
         /// </summary>
-        private bool categoryOpen = false;
+        private bool categoryOpen;
 
         private void Awake()
         {
@@ -229,7 +239,7 @@ namespace Hive.Armada.Menus
         }
 
         // Find IridiumSystem.
-        void Start()
+        private void Start()
         {
             iridiumSystem = FindObjectOfType<IridiumSystem>();
             BestiaryUnlockData = FindObjectOfType<BestiaryUnlockData>();
@@ -247,7 +257,6 @@ namespace Hive.Armada.Menus
             //{
             //    zenaSource.PlayOneShot(clips[shopIndex]);
             //}
-
         }
 
         /// <summary>
@@ -302,7 +311,8 @@ namespace Hive.Armada.Menus
             {
                 if (i >= currDisplayNames.Count && tooFewEntries)
                 {
-                    GameObject itemButtonEmpty = Instantiate(itemButtonEmptyPrefab, contentGO.transform);
+                    GameObject itemButtonEmpty =
+                        Instantiate(itemButtonEmptyPrefab, contentGO.transform);
                     itemButtonEmpty.SetActive(false);
                 }
                 else
@@ -311,7 +321,8 @@ namespace Hive.Armada.Menus
                     itemButton.GetComponent<ShopItemButton>().id = i;
                     itemButton.GetComponent<ShopItemButton>().shopMenu = this;
                     itemButton.GetComponent<UIHover>().source = source;
-                    itemButton.transform.Find("Name").gameObject.GetComponent<Text>().text = currDisplayNames[i];
+                    itemButton.transform.Find("Name").gameObject.GetComponent<Text>().text =
+                        currDisplayNames[i];
                 }
             }
         }
@@ -361,53 +372,56 @@ namespace Hive.Armada.Menus
             {
                 armadaPreviewGO.SetActive(true);
                 FindObjectOfType<RoomTransport>().Transport(backMenuTransform, gameObject,
-                    backMenuGO);
+                                                            backMenuGO);
             }
+
+            previewLighting.SetActive(false);
         }
 
         /// <summary>
         /// Open item view and fill item name and text with corresponding values.
         /// </summary>
-        /// <param name="itemId">Index of selected item.</param>
+        /// <param name="itemId"> Index of selected item. </param>
         public void OpenItem(int itemId)
         {
             source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
 
             menuTitle.SetActive(false);
             scrollView.SetActive(false);
-            itemName.SetActive(true);
-            itemText.SetActive(true);
-            itemCost.SetActive(true);
-            iridiumAmount.SetActive(true);
-            
-            if (!currNotBought[itemId])
+            itemSection.SetActive(true);
+            iridiumSection.SetActive(true);
+
+            if (currNotBought[itemId])
             {
-                bought.SetActive(true);
-                buyButton.SetActive(false);
-            }
-            else if (iridiumSystem.GetIridiumAmount() < currCosts[itemId])
-            {
-                bought.SetActive(false);
-                buyButton.SetActive(true);
-                buyButton.GetComponent<BoxCollider>().enabled = false;
+                purchaseSection.SetActive(true);
+                purchased.SetActive(false);
+
                 Color tempColor = buyButton.GetComponent<Image>().color;
-                tempColor.a = 0.2f;
-                buyButton.GetComponent<Image>().color = tempColor;
-                tempColor = buyButton.GetComponentInChildren<Text>().color;
-                tempColor.a = 0.2f;
-                buyButton.GetComponentInChildren<Text>().color = tempColor;
+                ;
+
+                if (iridiumSystem.GetIridiumAmount() < currCosts[itemId])
+                {
+                    buyButton.GetComponent<BoxCollider>().enabled = false;
+                    tempColor.a = 0.2f;
+                    buyButton.GetComponent<Image>().color = tempColor;
+                    tempColor = buyButton.GetComponentInChildren<Text>().color;
+                    tempColor.a = 0.2f;
+                    buyButton.GetComponentInChildren<Text>().color = tempColor;
+                }
+                else
+                {
+                    buyButton.GetComponent<BoxCollider>().enabled = true;
+                    tempColor.a = 1;
+                    buyButton.GetComponent<Image>().color = tempColor;
+                    tempColor = buyButton.GetComponentInChildren<Text>().color;
+                    tempColor.a = 1;
+                    buyButton.GetComponentInChildren<Text>().color = tempColor;
+                }
             }
             else
             {
-                bought.SetActive(false);
-                buyButton.SetActive(true);
-                buyButton.GetComponent<BoxCollider>().enabled = true;
-                Color tempColor = buyButton.GetComponent<Image>().color;
-                tempColor.a = 1;
-                buyButton.GetComponent<Image>().color = tempColor;
-                tempColor = buyButton.GetComponentInChildren<Text>().color;
-                tempColor.a = 1;
-                buyButton.GetComponentInChildren<Text>().color = tempColor;
+                purchaseSection.SetActive(false);
+                purchased.SetActive(true);
             }
 
             foreach (GameObject uiCover in uiCovers)
@@ -420,23 +434,24 @@ namespace Hive.Armada.Menus
                 categoryButton.SetActive(false);
             }
 
-            itemName.GetComponent<Text>().text = currDisplayNames[itemId];
+            itemName.text = currDisplayNames[itemId];
 
-            if(currCategory == "Weapons")
+            if (currCategory == "Weapons")
             {
-                itemText.GetComponent<Text>().text = currTexts[itemId] + "\n" 
-                    + weaponStats[itemId];
+                itemDescription.text = currTexts[itemId] + "\n"
+                                       + weaponStats[itemId];
             }
             else
             {
-                itemText.GetComponent<Text>().text = currTexts[itemId];
+                itemDescription.text = currTexts[itemId];
             }
-            
-            itemCost.GetComponent<Text>().text = "Cost: " + currCosts[itemId].ToString();
-            iridiumAmount.GetComponent<Text>().text = "Iridium: " + iridiumSystem.GetIridiumAmount().ToString();
+
+            itemCost.text = currCosts[itemId].ToString();
+            iridiumAmount.text = iridiumSystem.GetIridiumAmount().ToString();
             currItemId = itemId;
+            previewLighting.SetActive(true);
             currPrefab = Instantiate(currPrefabs[itemId], itemPrefabPoint);
-  
+
             itemOpen = true;
         }
 
@@ -446,12 +461,11 @@ namespace Hive.Armada.Menus
         private void CloseItem()
         {
             menuTitle.SetActive(true);
-            itemName.SetActive(false);
-            itemText.SetActive(false);
-            itemCost.SetActive(false);
-            iridiumAmount.SetActive(false);
-            bought.SetActive(false);
-            buyButton.SetActive(false);
+
+            itemSection.SetActive(false);
+            purchaseSection.SetActive(false);
+            iridiumSection.SetActive(false);
+            purchased.SetActive(false);
             scrollView.SetActive(true);
 
             foreach (GameObject uiCover in uiCovers)
@@ -465,6 +479,7 @@ namespace Hive.Armada.Menus
             }
 
             Destroy(currPrefab);
+            previewLighting.SetActive(false);
 
             itemOpen = false;
         }
@@ -472,7 +487,7 @@ namespace Hive.Armada.Menus
         /// <summary>
         /// Set variables tracking currently open category.
         /// </summary>
-        /// <param name="category">Name of category</param>
+        /// <param name="category"> Name of category </param>
         private void SetCurrCategory(string category)
         {
             switch (category)
@@ -495,7 +510,7 @@ namespace Hive.Armada.Menus
         /// <summary>
         /// Open the category specified by parameter string.
         /// </summary>
-        /// <param name="category">Name of category to open.</param>
+        /// <param name="category"> Name of category to open. </param>
         public void OpenCategory(string category)
         {
             source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
@@ -525,4 +540,3 @@ namespace Hive.Armada.Menus
         }
     }
 }
-

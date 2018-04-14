@@ -86,5 +86,7 @@ namespace Hive.Armada
         /// The layer ID number for PathingEnemy.
         /// </summary>
         public static int pathingEnemyLayerId = 12;
+
+        public static float interactDelay = 0.2f;
     }
 }

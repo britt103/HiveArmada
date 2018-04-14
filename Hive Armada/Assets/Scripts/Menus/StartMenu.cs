@@ -10,6 +10,7 @@
 //
 //=============================================================================
 
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using Hive.Armada.Game;
@@ -101,6 +102,8 @@ namespace Hive.Armada.Menus
         /// </summary>
         private IridiumSystem iridiumSystem;
 
+        private bool isInteractable = false;
+
         /// <summary>
         /// Find references.
         /// </summary>
@@ -141,6 +144,20 @@ namespace Hive.Armada.Menus
                 //description.GetComponent<Text>().text = gameModeDescriptions[selectedGameMode];
                 selectionMade = true;
             }
+
+            StartCoroutine(InteractDelay());
+        }
+
+        private void OnDisable()
+        {
+            isInteractable = false;
+        }
+
+        private IEnumerator InteractDelay()
+        {
+            yield return new WaitForSeconds(Utility.interactDelay);
+
+            isInteractable = true;
         }
 
         /// <summary>
@@ -148,6 +165,11 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void PressGameMode(int gameModeNum)
         {
+            if (!isInteractable)
+            {
+                return;
+            }
+
             if (selectedGameMode != gameModeNum)
             {
                 if (selectedGameMode == gameModeButtons.Length)
@@ -221,6 +243,11 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void PressBack()
         {
+            if (!isInteractable)
+            {
+                return;
+            }
+
             source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
             if (selectionMade)
             {
@@ -236,6 +263,11 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void PressContinue()
         {
+            if (!isInteractable)
+            {
+                return;
+            }
+
             source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
 
             gameSettings.selectedGameMode = (GameSettings.GameMode)selectedGameMode;

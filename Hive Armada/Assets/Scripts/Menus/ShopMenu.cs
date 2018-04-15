@@ -12,6 +12,7 @@
 //=============================================================================
 
 using System;
+using System.Collections;
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
@@ -348,7 +349,10 @@ namespace Hive.Armada.Menus
                 source.PlayOneShot(reference.menuSounds.shopPurchaseSound);
                 iridiumSystem.UnlockItem(currCategory, currNames[currItemId]);
                 currNotBought[currItemId] = false;
-                PressBack();
+                purchaseSection.SetActive(false);
+                purchased.SetActive(true);
+                iridiumAmount.text = iridiumSystem.GetIridiumAmount().ToString();
+                //PressBack();
             }
         }
 

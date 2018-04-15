@@ -75,10 +75,8 @@ namespace Hive.Armada.Enemies
         /// <summary>
         /// Looks at the player and stores own position.
         /// </summary>
-        void Start()
+        private void Start()
         {
-            Reset();
-
             if (player == null)
             {
                 player = reference.playerShip;
@@ -88,36 +86,39 @@ namespace Hive.Armada.Enemies
             playerShield = FindObjectOfType<MasterCollider>().gameObject;
 
             source = GetComponent<AudioSource>();
-
         }
 
         /// <summary>
         /// Moves the enemy closer to the player and explodes if they are within 'range'. Runs every frame.
         /// </summary>
-        void Update()
+        private void Update()
         {
-            if (player != null)
+            if (PathingComplete)
             {
-                myTransform = transform;
-                myTransform.rotation = Quaternion.Lerp(myTransform.rotation,
-                                                          Quaternion.LookRotation(player.transform.position
-                                                          - myTransform.position),
-                                                          rotationSpeed * Time.deltaTime);
-
-                myTransform.position += myTransform.forward * moveSpeed * Time.deltaTime;
-                               
-                if (shaking)
+                if (player != null)
                 {
-                    iTween.ShakePosition(gameObject, new Vector3(0.001f, 0.001f, 0.001f), 0.01f);
+                    myTransform = transform;
+                    myTransform.rotation = Quaternion.Lerp(myTransform.rotation,
+                                                           Quaternion.LookRotation(
+                                                               player.transform.position
+                                                               - myTransform.position),
+                                                           rotationSpeed * Time.deltaTime);
+
+                    myTransform.position += myTransform.forward * moveSpeed * Time.deltaTime;
+
+                    if (shaking)
+                    {
+                        iTween.ShakePosition(gameObject, new Vector3(0.001f, 0.001f, 0.001f), 0.01f);
+                    }
                 }
-            }
-            else
-            {
-                player = reference.playerShip;
-
-                if (player == null)
+                else
                 {
-                    transform.LookAt(new Vector3(0.0f, 0.0f, 0.0f));
+                    player = reference.playerShip;
+
+                    if (player == null)
+                    {
+                        transform.LookAt(new Vector3(0.0f, 0.0f, 0.0f));
+                    }
                 }
             }
         }
@@ -132,7 +133,8 @@ namespace Hive.Armada.Enemies
         {
             if (other.tag == "Player")
             {
-                other.gameObject.GetComponent<Player.PlayerHealth>().Hit(damage);
+                FindObjectOfType<PlayerHealth>().Hit(damage);
+                //other.gameObject.GetComponent<PlayerHealth>().Hit(damage);
                 Kill();
             }
         }
@@ -157,13 +159,16 @@ namespace Hive.Armada.Enemies
         {
             Debug.Log("I am in range");
             inRange = true;
-            moveSpeed = (moveSpeed / 2);
+            moveSpeed = moveSpeed / 2;
             source.PlayOneShot(clip);
             yield return new WaitForSeconds(clip.length);
 
-            if (playerShield.GetComponent<Collider>().bounds.Contains(gameObject.transform.position))
+            //if (playerShield.GetComponent<Collider>().bounds
+            //                .Contains(gameObject.transform.position))
+            if (Vector3.Distance(gameObject.transform.position, player.transform.position) < range)
             {
-                player.GetComponentInParent<Player.PlayerHealth>().Hit(damage);
+                FindObjectOfType<PlayerHealth>().Hit(damage);
+                //player.GetComponentInParent<PlayerHealth>().Hit(damage);
             }
             Kill();
         }

@@ -154,7 +154,18 @@ namespace Hive.Armada.Player
                 reference.objectPoolManager.Spawn(gameObject, hitEmitterTypeIdentifier,
                                                   other.transform.position,
                                                   other.transform.rotation);
-                reference.objectPoolManager.Despawn(other.gameObject);
+
+                ProjectileInPattern projectile =
+                    other.gameObject.GetComponent<ProjectileInPattern>();
+
+                if (projectile != null)
+                {
+                    projectile.Hit();
+                }
+                else
+                {
+                    reference.objectPoolManager.Despawn(other.gameObject);
+                }
             }
             else
             {

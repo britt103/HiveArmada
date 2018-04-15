@@ -20,11 +20,18 @@ namespace Hive.Armada.Ambient
 {
     public class TalkingParticle : MonoBehaviour
     {
+        public bool enable;
+
+        [Space]
         public ReferenceManager reference;
 
         public GameObject smallParticle;
 
         public GameObject largeParticle;
+
+        public ParticleFollow small;
+
+        public ParticleFollow large;
 
         [Reorderable("Position", false)]
         public Transform[] positions;
@@ -36,6 +43,11 @@ namespace Hive.Armada.Ambient
             if (reference == null)
             {
                 Debug.LogError(GetType().Name + " - Reference is null.");
+            }
+
+            if (enable)
+            {
+                smallParticle.SetActive(true);
             }
         }
 
@@ -52,23 +64,31 @@ namespace Hive.Armada.Ambient
 
         public void MovePosition(string nextMenu)
         {
-            if (nextMenu.Contains("Main"))
+            if (!enable)
             {
+                return;
+            }
+
+            if (nextMenu.Contains("Extras"))
+            {
+                Debug.Log(nextMenu);
                 smallParticle.SetActive(true);
+                smallParticle.transform.position = positions[0].position;
                 largeParticle.SetActive(false);
-                transform.position = positions[0].position;
             }
             else if (nextMenu.Contains("Bestiary"))
             {
+                Debug.Log(nextMenu);
                 smallParticle.SetActive(false);
+                largeParticle.transform.position = positions[1].position;
                 largeParticle.SetActive(true);
-                transform.position = positions[1].position;
             }
             else if (nextMenu.Contains("Shop"))
             {
+                Debug.Log(nextMenu);
                 smallParticle.SetActive(false);
+                largeParticle.transform.position = positions[2].position;
                 largeParticle.SetActive(true);
-                transform.position = positions[2].position;
             }
             else
             {

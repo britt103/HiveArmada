@@ -40,7 +40,7 @@ namespace Hive.Armada.Enemies
         /// 15 - 16 - 17 - 18 - 19
         /// 20 - 21 - 22 - 23 - 24
         /// </summary>
-        public Transform[] shootPoint;
+        public Transform shootPoint;
 
         /// <summary>
         /// How many time per second this enemy can shoot.
@@ -98,6 +98,24 @@ namespace Hive.Armada.Enemies
         public float yMax;
         public float movingSpeed;
 
+        public GameObject[] projectilePatterns;
+
+        private short[] patternIds;
+
+        private short patternId = -2;
+
+        protected override void Awake()
+        {
+            base.Awake();
+
+            patternIds = new short[projectilePatterns.Length];
+
+            for (int i = 0; i < projectilePatterns.Length; ++i)
+            {
+                patternIds[i] = objectPoolManager.GetTypeIdentifier(projectilePatterns[i]);
+            }
+        }
+
         /// <summary>
         /// Tries to look at the player and shoot at it when possible. Runs every frame.
         /// </summary>
@@ -109,7 +127,7 @@ namespace Hive.Armada.Enemies
 
                 theta += movingSpeed * Time.deltaTime;
 
-                if (theta > Mathf.PI * 3 / 2)
+                if (theta > Mathf.PI)
                 {
                     theta -= Mathf.PI * 2;
                 }
@@ -160,30 +178,38 @@ namespace Hive.Armada.Enemies
         {
             canShoot = false;
 
-            for (int x = 0; x < 25; x++)
-            {
-                if (projectileArray[x])
-                {
-                    GameObject projectile =
-                        objectPoolManager.Spawn(gameObject, projectileTypeIdentifier, shootPoint[x].position,
-                                                shootPoint[x].rotation);
+            //for (int x = 0; x < 25; x++)
+            //{
+            //    if (projectileArray[x])
+            //    {
+            //        GameObject projectile =
+            //            objectPoolManager.Spawn(gameObject, projectileTypeIdentifier, shootPoint[x].position,
+            //                                    shootPoint[x].rotation);
 
-                    projectile.GetComponent<Transform>().Rotate(Random.Range(-spread, spread),
-                                                                Random.Range(-spread, spread),
-                                                                Random.Range(-spread, spread));
-                    projectile.GetComponent<Projectile>()
-                              .SetColors(projectileAlbedoColor, projectileEmissionColor);
-                    Projectile projectileScript = projectile.GetComponent<Projectile>();
-                    projectileScript.Launch(0);
-                    //projectile.GetComponent<Rigidbody>().velocity =
-                    //    projectile.transform.forward * projectileSpeed;
+            //        projectile.GetComponent<Transform>().Rotate(Random.Range(-spread, spread),
+            //                                                    Random.Range(-spread, spread),
+            //                                                    Random.Range(-spread, spread));
+            //        projectile.GetComponent<Projectile>()
+            //                  .SetColors(projectileAlbedoColor, projectileEmissionColor);
+            //        Projectile projectileScript = projectile.GetComponent<Projectile>();
+            //        projectileScript.Launch(0);
+            //        //projectile.GetComponent<Rigidbody>().velocity =
+            //        //    projectile.transform.forward * projectileSpeed;
 
-                    if (canRotate)
-                    {
-                        StartCoroutine(rotateProjectile(projectile));
-                    }
-                }
-            }
+            //        if (canRotate)
+            //        {
+            //            StartCoroutine(rotateProjectile(projectile));
+            //        }
+            //    }
+            //}
+
+            GameObject projectile =
+                objectPoolManager.Spawn(gameObject, patternId, shootPoint.position,
+                                        shootPoint.rotation);
+
+            ProjectilePattern projectileScript = projectile.GetComponent<ProjectilePattern>();
+            projectileScript.Launch(0);
+
             yield return new WaitForSeconds(fireRate);
             canShoot = true;
         }
@@ -210,76 +236,75 @@ namespace Hive.Armada.Enemies
             {
                 //X-pattern
                 case 0:
-                    fireRate = 1.2f;
-                    spread = 0;
+                    patternId = patternIds[0];
+                    //fireRate = 1.2f;
+                    //spread = 0;
 
-                    projectileArray[0] = true;
-                    projectileArray[1] = false;
-                    projectileArray[2] = false;
-                    projectileArray[3] = false;
-                    projectileArray[4] = true;
+                    //projectileArray[0] = true;
+                    //projectileArray[1] = false;
+                    //projectileArray[2] = false;
+                    //projectileArray[3] = false;
+                    //projectileArray[4] = true;
 
-                    projectileArray[5] = false;
-                    projectileArray[6] = true;
-                    projectileArray[7] = false;
-                    projectileArray[8] = true;
-                    projectileArray[9] = false;
+                    //projectileArray[5] = false;
+                    //projectileArray[6] = true;
+                    //projectileArray[7] = false;
+                    //projectileArray[8] = true;
+                    //projectileArray[9] = false;
 
-                    projectileArray[10] = false;
-                    projectileArray[11] = false;
-                    projectileArray[12] = true;
-                    projectileArray[13] = false;
-                    projectileArray[14] = false;
+                    //projectileArray[10] = false;
+                    //projectileArray[11] = false;
+                    //projectileArray[12] = true;
+                    //projectileArray[13] = false;
+                    //projectileArray[14] = false;
 
-                    projectileArray[15] = false;
-                    projectileArray[16] = true;
-                    projectileArray[17] = false;
-                    projectileArray[18] = true;
-                    projectileArray[19] = false;
+                    //projectileArray[15] = false;
+                    //projectileArray[16] = true;
+                    //projectileArray[17] = false;
+                    //projectileArray[18] = true;
+                    //projectileArray[19] = false;
 
-                    projectileArray[20] = true;
-                    projectileArray[21] = false;
-                    projectileArray[22] = false;
-                    projectileArray[23] = false;
-                    projectileArray[24] = true;
-
+                    //projectileArray[20] = true;
+                    //projectileArray[21] = false;
+                    //projectileArray[22] = false;
+                    //projectileArray[23] = false;
+                    //projectileArray[24] = true;
                     break;
-
                 //inverse-X
                 case 1:
-                    fireRate = 1.2f;
-                    spread = 0;
+                    patternId = patternIds[1];
+                    //fireRate = 1.2f;
+                    //spread = 0;
 
-                    projectileArray[0] = true;
-                    projectileArray[1] = true;
-                    projectileArray[2] = false;
-                    projectileArray[3] = true;
-                    projectileArray[4] = true;
+                    //projectileArray[0] = true;
+                    //projectileArray[1] = true;
+                    //projectileArray[2] = false;
+                    //projectileArray[3] = true;
+                    //projectileArray[4] = true;
 
-                    projectileArray[5] = true;
-                    projectileArray[6] = false;
-                    projectileArray[7] = false;
-                    projectileArray[8] = false;
-                    projectileArray[9] = true;
+                    //projectileArray[5] = true;
+                    //projectileArray[6] = false;
+                    //projectileArray[7] = false;
+                    //projectileArray[8] = false;
+                    //projectileArray[9] = true;
 
-                    projectileArray[10] = false;
-                    projectileArray[11] = false;
-                    projectileArray[12] = true;
-                    projectileArray[13] = false;
-                    projectileArray[14] = false;
+                    //projectileArray[10] = false;
+                    //projectileArray[11] = false;
+                    //projectileArray[12] = true;
+                    //projectileArray[13] = false;
+                    //projectileArray[14] = false;
 
-                    projectileArray[15] = true;
-                    projectileArray[16] = false;
-                    projectileArray[17] = false;
-                    projectileArray[18] = false;
-                    projectileArray[19] = true;
+                    //projectileArray[15] = true;
+                    //projectileArray[16] = false;
+                    //projectileArray[17] = false;
+                    //projectileArray[18] = false;
+                    //projectileArray[19] = true;
 
-                    projectileArray[20] = true;
-                    projectileArray[21] = true;
-                    projectileArray[22] = false;
-                    projectileArray[23] = true;
-                    projectileArray[24] = true;
-
+                    //projectileArray[20] = true;
+                    //projectileArray[21] = true;
+                    //projectileArray[22] = false;
+                    //projectileArray[23] = true;
+                    //projectileArray[24] = true;
                     break;
             }
         }

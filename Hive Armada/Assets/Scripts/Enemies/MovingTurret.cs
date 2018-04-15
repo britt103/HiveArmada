@@ -29,7 +29,7 @@ namespace Hive.Armada.Enemies
         /// <summary>
         /// The point where this enemy shoots from.
         /// </summary>
-        public Transform[] shootPoint;
+        public Transform shootPoint;
 
         /// <summary>
         /// How many time per second this enemy can shoot.
@@ -111,11 +111,23 @@ namespace Hive.Armada.Enemies
         /// </summary>
         private float theta;
 
-        /// <summary>
-        /// Initialize random state.
-        /// </summary>
-        private void Start()
+        public GameObject[] projectilePatterns;
+
+        private short[] patternIds;
+
+        private short patternId = -2;
+
+        protected override void Awake()
         {
+            base.Awake();
+
+            patternIds = new short[projectilePatterns.Length];
+
+            for (int i = 0; i < projectilePatterns.Length; ++i)
+            {
+                patternIds[i] = objectPoolManager.GetTypeIdentifier(projectilePatterns[i]);
+            }
+
             Random.InitState((int)System.DateTime.Now.Ticks);
         }
 
@@ -187,29 +199,37 @@ namespace Hive.Armada.Enemies
         {
             canShoot = false;
 
-            for (int point = 0; point < 9; ++point)
-            {
-                if (projectileArray[point])
-                {
-                    GameObject projectile = objectPoolManager.Spawn(gameObject, projectileTypeIdentifier, shootPoint[point].position,
-                                                       shootPoint[point].rotation);
+            //for (int point = 0; point < 9; ++point)
+            //{
+            //    if (projectileArray[point])
+            //    {
+            //        GameObject projectile = objectPoolManager.Spawn(gameObject, projectileTypeIdentifier, shootPoint[point].position,
+            //                                           shootPoint[point].rotation);
 
-                    projectile.GetComponent<Transform>().Rotate(Random.Range(-spread, spread),
-                                                                Random.Range(-spread, spread),
-                                                                Random.Range(-spread, spread));
-                    projectile.GetComponent<Projectile>()
-                              .SetColors(projectileAlbedoColor, projectileEmissionColor);
-                    Projectile projectileScript = projectile.GetComponent<Projectile>();
-                    projectileScript.Launch(0);
-                    //projectile.GetComponent<Rigidbody>().velocity =
-                    //    projectile.transform.forward * projectileSpeed;
+            //        projectile.GetComponent<Transform>().Rotate(Random.Range(-spread, spread),
+            //                                                    Random.Range(-spread, spread),
+            //                                                    Random.Range(-spread, spread));
+            //        projectile.GetComponent<Projectile>()
+            //                  .SetColors(projectileAlbedoColor, projectileEmissionColor);
+            //        Projectile projectileScript = projectile.GetComponent<Projectile>();
+            //        projectileScript.Launch(0);
+            //        //projectile.GetComponent<Rigidbody>().velocity =
+            //        //    projectile.transform.forward * projectileSpeed;
 
-                    if (canRotate)
-                    {
-                        StartCoroutine(rotateProjectile(projectile));
-                    }
-                }
-            }
+            //        if (canRotate)
+            //        {
+            //            StartCoroutine(rotateProjectile(projectile));
+            //        }
+            //    }
+            //}
+
+            GameObject projectile =
+                objectPoolManager.Spawn(gameObject, patternId, shootPoint.position,
+                                        shootPoint.rotation);
+
+            ProjectilePattern projectileScript = projectile.GetComponent<ProjectilePattern>();
+            projectileScript.Launch(0);
+
             yield return new WaitForSeconds(fireRate);
             canShoot = true;
         }
@@ -236,35 +256,36 @@ namespace Hive.Armada.Enemies
             {
                 //standard pattern, single bullets
                 case 0:
-                    fireRate = 0.8f;
-                    projectileSpeed = 1.5f;
-                    spread = 0;
-                    //canRotate = false;
-                    projectileArray[0] = true;
-                    projectileArray[1] = false;
-                    projectileArray[2] = false;
-                    projectileArray[3] = false;
-                    projectileArray[4] = true;
-                    projectileArray[5] = false;
-                    projectileArray[6] = true;
-                    projectileArray[7] = false;
-                    projectileArray[8] = false;
+                    patternId = patternIds[0];
+                    //fireRate = 0.8f;
+                    //projectileSpeed = 1.5f;
+                    //spread = 0;
+                    ////canRotate = false;
+                    //projectileArray[0] = true;
+                    //projectileArray[1] = false;
+                    //projectileArray[2] = false;
+                    //projectileArray[3] = false;
+                    //projectileArray[4] = true;
+                    //projectileArray[5] = false;
+                    //projectileArray[6] = true;
+                    //projectileArray[7] = false;
+                    //projectileArray[8] = false;
                     break;
-
                 case 1:
-                    fireRate = 0.8f;
-                    projectileSpeed = 1.5f;
-                    spread = 0;
-                    //canRotate = true;
-                    projectileArray[0] = false;
-                    projectileArray[1] = true;
-                    projectileArray[2] = true;
-                    projectileArray[3] = true;
-                    projectileArray[4] = true;
-                    projectileArray[5] = true;
-                    projectileArray[6] = true;
-                    projectileArray[7] = true;
-                    projectileArray[8] = true;
+                    patternId = patternIds[1];
+                    //fireRate = 0.8f;
+                    //projectileSpeed = 1.5f;
+                    //spread = 0;
+                    ////canRotate = true;
+                    //projectileArray[0] = false;
+                    //projectileArray[1] = true;
+                    //projectileArray[2] = true;
+                    //projectileArray[3] = true;
+                    //projectileArray[4] = true;
+                    //projectileArray[5] = true;
+                    //projectileArray[6] = true;
+                    //projectileArray[7] = true;
+                    //projectileArray[8] = true;
                     break;
             }
         }

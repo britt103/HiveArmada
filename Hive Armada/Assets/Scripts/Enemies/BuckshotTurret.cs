@@ -35,7 +35,7 @@ namespace Hive.Armada.Enemies
         /// <summary>
         /// Position from which bullets are initially shot from
         /// </summary>
-        public Transform[] shootPoint;
+        public Transform shootPoint;
 
         /// <summary>
         /// How fast the turret shoots at a given rate
@@ -76,11 +76,16 @@ namespace Hive.Armada.Enemies
         public float yMax;
         public float movingSpeed;
 
+        public GameObject projectilePattern;
+
+        private short patternId = -2;
+
         /// <summary>
         /// Finds the player and instantiates pos for position holding
         /// </summary>
-        private void Start()
+        protected override void Awake()
         {
+            base.Awake();
             //    player = GameObject.FindGameObjectWithTag("Player");
             //    pos = new Vector3(player.transform.position.x, player.transform.position.y,
             //        player.transform.position.z);
@@ -88,6 +93,7 @@ namespace Hive.Armada.Enemies
             //gameObject.SendMessage("Activate", SendMessageOptions.DontRequireReceiver);
             ////Reset();
             //SetAttackPattern(AttackPattern.One);
+            patternId = objectPoolManager.GetTypeIdentifier(projectilePattern);
         }
 
         /// <summary>
@@ -156,29 +162,36 @@ namespace Hive.Armada.Enemies
         {
             canShoot = false;
 
-            for (int point = 0; point < 9; ++point)
-            {
-                if (projectileArray[point] == true)
-                {
-                    GameObject projectile = objectPoolManager.Spawn(gameObject, projectileTypeIdentifier, shootPoint[point].position,
-                                                       shootPoint[point].rotation);
+            //for (int point = 0; point < 9; ++point)
+            //{
+            //    if (projectileArray[point] == true)
+            //    {
+            //        GameObject projectile = objectPoolManager.Spawn(gameObject, projectileTypeIdentifier, shootPoint[point].position,
+            //                                           shootPoint[point].rotation);
 
-                    projectile.GetComponent<Transform>().Rotate(Random.Range(-spread, spread),
-                                                                Random.Range(-spread, spread),
-                                                                Random.Range(-spread, spread));
-                    projectile.GetComponent<Projectile>()
-                              .SetColors(projectileAlbedoColor, projectileEmissionColor);
-                    Projectile projectileScript = projectile.GetComponent<Projectile>();
-                    projectileScript.Launch(0);
-                    //projectile.GetComponent<Rigidbody>().velocity =
-                    //    projectile.transform.forward * projectileSpeed;
+            //        projectile.GetComponent<Transform>().Rotate(Random.Range(-spread, spread),
+            //                                                    Random.Range(-spread, spread),
+            //                                                    Random.Range(-spread, spread));
+            //        projectile.GetComponent<Projectile>()
+            //                  .SetColors(projectileAlbedoColor, projectileEmissionColor);
+            //        Projectile projectileScript = projectile.GetComponent<Projectile>();
+            //        projectileScript.Launch(0);
+            //        //projectile.GetComponent<Rigidbody>().velocity =
+            //        //    projectile.transform.forward * projectileSpeed;
 
-                    //if (canRotate)
-                    //{
-                    //    StartCoroutine(rotateProjectile(projectile));
-                    //}
-                }
-            }
+            //        //if (canRotate)
+            //        //{
+            //        //    StartCoroutine(rotateProjectile(projectile));
+            //        //}
+            //    }
+            //}
+
+            GameObject projectile = objectPoolManager.Spawn(gameObject, patternId, shootPoint.position,
+                                                            shootPoint.rotation);
+
+            ProjectilePattern projectileScript = projectile.GetComponent<ProjectilePattern>();
+            projectileScript.Launch(0);
+
             yield return new WaitForSeconds(fireRate);
             canShoot = true;
         }

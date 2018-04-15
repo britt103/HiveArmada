@@ -19,6 +19,7 @@ using UnityEngine.UI;
 using Hive.Armada.Player;
 using Hive.Armada.PowerUps;
 using System;
+using Hive.Armada.Ambient;
 
 namespace Hive.Armada.Game
 {
@@ -124,6 +125,8 @@ namespace Hive.Armada.Game
         /// Game over menu with score.
         /// </summary>
         public GameObject menuGameOver;
+
+        public TalkingParticle talkingParticle;
 
         //----------------------------------------
         // 

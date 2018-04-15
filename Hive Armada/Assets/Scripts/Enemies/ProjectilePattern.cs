@@ -28,8 +28,6 @@ namespace Hive.Armada.Enemies
     {
         private Rigidbody pRigidbody;
 
-        public ParticleSystems trailEmitter;
-
         /// <summary>
         /// The renderer for the projectile.
         /// </summary>
@@ -43,17 +41,6 @@ namespace Hive.Armada.Enemies
         /// <summary>
         /// </summary>
         public byte ProjectileId { get; private set; }
-
-        /// <summary>
-        /// The original albedo color, used to reset the color.
-        /// </summary>
-        private Color originalAlbedo;
-
-        /// <summary>
-        /// The original emission color, used to reset the color.
-        /// </summary>
-        private Color originalEmission;
-
         /// <summary>
         /// The current albedo color.
         /// </summary>
@@ -94,6 +81,12 @@ namespace Hive.Armada.Enemies
         /// </summary>
         private Coroutine timeWarpCoroutine;
 
+        private int hitProjectiles;
+
+        public GameObject[] projectiles;
+
+        private ProjectileInPattern[] projectileScripts;
+
         /// <summary>
         /// Initializes the reference to the Reference Manager
         /// </summary>
@@ -101,11 +94,15 @@ namespace Hive.Armada.Enemies
         {
             base.Awake();
 
+            damage = reference.enemyAttributes.projectileDamage;
             pRigidbody = GetComponent<Rigidbody>();
-            material = GetComponent<Renderer>().material;
-            originalAlbedo = material.GetColor("_Color");
-            originalEmission = material.GetColor("_EmissionColor");
-            currentAlpha = 1.0f;
+            projectileScripts = new ProjectileInPattern[projectiles.Length];
+
+            for (int i = 0; i < projectiles.Length; ++i)
+            {
+                projectileScripts[i] = projectiles[i].GetComponent<ProjectileInPattern>();
+                projectileScripts[i].SetDamage(damage);
+            }
         }
 
         /// <summary>
@@ -152,55 +149,14 @@ namespace Hive.Armada.Enemies
         /// </summary>
         private IEnumerator TimeWarp()
         {
-            trailEmitter.play();
             while (reference.enemyAttributes.IsTimeWarped)
             {
                 pRigidbody.velocity = transform.forward *
                                       reference.enemyAttributes.projectileSpeeds[ProjectileId];
 
-                yield return null;
+                yield return new WaitForSeconds(0.1f);
             }
-            trailEmitter.stop();
             timeWarpCoroutine = null;
-        }
-
-        /// <summary>
-        /// Runs when the projectile collides with another object with a Collider.
-        /// </summary>
-        /// <param name="other"> The other collider </param>
-        private void OnTriggerEnter(Collider other)
-        {
-            if (other.CompareTag("Player"))
-            {
-                if (Utility.isDebug)
-                {
-                    Debug.Log(GetType().Name + " - hit object named \"" + other.gameObject.name +
-                              "\"");
-                }
-
-                if (reference.playerShip != null)
-                {
-                    reference.playerShip.GetComponent<PlayerHealth>().Hit(damage);
-                }
-
-                reference.objectPoolManager.Despawn(gameObject);
-            }
-            else if (other.CompareTag("Room") || other.CompareTag("ProjectileBounds"))
-            {
-                reference.objectPoolManager.Despawn(gameObject);
-            }
-        }
-
-        /// <summary>
-        /// Sets the albedo and emission color for the projectile.
-        /// </summary>
-        /// <param name="albedoColor"> The albedo color </param>
-        /// <param name="emissionColor"> The emission color </param>
-        public void SetColors(Color albedoColor, Color emissionColor)
-        {
-            currentAlbedo = albedoColor;
-            material.SetColor("_Color", albedoColor);
-            material.SetColor("_EmissionColor", emissionColor);
         }
 
         /// <summary>
@@ -262,13 +218,29 @@ namespace Hive.Armada.Enemies
             fadeCoroutine = null;
         }
 
+        public void ProjectileHit()
+        {
+            hitProjectiles++;
+
+            if (++hitProjectiles >= projectiles.Length)
+            {
+                reference.objectPoolManager.Despawn(gameObject);
+            }
+        }
+
         /// <summary>
         /// Initializes the damage for the projectile.
         /// </summary>
         protected override void Reset()
         {
-            SetColors(originalAlbedo, originalEmission);
+            hitProjectiles = 0;
             damage = reference.enemyAttributes.projectileDamage;
+
+            for (int i = 0; i < projectiles.Length; ++i)
+            {
+                projectiles[i].SetActive(true);
+                projectileScripts[i].Reset();
+            }
         }
     }
 }

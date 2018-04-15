@@ -11,6 +11,7 @@
 //
 //=============================================================================
 
+using Hive.Armada.Ambient;
 using UnityEngine;
 using Hive.Armada.Game;
 
@@ -55,6 +56,8 @@ namespace Hive.Armada
 
             currMenuGO.SetActive(false);
             nextMenuGO.SetActive(true);
+
+            FindObjectOfType<ReferenceManager>().talkingParticle.MovePosition(nextMenuGO.name);
 
             player.transform.position = newTransform.position;
             player.transform.rotation = newTransform.rotation;

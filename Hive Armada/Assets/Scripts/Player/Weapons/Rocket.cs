@@ -284,11 +284,6 @@ namespace Hive.Armada.Player.Weapons
                     reference.objectPoolManager.Spawn(gameObject, trailEmitterId,
                                                       transform.position, transform.rotation,
                                                       transform);
-                GetComponent<TrailRenderer>().enabled = false;
-            }
-            else
-            {
-                GetComponent<TrailRenderer>().enabled = true;
             }
         }
 

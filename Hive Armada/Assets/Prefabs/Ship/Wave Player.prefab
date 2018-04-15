@@ -36,6 +36,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4991697021211888}
   - component: {fileID: 20144883213781142}
+  - component: {fileID: 114164697358515582}
   m_Layer: 0
   m_Name: Recording Camera
   m_TagString: Untagged
@@ -242,7 +243,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1326771295112586
 GameObject:
   m_ObjectHideFlags: 1
@@ -1005,7 +1006,7 @@ Camera:
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
-  m_HDR: 0
+  m_HDR: 1
   m_AllowMSAA: 1
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
@@ -1209,6 +1210,18 @@ MonoBehaviour:
   menuOffset: 40
   scaleLimits: {x: 0.1, y: 5}
   scaleRate: 0.5
+--- !u!114 &114164697358515582
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1023970068548914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  profile: {fileID: 11400000, guid: 39f326e5bde1dfb43a21ce8e00e666ec, type: 2}
 --- !u!114 &114169861385548010
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -39,7 +39,9 @@ namespace Hive.Armada
         [Range(0.0f, 180.0f)]
         public float targetPathTime;
 
-        [Space()]
+        public bool targetDoPath;
+
+        [Space]
         public bool loop;
 
         private void Start()
@@ -47,17 +49,20 @@ namespace Hive.Armada
             Hashtable cameraHash = new Hashtable
                                    {
                                        {"delay", startDelay},
+                                       {"movetopath", false},
                                        {"easetype", iTween.EaseType.easeInOutSine},
-                                       {"looktarget", target},
+                                       {"looktarget", target.transform},
+                                        {"lookahead", 0.85f},
                                        {"time", cameraPathTime},
-                                       {"path", iTweenPath.GetPath(cameraPath.pathName)}
+                                       {"path", iTweenPath.GetPath("FootageCameraPath-01")}
                                    };
             Hashtable targetHash = new Hashtable
                                    {
                                        {"delay", startDelay},
+                                       {"movetopath", false},
                                        {"easetype", iTween.EaseType.easeInOutSine},
                                        {"time", targetPathTime},
-                                       {"path", iTweenPath.GetPath(targetPath.pathName)}
+                                       {"path", iTweenPath.GetPath("FootageTargetPath-01")}
                                    };
 
             if (loop)
@@ -65,9 +70,13 @@ namespace Hive.Armada
                 cameraHash.Add("looptype", iTween.LoopType.loop);
                 targetHash.Add("looptype", iTween.LoopType.loop);
             }
-
             iTween.MoveTo(footageCamera, cameraHash);
-            iTween.MoveTo(target, targetHash);
+            if (targetDoPath)
+            {
+                iTween.MoveTo(target, targetHash);
+            }
+
+            //iTween.MoveTo(footageCamera, iTween.Hash("delay", startDelay, "movetopath", false, "easetype", iTween.EaseType.easeInOutSine, "looktarget", target.transform, "time", cameraPathTime, "path", iTweenPath.GetPath("FootageCameraPath-01")));
         }
     }
 }

@@ -50,6 +50,10 @@ namespace Hive.Armada.Menus
 
         public GameObject currentWeaponText;
 
+        public GameObject gameMode;
+
+        public GameObject currentMode;
+
         [Reorderable("Weapon", false)]
         public GameObject[] weaponStatsTexts;
 
@@ -153,6 +157,19 @@ namespace Hive.Armada.Menus
         /// </summary>
         private void OnEnable()
         {
+            gameMode.SetActive(true);
+
+            if (gameSettings.selectedGameMode == GameSettings.GameMode.SoloNormal)
+            {
+                currentMode.GetComponent<Text>().text = "BOSS";
+            }
+            else
+            {
+                currentMode.GetComponent<Text>().text = "INFINITE";
+            }
+            
+            currentMode.SetActive(true);
+
             if (!iridiumSystem.CheckAnyWeaponsUnlocked())
             {
                 selectedWeapon = (int)GameSettings.Weapon.Laser;
@@ -177,6 +194,7 @@ namespace Hive.Armada.Menus
                     statsText.SetActive(false);
                     currentText.SetActive(false);
                     currentWeaponText.SetActive(false);
+
                 }
                 else
                 {

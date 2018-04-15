@@ -265,16 +265,23 @@ namespace Hive.Armada.Game
         /// </summary>
         private IEnumerator Spawn()
         {
-            foreach (SetupNormalSpawnGroup group in setupSpawnGroups)
+            for (int i = 0; i < setupSpawnGroups.Length; i++)
             {
-                yield return new WaitForSeconds(Mathf.Abs(group.delay));
+                //if (WaveNumber == 3 && i < 2)
+                //{
+                //    Debug.LogWarning(GetType().Name + " - Skipping Wave " + (WaveNumber + 1) + " Spawn Group Index = " + i);
+                //    continue;
+                //}
+
+                SetupNormalSpawnGroup @group = setupSpawnGroups[i];
+                yield return new WaitForSeconds(Mathf.Abs(@group.delay));
 
                 while (enemiesRemaining > 0)
                 {
                     yield return new WaitForSeconds(0.1f);
                 }
 
-                foreach (SetupNormalSpawnZone zone in group.setupSpawnZones)
+                foreach (SetupNormalSpawnZone zone in @group.setupSpawnZones)
                 {
                     Vector3 position;
 
@@ -307,11 +314,12 @@ namespace Hive.Armada.Game
 
                     foreach (SetupNormalSpawnPath thisPath in zone.setupSpawnPaths)
                     {
-                        string pathName = waveManager.PathNames[(int)zone.zone] + (int)thisPath.path;
+                        string pathName =
+                            waveManager.PathNames[(int) zone.zone] + (int) thisPath.path;
 
                         GameObject spawned =
                             objectPoolManager.Spawn(
-                                gameObject, (short)waveManager.EnemyIDs[(int)thisPath.enemy],
+                                gameObject, (short) waveManager.EnemyIDs[(int) thisPath.enemy],
                                 position,
                                 rotation);
 
@@ -341,16 +349,19 @@ namespace Hive.Armada.Game
                     }
                 }
 
-                if (group.powerupSpawn.powerupSpawn != PowerupSpawnPoint.NoPowerup)
+                if (@group.powerupSpawn.powerupSpawn != PowerupSpawnPoint.NoPowerup)
                 {
-                    Vector3 spawnPoint = waveManager.powerupSpawnPoints[(int)group.powerupSpawn.powerupSpawn - 1].position;
+                    Vector3 spawnPoint = waveManager
+                        .powerupSpawnPoints[(int) @group.powerupSpawn.powerupSpawn - 1].position;
 
-                    Instantiate(waveManager.powerupPrefabs[(int)group.powerupSpawn.powerup], spawnPoint, Quaternion.identity);
+                    Instantiate(waveManager.powerupPrefabs[(int) @group.powerupSpawn.powerup],
+                                spawnPoint, Quaternion.identity);
 
                     if (!waveManager.spawnedPowerupOnce)
                     {
                         waveManager.spawnedPowerupOnce = true;
-                        reference.tooltips.SpawnGrabPowerup((int)group.powerupSpawn.powerupSpawn - 1);
+                        reference.tooltips.SpawnGrabPowerup(
+                            (int) @group.powerupSpawn.powerupSpawn - 1);
                     }
                 }
             }

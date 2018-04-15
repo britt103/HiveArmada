@@ -1123,7 +1123,7 @@ namespace Hive.Armada.Enemies
                     break;
             }
             int me = Random.Range(0, 7);
-            StartCoroutine(SelectBehavior(me));
+            selectBehaviorCoroutine = StartCoroutine(SelectBehavior(me));
             Debug.Log("Switched to " + me);
             yield return null;
         }

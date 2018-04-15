@@ -41,6 +41,25 @@ namespace Hive.Armada.Game
         private Queue<Dialogue> dialogueQueue;
         private Coroutine dialogueCoroutine;
 
+        public AudioSource feedbackSource;
+
+        public Queue<AudioClip> feedbackQueue;
+
+        public Coroutine feedbackCoroutine;
+
+        private Hashtable clipTimes;
+
+        public float spamTimer;
+
+
+
+        private void Awake()
+        {
+            dialogueQueue = new Queue<Dialogue>();
+            feedbackQueue = new Queue<AudioClip>();
+            clipTimes = new Hashtable();
+        }
+
         /// <summary>
         /// Adds an array of dialogue AudioClip's to the dialogue queue.
         /// </summary>
@@ -63,7 +82,7 @@ namespace Hive.Armada.Game
         /// <param name="dialogueClip"> The AudioClip to play </param>
         public void EnqueueDialogue(GameObject sender, AudioClip dialogueClip)
         {
-            dialogueQueue.Enqueue(new Dialogue(sender, new AudioClip[]{dialogueClip}));
+            dialogueQueue.Enqueue(new Dialogue(sender, new AudioClip[] { dialogueClip }));
 
             if (dialogueCoroutine == null)
             {
@@ -101,6 +120,48 @@ namespace Hive.Armada.Game
             if (dialogueQueue.Count > 0)
             {
                 dialogueCoroutine = StartCoroutine(PlayDialogue());
+                yield break;
+            }
+
+            dialogueCoroutine = null;
+        }
+
+        public void EnqueueFeedback(AudioClip clip)
+        {
+            if (clipTimes.ContainsKey(clip.GetInstanceID()))
+            {
+                return;
+            }
+
+            clipTimes.Add(clip.GetInstanceID(), Time.time + spamTimer);
+
+            feedbackQueue.Enqueue(clip);
+
+            if (feedbackCoroutine == null)
+            {
+                feedbackCoroutine = StartCoroutine(PlayFeedback());
+            }
+        }
+
+        private IEnumerator PlayFeedback()
+        {
+            while (feedbackQueue.Count > 0)
+            {
+                if (feedbackSource.isPlaying)
+                {
+                    yield return new WaitWhile(() => feedbackSource.isPlaying);
+                }
+
+                feedbackSource.PlayOneShot(feedbackQueue.Dequeue());
+
+                yield return new WaitWhile(() => feedbackSource.isPlaying);
+
+                yield return new WaitForSeconds(clipDelay);
+            }
+
+            if (feedbackQueue.Count > 0)
+            {
+                feedbackCoroutine = StartCoroutine(PlayFeedback());
                 yield break;
             }
 

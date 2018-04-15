@@ -77,10 +77,10 @@ namespace Hive.Armada.Enemies
                 StartCoroutine(Shoot());
             }
 
-            if (shaking)
-            {
-                iTween.ShakePosition(gameObject, new Vector3(0.1f, 0.1f, 0.1f), 0.1f);
-            }
+            //if (shaking)
+            //{
+            //    iTween.ShakePosition(gameObject, new Vector3(0.1f, 0.1f, 0.1f), 0.1f);
+            //}
 
             SelfDestructCountdown();
         }
@@ -163,10 +163,8 @@ namespace Hive.Armada.Enemies
         /// </summary>
         protected override void Reset()
         {
-            base.Reset();
+            StopAllCoroutines();
 
-            canShoot = true;
-            PathingComplete = true;
             projectileTypeIdentifier =
                 enemyAttributes.EnemyProjectileTypeIdentifiers[TypeIdentifier];
             fireRate = enemyAttributes.enemyFireRate[TypeIdentifier];
@@ -182,6 +180,10 @@ namespace Hive.Armada.Enemies
                                                             transform.rotation, transform);
                 spawnEmitterSystem = spawnEmitterObject.GetComponent<ParticleSystems>();
             }
+
+            base.Reset();
+            canShoot = true;
+            PathingComplete = true;
         }
     }
 }

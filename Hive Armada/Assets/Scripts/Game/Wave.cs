@@ -316,6 +316,7 @@ namespace Hive.Armada.Game
                                 rotation);
 
                         Enemy spawnedEnemyScript = spawned.GetComponent<Enemy>();
+                        spawnedEnemyScript.SetPath(pathName);
                         spawnedEnemyScript.SetWave(WaveNumber);
                         spawnedEnemyScript.SetAttackPattern(thisPath.attackPattern);
 

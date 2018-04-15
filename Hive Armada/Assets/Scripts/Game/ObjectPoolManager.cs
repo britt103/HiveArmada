@@ -14,36 +14,6 @@
 // based on their index in the list of objects to pool. This allows for easy
 // access to pools without having to always convert a prefab into an index.
 // 
-// The idea behind object pooling is to instantiate all objects that will be
-// used all at once to limit spawning overhead. Then, all objects are returned
-// to the pool when they are finished instead of calling Destroy() to reduce
-// Unity's garbage collection as much as possible. This helps us to boost
-// performance.
-// 
-// The pools are made up of 2 arrays of lists: one for active or objects, the
-// other for inactive or objects that are ready to be spawned. When an object
-// it is removed from its type's inactive pool and added to the corresponding
-// active pool. When it is despawned it does the reverse.
-// 
-// The arrays of lists use LinkedLists. Looking at the performance and features
-// of different data structures in C#, I determined that using LinkedLists
-// would best satisfy the needs for the object pools.
-// First, we needed easy access to any object in the pool. That eliminated
-// Queues and Stacks.
-// Second, we needed to be able to expand the pool in the event that we try
-// to spawn an object and there isn't an inactive one available. This
-// eliminated Arrays as they are set in length.
-// Third, and most importantly, we needed performance. I researched the
-// difference between Lists and LinkedLists. What I found was that inserting
-// and removing from the end of a list was quick, it was about 100x slower to
-// insert or remove from the front. LinkedLists had approximately the same
-// performance for inserting and removing from both the front and back.
-// For those 3 reasons, I decided that LinkedLists were the best option. It
-// allows us to easily and efficiently add or remove items to the front or back
-// of the pools. The only "costly" operation is if we try to despawn an object
-// that is in the middle of the pool. Then we have to iterate over all nodes
-// until we find the correct one with a Big-O of n.
-// 
 //=============================================================================
 
 using SubjectNerd.Utilities;
@@ -88,13 +58,6 @@ namespace Hive.Armada.Game
         /// </summary>
         [Tooltip("If a pool runs out, should it Instantiate() more objects?")]
         public bool canExpand = true;
-
-        /// <summary>
-        /// Prefab of empty game object that is the parent of each object type in the pool.
-        /// </summary>
-        [Tooltip("Prefab of empty game object to use as the " +
-                 "parent for each object type in the pool.")]
-        public GameObject poolParentPrefab;
 
         /// <summary>
         /// Parents for each of the object types in the pool.
@@ -175,13 +138,15 @@ namespace Hive.Armada.Game
 
                     inactivePools[i] = new Stack<GameObject>();
 
-                    poolParents[i] = Instantiate(poolParentPrefab, gameObject.transform);
+                    poolParents[i] = new GameObject();
+                    poolParents[i].transform.parent = transform;
+                    poolParents[i].transform.localPosition = Vector3.zero;
                     parentNames[i] = " - " + objects[i].objectPrefab.name;
                     poolParents[i].name = objects[i].amountToPool + parentNames[i];
 
                     for (int n = 0; n < objects[i].amountToPool; ++n)
                     {
-                        AddObject((short)(i));
+                        AddObject((short) i);
                     }
                 }
             }
@@ -196,7 +161,33 @@ namespace Hive.Armada.Game
         /// <returns> The spawned object </returns>
         public GameObject Spawn(GameObject caller, short typeIdentifier, Vector3 position)
         {
-            return SpawnObject(caller, typeIdentifier, position, null, null);
+            if (typeIdentifier == -2)
+            {
+                Debug.LogError(GetType().Name + " - Using uninitialized type identifier \"" +
+                               typeIdentifier + "\".");
+                return null;
+            }
+
+            if (typeIdentifier < 0 || typeIdentifier >= objects.Length)
+            {
+                Debug.LogError(GetType().Name + " - Invalid type identifier \"" + typeIdentifier +
+                               "\". Called by \"" + caller.name + "\", instance ID " +
+                               caller.GetInstanceID());
+                return null;
+            }
+
+            if (inactivePools[typeIdentifier].Count == 0)
+            {
+                ExpandPool(typeIdentifier);
+            }
+
+            GameObject spawned = GetObjectToSpawn(typeIdentifier);
+
+            spawned.transform.position = position;
+
+            spawned.GetComponent<Poolable>().Activate();
+
+            return spawned;
         }
 
         /// <summary>
@@ -208,52 +199,6 @@ namespace Hive.Armada.Game
         /// <param name="parent"> New parent for the spawned object </param>
         /// <returns> The spawned object </returns>
         public GameObject Spawn(GameObject caller, short typeIdentifier, Vector3 position,
-                                Transform parent)
-        {
-            return SpawnObject(caller, typeIdentifier, position, null, parent);
-        }
-
-        /// <summary>
-        /// Spawns a pooled object.
-        /// </summary>
-        /// <param name="caller"> The object that called Spawn() </param>
-        /// <param name="typeIdentifier"> The identifier (index) of the object to spawn </param>
-        /// <param name="position"> The position to spawn the object at </param>
-        /// <param name="rotation"> The rotation to spawn the object with </param>
-        /// <returns> The spawned object </returns>
-        public GameObject Spawn(GameObject caller, short typeIdentifier, Vector3 position,
-                                Quaternion rotation)
-        {
-            return SpawnObject(caller, typeIdentifier, position, rotation, null);
-        }
-
-        /// <summary>
-        /// Spawns a pooled object.
-        /// </summary>
-        /// <param name="caller"> The object that called Spawn() </param>
-        /// <param name="typeIdentifier"> The identifier (index) of the object to spawn </param>
-        /// <param name="position"> The position to spawn the object at </param>
-        /// <param name="rotation"> The rotation to spawn the object with </param>
-        /// <param name="parent"> New parent for the spawned object </param>
-        /// <returns> The spawned object </returns>
-        public GameObject Spawn(GameObject caller, short typeIdentifier, Vector3 position,
-                                Quaternion rotation,
-                                Transform parent)
-        {
-            return SpawnObject(caller, typeIdentifier, position, rotation, parent);
-        }
-
-        /// <summary>
-        /// Spawns a pooled object.
-        /// </summary>
-        /// <param name="caller"> The object that called Spawn() </param>
-        /// <param name="typeIdentifier"> The identifier (index) of the object to spawn </param>
-        /// <param name="position"> The position to spawn the object at </param>
-        /// <param name="rotation"> The rotation to spawn the object with </param>
-        /// <param name="parent"> New parent for the spawned object </param>
-        /// <returns> The spawned object </returns>
-        private GameObject SpawnObject(GameObject caller, short typeIdentifier, Vector3? position,
-                                Quaternion? rotation,
                                 Transform parent)
         {
             if (typeIdentifier == -2)
@@ -278,20 +223,95 @@ namespace Hive.Armada.Game
 
             GameObject spawned = GetObjectToSpawn(typeIdentifier);
 
-            if (parent != null)
+            spawned.transform.parent = parent;
+
+            spawned.transform.position = position;
+
+            spawned.GetComponent<Poolable>().Activate();
+
+            return spawned;
+        }
+
+        /// <summary>
+        /// Spawns a pooled object.
+        /// </summary>
+        /// <param name="caller"> The object that called Spawn() </param>
+        /// <param name="typeIdentifier"> The identifier (index) of the object to spawn </param>
+        /// <param name="position"> The position to spawn the object at </param>
+        /// <param name="rotation"> The rotation to spawn the object with </param>
+        /// <returns> The spawned object </returns>
+        public GameObject Spawn(GameObject caller, short typeIdentifier, Vector3 position,
+                                Quaternion rotation)
+        {
+            if (typeIdentifier == -2)
             {
-                spawned.transform.parent = parent;
+                Debug.LogError(GetType().Name + " - Using uninitialized type identifier \"" +
+                               typeIdentifier + "\".");
+                return null;
             }
 
-            if (position != null)
+            if (typeIdentifier < 0 || typeIdentifier >= objects.Length)
             {
-                spawned.transform.position = (Vector3) position;
+                Debug.LogError(GetType().Name + " - Invalid type identifier \"" + typeIdentifier +
+                               "\". Called by \"" + caller.name + "\", instance ID " +
+                               caller.GetInstanceID());
+                return null;
             }
 
-            if (rotation != null)
+            if (inactivePools[typeIdentifier].Count == 0)
             {
-                spawned.transform.rotation = (Quaternion) rotation;
+                ExpandPool(typeIdentifier);
             }
+
+            GameObject spawned = GetObjectToSpawn(typeIdentifier);
+
+            spawned.transform.position = position;
+            spawned.transform.rotation = rotation;
+
+            spawned.GetComponent<Poolable>().Activate();
+
+            return spawned;
+        }
+
+        /// <summary>
+        /// Spawns a pooled object.
+        /// </summary>
+        /// <param name="caller"> The object that called Spawn() </param>
+        /// <param name="typeIdentifier"> The identifier (index) of the object to spawn </param>
+        /// <param name="position"> The position to spawn the object at </param>
+        /// <param name="rotation"> The rotation to spawn the object with </param>
+        /// <param name="parent"> New parent for the spawned object </param>
+        /// <returns> The spawned object </returns>
+        public GameObject Spawn(GameObject caller, short typeIdentifier, Vector3 position,
+                                Quaternion rotation,
+                                Transform parent)
+        {
+            if (typeIdentifier == -2)
+            {
+                Debug.LogError(GetType().Name + " - Using uninitialized type identifier \"" +
+                               typeIdentifier + "\".");
+                return null;
+            }
+
+            if (typeIdentifier < 0 || typeIdentifier >= objects.Length)
+            {
+                Debug.LogError(GetType().Name + " - Invalid type identifier \"" + typeIdentifier +
+                               "\". Called by \"" + caller.name + "\", instance ID " +
+                               caller.GetInstanceID());
+                return null;
+            }
+
+            if (inactivePools[typeIdentifier].Count == 0)
+            {
+                ExpandPool(typeIdentifier);
+            }
+
+            GameObject spawned = GetObjectToSpawn(typeIdentifier);
+
+            spawned.transform.parent = parent;
+
+            spawned.transform.position = position;
+            spawned.transform.rotation = rotation;
 
             spawned.GetComponent<Poolable>().Activate();
 

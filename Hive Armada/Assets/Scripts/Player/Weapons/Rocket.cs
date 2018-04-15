@@ -69,11 +69,6 @@ namespace Hive.Armada.Player.Weapons
         private ShipController shipController;
 
         /// <summary>
-        /// The trail renderer on this rocket.
-        /// </summary>
-        private TrailRenderer trailRenderer;
-
-        /// <summary>
         /// Index of this rocket's type attributes in RocketAttributes.
         /// </summary>
         private int rocketType;
@@ -229,7 +224,6 @@ namespace Hive.Armada.Player.Weapons
             base.Awake();
             
             rocketAttributes = reference.rocketAttributes;
-            trailRenderer = GetComponent<TrailRenderer>();
         }
 
         /// <summary>
@@ -271,19 +265,6 @@ namespace Hive.Armada.Player.Weapons
             randomZ = rocketAttributes.rockets[rocketType].randomZ;
             explosionClip = rocketAttributes.rockets[rocketType].explosionClip;
             trailClip = rocketAttributes.rockets[rocketType].trailClip;
-
-            Gradient gradient = new Gradient();
-            gradient.SetKeys(
-                new[]
-                {
-                    new GradientColorKey(rocketAttributes.rockets[rocketType].trailColor,
-                                         0.0f),
-                    new GradientColorKey(rocketAttributes.rockets[rocketType].trailColor,
-                                         1.0f)
-                }, new[] {new GradientAlphaKey(1.0f, 0.0f), new GradientAlphaKey(1.0f, 1.0f)});
-            trailRenderer.colorGradient = gradient;
-            trailRenderer.startWidth = rocketAttributes.rockets[rocketType].trailWidth;
-            trailRenderer.endWidth = rocketAttributes.rockets[rocketType].trailWidth;
 
             explosionEmitterId = rocketAttributes.RocketExplosionEmitterIds[rocketType];
             rocketEmitterId = rocketAttributes.RocketEmitterIds[rocketType];

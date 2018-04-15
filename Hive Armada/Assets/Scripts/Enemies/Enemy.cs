@@ -11,6 +11,7 @@
 // 
 //=============================================================================
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -291,6 +292,16 @@ namespace Hive.Armada.Enemies
             FindObjectOfType<BestiaryUnlockData>().AddEnemyUnlock(gameObject.name);
             objectPoolManager.Spawn(gameObject, deathEmitterTypeIdentifier, transform.position,
                                     transform.rotation);
+
+            try
+            {
+                iTween.Stop(gameObject);
+            }
+            catch (Exception)
+            {
+                //
+            }
+
             objectPoolManager.Despawn(gameObject);
         }
 
@@ -334,7 +345,7 @@ namespace Hive.Armada.Enemies
             PathingComplete = true;
         }
 
-        public virtual void SetEnemyId(int enemyId)
+        protected virtual void SetEnemyId(int enemyId)
         {
             EnemyId = enemyId;
         }
@@ -397,6 +408,15 @@ namespace Hive.Armada.Enemies
             pointValue = enemyAttributes.enemyScoreValues[TypeIdentifier];
             selfDestructTime = enemyAttributes.enemySelfDestructTimes[TypeIdentifier];
             deathEmitterTypeIdentifier = enemyAttributes.EnemyDeathEmitterTypeIds[TypeIdentifier];
+
+            try
+            {
+                iTween.Stop(gameObject);
+            }
+            catch (Exception)
+            {
+                //
+            }
         }
     }
 }

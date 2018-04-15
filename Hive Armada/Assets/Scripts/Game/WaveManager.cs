@@ -218,8 +218,6 @@ namespace Hive.Armada.Game
         {
             reference = referenceManager;
 
-            Debug.LogWarning("asldkfjasdlfkjasldkfj " + referenceManager);
-
             ObjectPoolManager objectPool = reference.objectPoolManager;
             IsInfinite = reference.gameSettings.selectedGameMode == GameSettings.GameMode.SoloNormal;
 

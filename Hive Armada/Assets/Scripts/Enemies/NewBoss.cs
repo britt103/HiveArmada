@@ -152,8 +152,6 @@ namespace Hive.Armada.Enemies
 
         public int Lives { get; private set; }
 
-        private int currentEye;
-
         /// <summary>
         /// The strength of the boss looking at the player.
         /// </summary>
@@ -254,22 +252,34 @@ namespace Hive.Armada.Enemies
 
         private static System.Random random;
 
+        //private List<short> ids;
+
+        //private List<string> paths;
+
         /// <summary>
         /// </summary>
         protected override void Awake()
         {
             base.Awake();
 
+            //foreach (Renderer r in GetComponentsInChildren<Renderer>())
+            //{
+            //    r.enabled = false;
+            //}
+
+            //foreach (Renderer r in GetComponents<Renderer>())
+            //{
+            //    r.enabled = false;
+            //}
+
             bossManager = reference.bossManager;
-            lookTarget = GameObject.Find("Ship Look Target");
+            lookTarget = GameObject.Find("THE CAMERA");
             source = GameObject.Find("Boss Audio Source").GetComponent<AudioSource>();
 
             Random.InitState((int) DateTime.Now.Ticks);
             SetLookTarget(lookTarget);
             LookAtTarget = true;
             currentPosition = BossPosition.Intro;
-
-            currentEye = 0;
 
             Lives = eyes.Length;
 
@@ -325,6 +335,12 @@ namespace Hive.Armada.Enemies
                                         {2, rightCScorePoints}, {3, leftScorePoints},
                                         {4, rightScorePoints}
                                     };
+
+            //reference.shipPickup.SetActive(false);
+
+            //ids = new List<short> {0, 0, 3, 3, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2};
+
+            //paths = new List<string> {"CenterPath6", "CenterPath8", "CenterPath10", "CenterPath12", "LeftPath0", "LeftPath8", "RightPath0", "RightPath6", "LeftPath10", "RightPath12", "BackLeftPath11", "BackLeftPath8", "BackRightPath11", "BackRightPath6" };
         }
 
         /// <summary>
@@ -764,11 +780,60 @@ namespace Hive.Armada.Enemies
                 }
             }
 
+            //reference.shipPickup.SetActive(true);
+            //gameObject.SetActive(false);
+            //yield break;
+
+            StartHover();
+            yield return new WaitForSeconds(5.0f);
+            hoverEnabled = false;
+
+            #region FootageFakeEnemyMass
+
             //StartHover();
-            //yield return new WaitForSeconds(30.0f);
+            //Transform back = GameObject.Find("BackSpawn").transform;
+            //Transform front = GameObject.Find("FrontSpawn").transform;
+
+            //yield return new WaitForSeconds(6.0f);
+
+            //Random.InitState((int)DateTime.Now.Ticks);
+
+            //for (int i = 0; i < ids.Count; ++i)
+            //{
+            //    Transform spawn;
+            //    if (paths[i].Contains("Back"))
+            //    {
+            //        spawn = back;
+            //    }
+            //    else
+            //    {
+            //        spawn = front;
+            //    }
+
+            //    GameObject enemy =
+            //        objectPoolManager.Spawn(gameObject, ids[i], spawn.position, Quaternion.identity);
+
+            //    Hashtable babyHash = new Hashtable
+            //                         {
+            //                             {"easetype", iTween.EaseType.easeInOutSine},
+            //        {"looktarget", lookTarget.transform},
+            //                             {"time", Random.Range(3.0f, 4.0f)},
+            //                             {"onComplete", "OnPathingComplete"},
+            //                             {"onCompleteTarget", enemy},
+            //                             {
+            //                                 "path",
+            //                                 iTweenPath.GetPath(paths[i])
+            //                             }
+            //                         };
+            //    iTween.MoveTo(enemy, babyHash);
+            //}
+
+            //yield return new WaitForSeconds(60.0f);
             //hoverEnabled = false;
 
-            yield return null;
+            #endregion
+
+            //yield return null;
 
             // pass array of clips to DialoguePlayer
 
@@ -786,7 +851,7 @@ namespace Hive.Armada.Enemies
             reference.shipPickup.SetActive(true);
             reference.tooltips.SpawnGrabShip();
 
-            //yield return new WaitWhile(() => IsHovering);
+            yield return new WaitWhile(() => IsHovering);
 
             Hashtable moveHash = new Hashtable
                                  {
@@ -985,6 +1050,16 @@ namespace Hive.Armada.Enemies
             }
         }
 
+        private void ShootPattern()
+        {
+            GameObject projectile = objectPoolManager.Spawn(
+                gameObject, patternId, shootPivot.position,
+                shootPivot.rotation);
+
+            ProjectilePattern projectileScript = projectile.GetComponent<ProjectilePattern>();
+            projectileScript.Launch(0);
+        }
+
         private void ShootProjectiles()
         {
             GameObject projectile = objectPoolManager.Spawn(
@@ -1075,7 +1150,8 @@ namespace Hive.Armada.Enemies
                     SetAttackPattern(AttackPattern.Four);
                     for (int i = 0; i < 10; ++i)
                     {
-                        StartCoroutine(Shoot());
+                        //StartCoroutine(Shoot());
+                        ShootPattern();
                         yield return new WaitForSeconds(fireRate);
                     }
 
@@ -1087,23 +1163,28 @@ namespace Hive.Armada.Enemies
                     for (int i = 0; i < 10; ++i)
                     {
                         SetAttackPattern(AttackPattern.Two);
-                        StartCoroutine(Shoot());
+                        //StartCoroutine(Shoot());
+                        ShootPattern();
                         yield return new WaitForSeconds(0.05f);
 
                         SetAttackPattern(AttackPattern.Three);
-                        StartCoroutine(Shoot());
+                        //StartCoroutine(Shoot());
+                        ShootPattern();
                         yield return new WaitForSeconds(0.05f);
 
                         SetAttackPattern(AttackPattern.Four);
-                        StartCoroutine(Shoot());
+                        //StartCoroutine(Shoot());
+                        ShootPattern();
                         yield return new WaitForSeconds(0.05f);
 
                         SetAttackPattern(AttackPattern.Three);
-                        StartCoroutine(Shoot());
+                        //StartCoroutine(Shoot());
+                        ShootPattern();
                         yield return new WaitForSeconds(0.05f);
 
                         SetAttackPattern(AttackPattern.Two);
-                        StartCoroutine(Shoot());
+                        //StartCoroutine(Shoot());
+                        ShootPattern();
                         yield return new WaitForSeconds(2);
                     }
 
@@ -1120,7 +1201,8 @@ namespace Hive.Armada.Enemies
                         SetAttackPattern(AttackPattern.One);
                         for (int j = 0; j < 5; ++j)
                         {
-                            StartCoroutine(Shoot());
+                            //StartCoroutine(Shoot());
+                            ShootPattern();
                             yield return new WaitForSeconds(0.15f);
                         }
 
@@ -1129,7 +1211,8 @@ namespace Hive.Armada.Enemies
 
                         for (int j = 0; j < 5; ++j)
                         {
-                            StartCoroutine(Shoot());
+                            //StartCoroutine(Shoot());
+                            ShootPattern();
                             yield return new WaitForSeconds(0.15f);
                         }
 
@@ -1148,7 +1231,8 @@ namespace Hive.Armada.Enemies
                         {
                             for (int k = 0; k < 3; ++k)
                             {
-                                StartCoroutine(Shoot());
+                                //StartCoroutine(Shoot());
+                                ShootPattern();
                             }
 
                             yield return new WaitForSeconds(0.2f);
@@ -1167,7 +1251,8 @@ namespace Hive.Armada.Enemies
                     StartCoroutine(RotateProjectile(shootPivot));
                     for (int i = 0; i < 25; ++i)
                     {
-                        StartCoroutine(Shoot());
+                        //StartCoroutine(Shoot());
+                        ShootPattern();
                         yield return new WaitForSeconds(fireRate);
                     }
 
@@ -1181,7 +1266,8 @@ namespace Hive.Armada.Enemies
                     StartCoroutine(RotateProjectile(shootPivot));
                     for (int i = 0; i < 75; ++i)
                     {
-                        StartCoroutine(Shoot());
+                        //StartCoroutine(Shoot());
+                        ShootPattern();
                         yield return new WaitForSeconds(0.15f);
                     }
 
@@ -1198,7 +1284,8 @@ namespace Hive.Armada.Enemies
                         //StartCoroutine(RotateProjectile(shootPivot, 1.5f));
                         for (int j = 0; j < 5; ++j)
                         {
-                            StartCoroutine(Shoot());
+                            //StartCoroutine(Shoot());
+                            ShootPattern();
                             yield return new WaitForSeconds(0.15f);
                         }
 
@@ -1209,7 +1296,8 @@ namespace Hive.Armada.Enemies
                         //StartCoroutine(RotateProjectile(shootPivot, -1.5f));
                         for (int j = 0; j < 5; ++j)
                         {
-                            StartCoroutine(Shoot());
+                            //StartCoroutine(Shoot());
+                            ShootPattern();
                             yield return new WaitForSeconds(0.15f);
                         }
 
@@ -1232,172 +1320,172 @@ namespace Hive.Armada.Enemies
         public override void SetAttackPattern(AttackPattern attackPattern)
         {
             ////int[] myPoints = { };
-            //switch ((int) attackPattern)
-            //{
-            //    case 0:
-            //        fireRate = 0.8f;
-            //        projectileSpeed = 5;
-            //        spread = 0;
+            switch ((int)attackPattern)
+            {
+                case 0:
+                    fireRate = 0.8f;
+                    projectileSpeed = 5;
+                    spread = 0;
 
-            //        //myPoints = new[]
-            //        //           {
-            //        //               10, 11, 12, 13, 14, 15, 16,
-            //        //               19, 25,
-            //        //               28, 34,
-            //        //               37, 43,
-            //        //               46, 52,
-            //        //               55, 61,
-            //        //               64, 65, 66, 67, 68, 69, 70
-            //        //           };
+                    //myPoints = new[]
+                    //           {
+                    //               10, 11, 12, 13, 14, 15, 16,
+                    //               19, 25,
+                    //               28, 34,
+                    //               37, 43,
+                    //               46, 52,
+                    //               55, 61,
+                    //               64, 65, 66, 67, 68, 69, 70
+                    //           };
 
-            //        //ActivateShootPoints(myPoints, myPoints.Length);
-            //        break;
-            //    case 1:
-            //        fireRate = 0.8f;
-            //        projectileSpeed = 5;
-            //        spread = 0;
+                    //ActivateShootPoints(myPoints, myPoints.Length);
+                    break;
+                case 1:
+                    fireRate = 0.8f;
+                    projectileSpeed = 5;
+                    spread = 0;
 
-            //        //myPoints = new[]
-            //        //           {
-            //        //               30, 31, 32,
-            //        //               40,
-            //        //               48, 49, 50
-            //        //           };
+                    //myPoints = new[]
+                    //           {
+                    //               30, 31, 32,
+                    //               40,
+                    //               48, 49, 50
+                    //           };
 
-            //        //ActivateShootPoints(myPoints, myPoints.Length);
-            //        break;
-            //    case 2:
-            //        fireRate = 0.8f;
-            //        projectileSpeed = 5;
-            //        spread = 0;
+                    //ActivateShootPoints(myPoints, myPoints.Length);
+                    break;
+                case 2:
+                    fireRate = 0.8f;
+                    projectileSpeed = 5;
+                    spread = 0;
 
-            //        //myPoints = new[]
-            //        //           {
-            //        //               13,
-            //        //               20, 21, 23, 24,
-            //        //               29, 33,
-            //        //               37, 39, 41, 43,
-            //        //               47, 51,
-            //        //               56, 57, 59, 60,
-            //        //               67
-            //        //           };
+                    //myPoints = new[]
+                    //           {
+                    //               13,
+                    //               20, 21, 23, 24,
+                    //               29, 33,
+                    //               37, 39, 41, 43,
+                    //               47, 51,
+                    //               56, 57, 59, 60,
+                    //               67
+                    //           };
 
-            //        //ActivateShootPoints(myPoints, myPoints.Length);
-            //        break;
-            //    case 3:
-            //        fireRate = 0.6f;
-            //        projectileSpeed = 5;
-            //        spread = 0;
+                    //ActivateShootPoints(myPoints, myPoints.Length);
+                    break;
+                case 3:
+                    fireRate = 0.6f;
+                    projectileSpeed = 5;
+                    spread = 0;
 
-            //        //myPoints = new[]
-            //        //           {
-            //        //               4,
-            //        //               11, 12, 14, 15,
-            //        //               19, 20, 22, 24, 25,
-            //        //               28, 34,
-            //        //               36, 44,
-            //        //               46, 52,
-            //        //               55, 56, 58, 60, 61,
-            //        //               65, 66, 68, 69,
-            //        //               76
-            //        //           };
+                    //myPoints = new[]
+                    //           {
+                    //               4,
+                    //               11, 12, 14, 15,
+                    //               19, 20, 22, 24, 25,
+                    //               28, 34,
+                    //               36, 44,
+                    //               46, 52,
+                    //               55, 56, 58, 60, 61,
+                    //               65, 66, 68, 69,
+                    //               76
+                    //           };
 
-            //        //ActivateShootPoints(myPoints, myPoints.Length);
-            //        break;
-            //    case 4:
-            //        fireRate = 2f;
-            //        projectileSpeed = 5;
-            //        spread = 1;
+                    //ActivateShootPoints(myPoints, myPoints.Length);
+                    break;
+                case 4:
+                    fireRate = 2f;
+                    projectileSpeed = 5;
+                    spread = 1;
 
-            //        //myPoints = new[]
-            //        //{
-            //        //    30, 32,
-            //        //    40,
-            //        //    48, 50
-            //        //};
+                    //myPoints = new[]
+                    //{
+                    //    30, 32,
+                    //    40,
+                    //    48, 50
+                    //};
 
-            //        //ActivateShootPoints(myPoints, myPoints.Length);
-            //        break;
-            //    case 5:
-            //        fireRate = 1;
-            //        projectileSpeed = 5;
-            //        spread = 0;
+                    //ActivateShootPoints(myPoints, myPoints.Length);
+                    break;
+                case 5:
+                    fireRate = 1;
+                    projectileSpeed = 5;
+                    spread = 0;
 
-            //        //myPoints = new[]
-            //        //{
-            //        //    4,
-            //        //    12, 14,
-            //        //    21, 23,
-            //        //    28, 29, 31, 33, 34,
-            //        //    36, 40, 44,
-            //        //    46, 47, 49, 51, 52,
-            //        //    57, 59,
-            //        //    66, 68,
-            //        //    76
-            //        //};
+                    //myPoints = new[]
+                    //{
+                    //    4,
+                    //    12, 14,
+                    //    21, 23,
+                    //    28, 29, 31, 33, 34,
+                    //    36, 40, 44,
+                    //    46, 47, 49, 51, 52,
+                    //    57, 59,
+                    //    66, 68,
+                    //    76
+                    //};
 
-            //        //ActivateShootPoints(myPoints, myPoints.Length);
-            //        break;
-            //    case 6:
-            //        fireRate = 0.1f;
-            //        projectileSpeed = 5;
-            //        spread = 0;
+                    //ActivateShootPoints(myPoints, myPoints.Length);
+                    break;
+                case 6:
+                    fireRate = 0.1f;
+                    projectileSpeed = 5;
+                    spread = 0;
 
-            //        //myPoints = new[]
-            //        //{
-            //        //    4,
-            //        //    22,
-            //        //    36, 44,
-            //        //    76
-            //        //};
+                    //myPoints = new[]
+                    //{
+                    //    4,
+                    //    22,
+                    //    36, 44,
+                    //    76
+                    //};
 
-            //        //ActivateShootPoints(myPoints, myPoints.Length);
-            //        break;
-            //    case 7:
-            //        fireRate = 0.1f;
-            //        projectileSpeed = 5;
-            //        spread = 0;
+                    //ActivateShootPoints(myPoints, myPoints.Length);
+                    break;
+                case 7:
+                    fireRate = 0.1f;
+                    projectileSpeed = 5;
+                    spread = 0;
 
-            //        //myPoints = new[]
-            //        //{
-            //        //    14,
-            //        //    20, 21, 23, 24,
-            //        //    30, 31, 32,
-            //        //    38, 39, 41, 42
-            //        //};
+                    //myPoints = new[]
+                    //{
+                    //    14,
+                    //    20, 21, 23, 24,
+                    //    30, 31, 32,
+                    //    38, 39, 41, 42
+                    //};
 
-            //        //ActivateShootPoints(myPoints, myPoints.Length);
-            //        break;
-            //    case 8:
-            //        fireRate = 0.1f;
-            //        projectileSpeed = 5;
-            //        spread = 0;
+                    //ActivateShootPoints(myPoints, myPoints.Length);
+                    break;
+                case 8:
+                    fireRate = 0.1f;
+                    projectileSpeed = 5;
+                    spread = 0;
 
-            //        //myPoints = new[]
-            //        //{
-            //        //    38, 39, 41, 42,
-            //        //    48, 49, 50,
-            //        //    56, 57, 59, 60,
-            //        //    67
-            //        //};
+                    //myPoints = new[]
+                    //{
+                    //    38, 39, 41, 42,
+                    //    48, 49, 50,
+                    //    56, 57, 59, 60,
+                    //    67
+                    //};
 
-            //        //ActivateShootPoints(myPoints, myPoints.Length);
-            //        break;
-            //    case 9:
-            //        fireRate = 0.8f;
-            //        projectileSpeed = 5;
-            //        spread = 0;
+                    //ActivateShootPoints(myPoints, myPoints.Length);
+                    break;
+                case 9:
+                    fireRate = 0.8f;
+                    projectileSpeed = 5;
+                    spread = 0;
 
-            //        //myPoints = new[]
-            //        //           {
-            //        //               30, 31, 32,
-            //        //               39, 41,
-            //        //               48, 49, 50
-            //        //           };
+                    //myPoints = new[]
+                    //           {
+                    //               30, 31, 32,
+                    //               39, 41,
+                    //               48, 49, 50
+                    //           };
 
-            //        //ActivateShootPoints(myPoints, myPoints.Length);
-            //        break;
-            //}
+                    //ActivateShootPoints(myPoints, myPoints.Length);
+                    break;
+            }
 
             patternId = patternIds[(int) attackPattern];
 

@@ -51,8 +51,8 @@ namespace Hive.Armada
                                        {"delay", startDelay},
                                        {"movetopath", false},
                                        {"easetype", iTween.EaseType.easeInOutSine},
-                                       {"looktarget", target.transform},
-                                        {"lookahead", 0.85f},
+                                       /*{"looktarget", target.transform},
+                                        {"lookahead", 1.0f},*/
                                        {"time", cameraPathTime},
                                        {"path", iTweenPath.GetPath("FootageCameraPath-01")}
                                    };

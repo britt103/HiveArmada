@@ -239,7 +239,11 @@ namespace Hive.Armada.Game
                     mEmitter = pointEmitters[8];
                     break;
             }
-            Instantiate(mEmitter, spawn.position, spawn.rotation);
+
+            Quaternion look =
+                Quaternion.LookRotation(reference.playerLookTarget.transform.position - spawn.position);
+
+            Instantiate(mEmitter, spawn.position, look);
         }
     }
 }

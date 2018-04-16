@@ -12,6 +12,7 @@
 
 using System;
 using System.Collections;
+using Hive.Armada.Player;
 using UnityEngine;
 using SubjectNerd.Utilities;
 
@@ -360,6 +361,14 @@ namespace Hive.Armada.Game
         {
             if (waves.Length > ++currentWave)
             {
+                try
+                {
+                    FindObjectOfType<PlayerHealth>().HealFull();
+                }
+                catch (Exception)
+                {
+                    //
+                }
                 RunWave(currentWave);
             }
             else

@@ -86,13 +86,13 @@ namespace Hive.Armada.Enemies
         protected override void Awake()
         {
             base.Awake();
-            //    player = GameObject.FindGameObjectWithTag("Player");
-            //    pos = new Vector3(player.transform.position.x, player.transform.position.y,
-            //        player.transform.position.z);
+            player = reference.playerShip;
+            //pos = new Vector3(player.transform.position.x, player.transform.position.y,
+            //    player.transform.position.z);
             //gameObject.SendMessage("Initialize", 1, SendMessageOptions.DontRequireReceiver);
             //gameObject.SendMessage("Activate", SendMessageOptions.DontRequireReceiver);
-            ////Reset();
-            //SetAttackPattern(AttackPattern.One);
+            //Reset();
+            SetAttackPattern(AttackPattern.One);
             patternId = objectPoolManager.GetTypeIdentifier(projectilePattern);
         }
 
@@ -123,10 +123,10 @@ namespace Hive.Armada.Enemies
                     }
                 }
 
-				if (shaking)
-            	{
-                	iTween.ShakePosition(gameObject, new Vector3(0.1f, 0.1f, 0.1f), 0.1f);
-            	}
+                if (shaking)
+                {
+                    iTween.ShakePosition(gameObject, new Vector3(0.1f, 0.1f, 0.1f), 0.1f);
+                }
             }
         }
 
@@ -214,15 +214,15 @@ namespace Hive.Armada.Enemies
                     spread = 0;
                     projectileCount = 1;
                     //canRotate = false;
-                    projectileArray[0] = true;
-                    projectileArray[1] = true;
-                    projectileArray[2] = true;
-                    projectileArray[3] = true;
-                    projectileArray[4] = true;
-                    projectileArray[5] = true;
-                    projectileArray[6] = true;
-                    projectileArray[7] = true;
-                    projectileArray[8] = true;
+                    //projectileArray[0] = true;
+                    //projectileArray[1] = true;
+                    //projectileArray[2] = true;
+                    //projectileArray[3] = true;
+                    //projectileArray[4] = true;
+                    //projectileArray[5] = true;
+                    //projectileArray[6] = true;
+                    //projectileArray[7] = true;
+                    //projectileArray[8] = true;
                     break;
 
                 case 1:
@@ -231,15 +231,15 @@ namespace Hive.Armada.Enemies
                     spread = 0.5f;
                     projectileCount = 3;
                     //canRotate = true;
-                    projectileArray[0] = false;
-                    projectileArray[1] = false;
-                    projectileArray[2] = true;
-                    projectileArray[3] = false;
-                    projectileArray[4] = true;
-                    projectileArray[5] = false;
-                    projectileArray[6] = true;
-                    projectileArray[7] = false;
-                    projectileArray[8] = true;
+                    //projectileArray[0] = false;
+                    //projectileArray[1] = false;
+                    //projectileArray[2] = true;
+                    //projectileArray[3] = false;
+                    //projectileArray[4] = true;
+                    //projectileArray[5] = false;
+                    //projectileArray[6] = true;
+                    //projectileArray[7] = false;
+                    //projectileArray[8] = true;
                     break;
             }
         }

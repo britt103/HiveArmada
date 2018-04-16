@@ -11,6 +11,7 @@
 //
 //=============================================================================
 
+using System;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
@@ -77,10 +78,10 @@ namespace Hive.Armada.Enemies
                 StartCoroutine(Shoot());
             }
 
-            //if (shaking)
-            //{
-            //    iTween.ShakePosition(gameObject, new Vector3(0.1f, 0.1f, 0.1f), 0.1f);
-            //}
+            if (shaking)
+            {
+                iTween.ShakePosition(gameObject, new Vector3(0.1f, 0.1f, 0.1f), 0.1f);
+            }
 
             SelfDestructCountdown();
         }
@@ -158,13 +159,29 @@ namespace Hive.Armada.Enemies
             burstFire = burst;
         }
 
+        protected override void Kill()
+        {
+            try
+            {
+                iTween.Stop(gameObject);
+            }
+            catch (Exception)
+            {
+                //
+            }
+
+            base.Kill();
+        }
+
         /// <summary>
         /// Resets attributes to this enemy's defaults from enemyAttributes.
         /// </summary>
         protected override void Reset()
         {
-            StopAllCoroutines();
+            base.Reset();
 
+            canShoot = true;
+            PathingComplete = true;
             projectileTypeIdentifier =
                 enemyAttributes.EnemyProjectileTypeIdentifiers[TypeIdentifier];
             fireRate = enemyAttributes.enemyFireRate[TypeIdentifier];
@@ -180,10 +197,6 @@ namespace Hive.Armada.Enemies
                                                             transform.rotation, transform);
                 spawnEmitterSystem = spawnEmitterObject.GetComponent<ParticleSystems>();
             }
-
-            base.Reset();
-            canShoot = true;
-            PathingComplete = true;
         }
     }
 }

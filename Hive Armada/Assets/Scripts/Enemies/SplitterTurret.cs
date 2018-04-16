@@ -140,9 +140,9 @@ namespace Hive.Armada.Enemies
                 }
 
                 if (shaking)
-            	{
-                	iTween.ShakePosition(gameObject, new Vector3(0.1f, 0.1f, 0.1f), 0.1f);
-            	}
+                {
+                    iTween.ShakePosition(gameObject, new Vector3(0.1f, 0.1f, 0.1f), 0.1f);
+                }
             }
         }
 
@@ -237,8 +237,8 @@ namespace Hive.Armada.Enemies
                 //X-pattern
                 case 0:
                     patternId = patternIds[0];
-                    //fireRate = 1.2f;
-                    //spread = 0;
+                    fireRate = 1.2f;
+                    spread = 0;
 
                     //projectileArray[0] = true;
                     //projectileArray[1] = false;
@@ -273,8 +273,8 @@ namespace Hive.Armada.Enemies
                 //inverse-X
                 case 1:
                     patternId = patternIds[1];
-                    //fireRate = 1.2f;
-                    //spread = 0;
+                    fireRate = 1.2f;
+                    spread = 0;
 
                     //projectileArray[0] = true;
                     //projectileArray[1] = true;
@@ -334,102 +334,8 @@ namespace Hive.Armada.Enemies
                 }
             }
 
-            //if (childTurret != null)
-            //{
-            //    Vector3 pos = transform.position;
-
-            //    GameObject child1 = objectPoolManager.Spawn(gameObject, childTypeIdentifier, new Vector3(pos.x + 1.0f, pos.y + 1.0f, pos.z), transform.rotation);
-            //    child1.transform.parent = null;
-            //    Enemy child1Enemy = child1.GetComponent<Enemy>();
-            //    child1Enemy.SetWave(wave);
-            //    child1Enemy.SetPath("child");
-            //    child1Enemy.SetAttackPattern(attackPattern);
-
-            //    GameObject child2 = objectPoolManager.Spawn(gameObject, childTypeIdentifier, new Vector3(pos.x - 1.0f, pos.y - 1.0f, pos.z), transform.rotation);
-            //    Enemy child2Enemy = child2.GetComponent<Enemy>();
-            //    child2Enemy.SetWave(wave);
-            //    child2Enemy.SetPath("child");
-            //    child2Enemy.SetAttackPattern(attackPattern);
-
-            //    GameObject child3 = objectPoolManager.Spawn(gameObject, childTypeIdentifier, new Vector3(pos.x + 1.0f, pos.y - 1.0f, pos.z), transform.rotation);
-            //    Enemy child3Enemy = child3.GetComponent<Enemy>();
-            //    child3Enemy.SetWave(wave);
-            //    child3Enemy.SetPath("child");
-            //    child3Enemy.SetAttackPattern(attackPattern);
-
-            //    GameObject child4 = objectPoolManager.Spawn(gameObject, childTypeIdentifier, new Vector3(pos.x - 1.0f, pos.y + 1.0f, pos.z), transform.rotation);
-            //    Enemy child4Enemy = child4.GetComponent<Enemy>();
-            //    child4Enemy.SetWave(wave);
-            //    child4Enemy.SetPath("child");
-            //    child4Enemy.SetAttackPattern(attackPattern);
-
-            //    child1.GetComponent<Rigidbody>().AddForce(new Vector3(transform.position.x + splitDir, transform.position.y + splitDir, 0.0f));
-            //    child2.GetComponent<Rigidbody>().AddForce(new Vector3(transform.position.x - splitDir, transform.position.y - splitDir, 0.0f));
-            //    child3.GetComponent<Rigidbody>().AddForce(new Vector3(transform.position.x + splitDir, transform.position.y - splitDir, 0.0f));
-            //    child4.GetComponent<Rigidbody>().AddForce(new Vector3(transform.position.x - splitDir, transform.position.y + splitDir, 0.0f));
-            //}
-
             base.Kill();
         }
-
-        //private void SpawnChildren()
-        //{
-        //    if (childTypeIdentifier > 0)
-        //    {
-        //        for (int i = 1; i <= 4; ++i)
-        //        {
-        //            float xAdj = i % 2 == 0 ? -1.0f : 1.0f;
-        //            float yAdj = i == 1 || i == 4 ? 1.0f : -1.0f;
-        //            Vector3 spawn = transform.position + new Vector3(xAdj, yAdj, 0.0f);
-
-        //            GameObject child =
-        //                objectPoolManager.Spawn(gameObject, childTypeIdentifier, spawn,
-        //                                        transform.rotation);
-        //            Enemy enemy = child.GetComponent<Enemy>();
-        //            enemy.SetWave(wave);
-        //            enemy.SetPath("child");
-        //            enemy.SetAttackPattern(attackPattern);
-        //            Debug.LogWarning(i + " - (" + xAdj + ", " + yAdj + ")\t" + transform.position + "\t" + spawn + "\t" + child.transform.position + " " + enemy.GetInstanceID());
-        //            //child.GetComponent<Rigidbody>()
-        //            //     .AddRelativeForce(new Vector3(xAdj, yAdj, 0.0f) * splitDir * 1.0f);
-        //        }
-        //    }
-
-        //    //if (childTurret != null)
-        //    //{
-        //    //    Vector3 pos = transform.position;
-
-        //    //    GameObject child1 = objectPoolManager.Spawn(gameObject, childTypeIdentifier, new Vector3(pos.x + 1.0f, pos.y + 1.0f, pos.z), transform.rotation);
-        //    //    child1.transform.parent = null;
-        //    //    Enemy child1Enemy = child1.GetComponent<Enemy>();
-        //    //    child1Enemy.SetWave(wave);
-        //    //    child1Enemy.SetPath("child");
-        //    //    child1Enemy.SetAttackPattern(attackPattern);
-
-        //    //    GameObject child2 = objectPoolManager.Spawn(gameObject, childTypeIdentifier, new Vector3(pos.x - 1.0f, pos.y - 1.0f, pos.z), transform.rotation);
-        //    //    Enemy child2Enemy = child2.GetComponent<Enemy>();
-        //    //    child2Enemy.SetWave(wave);
-        //    //    child2Enemy.SetPath("child");
-        //    //    child2Enemy.SetAttackPattern(attackPattern);
-
-        //    //    GameObject child3 = objectPoolManager.Spawn(gameObject, childTypeIdentifier, new Vector3(pos.x + 1.0f, pos.y - 1.0f, pos.z), transform.rotation);
-        //    //    Enemy child3Enemy = child3.GetComponent<Enemy>();
-        //    //    child3Enemy.SetWave(wave);
-        //    //    child3Enemy.SetPath("child");
-        //    //    child3Enemy.SetAttackPattern(attackPattern);
-
-        //    //    GameObject child4 = objectPoolManager.Spawn(gameObject, childTypeIdentifier, new Vector3(pos.x - 1.0f, pos.y + 1.0f, pos.z), transform.rotation);
-        //    //    Enemy child4Enemy = child4.GetComponent<Enemy>();
-        //    //    child4Enemy.SetWave(wave);
-        //    //    child4Enemy.SetPath("child");
-        //    //    child4Enemy.SetAttackPattern(attackPattern);
-
-        //    //    //child1.GetComponent<Rigidbody>().AddRelativeForce(new Vector3(transform.position.x + splitDir, transform.position.y + splitDir, transform.position.z));
-        //    //    //child2.GetComponent<Rigidbody>().AddRelativeForce(new Vector3(transform.position.x - splitDir, transform.position.y - splitDir, transform.position.z));
-        //    //    //child3.GetComponent<Rigidbody>().AddRelativeForce(new Vector3(transform.position.x + splitDir, transform.position.y - splitDir, transform.position.z));
-        //    //    //child4.GetComponent<Rigidbody>().AddRelativeForce(new Vector3(transform.position.x - splitDir, transform.position.y + splitDir, transform.position.z));
-        //    //}
-        //}
 
         /// <summary>
         /// Resets attributes to this enemy's defaults from enemyAttributes.

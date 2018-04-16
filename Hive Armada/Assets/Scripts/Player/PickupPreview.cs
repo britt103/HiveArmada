@@ -46,6 +46,8 @@ namespace Hive.Armada.Player
 
             if (reference != null)
             {
+                reference = FindObjectOfType<ReferenceManager>();
+
                 switch ((int)reference.gameSettings.selectedWeapon)
                 {
                     case 1:

@@ -10,11 +10,9 @@
 //
 //=============================================================================
 
-using System;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
-using MirzaBeig.ParticleSystems;
 using Random = UnityEngine.Random;
 
 namespace Hive.Armada.Enemies
@@ -27,27 +25,17 @@ namespace Hive.Armada.Enemies
         /// <summary>
         /// Type identifier for object pooling purposes
         /// </summary>
-        private int projectileTypeIdentifier;
+        private short projectileTypeIdentifier = -2;
 
         /// <summary>
         /// Projectile that the turret shoots out
         /// </summary>
-        public GameObject fireProjectile;
+        public bool[] projectileArray;
 
         /// <summary>
         /// Position from which bullets are initially shot from
         /// </summary>
-        public Transform fireSpawn;
-
-        /// <summary>
-        /// Variable that finds the player GameObject
-        /// </summary>
-        private GameObject player;
-
-        /// <summary>
-        /// Vector3 that holds the player's position
-        /// </summary>
-        private Vector3 pos;
+        public Transform shootPoint;
 
         /// <summary>
         /// How fast the turret shoots at a given rate
@@ -57,38 +45,55 @@ namespace Hive.Armada.Enemies
         /// <summary>
         /// The rate at which enemy projectiles travel
         /// </summary>
-        public float fireSpeed;
+        public float projectileSpeed;
 
         /// <summary>
         /// Size of conical spread the bullets travel within
         /// </summary>
-        public float fireCone;
+        public float spread;
 
         /// <summary>
         /// Number of projectiles that the bullet shoots out at once
         /// </summary>
-        public float firePellet;
+        public float projectileCount;
 
         /// <summary>
-        /// Value that calculates the next time at which the enemy is able to shoot again
+        /// Whether this enemy can shoot or not. Toggles when firing every 1/fireRate seconds.
         /// </summary>
-        private float fireNext;
+        private bool canShoot = true;
+
+        public Color projectileAlbedoColor;
+
+        public Color projectileEmissionColor;
 
         /// <summary>
-        /// Spread values determined by fireCone on each axis
+        /// Variables for hovering
         /// </summary>
-        private float randX;
-        private float randY;
-        private float randZ;
+        private float theta;
+        private Vector3 posA;
+        private Vector3 posB;
+        public float xMax;
+        public float yMax;
+        public float movingSpeed;
+
+        public GameObject projectilePattern;
+
+        private short patternId = -2;
 
         /// <summary>
         /// Finds the player and instantiates pos for position holding
         /// </summary>
-        private void Start()
+        protected override void Awake()
         {
-            player = GameObject.FindGameObjectWithTag("Player");
-            pos = new Vector3(player.transform.position.x, player.transform.position.y,
-                player.transform.position.z);
+            base.Awake();
+            player = reference.playerShip;
+            //pos = new Vector3(player.transform.position.x, player.transform.position.y,
+            //    player.transform.position.z);
+            //gameObject.SendMessage("Initialize", 1, SendMessageOptions.DontRequireReceiver);
+            //gameObject.SendMessage("Activate", SendMessageOptions.DontRequireReceiver);
+            //Reset();
+            SetAttackPattern(AttackPattern.One);
+            patternId = objectPoolManager.GetTypeIdentifier(projectilePattern);
         }
 
         /// <summary>
@@ -97,83 +102,158 @@ namespace Hive.Armada.Enemies
         /// </summary>
         private void Update()
         {
-            try
+            if (PathingComplete)
             {
-                pos = player.transform.position;
-                transform.LookAt(pos);
+                transform.position = Vector3.Lerp(posA, posB, (Mathf.Sin(theta) + 1.0f) / 2.0f);
 
-                if (Time.time > fireNext)
+                theta += movingSpeed * Time.deltaTime;
+
+                if (theta > Mathf.PI * 3 / 2)
                 {
-                    fireNext = Time.time + fireRate;
+                    theta -= Mathf.PI * 2;
+                }
 
-                    for (int i = 0; i < firePellet; ++i)
+                transform.LookAt(player.transform);
+
+                if (canShoot)
+                {
+                    for (int i = 0; i < projectileCount; ++i)
                     {
-                        StartCoroutine(FireBullet());
+                        StartCoroutine(Shoot());
                     }
                 }
-            }
-            catch (Exception)
-            {
-            }
-            //if (shaking)
-            //{
-            //    iTween.ShakePosition(gameObject, new Vector3(0.1f, 0.1f, 0.1f), 0.1f);
 
-            //}
-            SelfDestructCountdown();
+                if (shaking)
+                {
+                    iTween.ShakePosition(gameObject, new Vector3(0.1f, 0.1f, 0.1f), 0.1f);
+                }
+            }
         }
 
         /// <summary>
-        /// Spawn bullets and shoot them in accordance to set spread value
+        /// This is run after the enemy has completed its path.
+        /// Calls Hover function to set positions to hover between
         /// </summary>
-        /// <returns></returns>
-        private IEnumerator FireBullet()
+        protected override void OnPathingComplete()
         {
-            GameObject shoot = objectPoolManager.Spawn(projectileTypeIdentifier, fireSpawn.position,
-                                        fireSpawn.rotation);
-            randX = Random.Range(-fireCone, fireCone);
-            randY = Random.Range(-fireCone, fireCone);
-            randZ = Random.Range(-fireCone, fireCone);
+            Hover();
+            base.OnPathingComplete();
+        }
 
-            shoot.GetComponent<Transform>().Rotate(randX, randY, randZ);
-            shoot.GetComponent<Rigidbody>().velocity = shoot.transform.forward * fireSpeed;
-            yield break;
+        /// <summary>
+        /// Function that creates 2 vector 3's to float up and down with a Sin()
+        /// </summary>
+        private void Hover()
+        {
+            posA = new Vector3(transform.position.x + xMax / 100,
+                transform.position.y + yMax / 100,
+                transform.position.z);
+
+            posB = new Vector3(transform.position.x - xMax / 100,
+                transform.position.y - yMax / 100,
+                transform.position.z);
+            theta = 0.0f;
+        }
+
+        /// <summary>
+        /// Fires projectiles in a pattern determined by the firemode at the player.
+        /// </summary>
+        private IEnumerator Shoot()
+        {
+            canShoot = false;
+
+            //for (int point = 0; point < 9; ++point)
+            //{
+            //    if (projectileArray[point] == true)
+            //    {
+            //        GameObject projectile = objectPoolManager.Spawn(gameObject, projectileTypeIdentifier, shootPoint[point].position,
+            //                                           shootPoint[point].rotation);
+
+            //        projectile.GetComponent<Transform>().Rotate(Random.Range(-spread, spread),
+            //                                                    Random.Range(-spread, spread),
+            //                                                    Random.Range(-spread, spread));
+            //        projectile.GetComponent<Projectile>()
+            //                  .SetColors(projectileAlbedoColor, projectileEmissionColor);
+            //        Projectile projectileScript = projectile.GetComponent<Projectile>();
+            //        projectileScript.Launch(0);
+            //        //projectile.GetComponent<Rigidbody>().velocity =
+            //        //    projectile.transform.forward * projectileSpeed;
+
+            //        //if (canRotate)
+            //        //{
+            //        //    StartCoroutine(rotateProjectile(projectile));
+            //        //}
+            //    }
+            //}
+
+            GameObject projectile = objectPoolManager.Spawn(gameObject, patternId, shootPoint.position,
+                                                            shootPoint.rotation);
+
+            ProjectilePattern projectileScript = projectile.GetComponent<ProjectilePattern>();
+            projectileScript.Launch(0);
+
+            yield return new WaitForSeconds(fireRate);
+            canShoot = true;
+        }
+
+        /// <summary>
+        /// Function that determines the enemy's projectile, firerate,
+        /// spread, and projectile speed.
+        /// </summary>
+        /// <param name="mode">Current Enemy Firemode</param>
+        public override void SetAttackPattern(AttackPattern attackPattern)
+        {
+            base.SetAttackPattern(attackPattern);
+
+            switch ((int)this.attackPattern)
+            {
+                //standard pattern, single bullets
+                case 0:
+                    fireRate = 1.0f;
+                    projectileSpeed = 1.5f;
+                    spread = 0;
+                    projectileCount = 1;
+                    //canRotate = false;
+                    //projectileArray[0] = true;
+                    //projectileArray[1] = true;
+                    //projectileArray[2] = true;
+                    //projectileArray[3] = true;
+                    //projectileArray[4] = true;
+                    //projectileArray[5] = true;
+                    //projectileArray[6] = true;
+                    //projectileArray[7] = true;
+                    //projectileArray[8] = true;
+                    break;
+
+                case 1:
+                    fireRate = 1.2f;
+                    projectileSpeed = 1.5f;
+                    spread = 0.5f;
+                    projectileCount = 3;
+                    //canRotate = true;
+                    //projectileArray[0] = false;
+                    //projectileArray[1] = false;
+                    //projectileArray[2] = true;
+                    //projectileArray[3] = false;
+                    //projectileArray[4] = true;
+                    //projectileArray[5] = false;
+                    //projectileArray[6] = true;
+                    //projectileArray[7] = false;
+                    //projectileArray[8] = true;
+                    break;
+            }
         }
 
         protected override void Reset()
         {
-            // reset materials
-            for (int i = 0; i < renderers.Count; ++i)
-            {
-                renderers.ElementAt(i).material = materials.ElementAt(i);
-            }
+            base.Reset();
 
-            hitFlash = null;
-            shaking = false;
-
+            canShoot = true;
             projectileTypeIdentifier =
                 enemyAttributes.EnemyProjectileTypeIdentifiers[TypeIdentifier];
-            maxHealth = enemyAttributes.enemyHealthValues[TypeIdentifier];
-            Health = maxHealth;
             fireRate = enemyAttributes.enemyFireRate[TypeIdentifier];
-            fireSpeed = enemyAttributes.projectileSpeed;
-            fireCone = enemyAttributes.enemySpread[TypeIdentifier];
-            pointValue = enemyAttributes.enemyScoreValues[TypeIdentifier];
-            selfDestructTime = enemyAttributes.enemySelfDestructTimes[TypeIdentifier];
-            spawnEmitter = enemyAttributes.enemySpawnEmitters[TypeIdentifier];
-            deathEmitter = enemyAttributes.enemyDeathEmitters[TypeIdentifier];
-
-            if (!isInitialized)
-            {
-                isInitialized = true;
-
-                GameObject spawnEmitterObject = Instantiate(spawnEmitter,
-                                                            transform.position,
-                                                            transform.rotation, transform);
-                spawnEmitterSystem = spawnEmitterObject.GetComponent<ParticleSystems>();
-
-                deathEmitterTypeIdentifier = objectPoolManager.GetTypeIdentifier(deathEmitter);
-            }
+            projectileSpeed = enemyAttributes.projectileSpeed;
+            spread = enemyAttributes.enemySpread[TypeIdentifier];
         }
     }
 }

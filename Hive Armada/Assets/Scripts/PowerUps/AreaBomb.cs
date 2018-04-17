@@ -128,7 +128,7 @@ namespace Hive.Armada.PowerUps
         /// <summary>
         /// Trigger detonation when shot by player. 
         /// </summary>
-        public override void Shot()
+        public override void Hit()
         {
             Detonate();
         }
@@ -168,10 +168,15 @@ namespace Hive.Armada.PowerUps
             {
                 if (objectCollider.gameObject.tag == "Enemy")
                 {
-                    objectCollider.gameObject.GetComponent<Enemies.Enemy>().Hit(100);
+                    objectCollider.gameObject.GetComponent<Enemies.Enemy>().Hit(100, false);
                 }
             }
-            Instantiate(shotEmitter, transform.position, transform.rotation);
+
+            if (deathEmitter != null)
+            {
+                Instantiate(deathEmitter, transform.position, transform.rotation);
+            }
+            
             Destroy(gameObject);
         }
     }

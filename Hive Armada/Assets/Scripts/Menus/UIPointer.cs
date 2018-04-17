@@ -35,11 +35,6 @@ namespace Hive.Armada.Menus
         private LineRenderer pointer;
 
         /// <summary>
-        /// Material used in pointer.
-        /// </summary>
-        public Material laserMaterial;
-
-        /// <summary>
         /// Alignment of pointer.
         /// </summary>
         [Tooltip("View makes line face camera. Local makes the line face the direction of the transform component")]
@@ -66,9 +61,18 @@ namespace Hive.Armada.Menus
         public bool receiveShadows = false;
 
         /// <summary>
+        /// Reference to SteamVR_LaserPointer.
+        /// </summary>
+        public SteamVR_LaserPointer steamVRLaserPointer;
+
+        /// <summary>
         /// The object the pointer is hitting.
         /// </summary>
         private GameObject aimObject;
+
+        private GameObject interactingSlider;
+
+        private GameObject interactingPreview;
 
         /// <summary>
         /// Reference to last touched interactable.
@@ -128,7 +132,36 @@ namespace Hive.Armada.Menus
                 RaycastHit hit;
 
                 if (Physics.Raycast(transform.position, transform.forward,
-                        out hit, Mathf.Infinity, Utility.uiMask))
+                    out hit, 500.0f, Utility.uiCoverMask))
+                {
+                    interactingPreview = null;
+                    if (Physics.Raycast(transform.position, transform.forward,
+                        out hit, 500.0f, Utility.uiMask))
+                    {
+                        if (hit.collider.gameObject.CompareTag("InteractableUI"))
+                        {
+                            Physics.Raycast(transform.position, transform.forward,
+                            out hit, Mathf.Infinity, Utility.roomMask);
+                        }
+                    }
+                    else
+                    {
+                        Physics.Raycast(transform.position, transform.forward,
+                            out hit, Mathf.Infinity, Utility.roomMask);
+                    }
+
+                    ExitLastInteractable();
+                    aimObject = null;
+                    isInteractable = false;
+
+                    pointer.SetPosition(0, transform.position);
+                    pointer.SetPosition(1, hit.point);
+
+                    float mag = (transform.position - hit.point).magnitude;
+                    pointer.endWidth = thickness * Mathf.Max(mag, 1.0f);
+                }
+                else if (Physics.Raycast(transform.position, transform.forward,
+                        out hit, 500.0f, Utility.uiMask))
                 {
                     if (hit.collider.gameObject.CompareTag("InteractableUI"))
                     {
@@ -163,6 +196,7 @@ namespace Hive.Armada.Menus
                 else if (Physics.Raycast(transform.position, transform.forward,
                     out hit, Mathf.Infinity, Utility.roomMask))
                 {
+                    interactingPreview = null;
                     ExitLastInteractable();
                     aimObject = null;
                     isInteractable = false;
@@ -172,12 +206,6 @@ namespace Hive.Armada.Menus
 
                     float mag = (transform.position - hit.point).magnitude;
                     pointer.endWidth = thickness * Mathf.Max(mag, 1.0f);
-                }
-                else
-                {
-                    ExitLastInteractable();
-                    aimObject = null;
-                    isInteractable = false;
                 }
 
                 //Check for UI interaction
@@ -194,15 +222,42 @@ namespace Hive.Armada.Menus
                     {
                         aimObject.GetComponent<UIHover>().Hover();
                     }
+                    else if (aimObject.GetComponent<ScrollbarUIHover>())
+                    {
+                        aimObject.GetComponent<ScrollbarUIHover>().PassHover();
+                    }
                 }
 
                 if (hand.GetStandardInteractionButtonDown())
                 {
+                    if (aimObject != null)
+                    {
+                        if (aimObject.GetComponent<Slider>() != null)
+                        {
+                            interactingSlider = aimObject;
+                        }
+
+                        if (aimObject.GetComponent<PreviewRotation>() != null)
+                        {
+                            interactingPreview = aimObject;
+                        }
+                    }
+
                     TriggerUpdate(false);
                 }
                 else if (hand.GetStandardInteractionButton())
                 {
                     TriggerUpdate(true);
+                }
+                else if (hand.GetStandardInteractionButtonUp())
+                {
+					interactingSlider = null;
+                    interactingPreview = null;
+					
+                    if (aimObject && aimObject.GetComponent<PreviewRotation>())
+                    {
+                        aimObject.GetComponent<PreviewRotation>().StopRotating();
+                    }
                 }
             }
         }
@@ -216,14 +271,17 @@ namespace Hive.Armada.Menus
             {
                 if (aimObject.GetComponent<Slider>())
                 {
-                    float centerX = aimObject.GetComponent<BoxCollider>().center.x;
-                    float maxX = centerX + aimObject.GetComponent<BoxCollider>().bounds.extents.x;
-                    float minX = centerX - aimObject.GetComponent<BoxCollider>().bounds.extents.x;
-                    float pointerX = pointer.GetPosition(1).x;
-                    if (pointerX > minX && pointerX < maxX)
+                    if (interactingSlider && aimObject && interactingSlider.GetInstanceID() == aimObject.GetInstanceID())
                     {
-                        float value = (pointerX - minX) / (maxX - minX);
-                        aimObject.GetComponent<Slider>().value = value;
+                        float displacement = aimObject.GetComponent<RectTransform>().position.x;
+                        float maxX = displacement + aimObject.GetComponent<BoxCollider>().bounds.extents.x;
+                        float minX = displacement - aimObject.GetComponent<BoxCollider>().bounds.extents.x;
+                        float pointerX = pointer.GetPosition(1).x;
+                        if (pointerX > minX && pointerX < maxX)
+                        {
+                            float value = (pointerX - minX) / (maxX - minX);
+                            aimObject.GetComponent<Slider>().value = value;
+                        }
                     }
                 }
                 else if (aimObject.GetComponent<Scrollbar>())
@@ -237,6 +295,14 @@ namespace Hive.Armada.Menus
 
                     ScrollRect scrollRect = aimObject.GetComponentInParent<ScrollRect>();
                     scrollRect.verticalNormalizedPosition = value;
+                }
+                else if (aimObject.GetComponent<PreviewRotation>())
+                {
+                    if (aimObject && interactingPreview && aimObject.GetInstanceID() ==
+                        interactingPreview.GetInstanceID())
+                    {
+                        aimObject.GetComponent<PreviewRotation>().Rotate(pointer.GetPosition(1));
+                    }
                 }
                 else if (!stay)
                 {
@@ -258,13 +324,17 @@ namespace Hive.Armada.Menus
             gradient.SetKeys(
                 new GradientColorKey[] { new GradientColorKey(color, 0.0f), new GradientColorKey(color, 1.0f), },
                 new GradientAlphaKey[] { new GradientAlphaKey(color.a, 0.0f), new GradientAlphaKey(color.a, 1.0f), });
-            pointer.material = laserMaterial;
+            Material newMaterial = new Material(Shader.Find("Unlit/Color"));
+            newMaterial.SetColor("_Color", color);
+            pointer.GetComponent<Renderer>().material = newMaterial;
+            pointer.material = newMaterial;
             pointer.shadowCastingMode = castShadows;
             pointer.receiveShadows = receiveShadows;
             pointer.alignment = alignment;
             pointer.colorGradient = gradient;
             pointer.startWidth = thickness;
             pointer.endWidth = thickness;
+            steamVRLaserPointer.enabled = true;
 
             menus = GameObject.Find("Menus");
 
@@ -276,9 +346,21 @@ namespace Hive.Armada.Menus
         /// </summary>
         private void ExitLastInteractable()
         {
-            if (lastInteractableAimObject && lastInteractableAimObject.GetComponent<UIHover>())
+            if (lastInteractableAimObject)
             {
-                lastInteractableAimObject.GetComponent<UIHover>().EndHover();
+                if (lastInteractableAimObject.GetComponent<UIHover>())
+                {
+                    lastInteractableAimObject.GetComponent<UIHover>().EndHover();
+                }
+                else if (lastInteractableAimObject.GetComponent<ScrollbarUIHover>())
+                {
+                    lastInteractableAimObject.GetComponent<ScrollbarUIHover>().PassEndHover();
+                }
+                else if (lastInteractableAimObject.GetComponent<PreviewRotation>())
+                {
+                    lastInteractableAimObject.GetComponent<PreviewRotation>().StopRotating();
+                }
+                
                 lastInteractableAimObject = null;
             }
         }

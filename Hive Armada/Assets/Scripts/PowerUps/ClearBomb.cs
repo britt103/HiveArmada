@@ -11,6 +11,7 @@
 //
 //=============================================================================
 
+using System.Collections;
 using UnityEngine;
 
 namespace Hive.Armada.PowerUps
@@ -25,11 +26,21 @@ namespace Hive.Armada.PowerUps
         /// </summary>
         public GameObject awakeEmitter;
 
+        AudioSource source;
+
+        AudioSource bossSource;
+
+        public AudioClip clip;
+
         // Instantiate activation FX. Destroy enemy projectiles. Self-destruct.
         void Start()
         {
             Instantiate(awakeEmitter, transform.position, transform.rotation);
-            foreach (GameObject bullet in GameObject.FindGameObjectsWithTag("bullet"))
+            source = GameObject.Find("Powerup Audio Source").GetComponent<AudioSource>();
+            bossSource = GameObject.Find("Boss Audio Source").GetComponent<AudioSource>();
+            StartCoroutine(pauseForBoss());
+
+            foreach (GameObject bullet in GameObject.FindGameObjectsWithTag("Projectile"))
             {
                 Destroy(bullet);
             }
@@ -47,7 +58,7 @@ namespace Hive.Armada.PowerUps
         //        {
         //            GameObject.Find("Player").GetComponent<PowerUpStatus>().SetClear(false);
 
-        //            foreach (GameObject bullet in GameObject.FindGameObjectsWithTag("bullet"))
+        //            foreach (GameObject bullet in GameObject.FindGameObjectsWithTag("Projectile"))
         //            {
         //                Destroy(bullet);
         //            }
@@ -55,6 +66,28 @@ namespace Hive.Armada.PowerUps
         //        }
         //    }
         //}
+
+        IEnumerator pauseForBoss()
+        {
+            if (bossSource.isPlaying)
+            {
+                yield return new WaitWhile(() => bossSource.isPlaying);
+
+                if (source.isPlaying)
+                {
+                    yield return new WaitWhile(() => source.isPlaying);
+                }
+
+                if (!source.isPlaying)
+                {
+                    source.PlayOneShot(clip);
+                }
+            }
+            else if (!bossSource.isPlaying)
+            {
+                source.PlayOneShot(clip);
+            }
+        }
     }
 
 }

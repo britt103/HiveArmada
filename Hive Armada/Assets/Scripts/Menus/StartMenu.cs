@@ -10,7 +10,9 @@
 //
 //=============================================================================
 
+using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 using Hive.Armada.Game;
 
 namespace Hive.Armada.Menus
@@ -21,33 +23,256 @@ namespace Hive.Armada.Menus
     public class StartMenu : MonoBehaviour
     {
         /// <summary>
+        /// Reference to Menu Transition Manager.
+        /// </summary>
+        public MenuTransitionManager transitionManager;
+
+        /// <summary>
+        /// Reference to menu to go to when back is pressed.
+        /// </summary>
+        public GameObject backMenuGO;
+
+        /// <summary>
+        /// Reference to description game object.
+        /// </summary>
+        public GameObject description;
+
+        /// <summary>
+        /// Reference to continue button game object.
+        /// </summary>
+        public GameObject continueButton;
+
+        /// <summary>
+        /// Reference to play button game object.
+        /// </summary>
+        public GameObject playButton;
+
+        /// <summary>
+        /// Reference to Loadout Menu.
+        /// </summary>
+        public GameObject loadoutGO;
+
+        /// <summary>
+        /// Reference to player transform for Shop Menu.
+        /// </summary>
+        public Transform shopTransform;
+
+        /// <summary>
+        /// Buttons for game modes.
+        /// </summary>
+        public GameObject[] gameModeButtons;
+
+        /// <summary>
+        /// Descriptions of game modes.
+        /// </summary>
+        public string[] gameModeDescriptions;
+
+        /// <summary>
+        /// UIHover scripts of game mode buttons.
+        /// </summary>
+        public UIHover[] gameModeUIHoverScripts;
+
+        /// <summary>
         /// Reference to Menu Audio source.
         /// </summary>
 		public AudioSource source;
 
         /// <summary>
-        /// Clips to use with source.
+        /// Reference to GameModeSelection.
         /// </summary>
-    	public AudioClip[] clips;
+        private GameSettings gameSettings;
 
         /// <summary>
-        /// Called by start button; transition to Wave Room.
+        /// Currently selected game mode.
         /// </summary>
-        public void PressSoloNormal()
+        private int selectedGameMode;
+
+        /// <summary>
+        /// State of whether a game mode has been selected.
+        /// </summary>
+        private bool selectionMade;
+
+        /// <summary>
+        /// Reference to refetrence manager.
+        /// </summary>
+        private ReferenceManager reference;
+
+        /// <summary>
+        /// Reference to iridium system.
+        /// </summary>
+        private IridiumSystem iridiumSystem;
+
+        private bool isInteractable = false;
+
+        /// <summary>
+        /// Find references.
+        /// </summary>
+        private void Awake()
         {
-            source.PlayOneShot(clips[0]);
-            GameObject.Find("Main Canvas").transform.Find("Loadout Menu").gameObject.SetActive(true);
-            gameObject.SetActive(false);
+            reference = FindObjectOfType<ReferenceManager>();
+            gameSettings = reference.gameSettings;
+            iridiumSystem = FindObjectOfType<IridiumSystem>();
         }
 
         /// <summary>
-        /// Back button pressed; navigates to main menu.
+        /// Get default selected game mode. Setup menu based on default selection.
+        /// </summary>
+        private void OnEnable()
+        {
+            selectedGameMode = PlayerPrefs.GetInt("defaultGameMode", gameModeButtons.Length);
+
+            if (!iridiumSystem.CheckAnyWeaponsUnlocked())
+            {
+                continueButton.SetActive(false);
+                playButton.SetActive(true);
+            }
+            else
+            {
+                playButton.SetActive(false);
+                continueButton.SetActive(true);
+            }
+
+            if (selectedGameMode == gameModeButtons.Length)
+            {
+                HideButton();
+                selectionMade = false;
+            }
+            else
+            {
+                ShowButton();
+                gameModeUIHoverScripts[selectedGameMode].Select();
+                //description.GetComponent<Text>().text = gameModeDescriptions[selectedGameMode];
+                selectionMade = true;
+            }
+
+            StartCoroutine(InteractDelay());
+        }
+
+        private void OnDisable()
+        {
+            isInteractable = false;
+        }
+
+        private IEnumerator InteractDelay()
+        {
+            yield return new WaitForSeconds(Utility.interactDelay);
+
+            isInteractable = true;
+        }
+
+        /// <summary>
+        /// Called by start button; navigates to Loadout Menu. Set game mode to SoloNormal.
+        /// </summary>
+        public void PressGameMode(int gameModeNum)
+        {
+            if (!isInteractable)
+            {
+                return;
+            }
+
+            if (selectedGameMode != gameModeNum)
+            {
+                if (selectedGameMode == gameModeButtons.Length)
+                {
+                    ShowButton();
+                }
+
+                source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
+
+                if (selectionMade)
+                {
+                    gameModeUIHoverScripts[selectedGameMode].EndSelect();
+                    selectionMade = true;
+                }
+                selectedGameMode = gameModeNum;
+                gameModeUIHoverScripts[selectedGameMode].Select();
+                //description.GetComponent<Text>().text = gameModeDescriptions[selectedGameMode];
+            }
+        }
+
+        /// <summary>
+        /// Make continue/play button unusable.
+        /// </summary>
+        private void HideButton()
+        {
+            if (continueButton.activeSelf)
+            {
+                continueButton.GetComponent<BoxCollider>().enabled = false;
+                Color tempColor = continueButton.GetComponent<Image>().color;
+                tempColor.a = 0.2f;
+                continueButton.GetComponent<Image>().color = tempColor;
+            }
+            else
+            {
+                playButton.GetComponent<BoxCollider>().enabled = false;
+                Color tempColor = playButton.GetComponent<Image>().color;
+                tempColor.a = 0.2f;
+                playButton.GetComponent<Image>().color = tempColor;
+                tempColor = playButton.GetComponentInChildren<Text>().color;
+                tempColor.a = 0.2f;
+                playButton.GetComponentInChildren<Text>().color = tempColor;
+            }
+        }
+
+        /// <summary>
+        /// Make continue/play button usable.
+        /// </summary>
+        private void ShowButton()
+        {
+            if (continueButton.activeSelf)
+            {
+                continueButton.GetComponent<BoxCollider>().enabled = true;
+                Color tempColor = continueButton.GetComponent<Image>().color;
+                tempColor.a = 1.0f;
+                continueButton.GetComponent<Image>().color = tempColor;
+            }
+            else
+            {
+                playButton.GetComponent<BoxCollider>().enabled = true;
+                Color tempColor = playButton.GetComponent<Image>().color;
+                tempColor.a = 1.0f;
+                playButton.GetComponent<Image>().color = tempColor;
+                tempColor = playButton.GetComponentInChildren<Text>().color;
+                tempColor.a = 1.0f;
+                playButton.GetComponentInChildren<Text>().color = tempColor;
+            }
+        }
+
+        /// <summary>
+        /// Back button pressed; navigates to Main Menu.
         /// </summary>
         public void PressBack()
         {
-            source.PlayOneShot(clips[1]);
-            GameObject.Find("Main Canvas").transform.Find("Main Menu").gameObject.SetActive(true);
-            gameObject.SetActive(false);
+            if (!isInteractable)
+            {
+                return;
+            }
+
+            source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
+            if (selectionMade)
+            {
+                gameModeUIHoverScripts[selectedGameMode].EndSelect();
+            }
+            HideButton();
+            selectionMade = false;
+            transitionManager.Transition(backMenuGO);
+        }
+
+        /// <summary>
+        /// Continue button pressed; navigates to Loadout Menu.
+        /// </summary>
+        public void PressContinue()
+        {
+            if (!isInteractable)
+            {
+                return;
+            }
+
+            source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
+
+            gameSettings.selectedGameMode = (GameSettings.GameMode)selectedGameMode;
+            PlayerPrefs.SetInt("defaultGameMode", selectedGameMode);
+            transitionManager.Transition(loadoutGO);
         }
     }
 }

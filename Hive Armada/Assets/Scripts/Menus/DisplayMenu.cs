@@ -10,6 +10,7 @@
 //
 //=============================================================================
 
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using Hive.Armada.Game;
@@ -22,14 +23,19 @@ namespace Hive.Armada.Menus
     public class DisplayMenu : MonoBehaviour
     {
         /// <summary>
+        /// Reference to Menu Transition Manager.
+        /// </summary>
+        public MenuTransitionManager transitionManager;
+
+        /// <summary>
+        /// Reference to menu to go to when back is pressed.
+        /// </summary>
+        public GameObject backMenuGO;
+
+        /// <summary>
         /// Reference to Menu Audio source.
         /// </summary>
 		public AudioSource source;
-
-        /// <summary>
-        /// Clips to use with source.
-        /// </summary>
-    	public AudioClip[] clips;
 
         /// <summary>
         /// Reference to Bloom Toggle.
@@ -37,9 +43,39 @@ namespace Hive.Armada.Menus
         public Toggle bloomToggle;
 
         /// <summary>
+        /// Reference to Color Blind Mode Toggle.
+        /// </summary>
+        public Toggle colorBlindModeToggle;
+
+        /// <summary>
+        /// Represents a color blind mode button GO and its associated ColorBlindMode.Mode.
+        /// </summary>
+        [Serializable]
+        public struct ColorBlindModeButton
+        {
+            public ColorBlindMode.Mode mode;
+            public GameObject buttonGO;
+        }
+
+        /// <summary>
+        /// References to color blind mode buttons.
+        /// </summary>
+        public ColorBlindModeButton[] colorBlindModeButtons;
+
+        /// <summary>
         /// Reference to Reference Manager.
         /// </summary>
         private ReferenceManager reference;
+
+        /// <summary>
+        /// Variables used to make sure that audio
+        /// doesn't play over itself
+        /// </summary>
+        private int backCounter = 0;
+
+        private int bloomCounter = 0;
+
+        private int colorBlindModeCounter = 0;
 
         /// <summary>
         /// Find references. 
@@ -48,6 +84,27 @@ namespace Hive.Armada.Menus
         {
             reference = FindObjectOfType<ReferenceManager>();
             bloomToggle.isOn = reference.optionsValues.bloom;
+
+            if (reference.optionsValues.colorBlindMode == ColorBlindMode.Mode.Standard)
+            {
+                colorBlindModeToggle.isOn = false;
+                foreach (ColorBlindModeButton button in colorBlindModeButtons)
+                {
+                    button.buttonGO.SetActive(false);
+                }
+            }
+            else
+            {
+                colorBlindModeToggle.isOn = true;
+                foreach (ColorBlindModeButton button in colorBlindModeButtons)
+                {
+                    button.buttonGO.SetActive(true);
+                    if (button.mode == reference.optionsValues.colorBlindMode)
+                    {
+                        button.buttonGO.GetComponent<UIHover>().Select();
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -55,11 +112,9 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void PressBack()
         {
-			source.PlayOneShot(clips[0]);
+            source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
             reference.optionsValues.SetDisplayPlayerPrefs();
-            GameObject.Find("Main Canvas").transform.Find("Options Menu").gameObject
-                    .SetActive(true);
-            gameObject.SetActive(false);
+            transitionManager.Transition(backMenuGO);
         }
 
         /// <summary>
@@ -67,8 +122,58 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void SetBloom(bool isOn)
         {
-            source.PlayOneShot(clips[1]);
+            source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
             reference.optionsValues.SetBloom(isOn);
+        }
+
+        /// <summary>
+        /// Toggle whether color blind mode is active (using a non-standard mode).
+        /// </summary>
+        /// <param name="isOn"></param>
+        public void ToggleColorBlindMode(bool isOn)
+        {
+            if (isOn)
+            {
+                foreach (ColorBlindModeButton button in colorBlindModeButtons)
+                {
+                    button.buttonGO.SetActive(true); 
+                }
+
+                colorBlindModeButtons[0].buttonGO.GetComponent<UIHover>().Select();
+                SetColorBlindMode(colorBlindModeButtons[0].buttonGO);
+            }
+            else
+            {
+                foreach (ColorBlindModeButton button in colorBlindModeButtons)
+                {
+                    button.buttonGO.SetActive(false);
+                    button.buttonGO.GetComponent<UIHover>().EndSelect();
+                }
+
+                reference.optionsValues.SetColorBlindMode(ColorBlindMode.Mode.Standard);
+            }
+        }
+
+        /// <summary>
+        /// Set color blind mode from button.
+        /// </summary>
+        /// <param name="buttonGO">Game Object of button that was pressed.</param>
+        public void SetColorBlindMode(GameObject buttonGO)
+        {
+            source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
+
+            foreach (ColorBlindModeButton button in colorBlindModeButtons)
+            {
+                if (button.buttonGO == buttonGO)
+                {
+                    button.buttonGO.GetComponent<UIHover>().Select();
+                    reference.optionsValues.SetColorBlindMode(button.mode);
+                }
+                else
+                {
+                    button.buttonGO.GetComponent<UIHover>().EndSelect();
+                }
+            }
         }
     }
 }

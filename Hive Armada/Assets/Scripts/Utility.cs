@@ -33,9 +33,19 @@ namespace Hive.Armada
         public static LayerMask roomMask = LayerMask.GetMask("Room");
 
         /// <summary>
+        /// Layer mask for the room and pathing enemies.
+        /// </summary>
+        public static LayerMask roomPathingMask = LayerMask.GetMask("Room", "PathingEnemy");
+
+        /// <summary>
         /// Layer mask for the UI layer
         /// </summary>
         public static LayerMask uiMask = LayerMask.GetMask("UI");
+
+        /// <summary>
+        /// Layer mask for UICover layer
+        /// </summary>
+        public static LayerMask uiCoverMask = LayerMask.GetMask("UICover");
 
         /// <summary>
         /// Layer mask for the Shootable layer
@@ -46,5 +56,37 @@ namespace Hive.Armada
         /// Layer mask for the UI and Room layer. Used for the laser when in Menu mode.
         /// </summary>
         public static LayerMask laserMenuMask = LayerMask.GetMask("UI", "Room");
+
+        /// <summary>
+        /// The layer ID number for UI.
+        /// </summary>
+        public static int uiLayerId = 5;
+
+        /// <summary>
+        /// The layer ID number for Room.
+        /// </summary>
+        public static int roomLayerId = 8;
+
+        /// <summary>
+        /// The layer ID number for Enemy.
+        /// </summary>
+        public static int enemyLayerId = 9;
+
+        /// <summary>
+        /// The layer ID number for Shootable.
+        /// </summary>
+        public static int shootableLayerId = 10;
+
+        /// <summary>
+        /// The layer ID number for UICover.
+        /// </summary>
+        public static int uiCoverLayerId = 11;
+
+        /// <summary>
+        /// The layer ID number for PathingEnemy.
+        /// </summary>
+        public static int pathingEnemyLayerId = 12;
+
+        public static float interactDelay = 0.2f;
     }
 }

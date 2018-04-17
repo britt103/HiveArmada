@@ -35,6 +35,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4418247407078522}
+  - component: {fileID: 114403185414582204}
+  - component: {fileID: 65987703682187124}
+  - component: {fileID: 54044458951150804}
   m_Layer: 0
   m_Name: Area Bomb Pickup
   m_TagString: Untagged
@@ -51,10 +54,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4963478646234900}
   - component: {fileID: 33934654802895038}
-  - component: {fileID: 64932545544585638}
   - component: {fileID: 23860908095294158}
-  - component: {fileID: 54246505636988692}
-  - component: {fileID: 114765813799696734}
   m_Layer: 0
   m_Name: Icon
   m_TagString: Untagged
@@ -98,7 +98,7 @@ Transform:
   m_GameObject: {fileID: 1883553688479776}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.018257875, y: 0.018257868, z: 0.018257868}
+  m_LocalScale: {x: 0.018, y: 0.018, z: 0.018}
   m_Children:
   - {fileID: 4902655862308112}
   m_Father: {fileID: 4418247407078522}
@@ -143,12 +143,12 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1883553688479776}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!54 &54246505636988692
+--- !u!54 &54044458951150804
 Rigidbody:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1883553688479776}
+  m_GameObject: {fileID: 1430950907871662}
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
@@ -158,20 +158,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!64 &64932545544585638
-MeshCollider:
+--- !u!65 &65987703682187124
+BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1883553688479776}
+  m_GameObject: {fileID: 1430950907871662}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Convex: 1
-  m_InflateMesh: 0
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+  m_Size: {x: 0.18, y: 0.18, z: 0.018}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!108 &108681448813452304
 Light:
   m_ObjectHideFlags: 1
@@ -208,23 +206,24 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &114765813799696734
+--- !u!114 &114403185414582204
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1883553688479776}
+  m_GameObject: {fileID: 1430950907871662}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 47d3e22cf11a83f45afc683114b104a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  powerupPrefab: {fileID: 1499271545386294, guid: 17050513bc8d023439162c68a4e55657,
+  powerupPrefab: {fileID: 1318525634856984, guid: 4ae8efe60ec52eb489ed8fc05632021c,
     type: 2}
-  powerupIconPrefab: {fileID: 1868741766282424, guid: b2a67a73a7b705949af72431c157bdd0,
+  powerupIconPrefab: {fileID: 1157696163163350, guid: b2a67a73a7b705949af72431c157bdd0,
     type: 2}
   spawnEmitter: {fileID: 1193291957623802, guid: 51c6bc2ff295f4044856c670e54c787e,
     type: 2}
   pickupEmitter: {fileID: 1259133097534382, guid: 1711805e42329424da4fd6ed64443373,
     type: 2}
   lifeTime: 10
+  clip: {fileID: 8300000, guid: 45721758035d046479508a40aa0cbbdb, type: 3}

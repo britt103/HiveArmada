@@ -11,11 +11,14 @@
 // 
 //=============================================================================
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Hive.Armada.Game;
+using Hive.Armada.Menus;
+using Hive.Armada.Player;
 using MirzaBeig.ParticleSystems;
 
 namespace Hive.Armada.Enemies
@@ -43,7 +46,19 @@ namespace Hive.Armada.Enemies
         /// <summary>
         /// Attack pattern four.
         /// </summary>
-        Four
+        Four,
+
+        Five,
+
+        Six,
+
+        Seven,
+
+        Eight,
+
+        Nine,
+
+        Ten
     }
 
     /// <inheritdoc />
@@ -52,11 +67,7 @@ namespace Hive.Armada.Enemies
     /// </summary>
     public abstract class Enemy : Poolable
     {
-        /// <summary>
-        /// Reference manager that holds all needed references
-        /// (e.g. wave manager, game manager, etc.)
-        /// </summary>
-        protected ReferenceManager reference;
+        protected WaveManager waveManager;
 
         /// <summary>
         /// Reference to enemy attributes to initialize/reset this enemy's attributes.
@@ -74,11 +85,15 @@ namespace Hive.Armada.Enemies
         /// </summary>
         protected ObjectPoolManager objectPoolManager;
 
+        public int EnemyId { get; private set; }
+
         /// <summary>
-        /// Reference to the subwave that spawned this enemy. Used to inform it
+        /// Reference to the wave that spawned this enemy. Used to inform it
         /// when this enemy is hit for the first time and when it is killed.
         /// </summary>
-        protected Subwave subwave;
+        protected int wave;
+
+        protected string path;
 
         /// <summary>
         /// Whether or not this enemy has already been initialized with its attributes.
@@ -128,11 +143,11 @@ namespace Hive.Armada.Enemies
         /// <summary>
         /// The type identifier needed to spawn the death emitter from the object pool.
         /// </summary>
-        protected int deathEmitterTypeIdentifier;
+        protected short deathEmitterTypeIdentifier = -2;
 
         /// <summary>
         /// Changes to false on first hit.
-        /// Used to tell the subwave that it can spawn more enemies.
+        /// Used to tell the wave that it can spawn more enemies.
         /// </summary>
         protected bool untouched = true;
 
@@ -154,11 +169,6 @@ namespace Hive.Armada.Enemies
         protected List<Material> materials;
 
         /// <summary>
-        /// The spawn information for this enemy. Used for respawning after self-destruction.
-        /// </summary>
-        protected EnemySpawn enemySpawn;
-
-        /// <summary>
         /// The attack pattern number that this enemy should use.
         /// </summary>
         protected AttackPattern attackPattern;
@@ -169,24 +179,31 @@ namespace Hive.Armada.Enemies
         protected float selfDestructTime;
 
         /// <summary>
+        /// The player's ship.
+        /// </summary>
+        protected GameObject player;
+
+        /// <summary>
         /// Used to shake low health enemies.
         /// </summary>
-        protected bool shaking = false;
+        protected bool shaking;
+
+        /// <summary>
+        /// If this enemy has finished pathing.
+        /// </summary>
+        public bool PathingComplete { get; protected set; }
 
         /// <summary>
         /// Initializes references to ReferenceManager and other managers, list of renderers and
         /// their materials for HitFlash(), and spawns the spawn particle emitter.
         /// </summary>
-        public virtual void Awake()
+        protected override void Awake()
         {
-            reference = GameObject.Find("Reference Manager").GetComponent<ReferenceManager>();
+            base.Awake();
 
-            if (reference == null)
-            {
-                Debug.LogError(GetType().Name + " - Could not find Reference Manager!");
-            }
-
+            player = reference.shipLookTarget;
             enemyAttributes = reference.enemyAttributes;
+            waveManager = reference.waveManager;
             scoringSystem = reference.scoringSystem;
             objectPoolManager = reference.objectPoolManager;
 
@@ -196,9 +213,7 @@ namespace Hive.Armada.Enemies
             foreach (Renderer r in gameObject.GetComponentsInChildren<Renderer>())
             {
                 if (r.gameObject.CompareTag("Emitter") ||
-                    r.transform.parent.CompareTag("Emitter") ||
-                    r.gameObject.CompareTag("FX") ||
-                    r.transform.parent.CompareTag("FX"))
+                    r.transform.parent.CompareTag("Emitter"))
                 {
                     continue;
                 }
@@ -206,39 +221,39 @@ namespace Hive.Armada.Enemies
                 renderers.Add(r);
                 materials.Add(r.material);
             }
-
-            Reset();
         }
 
-        /// <summary>
-        /// Plays the spawn particle emitter.
-        /// </summary>
-        private void OnEnable()
+        protected void OnEnable()
         {
-            if (isInitialized)
-            {
-                spawnEmitterSystem.play();
-            }
+            SetEnemyId(enemyAttributes.GetNextEnemyId());
         }
 
-        /// <summary>
-        /// Stops the spawn particle emitter and clears all particles.
-        /// </summary>
-        private void OnDisable()
+        public virtual void Hit(int damage)
         {
-            if (isInitialized)
-            {
-                spawnEmitterSystem.stop();
-                spawnEmitterSystem.clear();
-            }
+            Hit(damage, false);
         }
 
         /// <summary>
         /// Used to apply damage to an enemy.
         /// </summary>
         /// <param name="damage"> How much damage this enemy is taking. </param>
-        public virtual void Hit(int damage)
+        /// <param name="sendFeedback"> If the hit should trigger a haptic feedback pulse </param>
+        public virtual void Hit(int damage, bool sendFeedback)
         {
+            if (!PathingComplete)
+            {
+                return;
+            }
+
+            if (sendFeedback)
+            {
+                if (reference.playerShip != null)
+                {
+                    reference.playerShip.GetComponent<ShipController>().hand.controller
+                             .TriggerHapticPulse(2500);
+                }
+            }
+
             Health -= damage;
 
             if (hitFlash == null)
@@ -246,51 +261,57 @@ namespace Hive.Armada.Enemies
                 hitFlash = StartCoroutine(HitFlash());
             }
 
+            if (Health <= 20)
+            {
+                shaking = true;
+            }
+
             if (Health <= 0)
             {
                 Kill();
             }
-
-            if (!untouched)
-            {
-                return;
-            }
-
-            untouched = false;
-
-            subwave.EnemyHit();
         }
 
         /// <summary>
-        /// Notifies the subwave that this enemy has been killed, adds to the player's score
+        /// Notifies the wave that this enemy has been killed, adds to the player's score
         /// and stats, spawns the death particle emitter, and despawns itself.
         /// </summary>
         protected virtual void Kill()
         {
-            KillSpecial();
-            subwave.EnemyDead();
-            reference.statistics.AddScore(pointValue);
+            if (!reference.waveManager.IsInfinite)
+            {
+                waveManager.EnemyDead(wave);
+            }
+            else
+            {
+                waveManager.EnemyDead(path);
+            }
+
+            reference.scoringSystem.ComboIn(pointValue, transform);
             reference.statistics.EnemyKilled();
-            objectPoolManager.Spawn(deathEmitterTypeIdentifier, transform.position,
+            FindObjectOfType<BestiaryUnlockData>().AddEnemyUnlock(gameObject.name);
+            objectPoolManager.Spawn(gameObject, deathEmitterTypeIdentifier, transform.position,
                                     transform.rotation);
+
+            try
+            {
+                iTween.Stop(gameObject);
+            }
+            catch (Exception)
+            {
+                //
+            }
+
             objectPoolManager.Despawn(gameObject);
         }
 
         /// <summary>
-        /// Enemies can override this if they have any special
-        /// functionality that happens when they are killed.
-        /// </summary>
-        protected virtual void KillSpecial() { }
-
-        /// <summary>
-        /// Tells the subwave to respawn this enemy.
+        /// Tells the wave to respawn this enemy.
         /// </summary>
         protected virtual void SelfDestruct()
         {
-            objectPoolManager.Spawn(deathEmitterTypeIdentifier, transform.position,
+            objectPoolManager.Spawn(gameObject, deathEmitterTypeIdentifier, transform.position,
                                     transform.rotation);
-            subwave.AddRespawn(enemySpawn);
-            subwave.EnemyHit();
             objectPoolManager.Despawn(gameObject);
         }
 
@@ -317,20 +338,34 @@ namespace Hive.Armada.Enemies
         }
 
         /// <summary>
-        /// Used to set the subwave reference.
+        /// This is run after the enemy has completed its path.
         /// </summary>
-        /// <param name="subwave"> The subwave that spawned this enemy </param>
-        public virtual void SetSubwave(Subwave subwave)
+        protected virtual void OnPathingComplete()
         {
-            this.subwave = subwave;
+            PathingComplete = true;
         }
-        /// <summary>
-        /// Sets the enemy spawn which is used to respawn this enemy after self-destructing.
-        /// </summary>
-        /// <param name="enemySpawn"> This enemy's spawn information </param>
-        public virtual void SetEnemySpawn(EnemySpawn enemySpawn)
+
+        protected virtual void SetEnemyId(int enemyId)
         {
-            this.enemySpawn = enemySpawn;
+            EnemyId = enemyId;
+        }
+
+        /// <summary>
+        /// Used to set the wave index.
+        /// </summary>
+        /// <param name="wave"> The index of the wave that spawned this enemy </param>
+        public virtual void SetWave(int wave)
+        {
+            this.wave = wave;
+        }
+
+        /// <summary>
+        /// Sets the name of the path this enemy used to spawn.
+        /// </summary>
+        /// <param name="path"> The path name </param>
+        public virtual void SetPath(string path)
+        {
+            this.path = path;
         }
 
         /// <summary>
@@ -351,6 +386,36 @@ namespace Hive.Armada.Enemies
             if (selfDestructTime <= 0 && untouched)
             {
                 SelfDestruct();
+            }
+        }
+
+        /// <summary>
+        /// Resets attributes to this enemy's defaults from enemyAttributes.
+        /// </summary>
+        protected override void Reset()
+        {
+            // reset materials
+            for (int i = 0; i < renderers.Count; ++i)
+            {
+                renderers.ElementAt(i).material = materials.ElementAt(i);
+            }
+
+            PathingComplete = false;
+            hitFlash = null;
+            shaking = false;
+            maxHealth = enemyAttributes.enemyHealthValues[TypeIdentifier];
+            Health = maxHealth;
+            pointValue = enemyAttributes.enemyScoreValues[TypeIdentifier];
+            selfDestructTime = enemyAttributes.enemySelfDestructTimes[TypeIdentifier];
+            deathEmitterTypeIdentifier = enemyAttributes.EnemyDeathEmitterTypeIds[TypeIdentifier];
+
+            try
+            {
+                iTween.Stop(gameObject);
+            }
+            catch (Exception)
+            {
+                //
             }
         }
     }

@@ -65,18 +65,37 @@ namespace Hive.Armada.PowerUps
         private bool touched = false;
 
         /// <summary>
+        /// Audio clip to play when player collides with icon
+        /// </summary>
+        public AudioClip clip;
+
+        /// <summary>
+        /// Source to play audio clip from
+        /// </summary>
+        AudioSource source;
+
+        /// <summary>
         /// Find references. Instantiate and rotate FX. Start self-destruct countdown.
         /// </summary>
         private void Awake()
         {
             reference = GameObject.Find("Reference Manager").GetComponent<ReferenceManager>();
 
-            head = GameObject.Find("VRCamera").transform;
-            Instantiate(spawnEmitter, transform.parent.position, transform.parent.rotation, transform.parent);
-            Instantiate(pickupEmitter, transform.parent.position, transform.parent.rotation, transform.parent);
+            source = GameObject.Find("Powerup Audio Source").GetComponent<AudioSource>();
 
+            head = GameObject.Find("VRCamera").transform;
+
+            if (spawnEmitter)
+            {
+                Instantiate(spawnEmitter, transform.position, transform.rotation, transform);
+            }
+            if (pickupEmitter)
+            {
+                Instantiate(pickupEmitter, transform.position, transform.rotation, transform);
+            }
+            
             status = reference.powerUpStatus;
-            Destroy(transform.parent.gameObject, lifeTime);
+            Destroy(transform.gameObject, lifeTime);
         }
 
         /// <summary>
@@ -84,7 +103,7 @@ namespace Hive.Armada.PowerUps
         /// </summary>
         private void Update()
         {
-            gameObject.transform.parent.LookAt(head);
+            gameObject.transform.LookAt(head);
         }
 
         /// <summary>
@@ -98,7 +117,8 @@ namespace Hive.Armada.PowerUps
                 touched = true;
                 reference.playerShipSource.PlayOneShot(reference.powerupReadySound);
                 status.StorePowerup(powerupPrefab, powerupIconPrefab);
-                Destroy(transform.parent.gameObject);
+                source.PlayOneShot(clip);
+                Destroy(transform.gameObject);
             }
         }
     }

@@ -100,7 +100,7 @@ namespace Hive.Armada.PowerUps
         /// <param name="other">Collider of object with which this collided.</param>
         void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("bullet"))
+            if (other.CompareTag("Projectile"))
             {
                 Instantiate(bulletHitEmitter, other.transform.position, other.transform.rotation);
                 Destroy(other.gameObject);

@@ -13,7 +13,6 @@
 using System.Collections;
 using System.Linq;
 using UnityEngine;
-using MirzaBeig.ParticleSystems;
 
 namespace Hive.Armada.Enemies
 {
@@ -22,76 +21,83 @@ namespace Hive.Armada.Enemies
         /// <summary>
         /// Type identifier for object pooling purposes
         /// </summary>
-        private int projectileTypeIdentifier;
+        private short projectileTypeIdentifier = -2;
 
         /// <summary>
-        /// Projectile that the turret shoots out
+        /// Structure resposible for tracking the positions for which bullets
+        /// are going to be spawned from, dependent on firing pattern.
         /// </summary>
-        public GameObject fireProjectile;
+        public bool[] projectileArray;
 
         /// <summary>
-        /// Structure holding bullet prefabs that
-        /// the enemy will shoot
+        /// Positions from which bullets are initially shot from
+        /// Positions start from the center, then move counterclockwise from north
+        /// Diagram for reference:
+        /// 8   1   2
+        /// \  |  /
+        /// 7 - 0 - 3
+        /// /  |  \
+        /// 6   5   4
         /// </summary>
-        public GameObject[] projectileArray;
-
-        /// <summary>
-        /// Position from which bullets are initially shot from
-        /// </summary>
-        public Transform fireSpawn;
-
-        /// <summary>
-        /// Variable that finds the player GameObject
-        /// </summary>
-        private GameObject player;
-
-        /// <summary>
-        /// Vector3 that holds the player's position
-        /// </summary>
-        private Vector3 pos;
+        public Transform shootPoint;
 
         /// <summary>
         /// How fast the turret shoots at a given rate
         /// </summary>
-        public float fireRate;
+        private float fireRate;
 
         /// <summary>
         /// The rate at which enemy projectiles travel
         /// </summary>
-        public float fireSpeed;
+        private float projectileSpeed;
 
         /// <summary>
         /// Size of conical spread the bullets travel within
         /// </summary>
-        public float fireCone;
+        private float spread;
 
         /// <summary>
-        /// Value that calculates the next time at which the enemy is able to shoot again
+        /// Whether this enemy can shoot or not. Toggles when firing every 1/fireRate seconds.
         /// </summary>
-        private float fireNext;
+        private bool canShoot = true;
 
         /// <summary>
-        /// Value that determines what projectile the enemy will shoot
-        /// as well as its parameters
+        /// Whether or not the projectile being shot rotates.
         /// </summary>
-        private int fireMode;
+        private bool canRotate;
+
+        public Color projectileAlbedoColor;
+
+        public Color projectileEmissionColor;
+
+        [Header("Hovering")]
+        public float xMax;
+
+        public float yMax;
+
+        public float movingSpeed;
 
         /// <summary>
-        /// Spread values determined by fireCone on each axis
+        /// Variables for hovering
         /// </summary>
-        private float randX;
+        private float theta;
 
-        private float randY;
+        private Vector3 posA;
 
-        private float randZ;
+        private Vector3 posB;
 
-        ///// <summary>
-        ///// On start, select enemy behavior based on value fireMode
-        ///// </summary>
-        //void Start()
-        //{
-        //    //switchFireMode(fireMode);
-        //}
+        public GameObject projectilePattern;
+
+        private short patternId = -2;
+
+        private bool usePattern;
+
+        protected override void Awake()
+        {
+            base.Awake();
+
+            patternId = objectPoolManager.GetTypeIdentifier(projectilePattern);
+        }
 
         /// <summary>
         /// tracks player and shoots projectiles in that direction, while being slightly
@@ -100,68 +106,156 @@ namespace Hive.Armada.Enemies
         /// </summary>
         private void Update()
         {
-            if (player != null)
+            if (PathingComplete)
             {
-                pos = player.transform.position;
-                transform.LookAt(pos);
+                transform.position = Vector3.Lerp(posA, posB, (Mathf.Sin(theta) + 1.0f) / 2.0f);
 
-                if (Time.time > fireNext)
+                theta += movingSpeed * Time.deltaTime;
+
+                if (theta > Mathf.PI)
                 {
-                    fireNext = Time.time + 1 / fireRate;
-                    StartCoroutine(FireBullet());
+                    theta -= Mathf.PI * 2;
                 }
+
+                transform.LookAt(player.transform);
+
+                if (canShoot)
+                {
+                    StartCoroutine(Shoot());
+                }
+
+                if (shaking)
+                {
+                    iTween.ShakePosition(gameObject, new Vector3(0.05f, 0.05f, 0.05f), 0.1f);
+                }
+            }
+        }
+
+        /// <summary>
+        /// This is run after the enemy has completed its path.
+        /// Calls Hover function to set positions to hover between
+        /// </summary>
+        protected override void OnPathingComplete()
+        {
+            Hover();
+            base.OnPathingComplete();
+        }
+
+        /// <summary>
+        /// Function that creates 2 vector 3's to float up and down with a Sin()
+        /// </summary>
+        private void Hover()
+        {
+            posA = new Vector3(transform.position.x + xMax / 100,
+                               transform.position.y + yMax / 100,
+                               transform.position.z);
+
+            posB = new Vector3(transform.position.x - xMax / 100,
+                               transform.position.y - yMax / 100,
+                               transform.position.z);
+
+            theta = 0.0f;
+        }
+
+        /// <summary>
+        /// Fires projectiles in a pattern determined by the firemode at the player.
+        /// </summary>
+        private IEnumerator Shoot()
+        {
+            canShoot = false;
+
+            GameObject projectile;
+
+            if (usePattern)
+            {
+                projectile = objectPoolManager.Spawn(
+                    gameObject, patternId, shootPoint.position,
+                    shootPoint.rotation);
+                ProjectilePattern projectileScript = projectile.GetComponent<ProjectilePattern>();
+                projectileScript.Launch(0);
             }
             else
             {
-                player = GameObject.FindGameObjectWithTag("Player");
+                projectile = objectPoolManager.Spawn(
+                    gameObject, projectileTypeIdentifier, shootPoint.position,
+                    shootPoint.rotation);
 
-                if (player == null)
-                {
-                    transform.LookAt(new Vector3(0.0f, 0.0f, 0.0f));
-                }
+                projectile.GetComponent<Transform>().Rotate(Random.Range(-spread, spread),
+                                                            Random.Range(-spread, spread),
+                                                            Random.Range(-spread, spread));
+                Projectile projectileScript = projectile.GetComponent<Projectile>();
+                projectileScript.Launch(0);
             }
 
-            //if (shaking)
-            //{
-            //    iTween.ShakePosition(gameObject, new Vector3(0.01f, 0.01f, 0.01f), Time.deltaTime);
-            //}
-            SelfDestructCountdown();
+            if (canRotate)
+            {
+                StartCoroutine(rotateProjectile(projectile));
+            }
+
+            yield return new WaitForSeconds(fireRate);
+
+            canShoot = true;
         }
 
-        private IEnumerator FireBullet()
+        private IEnumerator rotateProjectile(GameObject bullet)
         {
-            GameObject shoot = objectPoolManager.Spawn(projectileTypeIdentifier, fireSpawn.position,
-                                                       fireSpawn.rotation);
-            randX = Random.Range(-fireCone, fireCone);
-            randY = Random.Range(-fireCone, fireCone);
-            randZ = Random.Range(-fireCone, fireCone);
-
-            shoot.GetComponent<Transform>().Rotate(randX, randY, randZ);
-            shoot.GetComponent<Rigidbody>().velocity = shoot.transform.forward * fireSpeed;
-            yield break;
+            while (true)
+            {
+                bullet.GetComponent<Transform>().Rotate(0, 0, 1);
+                yield return new WaitForSeconds(0.01f);
+            }
         }
 
         /// <summary>
         /// Function that determines the enemy's projectile, firerate,
         /// spread, and projectile speed.
         /// </summary>
-        /// <param name="mode"> </param>
-        private void switchFireMode(int mode)
+        /// <param name="mode"> Current Enemy Firemode </param>
+        public override void SetAttackPattern(AttackPattern attackPattern)
         {
-            switch (mode)
+            base.SetAttackPattern(attackPattern);
+
+            switch ((int) this.attackPattern)
             {
-                case 1:
-                    fireRate = 0.6f;
-                    fireSpeed = 1.5f;
-                    fireCone = 2;
-                    fireProjectile = projectileArray[0];
+                // pattern One and Three
+                case 0:
+                case 2:
+                default:
+                    usePattern = false;
+                    fireRate = 1.0f;
+                    projectileSpeed = 1.5f;
+                    spread = 2;
+
+                    ////canRotate = false;
+                    //projectileArray[0] = true;
+                    //projectileArray[1] = false;
+                    //projectileArray[2] = false;
+                    //projectileArray[3] = false;
+                    //projectileArray[4] = false;
+                    //projectileArray[5] = false;
+                    //projectileArray[6] = false;
+                    //projectileArray[7] = false;
+                    //projectileArray[8] = false;
                     break;
 
-                case 2:
-                    fireRate = 0.3f;
-                    fireSpeed = 1.5f;
-                    fireCone = 0;
-                    fireProjectile = projectileArray[1];
+                // pattern Two and Four
+                case 1:
+                case 3:
+                    usePattern = true;
+                    fireRate = 1.2f;
+                    projectileSpeed = 1.5f;
+                    spread = 0;
+
+                    ////canRotate = true;
+                    //projectileArray[0] = true;
+                    //projectileArray[1] = true;
+                    //projectileArray[2] = false;
+                    //projectileArray[3] = true;
+                    //projectileArray[4] = false;
+                    //projectileArray[5] = true;
+                    //projectileArray[6] = false;
+                    //projectileArray[7] = true;
+                    //projectileArray[8] = false;
                     break;
             }
         }
@@ -171,38 +265,14 @@ namespace Hive.Armada.Enemies
         /// </summary>
         protected override void Reset()
         {
-            // reset materials
-            for (int i = 0; i < renderers.Count; ++i)
-            {
-                renderers.ElementAt(i).material = materials.ElementAt(i);
-            }
+            base.Reset();
 
-            hitFlash = null;
-            shaking = false;
-
+            canShoot = true;
             projectileTypeIdentifier =
                 enemyAttributes.EnemyProjectileTypeIdentifiers[TypeIdentifier];
-            maxHealth = enemyAttributes.enemyHealthValues[TypeIdentifier];
-            Health = maxHealth;
             fireRate = enemyAttributes.enemyFireRate[TypeIdentifier];
-            fireSpeed = enemyAttributes.projectileSpeed;
-            fireCone = enemyAttributes.enemySpread[TypeIdentifier];
-            pointValue = enemyAttributes.enemyScoreValues[TypeIdentifier];
-            selfDestructTime = enemyAttributes.enemySelfDestructTimes[TypeIdentifier];
-            spawnEmitter = enemyAttributes.enemySpawnEmitters[TypeIdentifier];
-            deathEmitter = enemyAttributes.enemyDeathEmitters[TypeIdentifier];
-
-            if (!isInitialized)
-            {
-                isInitialized = true;
-
-                GameObject spawnEmitterObject = Instantiate(spawnEmitter,
-                                                            transform.position,
-                                                            transform.rotation, transform);
-                spawnEmitterSystem = spawnEmitterObject.GetComponent<ParticleSystems>();
-
-                deathEmitterTypeIdentifier = objectPoolManager.GetTypeIdentifier(deathEmitter);
-            }
+            projectileSpeed = enemyAttributes.projectileSpeed;
+            spread = enemyAttributes.enemySpread[TypeIdentifier];
         }
     }
 }

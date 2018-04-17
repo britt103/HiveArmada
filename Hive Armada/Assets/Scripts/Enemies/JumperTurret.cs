@@ -24,7 +24,7 @@ namespace Hive.Armada.Enemies
         /// <summary>
         /// Type identifier for this enemy's projectiles in objectPoolManager
         /// </summary>
-        private int projectileTypeIdentifier;
+        private short projectileTypeIdentifier;
 
         /// <summary>
         /// The point where this enemy shoots from.
@@ -147,7 +147,7 @@ namespace Hive.Armada.Enemies
             canShoot = false;
 
             GameObject projectile =
-                objectPoolManager.Spawn(projectileTypeIdentifier, shootPoint.position,
+                objectPoolManager.Spawn(gameObject, projectileTypeIdentifier, shootPoint.position,
                                         shootPoint.rotation);
 
             projectile.GetComponent<Transform>().Rotate(Random.Range(-spread, spread),

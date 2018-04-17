@@ -10,36 +10,72 @@
 //
 //=============================================================================
 
+using UnityEditor;
 using UnityEngine;
+using System.Collections;
+using Hive.Armada.Game;
 
 namespace Hive.Armada.Menus
 {
     /// <summary>
-    /// Contains navigation functions for the Start and Options menu and prompting of applcation 
+    /// Contains navigation functions for the Start and Options menu and prompting of applcation
     /// exit on Main Menu.
     /// </summary>
     public class MainMenu : MonoBehaviour
     {
         /// <summary>
-        /// Reference to Menu Audio source.
+        /// Reference to ReferenceManager.
         /// </summary>
-		public AudioSource source;
+        private ReferenceManager reference;
 
         /// <summary>
-        /// Clips to use with source.
+        /// Reference to Menu Transition Manager.
         /// </summary>
-    	public AudioClip[] clips;
+        public MenuTransitionManager transitionManager;
+
+        /// <summary>
+        /// Reference to Start Menu.
+        /// </summary>
+        public GameObject startMenuGO;
+
+        /// <summary>
+        /// Reference to Extras Menu.
+        /// </summary>
+        public GameObject extrasMenuGO;
+
+        /// <summary>
+        /// Reference to Options Menu.
+        /// </summary>
+        public GameObject optionsMenuGO;
+
+        /// <summary>
+        /// Reference to Menu Audio source.
+        /// </summary>
+        public AudioSource source;
+
+        public AudioSource zenaSource;
+
+        private void Awake()
+        {
+            reference = FindObjectOfType<ReferenceManager>();
+        }
 
         /// <summary>
         /// Start button pressed. Navigate to Start Menu.
         /// </summary>
         public void PressStart()
         {
-			source.PlayOneShot(clips[0]);
+            source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
+            transitionManager.Transition(startMenuGO);
+        }
 
-            GameObject.Find("Main Canvas").transform.Find("Start Menu").gameObject
-                    .SetActive(true);
-            gameObject.SetActive(false);
+        /// <summary>
+        /// Extras button pressed. Navigate to Extras Menu.
+        /// </summary>
+        public void PressExtras()
+        {
+            source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
+            transitionManager.Transition(extrasMenuGO);
         }
 
         /// <summary>
@@ -47,11 +83,8 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void PressOptions()
         {
-			source.PlayOneShot(clips[0]);
-
-            GameObject.Find("Main Canvas").transform.Find("Options Menu").gameObject
-                    .SetActive(true);
-            gameObject.SetActive(false);
+            source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
+            transitionManager.Transition(optionsMenuGO);
         }
 
         /// <summary>
@@ -61,12 +94,35 @@ namespace Hive.Armada.Menus
         {
             if (Application.isEditor)
             {
-                UnityEditor.EditorApplication.isPlaying = false;
+                EditorApplication.isPlaying = false;
             }
             else
             {
                 Application.Quit();
             }
         }
+
+        //IEnumerator playmenusound()
+        //{
+        //    //IF STARTING SOUNDS ARE GOING TO BE SEPARATE CLIPS
+        //    if (source.isPlaying)
+        //    {
+        //        yield return new WaitWhile(() => source.isPlaying);
+        //        for (int i = 0; i < clips.Length; i++)
+        //        {
+        //            zenaSource.PlayOneShot(clips[i]);
+        //            yield return new WaitWhile(() => source.isPlaying);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        for (int j = 0; j < clips.Length; j++)
+        //        {
+        //            zenaSource.PlayOneShot(clips[j]);
+        //            yield return new WaitWhile(() => source.isPlaying);
+        //        }
+        //    }
+        //    //IF STARTING SOUNDS ARE GOING TO BE 1 CLIP LOOK BACK AT THE AWAKE FUNCTION
+        //}
     }
 }

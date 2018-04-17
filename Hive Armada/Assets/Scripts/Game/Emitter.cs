@@ -13,6 +13,7 @@
 // 
 //=============================================================================
 
+using System.Collections;
 using UnityEngine;
 using MirzaBeig.ParticleSystems;
 
@@ -24,12 +25,6 @@ namespace Hive.Armada.Game
     [RequireComponent(typeof(ParticleSystems))]
     public class Emitter : Poolable
     {
-        /// <summary>
-        /// Reference manager that holds all needed references
-        /// (e.g. wave manager, game manager, etc.)
-        /// </summary>
-        private ReferenceManager reference;
-
         /// <summary>
         /// The particle systems script on this emitter.
         /// </summary>
@@ -53,11 +48,16 @@ namespace Hive.Armada.Game
         /// <summary>
         /// Initialize reference manager reference and system
         /// </summary>
-        private void Awake()
+        protected override void Awake()
         {
-            reference = GameObject.Find("Reference Manager").GetComponent<ReferenceManager>();
+            base.Awake();
+
             system = GetComponent<ParticleSystems>();
-            system.onParticleSystemsDeadEvent += OnParticleSystemsDead;
+
+            if (system != null)
+            {
+                system.onParticleSystemsDeadEvent += OnParticleSystemsDead;
+            }
         }
 
         /// <summary>
@@ -79,10 +79,32 @@ namespace Hive.Armada.Game
         /// </summary>
         private void OnParticleSystemsDead()
         {
-            system.stop();
-            system.clear();
+            if (system != null)
+            {
+                system.stop();
+                system.clear();
+            }
+
+            StartCoroutine(WaitForAudio());
+        }
+
+        private IEnumerator WaitForAudio()
+        {
+            if (source != null)
+            {
+                yield return new WaitWhile(() => source.isPlaying);
+            }
+            else
+            {
+                yield return null;
+            }
 
             reference.objectPoolManager.Despawn(gameObject);
+        }
+
+        public void PlaySound(AudioClip clip)
+        {
+            source.PlayOneShot(clip);
         }
 
         /// <summary>
@@ -90,8 +112,11 @@ namespace Hive.Armada.Game
         /// </summary>
         protected override void Reset()
         {
-            system.stop();
-            system.clear();
+            if (system != null)
+            {
+                system.stop();
+                system.clear();
+            }
         }
     }
 }

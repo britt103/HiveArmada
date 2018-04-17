@@ -11,10 +11,13 @@
 //
 //=============================================================================
 
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using Hive.Armada.Game;
-using Hive.Armada.Player;
+using SubjectNerd.Utilities;
 
 namespace Hive.Armada.Menus
 {
@@ -24,44 +27,73 @@ namespace Hive.Armada.Menus
     public class LoadoutMenu : MonoBehaviour
     {
         /// <summary>
-        /// Reference to Menu Audio source.
+        /// Reference to Menu Transition Manager.
         /// </summary>
-		public AudioSource source;
+        public MenuTransitionManager transitionManager;
 
         /// <summary>
-        /// Clips to use with source.
+        /// Reference to menu to go to when back is pressed.
         /// </summary>
-    	public AudioClip[] clips;
+        public GameObject previousMenu;
 
         /// <summary>
-        /// Reference to weapon text component.
+        /// Reference to play button game object.
         /// </summary>
-        public Text weaponText;
+        [Space]
+        public GameObject playButton;
+
+        public GameObject selectWeaponText;
+
+        public GameObject statsText;
+
+        public GameObject currentText;
+
+        public GameObject currentWeaponText;
+
+        public GameObject gameMode;
+
+        public GameObject currentMode;
+
+        [Reorderable("Weapon", false)]
+        public GameObject[] weaponStatsTexts;
+
+        private string[] weaponDisplayNames;
 
         /// <summary>
-        /// Name of weapon1.
+        /// Reference to icon image game object.
         /// </summary>
-        public string weapon1Name;
+        public GameObject weaponIcon;
 
         /// <summary>
-        /// Number representing laser gun for ShipController.
+        /// Names of weapons.
         /// </summary>
-        public int weapon1Enum;
+        [Space]
+        [Reorderable("Weapon", false)]
+        public string[] weaponNames;
 
         /// <summary>
-        /// Name of weapon2.
+        /// Icons of weapons, in order.
         /// </summary>
-        public string weapon2Name;
+        [Reorderable("Weapon", false)]
+        public Sprite[] weaponIcons;
 
         /// <summary>
-        /// Number representing mini gun for ShipController.
+        /// Cells for weapons.
         /// </summary>
-        public int weapon2Enum;
+        [Reorderable("Weapon", false)]
+        public GameObject[] weaponCells;
 
         /// <summary>
-        /// Enum of initially selected weapon. Starts as first weapon.
+        /// UIHover scripts of weapon buttons.
         /// </summary>
-        public int initialWeapon = 0;
+        [Reorderable("Weapon", false)]
+        public UIHover[] weaponUiHoverScripts;
+
+        /// <summary>
+        /// Cells for weapons that are unlocked by default.
+        /// </summary>
+        [Reorderable("Weapon", false)]
+        public GameObject[] fixedWeaponCells;
 
         /// <summary>
         /// Currently selected weapon.
@@ -76,45 +108,150 @@ namespace Hive.Armada.Menus
         /// <summary>
         /// Reference to ShipLoadout.
         /// </summary>
-        private ShipLoadout shipLoadout;
+        private GameSettings gameSettings;
 
         /// <summary>
-        /// Find references. Set display for initial waepon.
+        /// Reference to Iridium System.
         /// </summary>
-        void Awake()
+        private IridiumSystem iridiumSystem;
+
+        /// <summary>
+        /// Reference to Menu Audio source.
+        /// </summary>
+        [Header("Audio")]
+        public AudioSource source;
+
+        public AudioSource zenaSource;
+
+        /// <summary>
+        /// Clips to use with source.
+        /// </summary>
+        [Reorderable("Clip", false)]
+    	public AudioClip[] clips;
+
+        /// <summary>
+        /// State of whether a weapon has been selected.
+        /// </summary>
+        private bool selectionMade;
+
+        /// <summary>
+        /// Find references. 
+        /// </summary>
+        private void Awake()
         {
             reference = FindObjectOfType<ReferenceManager>();
-            shipLoadout = FindObjectOfType<ShipLoadout>();
+            gameSettings = reference.gameSettings;
+            iridiumSystem = FindObjectOfType<IridiumSystem>();
 
-            switch (initialWeapon)
+            weaponDisplayNames = new string[weaponCells.Length];
+
+            for (int i = 0; i < weaponCells.Length; ++i)
             {
-                case 0:
-                    PressWeapon1();
-                    break;
-                case 1:
-                    PressWeapon2();
-                    break;
+                weaponDisplayNames[i] = weaponCells[i].GetComponentInChildren<Text>().text;
             }
         }
 
         /// <summary>
-        /// Weapon1 button pressed. Set shipLoadout weapon to weapon1.
+        /// Set display for initial waepon. If no Iridium weapons have been 
+        /// unlocked, skip menu.
         /// </summary>
-        public void PressWeapon1()
+        private void OnEnable()
         {
-            source.PlayOneShot(clips[0]);
-            selectedWeapon = weapon1Enum;
-            weaponText.text = "Weapon: " + weapon1Name;
+            gameMode.SetActive(true);
+
+            if (gameSettings.selectedGameMode == GameSettings.GameMode.SoloNormal)
+            {
+                currentMode.GetComponent<Text>().text = "BOSS";
+            }
+            else
+            {
+                currentMode.GetComponent<Text>().text = "INFINITE";
+            }
+            
+            currentMode.SetActive(true);
+
+            if (!iridiumSystem.CheckAnyWeaponsUnlocked())
+            {
+                selectedWeapon = (int)GameSettings.Weapon.Laser;
+                PressPlay();
+            }
+            else
+            {
+                for (int i = 0; i < weaponCells.Length; i++)
+                {
+                    weaponCells[i].SetActive(iridiumSystem.CheckWeaponUnlocked(weaponNames[i]));
+                }
+
+                selectedWeapon = PlayerPrefs.GetInt("defaultWeapon", weaponCells.Length);
+
+                if (selectedWeapon == weaponCells.Length)
+                {
+                    HidePlayButton();
+                    selectionMade = false;
+                    weaponIcon.SetActive(false);
+                    selectWeaponText.SetActive(true);
+                    SetActiveStats(-1);
+                    statsText.SetActive(false);
+                    currentText.SetActive(false);
+                    currentWeaponText.SetActive(false);
+
+                }
+                else
+                {
+                    ShowPlayButton();
+                    weaponUiHoverScripts[selectedWeapon].Select();
+                    selectionMade = true;
+                    selectWeaponText.SetActive(false);
+                    statsText.SetActive(true);
+                    SetActiveStats(selectedWeapon);
+                    currentText.SetActive(true);
+                    currentWeaponText.SetActive(true);
+                    currentWeaponText.GetComponent<Text>().text = weaponDisplayNames[selectedWeapon];
+                    weaponIcon.SetActive(true);
+                    weaponIcon.GetComponent<Image>().sprite = weaponIcons[selectedWeapon];
+                }
+            }
+        }
+
+        private void SetActiveStats(int weapon)
+        {
+            for (int i = 0; i < weaponStatsTexts.Length; ++i)
+            {
+                weaponStatsTexts[i].SetActive(weapon == i);
+            }
         }
 
         /// <summary>
-        /// Weapon2 button pressed. Set shipLoadout weapon to weapon2.
+        /// Weapon button pressed. Set shipLoadout weapon to weaponNum.
         /// </summary>
-        public void PressWeapon2()
+        public void PressWeapon(int weaponNum)
         {
-            source.PlayOneShot(clips[0]);
-            selectedWeapon = weapon2Enum;
-            weaponText.text = "Weapon: " + weapon2Name;
+            if (weaponNum != selectedWeapon)
+            {
+                source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
+                if (selectionMade)
+                {
+                    weaponUiHoverScripts[selectedWeapon].EndSelect();
+                }
+                else
+                {
+                    ShowPlayButton();
+                }
+
+                PlayerPrefs.SetInt("defaultWeapon", weaponNum);
+                selectedWeapon = weaponNum;
+                selectionMade = true;
+                selectWeaponText.SetActive(false);
+                statsText.SetActive(true);
+                SetActiveStats(selectedWeapon);
+                currentText.SetActive(true);
+                currentWeaponText.SetActive(true);
+                currentWeaponText.GetComponent<Text>().text = weaponDisplayNames[selectedWeapon];
+                weaponIcon.SetActive(true);
+                weaponIcon.GetComponent<Image>().sprite = weaponIcons[selectedWeapon];
+
+            }
+            weaponUiHoverScripts[selectedWeapon].Select();
         }
 
         /// <summary>
@@ -122,9 +259,34 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void PressBack()
         {
-            source.PlayOneShot(clips[1]);
-            GameObject.Find("Main Canvas").transform.Find("Start Menu").gameObject.SetActive(true);
-            gameObject.SetActive(false);
+            source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
+            if (selectedWeapon != weaponCells.Length)
+            {
+                weaponUiHoverScripts[selectedWeapon].EndSelect();
+            }
+            transitionManager.Transition(previousMenu);
+        }
+
+        /// <summary>
+        /// Make continue button unusable.
+        /// </summary>
+        private void HidePlayButton()
+        {
+            playButton.GetComponent<BoxCollider>().enabled = false;
+            Color tempColor = playButton.GetComponent<Image>().color;
+            tempColor.a = 0.2f;
+            playButton.GetComponent<Image>().color = tempColor;
+        }
+
+        /// <summary>
+        /// Make continue button usable.
+        /// </summary>
+        private void ShowPlayButton()
+        {
+            playButton.GetComponent<BoxCollider>().enabled = true;
+            Color tempColor = playButton.GetComponent<Image>().color;
+            tempColor.a = 1.0f;
+            playButton.GetComponent<Image>().color = tempColor;
         }
 
         /// <summary>
@@ -132,10 +294,27 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void PressPlay()
         {
-            shipLoadout.weapon = selectedWeapon;
-            source.PlayOneShot(clips[0]);
+            source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
+            //StartCoroutine(pressPlaySounds());
+
+            gameSettings.selectedWeapon = (GameSettings.Weapon)selectedWeapon;
+            PlayerPrefs.SetInt("defaultWeapon", selectedWeapon);
             reference.sceneTransitionManager.TransitionOut("Wave Room");
             gameObject.SetActive(false);
         }
+
+        //private IEnumerator pressPlaySounds()
+        //{
+        //    yield return new WaitForSeconds(0.3f);
+        //    int playSoundIndex = Random.Range(2, clips.Length);
+        //    if (zenaSource.isPlaying)
+        //    {
+        //        new WaitWhile(() => source.isPlaying);
+        //    }
+        //    else
+        //    {
+        //        zenaSource.PlayOneShot(clips[playSoundIndex]);
+        //    }
+        //}
     }
 }

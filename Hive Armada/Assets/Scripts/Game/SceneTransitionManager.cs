@@ -80,6 +80,21 @@ namespace Hive.Armada.Game
         public Transform emitterPoint;
 
         /// <summary>
+        /// Reference to SteamVR_LoadLevel
+        /// </summary>
+        public SteamVR_LoadLevel steamVRLoadLevel;
+
+        /// <summary>
+        /// Texture to display when loading in/out of normal mode.
+        /// </summary>
+        public Texture normalModeLoadingScreen;
+
+        /// <summary>
+        /// Textture to display when loading in/out of infinite mode.
+        /// </summary>
+        public Texture infiniteModeLoadingScreen;
+
+        /// <summary>
         /// Reference to instantiated emitter.
         /// </summary>
         private GameObject emitterGO;
@@ -105,6 +120,11 @@ namespace Hive.Armada.Game
         private UIPointer[] uiPointers;
 
         /// <summary>
+        /// Reference to game settings.
+        /// </summary>
+        private GameSettings gameSettings;
+
+        /// <summary>
         /// Find references. Implement in transition on scene start. 
         /// Minimize effect start times to audio clip length.
         /// Activate appropriate menu in Menu Room.
@@ -113,13 +133,12 @@ namespace Hive.Armada.Game
         {
             reference = FindObjectOfType<ReferenceManager>();
             sceneInfo = FindObjectOfType<SceneInfo>();
+            gameSettings = FindObjectOfType<GameSettings>();
 
-            if(SceneManager.GetActiveScene().name == "Menu Room")
+            if (SceneManager.GetActiveScene().name == "Menu Room")
             {
                 if (sceneInfo.runFinished)
-                {
-                    reference.menuMain.transform.parent.transform.Find("Results Menu")
-                        .gameObject.SetActive(true);
+                { 
                     sceneInfo.runFinished = false;
                 }
                 else
@@ -134,7 +153,7 @@ namespace Hive.Armada.Game
                     foreach (UIPointer pointer in uiPointers)
                     {
                         pointer.gameObject.SetActive(false);
-                    }   
+                    }
                 }
             }
 
@@ -181,9 +200,20 @@ namespace Hive.Armada.Game
                     }
                 }
 
+                if (gameSettings.selectedGameMode == GameSettings.GameMode.SoloNormal)
+                {
+                    steamVRLoadLevel.loadingScreen = normalModeLoadingScreen;
+                }
+                else if (gameSettings.selectedGameMode == GameSettings.GameMode.SoloInfinite)
+                {
+                    steamVRLoadLevel.loadingScreen = infiniteModeLoadingScreen;
+                }
+
                 StartCoroutine(FadeOut());
                 StartCoroutine(StartAudio(audioOutStartTime));
                 StartCoroutine(StartEmitter(emitterOutStartTime));
+                sceneInfo.IncrementScenesLoaded();
+                reference.optionsValues.SetPlayerPrefs();
                 StartCoroutine(LoadScene(sceneName));
             }
         }
@@ -195,10 +225,9 @@ namespace Hive.Armada.Game
         /// <param name="sceneName">Name of scene to load.</param>
         private IEnumerator LoadScene(string sceneName)
         {
+            steamVRLoadLevel.levelName = sceneName;
             yield return new WaitForSeconds(transitionLength);
-            sceneInfo.IncrementScenesLoaded();
-            reference.optionsValues.SetPlayerPrefs();
-            SceneManager.LoadScene(sceneName);
+            steamVRLoadLevel.Trigger();
         }
 
         /// <summary>
@@ -259,12 +288,15 @@ namespace Hive.Armada.Game
                 {
                     pointer.gameObject.SetActive(true);
                 }
+
+                reference.menuMain.transform.parent.transform.Find("Results Menu")
+                    .gameObject.SetActive(true);
             }
 
-            else if (sceneName == "Wave Room")
-            {
-                reference.shipPickup.SetActive(true);
-            }
+            //else if (sceneName == "Wave Room")
+            //{
+            //    reference.shipPickup.SetActive(true);
+            //}
 
             isTransitioning = false;
         }

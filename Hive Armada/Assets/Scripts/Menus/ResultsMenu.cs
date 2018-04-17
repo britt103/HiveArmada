@@ -25,19 +25,44 @@ namespace Hive.Armada.Menus
     public class ResultsMenu : MonoBehaviour
     {
         /// <summary>
+        /// Reference to Menu Transition Manager.
+        /// </summary>
+        public MenuTransitionManager transitionManager;
+
+        /// <summary>
+        /// Reference to menu to go to when back is pressed.
+        /// </summary>
+        public GameObject nextMenu;
+
+        /// <summary>
+        /// Reference to scroll view content.
+        /// </summary>
+        public GameObject scrollViewContent;
+
+        /// <summary>
+        /// Reference to vertical scrollbar.
+        /// </summary>
+        public Scrollbar scrollbar;
+
+        /// <summary>
+        /// Reference to vertical slider.
+        /// </summary>
+        public Slider verticalSlider;
+
+        /// <summary>
         /// Reference to Menu Audio source.
         /// </summary>
         public AudioSource source;
 
         /// <summary>
-        /// Clips to use with source.
+        /// Refernece to IridiumSystem.
         /// </summary>
-    	public AudioClip[] clips;
+        private IridiumSystem iridiumSystem;
 
         /// <summary>
-        /// Reference to ReferenceManager.
+        /// Percent of score used to calculate Iridium gain.
         /// </summary>
-        private ReferenceManager reference;
+        public float iridiumScoreMultiplier = 0.2f;
 
         /// <summary>
         /// Reference to PlayerStats.
@@ -45,41 +70,173 @@ namespace Hive.Armada.Menus
         private PlayerStats stats;
 
         /// <summary>
-        /// Reference to Text GameObject for wave stat.
+        /// Reference to Text GameObjecft for victory/defeat.
         /// </summary>
-        public GameObject wavesTextGO;
+        public Text victoryDefeatText;
 
         /// <summary>
-        /// Reference to Text GameObject for time stat.
+        /// Message to display if player wins.
         /// </summary>
-        public GameObject timeTextGO;
+        public string victoryMessage;
 
         /// <summary>
-        /// Reference to Text GameObject for kills stat.
+        /// Color to apply to victory text.
         /// </summary>
-        public GameObject killsTextGO;
+        public Color victoryColor;
+
+        /// <summary>
+        /// Message to display if player loses.
+        /// </summary>
+        public string defeatMessage;
+
+        /// <summary>
+        /// Color to apply to defeat text.
+        /// </summary>
+        public Color defeatColor;
 
         /// <summary>
         /// Reference to Text GameObject for score stat.
         /// </summary>
-        public GameObject scoreTextGO;
+        public Text scoreText;
+
+        public Text scoreValue;
 
         /// <summary>
-        /// Get and set results values. Reset stats totals.
+        /// Reference to Iridium text GO.
         /// </summary>
-        void Awake()
-        {
-            reference = FindObjectOfType<ReferenceManager>();
-            stats = FindObjectOfType<PlayerStats>();
+        public Text iridiumText;
 
-            wavesTextGO.GetComponent<Text>().text = "Waves: " + stats.waves;
-            TimeSpan time = TimeSpan.FromSeconds(stats.totalAliveTime);
-            string timeOutput = string.Format("{0:D2}:{1:D2}", time.Minutes, time.Seconds);
-            timeTextGO.GetComponent<Text>().text = "Time: " + timeOutput;
-            killsTextGO.GetComponent<Text>().text = "Kills: " + stats.totalEnemiesKilled;
-            scoreTextGO.GetComponent<Text>().text = "Score: " + stats.totalScore;
+        public Text iridiumValue;
+
+        public Text iridiumSpawnedText;
+
+        /// <summary>
+        /// Reference to Text GameObject for time stat.
+        /// </summary>
+        public Text timeText;
+
+        public Text timeValue;
+
+        /// <summary>
+        /// Reference to Text GameObject for kills stat.
+        /// </summary>
+        public Text killsText;
+
+        public Text killsValue;
+
+        public GameObject statShift;
+
+        /// <summary>
+        /// Number of cells that can fit in scroll view content without scrolling.
+        /// </summary>
+        public int numFittableCells;
+
+        /// <summary>
+        /// Reference to ReferenceManager.
+        /// </summary>
+        private ReferenceManager reference;
+
+        /// <summary>
+        /// Reference to GameSettings.
+        /// </summary>
+        private GameSettings gameSettings;
+
+        /// <summary>
+        /// Variable used to make sure that audio
+        /// doesn't play over itself
+        /// </summary>
+        private int continueCounter = 0;
+
+        /// <summary>
+        /// Find references. Get and set results values. Reset stats totals.
+        /// Calculate Iridium totals.
+        /// </summary>
+        private void Awake()
+        {
+            iridiumSystem = FindObjectOfType<IridiumSystem>();
+            reference = FindObjectOfType<ReferenceManager>();
+            gameSettings = reference.gameSettings;
+            stats = reference.statistics;
+
+            int iridiumScoreAmount = (int) (stats.totalScore * 0.2);
+
+            if (gameSettings.selectedGameMode == GameSettings.GameMode.SoloNormal)
+            {
+                if (stats.won)
+                {
+                    victoryDefeatText.text = victoryMessage;
+                    victoryDefeatText.color = victoryColor;
+                }
+                else
+                {
+                    victoryDefeatText.text = defeatMessage;
+                    victoryDefeatText.color = defeatColor;
+                }
+            }
+            else if (gameSettings.selectedGameMode == GameSettings.GameMode.SoloInfinite)
+            {
+                statShift.GetComponent<RectTransform>().anchoredPosition3D =
+                    new Vector3(0.0f, -50.0f, 0.0f);
+
+                victoryDefeatText.text = "Results";
+                victoryDefeatText.color = victoryColor;
+
+                TimeSpan time = TimeSpan.FromSeconds(stats.totalAliveTime);
+
+                string format;
+                if (time.Hours > 0)
+                {
+                    format = "H:mm:ss";
+                }
+                else if (time.Minutes > 9)
+                {
+                    format = "mm:ss";
+                }
+                else
+                {
+                    format = "m:ss";
+                }
+
+                timeText.text = "Time:";
+                timeValue.text = new DateTime(time.Ticks).ToString(format);
+            }
+
+            scoreText.text = "Score:";
+            scoreValue.text = string.Format("{0:n0}", stats.totalScore);
+
+            int iridiumShootablesSpawnedAmount = iridiumSystem.GetSpawnedShootablesAmount();
+            int iridiumShootablesObtainedAmount = iridiumSystem.GetObtainedShootablesAmount();
+
+            iridiumText.text = "Iridium:";
+            iridiumValue.text = string.Format("{0:n0}", iridiumScoreAmount);
+            iridiumSpawnedText.text = string.Format("{0:n0} / {1:n0} total",
+                                                    iridiumShootablesObtainedAmount,
+                                                    iridiumShootablesSpawnedAmount);
+
+            //wavesTextGO.text = "Waves: " + stats.waves;
+
+            if (killsText)
+            {
+                killsText.text = "Kills:";
+                killsValue.text = stats.totalEnemiesKilled.ToString();
+            }
+
+            if (scrollViewContent.transform.childCount <= numFittableCells)
+            {
+                scrollbar.gameObject.GetComponent<BoxCollider>().enabled = false;
+                verticalSlider.gameObject.SetActive(false);
+            }
+            else
+            {
+                scrollbar.gameObject.GetComponent<BoxCollider>().enabled = true;
+                verticalSlider.gameObject.SetActive(true);
+            }
 
             stats.ResetTotals();
+            iridiumSystem.ResetShootablesAmounts();
+            iridiumSystem.AddIridium(iridiumScoreAmount);
+            iridiumSystem.WriteIridiumFile();
+            transitionManager.currMenu = gameObject;
         }
 
         /// <summary>
@@ -88,11 +245,16 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void PressContinue()
         {
-            source.PlayOneShot(clips[0]);
-            stats.ResetValues();
-            reference.menuMain.SetActive(true);
-            gameObject.SetActive(false);
+            //// What is this code, Marc?
+            //source.PlayOneShot(clips[0]);
+            //continueCounter += 1;
+            //if (continueCounter > 1)
+            //{
+            //    source.Stop();
+            //    source.PlayOneShot(clips[0]);
+            //}
+            source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
+            transitionManager.Transition(nextMenu);
         }
     }
 }
-

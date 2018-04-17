@@ -9,10 +9,10 @@
 //
 //=============================================================================
 
+using Hive.Armada.Player;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
-using MirzaBeig.ParticleSystems;
 
 namespace Hive.Armada.Enemies
 {
@@ -21,11 +21,6 @@ namespace Hive.Armada.Enemies
     /// </summary>
     public class KamikazeTurret : Enemy
     {
-        /// <summary>
-        /// The player ship.
-        /// </summary>
-        private GameObject player;
-
         /// <summary>
         /// Transform of this enemy.
         /// </summary>
@@ -52,43 +47,80 @@ namespace Hive.Armada.Enemies
         private int damage;
 
         /// <summary>
+        /// If the Kamikaze has already gone near the player.
+        /// </summary>
+        private bool nearPlayer;
+
+        /// <summary>
+        /// If the Kamikaze has gone in range before.
+        /// </summary>
+        private bool inRange;
+
+        /// <summary>
+        /// Audio source for this enemy.
+        /// </summary>
+        private AudioSource source;
+
+        /// <summary>
+        /// Audio clip attached to this enemy
+        /// </summary>
+        public AudioClip clip;
+
+        /// <summary>
+        /// Shield attached to player ship.
+        /// Used to check player damage when exploding.
+        /// </summary>
+        private GameObject playerShield;
+
+        /// <summary>
         /// Looks at the player and stores own position.
         /// </summary>
-        void Start()
+        private void Start()
         {
-            myTransform = transform;
-            if (player != null)
+            if (player == null)
             {
-                player = GameObject.FindGameObjectWithTag("Player");
-                transform.LookAt(player.transform.position);
+                player = reference.playerShip;
             }
+
+            transform.LookAt(player.transform.position);
+            playerShield = FindObjectOfType<MasterCollider>().gameObject;
+
+            source = GetComponent<AudioSource>();
         }
 
         /// <summary>
         /// Moves the enemy closer to the player and explodes if they are within 'range'. Runs every frame.
         /// </summary>
-        void Update()
+        private void Update()
         {
-            player = GameObject.FindGameObjectWithTag("Player");
-
-            if (Vector3.Distance(transform.position, player.transform.position) >= range)
+            if (PathingComplete)
             {
-                myTransform.rotation = Quaternion.Lerp(myTransform.rotation,
-                                                       Quaternion.LookRotation(player.transform.position
-                                                       - myTransform.position),
-                                                       rotationSpeed * Time.deltaTime);
+                if (player != null)
+                {
+                    myTransform = transform;
+                    myTransform.rotation = Quaternion.Lerp(myTransform.rotation,
+                                                           Quaternion.LookRotation(
+                                                               player.transform.position
+                                                               - myTransform.position),
+                                                           rotationSpeed * Time.deltaTime);
 
-                myTransform.position += myTransform.forward * moveSpeed * Time.deltaTime;
-            }
+                    myTransform.position += myTransform.forward * moveSpeed * Time.deltaTime;
 
-            else if (Vector3.Distance(transform.position, player.transform.position) < range)
-            {
-                StartCoroutine(InRange());
+                    if (shaking)
+                    {
+                        iTween.ShakePosition(gameObject, new Vector3(0.001f, 0.001f, 0.001f), 0.01f);
+                    }
+                }
+                else
+                {
+                    player = reference.playerShip;
+
+                    if (player == null)
+                    {
+                        transform.LookAt(new Vector3(0.0f, 0.0f, 0.0f));
+                    }
+                }
             }
-            //if (shaking)
-            //{
-            //    iTween.ShakePosition(gameObject, new Vector3(0.1f, 0.1f, 0.1f), 0.1f);
-            //}
         }
 
         /// <summary>
@@ -101,32 +133,42 @@ namespace Hive.Armada.Enemies
         {
             if (other.tag == "Player")
             {
-                other.gameObject.GetComponent<Player.PlayerHealth>().Hit(damage);
+                FindObjectOfType<PlayerHealth>().Hit(damage);
+                //other.gameObject.GetComponent<PlayerHealth>().Hit(damage);
                 Kill();
+            }
+        }
+
+        /// <summary>
+        /// Runs InRange if not already running.
+        /// </summary>
+        public void NearPlayer()
+        {
+            if (!nearPlayer)
+            {
+                Debug.Log("I am near the player");
+                nearPlayer = true;
+                StartCoroutine(InRange());
             }
         }
 
         /// <summary>
         /// Causes a timed explosion when the enemy gets within range of the player ship
         /// </summary>
-        IEnumerator InRange()
+        private IEnumerator InRange()
         {
-            foreach (Renderer r in renderers)
-            {
-                r.material = flashColor;
-            }
+            Debug.Log("I am in range");
+            inRange = true;
+            moveSpeed = moveSpeed / 2;
+            source.PlayOneShot(clip);
+            yield return new WaitForSeconds(clip.length);
 
-            yield return new WaitForSeconds(1.0f);
-
-            // reset materials
-            for (int i = 0; i < renderers.Count; ++i)
+            //if (playerShield.GetComponent<Collider>().bounds
+            //                .Contains(gameObject.transform.position))
+            if (Vector3.Distance(gameObject.transform.position, player.transform.position) < range)
             {
-                renderers.ElementAt(i).material = materials.ElementAt(i);
-            }
-
-            if (Vector3.Distance(transform.position, player.transform.position) < range)
-            {
-                player.gameObject.GetComponent<Player.PlayerHealth>().Hit(damage);
+                FindObjectOfType<PlayerHealth>().Hit(damage);
+                //player.GetComponentInParent<PlayerHealth>().Hit(damage);
             }
             Kill();
         }
@@ -136,33 +178,10 @@ namespace Hive.Armada.Enemies
         /// </summary>
         protected override void Reset()
         {
-            // reset materials
-            for (int i = 0; i < renderers.Count; ++i)
-            {
-                renderers.ElementAt(i).material = materials.ElementAt(i);
-            }
+            base.Reset();
 
-            hitFlash = null;
-            shaking = false;
-
-            maxHealth = enemyAttributes.enemyHealthValues[TypeIdentifier];
-            Health = maxHealth;
-            pointValue = enemyAttributes.enemyScoreValues[TypeIdentifier];
-            spawnEmitter = enemyAttributes.enemySpawnEmitters[TypeIdentifier];
-            deathEmitter = enemyAttributes.enemyDeathEmitters[TypeIdentifier];
+            inRange = false;
             damage = enemyAttributes.projectileDamage;
-
-            if (!isInitialized)
-            {
-                isInitialized = true;
-
-                GameObject spawnEmitterObject = Instantiate(spawnEmitter,
-                                                            transform.position,
-                                                            transform.rotation, transform);
-                spawnEmitterSystem = spawnEmitterObject.GetComponent<ParticleSystems>();
-
-                deathEmitterTypeIdentifier = objectPoolManager.GetTypeIdentifier(deathEmitter);
-            }
         }
     }
 }

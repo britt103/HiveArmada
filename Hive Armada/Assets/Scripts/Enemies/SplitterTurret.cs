@@ -13,8 +13,9 @@
 
 using System.Collections;
 using System.Linq;
+using Hive.Armada.Game;
+using Hive.Armada.Menus;
 using UnityEngine;
-using MirzaBeig.ParticleSystems;
 using Random = UnityEngine.Random;
 
 namespace Hive.Armada.Enemies
@@ -27,10 +28,17 @@ namespace Hive.Armada.Enemies
         /// <summary>
         /// Type identifier for this enemy's projectiles in objectPoolManager
         /// </summary>
-        private int projectileTypeIdentifier;
+        private short projectileTypeIdentifier = -2;
+
+        private short childTypeIdentifier = -2;
 
         /// <summary>
-        /// The point where this enemy shoots from.
+        /// The point where this enemy shoots from. Arranged in a 5x5 grid as shown below:
+        /// 00 - 01 - 02 - 03 - 04
+        /// 05 - 06 - 07 - 08 - 09
+        /// 10 - 11 - 12 - 13 - 14
+        /// 15 - 16 - 17 - 18 - 19
+        /// 20 - 21 - 22 - 23 - 24
         /// </summary>
         public Transform shootPoint;
 
@@ -40,20 +48,21 @@ namespace Hive.Armada.Enemies
         private float fireRate;
 
         /// <summary>
-        /// How fast the projectiles move.
+        /// Structure holding the current firing pattern
         /// </summary>
-        private float projectileSpeed;
+        public bool[] projectileArray;
+
+        /// <summary>
+        /// Value that determines what projectile the enemy will shoot
+        /// as well as its parameters
+        /// </summary>
+        private int fireMode;
 
         /// <summary>
         /// Degrees that the projectile can be randomly rotated.
         /// Randomly picks in the range of [-spread, spread] for all 3 axes.
         /// </summary>
         private float spread;
-
-        /// <summary>
-        /// The player's ship.
-        /// </summary>
-        private GameObject player;
 
         /// <summary>
         /// The enemy to spawn when this enemy dies
@@ -71,115 +80,261 @@ namespace Hive.Armada.Enemies
         private bool canShoot = true;
 
         /// <summary>
+        /// Whether or not the projectile being shot rotates.
+        /// </summary>
+        private bool canRotate;
+
+        public Color projectileAlbedoColor;
+
+        public Color projectileEmissionColor;
+
+        /// <summary>
+        /// Variables for hovering
+        /// </summary>
+        private float theta;
+        private Vector3 posA;
+        private Vector3 posB;
+        public float xMax;
+        public float yMax;
+        public float movingSpeed;
+
+        public GameObject[] projectilePatterns;
+
+        private short[] patternIds;
+
+        private short patternId = -2;
+
+        protected override void Awake()
+        {
+            base.Awake();
+
+            patternIds = new short[projectilePatterns.Length];
+
+            for (int i = 0; i < projectilePatterns.Length; ++i)
+            {
+                patternIds[i] = objectPoolManager.GetTypeIdentifier(projectilePatterns[i]);
+            }
+        }
+
+        /// <summary>
         /// Tries to look at the player and shoot at it when possible. Runs every frame.
         /// </summary>
         private void Update()
         {
-            if (player != null)
+            if (PathingComplete)
             {
+                transform.position = Vector3.Lerp(posA, posB, (Mathf.Sin(theta) + 1.0f) / 2.0f);
+
+                theta += movingSpeed * Time.deltaTime;
+
+                if (theta > Mathf.PI)
+                {
+                    theta -= Mathf.PI * 2;
+                }
+
                 transform.LookAt(player.transform);
 
                 if (canShoot)
                 {
                     StartCoroutine(Shoot());
                 }
-            }
-            else
-            {
-                player = reference.playerShip;
 
-                if (player == null)
+                if (shaking)
                 {
-                    transform.LookAt(new Vector3(0.0f, 2.0f, 0.0f));
+                    iTween.ShakePosition(gameObject, new Vector3(0.1f, 0.1f, 0.1f), 0.1f);
                 }
             }
-            //if (shaking)
-            //{
-            //    iTween.ShakePosition(gameObject, new Vector3(0.1f, 0.1f, 0.1f), 0.1f);
-
-            //}
-            SelfDestructCountdown();
         }
 
         /// <summary>
-        /// Shoots a projectile at the player.
+        /// This is run after the enemy has completed its path.
+        /// Calls Hover function to set positions to hover between
+        /// </summary>
+        protected override void OnPathingComplete()
+        {
+            Hover();
+            base.OnPathingComplete();
+        }
+
+        /// <summary>
+        /// Function that creates 2 vector 3's to float up and down with a Sin()
+        /// </summary>
+        private void Hover()
+        {
+            posA = new Vector3(transform.position.x + xMax / 100,
+                transform.position.y + yMax / 100,
+                transform.position.z);
+
+            posB = new Vector3(transform.position.x - xMax / 100,
+                transform.position.y - yMax / 100,
+                transform.position.z);
+            theta = 0.0f;
+        }
+
+        /// <summary>
+        /// Fires projectiles in a pattern determined by the firemode at the player.
         /// </summary>
         private IEnumerator Shoot()
         {
             canShoot = false;
 
+            //for (int x = 0; x < 25; x++)
+            //{
+            //    if (projectileArray[x])
+            //    {
+            //        GameObject projectile =
+            //            objectPoolManager.Spawn(gameObject, projectileTypeIdentifier, shootPoint[x].position,
+            //                                    shootPoint[x].rotation);
+
+            //        projectile.GetComponent<Transform>().Rotate(Random.Range(-spread, spread),
+            //                                                    Random.Range(-spread, spread),
+            //                                                    Random.Range(-spread, spread));
+            //        projectile.GetComponent<Projectile>()
+            //                  .SetColors(projectileAlbedoColor, projectileEmissionColor);
+            //        Projectile projectileScript = projectile.GetComponent<Projectile>();
+            //        projectileScript.Launch(0);
+            //        //projectile.GetComponent<Rigidbody>().velocity =
+            //        //    projectile.transform.forward * projectileSpeed;
+
+            //        if (canRotate)
+            //        {
+            //            StartCoroutine(rotateProjectile(projectile));
+            //        }
+            //    }
+            //}
+
             GameObject projectile =
-                objectPoolManager.Spawn(projectileTypeIdentifier, shootPoint.position,
+                objectPoolManager.Spawn(gameObject, patternId, shootPoint.position,
                                         shootPoint.rotation);
 
-            projectile.GetComponent<Transform>().Rotate(Random.Range(-spread, spread),
-                                                        Random.Range(-spread, spread),
-                                                        Random.Range(-spread, spread));
-
-            projectile.GetComponent<Rigidbody>().velocity =
-                projectile.transform.forward * projectileSpeed;
+            ProjectilePattern projectileScript = projectile.GetComponent<ProjectilePattern>();
+            projectileScript.Launch(0);
 
             yield return new WaitForSeconds(fireRate);
-
             canShoot = true;
+        }
+
+        private IEnumerator rotateProjectile(GameObject bullet)
+        {
+            while (true)
+            {
+                bullet.GetComponent<Transform>().Rotate(0, 0, 1);
+                yield return new WaitForSeconds(0.01f);
+            }
+        }
+
+        /// <summary>
+        /// Function that determines the enemy's projectile, firerate,
+        /// spread, and projectile speed.
+        /// </summary>
+        /// <param name="mode">Current Enemy Firemode</param>
+        public override void SetAttackPattern(AttackPattern attackPattern)
+        {
+            base.SetAttackPattern(attackPattern);
+
+            switch ((int)this.attackPattern)
+            {
+                //X-pattern
+                case 0:
+                    patternId = patternIds[0];
+                    fireRate = 1.2f;
+                    spread = 0;
+
+                    //projectileArray[0] = true;
+                    //projectileArray[1] = false;
+                    //projectileArray[2] = false;
+                    //projectileArray[3] = false;
+                    //projectileArray[4] = true;
+
+                    //projectileArray[5] = false;
+                    //projectileArray[6] = true;
+                    //projectileArray[7] = false;
+                    //projectileArray[8] = true;
+                    //projectileArray[9] = false;
+
+                    //projectileArray[10] = false;
+                    //projectileArray[11] = false;
+                    //projectileArray[12] = true;
+                    //projectileArray[13] = false;
+                    //projectileArray[14] = false;
+
+                    //projectileArray[15] = false;
+                    //projectileArray[16] = true;
+                    //projectileArray[17] = false;
+                    //projectileArray[18] = true;
+                    //projectileArray[19] = false;
+
+                    //projectileArray[20] = true;
+                    //projectileArray[21] = false;
+                    //projectileArray[22] = false;
+                    //projectileArray[23] = false;
+                    //projectileArray[24] = true;
+                    break;
+                //inverse-X
+                case 1:
+                    patternId = patternIds[1];
+                    fireRate = 1.2f;
+                    spread = 0;
+
+                    //projectileArray[0] = true;
+                    //projectileArray[1] = true;
+                    //projectileArray[2] = false;
+                    //projectileArray[3] = true;
+                    //projectileArray[4] = true;
+
+                    //projectileArray[5] = true;
+                    //projectileArray[6] = false;
+                    //projectileArray[7] = false;
+                    //projectileArray[8] = false;
+                    //projectileArray[9] = true;
+
+                    //projectileArray[10] = false;
+                    //projectileArray[11] = false;
+                    //projectileArray[12] = true;
+                    //projectileArray[13] = false;
+                    //projectileArray[14] = false;
+
+                    //projectileArray[15] = true;
+                    //projectileArray[16] = false;
+                    //projectileArray[17] = false;
+                    //projectileArray[18] = false;
+                    //projectileArray[19] = true;
+
+                    //projectileArray[20] = true;
+                    //projectileArray[21] = true;
+                    //projectileArray[22] = false;
+                    //projectileArray[23] = true;
+                    //projectileArray[24] = true;
+                    break;
+            }
         }
 
         /// <summary>
         /// Spawns 4 'childTurret' enemies when this enemy is destroyed
         /// </summary>
-        protected override void KillSpecial()
+        protected override void Kill()
         {
-            if (childTurret != null)
+            if (childTypeIdentifier > 0)
             {
-                int typeIdentifier = objectPoolManager.GetTypeIdentifier(childTurret);
-                Game.EnemySpawn childEnemySpawn = new Game.EnemySpawn(typeIdentifier, enemySpawn.spawnZone, enemySpawn.attackPattern);
+                for (int i = 1; i <= 4; ++i)
+                {
+                    float xAdj = i % 2 == 0 ? -1.0f : 1.0f;
+                    float yAdj = i == 1 || i == 4 ? 1.0f : -1.0f;
+                    Vector3 spawn = transform.position + transform.rotation * (new Vector3(xAdj, yAdj, 0.0f) / 10.0f);
 
-                //Instantiate("Explosion.name", transform.position, transform.rotation); Placeholder for destroy effect
-                GameObject child1 = objectPoolManager.Spawn(typeIdentifier, new Vector3(transform.position.x + 0.1f, transform.position.y + 0.1f, transform.position.z), transform.rotation);
-                Enemy child1Enemy = child1.GetComponent<Enemy>();
-                child1Enemy.SetSubwave(subwave);
-                child1Enemy.SetEnemySpawn(childEnemySpawn);
-                child1Enemy.SetAttackPattern(enemySpawn.attackPattern);
-
-                GameObject child2 = objectPoolManager.Spawn(typeIdentifier, new Vector3(transform.position.x - 0.1f, transform.position.y - 0.1f, transform.position.z), transform.rotation);
-                Enemy child2Enemy = child2.GetComponent<Enemy>();
-                child2Enemy.SetSubwave(subwave);
-                child2Enemy.SetEnemySpawn(childEnemySpawn);
-                child2Enemy.SetAttackPattern(enemySpawn.attackPattern);
-
-                GameObject child3 = objectPoolManager.Spawn(typeIdentifier, new Vector3(transform.position.x + 0.1f, transform.position.y - 0.1f, transform.position.z), transform.rotation);
-                Enemy child3Enemy = child3.GetComponent<Enemy>();
-                child3Enemy.SetSubwave(subwave);
-                child3Enemy.SetEnemySpawn(childEnemySpawn);
-                child3Enemy.SetAttackPattern(enemySpawn.attackPattern);
-
-                GameObject child4 = objectPoolManager.Spawn(typeIdentifier, new Vector3(transform.position.x - 0.1f, transform.position.y + 0.1f, transform.position.z), transform.rotation);
-                Enemy child4Enemy = child4.GetComponent<Enemy>();
-                child4Enemy.SetSubwave(subwave);
-                child4Enemy.SetEnemySpawn(childEnemySpawn);
-                child4Enemy.SetAttackPattern(enemySpawn.attackPattern);
-
-                child1.GetComponent<Rigidbody>().AddForce(new Vector3(transform.position.x + splitDir, transform.position.y + splitDir, transform.position.z));
-                child2.GetComponent<Rigidbody>().AddForce(new Vector3(transform.position.x - splitDir, transform.position.y - splitDir, transform.position.z));
-                child3.GetComponent<Rigidbody>().AddForce(new Vector3(transform.position.x + splitDir, transform.position.y - splitDir, transform.position.z));
-                child4.GetComponent<Rigidbody>().AddForce(new Vector3(transform.position.x - splitDir, transform.position.y + splitDir, transform.position.z));
-                //iTween.MoveTo(child1, iTween.Hash("x", transform.localPosition.x + (splitDir), "y", transform.localPosition.y + (splitDir), "z", transform.localPosition.z, "islocal", false, "time", 1.0f));
-                //iTween.MoveTo(child2, iTween.Hash("x", transform.localPosition.x + (splitDir), "y", transform.localPosition.y - (splitDir), "z", transform.localPosition.z, "islocal", false, "time", 1.0f));
-                //iTween.MoveTo(child3, iTween.Hash("x", transform.localPosition.x - (splitDir), "y", transform.localPosition.y + (splitDir), "z", transform.localPosition.z, "islocal", false, "time", 1.0f));
-                //iTween.MoveTo(child4, iTween.Hash("x", transform.localPosition.x - (splitDir), "y", transform.localPosition.y - (splitDir), "z", transform.localPosition.z, "islocal", false, "time", 1.0f));
+                    GameObject child =
+                        objectPoolManager.Spawn(gameObject, childTypeIdentifier, spawn,
+                                                transform.rotation);
+                    Enemy enemy = child.GetComponent<Enemy>();
+                    enemy.SetWave(wave);
+                    enemy.SetPath("child");
+                    enemy.SetAttackPattern(attackPattern);
+                    child.GetComponent<Rigidbody>()
+                         .AddRelativeForce(new Vector3(xAdj, yAdj, 0.0f) * splitDir * 4.0f);
+                }
             }
 
-            StartCoroutine(DeathDelay());
-        }
-
-        private IEnumerator DeathDelay()
-        {
-            foreach (Renderer r in renderers)
-            {
-                r.GetComponent<Renderer>().enabled = false;
-            }
-            yield return new WaitForSeconds(1.0f);
-            //Destroy(gameObject);
+            base.Kill();
         }
 
         /// <summary>
@@ -187,39 +342,14 @@ namespace Hive.Armada.Enemies
         /// </summary>
         protected override void Reset()
         {
-            // reset materials
-            for (int i = 0; i < renderers.Count; ++i)
-            {
-                renderers.ElementAt(i).material = materials.ElementAt(i);
-            }
+            base.Reset();
 
-            hitFlash = null;
-            shaking = false;
             canShoot = true;
-
             projectileTypeIdentifier =
                             enemyAttributes.EnemyProjectileTypeIdentifiers[TypeIdentifier];
-            maxHealth = enemyAttributes.enemyHealthValues[TypeIdentifier];
-            Health = maxHealth;
+            childTypeIdentifier = objectPoolManager.GetTypeIdentifier(childTurret);
             fireRate = enemyAttributes.enemyFireRate[TypeIdentifier];
-            projectileSpeed = enemyAttributes.projectileSpeed;
             spread = enemyAttributes.enemySpread[TypeIdentifier];
-            pointValue = enemyAttributes.enemyScoreValues[TypeIdentifier];
-            selfDestructTime = enemyAttributes.enemySelfDestructTimes[TypeIdentifier];
-            spawnEmitter = enemyAttributes.enemySpawnEmitters[TypeIdentifier];
-            deathEmitter = enemyAttributes.enemyDeathEmitters[TypeIdentifier];
-
-            if (!isInitialized)
-            {
-                isInitialized = true;
-
-                GameObject spawnEmitterObject = Instantiate(spawnEmitter,
-                                                            transform.position,
-                                                            transform.rotation, transform);
-                spawnEmitterSystem = spawnEmitterObject.GetComponent<ParticleSystems>();
-
-                deathEmitterTypeIdentifier = objectPoolManager.GetTypeIdentifier(deathEmitter);
-            }
         }
     }
 }

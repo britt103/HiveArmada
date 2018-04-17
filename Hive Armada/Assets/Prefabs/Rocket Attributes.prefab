@@ -1,0 +1,135 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1317872651920704}
+  m_IsPrefabParent: 1
+--- !u!1 &1317872651920704
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4875036780894688}
+  - component: {fileID: 114471007866272358}
+  m_Layer: 0
+  m_Name: Rocket Attributes
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4875036780894688
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1317872651920704}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114471007866272358
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1317872651920704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69b8af92f2f02c44c9fe7c18db5cef02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rockets:
+  - rocketType: 0
+    behaviorFlags: 1
+    damage: 30
+    speed: 5
+    homingSensitivity: 0.85
+    explodeTime: 7
+    explosiveRadius: 0
+    randomTime: 0.35
+    randomX: 0.02
+    randomY: 0.02
+    randomZ: 0.02
+    trailColor: {r: 1, g: 1, b: 1, a: 1}
+    trailWidth: 0.007
+    explosionEmitterPrefab: {fileID: 1149115680930312, guid: b76cef86fabf4a6488f30f04521ff9c8,
+      type: 2}
+    rocketEmitterPrefab: {fileID: 0}
+    trailEmitterPrefab: {fileID: 1960874980371040, guid: d0b15749a6c8b1446a88d7576c461f35,
+      type: 2}
+    explosionClip: {fileID: 8300000, guid: 670401f036675f94289edd02894a63cd, type: 3}
+    trailClip: {fileID: 8300000, guid: e624d9a40e20d71498145c130df1ae05, type: 3}
+  - rocketType: 1
+    behaviorFlags: 1
+    damage: 30
+    speed: 5
+    homingSensitivity: 0.2
+    explodeTime: 7
+    explosiveRadius: 0
+    randomTime: 0.2
+    randomX: 0.002
+    randomY: 0.002
+    randomZ: 0.002
+    trailColor: {r: 1, g: 1, b: 1, a: 1}
+    trailWidth: 0.007
+    explosionEmitterPrefab: {fileID: 1149115680930312, guid: e93e12095ae7bf74281473779f891016,
+      type: 2}
+    rocketEmitterPrefab: {fileID: 0}
+    trailEmitterPrefab: {fileID: 1415951353483722, guid: c369e0de9779d60459be5725f2a142bc,
+      type: 2}
+    explosionClip: {fileID: 0}
+    trailClip: {fileID: 0}
+  - rocketType: 2
+    behaviorFlags: 0
+    damage: 30
+    speed: 2
+    homingSensitivity: 0.1
+    explodeTime: 5
+    explosiveRadius: 0
+    randomTime: 0.2
+    randomX: 0.005
+    randomY: 0.005
+    randomZ: 0.005
+    trailColor: {r: 1, g: 1, b: 1, a: 1}
+    trailWidth: 0.007
+    explosionEmitterPrefab: {fileID: 1149115680930312, guid: b76cef86fabf4a6488f30f04521ff9c8,
+      type: 2}
+    rocketEmitterPrefab: {fileID: 0}
+    trailEmitterPrefab: {fileID: 1960874980371040, guid: 89d7014b6d7141e49877d9ba774fa125,
+      type: 2}
+    explosionClip: {fileID: 8300000, guid: 2d9dc4903f87fbe4384be61f1d6af7a6, type: 3}
+    trailClip: {fileID: 8300000, guid: e624d9a40e20d71498145c130df1ae05, type: 3}
+  - rocketType: 3
+    behaviorFlags: 14
+    damage: 250
+    speed: 2
+    homingSensitivity: 0.35
+    explodeTime: 12
+    explosiveRadius: 3
+    randomTime: 0.2
+    randomX: 0.001
+    randomY: 0.001
+    randomZ: 0.001
+    trailColor: {r: 1, g: 0.63985807, b: 0.2205882, a: 1}
+    trailWidth: 0.01
+    explosionEmitterPrefab: {fileID: 1149115680930312, guid: b17c57db46ad57343afa03d819ccc7b3,
+      type: 2}
+    rocketEmitterPrefab: {fileID: 1991993796967754, guid: eb5e21aaf4d14f34a886d74c9334f6de,
+      type: 2}
+    trailEmitterPrefab: {fileID: 1381081471905298, guid: 25bfeab4f6fd2224ba48cd259ff77d8a,
+      type: 2}
+    explosionClip: {fileID: 0}
+    trailClip: {fileID: 0}

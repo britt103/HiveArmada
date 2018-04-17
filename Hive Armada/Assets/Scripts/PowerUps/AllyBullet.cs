@@ -45,7 +45,7 @@ namespace Hive.Armada.PowerUps
             {
                 if(other.gameObject.GetComponent<Enemies.Enemy>() != null)
                 {
-                    other.gameObject.GetComponent<Enemies.Enemy>().Hit(damage);
+                    other.gameObject.GetComponent<Enemies.Enemy>().Hit(damage, false);
                 }
                 Destroy(gameObject);
             }

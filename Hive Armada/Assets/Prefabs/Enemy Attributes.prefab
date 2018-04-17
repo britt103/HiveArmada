@@ -1,0 +1,103 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1759454231769060}
+  m_IsPrefabParent: 1
+--- !u!1 &1759454231769060
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4391042715942922}
+  - component: {fileID: 114083984002419404}
+  m_Layer: 0
+  m_Name: Enemy Attributes
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4391042715942922
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1759454231769060}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114083984002419404
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1759454231769060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd6c37d73f3d330439ad4e3db0d075a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyHealthValues: 640000009600000078000000fa0000005000000050000000
+  enemySelfDestructTimes:
+  - 180
+  - 180
+  - 180
+  - 180
+  - 180
+  - 180
+  enemyScoreValues: 0a0000001400000014000000320000000500000014000000
+  enemyProjectilePrefab:
+  - {fileID: 1590670541974036, guid: 0f837641c26eee64eaa72bd67b35506d, type: 2}
+  - {fileID: 1590670541974036, guid: f77edbeaf5a181848bd618ed79b1fbee, type: 2}
+  - {fileID: 1590670541974036, guid: 4311fbf60b3f2d849bdfd5fbcf4dbd1e, type: 2}
+  - {fileID: 1590670541974036, guid: 80cd6cea2fe4bfc4f9f40022663bbdf4, type: 2}
+  - {fileID: 1590670541974036, guid: 42e645c723bbafb48ae4e77a562e1668, type: 2}
+  - {fileID: 1590670541974036, guid: 0f837641c26eee64eaa72bd67b35506d, type: 2}
+  - {fileID: 1590670541974036, guid: 36f0f520dc8513d4786e04f834803383, type: 2}
+  enemyFireRate:
+  - 0.6
+  - 1.5
+  - 0.8
+  - 0.8
+  - 0.8
+  enemySpread:
+  - 2
+  - 7.5
+  - 2
+  - 2
+  - 2
+  enemySpawnEmitters:
+  - {fileID: 1634124259471280, guid: 05a76aa8728dfe04399bb8f593dae44b, type: 2}
+  - {fileID: 1634124259471280, guid: 05a76aa8728dfe04399bb8f593dae44b, type: 2}
+  - {fileID: 1634124259471280, guid: 05a76aa8728dfe04399bb8f593dae44b, type: 2}
+  - {fileID: 1634124259471280, guid: 05a76aa8728dfe04399bb8f593dae44b, type: 2}
+  - {fileID: 1634124259471280, guid: 05a76aa8728dfe04399bb8f593dae44b, type: 2}
+  - {fileID: 1634124259471280, guid: 05a76aa8728dfe04399bb8f593dae44b, type: 2}
+  enemyDeathEmitters:
+  - {fileID: 1112362033134432, guid: c57be84955d83f140ab1f33f7ce8fc7f, type: 2}
+  - {fileID: 1112362033134432, guid: c57be84955d83f140ab1f33f7ce8fc7f, type: 2}
+  - {fileID: 1112362033134432, guid: c57be84955d83f140ab1f33f7ce8fc7f, type: 2}
+  - {fileID: 1112362033134432, guid: ed1865491e559ed4b9f56e8ed60838d9, type: 2}
+  - {fileID: 1112362033134432, guid: c57be84955d83f140ab1f33f7ce8fc7f, type: 2}
+  - {fileID: 1960498793399906, guid: b554dfaa0dac8484daee59f7d24b3e9c, type: 2}
+  projectileDamage: 10
+  projectileSpeed: 1.5
+  projectileSpeeds:
+  - 1.5
+  projectileLifetime: 10
+  timeWarpPrefab: {fileID: 1207937996568046, guid: 5201957c382643d49b6f06c526e35261,
+    type: 2}

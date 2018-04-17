@@ -16,14 +16,23 @@
 
 using System.Collections;
 using UnityEngine;
+using Hive.Armada.Game;
+using Hive.Armada.Player.Weapons;
+using Hive.Armada.Enemies;
 
 namespace Hive.Armada.PowerUps
 {
     /// <summary>
-    /// Ally powerup with slerp movement. 
+    /// Ally powerup with slerp movement.
     /// </summary>
     public class AllySlerp : MonoBehaviour
     {
+        /// <summary>
+        /// Reference manager that holds all needed references
+        /// (e.g. wave manager, game manager, etc.)
+        /// </summary>
+        private ReferenceManager reference;
+
         /// <summary>
         /// Distance between the player ship and the ally ship.
         /// </summary>
@@ -43,12 +52,12 @@ namespace Hive.Armada.PowerUps
         //public float sphereCastMaxDistance = 1.0F;
 
         //Reference to currently targetted enemy.
-        public GameObject currentTarget = null;
+        private GameObject currentTarget;
 
         /// <summary>
         /// Represents progress of current slerp movement in terms of time.
         /// </summary>
-        private float slerpTimer = 0.0F;
+        private float slerpTimer;
 
         /// <summary>
         /// Ratio of slerpFraction / slerpTimer.
@@ -57,10 +66,22 @@ namespace Hive.Armada.PowerUps
 
         //private bool targetAcquired;
 
+        public Transform shootPoint;
+
         /// <summary>
-        /// Projectile prefab.
+        /// Rocket prefab to use.
         /// </summary>
-        public GameObject bulletPrefab;
+        public GameObject rocketPrefab;
+
+        /// <summary>
+        /// The type ID needed to spawn the rocket.
+        /// </summary>
+        private short rocketTypeId;
+
+        /// <summary>
+        /// Rocket type for setting attributes for launched rockets.
+        /// </summary>
+        public RocketAttributes.RocketType rocketType;
 
         /// <summary>
         /// FX instanted in Start().
@@ -68,9 +89,9 @@ namespace Hive.Armada.PowerUps
         public GameObject spawnEmitter;
 
         /// <summary>
-        /// Speed of fired projectiles.
+        /// Damage dealt to enemies on collision.
         /// </summary>
-        public float bulletSpeed;
+        public int damage;
 
         /// <summary>
         /// Number of projectiles fired per second.
@@ -82,18 +103,30 @@ namespace Hive.Armada.PowerUps
         /// </summary>
         private bool canFire = true;
 
-		public AudioSource source;
+        public AudioSource source;
+
+        AudioSource bossSource;
+
         public AudioClip[] clips;
 
         // Instantiate FX and set ship at distance from player ship.
-        void Start()
+        private void Awake()
         {
+            reference = FindObjectOfType<ReferenceManager>();
+            bossSource = GameObject.Find("Boss Audio Source").GetComponent<AudioSource>();
+            StartCoroutine(pauseForBoss());
+
+            if (reference != null)
+            {
+                rocketTypeId = reference.objectPoolManager.GetTypeIdentifier(rocketPrefab);
+            }
+
             Instantiate(spawnEmitter, transform);
             transform.localPosition = new Vector3(0, distance, 0);
         }
 
         // Subtract from and check timeLimit. Call Move(). Start Fire coroutine.
-        void Update()
+        private void Update()
         {
             timeLimit -= Time.deltaTime;
             if (timeLimit < 0.0F)
@@ -110,14 +143,14 @@ namespace Hive.Armada.PowerUps
 
             if (canFire && slerpFraction >= 1.0F && currentTarget != null)
             {
-                StartCoroutine(Fire(currentTarget.transform.position));
+                StartCoroutine(Fire(currentTarget));
             }
         }
 
         /// <summary>
         /// Determine transform of enemy nearest to player ship.
         /// </summary>
-        /// <returns>Transform of nearest enemy ship.</returns>
+        /// <returns> Transform of nearest enemy ship. </returns>
         private Transform GetNearestEnemy()
         {
             Vector3 positionDifference;
@@ -126,8 +159,32 @@ namespace Hive.Armada.PowerUps
             GameObject nearestEnemy = null;
             foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
             {
-                positionDifference = enemy.transform.position - 
-                        transform.parent.transform.position;
+                NewBoss newBoss = enemy.GetComponent<NewBoss>();
+                Enemy enemyScript = enemy.GetComponent<Enemy>();
+                if (enemyScript != null)
+                {
+                    if (newBoss == null)
+                    {
+                        if (!enemyScript.PathingComplete || !enemyScript.IsActive)
+                        {
+                            continue;
+                        }
+                    }
+                    else
+                    {
+                        if (newBoss.CurrentState != BossStates.Combat)
+                        {
+                            continue;
+                        }
+                    }
+                }
+                else
+                {
+                    continue;
+                }
+
+                positionDifference = enemy.transform.position -
+                                     transform.parent.transform.position;
 
                 //faster than non-squared magnitude
                 distance = positionDifference.sqrMagnitude;
@@ -143,10 +200,8 @@ namespace Hive.Armada.PowerUps
             {
                 return null;
             }
-            else
-            {
-                return nearestEnemy.transform;
-            }
+
+            return nearestEnemy.transform;
         }
 
         /// <summary>
@@ -164,20 +219,19 @@ namespace Hive.Armada.PowerUps
                 {
                     return;
                 }
-                else
-                {
-                    currentTarget = GetNearestEnemy().gameObject;
-                }
+
+                currentTarget = GetNearestEnemy().gameObject;
             }
 
-            Quaternion rotation = Quaternion.LookRotation((currentTarget.transform.position - 
-                    transform.position).normalized);
+            Quaternion rotation = Quaternion.LookRotation((currentTarget.transform.position -
+                                                           transform.position).normalized);
 
             Vector3 enemyLocalPosition = transform.parent.transform
-                    .InverseTransformPoint(currentTarget.transform.position);
+                                                  .InverseTransformPoint(
+                                                      currentTarget.transform.position);
 
             Vector3 localTranslation = new Vector3(enemyLocalPosition.x, enemyLocalPosition.y, 0)
-                .normalized * distance;
+                                           .normalized * distance;
 
             slerpFraction = slerpTimer / slerpTime;
 
@@ -186,10 +240,11 @@ namespace Hive.Armada.PowerUps
             {
                 transform.rotation = Quaternion.Slerp(transform.rotation, rotation, slerpFraction);
                 transform.localPosition = Vector3
-                        .Slerp(transform.localPosition, localTranslation, slerpFraction);
+                    .Slerp(transform.localPosition, localTranslation, slerpFraction);
 
                 slerpTimer += Time.deltaTime;
             }
+
             //not slerping
             else
             {
@@ -197,11 +252,12 @@ namespace Hive.Armada.PowerUps
 
                 RaycastHit hit;
                 if (Physics.Raycast(transform.position, transform.forward, out hit, 1))
-                //if(Physics.SphereCast(transform.position, sphereCastRadius, transform.forward, out hit, sphereCastMaxDistance))
-                //if(Physics.SphereCast(transform.position, sphereCastRadius, transform.forward, out hit, sphereCastMaxDistance, LayerMask.GetMask("Player")))
+
+                    //if(Physics.SphereCast(transform.position, sphereCastRadius, transform.forward, out hit, sphereCastMaxDistance))
+                    //if(Physics.SphereCast(transform.position, sphereCastRadius, transform.forward, out hit, sphereCastMaxDistance, LayerMask.GetMask("Player")))
                 {
-                    if (hit.collider.gameObject.CompareTag("Player") || 
-                            hit.collider.gameObject.GetComponent<Shield>() != null)
+                    if (hit.collider.gameObject.CompareTag("Player") ||
+                        hit.collider.gameObject.GetComponent<Shield>() != null)
                     {
                         slerpTimer = 0.0F;
                     }
@@ -212,20 +268,44 @@ namespace Hive.Armada.PowerUps
         /// <summary>
         /// Instantiate bullet according to firerate.
         /// </summary>
-        /// <param name="target">Enemy bullet is "aimed" at</param>
-        private IEnumerator Fire(Vector3 target)
+        /// <param name="target"> The target to launch the rocket at </param>
+        private IEnumerator Fire(GameObject target)
         {
             canFire = false;
-            var bullet = Instantiate(bulletPrefab, transform.Find("BulletPoint")
-                    .transform.position, transform.rotation);
+            GameObject rocket =
+                reference.objectPoolManager.Spawn(gameObject, rocketTypeId, shootPoint.position,
+                                                  shootPoint.rotation);
+            Rocket rocketScript = rocket.GetComponent<Rocket>();
+            rocketScript.SetupRocket((int)rocketType);
+            rocketScript.Launch(target, target.transform.position);
 
             source.PlayOneShot(clips[0]);
 
-            bullet.transform.LookAt(target);
-            bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * bulletSpeed;
-
             yield return new WaitForSeconds(1.0f / firerate);
+
             canFire = true;
+        }
+
+        IEnumerator pauseForBoss()
+        {
+            if (bossSource.isPlaying)
+            {
+                yield return new WaitWhile(() => bossSource.isPlaying);
+
+                if (source.isPlaying)
+                {
+                    yield return new WaitWhile(() => source.isPlaying);
+                }
+
+                if (!source.isPlaying)
+                {
+                    source.PlayOneShot(clips[1]);
+                }
+            }
+            else if (!bossSource.isPlaying)
+            {
+                source.PlayOneShot(clips[1]);
+            }
         }
     }
 }

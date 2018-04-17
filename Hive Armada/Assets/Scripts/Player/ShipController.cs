@@ -3,7 +3,7 @@
 // Perry Sidler
 // 1831784
 // sidle104@mail.chapman.edu
-// CPSC-340-01 & CPSC-344-01
+// CPSC-440-01, CPSC-340-01 & CPSC-344-01
 // Group Project
 // 
 // This class handles the ship that the player picks up. It includes all
@@ -18,6 +18,8 @@ using Hive.Armada.Game;
 using Hive.Armada.Player.Weapons;
 using SubjectNerd.Utilities;
 using System;
+using System.Collections;
+using Random = UnityEngine.Random;
 
 namespace Hive.Armada.Player
 {
@@ -50,9 +52,20 @@ namespace Hive.Armada.Player
         }
 
         /// <summary>
+        /// The master collider used for the shield and Kamikaze proximity detonation.
+        /// </summary>
+        public MasterCollider masterCollider;
+
+        /// <summary>
         /// Index of the currently activated weapon.
         /// </summary>
         public int currentWeapon;
+
+        /// <summary>
+        /// Prevents the weapon from firing when the player
+        /// grabs the ship until they release the trigger.
+        /// </summary>
+        private bool canShoot;
 
         /// <summary>
         /// If we should wait until LateUpdate to update poses
@@ -98,12 +111,23 @@ namespace Hive.Armada.Player
         public AudioSource source;
 
         /// <summary>
+        /// Helper dialogue that plays when the ship is grabbed.
+        /// </summary>
+        public AudioClip[] startClips;
+
+        /// <summary>
+        /// Helper dialogue that tells the player which weapon they have.
+        /// </summary>
+        public AudioClip[] weaponStartClips;
+
+        /// <summary>
         /// Initializes references to Reference Manager and Laser Sight, sets this
         /// GameObject to the player ship reference in Reference Manager.
         /// </summary>
         private void Awake()
         {
-            reference = GameObject.Find("Reference Manager").GetComponent<ReferenceManager>();
+            reference = FindObjectOfType<ReferenceManager>();
+            newPosesAppliedAction = SteamVR_Events.NewPosesAppliedAction(OnNewPosesApplied);
 
             if (reference == null)
             {
@@ -113,11 +137,67 @@ namespace Hive.Armada.Player
             {
                 reference.playerShip = gameObject;
                 reference.playerShipSource = source;
+
+                reference.tooltips.ShipGrabbed();
+
+                SetWeapon((int)reference.gameSettings.selectedWeapon);
+
+                if (reference.shipPickup)
+                {
+                    reference.shipPickup.SetActive(false);
+                }
+
+                if (reference.powerUpStatus)
+                {
+                    reference.powerUpStatus.BeginTracking(reference, hand);
+                }
+
+                if (reference.gameSettings.selectedGameMode == GameSettings.GameMode.SoloNormal)
+                {
+                    if (reference.waveManager != null)
+                    {
+                        reference.waveManager.Run();
+                    }
+                    else
+                    {
+                        Debug.LogError(GetType().Name +
+                                       " - Reference.WaveManager is null. Cannot call Run().");
+                    }
+                }
+                else
+                {
+                    if (reference.countdown)
+                    {
+                        reference.countdown.SetActive(true);
+                    }
+                    else
+                    {
+                        Debug.LogError(
+                            GetType().Name + " - Reference.Countdown is null. Cannot enable.");
+                    }
+                }
+
+                StartCoroutine(IntroAudio());
+                reference.tooltips.SpawnProtectShip();
+            }
+        }
+
+        private IEnumerator IntroAudio()
+        {
+            yield return new WaitForSeconds(2.0f);
+            yield return new WaitWhile(() => reference.bossManager.IsSpeaking);
+            yield return new WaitForSeconds(2.0f);
+
+            AudioClip[] introAudio = new AudioClip[startClips.Length + 1];
+
+            for (int i = 0; i < startClips.Length; ++i)
+            {
+                introAudio[i] = startClips[i];
             }
 
-            newPosesAppliedAction = SteamVR_Events.NewPosesAppliedAction(OnNewPosesApplied);
+            introAudio[introAudio.Length - 1] = weaponStartClips[currentWeapon];
 
-            SetWeapon(FindObjectOfType<ShipLoadout>().weapon);
+            reference.dialoguePlayer.EnqueueDialogue(gameObject, introAudio);
         }
 
         /// <summary>
@@ -139,27 +219,6 @@ namespace Hive.Armada.Player
         public void OnAttachedToHand(Hand attachedHand)
         {
             hand = attachedHand;
-
-            if (reference.shipPickup)
-            {
-                reference.shipPickup.SetActive(false);
-            }
-
-            if (reference.menuTitle && reference.menuMain)
-            {
-                reference.menuTitle.SetActive(false);
-                reference.menuMain.SetActive(true);
-            }
-            if (reference.powerUpStatus)
-            {
-                reference.powerUpStatus.BeginTracking();
-            }
-            if (reference.countdown)
-            {
-                reference.countdown.SetActive(true);
-            }
-
-            reference.shipPickup.SetActive(false);
         }
 
         /// <summary>
@@ -204,9 +263,19 @@ namespace Hive.Armada.Player
             transform.localPosition = Vector3.zero;
             transform.localRotation = Quaternion.identity;
 
-            if (hand.GetStandardInteractionButton())
+            if (canShoot)
             {
-                weapons[currentWeapon].weapon.TriggerUpdate();
+                if (hand.GetStandardInteractionButton())
+                {
+                    weapons[currentWeapon].weapon.TriggerUpdate();
+                }
+            }
+            else
+            {
+                if (hand.GetStandardInteractionButtonUp())
+                {
+                    canShoot = true;
+                }
             }
         }
 

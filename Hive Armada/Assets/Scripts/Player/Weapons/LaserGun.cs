@@ -139,41 +139,84 @@ namespace Hive.Armada.Player.Weapons
         protected override void Clicked()
         {
             RaycastHit hit;
-            if (Physics.SphereCast(transform.position, radius, transform.forward, out hit, 200.0f,
-                                   Utility.enemyMask))
+
+            if (AimAssistActive)
             {
-                StartCoroutine(Shoot(hit.point));
-
-                Instantiate(hitSparkEmitter, hit.point,
-                            Quaternion.LookRotation(hit.point - gameObject.transform.position));
-
-                if (hit.collider.gameObject.GetComponent<Enemy>() != null)
+                if (Physics.SphereCast(transform.position, radius, transform.forward, out hit, 200.0f,
+                                       Utility.shootableMask))
                 {
-                    hit.collider.gameObject.GetComponent<Enemy>().Hit(damage * damageMultiplier);
+                    StartCoroutine(Shoot(hit.point));
+
+                    Instantiate(hitSparkEmitter, hit.point,
+                                Quaternion.LookRotation(hit.point - gameObject.transform.position));
+
+                    if (hit.collider.gameObject.GetComponent<Shootable>() != null
+                        && hit.collider.gameObject.GetComponent<Shootable>().isShootable)
+                    {
+                        hit.collider.gameObject.GetComponent<Shootable>().Hit();
+                    }
+
+                    shipController.hand.controller.TriggerHapticPulse(2500);
                 }
-
-                shipController.hand.controller.TriggerHapticPulse(2500);
-            }
-            else if (Physics.Raycast(transform.position, transform.forward, out hit, 200.0f,
-                                     Utility.shootableMask))
-            {
-                StartCoroutine(Shoot(hit.point));
-
-                Instantiate(hitSparkEmitter, hit.point,
-                            Quaternion.LookRotation(hit.point - gameObject.transform.position));
-
-                if (hit.collider.gameObject.GetComponent<Shootable>() != null
-                    && hit.collider.gameObject.GetComponent<Shootable>().isShootable)
+                else if (Physics.SphereCast(transform.position, radius, transform.forward, out hit, 200.0f,
+                                            Utility.enemyMask))
                 {
-                    hit.collider.gameObject.GetComponent<Shootable>().Shot();
-                }
+                    StartCoroutine(Shoot(hit.point));
 
-                shipController.hand.controller.TriggerHapticPulse(2500);
+                    Instantiate(hitSparkEmitter, hit.point,
+                                Quaternion.LookRotation(hit.point - gameObject.transform.position));
+
+                    if (hit.collider.gameObject.GetComponent<Enemy>() != null)
+                    {
+                        hit.collider.gameObject.GetComponent<Enemy>().Hit(damage * damageMultiplier, true);
+                    }
+
+                    shipController.hand.controller.TriggerHapticPulse(2500);
+                }
+                else if (Physics.Raycast(transform.position, transform.forward, out hit, 200.0f,
+                                         Utility.roomPathingMask))
+                {
+                    StartCoroutine(Shoot(hit.point));
+                }
             }
-            else if (Physics.Raycast(transform.position, transform.forward, out hit, 200.0f,
-                                     Utility.roomMask))
+            else
             {
-                StartCoroutine(Shoot(hit.point));
+                if (Physics.Raycast(transform.position, transform.forward, out hit, 200.0f,
+                                       Utility.shootableMask))
+                {
+                    StartCoroutine(Shoot(hit.point));
+
+                    Instantiate(hitSparkEmitter, hit.point,
+                                Quaternion.LookRotation(hit.point - gameObject.transform.position));
+
+                    if (hit.collider.gameObject.GetComponent<Shootable>() != null
+                        && hit.collider.gameObject.GetComponent<Shootable>().isShootable)
+                    {
+                        hit.collider.gameObject.GetComponent<Shootable>().Hit();
+                    }
+
+                    shipController.hand.controller.TriggerHapticPulse(2500);
+                }
+                else if (Physics.Raycast(transform.position, transform.forward, out hit, 200.0f,
+                                            Utility.enemyMask))
+                {
+                    StartCoroutine(Shoot(hit.point));
+
+                    Instantiate(hitSparkEmitter, hit.point,
+                                Quaternion.LookRotation(hit.point - gameObject.transform.position));
+
+                    if (hit.collider.gameObject.GetComponent<Enemy>() != null)
+                    {
+                        hit.collider.gameObject.GetComponent<Enemy>().Hit(damage * damageMultiplier, true);
+                    }
+
+                    shipController.hand.controller.TriggerHapticPulse(2500);
+                }
+                else if (Physics.Raycast(transform.position, transform.forward, out hit, 200.0f,
+                                         Utility.roomPathingMask))
+                {
+                    StartCoroutine(Shoot(hit.point));
+                }
             }
         }
 

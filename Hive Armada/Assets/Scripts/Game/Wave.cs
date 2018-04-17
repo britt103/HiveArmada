@@ -1,29 +1,184 @@
 ﻿//=============================================================================
-//
+// 
 // Perry Sidler
 // 1831784
 // sidle104@mail.chapman.edu
-// CPSC-340-01 & CPSC-344-01
+// CPSC-440-01, CPSC-340-01 & CPSC-344-01
 // Group Project
-//
-// This file contains the Wave class which has an array of subwaves that it
-// will spawn. Subwaves can be reused in the both the same and different waves.
-// This allows us to have more control over spawning and also simplifies the
-// wave design process by letting us reuse subwaves.
 // 
-// The logic inside of Wave is very simple. It keeps track of what subwaves it
-// has and tells the next one to start when the previous tells it that it has
-// completed. Once the wave is done it tells WaveManager that it has completed.
-//
+// 
 //=============================================================================
 
+using Hive.Armada.Enemies;
 using SubjectNerd.Utilities;
+using System;
+using System.Collections;
 using UnityEngine;
 
 namespace Hive.Armada.Game
 {
     /// <summary>
-    /// Contains all logic for a Wave.
+    /// 
+    /// </summary>
+    public enum SpawnPaths
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        Zero,
+
+        /// <summary>
+        /// 
+        /// </summary>
+        One,
+
+        /// <summary>
+        /// 
+        /// </summary>
+        Two,
+
+        /// <summary>
+        /// 
+        /// </summary>
+        Three,
+
+        /// <summary>
+        /// 
+        /// </summary>
+        Four,
+
+        /// <summary>
+        /// 
+        /// </summary>
+        Five,
+
+        /// <summary>
+        /// 
+        /// </summary>
+        Six,
+
+        /// <summary>
+        /// 
+        /// </summary>
+        Seven,
+
+        /// <summary>
+        /// 
+        /// </summary>
+        Eight,
+
+        /// <summary>
+        /// 
+        /// </summary>
+        Nine,
+
+        /// <summary>
+        /// 
+        /// </summary>
+        Ten,
+
+        /// <summary>
+        /// 
+        /// </summary>
+        Eleven,
+
+        /// <summary>
+        /// 
+        /// </summary>
+        Twelve
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public enum PowerupSpawnPoint
+    {
+        NoPowerup,
+        Left,
+        Center,
+        Right
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    [Serializable]
+    public struct SetupNormalSpawnPath
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        public SpawnPaths path;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public EnemyType enemy;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public AttackPattern attackPattern;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    [Serializable]
+    public struct SetupNormalSpawnZone
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        public SpawnZone zone;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public SetupNormalSpawnPath[] setupSpawnPaths;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    [Serializable]
+    public struct SetupNormalPowerupSpawn
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        public PowerupSpawnPoint powerupSpawn;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Powerups powerup;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    [Serializable]
+    public struct SetupNormalSpawnGroup
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        public float delay;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public SetupNormalSpawnZone[] setupSpawnZones;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public SetupNormalPowerupSpawn powerupSpawn;
+    }
+
+    /// <summary>
+    /// 
     /// </summary>
     [DisallowMultipleComponent]
     public class Wave : MonoBehaviour
@@ -35,96 +190,207 @@ namespace Hive.Armada.Game
         private ReferenceManager reference;
 
         /// <summary>
-        /// Index of this wave in the game.
+        /// The WaveManager
+        /// </summary>
+        private WaveManager waveManager;
+
+        /// <summary>
+        /// The ObjectPoolManager for Spawning and Despawning enemies.
+        /// </summary>
+        private ObjectPoolManager objectPoolManager;
+
+        /// <summary>
+        /// Index position of the current wave in the game.
         /// </summary>
         public int WaveNumber { get; private set; }
 
         /// <summary>
-        /// All subwaves that will run during this wave in the order they will run.
+        /// 
         /// </summary>
-        [Tooltip("All subwaves that will run during this wave in the order they will run.")]
-        [Reorderable("Subwave", false)]
-        public Subwave[] subwaves;
+        [Header("Spawn Groups")]
+        [Reorderable("Spawn Group", false)]
+        public SetupNormalSpawnGroup[] setupSpawnGroups;
 
         /// <summary>
-        /// Index of the subwave that is currently running.
+        /// Count of how many of the enemies from this wave are still alive.
+        /// Includes unspawned enemies.
         /// </summary>
-        private int currentSubwave;
+        private int enemiesRemaining;
 
         /// <summary>
-        /// If this wave, and any subwaves, are currently running.
+        /// If this wave is currently running and still has spawn groups
+        /// to spawn or enemies or there are still enemies alive.
         /// </summary>
         public bool IsRunning { get; private set; }
 
         /// <summary>
-        /// If this wave has run and completed all of its subwaves.
+        /// If this wave has run and all of its spawn groups have been killed.
         /// </summary>
         public bool IsComplete { get; private set; }
 
         /// <summary>
-        /// Initializes the Wave and begins spawning its subwaves.
+        /// Initializes the Reference Manager and Object Pool Manager references
         /// </summary>
-        /// <param name="wave"> The wave's number </param>
-        /// <param name="subwave"> Index of the subwave to start with </param>
-        public void Run(int wave, int subwave)
+        private void Awake()
         {
             reference = GameObject.Find("Reference Manager").GetComponent<ReferenceManager>();
+            waveManager = reference.waveManager;
+            objectPoolManager = reference.objectPoolManager;
+        }
 
-            if (reference == null)
+        /// <summary>
+        /// Runs this wave by spawning all of the spawn groups in it.
+        /// </summary>
+        /// <param name="wave"> This wave's index </param>
+        public void Run(int wave)
+        {
+            if (!IsRunning)
             {
-                Debug.LogError(GetType().Name + " - Could not find Reference Manager!");
-            }
-
-            if (subwaves.Length == 0)
-            {
-                Debug.LogError("Wave " + WaveNumber + " has no subwaves!");
-            }
-            else
-            {
-                WaveNumber = wave;
-                Debug.Log("Beginning Wave #" + WaveNumber);
-
-                currentSubwave = subwave;
                 IsRunning = true;
-                reference.statistics.IsAlive();
-                RunSubwave(currentSubwave);
-            }
-        }
 
-        /// <summary>
-        /// Begins running a subwave from the subwaves array.
-        /// </summary>
-        /// <param name="subwave"> The index of the subwave to run </param>
-        private void RunSubwave(int subwave)
-        {
-            Debug.Log("Beginning Wave #" + WaveNumber + "-" + subwave);
-            subwaves[subwave].Run(WaveNumber, subwave);
-        }
+                WaveNumber = wave;
 
-        /// <summary>
-        /// Informs the wave that a given subwave has completed.
-        /// </summary>
-        /// <param name="subwave"> The index of the subwave that completed </param>
-        public void SubwaveComplete(int subwave)
-        {
-            if (!subwaves[subwave].IsComplete || subwaves[subwave].IsRunning)
-            {
-                Debug.LogError("Wave " + WaveNumber + " - subwave " + subwave +
-                               " says it is complete, but it isn't!");
-            }
+                Debug.Log("Wave #" + (WaveNumber + 1) + " is beginning.");
 
-            if (subwaves.Length > ++currentSubwave)
-            {
-                RunSubwave(currentSubwave);
+                StartCoroutine(Spawn());
             }
             else
             {
-                IsRunning = false;
-                IsComplete = true;
-                reference.waveManager.WaveComplete(WaveNumber);
-                reference.statistics.WaveComplete();
-                reference.powerUpStatus.RemoveStoredPowerups();
+                Debug.LogWarning("Wave " + (WaveNumber + 1) + " is already running.");
             }
+        }
+
+        /// <summary>
+        /// Runs the spawning logic for the wave.
+        /// </summary>
+        private IEnumerator Spawn()
+        {
+            for (int i = 0; i < setupSpawnGroups.Length; i++)
+            {
+                //if (WaveNumber == 3 && i < 2)
+                //{
+                //    Debug.LogWarning(GetType().Name + " - Skipping Wave " + (WaveNumber + 1) + " Spawn Group Index = " + i);
+                //    continue;
+                //}
+
+                SetupNormalSpawnGroup @group = setupSpawnGroups[i];
+                yield return new WaitForSeconds(Mathf.Abs(@group.delay));
+
+                while (enemiesRemaining > 0)
+                {
+                    yield return new WaitForSeconds(0.1f);
+                }
+
+                foreach (SetupNormalSpawnZone zone in @group.setupSpawnZones)
+                {
+                    Vector3 position;
+
+                    if (zone.zone == SpawnZone.Center ||
+                        zone.zone == SpawnZone.FrontLeft ||
+                        zone.zone == SpawnZone.FrontRight)
+                    {
+                        position = waveManager.enemySpawnPoints[0].position;
+                    }
+                    else
+                    {
+                        position = waveManager.enemySpawnPoints[1].position;
+                    }
+
+                    Quaternion rotation;
+
+                    if (reference.playerShip != null)
+                    {
+                        // spawn the enemy looking at the player
+                        rotation =
+                            Quaternion.LookRotation(
+                                reference.playerShip.transform.position - position);
+                    }
+                    else
+                    {
+                        // no player in the scene, spawn looking about where they should be
+                        rotation =
+                            Quaternion.LookRotation(new Vector3(0.0f, 2.0f, 0.0f) - position);
+                    }
+
+                    foreach (SetupNormalSpawnPath thisPath in zone.setupSpawnPaths)
+                    {
+                        string pathName =
+                            waveManager.PathNames[(int) zone.zone] + (int) thisPath.path;
+
+                        GameObject spawned =
+                            objectPoolManager.Spawn(
+                                gameObject, (short) waveManager.EnemyIDs[(int) thisPath.enemy],
+                                position,
+                                rotation);
+
+                        Enemy spawnedEnemyScript = spawned.GetComponent<Enemy>();
+                        spawnedEnemyScript.SetPath(pathName);
+                        spawnedEnemyScript.SetWave(WaveNumber);
+                        spawnedEnemyScript.SetAttackPattern(thisPath.attackPattern);
+
+                        Hashtable moveHash = new Hashtable
+                                             {
+                                                 {"easetype", iTween.EaseType.easeInOutSine},
+                                                 {"time", 3.0f},
+                                                 {"looktarget", reference.shipLookTarget.transform},
+                                                 {"onComplete", "OnPathingComplete"},
+                                                 {"onCompleteTarget", spawned},
+                                                 {"path", iTweenPath.GetPath(pathName)}
+                                             };
+
+                        iTween.MoveTo(spawned, moveHash);
+                        ++enemiesRemaining;
+
+                        if (spawned.name.Contains("Enemy_Splitter"))
+                        {
+                            // accounting for splitter children that the splitter spawns
+                            enemiesRemaining += 4;
+                        }
+                    }
+                }
+
+                if (@group.powerupSpawn.powerupSpawn != PowerupSpawnPoint.NoPowerup)
+                {
+                    Vector3 spawnPoint = waveManager
+                        .powerupSpawnPoints[(int) @group.powerupSpawn.powerupSpawn - 1].position;
+
+                    Instantiate(waveManager.powerupPrefabs[(int) @group.powerupSpawn.powerup],
+                                spawnPoint, Quaternion.identity);
+
+                    if (!waveManager.spawnedPowerupOnce)
+                    {
+                        waveManager.spawnedPowerupOnce = true;
+                        reference.tooltips.SpawnGrabPowerup(
+                            (int) @group.powerupSpawn.powerupSpawn - 1);
+                    }
+                }
+            }
+
+            StartCoroutine(WaitForWaveEnd());
+        }
+
+        /// <summary>
+        /// Waits until all enemies for this wave has been killed,
+        /// then informs the WaveManager that this wave has completed.
+        /// </summary>
+        private IEnumerator WaitForWaveEnd()
+        {
+            while (enemiesRemaining > 0)
+            {
+                yield return new WaitForSeconds(0.1f);
+            }
+
+            IsRunning = false;
+            IsComplete = true;
+
+            Debug.Log("Wave #" + (WaveNumber + 1) + " is complete.");
+
+            reference.waveManager.WaveComplete(WaveNumber);
+        }
+
+        public void EnemyDead()
+        {
+            --enemiesRemaining;
         }
     }
 }

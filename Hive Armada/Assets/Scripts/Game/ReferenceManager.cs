@@ -18,6 +18,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using Hive.Armada.Player;
 using Hive.Armada.PowerUps;
+using System;
+using Hive.Armada.Ambient;
 
 namespace Hive.Armada.Game
 {
@@ -42,13 +44,31 @@ namespace Hive.Armada.Game
 
         public WaveManager waveManager;
 
+        public Infinite infinite;
+
         public ObjectPoolManager objectPoolManager;
+
+        public BossManager bossManager;
 
 		public SceneTransitionManager sceneTransitionManager;
 
         public OptionsValues optionsValues;
 
+        public GameSettings gameSettings;
+
+        public ColorBlindMode colorBlindMode;
+
         public PlayerIdleTimer playerIdleTimer;
+
+        public IridiumSpawner iridiumSpawner;
+
+        public RocketAttributes rocketAttributes;
+
+        public MenuSounds menuSounds;
+
+        public DialoguePlayer dialoguePlayer;
+
+        public Tooltips tooltips;
 
         //----------------------------------------
         // 
@@ -58,11 +78,19 @@ namespace Hive.Armada.Game
         [Header("Player")]
         public GameObject player;
 
+        public GameObject playerLookTarget;
+
         public GameObject playerShip;
+
+        public GameObject shipLookTarget;
 
         public GameObject shipPickup;
 
         public PowerUpStatus powerUpStatus;
+
+        public PlayerHitVignette playerHitVignette;
+
+        public ScoreDisplay playerScoreDisplay;
 
         //----------------------------------------
         // 
@@ -98,6 +126,8 @@ namespace Hive.Armada.Game
         /// </summary>
         public GameObject menuGameOver;
 
+        public TalkingParticle talkingParticle;
+
         //----------------------------------------
         // 
         // Audio
@@ -126,29 +156,91 @@ namespace Hive.Armada.Game
         /// </summary>
         private void Awake()
         {
-            if (waveManager)
+            if (enemyAttributes != null)
             {
-                waveManager.reference = this;
+                enemyAttributes.Initialize(this);
             }
 
-            if (enemyAttributes)
+            if (objectPoolManager != null)
             {
-                enemyAttributes.Initialize();
+                objectPoolManager.Initialize(this);
             }
 
-            if (objectPoolManager)
+            if (gameSettings == null)
             {
-                objectPoolManager.Initialize();
+                gameSettings = FindObjectOfType<GameSettings>();
             }
 
-            if (!statistics)
+            if (colorBlindMode == null)
+            {
+                colorBlindMode = FindObjectOfType<ColorBlindMode>();
+            }
+
+            if (waveManager != null)
+            {
+                waveManager.Initialize(this);
+            }
+
+            if (infinite != null)
+            {
+                infinite.Initialize(this);
+            }
+
+            if (statistics == null)
             {
                 statistics = FindObjectOfType<PlayerStats>();
             }
 
-            if (!optionsValues)
+            if (optionsValues == null)
             {
                 optionsValues = FindObjectOfType<OptionsValues>();
+            }
+
+            if (rocketAttributes != null)
+            {
+                rocketAttributes.Initialize(this);
+            }
+
+            if (shipLookTarget == null)
+            {
+                shipLookTarget = GameObject.Find("Ship Look Target");
+            }
+
+            try
+            {
+                playerLookTarget.transform.parent = GameObject.Find("VRCamera").transform;
+                playerLookTarget.transform.localPosition = Vector3.zero;
+            }
+            catch (Exception)
+            {
+                try
+                {
+                    playerLookTarget.transform.parent = GameObject.Find("FallbackObjects").transform;
+                    playerLookTarget.transform.localPosition = Vector3.zero;
+                }
+                catch (Exception)
+                {
+                    Debug.LogError(GetType().Name + " - Cannot find VRCamera and FallbackObjects.");
+                }
+            }
+
+            if (bossManager != null)
+            {
+                if (gameSettings.selectedGameMode == GameSettings.GameMode.SoloNormal)
+                {
+                    bossManager.Initialize(this);
+                }
+            }
+
+            if (gameSettings.selectedGameMode == GameSettings.GameMode.SoloInfinite)
+            {
+                shipPickup.SetActive(true);
+                tooltips.SpawnGrabShip();
+            }
+
+            if (tooltips != null)
+            {
+                tooltips.Initialize(this);
             }
         }
     }

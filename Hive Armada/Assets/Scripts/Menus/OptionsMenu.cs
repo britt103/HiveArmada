@@ -10,8 +10,8 @@
 //
 //=============================================================================
 
-using UnityEngine;
 using Hive.Armada.Game;
+using UnityEngine;
 
 namespace Hive.Armada.Menus
 {
@@ -21,23 +21,85 @@ namespace Hive.Armada.Menus
     public class OptionsMenu : MonoBehaviour
     {
         /// <summary>
+        /// Reference to Menu Transition Manager.
+        /// </summary>
+        public MenuTransitionManager transitionManager;
+
+        /// <summary>
+        /// Reference to menu to go to when back is pressed.
+        /// </summary>
+        public GameObject backMenuGO;
+
+        /// <summary>
+        /// Reference to Display Menu.
+        /// </summary>
+        public GameObject displayGO;
+
+        /// <summary>
+        /// Reference to Sound Menu.
+        /// </summary>
+        public GameObject soundGO;
+
+        /// <summary>
+        /// Reference to Controls Menu.
+        /// </summary>
+        public GameObject controlsGO;
+
+        /// <summary>
+        /// Reference to Gameplay Menu.
+        /// </summary>
+        public GameObject gameplayGO;
+
+        /// <summary>
+        /// Reference to Intro Menu.
+        /// </summary>
+        public GameObject introGO;
+
+        /// <summary>
+        /// Reference to Credits Menu.
+        /// </summary>
+        public GameObject creditsGO;
+
+        /// <summary>
+        /// Reference to ReferenceManager.
+        /// </summary>
+        private ReferenceManager reference;
+
+        /// <summary>
         /// Reference to Menu Audio source.
         /// </summary>
 		public AudioSource source;
 
         /// <summary>
-        /// Clips to use with source.
+        /// Variables used as a check to make sure audio
+        /// doesn't play over itself
         /// </summary>
-    	public AudioClip[] clips;
+        private int controlsCounter = 0;
+
+        private int displayCounter = 0;
+
+        private int soundCounter = 0;
+
+        private int gameplayCounter = 0;
+
+        private int introCounter = 0;
+
+        private int creditsCounter = 0;
+
+        private int backCounter = 0;
+
+        private void Awake()
+        {
+            reference = FindObjectOfType<ReferenceManager>();
+        }
 
         /// <summary>
         /// Controls button pressed. Navigate to Controls Menu.
         /// </summary>
         public void PressControls()
         {
-			source.PlayOneShot(clips[0]);
-            GameObject.Find("Main Canvas").transform.Find("Controls Menu").gameObject.SetActive(true);
-            gameObject.SetActive(false);
+            source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
+            transitionManager.Transition(controlsGO);
         }
 
         /// <summary>
@@ -45,9 +107,8 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void PressDisplay()
         {
-			source.PlayOneShot(clips[0]);
-            GameObject.Find("Main Canvas").transform.Find("Display Menu").gameObject.SetActive(true);
-            gameObject.SetActive(false);
+            source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
+            transitionManager.Transition(displayGO);
         }
 
         /// <summary>
@@ -55,19 +116,17 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void PressSound()
         {
-			source.PlayOneShot(clips[0]);
-            GameObject.Find("Main Canvas").transform.Find("Sound Menu").gameObject.SetActive(true);
-            gameObject.SetActive(false);
+            source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
+            transitionManager.Transition(soundGO);
         }
 
         /// <summary>
-        /// Lexicon button pressed. Navigate to Lexicon Menu.
+        /// Bestiary button pressed. Navigate to Bestiary Menu.
         /// </summary>
-        public void PressLexicon()
+        public void PressGameplay()
         {
-			source.PlayOneShot(clips[0]);
-            GameObject.Find("Main Canvas").transform.Find("Lexicon Menu").gameObject.SetActive(true);
-            gameObject.SetActive(false);
+            source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
+            transitionManager.Transition(gameplayGO);
         }
 
         /// <summary>
@@ -75,7 +134,8 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void PressIntro()
         {
-			source.PlayOneShot(clips[0]);
+            source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
+            //transitionManager.Transition(introGO);
             Debug.Log("Intro button pressed");
         }
 
@@ -84,7 +144,8 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void PressCredits()
         {
-			source.PlayOneShot(clips[0]);
+            source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
+            //transitionManager.Transition(creditsGO);
             Debug.Log("Credits button pressed");
         }
 
@@ -93,10 +154,8 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void PressBack()
         {
-			source.PlayOneShot(clips[1]);
-            GameObject.Find("Main Canvas").transform.Find("Main Menu").gameObject.SetActive(true);
-            gameObject.SetActive(false);
-            
+            source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
+            transitionManager.Transition(backMenuGO);  
         }
     }
 }

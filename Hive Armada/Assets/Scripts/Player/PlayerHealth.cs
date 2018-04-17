@@ -125,11 +125,32 @@ namespace Hive.Armada.Player
         /// </summary>
         public AudioClip hitSound;
 
+        public AudioClip lowHealth;
+
+        public AudioClip heal;
+
+		/// <summary>
+        /// The look target for the player ship.
+        /// </summary>
+        private GameObject lookTarget;
+
+        /// <summary>
+        /// Reference to PlayerHitVignette.
+        /// </summary>
+        private PlayerHitVignette playerHitVignette;
+
         /// <summary>
         /// Initializes health and renderers for hit flashing
         /// </summary>
         private void Start()
         {
+            reference = FindObjectOfType<ReferenceManager>();
+
+            lookTarget = reference.shipLookTarget;
+            lookTarget.transform.parent = transform;
+            lookTarget.transform.position = transform.position;
+            lookTarget.transform.rotation = transform.rotation;
+
             renderers = new List<Renderer>();
             materials = new List<Material>();
 
@@ -140,15 +161,7 @@ namespace Hive.Armada.Player
 
             foreach (Renderer r in gameObject.GetComponentsInChildren<Renderer>())
             {
-                if (r.gameObject.CompareTag("Emitter") ||
-                    r.transform.parent.CompareTag("Emitter") ||
-                    r.gameObject.CompareTag("FX") ||
-                    r.transform.parent.CompareTag("FX"))
-                {
-                    continue;
-                }
-
-                if (r.gameObject.name.Contains("pod_"))
+                if (r.gameObject.CompareTag("Emitter") || r.transform.parent.CompareTag("Emitter"))
                 {
                     continue;
                 }
@@ -158,8 +171,7 @@ namespace Hive.Armada.Player
             }
 
             currentHealth = maxHealth;
-
-            reference = FindObjectOfType<ReferenceManager>();
+            playerHitVignette = reference.playerHitVignette;
         }
 
         /// <summary>
@@ -168,6 +180,11 @@ namespace Hive.Armada.Player
         /// <param name="damage"> How much damage to deal </param>
         public void Hit(int damage)
         {
+            if (currentHealth <= 0)
+            {
+                return;
+            }
+
             int podIndex = (maxHealth - currentHealth) / 10;
             healthPods[podIndex].GetComponent<Renderer>().material = podDestroyedMaterial;
 
@@ -180,18 +197,27 @@ namespace Hive.Armada.Player
 
             currentHealth -= damage;
             source.PlayOneShot(hitSound);
+            playerHitVignette.Hit();
 
             if (Utility.isDebug)
             {
                 Debug.Log("Hit for " + damage + " damage! Remaining health = " + currentHealth);
             }
 
+            if (currentHealth <= 10 && currentHealth != 0)
+            {
+                source.PlayOneShot(lowHealth);
+            }
+
             if (currentHealth <= 0)
             {
                 if (shipController != null)
                 {
+                    reference.playerShip = null;
+                    lookTarget.transform.parent = null;
                     Instantiate(deathEmitter, transform.position, transform.rotation);
                     reference.statistics.IsNotAlive();
+                    reference.powerUpStatus.tracking = false;
                     reference.sceneTransitionManager.TransitionOut("Menu Room");
                     shipController.hand.DetachObject(gameObject);
                 }
@@ -223,6 +249,55 @@ namespace Hive.Armada.Player
             }
 
             hitFlash = null;
+        }
+
+        /// <summary>
+        /// Restores one health to the player.
+        /// </summary>
+        public void HealOne()
+        {
+            if ((maxHealth - currentHealth) / 10 == 0)
+            {
+                return;
+            }
+
+            currentHealth += 10;
+
+            int podIndex = (maxHealth - currentHealth) / 10;
+            healthPods[podIndex].GetComponent<Renderer>().material = podIntactMaterial;
+        }
+
+        /// <summary>
+        /// Restores all health to the player.
+        /// </summary>
+        public void HealFull()
+        {
+            if (currentHealth >= maxHealth)
+            {
+                return;
+            }
+
+            while (currentHealth < maxHealth)
+            {
+                currentHealth += 10;
+
+                int podIndex = (maxHealth - currentHealth) / 10;
+                healthPods[podIndex].GetComponent<Renderer>().material = podIntactMaterial;
+                StartCoroutine(playHealSound());
+            }
+        }
+
+        IEnumerator playHealSound()
+        {
+            if (source.isPlaying)
+            {
+                yield return new WaitWhile(() => source.isPlaying);
+                source.PlayOneShot(heal);
+            }
+            else
+            {
+                source.PlayOneShot(heal);
+            }
         }
     }
 }

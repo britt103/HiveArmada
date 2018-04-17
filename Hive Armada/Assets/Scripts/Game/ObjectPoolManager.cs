@@ -14,42 +14,13 @@
 // based on their index in the list of objects to pool. This allows for easy
 // access to pools without having to always convert a prefab into an index.
 // 
-// The idea behind object pooling is to instantiate all objects that will be
-// used all at once to limit spawning overhead. Then, all objects are returned
-// to the pool when they are finished instead of calling Destroy() to reduce
-// Unity's garbage collection as much as possible. This helps us to boost
-// performance.
-// 
-// The pools are made up of 2 arrays of lists: one for active or objects, the
-// other for inactive or objects that are ready to be spawned. When an object
-// it is removed from its type's inactive pool and added to the corresponding
-// active pool. When it is despawned it does the reverse.
-// 
-// The arrays of lists use LinkedLists. Looking at the performance and features
-// of different data structures in C#, I determined that using LinkedLists
-// would best satisfy the needs for the object pools.
-// First, we needed easy access to any object in the pool. That eliminated
-// Queues and Stacks.
-// Second, we needed to be able to expand the pool in the event that we try
-// to spawn an object and there isn't an inactive one available. This
-// eliminated Arrays as they are set in length.
-// Third, and most importantly, we needed performance. I researched the
-// difference between Lists and LinkedLists. What I found was that inserting
-// and removing from the end of a list was quick, it was about 100x slower to
-// insert or remove from the front. LinkedLists had approximately the same
-// performance for inserting and removing from both the front and back.
-// For those 3 reasons, I decided that LinkedLists were the best option. It
-// allows us to easily and efficiently add or remove items to the front or back
-// of the pools. The only "costly" operation is if we try to despawn an object
-// that is in the middle of the pool. Then we have to iterate over all nodes
-// until we find the correct one with a Big-O of n.
-// 
 //=============================================================================
 
+using SubjectNerd.Utilities;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using SubjectNerd.Utilities;
 
 namespace Hive.Armada.Game
 {
@@ -77,17 +48,16 @@ namespace Hive.Armada.Game
         }
 
         /// <summary>
+        /// Reference manager that holds all needed references
+        /// (e.g. spawner, game manager, etc.)
+        /// </summary>
+        private ReferenceManager reference;
+
+        /// <summary>
         /// If a pool runs out, should it Instantiate() more objects?
         /// </summary>
         [Tooltip("If a pool runs out, should it Instantiate() more objects?")]
         public bool canExpand = true;
-
-        /// <summary>
-        /// Prefab of empty game object that is the parent of each object type in the pool.
-        /// </summary>
-        [Tooltip("Prefab of empty game object to use as the " +
-                 "parent for each object type in the pool.")]
-        public GameObject poolParentPrefab;
 
         /// <summary>
         /// Parents for each of the object types in the pool.
@@ -113,13 +83,18 @@ namespace Hive.Armada.Game
         /// Array of queues for each object to pool.
         /// These queues will hold the objects that are currently deactivated in the scene.
         /// </summary>
-        private LinkedList<GameObject>[] inactivePools;
+        private Stack<GameObject>[] inactivePools;
 
         /// <summary>
         /// Array of queues for each object to pool.
         /// These queues will hold the objects that are currently activated in the scene.
         /// </summary>
-        private LinkedList<GameObject>[] activePools;
+        private Dictionary<uint, GameObject> activePool;
+
+        /// <summary>
+        /// The last pool identifier used.
+        /// </summary>
+        private uint lastPoolIdentifier;
 
         /// <summary>
         /// If Initialize() has been run yet.
@@ -129,7 +104,7 @@ namespace Hive.Armada.Game
         /// <summary>
         /// Generates all pools
         /// </summary>
-        public void Initialize()
+        public void Initialize(ReferenceManager referenceManager)
         {
             if (isInitialized)
             {
@@ -138,6 +113,7 @@ namespace Hive.Armada.Game
             }
 
             isInitialized = true;
+            reference = referenceManager;
 
             if (objects.Length == 0)
             {
@@ -147,8 +123,9 @@ namespace Hive.Armada.Game
             {
                 poolParents = new GameObject[objects.Length];
                 parentNames = new string[objects.Length];
-                inactivePools = new LinkedList<GameObject>[objects.Length];
-                activePools = new LinkedList<GameObject>[objects.Length];
+
+                inactivePools = new Stack<GameObject>[objects.Length];
+                activePool = new Dictionary<uint, GameObject>();
 
                 for (int i = 0; i < objects.Length; ++i)
                 {
@@ -159,16 +136,17 @@ namespace Hive.Armada.Game
                         continue;
                     }
 
-                    inactivePools[i] = new LinkedList<GameObject>();
-                    activePools[i] = new LinkedList<GameObject>();
+                    inactivePools[i] = new Stack<GameObject>();
 
-                    poolParents[i] = Instantiate(poolParentPrefab, gameObject.transform);
+                    poolParents[i] = new GameObject();
+                    poolParents[i].transform.parent = transform;
+                    poolParents[i].transform.localPosition = Vector3.zero;
                     parentNames[i] = " - " + objects[i].objectPrefab.name;
                     poolParents[i].name = objects[i].amountToPool + parentNames[i];
 
                     for (int n = 0; n < objects[i].amountToPool; ++n)
                     {
-                        AddObject(i);
+                        AddObject((short) i);
                     }
                 }
             }
@@ -177,15 +155,24 @@ namespace Hive.Armada.Game
         /// <summary>
         /// Spawns a pooled object.
         /// </summary>
+        /// <param name="caller"> The object that called Spawn() </param>
         /// <param name="typeIdentifier"> The identifier (index) of the object to spawn </param>
         /// <param name="position"> The position to spawn the object at </param>
         /// <returns> The spawned object </returns>
-        public GameObject Spawn(int typeIdentifier, Vector3 position)
+        public GameObject Spawn(GameObject caller, short typeIdentifier, Vector3 position)
         {
+            if (typeIdentifier == -2)
+            {
+                Debug.LogError(GetType().Name + " - Using uninitialized type identifier \"" +
+                               typeIdentifier + "\".");
+                return null;
+            }
+
             if (typeIdentifier < 0 || typeIdentifier >= objects.Length)
             {
                 Debug.LogError(GetType().Name + " - Invalid type identifier \"" + typeIdentifier +
-                               "\"!");
+                               "\". Called by \"" + caller.name + "\", instance ID " +
+                               caller.GetInstanceID());
                 return null;
             }
 
@@ -194,12 +181,10 @@ namespace Hive.Armada.Game
                 ExpandPool(typeIdentifier);
             }
 
-            LinkedListNode<GameObject> spawnedNode = inactivePools[typeIdentifier].First;
-            GameObject spawned = spawnedNode.Value;
-            inactivePools[typeIdentifier].RemoveFirst();
-            activePools[typeIdentifier].AddLast(spawnedNode);
+            GameObject spawned = GetObjectToSpawn(typeIdentifier);
 
             spawned.transform.position = position;
+
             spawned.GetComponent<Poolable>().Activate();
 
             return spawned;
@@ -208,84 +193,26 @@ namespace Hive.Armada.Game
         /// <summary>
         /// Spawns a pooled object.
         /// </summary>
+        /// <param name="caller"> The object that called Spawn() </param>
         /// <param name="typeIdentifier"> The identifier (index) of the object to spawn </param>
         /// <param name="position"> The position to spawn the object at </param>
         /// <param name="parent"> New parent for the spawned object </param>
         /// <returns> The spawned object </returns>
-        public GameObject Spawn(int typeIdentifier, Vector3 position, Transform parent)
-        {
-            if (typeIdentifier < 0 || typeIdentifier >= objects.Length)
-            {
-                Debug.LogError(GetType().Name + " - Invalid type identifier \"" + typeIdentifier +
-                               "\"!");
-                return null;
-            }
-
-            if (inactivePools[typeIdentifier].Count == 0)
-            {
-                ExpandPool(typeIdentifier);
-            }
-
-            LinkedListNode<GameObject> spawnedNode = inactivePools[typeIdentifier].First;
-            GameObject spawned = spawnedNode.Value;
-            inactivePools[typeIdentifier].RemoveFirst();
-            activePools[typeIdentifier].AddLast(spawnedNode);
-
-            spawned.transform.position = position;
-            spawned.transform.parent = parent;
-            spawned.GetComponent<Poolable>().Activate();
-
-            return spawned;
-        }
-
-        /// <summary>
-        /// Spawns a pooled object.
-        /// </summary>
-        /// <param name="typeIdentifier"> The identifier (index) of the object to spawn </param>
-        /// <param name="position"> The position to spawn the object at </param>
-        /// <param name="rotation"> The rotation to spawn the object with </param>
-        /// <returns> The spawned object </returns>
-        public GameObject Spawn(int typeIdentifier, Vector3 position, Quaternion rotation)
-        {
-            if (typeIdentifier < 0 || typeIdentifier >= objects.Length)
-            {
-                Debug.LogError(GetType().Name + " - Invalid type identifier \"" + typeIdentifier +
-                               "\"!");
-                return null;
-            }
-
-            if (inactivePools[typeIdentifier].Count == 0)
-            {
-                ExpandPool(typeIdentifier);
-            }
-
-            LinkedListNode<GameObject> spawnedNode = inactivePools[typeIdentifier].First;
-            GameObject spawned = spawnedNode.Value;
-            inactivePools[typeIdentifier].RemoveFirst();
-            activePools[typeIdentifier].AddLast(spawnedNode);
-
-            spawned.transform.position = position;
-            spawned.transform.rotation = rotation;
-            spawned.GetComponent<Poolable>().Activate();
-
-            return spawned;
-        }
-
-        /// <summary>
-        /// Spawns a pooled object.
-        /// </summary>
-        /// <param name="typeIdentifier"> The identifier (index) of the object to spawn </param>
-        /// <param name="position"> The position to spawn the object at </param>
-        /// <param name="rotation"> The rotation to spawn the object with </param>
-        /// <param name="parent"> New parent for the spawned object </param>
-        /// <returns> The spawned object </returns>
-        public GameObject Spawn(int typeIdentifier, Vector3 position, Quaternion rotation,
+        public GameObject Spawn(GameObject caller, short typeIdentifier, Vector3 position,
                                 Transform parent)
         {
+            if (typeIdentifier == -2)
+            {
+                Debug.LogError(GetType().Name + " - Using uninitialized type identifier \"" +
+                               typeIdentifier + "\".");
+                return null;
+            }
+
             if (typeIdentifier < 0 || typeIdentifier >= objects.Length)
             {
                 Debug.LogError(GetType().Name + " - Invalid type identifier \"" + typeIdentifier +
-                               "\"!");
+                               "\". Called by \"" + caller.name + "\", instance ID " +
+                               caller.GetInstanceID());
                 return null;
             }
 
@@ -294,15 +221,113 @@ namespace Hive.Armada.Game
                 ExpandPool(typeIdentifier);
             }
 
-            LinkedListNode<GameObject> spawnedNode = inactivePools[typeIdentifier].First;
-            GameObject spawned = spawnedNode.Value;
-            inactivePools[typeIdentifier].RemoveFirst();
-            activePools[typeIdentifier].AddLast(spawnedNode);
+            GameObject spawned = GetObjectToSpawn(typeIdentifier);
 
             spawned.transform.parent = parent;
+
+            spawned.transform.position = position;
+
+            spawned.GetComponent<Poolable>().Activate();
+
+            return spawned;
+        }
+
+        /// <summary>
+        /// Spawns a pooled object.
+        /// </summary>
+        /// <param name="caller"> The object that called Spawn() </param>
+        /// <param name="typeIdentifier"> The identifier (index) of the object to spawn </param>
+        /// <param name="position"> The position to spawn the object at </param>
+        /// <param name="rotation"> The rotation to spawn the object with </param>
+        /// <returns> The spawned object </returns>
+        public GameObject Spawn(GameObject caller, short typeIdentifier, Vector3 position,
+                                Quaternion rotation)
+        {
+            if (typeIdentifier == -2)
+            {
+                Debug.LogError(GetType().Name + " - Using uninitialized type identifier \"" +
+                               typeIdentifier + "\".");
+                return null;
+            }
+
+            if (typeIdentifier < 0 || typeIdentifier >= objects.Length)
+            {
+                Debug.LogError(GetType().Name + " - Invalid type identifier \"" + typeIdentifier +
+                               "\". Called by \"" + caller.name + "\", instance ID " +
+                               caller.GetInstanceID());
+                return null;
+            }
+
+            if (inactivePools[typeIdentifier].Count == 0)
+            {
+                ExpandPool(typeIdentifier);
+            }
+
+            GameObject spawned = GetObjectToSpawn(typeIdentifier);
+
             spawned.transform.position = position;
             spawned.transform.rotation = rotation;
+
             spawned.GetComponent<Poolable>().Activate();
+
+            return spawned;
+        }
+
+        /// <summary>
+        /// Spawns a pooled object.
+        /// </summary>
+        /// <param name="caller"> The object that called Spawn() </param>
+        /// <param name="typeIdentifier"> The identifier (index) of the object to spawn </param>
+        /// <param name="position"> The position to spawn the object at </param>
+        /// <param name="rotation"> The rotation to spawn the object with </param>
+        /// <param name="parent"> New parent for the spawned object </param>
+        /// <returns> The spawned object </returns>
+        public GameObject Spawn(GameObject caller, short typeIdentifier, Vector3 position,
+                                Quaternion rotation,
+                                Transform parent)
+        {
+            if (typeIdentifier == -2)
+            {
+                Debug.LogError(GetType().Name + " - Using uninitialized type identifier \"" +
+                               typeIdentifier + "\".");
+                return null;
+            }
+
+            if (typeIdentifier < 0 || typeIdentifier >= objects.Length)
+            {
+                Debug.LogError(GetType().Name + " - Invalid type identifier \"" + typeIdentifier +
+                               "\". Called by \"" + caller.name + "\", instance ID " +
+                               caller.GetInstanceID());
+                return null;
+            }
+
+            if (inactivePools[typeIdentifier].Count == 0)
+            {
+                ExpandPool(typeIdentifier);
+            }
+
+            GameObject spawned = GetObjectToSpawn(typeIdentifier);
+
+            spawned.transform.parent = parent;
+
+            spawned.transform.position = position;
+            spawned.transform.rotation = rotation;
+
+            spawned.GetComponent<Poolable>().Activate();
+
+            return spawned;
+        }
+
+        /// <summary>
+        /// Gets the first object in the corresponding pool and adds it to the active pool.
+        /// </summary>
+        /// <param name="typeIdentifier"> The identifier (index) of the object to spawn </param>
+        /// <returns> The object to spawn </returns>
+        private GameObject GetObjectToSpawn(short typeIdentifier)
+        {
+            GameObject spawned = inactivePools[typeIdentifier].Pop();
+            Poolable poolable = spawned.GetComponent<Poolable>();
+            activePool.Add(poolable.PoolIdentifier, spawned);
 
             return spawned;
         }
@@ -315,66 +340,27 @@ namespace Hive.Armada.Game
         {
             objectToDespawn.transform.position = gameObject.transform.position;
 
-            Poolable objectPoolable = objectToDespawn.GetComponent<Poolable>();
-            if (objectPoolable)
+            Poolable poolable = objectToDespawn.GetComponent<Poolable>();
+            if (poolable != null)
             {
-                int typeIdentifier = objectPoolable.TypeIdentifier;
+                short typeIdentifier = poolable.TypeIdentifier;
 
-                objectPoolable.Deactivate();
-
-                // Find objectToDespawn in the activePools
-                if (activePools[objectPoolable.TypeIdentifier].First.Value == objectToDespawn)
-                {
-                    // objectToDespawn is first in the list
-                    LinkedListNode<GameObject> despawnNode =
-                        activePools[typeIdentifier].First;
-                    activePools[typeIdentifier].RemoveFirst();
-                    inactivePools[typeIdentifier].AddLast(despawnNode);
-                }
-                else if (activePools[objectPoolable.TypeIdentifier].Last.Value == objectToDespawn)
-                {
-                    // objectToDespawn is last in the list
-                    LinkedListNode<GameObject> despawnNode =
-                        activePools[typeIdentifier].Last;
-                    activePools[typeIdentifier].RemoveLast();
-                    inactivePools[typeIdentifier].AddLast(despawnNode);
-                }
-                else
-                {
-                    // objectToDespawn is somewhere in the middle of the list
-                    LinkedListNode<GameObject> despawnNode = activePools[typeIdentifier].First.Next;
-
-                    while (despawnNode != null)
-                    {
-                        if (despawnNode.Value == objectToDespawn)
-                        {
-                            break;
-                        }
-
-                        despawnNode = despawnNode.Next;
-                    }
-
-                    if (despawnNode != null)
-                    {
-                        activePools[typeIdentifier].Remove(despawnNode);
-                        inactivePools[typeIdentifier].AddLast(despawnNode);
-                    }
-                    else
-                    {
-                        Debug.LogError(GetType().Name +
-                                       " - Cannot Despawn() because object is not in the activePool! \"" +
-                                       objectToDespawn.name + "\" InstanceID = " +
-                                       objectToDespawn.GetInstanceID());
-                    }
-                }
+                poolable.Deactivate();
 
                 objectToDespawn.transform.parent =
-                    poolParents[objectPoolable.TypeIdentifier].transform;
+                    poolParents[typeIdentifier].transform;
+                objectToDespawn.transform.localPosition = Vector3.zero;
+
+                if (activePool.ContainsKey(poolable.PoolIdentifier))
+                {
+                    activePool.Remove(poolable.PoolIdentifier);
+                    inactivePools[typeIdentifier].Push(objectToDespawn);
+                }
             }
             else
             {
                 Debug.LogError(GetType().Name +
-                               " - Cannot Despawn() because object is not poolable! \"" +
+                               " - Cannot despawn object because object is not poolable! \"" +
                                objectToDespawn.name + "\"");
             }
         }
@@ -384,13 +370,13 @@ namespace Hive.Armada.Game
         /// </summary>
         /// <param name="objectType"> The object to identify </param>
         /// <returns> </returns>
-        public int GetTypeIdentifier(GameObject objectType)
+        public short GetTypeIdentifier(GameObject objectType)
         {
             for (int i = 0; i < objects.Length; ++i)
             {
                 if (objectType.name.Equals(objects[i].objectPrefab.name))
                 {
-                    return i;
+                    return (short) i;
                 }
             }
 
@@ -400,12 +386,20 @@ namespace Hive.Armada.Game
         /// <summary>
         /// Expands a pool that has run out of objects by 5 or 5%, whichever is larger.
         /// </summary>
-        /// <param name="typeIdentifier"> The identifier (index) of the object whose pool we need to expand </param>
-        private void ExpandPool(int typeIdentifier)
+        /// <param name="typeIdentifier"> The identifier of the object whose pool we need to expand </param>
+        private void ExpandPool(short typeIdentifier)
         {
+            if (typeIdentifier == -2)
+            {
+                Debug.LogError(GetType().Name + " - Using uninitialized type identifier \"" +
+                               typeIdentifier + "\".");
+                return;
+            }
+
             if (typeIdentifier < 0 || typeIdentifier >= objects.Length)
             {
-                Debug.LogError(GetType().Name + " - Invalid type identifier! " + typeIdentifier);
+                Debug.LogError(GetType().Name + " - Invalid type identifier! \"" + typeIdentifier +
+                               "\"");
                 return;
             }
 
@@ -431,12 +425,27 @@ namespace Hive.Armada.Game
         /// Instantiates a GameObject and adds it to the appropriate inactive pool.
         /// </summary>
         /// <param name="typeIdentifier"> The identifier (index) of the object to instantiate </param>
-        private void AddObject(int typeIdentifier)
+        private void AddObject(short typeIdentifier)
         {
-            GameObject pooled = Instantiate(objects[typeIdentifier].objectPrefab,
-                                            poolParents[typeIdentifier].transform);
-            pooled.GetComponent<Poolable>().Initialize(typeIdentifier);
-            inactivePools[typeIdentifier].AddLast(pooled);
+            try
+            {
+                GameObject pooled = Instantiate(objects[typeIdentifier].objectPrefab,
+                                                poolParents[typeIdentifier].transform);
+                pooled.GetComponent<Poolable>()
+                      .Initialize(reference, typeIdentifier, lastPoolIdentifier++);
+                inactivePools[typeIdentifier].Push(pooled);
+
+                if (typeIdentifier == reference.enemyAttributes.EnemyProjectileTypeIdentifiers[0])
+                {
+                    reference.enemyAttributes.AddProjectile(pooled);
+                }
+            }
+            catch (IndexOutOfRangeException e)
+            {
+                Debug.LogWarning("Out of range - " + typeIdentifier);
+                Debug.LogError(e.Message);
+                Debug.LogException(e);
+            }
         }
     }
 }

@@ -86,12 +86,6 @@ namespace Hive.Armada.Enemies
         protected override void Awake()
         {
             base.Awake();
-            player = reference.playerShip;
-            //pos = new Vector3(player.transform.position.x, player.transform.position.y,
-            //    player.transform.position.z);
-            //gameObject.SendMessage("Initialize", 1, SendMessageOptions.DontRequireReceiver);
-            //gameObject.SendMessage("Activate", SendMessageOptions.DontRequireReceiver);
-            //Reset();
             SetAttackPattern(AttackPattern.One);
             patternId = objectPoolManager.GetTypeIdentifier(projectilePattern);
         }

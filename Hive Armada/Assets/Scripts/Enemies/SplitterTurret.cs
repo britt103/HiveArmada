@@ -104,6 +104,8 @@ namespace Hive.Armada.Enemies
 
         private short patternId = -2;
 
+        private WaitForSeconds waitFire;
+
         protected override void Awake()
         {
             base.Awake();
@@ -210,7 +212,7 @@ namespace Hive.Armada.Enemies
             ProjectilePattern projectileScript = projectile.GetComponent<ProjectilePattern>();
             projectileScript.Launch(0);
 
-            yield return new WaitForSeconds(fireRate);
+            yield return waitFire;
             canShoot = true;
         }
 
@@ -218,8 +220,8 @@ namespace Hive.Armada.Enemies
         {
             while (true)
             {
-                bullet.GetComponent<Transform>().Rotate(0, 0, 1);
-                yield return new WaitForSeconds(0.01f);
+                bullet.GetComponent<Transform>().Rotate(0, 0, 10);
+                yield return Utility.waitOneTenth;
             }
         }
 
@@ -350,6 +352,8 @@ namespace Hive.Armada.Enemies
             childTypeIdentifier = objectPoolManager.GetTypeIdentifier(childTurret);
             fireRate = enemyAttributes.enemyFireRate[TypeIdentifier];
             spread = enemyAttributes.enemySpread[TypeIdentifier];
+
+            waitFire = new WaitForSeconds(fireRate);
         }
     }
 }

@@ -150,6 +150,8 @@ namespace Hive.Armada.Game
 
         private int enemyId;
 
+        private WaitForSeconds waitStep;
+
         /// <summary>
         /// Gets the type identifiers for each enemy's projectile prefabs
         /// </summary>
@@ -210,6 +212,8 @@ namespace Hive.Armada.Game
             }
 
             enemyId = 0;
+
+            waitStep = new WaitForSeconds(stepTime);
         }
 
         /// <summary>
@@ -288,7 +292,7 @@ namespace Hive.Armada.Game
                     }
                 }
 
-                yield return new WaitForSeconds(stepTime);
+                yield return waitStep;
             }
 
             if (!isIn)

@@ -227,6 +227,20 @@ namespace Hive.Armada.Enemies
 
         private short patternId = -2;
 
+        private WaitForSeconds waitFire;
+
+        private WaitForSeconds waitP05;
+
+        private WaitForSeconds waitP15;
+
+        private WaitForSeconds waitP2;
+
+        private WaitForSeconds waitP3;
+
+        private WaitForSeconds wait1P5;
+
+        private WaitForSeconds wait2;
+
         [Header("Score")]
         [Reorderable("Point", false)]
         public Transform[] rightScorePoints;
@@ -335,6 +349,18 @@ namespace Hive.Armada.Enemies
                                         {2, rightCScorePoints}, {3, leftScorePoints},
                                         {4, rightScorePoints}
                                     };
+
+            waitP05 = new WaitForSeconds(0.05f);
+
+            waitP15 = new WaitForSeconds(0.15f);
+
+            waitP2 = new WaitForSeconds(0.2f);
+
+            waitP3 = new WaitForSeconds(0.3f);
+
+            wait1P5 = new WaitForSeconds(1.5f);
+
+            wait2 = new WaitForSeconds(2.0f);
 
             //reference.shipPickup.SetActive(false);
 
@@ -1040,7 +1066,7 @@ namespace Hive.Armada.Enemies
             ProjectilePattern projectileScript = projectile.GetComponent<ProjectilePattern>();
             projectileScript.Launch(0);
 
-            yield return new WaitForSeconds(fireRate);
+            yield return waitFire;
 
             //shootCoroutine = null;
 
@@ -1085,7 +1111,7 @@ namespace Hive.Armada.Enemies
             while (canRotate)
             {
                 pivot.Rotate(0, 0, 1.5f);
-                yield return new WaitForSeconds(0.01f);
+                yield return Utility.waitOneTenth;
             }
         }
 
@@ -1099,31 +1125,31 @@ namespace Hive.Armada.Enemies
                 switch (wave)
                 {
                     case 0:
-                        yield return new WaitForSeconds(0.1f);
+                        yield return Utility.waitOneTenth;
 
                         selectBehaviorCoroutine = StartCoroutine(SelectBehavior(0));
                         break;
 
                     case 1:
-                        yield return new WaitForSeconds(0.1f);
+                        yield return Utility.waitOneTenth;
 
                         selectBehaviorCoroutine = StartCoroutine(SelectBehavior(3));
                         break;
 
                     case 2:
-                        yield return new WaitForSeconds(0.1f);
+                        yield return Utility.waitOneTenth;
 
                         selectBehaviorCoroutine = StartCoroutine(SelectBehavior(4));
                         break;
 
                     case 3:
-                        yield return new WaitForSeconds(0.1f);
+                        yield return Utility.waitOneTenth;
 
                         selectBehaviorCoroutine = StartCoroutine(SelectBehavior(2));
                         break;
 
                     case 4:
-                        yield return new WaitForSeconds(0.1f);
+                        yield return Utility.waitOneTenth;
 
                         selectBehaviorCoroutine = StartCoroutine(SelectBehavior(1));
                         break;
@@ -1145,53 +1171,53 @@ namespace Hive.Armada.Enemies
             {
                 //standard pattern
                 case 0:
-                    yield return new WaitForSeconds(1);
+                    yield return Utility.waitOne;
 
                     SetAttackPattern(AttackPattern.Four);
                     for (int i = 0; i < 10; ++i)
                     {
                         //StartCoroutine(Shoot());
                         ShootPattern();
-                        yield return new WaitForSeconds(fireRate);
+                        yield return waitFire;
                     }
 
                     break;
                 //ball pattern
                 case 1:
-                    yield return new WaitForSeconds(1);
+                    yield return Utility.waitOne;
 
                     for (int i = 0; i < 10; ++i)
                     {
                         SetAttackPattern(AttackPattern.Two);
                         //StartCoroutine(Shoot());
                         ShootPattern();
-                        yield return new WaitForSeconds(0.05f);
+                        yield return waitP05;
 
                         SetAttackPattern(AttackPattern.Three);
                         //StartCoroutine(Shoot());
                         ShootPattern();
-                        yield return new WaitForSeconds(0.05f);
+                        yield return waitP05;
 
                         SetAttackPattern(AttackPattern.Four);
                         //StartCoroutine(Shoot());
                         ShootPattern();
-                        yield return new WaitForSeconds(0.05f);
+                        yield return waitP05;
 
                         SetAttackPattern(AttackPattern.Three);
                         //StartCoroutine(Shoot());
                         ShootPattern();
-                        yield return new WaitForSeconds(0.05f);
+                        yield return waitP05;
 
                         SetAttackPattern(AttackPattern.Two);
                         //StartCoroutine(Shoot());
                         ShootPattern();
-                        yield return new WaitForSeconds(2);
+                        yield return wait2;
                     }
 
                     break;
                 //tunnel pattern
                 case 2:
-                    yield return new WaitForSeconds(1);
+                    yield return Utility.waitOne;
 
                     ResetAttackPattern();
                     canRotate = true;
@@ -1203,26 +1229,26 @@ namespace Hive.Armada.Enemies
                         {
                             //StartCoroutine(Shoot());
                             ShootPattern();
-                            yield return new WaitForSeconds(0.15f);
+                            yield return waitP15;
                         }
 
                         SetAttackPattern(AttackPattern.Ten);
-                        yield return new WaitForSeconds(0.3f);
+                        yield return waitP3;
 
                         for (int j = 0; j < 5; ++j)
                         {
                             //StartCoroutine(Shoot());
                             ShootPattern();
-                            yield return new WaitForSeconds(0.15f);
+                            yield return waitP15;
                         }
 
-                        yield return new WaitForSeconds(1);
+                        yield return Utility.waitOne;
                     }
 
                     break;
                 //spread pattern
                 case 3:
-                    yield return new WaitForSeconds(1);
+                    yield return Utility.waitOne;
 
                     SetAttackPattern(AttackPattern.Five);
                     for (int i = 0; i < 10; ++i)
@@ -1235,16 +1261,16 @@ namespace Hive.Armada.Enemies
                                 ShootPattern();
                             }
 
-                            yield return new WaitForSeconds(0.2f);
+                            yield return waitP2;
                         }
 
-                        yield return new WaitForSeconds(fireRate);
+                        yield return waitFire;
                     }
 
                     break;
                 //clover pattern
                 case 4:
-                    yield return new WaitForSeconds(1);
+                    yield return Utility.waitOne;
 
                     SetAttackPattern(AttackPattern.Six);
                     canRotate = true;
@@ -1253,13 +1279,13 @@ namespace Hive.Armada.Enemies
                     {
                         //StartCoroutine(Shoot());
                         ShootPattern();
-                        yield return new WaitForSeconds(fireRate);
+                        yield return waitFire;
                     }
 
                     break;
                 //spiral pattern
                 case 5:
-                    yield return new WaitForSeconds(1);
+                    yield return Utility.waitOne;
 
                     SetAttackPattern(AttackPattern.Seven);
                     canRotate = true;
@@ -1268,13 +1294,13 @@ namespace Hive.Armada.Enemies
                     {
                         //StartCoroutine(Shoot());
                         ShootPattern();
-                        yield return new WaitForSeconds(0.15f);
+                        yield return waitP15;
                     }
 
                     break;
                 //oscilatting halves
                 case 6:
-                    yield return new WaitForSeconds(1);
+                    yield return Utility.waitOne;
 
                     for (int i = 0; i < 10; ++i)
                     {
@@ -1286,22 +1312,22 @@ namespace Hive.Armada.Enemies
                         {
                             //StartCoroutine(Shoot());
                             ShootPattern();
-                            yield return new WaitForSeconds(0.15f);
+                            yield return waitP15;
                         }
 
                         SetAttackPattern(AttackPattern.Nine);
                         canRotate = true;
 
-                        //yield return new WaitForSeconds(1);
+                        //yield return Utility.waitOne;
                         //StartCoroutine(RotateProjectile(shootPivot, -1.5f));
                         for (int j = 0; j < 5; ++j)
                         {
                             //StartCoroutine(Shoot());
                             ShootPattern();
-                            yield return new WaitForSeconds(0.15f);
+                            yield return waitP15;
                         }
 
-                        yield return new WaitForSeconds(1.5f);
+                        yield return wait1P5;
                     }
                     break;
             }
@@ -1487,6 +1513,7 @@ namespace Hive.Armada.Enemies
                     break;
             }
 
+            waitFire = new WaitForSeconds(fireRate);
             patternId = patternIds[(int) attackPattern];
 
             //Debug.Log(myPoints.Length);

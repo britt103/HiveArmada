@@ -23,11 +23,11 @@ namespace Hive.Armada.Ambient
         public float fanSpeed;
 
         /// <summary>
-        /// Rotates the fan every frame
+        /// Rotates the fan every fixed frame
         /// </summary>
-        private void Update()
+        private void FixedUpdate()
         {
-            transform.Rotate(new Vector3(0.0f, 1.0f, 0.0f), fanSpeed * Time.deltaTime);
+            transform.Rotate(new Vector3(0.0f, 1.0f, 0.0f), fanSpeed * Time.fixedDeltaTime);
         }
     }
 }

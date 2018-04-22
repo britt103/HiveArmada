@@ -216,13 +216,17 @@ namespace Hive.Armada.Player.Weapons
 
         private AudioClip explosionClip;
 
+        private WaitForSeconds waitRandom;
+
+        private WaitForSeconds waitExplode;
+
         /// <summary>
         /// Deactivates the rocket when it is first created.
         /// </summary>
         protected override void Awake()
         {
             base.Awake();
-            
+
             rocketAttributes = reference.rocketAttributes;
         }
 
@@ -266,6 +270,9 @@ namespace Hive.Armada.Player.Weapons
             explosionClip = rocketAttributes.rockets[rocketType].explosionClip;
             trailClip = rocketAttributes.rockets[rocketType].trailClip;
 
+            waitRandom = new WaitForSeconds(randomTime);
+            waitExplode = new WaitForSeconds(explodeTime);
+
             explosionEmitterId = rocketAttributes.RocketExplosionEmitterIds[rocketType];
             rocketEmitterId = rocketAttributes.RocketEmitterIds[rocketType];
             trailEmitterId = rocketAttributes.TrailEmitterIds[rocketType];
@@ -301,64 +308,62 @@ namespace Hive.Armada.Player.Weapons
         /// </summary>
         private void Update()
         {
-            if ((behaviorFlags & RocketFlags.NoHoming) == 0)
+            if (isHoming)
             {
-                if (isHoming)
+                if (target != null && target.CompareTag("Enemy") && targetEnemyScript != null &&
+                    targetEnemyId != targetEnemyScript.EnemyId)
                 {
-                    if (target != null && target.CompareTag("Enemy") && targetEnemyScript != null && targetEnemyId != targetEnemyScript.EnemyId)
-                    {
-                        // clear target because it died and has respawned
-                        target = null;
-                        targetPoolableScript = null;
-                        targetEnemyScript = null;
-                        isTargetDead = true;
-                        isHoming = false;
+                    // clear target because it died and has respawned
+                    target = null;
+                    targetPoolableScript = null;
+                    targetEnemyScript = null;
+                    isTargetDead = true;
+                    isHoming = false;
 
-                        if ((behaviorFlags & RocketFlags.AutoTarget) != 0)
-                        {
-                            AquireTarget();
-                        }
+                    if ((behaviorFlags & RocketFlags.AutoTarget) != 0)
+                    {
+                        AquireTarget();
                     }
-                    else if (targetPoolableScript != null && !targetPoolableScript.IsActive ||
-                        targetEnemyScript != null && targetEnemyScript.Health <= 0 ||
-                        target == null || !target.activeSelf)
-                    {
-                        // clear target because it is dead or deactivated
-                        target = null;
-                        targetPoolableScript = null;
-                        targetEnemyScript = null;
-                        isTargetDead = true;
-                        isHoming = false;
+                }
+                else if (targetPoolableScript != null && !targetPoolableScript.IsActive ||
+                         targetEnemyScript != null && targetEnemyScript.Health <= 0 ||
+                         target == null || !target.activeSelf)
+                {
+                    // clear target because it is dead or deactivated
+                    target = null;
+                    targetPoolableScript = null;
+                    targetEnemyScript = null;
+                    isTargetDead = true;
+                    isHoming = false;
 
-                        if ((behaviorFlags & RocketFlags.AutoTarget) != 0)
-                        {
-                            AquireTarget();
-                        }
-                    }
-
-                    if (targetPoolableScript != null && targetPoolableScript.IsActive ||
-                        targetEnemyScript != null && targetEnemyScript.Health > 0 ||
-                        !isTargetDead)
+                    if ((behaviorFlags & RocketFlags.AutoTarget) != 0)
                     {
-                        // update the target position if it is alive and not null
-                        if (target != null)
-                        {
-                            targetPosition = target.transform.position;
-                        }
+                        AquireTarget();
                     }
                 }
 
-                if (target == null && (behaviorFlags & RocketFlags.AutoTarget) != 0)
+                if (targetPoolableScript != null && targetPoolableScript.IsActive ||
+                    targetEnemyScript != null && targetEnemyScript.Health > 0 ||
+                    !isTargetDead)
                 {
-                    AquireTarget();
-                }
-
-                if (isTargetDead || !isHoming)
-                {
-                    if (Vector3.Distance(transform.position, targetPosition) < 0.4f)
+                    // update the target position if it is alive and not null
+                    if (target != null)
                     {
-                        Explode();
+                        targetPosition = target.transform.position;
                     }
+                }
+            }
+
+            if (target == null && (behaviorFlags & RocketFlags.AutoTarget) != 0)
+            {
+                AquireTarget();
+            }
+
+            if (isTargetDead || !isHoming)
+            {
+                if (Vector3.Distance(transform.position, targetPosition) < 0.4f)
+                {
+                    Explode();
                 }
             }
 
@@ -421,6 +426,7 @@ namespace Hive.Armada.Player.Weapons
             if (trailClip != null)
             {
                 source.PlayOneShot(trailClip);
+
                 //source.loop = true;
                 //source.clip = trailClip;
                 //source.Play();
@@ -450,6 +456,7 @@ namespace Hive.Armada.Player.Weapons
             if (trailClip != null)
             {
                 source.PlayOneShot(trailClip);
+
                 //source.loop = true;
                 //source.clip = trailClip;
                 //source.Play();
@@ -539,7 +546,7 @@ namespace Hive.Armada.Player.Weapons
                                              Random.Range(-randomY, randomY),
                                              Random.Range(0.0f, randomZ));
 
-                yield return new WaitForSeconds(randomTime);
+                yield return waitRandom;
             }
         }
 
@@ -548,7 +555,7 @@ namespace Hive.Armada.Player.Weapons
         /// </summary>
         private IEnumerator SelfDestruct()
         {
-            yield return new WaitForSeconds(explodeTime);
+            yield return waitExplode;
 
             Explode();
         }
@@ -570,8 +577,10 @@ namespace Hive.Armada.Player.Weapons
 
             if (explosionEmitterId >= 0)
             {
-                GameObject explosionEmitterObject = reference.objectPoolManager.Spawn(gameObject, explosionEmitterId,
-                                                  transform.position, transform.rotation);
+                GameObject explosionEmitterObject = reference.objectPoolManager.Spawn(
+                    gameObject, explosionEmitterId,
+                    transform.position,
+                    transform.rotation);
 
                 if (explosionClip != null)
                 {
@@ -602,18 +611,33 @@ namespace Hive.Armada.Player.Weapons
 
             foreach (Collider enemy in colliders)
             {
+                Enemy enemyScript = enemy.GetComponent<Enemy>();
+                NewBoss bossScript = enemy.GetComponent<NewBoss>();
+
                 if (explosionTarget != null)
                 {
                     if (enemy.gameObject.GetInstanceID() != explosionTarget.GetInstanceID())
                     {
-                        enemy.gameObject.SendMessage("Hit", damage,
-                                                     SendMessageOptions.DontRequireReceiver);
+                        if (enemyScript != null)
+                        {
+                            enemyScript.Hit(damage);
+                        }
+                        else if (bossScript != null)
+                        {
+                            bossScript.Hit(damage);
+                        }
                     }
                 }
                 else
                 {
-                    enemy.gameObject.SendMessage("Hit", damage,
-                                                 SendMessageOptions.DontRequireReceiver);
+                    if (enemyScript != null)
+                    {
+                        enemyScript.Hit(damage);
+                    }
+                    else if (bossScript != null)
+                    {
+                        bossScript.Hit(damage);
+                    }
                 }
             }
         }

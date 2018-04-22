@@ -154,7 +154,7 @@ namespace Hive.Armada.Enemies
                 pRigidbody.velocity = transform.forward *
                                       reference.enemyAttributes.projectileSpeeds[ProjectileId];
 
-                yield return new WaitForSeconds(0.1f);
+                yield return Utility.waitOneTenth;
             }
             timeWarpCoroutine = null;
         }

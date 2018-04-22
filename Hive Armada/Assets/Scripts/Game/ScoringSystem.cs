@@ -121,7 +121,7 @@ namespace Hive.Armada.Game
                     comboActive = false;
                     break;
                 }
-                yield return new WaitForSeconds(1);
+                yield return Utility.waitOne;
             }
             while (comboActive);
             //Debug.Log("Combo Death");

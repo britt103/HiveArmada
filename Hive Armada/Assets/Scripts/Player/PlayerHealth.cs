@@ -240,7 +240,7 @@ namespace Hive.Armada.Player
                 r.material = flashColor;
             }
 
-            yield return new WaitForSeconds(0.05f);
+            yield return Utility.waitHitFlash;
 
             // reset materials
             for (int i = 0; i < renderers.Count; ++i)

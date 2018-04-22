@@ -54,6 +54,8 @@ namespace Hive.Armada.Player.Weapons
         /// </summary>
         protected float fireRate;
 
+        protected WaitForSeconds waitFire;
+
         /// <summary>
         /// This weapon's index in the ship's weapon array.
         /// </summary>
@@ -79,6 +81,7 @@ namespace Hive.Armada.Player.Weapons
             }
 
             AimAssistActive = reference.gameSettings != null ? reference.gameSettings.aimAssist : true;
+            waitFire = new WaitForSeconds(1.0f / fireRate);
         }
 
         /// <summary>

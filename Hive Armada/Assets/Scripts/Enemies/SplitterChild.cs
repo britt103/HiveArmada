@@ -66,6 +66,8 @@ namespace Hive.Armada.Enemies
 
         public Color projectileEmissionColor;
 
+        private WaitForSeconds waitFire;
+
         /// <summary>
         /// Tries to look at the player and shoot at it when possible. Runs every frame.
         /// </summary>
@@ -112,10 +114,10 @@ namespace Hive.Armada.Enemies
                 {
                     StartCoroutine(rotateProjectile(projectile));
                 }
-                yield return new WaitForSeconds(0.1f);
+                yield return Utility.waitOneTenth;
             }
 
-            yield return new WaitForSeconds(fireRate);
+            yield return waitFire;
 
             canShoot = true;
         }
@@ -124,8 +126,8 @@ namespace Hive.Armada.Enemies
         {
             while (true)
             {
-                bullet.GetComponent<Transform>().Rotate(0, 0, 1);
-                yield return new WaitForSeconds(0.01f);
+                bullet.GetComponent<Transform>().Rotate(0, 0, 10);
+                yield return Utility.waitOneTenth;
             }
         }
 
@@ -187,6 +189,8 @@ namespace Hive.Armada.Enemies
             fireRate = enemyAttributes.enemyFireRate[TypeIdentifier];
             spread = enemyAttributes.enemySpread[TypeIdentifier];
             spawnEmitter = enemyAttributes.enemySpawnEmitters[TypeIdentifier];
+
+            waitFire = new WaitForSeconds(fireRate);
 
             if (!isInitialized)
             {

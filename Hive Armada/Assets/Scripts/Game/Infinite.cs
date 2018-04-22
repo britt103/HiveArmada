@@ -246,7 +246,7 @@ namespace Hive.Armada.Game
 
                 do
                 {
-                    yield return new WaitForSeconds(0.1f);
+                    yield return Utility.waitOneTenth;
 
                     currentTime += 0.1f;
 
@@ -326,7 +326,7 @@ namespace Hive.Armada.Game
 
                     while (!spawned)
                     {
-                        yield return new WaitForSeconds(0.01f);
+                        yield return Utility.waitOneTenth;
                     }
 
                     spawned = false;
@@ -346,7 +346,7 @@ namespace Hive.Armada.Game
 
                         while (!spawned)
                         {
-                            yield return new WaitForSeconds(0.01f);
+                            yield return Utility.waitOneTenth;
                         }
 
                         spawned = false;
@@ -429,7 +429,7 @@ namespace Hive.Armada.Game
                             Enemy spawnedEnemyScript = spawnedEnemy.GetComponent<Enemy>();
                             spawnedEnemyScript.SetPath(path);
 
-                            spawnedEnemy.SendMessage("SetPath", path, SendMessageOptions.DontRequireReceiver);
+                            //spawnedEnemy.SendMessage("SetPath", path, SendMessageOptions.DontRequireReceiver);
 
                             bool patternChosen = false;
 

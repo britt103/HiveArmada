@@ -228,6 +228,11 @@ namespace Hive.Armada.Enemies
             SetEnemyId(enemyAttributes.GetNextEnemyId());
         }
 
+        protected void OnDisable()
+        {
+            StopAllCoroutines();
+        }
+
         public virtual void Hit(int damage)
         {
             Hit(damage, false);
@@ -326,7 +331,7 @@ namespace Hive.Armada.Enemies
                 r.material = flashColor;
             }
 
-            yield return new WaitForSeconds(0.01f);
+            yield return Utility.waitHitFlash;
 
             // reset materials
             for (int i = 0; i < renderers.Count; ++i)

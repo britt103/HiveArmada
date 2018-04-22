@@ -26,6 +26,8 @@ namespace Hive.Armada.Player
         /// </summary>
         public PostProcessingBehaviour profile;
 
+        private VignetteModel vignetteModel;
+
         /// <summary>
         /// Total duration of effect.
         /// </summary>
@@ -39,7 +41,15 @@ namespace Hive.Armada.Player
         /// <summary>
         /// State of whether the player has just been hit and the effect is playing.
         /// </summary>
-        private bool hit = false;
+        private bool hit;
+
+        private WaitForSeconds waitVignetteStep;
+
+        private void Awake()
+        {
+            waitVignetteStep = new WaitForSeconds(0.005f);
+            vignetteModel = profile.GetComponent<PostProcessingBehaviour>().profile.vignette;
+        }
 
         /// <summary>
         /// Either starts or restarts PlayVignetteEffect when player is hit.
@@ -69,19 +79,19 @@ namespace Hive.Armada.Player
             for (float i = 0.0f; i <= effectLength / 2; i += Time.deltaTime)
             {
                 vm.intensity = Mathf.Lerp(0.0f, maxIntensity, i / (effectLength / 2));
-                profile.GetComponent<PostProcessingBehaviour>().profile.vignette.settings = vm;
-                yield return new WaitForSeconds(0.005f);
+                vignetteModel.settings = vm;
+                yield return waitVignetteStep;
             }
 
             for (float i = effectLength / 2; i >= 0.0f / 2; i -= Time.deltaTime)
             {
                 vm.intensity = Mathf.Lerp(0.0f, maxIntensity, i / (effectLength / 2));
-                profile.GetComponent<PostProcessingBehaviour>().profile.vignette.settings = vm;
-                yield return new WaitForSeconds(0.005f);
+                vignetteModel.settings = vm;
+                yield return waitVignetteStep;
             }
 
             vm.intensity = 0.0f;
-            profile.GetComponent<PostProcessingBehaviour>().profile.vignette.settings = vm;
+            vignetteModel.settings = vm;
             hit = false;
             yield return null;
         }

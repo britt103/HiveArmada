@@ -82,11 +82,14 @@ namespace Hive.Armada.Player.Weapons
         /// </summary>
         public AudioClip[] plasmaGunChargingSounds;
 
+        private WaitForSeconds waitReloadDelay;
+
         /// <summary>
         /// Initializes the rockets and active/inactive pools.
         /// </summary>
         protected override void SetupWeapon()
         {
+            waitReloadDelay = new WaitForSeconds(reloadDelay);
             currentAmmo = maxAmmo;
 
             rocketTypeIndex = -1;
@@ -244,7 +247,7 @@ namespace Hive.Armada.Player.Weapons
                 }
             }
 
-            yield return new WaitForSeconds(1.0f / fireRate);
+            yield return waitFire;
 
             canShoot = true;
 
@@ -256,7 +259,7 @@ namespace Hive.Armada.Player.Weapons
         {
             source.PlayOneShot(plasmaGunChargingSounds[0]);
 
-            yield return new WaitForSeconds(reloadDelay);
+            yield return waitReloadDelay;
 
             yield return new WaitForSeconds(reloadTime / maxAmmo * currentAmmo);
 

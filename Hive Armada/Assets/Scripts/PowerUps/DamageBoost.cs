@@ -63,6 +63,8 @@ namespace Hive.Armada.PowerUps
 
             Instantiate(spawnEmitter, reference.playerShip.transform);
             StartCoroutine(Run());
+
+
         }
 
         /// <summary>

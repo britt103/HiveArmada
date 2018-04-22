@@ -62,6 +62,8 @@ namespace Hive.Armada.Player.Weapons
         /// </summary>
         public int burstAmount;
 
+        private WaitForSeconds waitBurst;
+
         /// <summary>
         /// Emitter for the launching of the rockets.
         /// </summary>
@@ -84,6 +86,7 @@ namespace Hive.Armada.Player.Weapons
         /// </summary>
         protected override void SetupWeapon()
         {
+            waitBurst = new WaitForSeconds(fireRate / burstAmount);
             rocketTypeIndex = -1;
 
             for (int i = 0; i < reference.rocketAttributes.rockets.Length; ++i)
@@ -171,7 +174,7 @@ namespace Hive.Armada.Player.Weapons
 
                 Transform barrel = barrels[barrelIndex++];
 
-                yield return new WaitForSeconds(0.3f / burstAmount);
+                yield return waitBurst;
 
                 GameObject rocket =
                     reference.objectPoolManager.Spawn(gameObject, rocketTypeId, barrel.position,
@@ -238,7 +241,7 @@ namespace Hive.Armada.Player.Weapons
                 }
             }
 
-            yield return new WaitForSeconds(1.0f / fireRate);
+            yield return waitFire;
 
             canShoot = true;
 

@@ -273,7 +273,7 @@ namespace Hive.Armada.Player.Weapons
             reference.statistics.WeaponFired("Laser Gun", 1);
             reference.playerIdleTimer.SetIsIdle(false);
 
-            yield return new WaitForSeconds(1.0f / fireRate);
+            yield return waitFire;
 
             isLeftFire = !isLeftFire;
             canShoot = true;
@@ -297,7 +297,7 @@ namespace Hive.Armada.Player.Weapons
                 rightLaser.enabled = true;
             }
 
-            yield return new WaitForSeconds(0.006f);
+            yield return Utility.waitLineRendererFlash;
 
             if (isLeft)
             {

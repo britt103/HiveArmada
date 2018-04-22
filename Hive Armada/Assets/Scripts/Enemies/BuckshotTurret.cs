@@ -80,6 +80,8 @@ namespace Hive.Armada.Enemies
 
         private short patternId = -2;
 
+        private WaitForSeconds waitFire;
+
         /// <summary>
         /// Finds the player and instantiates pos for position holding
         /// </summary>
@@ -186,7 +188,7 @@ namespace Hive.Armada.Enemies
             ProjectilePattern projectileScript = projectile.GetComponent<ProjectilePattern>();
             projectileScript.Launch(0);
 
-            yield return new WaitForSeconds(fireRate);
+            yield return waitFire;
             canShoot = true;
         }
 
@@ -248,6 +250,8 @@ namespace Hive.Armada.Enemies
             fireRate = enemyAttributes.enemyFireRate[TypeIdentifier];
             projectileSpeed = enemyAttributes.projectileSpeed;
             spread = enemyAttributes.enemySpread[TypeIdentifier];
+
+            waitFire = new WaitForSeconds(fireRate);
         }
     }
 }

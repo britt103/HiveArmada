@@ -123,8 +123,8 @@ namespace Hive.Armada.PowerUps
                 rocketTypeId = reference.objectPoolManager.GetTypeIdentifier(rocketPrefab);
             }
 
-            Instantiate(spawnEmitter, transform);
             transform.localPosition = new Vector3(0, distance, 0);
+            Instantiate(spawnEmitter, transform);
             fireWait = new WaitForSeconds(1.0f / firerate);
         }
 

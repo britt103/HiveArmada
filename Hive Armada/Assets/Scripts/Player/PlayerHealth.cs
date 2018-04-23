@@ -214,7 +214,7 @@ namespace Hive.Armada.Player
                 Debug.Log("Hit for " + damage + " damage! Remaining health = " + currentHealth);
             }
 
-            if (currentHealth <= healthData.playerLowHealth && currentHealth != 0)
+            if (currentHealth == healthData.playerLowHealth)
             {
                 if (lowHealth != null)
                 {

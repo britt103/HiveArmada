@@ -89,6 +89,7 @@ namespace Hive.Armada.Player.Weapons
         /// </summary>
         protected override void SetupWeapon()
         {
+            waitFire = new WaitForSeconds(1.0f / fireRate);
             waitReloadDelay = new WaitForSeconds(reloadDelay);
             currentAmmo = maxAmmo;
 

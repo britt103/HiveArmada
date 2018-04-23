@@ -16386,12 +16386,6 @@ MonoBehaviour:
   - objectPrefab: {fileID: 1341702145332166, guid: aec08ef288d1ecb40bc6a80e2e9e4794,
       type: 2}
     amountToPool: 1
-  - objectPrefab: {fileID: 1112362033134432, guid: c57be84955d83f140ab1f33f7ce8fc7f,
-      type: 2}
-    amountToPool: 30
-  - objectPrefab: {fileID: 1112362033134432, guid: ed1865491e559ed4b9f56e8ed60838d9,
-      type: 2}
-    amountToPool: 10
   - objectPrefab: {fileID: 1577835415642778, guid: 12352e24291685e4592fdef29cf51957,
       type: 2}
     amountToPool: 50
@@ -16409,22 +16403,22 @@ MonoBehaviour:
     amountToPool: 50
   - objectPrefab: {fileID: 1149115680930312, guid: b17c57db46ad57343afa03d819ccc7b3,
       type: 2}
-    amountToPool: 50
+    amountToPool: 1
   - objectPrefab: {fileID: 1991993796967754, guid: eb5e21aaf4d14f34a886d74c9334f6de,
       type: 2}
-    amountToPool: 50
+    amountToPool: 1
   - objectPrefab: {fileID: 1381081471905298, guid: 25bfeab4f6fd2224ba48cd259ff77d8a,
       type: 2}
-    amountToPool: 50
+    amountToPool: 10
   - objectPrefab: {fileID: 1415951353483722, guid: c369e0de9779d60459be5725f2a142bc,
       type: 2}
-    amountToPool: 50
-  - objectPrefab: {fileID: 1960498793399906, guid: b554dfaa0dac8484daee59f7d24b3e9c,
-      type: 2}
-    amountToPool: 50
+    amountToPool: 40
   - objectPrefab: {fileID: 1960874980371040, guid: 89d7014b6d7141e49877d9ba774fa125,
       type: 2}
-    amountToPool: 50
+    amountToPool: 10
+  - objectPrefab: {fileID: 1149115680930312, guid: e93e12095ae7bf74281473779f891016,
+      type: 2}
+    amountToPool: 10
   - objectPrefab: {fileID: 1399859302366628, guid: e1a01aa1926f2b14788bacc23872989f,
       type: 2}
     amountToPool: 10
@@ -16475,22 +16469,40 @@ MonoBehaviour:
     amountToPool: 1
   - objectPrefab: {fileID: 1227589345395862, guid: 9919fbd69d002ad4ba43788bfb042c76,
       type: 2}
-    amountToPool: 50
+    amountToPool: 20
   - objectPrefab: {fileID: 1729075773718028, guid: 1aa1277ded9adc34c9d91e24cf97aafc,
       type: 2}
-    amountToPool: 50
+    amountToPool: 20
   - objectPrefab: {fileID: 1344628441058594, guid: 5aa2ec81e2c3d2c43add9f5a43da634b,
       type: 2}
-    amountToPool: 50
+    amountToPool: 20
   - objectPrefab: {fileID: 1587026779172016, guid: ea58860281aa55745bbb156499e70f21,
       type: 2}
-    amountToPool: 50
+    amountToPool: 20
   - objectPrefab: {fileID: 1933859481263082, guid: ec2f242de238de648a55f01c4259f4e4,
       type: 2}
-    amountToPool: 50
+    amountToPool: 20
   - objectPrefab: {fileID: 1696697073915922, guid: 692a53a639739c440952abd099686e69,
       type: 2}
-    amountToPool: 50
+    amountToPool: 20
+  - objectPrefab: {fileID: 1494540139663382, guid: d561505dddc53c94e926621f609a27f6,
+      type: 2}
+    amountToPool: 10
+  - objectPrefab: {fileID: 1961729260272512, guid: 4109151038395fa4b8728f9a8a8e1ece,
+      type: 2}
+    amountToPool: 10
+  - objectPrefab: {fileID: 1863635324859942, guid: 6143a09b23403f84a9a9a2211c9c4e09,
+      type: 2}
+    amountToPool: 10
+  - objectPrefab: {fileID: 1906894625597420, guid: c6552a9b74bd3d040a7ad4e55cd9e184,
+      type: 2}
+    amountToPool: 10
+  - objectPrefab: {fileID: 1389959646463942, guid: 863f480438876d54cb780ae66a278e53,
+      type: 2}
+    amountToPool: 10
+  - objectPrefab: {fileID: 1960498793399906, guid: b554dfaa0dac8484daee59f7d24b3e9c,
+      type: 2}
+    amountToPool: 10
 --- !u!4 &898325482
 Transform:
   m_ObjectHideFlags: 0
@@ -54185,6 +54197,8 @@ MonoBehaviour:
   menuSounds: {fileID: 0}
   dialoguePlayer: {fileID: 229293522}
   tooltips: {fileID: 1077584952}
+  projectileData: {fileID: 11400000, guid: ab6033c35cd0e52419dac4f56ca31b69, type: 2}
+  healthData: {fileID: 11400000, guid: 7e2be0af0fd1a9c4b9ea425a0a548170, type: 2}
   player: {fileID: 2052364198}
   playerLookTarget: {fileID: 1197194090}
   playerShip: {fileID: 0}

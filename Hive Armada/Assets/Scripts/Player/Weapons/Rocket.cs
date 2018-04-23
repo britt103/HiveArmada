@@ -126,6 +126,8 @@ namespace Hive.Armada.Player.Weapons
         /// </summary>
         private float randomZ;
 
+        private float nextRandomTime;
+
         /// <summary>
         /// Type ID for the explosion emitter.
         /// </summary>
@@ -228,6 +230,7 @@ namespace Hive.Armada.Player.Weapons
             base.Awake();
 
             rocketAttributes = reference.rocketAttributes;
+            nextRandomTime = Time.time;
         }
 
         /// <summary>
@@ -366,6 +369,16 @@ namespace Hive.Armada.Player.Weapons
                     Explode();
                 }
             }
+            
+            if (Time.time >= nextRandomTime)
+            {
+                nextRandomTime += randomTime;
+                smoothFrac = 0.0f;
+                initialMovement = randomMovement;
+                randomMovement = new Vector3(Random.Range(-randomX, randomX),
+                                             Random.Range(-randomY, randomY),
+                                             Random.Range(0.0f, randomZ));
+            }
 
             smoothFrac += Time.deltaTime / randomTime;
             smoothMovement = Vector3.Lerp(initialMovement, randomMovement, smoothFrac);
@@ -432,7 +445,7 @@ namespace Hive.Armada.Player.Weapons
                 //source.Play();
             }
 
-            StartCoroutine(RandomMovement());
+            // StartCoroutine(RandomMovement());
             StartCoroutine(SelfDestruct());
         }
 
@@ -462,7 +475,7 @@ namespace Hive.Armada.Player.Weapons
                 //source.Play();
             }
 
-            StartCoroutine(RandomMovement());
+            // StartCoroutine(RandomMovement());
             StartCoroutine(SelfDestruct());
         }
 
@@ -624,7 +637,7 @@ namespace Hive.Armada.Player.Weapons
                         }
                         else if (bossScript != null)
                         {
-                            bossScript.Hit(damage);
+                            bossScript.Hit(damage, true);
                         }
                     }
                 }
@@ -636,7 +649,7 @@ namespace Hive.Armada.Player.Weapons
                     }
                     else if (bossScript != null)
                     {
-                        bossScript.Hit(damage);
+                        bossScript.Hit(damage, true);
                     }
                 }
             }

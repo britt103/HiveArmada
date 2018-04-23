@@ -1,7 +1,7 @@
 ﻿//=============================================================================
 // Ryan Britton
 // britt103
-// #1849351
+// 1849351
 // CPSC-340-01, CPSC-344-01
 // Group Project
 // 
@@ -9,9 +9,9 @@
 //
 //=============================================================================
 
-using Hive.Armada.Player;
 using System.Collections;
-using System.Linq;
+using Hive.Armada.Data;
+using Hive.Armada.Player;
 using UnityEngine;
 
 namespace Hive.Armada.Enemies
@@ -21,25 +21,22 @@ namespace Hive.Armada.Enemies
     /// </summary>
     public class KamikazeTurret : Enemy
     {
-        /// <summary>
-        /// Transform of this enemy.
-        /// </summary>
-        private Transform myTransform;
-
+        public KamikazeEnemyData kamikazeEnemyData;
+        
         /// <summary>
         /// How fast this enemy moves towards the player.
         /// </summary>
-        public float moveSpeed;
+        private float moveSpeed;
 
         /// <summary>
         /// How fast this enemy rotates towards the player.
         /// </summary>
-        public float rotationSpeed;
+        private float rotationSpeed;
 
         /// <summary>
         /// How close this enemy can get to the player before exploding.
         /// </summary>
-        public float range;
+        private float range;
 
         /// <summary>
         /// How much damage this enemy does to the player.
@@ -55,6 +52,8 @@ namespace Hive.Armada.Enemies
         /// If the Kamikaze has gone in range before.
         /// </summary>
         private bool inRange;
+
+        private GameObject player;
 
         /// <summary>
         /// Audio source for this enemy.
@@ -72,20 +71,23 @@ namespace Hive.Armada.Enemies
         /// </summary>
         private GameObject playerShield;
 
-        /// <summary>
-        /// Looks at the player and stores own position.
-        /// </summary>
-        private void Start()
+        protected override void Awake()
         {
-            if (player == null)
-            {
-                player = reference.playerShip;
-            }
-
-            transform.LookAt(player.transform.position);
-            playerShield = FindObjectOfType<MasterCollider>().gameObject;
-
+            base.Awake();
+            player = reference.playerShip;
             source = GetComponent<AudioSource>();
+            
+            Initialize(kamikazeEnemyData);
+        }
+
+        private void Initialize(KamikazeEnemyData enemyData)
+        {
+            base.Initialize(enemyData);
+
+            moveSpeed = enemyData.moveSpeed;
+            rotationSpeed = enemyData.rotationSpeed;
+            range = enemyData.range;
+            damage = reference.projectileData.projectileDamage;
         }
 
         /// <summary>
@@ -97,18 +99,18 @@ namespace Hive.Armada.Enemies
             {
                 if (player != null)
                 {
-                    myTransform = transform;
-                    myTransform.rotation = Quaternion.Lerp(myTransform.rotation,
-                                                           Quaternion.LookRotation(
-                                                               player.transform.position
-                                                               - myTransform.position),
-                                                           rotationSpeed * Time.deltaTime);
+                    transform.rotation = Quaternion.Lerp(transform.rotation,
+                                                         Quaternion.LookRotation(
+                                                             player.transform.position
+                                                             - transform.position),
+                                                         rotationSpeed * Time.deltaTime);
 
-                    myTransform.position += myTransform.forward * moveSpeed * Time.deltaTime;
+                    transform.position += transform.forward * moveSpeed * Time.deltaTime;
 
                     if (shaking)
                     {
-                        iTween.ShakePosition(gameObject, new Vector3(0.001f, 0.001f, 0.001f), 0.01f);
+                        iTween.ShakePosition(gameObject, new Vector3(0.001f, 0.001f, 0.001f),
+                                             0.01f);
                     }
                 }
                 else
@@ -120,6 +122,13 @@ namespace Hive.Armada.Enemies
                         transform.LookAt(new Vector3(0.0f, 0.0f, 0.0f));
                     }
                 }
+
+                if (playerShield != null)
+                {
+                    return;
+                }
+
+                playerShield = FindObjectOfType<MasterCollider>().gameObject;
             }
         }
 
@@ -131,9 +140,10 @@ namespace Hive.Armada.Enemies
         /// </param>
         private void OnTriggerEnter(Collider other)
         {
-            if (other.tag == "Player")
+            if (other.CompareTag("Player"))
             {
                 FindObjectOfType<PlayerHealth>().Hit(damage);
+
                 //other.gameObject.GetComponent<PlayerHealth>().Hit(damage);
                 Kill();
             }
@@ -146,10 +156,11 @@ namespace Hive.Armada.Enemies
         {
             if (!nearPlayer)
             {
-                Debug.Log("I am near the player");
-                nearPlayer = true;
-                StartCoroutine(InRange());
+                return;
             }
+
+            nearPlayer = true;
+            StartCoroutine(InRange());
         }
 
         /// <summary>
@@ -157,7 +168,6 @@ namespace Hive.Armada.Enemies
         /// </summary>
         private IEnumerator InRange()
         {
-            Debug.Log("I am in range");
             inRange = true;
             moveSpeed = moveSpeed / 2;
             source.PlayOneShot(clip);
@@ -168,8 +178,10 @@ namespace Hive.Armada.Enemies
             if (Vector3.Distance(gameObject.transform.position, player.transform.position) < range)
             {
                 FindObjectOfType<PlayerHealth>().Hit(damage);
+
                 //player.GetComponentInParent<PlayerHealth>().Hit(damage);
             }
+
             Kill();
         }
 
@@ -181,7 +193,6 @@ namespace Hive.Armada.Enemies
             base.Reset();
 
             inRange = false;
-            damage = enemyAttributes.projectileDamage;
         }
     }
 }

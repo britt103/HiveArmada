@@ -203,6 +203,7 @@ namespace Hive.Armada.Player.Weapons
                 muzzleFlashEmitters[i] = muzzleFlashSystem;
             }
 
+            waitFire = new WaitForSeconds(1.0f / fireRate);
             waitOverheatDecreaseDelay = new WaitForSeconds(overheatDecreaseDelay);
         }
 

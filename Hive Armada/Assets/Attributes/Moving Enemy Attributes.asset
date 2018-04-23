@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 209be5e6b3b94661855dc366864e926e, type: 3}
+  m_Name: Moving Enemy Attributes
+  m_EditorClassIdentifier: 
+  maxHealth: 120
+  scoreValue: 20
+  flashColor: {fileID: 2100000, guid: 1db15971033ba594294b4f0c035f7da8, type: 2}
+  deathEmitter: {fileID: 1863635324859942, guid: 6143a09b23403f84a9a9a2211c9c4e09,
+    type: 2}
+  selfDestructTime: 180
+  pattern1: {fileID: 11400000, guid: a7e8911fc96bab049905b369bd4ed784, type: 2}
+  pattern2: {fileID: 11400000, guid: 9eb73041b54303a4d9de1a05ef0310d4, type: 2}
+  pattern3: {fileID: 11400000, guid: a7e8911fc96bab049905b369bd4ed784, type: 2}
+  pattern4: {fileID: 11400000, guid: 9eb73041b54303a4d9de1a05ef0310d4, type: 2}
+  canHover: 1
+  isVertical: 0
+  hoverDistance: 2
+  hoverTime: 3

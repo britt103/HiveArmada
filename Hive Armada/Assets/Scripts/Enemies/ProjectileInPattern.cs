@@ -35,11 +35,7 @@ namespace Hive.Armada.Enemies
         {
             reference = FindObjectOfType<ReferenceManager>();
             pattern = gameObject.GetComponentInParent<ProjectilePattern>();
-        }
-
-        public void SetDamage(int damage)
-        {
-            projectileDamage = damage;
+            projectileDamage = reference.projectileData.projectileDamage;
         }
 
         public void Reset()

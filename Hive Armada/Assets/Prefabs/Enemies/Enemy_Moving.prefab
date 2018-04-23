@@ -1506,18 +1506,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flashColor: {fileID: 2100000, guid: 1db15971033ba594294b4f0c035f7da8, type: 2}
+  lookStrength: 3
   shootPoint: {fileID: 4088122885463298}
-  projectileArray: 010407070707070707
-  fireProjectile: {fileID: 1590670541974036, guid: 4311fbf60b3f2d849bdfd5fbcf4dbd1e,
-    type: 2}
-  movingSpeed: 1
-  xMax: 3
-  yMax: 0
-  projectileAlbedoColor: {r: 0.9117647, g: 0.13229527, b: 0, a: 1}
-  projectileEmissionColor: {r: 0.9411765, g: 0.8573765, b: 0.17301038, a: 1}
-  projectilePatterns:
-  - {fileID: 1344628441058594, guid: 5aa2ec81e2c3d2c43add9f5a43da634b, type: 2}
-  - {fileID: 1587026779172016, guid: ea58860281aa55745bbb156499e70f21, type: 2}
+  enemyData: {fileID: 11400000, guid: 0b614edc7d8b7534d8ebc40cfff40616, type: 2}
 --- !u!136 &136533660940216798
 CapsuleCollider:
   m_ObjectHideFlags: 1

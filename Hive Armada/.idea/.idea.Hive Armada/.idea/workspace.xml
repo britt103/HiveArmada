@@ -1,20 +1,1625 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="c2a391ac-3c71-4014-85ca-902e3cc12388" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Hive Armada/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Hive Armada/.idea/contentModel.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemies/Enemy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemies/Enemy.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemies/JumperTurret.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemies/JumperTurret.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemies/SplitterChild.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemies/SplitterChild.cs" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="Projectile.cs" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Assets/Scripts/Enemies/Projectile.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="752">
+              <caret line="103" column="62" selection-start-line="103" selection-start-column="62" selection-end-line="103" selection-end-column="62" />
+              <folding>
+                <marker date="1524519379576" expanded="true" signature="0:435" ph="/* ============================================================================= ... */" />
+                <marker date="1524519379576" expanded="false" signature="443:578" ph="..." />
+                <marker date="1524519379576" expanded="true" signature="609:8020" ph="{...}" />
+                <marker date="1524519379576" expanded="true" signature="616:703" ph="/// Basic projectile used by all shooting enemies. ... " />
+                <marker date="1524519379576" expanded="true" signature="742:8018" ph="{...}" />
+                <marker date="1524519379576" expanded="true" signature="842:923" ph="/// The renderer for the projectile. ... " />
+                <marker date="1524519379576" expanded="true" signature="968:1083" ph="/// The amount of damage the projectile takes from the player's health ... " />
+                <marker date="1524519379576" expanded="true" signature="1121:1157" ph="/// ... " />
+                <marker date="1524519379576" expanded="true" signature="1222:1322" ph="/// The original albedo color, used to reset the color. ... " />
+                <marker date="1524519379576" expanded="true" signature="1370:1472" ph="/// The original emission color, used to reset the color. ... " />
+                <marker date="1524519379576" expanded="true" signature="1522:1596" ph="/// The current albedo color. ... " />
+                <marker date="1524519379576" expanded="true" signature="1643:1756" ph="/// The current alpha for this projectile in the range [0.0f, 1.0f]. ... " />
+                <marker date="1524519379576" expanded="true" signature="1809:1890" ph="/// The maximum value for the alpha. ... " />
+                <marker date="1524519379576" expanded="true" signature="1946:2027" ph="/// The minimum value for the alpha. ... " />
+                <marker date="1524519379576" expanded="true" signature="2083:2162" ph="/// Length of the fade in seconds. ... " />
+                <marker date="1524519379576" expanded="true" signature="2218:2314" ph="/// Number of steps the fade should be broken into. ... " />
+                <marker date="1524519379576" expanded="true" signature="2367:2466" ph="/// The coroutine for fading the projectile in or out. ... " />
+                <marker date="1524519379576" expanded="true" signature="2517:2605" ph="/// The coroutine for the time warp effect. ... " />
+                <marker date="1524519379576" expanded="true" signature="2660:2759" ph="/// Initializes the reference to the Reference Manager ... " />
+                <marker date="1524519379576" expanded="true" signature="2799:3179" ph="{...}" />
+                <marker date="1524519379576" expanded="true" signature="3189:3330" ph="/// Sets this projectile's speed ID number. ... " />
+                <marker date="1524519379576" expanded="true" signature="3366:3682" ph="{...}" />
+                <marker date="1524519379576" expanded="true" signature="3611:3672" ph="{...}" />
+                <marker date="1524519379576" expanded="true" signature="3692:3839" ph="/// Sets the velocity of the projectile. ... " />
+                <marker date="1524519379576" expanded="true" signature="3887:3971" ph="{...}" />
+                <marker date="1524519379576" expanded="true" signature="3981:4087" ph="/// Initiates the time warp functionality for the projectile. ... " />
+                <marker date="1524519379576" expanded="true" signature="4123:4325" ph="{...}" />
+                <marker date="1524519379576" expanded="true" signature="4176:4254" ph="{...}" />
+                <marker date="1524519379576" expanded="true" signature="4335:4440" ph="/// Updates the velocity as long as the time warp is active. ... " />
+                <marker date="1524519379576" expanded="true" signature="4479:4880" ph="{...}" />
+                <marker date="1524519379576" expanded="true" signature="4581:4799" ph="{...}" />
+                <marker date="1524519379576" expanded="true" signature="4890:5070" ph="/// Runs when the projectile collides with another object with a Collider. ... " />
+                <marker date="1524519379576" expanded="true" signature="5122:5838" ph="{...}" />
+                <marker date="1524519379576" expanded="true" signature="5176:5648" ph="{...}" />
+                <marker date="1524519379576" expanded="true" signature="5227:5398" ph="{...}" />
+                <marker date="1524519379576" expanded="true" signature="5449:5568" ph="{...}" />
+                <marker date="1524519379576" expanded="true" signature="5735:5828" ph="{...}" />
+                <marker date="1524519379576" expanded="true" signature="5848:6019" ph="/// Begins fading the opacity of the projectile. ... " />
+                <marker date="1524519379576" expanded="true" signature="6065:6268" ph="{...}" />
+                <marker date="1524519379576" expanded="true" signature="6088:6258" ph="/* if (fadeCoroutine != null) ... */" />
+                <marker date="1524519379576" expanded="true" signature="6278:6441" ph="/// Fades the opacity of the projectile. ... " />
+                <marker date="1524519379576" expanded="true" signature="6488:7910" ph="{...}" />
+                <marker date="1524519379576" expanded="true" signature="6672:6783" ph="{...}" />
+                <marker date="1524519379576" expanded="true" signature="6800:6911" ph="{...}" />
+                <marker date="1524519379576" expanded="true" signature="6925:7030" ph="/* Scaled based on projectile speed. ... */" />
+                <marker date="1524519379576" expanded="true" signature="7351:7508" ph="/* Debug.LogWarning(PoolIdentifier + &quot; - (&quot; + FADE_TIME + &quot;, &quot; + alphaScale + &quot;, &quot; + ... */" />
+                <marker date="1524519379576" expanded="true" signature="7538:7865" ph="{...}" />
+                <marker date="1524519379576" expanded="true" signature="7959:8012" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ProjectileInPattern.cs" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Assets/Scripts/Enemies/ProjectileInPattern.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="404">
+              <caret line="37" column="72" selection-start-line="37" selection-start-column="72" selection-end-line="37" selection-end-column="72" />
+              <folding>
+                <marker date="1524519362700" expanded="true" signature="0:435" ph="/* ============================================================================= ... */" />
+                <marker date="1524519362700" expanded="false" signature="443:505" ph="..." />
+                <marker date="1524519362700" expanded="true" signature="536:2447" ph="{...}" />
+                <marker date="1524519362700" expanded="true" signature="543:630" ph="/// Basic projectile used by all shooting enemies. ... " />
+                <marker date="1524519362700" expanded="true" signature="683:2445" ph="{...}" />
+                <marker date="1524519362700" expanded="true" signature="896:1128" ph="{...}" />
+                <marker date="1524519362700" expanded="true" signature="1157:1205" ph="{...}" />
+                <marker date="1524519362700" expanded="true" signature="1232:1320" ph="{...}" />
+                <marker date="1524519362700" expanded="true" signature="1330:1510" ph="/// Runs when the projectile collides with another object with a Collider. ... " />
+                <marker date="1524519362700" expanded="true" signature="1562:2439" ph="{...}" />
+                <marker date="1524519362700" expanded="true" signature="1596:1648" ph="{...}" />
+                <marker date="1524519362700" expanded="true" signature="1693:2228" ph="{...}" />
+                <marker date="1524519362700" expanded="true" signature="1776:1947" ph="{...}" />
+                <marker date="1524519362700" expanded="true" signature="1998:2127" ph="{...}" />
+                <marker date="1524519362700" expanded="true" signature="2315:2429" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ProjectilePattern.cs" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Assets/Scripts/Enemies/ProjectilePattern.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="450">
+              <caret line="101" column="8" selection-start-line="101" selection-start-column="8" selection-end-line="101" selection-end-column="8" />
+              <folding>
+                <marker date="1524519270531" expanded="true" signature="0:435" ph="/* ============================================================================= ... */" />
+                <marker date="1524519270531" expanded="false" signature="443:578" ph="..." />
+                <marker date="1524519270531" expanded="true" signature="609:7180" ph="{...}" />
+                <marker date="1524519270531" expanded="true" signature="616:703" ph="/// Basic projectile used by all shooting enemies. ... " />
+                <marker date="1524519270531" expanded="true" signature="749:7178" ph="{...}" />
+                <marker date="1524519270531" expanded="true" signature="803:884" ph="/// The renderer for the projectile. ... " />
+                <marker date="1524519270531" expanded="true" signature="929:965" ph="/// ... " />
+                <marker date="1524519270531" expanded="true" signature="1029:1103" ph="/// The current albedo color. ... " />
+                <marker date="1524519270531" expanded="true" signature="1150:1263" ph="/// The current alpha for this projectile in the range [0.0f, 1.0f]. ... " />
+                <marker date="1524519270531" expanded="true" signature="1316:1397" ph="/// The maximum value for the alpha. ... " />
+                <marker date="1524519270531" expanded="true" signature="1453:1534" ph="/// The minimum value for the alpha. ... " />
+                <marker date="1524519270531" expanded="true" signature="1590:1669" ph="/// Length of the fade in seconds. ... " />
+                <marker date="1524519270531" expanded="true" signature="1725:1821" ph="/// Number of steps the fade should be broken into. ... " />
+                <marker date="1524519270531" expanded="true" signature="1874:1973" ph="/// The coroutine for fading the projectile in or out. ... " />
+                <marker date="1524519270531" expanded="true" signature="2024:2112" ph="/// The coroutine for the time warp effect. ... " />
+                <marker date="1524519270531" expanded="true" signature="2304:2403" ph="/// Initializes the reference to the Reference Manager ... " />
+                <marker date="1524519270531" expanded="true" signature="2443:2821" ph="{...}" />
+                <marker date="1524519270531" expanded="true" signature="2692:2811" ph="{...}" />
+                <marker date="1524519270531" expanded="true" signature="2849:2990" ph="/// Sets this projectile's speed ID number. ... " />
+                <marker date="1524519270531" expanded="true" signature="3026:3342" ph="{...}" />
+                <marker date="1524519270531" expanded="true" signature="3271:3332" ph="{...}" />
+                <marker date="1524519270531" expanded="true" signature="3352:3499" ph="/// Sets the velocity of the projectile. ... " />
+                <marker date="1524519270531" expanded="true" signature="3547:3631" ph="{...}" />
+                <marker date="1524519270531" expanded="true" signature="3641:3747" ph="/// Initiates the time warp functionality for the projectile. ... " />
+                <marker date="1524519270531" expanded="true" signature="3783:3985" ph="{...}" />
+                <marker date="1524519270531" expanded="true" signature="3836:3914" ph="{...}" />
+                <marker date="1524519270531" expanded="true" signature="3995:4100" ph="/// Updates the velocity as long as the time warp is active. ... " />
+                <marker date="1524519270531" expanded="true" signature="4139:4490" ph="{...}" />
+                <marker date="1524519270531" expanded="true" signature="4208:4442" ph="{...}" />
+                <marker date="1524519270531" expanded="true" signature="4500:4671" ph="/// Begins fading the opacity of the projectile. ... " />
+                <marker date="1524519270531" expanded="true" signature="4717:4920" ph="{...}" />
+                <marker date="1524519270531" expanded="true" signature="4740:4910" ph="/* if (fadeCoroutine != null) ... */" />
+                <marker date="1524519270531" expanded="true" signature="4930:5093" ph="/// Fades the opacity of the projectile. ... " />
+                <marker date="1524519270531" expanded="true" signature="5140:6562" ph="{...}" />
+                <marker date="1524519270531" expanded="true" signature="5324:5435" ph="{...}" />
+                <marker date="1524519270531" expanded="true" signature="5452:5563" ph="{...}" />
+                <marker date="1524519270531" expanded="true" signature="5577:5682" ph="/* Scaled based on projectile speed. ... */" />
+                <marker date="1524519270531" expanded="true" signature="6003:6160" ph="/* Debug.LogWarning(PoolIdentifier + &quot; - (&quot; + FADE_TIME + &quot;, &quot; + alphaScale + &quot;, &quot; + ... */" />
+                <marker date="1524519270531" expanded="true" signature="6190:6517" ph="{...}" />
+                <marker date="1524519270531" expanded="true" signature="6599:6799" ph="{...}" />
+                <marker date="1524519270531" expanded="true" signature="6696:6789" ph="{...}" />
+                <marker date="1524519270531" expanded="true" signature="6809:6900" ph="/// Initializes the damage for the projectile. ... " />
+                <marker date="1524519270531" expanded="true" signature="6940:7172" ph="{...}" />
+                <marker date="1524519270531" expanded="true" signature="7040:7162" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HealthData.cs" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Assets/Scripts/Data/HealthData.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="135">
+              <caret line="9" column="35" selection-start-line="9" selection-start-column="35" selection-end-line="9" selection-end-column="35" />
+              <folding>
+                <marker date="1524519293170" expanded="true" signature="46:260" ph="{...}" />
+                <marker date="1524519293170" expanded="true" signature="173:258" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ProjectileData.cs" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Assets/Scripts/Data/ProjectileData.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="105">
+              <caret line="7" column="36" selection-start-line="7" selection-start-column="36" selection-end-line="7" selection-end-column="36" />
+              <folding>
+                <marker date="1524519329966" expanded="true" signature="46:236" ph="{...}" />
+                <marker date="1524519329966" expanded="true" signature="185:234" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ReferenceManager.cs" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Assets/Scripts/Game/ReferenceManager.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="330">
+              <caret line="73" column="45" selection-start-line="73" selection-start-column="45" selection-end-line="73" selection-end-column="45" />
+              <folding>
+                <marker date="1524519351337" expanded="true" signature="0:646" ph="/* ============================================================================= ... */" />
+                <marker date="1524519351337" expanded="false" signature="654:807" ph="..." />
+                <marker date="1524519351337" expanded="true" signature="835:6637" ph="{...}" />
+                <marker date="1524519351337" expanded="true" signature="842:937" ph="/// Holds references to all prefabs and important objects. ... " />
+                <marker date="1524519351337" expanded="true" signature="987:6635" ph="{...}" />
+                <marker date="1524519351337" expanded="true" signature="1002:1149" ph="/* ---------------------------------------- ... */" />
+                <marker date="1524519351337" expanded="true" signature="2049:2184" ph="/* ---------------------------------------- ... */" />
+                <marker date="1524519351337" expanded="true" signature="2615:2754" ph="/* ---------------------------------------- ... */" />
+                <marker date="1524519351337" expanded="true" signature="2764:2834" ph="/// Main menu game object ... " />
+                <marker date="1524519351337" expanded="true" signature="2906:2979" ph="/// Title screen game object ... " />
+                <marker date="1524519351337" expanded="true" signature="3064:3173" ph="/// Wave count Text. Shows &quot;Wave ##&quot; where ## is the current wave. ... " />
+                <marker date="1524519351337" expanded="true" signature="3226:3300" ph="/// Game win menu with score. ... " />
+                <marker date="1524519351337" expanded="true" signature="3345:3420" ph="/// Game over menu with score. ... " />
+                <marker date="1524519351337" expanded="true" signature="3519:3653" ph="/* ---------------------------------------- ... */" />
+                <marker date="1524519351337" expanded="true" signature="3824:3925" ph="/// Sound for when a powerup is picked up by the player. ... " />
+                <marker date="1524519351337" expanded="true" signature="3979:4115" ph="/* ---------------------------------------- ... */" />
+                <marker date="1524519351337" expanded="true" signature="4125:4228" ph="/// Calls any functions needed to initialize any managers. ... " />
+                <marker date="1524519351337" expanded="true" signature="4257:6629" ph="{...}" />
+                <marker date="1524519351337" expanded="true" signature="4310:4390" ph="{...}" />
+                <marker date="1524519351337" expanded="true" signature="4429:4522" ph="{...}" />
+                <marker date="1524519351337" expanded="true" signature="4563:4660" ph="{...}" />
+                <marker date="1524519351337" expanded="true" signature="4698:4772" ph="{...}" />
+                <marker date="1524519351337" expanded="true" signature="4807:4878" ph="{...}" />
+                <marker date="1524519351337" expanded="true" signature="4915:5005" ph="{...}" />
+                <marker date="1524519351337" expanded="true" signature="5045:5140" ph="{...}" />
+                <marker date="1524519351337" expanded="true" signature="5183:5262" ph="{...}" />
+                <marker date="1524519351337" expanded="true" signature="5303:5401" ph="{...}" />
+                <marker date="1524519351337" expanded="true" signature="5418:5610" ph="{...}" />
+                <marker date="1524519351337" expanded="true" signature="5640:6074" ph="{...}" />
+                <marker date="1524519351337" expanded="true" signature="5674:5889" ph="{...}" />
+                <marker date="1524519351337" expanded="true" signature="5923:6060" ph="{...}" />
+                <marker date="1524519351337" expanded="true" signature="6112:6313" ph="{...}" />
+                <marker date="1524519351337" expanded="true" signature="6213:6299" ph="{...}" />
+                <marker date="1524519351337" expanded="true" signature="6399:6513" ph="{...}" />
+                <marker date="1524519351337" expanded="true" signature="6548:6619" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="KamikazeTurret.cs" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Assets/Scripts/Enemies/KamikazeTurret.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="660">
+              <caret line="89" column="62" selection-start-line="89" selection-start-column="62" selection-end-line="89" selection-end-column="62" />
+              <folding>
+                <marker date="1524519385668" expanded="true" signature="0:325" ph="/* ============================================================================= ... */" />
+                <marker date="1524519385668" expanded="false" signature="333:421" ph="..." />
+                <marker date="1524519385668" expanded="true" signature="452:5857" ph="{...}" />
+                <marker date="1524519385668" expanded="true" signature="459:514" ph="/// Kamikaze enemy ... " />
+                <marker date="1524519385668" expanded="true" signature="554:5855" ph="{...}" />
+                <marker date="1524519385668" expanded="true" signature="630:724" ph="/// How fast this enemy moves towards the player. ... " />
+                <marker date="1524519385668" expanded="true" signature="767:863" ph="/// How fast this enemy rotates towards the player. ... " />
+                <marker date="1524519385668" expanded="true" signature="910:1019" ph="/// How close this enemy can get to the player before exploding. ... " />
+                <marker date="1524519385668" expanded="true" signature="1058:1153" ph="/// How much damage this enemy does to the player. ... " />
+                <marker date="1524519385668" expanded="true" signature="1191:1289" ph="/// If the Kamikaze has already gone near the player. ... " />
+                <marker date="1524519385668" expanded="true" signature="1332:1422" ph="/// If the Kamikaze has gone in range before. ... " />
+                <marker date="1524519385668" expanded="true" signature="1498:1575" ph="/// Audio source for this enemy. ... " />
+                <marker date="1524519385668" expanded="true" signature="1621:1703" ph="/// Audio clip attached to this enemy ... " />
+                <marker date="1524519385668" expanded="true" signature="1744:1880" ph="/// Shield attached to player ship. ... " />
+                <marker date="1524519385668" expanded="true" signature="1962:2157" ph="{...}" />
+                <marker date="1524519385668" expanded="true" signature="2219:2479" ph="{...}" />
+                <marker date="1524519385668" expanded="true" signature="2489:2633" ph="/// Moves the enemy closer to the player and explodes if they are within 'range'. Runs every frame. ... " />
+                <marker date="1524519385668" expanded="true" signature="2663:4004" ph="{...}" />
+                <marker date="1524519385668" expanded="true" signature="2706:3994" ph="{...}" />
+                <marker date="1524519385668" expanded="true" signature="2756:3528" ph="{...}" />
+                <marker date="1524519385668" expanded="true" signature="3319:3510" ph="{...}" />
+                <marker date="1524519385668" expanded="true" signature="3549:3794" ph="{...}" />
+                <marker date="1524519385668" expanded="true" signature="3659:3776" ph="{...}" />
+                <marker date="1524519385668" expanded="true" signature="3837:3901" ph="{...}" />
+                <marker date="1524519385668" expanded="true" signature="4014:4223" ph="/// Causes a timed explosion when the enemy gets too close to the player ... " />
+                <marker date="1524519385668" expanded="true" signature="4275:4531" ph="{...}" />
+                <marker date="1524519385668" expanded="true" signature="4329:4521" ph="{...}" />
+                <marker date="1524519385668" expanded="true" signature="4541:4626" ph="/// Runs InRange if not already running. ... " />
+                <marker date="1524519385668" expanded="true" signature="4659:4831" ph="{...}" />
+                <marker date="1524519385668" expanded="true" signature="4698:4750" ph="{...}" />
+                <marker date="1524519385668" expanded="true" signature="4841:4966" ph="/// Causes a timed explosion when the enemy gets within range of the player ship ... " />
+                <marker date="1524519385668" expanded="true" signature="5004:5610" ph="{...}" />
+                <marker date="1524519385668" expanded="true" signature="5191:5313" ph="/* if (playerShield.GetComponent&lt;Collider&gt;().bounds ... */" />
+                <marker date="1524519385668" expanded="true" signature="5413:5579" ph="{...}" />
+                <marker date="1524519385668" expanded="true" signature="5620:5733" ph="/// Resets attributes to this enemy's defaults from enemyAttributes. ... " />
+                <marker date="1524519385668" expanded="true" signature="5773:5849" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PlayerHealth.cs" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Assets/Scripts/Player/PlayerHealth.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="572">
+              <caret line="301" selection-start-line="301" selection-end-line="301" />
+              <folding>
+                <marker date="1524519468729" expanded="true" signature="0:406" ph="/* ============================================================================= ... */" />
+                <marker date="1524519468729" expanded="false" signature="414:563" ph="..." />
+                <marker date="1524519468729" expanded="true" signature="593:9740" ph="{...}" />
+                <marker date="1524519468729" expanded="true" signature="600:674" ph="/// Handles the player ship's health. ... " />
+                <marker date="1524519468729" expanded="true" signature="720:9738" ph="{...}" />
+                <marker date="1524519468729" expanded="true" signature="735:881" ph="/// Reference manager that holds all needed references ... " />
+                <marker date="1524519468729" expanded="true" signature="935:1024" ph="/// Reference to the ship controller script. ... " />
+                <marker date="1524519468729" expanded="true" signature="1168:1245" ph="/// Maximum health for the ship. ... " />
+                <marker date="1524519468729" expanded="true" signature="1286:1363" ph="/// Current health for the ship. ... " />
+                <marker date="1524519468729" expanded="true" signature="1408:1503" ph="/// Material that the ship flashes when it is hit. ... " />
+                <marker date="1524519468729" expanded="true" signature="1585:1750" ph="/// Renderers for the game objects on the back of the ship ... " />
+                <marker date="1524519468729" expanded="true" signature="1759:1893" ph="[...]" />
+                <marker date="1524519468729" expanded="true" signature="1986:2067" ph="/// Material for intact health pods. ... " />
+                <marker date="1524519468729" expanded="true" signature="2174:2258" ph="/// Material for destroyed health pods. ... " />
+                <marker date="1524519468729" expanded="true" signature="2371:2470" ph="/// Particle emitter that spawns when the ship is hit. ... " />
+                <marker date="1524519468729" expanded="true" signature="2619:2730" ph="/// Particle emitter that spawns on a health pod when it blows up. ... " />
+                <marker date="1524519468729" expanded="true" signature="2865:2978" ph="/// Particle emitter that is activated when the ship has 1 hit left. ... " />
+                <marker date="1524519468729" expanded="true" signature="3113:3212" ph="/// Particle emitter that spawns when the player dies. ... " />
+                <marker date="1524519468729" expanded="true" signature="3334:3480" ph="/// Used to prevent HitFlash() from being called a ... " />
+                <marker date="1524519468729" expanded="true" signature="3526:3634" ph="/// List of Renderers on the player ship that are not emitters. ... " />
+                <marker date="1524519468729" expanded="true" signature="3686:3844" ph="/// List of Materials of all pieces of the player ship model. ... " />
+                <marker date="1524519468729" expanded="true" signature="3896:3986" ph="/// Audio source for playing sounds when hit. ... " />
+                <marker date="1524519468729" expanded="true" signature="4057:4148" ph="/// The sound that plays when the ship is hit. ... " />
+                <marker date="1524519468729" expanded="true" signature="4262:4347" ph="/// The look target for the player ship. ... " />
+                <marker date="1524519468729" expanded="true" signature="4396:4476" ph="/// Reference to PlayerHitVignette. ... " />
+                <marker date="1524519468729" expanded="true" signature="4539:4637" ph="/// Initializes health and renderers for hit flashing ... " />
+                <marker date="1524519468729" expanded="true" signature="4666:5840" ph="{...}" />
+                <marker date="1524519468729" expanded="true" signature="5208:5321" ph="{...}" />
+                <marker date="1524519468729" expanded="true" signature="5405:5677" ph="{...}" />
+                <marker date="1524519468729" expanded="true" signature="5519:5585" ph="{...}" />
+                <marker date="1524519468729" expanded="true" signature="5850:5998" ph="/// Deals damage to the player ship. ... " />
+                <marker date="1524519468729" expanded="true" signature="6034:7856" ph="{...}" />
+                <marker date="1524519468729" expanded="true" signature="6080:6132" ph="{...}" />
+                <marker date="1524519468729" expanded="true" signature="6346:6613" ph="{...}" />
+                <marker date="1524519468729" expanded="true" signature="6764:6889" ph="{...}" />
+                <marker date="1524519468729" expanded="true" signature="6973:7127" ph="{...}" />
+                <marker date="1524519468729" expanded="true" signature="7026:7113" ph="{...}" />
+                <marker date="1524519468729" expanded="true" signature="7164:7728" ph="{...}" />
+                <marker date="1524519468729" expanded="true" signature="7222:7714" ph="{...}" />
+                <marker date="1524519468729" expanded="true" signature="7763:7846" ph="{...}" />
+                <marker date="1524519468729" expanded="true" signature="7866:7947" ph="/// Flashes the player ship when hit ... " />
+                <marker date="1524519468729" expanded="true" signature="7986:8414" ph="{...}" />
+                <marker date="1524519468729" expanded="true" signature="8089:8158" ph="{...}" />
+                <marker date="1524519468729" expanded="true" signature="8292:8374" ph="{...}" />
+                <marker date="1524519468729" expanded="true" signature="8424:8507" ph="/// Restores one health to the player. ... " />
+                <marker date="1524519468729" expanded="true" signature="8537:8848" ph="{...}" />
+                <marker date="1524519468729" expanded="true" signature="8602:8654" ph="{...}" />
+                <marker date="1524519468729" expanded="true" signature="8858:8941" ph="/// Restores all health to the player. ... " />
+                <marker date="1524519468729" expanded="true" signature="8972:9407" ph="{...}" />
+                <marker date="1524519468729" expanded="true" signature="9026:9078" ph="{...}" />
+                <marker date="1524519468729" expanded="true" signature="9125:9397" ph="{...}" />
+                <marker date="1524519468729" expanded="true" signature="9452:9732" ph="{...}" />
+                <marker date="1524519468729" expanded="true" signature="9496:9635" ph="{...}" />
+                <marker date="1524519468729" expanded="true" signature="9652:9722" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Enemy.cs" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Assets/Scripts/Enemies/Enemy.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-3720">
+              <caret line="21" column="18" selection-start-line="21" selection-start-column="18" selection-end-line="21" selection-end-column="18" />
+              <folding>
+                <marker date="1524518721509" expanded="true" signature="0:412" ph="/* ============================================================================= ... */" />
+                <marker date="1524518721509" expanded="false" signature="420:624" ph="..." />
+                <marker date="1524518721509" expanded="true" signature="655:11691" ph="{...}" />
+                <marker date="1524518721509" expanded="true" signature="662:742" ph="/// Varying attack patterns for this enemy. ... " />
+                <marker date="1524518721509" expanded="true" signature="772:931" ph="{...}" />
+                <marker date="1524518721509" expanded="true" signature="937:1032" ph="/// The base class for all enemies. ... " />
+                <marker date="1524518721509" expanded="true" signature="1075:11689" ph="{...}" />
+                <marker date="1524518721509" expanded="true" signature="1132:1255" ph="/// Reference to enemy attributes to initialize/reset this enemy's attributes. ... " />
+                <marker date="1524518721509" expanded="true" signature="1316:1435" ph="/// Reference to the scoring system for adding score when this enemy dies. ... " />
+                <marker date="1524518721509" expanded="true" signature="1490:1673" ph="/// Reference to the object pool manager. Used for easy access to spawning projectiles ... " />
+                <marker date="1524518721509" expanded="true" signature="1788:1978" ph="/// Reference to the wave that spawned this enemy. Used to inform it ... " />
+                <marker date="1524518721509" expanded="true" signature="2046:2170" ph="/// Whether or not this enemy has already been initialized with its attributes. ... " />
+                <marker date="1524518721509" expanded="true" signature="2218:2305" ph="/// How much health the enemy spawns with. ... " />
+                <marker date="1524518721509" expanded="true" signature="2408:2500" ph="/// Current health. Cannot be publicly changed. ... " />
+                <marker date="1524518721509" expanded="true" signature="2560:2657" ph="/// How many points this enemy is worth when killed. ... " />
+                <marker date="1524518721509" expanded="true" signature="2771:2862" ph="/// The color the ship flashes when it is hit. ... " />
+                <marker date="1524518721509" expanded="true" signature="2972:3058" ph="/// The particle emitter for enemy death. ... " />
+                <marker date="1524518721509" expanded="true" signature="3170:3294" ph="/// The type identifier needed to spawn the death emitter from the object pool. ... " />
+                <marker date="1524518721509" expanded="true" signature="3359:3505" ph="/// Used to prevent HitFlash() from being called a ... " />
+                <marker date="1524518721509" expanded="true" signature="3553:3658" ph="/// List of Renderers on the enemy that will flash when hit. ... " />
+                <marker date="1524518721509" expanded="true" signature="3712:3864" ph="/// List of Materials of all pieces of the enemy model. ... " />
+                <marker date="1524518721509" expanded="true" signature="3918:4020" ph="/// The attack pattern number that this enemy should use. ... " />
+                <marker date="1524518721509" expanded="true" signature="4077:4171" ph="/// Time until enemy self-destructs if untouched. ... " />
+                <marker date="1524518721509" expanded="true" signature="4223:4290" ph="/// The player's ship. ... " />
+                <marker date="1524518721509" expanded="true" signature="4344:4426" ph="/// Used to shake low health enemies. ... " />
+                <marker date="1524518721509" expanded="true" signature="4468:4552" ph="/// If this enemy has finished pathing. ... " />
+                <marker date="1524518721509" expanded="true" signature="4622:4838" ph="/// Initializes references to ReferenceManager and other managers, list of renderers and ... " />
+                <marker date="1524518721509" expanded="true" signature="4878:5679" ph="{...}" />
+                <marker date="1524518721509" expanded="true" signature="5377:5669" ph="{...}" />
+                <marker date="1524518721509" expanded="true" signature="5511:5577" ph="{...}" />
+                <marker date="1524518721509" expanded="true" signature="5689:5867" ph="/// Initializes the attributes for this enemy. ... " />
+                <marker date="1524518721509" expanded="true" signature="5922:6309" ph="{...}" />
+                <marker date="1524518721509" expanded="true" signature="6352:6428" ph="{...}" />
+                <marker date="1524518721509" expanded="true" signature="6464:6517" ph="{...}" />
+                <marker date="1524518721509" expanded="true" signature="6527:6789" ph="/// Used to apply damage to an enemy. ... " />
+                <marker date="1524518721509" expanded="true" signature="6860:7577" ph="{...}" />
+                <marker date="1524518721509" expanded="true" signature="6904:6956" ph="{...}" />
+                <marker date="1524518721509" expanded="true" signature="6987:7245" ph="{...}" />
+                <marker date="1524518721509" expanded="true" signature="7051:7231" ph="{...}" />
+                <marker date="1524518721509" expanded="true" signature="7311:7394" ph="{...}" />
+                <marker date="1524518721509" expanded="true" signature="7425:7485" ph="{...}" />
+                <marker date="1524518721509" expanded="true" signature="7515:7567" ph="{...}" />
+                <marker date="1524518721509" expanded="true" signature="7587:7792" ph="/// Notifies the wave that this enemy has been killed, adds to the player's score ... " />
+                <marker date="1524518721509" expanded="true" signature="7830:8657" ph="{...}" />
+                <marker date="1524518721509" expanded="true" signature="7891:7964" ph="{...}" />
+                <marker date="1524518721509" expanded="true" signature="7981:8054" ph="{...}" />
+                <marker date="1524518721509" expanded="true" signature="8449:8518" ph="{...}" />
+                <marker date="1524518721509" expanded="true" signature="8548:8595" ph="{...}" />
+                <marker date="1524518721509" expanded="true" signature="8667:8753" ph="/// Tells the wave to respawn this enemy. ... " />
+                <marker date="1524518721509" expanded="true" signature="8791:9015" ph="{...}" />
+                <marker date="1524518721509" expanded="true" signature="9025:9151" ph="/// Visual feedback when the enemy is hit. Flashes the material using flashColor. ... " />
+                <marker date="1524518721509" expanded="true" signature="9192:9640" ph="{...}" />
+                <marker date="1524518721509" expanded="true" signature="9295:9364" ph="{...}" />
+                <marker date="1524518721509" expanded="true" signature="9498:9600" ph="{...}" />
+                <marker date="1524518721509" expanded="true" signature="9650:9750" ph="/// This is run after the enemy has completed its path. ... " />
+                <marker date="1524518721509" expanded="true" signature="9801:9857" ph="{...}" />
+                <marker date="1524518721509" expanded="true" signature="9867:10035" ph="/// Used to set the wave index. ... " />
+                <marker date="1524518721509" expanded="true" signature="10078:10128" ph="{...}" />
+                <marker date="1524518721509" expanded="true" signature="10138:10329" ph="/// Sets the name of the path this enemy used to spawn. ... " />
+                <marker date="1524518721509" expanded="true" signature="10375:10425" ph="{...}" />
+                <marker date="1524518721509" expanded="true" signature="10435:10633" ph="/// Sets the attack pattern that this enemy will use against the player. ... " />
+                <marker date="1524518721509" expanded="true" signature="10712:10780" ph="{...}" />
+                <marker date="1524518721509" expanded="true" signature="10790:11151" ph="/* /// Countdowns down from selfDestructTime. Calls Kill() if untouched. ... */" />
+                <marker date="1524518721509" expanded="true" signature="11161:11274" ph="/// Resets attributes to this enemy's defaults from enemyAttributes. ... " />
+                <marker date="1524518721509" expanded="true" signature="11314:11683" ph="{...}" />
+                <marker date="1524518721509" expanded="true" signature="11409:11511" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ShootingEnemy.cs" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Assets/Scripts/Enemies/ShootingEnemy.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="375">
+              <caret line="169" column="23" selection-start-line="169" selection-start-column="23" selection-end-line="169" selection-end-column="23" />
+              <folding>
+                <marker date="1524519254569" expanded="true" signature="0:334" ph="/* ============================================================================= ... */" />
+                <marker date="1524519254569" expanded="false" signature="342:427" ph="..." />
+                <marker date="1524519254569" expanded="true" signature="458:14116" ph="{...}" />
+                <marker date="1524519254569" expanded="true" signature="465:561" ph="/// Base class for all enemies with shooting functionality. ... " />
+                <marker date="1524519254569" expanded="true" signature="600:14114" ph="{...}" />
+                <marker date="1524519254569" expanded="true" signature="615:718" ph="/// How strongly the enemy should look at the player ship. ... " />
+                <marker date="1524519254569" expanded="true" signature="783:877" ph="/// The transform that projectiles are shot from. ... " />
+                <marker date="1524519254569" expanded="true" signature="924:1004" ph="/// Time between shots, in seconds. ... " />
+                <marker date="1524519254569" expanded="true" signature="1048:1126" ph="/// The speed of the projectiles. ... " />
+                <marker date="1524519254569" expanded="true" signature="1175:1271" ph="/// If the projectiles should be fired with spread. ... " />
+                <marker date="1524519254569" expanded="true" signature="1311:1398" ph="/// If the current attack pattern rotates. ... " />
+                <marker date="1524519254569" expanded="true" signature="1440:1547" ph="/// If the current attack pattern shoots a projectile pattern. ... " />
+                <marker date="1524519254569" expanded="true" signature="1599:1696" ph="/// The type IDs for all attack pattern projectiles. ... " />
+                <marker date="1524519254569" expanded="true" signature="1749:1837" ph="/// The type ID for the current projectile. ... " />
+                <marker date="1524519254569" expanded="true" signature="1894:1978" ph="/// All attack patterns for this enemy. ... " />
+                <marker date="1524519254569" expanded="true" signature="2045:2155" ph="/// The attack pattern attributes for the current attack pattern. ... " />
+                <marker date="1524519254569" expanded="true" signature="2221:2317" ph="/// The time the enemy will be able to shoot again. ... " />
+                <marker date="1524519254569" expanded="true" signature="2366:2445" ph="/// If the enemy can shoot or not. ... " />
+                <marker date="1524519254569" expanded="true" signature="2488:2568" ph="/// If this enemy can hover or not. ... " />
+                <marker date="1524519254569" expanded="true" signature="2609:2716" ph="/// If the hover movement is vertical. False means horizontal. ... " />
+                <marker date="1524519254569" expanded="true" signature="2759:2850" ph="/// The distance the hover movement will span. ... " />
+                <marker date="1524519254569" expanded="true" signature="2935:3034" ph="/// How long the hover movement will take, in seconds. ... " />
+                <marker date="1524519254569" expanded="true" signature="3077:3177" ph="/// The percentage of completion of the hover movement. ... " />
+                <marker date="1524519254569" expanded="true" signature="3223:3321" ph="/// The start position of the current hover movement. ... " />
+                <marker date="1524519254569" expanded="true" signature="3370:3466" ph="/// The end position of the current hover movement. ... " />
+                <marker date="1524519254569" expanded="true" signature="3513:3700" ph="/// Initializes the attributes for this shooting enemy. ... " />
+                <marker date="1524519254569" expanded="true" signature="3763:5050" ph="{...}" />
+                <marker date="1524519254569" expanded="true" signature="3885:4523" ph="{...}" />
+                <marker date="1524519254569" expanded="true" signature="4596:4854" ph="{...}" />
+                <marker date="1524519254569" expanded="true" signature="5060:5142" ph="/// Runs the enemy logic every frame. ... " />
+                <marker date="1524519254569" expanded="true" signature="5174:6098" ph="{...}" />
+                <marker date="1524519254569" expanded="true" signature="5297:5349" ph="{...}" />
+                <marker date="1524519254569" expanded="true" signature="5434:5501" ph="{...}" />
+                <marker date="1524519254569" expanded="true" signature="5644:5697" ph="{...}" />
+                <marker date="1524519254569" expanded="true" signature="5714:5834" ph="{...}" />
+                <marker date="1524519254569" expanded="true" signature="5923:6088" ph="{...}" />
+                <marker date="1524519254569" expanded="true" signature="6108:6262" ph="/// Moves the enemy between the endpoints of the hover/movement. ... " />
+                <marker date="1524519254569" expanded="true" signature="6306:6889" ph="{...}" />
+                <marker date="1524519254569" expanded="true" signature="6618:6670" ph="{...}" />
+                <marker date="1524519254569" expanded="true" signature="6899:6973" ph="/// Looks at the player ship. ... " />
+                <marker date="1524519254569" expanded="true" signature="7007:7325" ph="{...}" />
+                <marker date="1524519254569" expanded="true" signature="7335:7436" ph="/// Shoots the current projectile or projectile pattern. ... " />
+                <marker date="1524519254569" expanded="true" signature="7465:8755" ph="{...}" />
+                <marker date="1524519254569" expanded="true" signature="7583:7676" ph="{...}" />
+                <marker date="1524519254569" expanded="true" signature="7975:8146" ph="{...}" />
+                <marker date="1524519254569" expanded="true" signature="8163:8745" ph="{...}" />
+                <marker date="1524519254569" expanded="true" signature="8279:8601" ph="{...}" />
+                <marker date="1524519254569" expanded="true" signature="8765:8853" ph="/// Checks if the fireRate time has passed. ... " />
+                <marker date="1524519254569" expanded="true" signature="8897:9022" ph="{...}" />
+                <marker date="1524519254569" expanded="true" signature="8951:9012" ph="{...}" />
+                <marker date="1524519254569" expanded="true" signature="9032:9140" ph="/// Toggles post-pathing behavior, including hovering/movement. ... " />
+                <marker date="1524519254569" expanded="true" signature="9192:9333" ph="{...}" />
+                <marker date="1524519254569" expanded="true" signature="9228:9284" ph="{...}" />
+                <marker date="1524519254569" expanded="true" signature="9343:9434" ph="/// Sets the endpoints for the hover/movement. ... " />
+                <marker date="1524519254569" expanded="true" signature="9466:12932" ph="{...}" />
+                <marker date="1524519254569" expanded="true" signature="9504:9861" ph="{...}" />
+                <marker date="1524519254569" expanded="true" signature="9878:12922" ph="{...}" />
+                <marker date="1524519254569" expanded="true" signature="9942:10082" ph="/* Need to find what % gives us the spawn position. ... */" />
+                <marker date="1524519254569" expanded="true" signature="10420:10867" ph="{...}" />
+                <marker date="1524519254569" expanded="true" signature="10592:10714" ph="/* This is or is close enough to the spawn point. ... */" />
+                <marker date="1524519254569" expanded="true" signature="10774:10849" ph="{...}" />
+                <marker date="1524519254569" expanded="true" signature="11003:11075" ph="{...}" />
+                <marker date="1524519254569" expanded="true" signature="11172:11391" ph="/* Multiply the calculated positions by the rotation to make them ... */" />
+                <marker date="1524519254569" expanded="true" signature="11882:11946" ph="{...}" />
+                <marker date="1524519254569" expanded="true" signature="12182:12908" ph="/* Debug.Log(&quot;PERCENT: &quot; + hoverPercent + &quot;\t SPAWN: &quot; + spawn); ... */" />
+                <marker date="1524519254569" expanded="true" signature="12942:13125" ph="/// Sets the attack pattern and updates related values. ... " />
+                <marker date="1524519254569" expanded="true" signature="13203:13740" ph="{...}" />
+                <marker date="1524519254569" expanded="true" signature="13750:13868" ph="/// Reset any values that should not persist across spawns of this enemy. ... " />
+                <marker date="1524519254569" expanded="true" signature="13908:14108" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>fixeddelta</find>
+      <find>fixedd1</find>
+      <find>update</find>
+      <find>lookstrength</find>
+      <find>scoringsystem</find>
+      <find>spawnemittersyst</find>
+      <find>count</find>
+      <find>hit(int damage</find>
+      <find>stopco</find>
+      <find>stopa</find>
+      <find>waitfire</find>
+      <find>index</find>
+      <find>random</find>
+      <find>startcoroutine</find>
+      <find>shootpoint</find>
+      <find>temp</find>
+      <find>spawn</find>
+      <find>attackpatterndata</find>
+      <find>onenable</find>
+      <find>spawnemitter</find>
+      <find>clip</find>
+      <find>mytransform</find>
+      <find>projectilescripts</find>
+      <find>damage =</find>
+      <find>healthdata</find>
+      <find>playershield</find>
+      <find>getcomponent</find>
+      <find>10</find>
+      <find>damage</find>
+      <find>shootpattern</find>
+    </findStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Enemies/ProjectilePattern.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Enemies/Projectile.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Enemies/SplitterChild.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Enemies/NewBoss.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/asdf.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Enemies/SplitterTurret.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Enemies/KamikazeTurret.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Enemies/BuckshotTurret.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/PlayerHealth.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Enemies/StraightTurret.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/ReferenceManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Data/ShootingEnemyData.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Data/EnemyData.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Data/HealthData.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Data/AttackPatternData.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/PowerUps/AllySlerp.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Data/SplitterEnemyData.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Enemies/ShootingEnemy.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/Weapons/Weapon.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/Weapons/RocketPod.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/Weapons/Minigun.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/Weapons/LaserGun.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Data/ProjectileData.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/Weapons/PlasmaGun.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/EnemyAttributes.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/Weapons/Rocket.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Ambient/ParticleFollow.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Data/SplitterChildEnemyData.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Enemies/ProjectileInPattern.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/ObjectPoolManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Data/KamikazeEnemyData.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Enemies/MovingTurret.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Enemies/Enemy.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Enemies/JumperTurret.cs" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/Assets/Scripts/Data/ShootingEnemy.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Data/EnemyScriptableObject.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Data/AttackPatternScriptableObject.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Data/ShootingEnemyScriptableObject.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Player/Weapons/Weapon.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Player/Weapons/RocketPod.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Player/Weapons/PlasmaGun.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Player/Weapons/Minigun.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Player/Weapons/LaserGun.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Player/Weapons/Rocket.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Data/StandardEnemyData.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Data/ShootingEnemyData.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Data/AttackPatternData.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Data/SplitterEnemyData.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Enemies/SplitterTurret.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Data/KamikazeEnemyData.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Enemies/NewBoss.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Data/SplitterChildEnemyData.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/EnemyAttributes.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Enemies/JumperTurret.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/ObjectPoolManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Enemies/StraightTurret.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Enemies/MovingTurret.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Enemies/SplitterChild.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Enemies/BuckshotTurret.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Enemies/Enemy.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Enemies/ShootingEnemy.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Enemies/ProjectilePattern.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Data/HealthData.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Data/ProjectileData.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/ReferenceManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Enemies/ProjectileInPattern.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Enemies/Projectile.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Enemies/KamikazeTurret.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Player/PlayerHealth.cs" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="125" />
-    <option name="y" value="248" />
+    <option name="x" value="149" />
+    <option name="y" value="324" />
     <option name="width" value="1920" />
     <option name="height" value="1050" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="UnityExplorer" proportions="" version="1">
+      <autoscrollToSource UnityExplorer="false" />
+      <autoscrollFromSource UnityExplorer="false" />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="UnityExplorer">
+        <subPane>
+          <expand>
+            <path>
+              <item name="" type="ad4990d8:FileSystemViewPaneBase$ProjectViewPaneTreeStructure$createRoot$1" />
+              <item name="Hive Armada" type="483dac07:UnityExplorerNode$Root" />
+            </path>
+            <path>
+              <item name="" type="ad4990d8:FileSystemViewPaneBase$ProjectViewPaneTreeStructure$createRoot$1" />
+              <item name="Hive Armada" type="483dac07:UnityExplorerNode$Root" />
+              <item name="" type="1045f7f1:UnityExplorerNode" />
+            </path>
+            <path>
+              <item name="" type="ad4990d8:FileSystemViewPaneBase$ProjectViewPaneTreeStructure$createRoot$1" />
+              <item name="Hive Armada" type="483dac07:UnityExplorerNode$Root" />
+              <item name="" type="1045f7f1:UnityExplorerNode" />
+            </path>
+            <path>
+              <item name="" type="ad4990d8:FileSystemViewPaneBase$ProjectViewPaneTreeStructure$createRoot$1" />
+              <item name="Hive Armada" type="483dac07:UnityExplorerNode$Root" />
+              <item name="" type="1045f7f1:UnityExplorerNode" />
+              <item name="" type="1045f7f1:UnityExplorerNode" />
+            </path>
+            <path>
+              <item name="" type="ad4990d8:FileSystemViewPaneBase$ProjectViewPaneTreeStructure$createRoot$1" />
+              <item name="Hive Armada" type="483dac07:UnityExplorerNode$Root" />
+              <item name="" type="1045f7f1:UnityExplorerNode" />
+              <item name="" type="1045f7f1:UnityExplorerNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+        <option name="show-hidden-items" value="false" />
+      </pane>
+      <pane id="Scratches" />
+      <pane id="SolutionExplorer">
+        <option name="show-file-system" value="false" />
+        <option name="show-all-items" value="false" />
+      </pane>
+    </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="Rider.ProjectViewActivator.IsNotFirstRun" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="do_not_show_unity_auto_save_notification" value="true" />
+    <property name="settings.editor.selected.configurable" value="reference.idesettings.emmet.xml" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
   </component>
   <component name="RunManager">
     <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
       <option name="listenPortForConnections" value="false" />
       <option name="pid" />
     </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c2a391ac-3c71-4014-85ca-902e3cc12388" name="Default" comment="" />
+      <created>1524356213716</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1524356213716</updated>
+      <workItem from="1524356217058" duration="653000" />
+      <workItem from="1524356892800" duration="6674000" />
+      <workItem from="1524366419075" duration="19714000" />
+      <workItem from="1524422022154" duration="14717000" />
+      <workItem from="1524456868400" duration="2583000" />
+      <workItem from="1524514070016" duration="3674000" />
+      <workItem from="1524518640465" duration="886000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="48901000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="149" y="324" width="1920" height="1050" extended-state="0" />
+    <editor active="true" />
+    <layout>
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32942098" />
+      <window_info anchor="right" id="Errors In Solution" order="3" />
+      <window_info anchor="bottom" id="Event Log" order="14" side_tool="true" weight="0.32894737" />
+      <window_info anchor="bottom" id="Unit Tests" order="10" />
+      <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="13" weight="0.32942098" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Terminal" order="11" weight="0.32942098" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17043011" />
+      <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Unity" order="9" weight="0.32942098" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="NuGet" order="12" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection Results" order="15" weight="0.32942098" />
+      <window_info anchor="right" id="Database" order="3" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="UnityProjectConfiguration" isUnityUI="true" />
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <option name="time" value="1" />
+    </breakpoint-manager>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/Player/PlayerHealth.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3150">
+          <caret line="210" column="92" selection-start-line="210" selection-start-column="92" selection-end-line="210" selection-end-column="92" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/Enemies/SplitterChild.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="735">
+          <caret line="49" column="58" selection-start-line="49" selection-start-column="58" selection-end-line="49" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/Enemies/StraightTurret.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2400">
+          <caret line="162" column="29" selection-start-line="162" selection-start-column="29" selection-end-line="162" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/Data/AttackPatternData.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="15" column="37" selection-start-line="15" selection-start-column="37" selection-end-line="15" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/Enemies/ShootingEnemy.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1935">
+          <caret line="129" column="58" lean-forward="true" selection-start-line="129" selection-start-column="58" selection-end-line="129" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/Enemies/Enemy.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="615">
+          <caret line="49" selection-start-line="49" selection-end-line="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/Enemies/ShootingEnemy.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="8" selection-start-line="16" selection-start-column="8" selection-end-line="16" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/Data/AttackPatternData.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="15" column="37" selection-start-line="15" selection-start-column="37" selection-end-line="15" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/Enemies/MovingTurret.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" selection-start-line="11" selection-end-line="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/Enemies/SplitterTurret.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="33" selection-start-line="33" selection-end-line="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/Enemies/StraightTurret.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3240">
+          <caret line="218" column="23" selection-start-line="218" selection-start-column="23" selection-end-line="218" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/Enemies/BuckshotTurret.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3045">
+          <caret line="206" column="35" selection-start-line="206" selection-start-column="35" selection-end-line="206" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/Enemies/SplitterChild.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="660">
+          <caret line="49" column="58" selection-start-line="49" selection-start-column="58" selection-end-line="49" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/Data/ShootingEnemyData.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="26" column="1" selection-start-line="26" selection-start-column="1" selection-end-line="26" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/Enemies/Enemy.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5280">
+          <caret line="360" column="21" selection-start-line="360" selection-start-column="21" selection-end-line="360" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/Enemies/ShootingEnemy.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="8" lean-forward="true" selection-start-line="5" selection-start-column="8" selection-end-line="5" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/Data/EnemyScriptableObject.cs" />
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/Data/AttackPatternScriptableObject.cs" />
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/Data/ShootingEnemyScriptableObject.cs" />
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/Player/Weapons/Weapon.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="698">
+          <caret line="86" column="36" selection-start-line="86" selection-start-column="36" selection-end-line="86" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/Player/Weapons/LaserGun.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="675">
+          <caret line="103" selection-start-line="103" selection-end-line="103" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/Player/Weapons/Minigun.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2805">
+          <caret line="205" column="59" selection-start-line="205" selection-start-column="59" selection-end-line="205" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/Player/Weapons/PlasmaGun.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="690">
+          <caret line="91" column="59" selection-start-line="91" selection-start-column="59" selection-end-line="91" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/Player/Weapons/RocketPod.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="87" column="9" selection-start-line="87" selection-start-column="9" selection-end-line="87" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/Player/Weapons/Rocket.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="660">
+          <caret line="234" selection-start-line="234" selection-end-line="234" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/Data/EnemyData.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="5" selection-start-line="5" selection-start-column="5" selection-end-line="5" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/Data/StandardEnemyData.cs" />
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/Data/SplitterEnemyData.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="38" selection-start-line="10" selection-start-column="38" selection-end-line="10" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/Data/AttackPatternData.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="13" selection-start-line="13" selection-end-line="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/Data/ShootingEnemyData.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="70" selection-start-line="5" selection-start-column="70" selection-end-line="5" selection-end-column="70" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/Data/KamikazeEnemyData.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="39" selection-start-line="5" selection-start-column="69" selection-end-line="8" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/Enemies/NewBoss.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="320">
+          <caret line="307" column="30" selection-start-line="307" selection-start-column="30" selection-end-line="307" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/Data/SplitterChildEnemyData.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="39" selection-start-line="9" selection-start-column="39" selection-end-line="9" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/Enemies/JumperTurret.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="752">
+          <caret line="204" column="25" selection-start-line="196" selection-start-column="23" selection-end-line="204" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/Game/EnemyAttributes.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1770">
+          <caret line="125" column="21" selection-start-line="125" selection-start-column="21" selection-end-line="125" selection-end-column="21" />
+          <folding>
+            <marker date="1524518376727" expanded="true" signature="0:573" ph="/* ============================================================================= ... */" />
+            <marker date="1524518376727" expanded="false" signature="581:789" ph="..." />
+            <marker date="1524518376727" expanded="true" signature="824:922" ph="/// Holds the attributes for all enemy types and projectiles. ... " />
+            <marker date="1524518376727" expanded="true" signature="971:9809" ph="{...}" />
+            <marker date="1524518376727" expanded="true" signature="1005:1254" ph="{...}" />
+            <marker date="1524518376727" expanded="true" signature="1152:1244" ph="{...}" />
+            <marker date="1524518376727" expanded="true" signature="1264:1410" ph="/// Reference manager that holds all needed references ... " />
+            <marker date="1524518376727" expanded="true" signature="1464:3769" ph="/* /// Starting health for each enemy type. ... */" />
+            <marker date="1524518376727" expanded="true" signature="3779:3864" ph="/// Speed at which the projectile moves. ... " />
+            <marker date="1524518376727" expanded="true" signature="3997:4073" ph="/// How long projectiles should ... " />
+            <marker date="1524518376727" expanded="true" signature="4625:4735" ph="/// Gets the type identifiers for each enemy's projectile prefabs ... " />
+            <marker date="1524518376727" expanded="true" signature="4801:7154" ph="{...}" />
+            <marker date="1524518376727" expanded="true" signature="4867:6090" ph="/* EnemyProjectileTypeIdentifiers = new short[enemyProjectilePrefab.Length]; ... */" />
+            <marker date="1524518376727" expanded="true" signature="6820:7064" ph="{...}" />
+            <marker date="1524518376727" expanded="true" signature="7164:7327" ph="/// Adds a projectile to the list of projectiles. ... " />
+            <marker date="1524518376727" expanded="true" signature="7384:7607" ph="{...}" />
+            <marker date="1524518376727" expanded="true" signature="7518:7597" ph="{...}" />
+            <marker date="1524518376727" expanded="true" signature="7617:7653" ph="/// ... " />
+            <marker date="1524518376727" expanded="true" signature="7689:7853" ph="{...}" />
+            <marker date="1524518376727" expanded="true" signature="7730:7843" ph="{...}" />
+            <marker date="1524518376727" expanded="true" signature="7863:7899" ph="/// ... " />
+            <marker date="1524518376727" expanded="true" signature="7934:8061" ph="{...}" />
+            <marker date="1524518376727" expanded="true" signature="7974:8051" ph="{...}" />
+            <marker date="1524518376727" expanded="true" signature="8110:9617" ph="{...}" />
+            <marker date="1524518376727" expanded="true" signature="8142:8415" ph="{...}" />
+            <marker date="1524518376727" expanded="true" signature="8210:8401" ph="{...}" />
+            <marker date="1524518376727" expanded="true" signature="8265:8343" ph="{...}" />
+            <marker date="1524518376727" expanded="true" signature="8511:9517" ph="{...}" />
+            <marker date="1524518376727" expanded="true" signature="8616:9029" ph="{...}" />
+            <marker date="1524518376727" expanded="true" signature="8704:9011" ph="{...}" />
+            <marker date="1524518376727" expanded="true" signature="9050:9463" ph="{...}" />
+            <marker date="1524518376727" expanded="true" signature="9138:9445" ph="{...}" />
+            <marker date="1524518376727" expanded="true" signature="9541:9607" ph="{...}" />
+            <marker date="1524518376727" expanded="true" signature="9654:9803" ph="{...}" />
+            <marker date="1524518376727" expanded="true" signature="9705:9762" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/Game/ObjectPoolManager.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="647">
+          <caret line="453" column="20" selection-start-line="450" selection-start-column="16" selection-end-line="453" selection-end-column="20" />
+          <folding>
+            <marker date="1524518427252" expanded="true" signature="0:831" ph="/* ============================================================================= ... */" />
+            <marker date="1524518427252" expanded="false" signature="839:928" ph="..." />
+            <marker date="1524518427252" expanded="true" signature="963:1147" ph="/// This object pool manager. Contains all methods needed to pool any number of ... " />
+            <marker date="1524518427252" expanded="true" signature="1198:17759" ph="{...}" />
+            <marker date="1524518427252" expanded="true" signature="1213:1327" ph="/// Structure of a prefab to pool and how many to create in the pool. ... " />
+            <marker date="1524518427252" expanded="true" signature="1385:1696" ph="{...}" />
+            <marker date="1524518427252" expanded="true" signature="1408:1503" ph="/// The game object to create in the pool. ... " />
+            <marker date="1524518427252" expanded="true" signature="1561:1649" ph="/// How many to create in the pool. ... " />
+            <marker date="1524518427252" expanded="true" signature="1706:1852" ph="/// Reference manager that holds all needed references ... " />
+            <marker date="1524518427252" expanded="true" signature="1906:2012" ph="/// If a pool runs out, should it Instantiate() more objects? ... " />
+            <marker date="1524518427252" expanded="true" signature="2139:2237" ph="/// Parents for each of the object types in the pool. ... " />
+            <marker date="1524518427252" expanded="true" signature="2289:2493" ph="/// The names of the pool parents. Used to easily update the number of pooled enemies ... " />
+            <marker date="1524518427252" expanded="true" signature="2541:2715" ph="/// Array of structures for the object to pool. Includes the GameObject ... " />
+            <marker date="1524518427252" expanded="true" signature="2724:2863" ph="[...]" />
+            <marker date="1524518427252" expanded="true" signature="2958:3129" ph="/// Array of stacks for each object in the pool. ... " />
+            <marker date="1524518427252" expanded="true" signature="3190:3293" ph="/// Dictionary of all objects in the pool that are active. ... " />
+            <marker date="1524518427252" expanded="true" signature="3360:3519" ph="/// Dictionary of all pooled prefabs' type identifiers. ... " />
+            <marker date="1524518427252" expanded="true" signature="3590:3669" ph="/// The last pool identifier used. ... " />
+            <marker date="1524518427252" expanded="true" signature="3720:3802" ph="/// If Initialize() has been run yet. ... " />
+            <marker date="1524518427252" expanded="true" signature="3848:3916" ph="/// Generates all pools ... " />
+            <marker date="1524518427252" expanded="true" signature="3982:5923" ph="{...}" />
+            <marker date="1524518427252" expanded="true" signature="4023:4162" ph="{...}" />
+            <marker date="1524518427252" expanded="true" signature="4359:4481" ph="{...}" />
+            <marker date="1524518427252" expanded="true" signature="4846:5913" ph="{...}" />
+            <marker date="1524518427252" expanded="true" signature="4938:5162" ph="{...}" />
+            <marker date="1524518427252" expanded="true" signature="5180:5358" ph="/* Debug.LogWarning(&quot;CREATING POOL =&gt; PREFAB NAME: \&quot;&quot; + objects[i].objectPrefab.name + ... */" />
+            <marker date="1524518427252" expanded="true" signature="5821:5899" ph="{...}" />
+            <marker date="1524518427252" expanded="true" signature="5933:6309" ph="/// Spawns a pooled object. ... " />
+            <marker date="1524518427252" expanded="true" signature="6400:7375" ph="{...}" />
+            <marker date="1524518427252" expanded="true" signature="6448:6655" ph="{...}" />
+            <marker date="1524518427252" expanded="true" signature="6728:7027" ph="{...}" />
+            <marker date="1524518427252" expanded="true" signature="7086:7158" ph="{...}" />
+            <marker date="1524518427252" expanded="true" signature="7385:7838" ph="/// Spawns a pooled object. ... " />
+            <marker date="1524518427252" expanded="true" signature="7979:9002" ph="{...}" />
+            <marker date="1524518427252" expanded="true" signature="8027:8234" ph="{...}" />
+            <marker date="1524518427252" expanded="true" signature="8307:8606" ph="{...}" />
+            <marker date="1524518427252" expanded="true" signature="8665:8737" ph="{...}" />
+            <marker date="1524518427252" expanded="true" signature="9012:9471" ph="/// Spawns a pooled object. ... " />
+            <marker date="1524518427252" expanded="true" signature="9615:10641" ph="{...}" />
+            <marker date="1524518427252" expanded="true" signature="9663:9870" ph="{...}" />
+            <marker date="1524518427252" expanded="true" signature="9943:10242" ph="{...}" />
+            <marker date="1524518427252" expanded="true" signature="10301:10373" ph="{...}" />
+            <marker date="1524518427252" expanded="true" signature="10651:11187" ph="/// Spawns a pooled object. ... " />
+            <marker date="1524518427252" expanded="true" signature="11381:12455" ph="{...}" />
+            <marker date="1524518427252" expanded="true" signature="11429:11636" ph="{...}" />
+            <marker date="1524518427252" expanded="true" signature="11709:12008" ph="{...}" />
+            <marker date="1524518427252" expanded="true" signature="12067:12139" ph="{...}" />
+            <marker date="1524518427252" expanded="true" signature="12465:12743" ph="/// Gets the first object in the corresponding pool and adds it to the active pool. ... " />
+            <marker date="1524518427252" expanded="true" signature="12809:13056" ph="{...}" />
+            <marker date="1524518427252" expanded="true" signature="13066:13247" ph="/// Resets a gameobject and puts it back in the inactive pool. ... " />
+            <marker date="1524518427252" expanded="true" signature="13303:14610" ph="{...}" />
+            <marker date="1524518427252" expanded="true" signature="13502:14351" ph="{...}" />
+            <marker date="1524518427252" expanded="true" signature="13874:14207" ph="{...}" />
+            <marker date="1524518427252" expanded="true" signature="14368:14600" ph="{...}" />
+            <marker date="1524518427252" expanded="true" signature="14620:14820" ph="/// Finds the typeIdentifier for a given GameObject. ... " />
+            <marker date="1524518427252" expanded="true" signature="14882:15244" ph="{...}" />
+            <marker date="1524518427252" expanded="true" signature="14970:15071" ph="{...}" />
+            <marker date="1524518427252" expanded="true" signature="15254:15487" ph="/// Expands a pool that has run out of objects by 5 or 5%, whichever is larger. ... " />
+            <marker date="1524518427252" expanded="true" signature="15541:16593" ph="{...}" />
+            <marker date="1524518427252" expanded="true" signature="15589:15791" ph="{...}" />
+            <marker date="1524518427252" expanded="true" signature="15864:16054" ph="{...}" />
+            <marker date="1524518427252" expanded="true" signature="16190:16255" ph="{...}" />
+            <marker date="1524518427252" expanded="true" signature="16512:16583" ph="{...}" />
+            <marker date="1524518427252" expanded="true" signature="16603:16826" ph="/// Instantiates a GameObject and adds it to the appropriate inactive pool. ... " />
+            <marker date="1524518427252" expanded="true" signature="16879:17753" ph="{...}" />
+            <marker date="1524518427252" expanded="true" signature="16905:17516" ph="{...}" />
+            <marker date="1524518427252" expanded="true" signature="17303:17502" ph="/* if (typeIdentifier == reference.enemyAttributes.EnemyProjectileTypeIdentifiers[0]) ... */" />
+            <marker date="1524518427252" expanded="true" signature="17563:17743" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/Enemies/StraightTurret.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="16" selection-start-line="10" selection-start-column="16" selection-end-line="10" selection-end-column="16" />
+          <folding>
+            <marker date="1524518678101" expanded="true" signature="0:399" ph="/* ============================================================================= ... */" />
+            <marker date="1524518678101" expanded="true" signature="455:956" ph="{...}" />
+            <marker date="1524518678101" expanded="true" signature="462:522" ph="/// The Standard enemy. ... " />
+            <marker date="1524518678101" expanded="true" signature="570:954" ph="{...}" />
+            <marker date="1524518678101" expanded="true" signature="585:687" ph="/// The ScriptableObject holding this enemy's attributes. ... " />
+            <marker date="1524518678101" expanded="true" signature="741:826" ph="/// Initializes this enemy's attributes. ... " />
+            <marker date="1524518678101" expanded="true" signature="866:948" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/Enemies/BuckshotTurret.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="2" selection-start-line="12" selection-start-column="2" selection-end-line="12" selection-end-column="2" />
+          <folding>
+            <marker date="1524518711991" expanded="true" signature="0:401" ph="/* ============================================================================= ... */" />
+            <marker date="1524518711991" expanded="true" signature="457:987" ph="{...}" />
+            <marker date="1524518711991" expanded="true" signature="464:553" ph="/// Script in charge of a shotgun-like spread turret ... " />
+            <marker date="1524518711991" expanded="true" signature="601:985" ph="{...}" />
+            <marker date="1524518711991" expanded="true" signature="616:718" ph="/// The ScriptableObject holding this enemy's attributes. ... " />
+            <marker date="1524518711991" expanded="true" signature="772:857" ph="/// Initializes this enemy's attributes. ... " />
+            <marker date="1524518711991" expanded="true" signature="897:979" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/Enemies/MovingTurret.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="2" selection-start-line="12" selection-start-column="2" selection-end-line="12" selection-end-column="2" />
+          <folding>
+            <marker date="1524518691657" expanded="true" signature="0:414" ph="/* ============================================================================= ... */" />
+            <marker date="1524518691657" expanded="true" signature="470:967" ph="{...}" />
+            <marker date="1524518691657" expanded="true" signature="477:535" ph="/// The Moving enemy. ... " />
+            <marker date="1524518691657" expanded="true" signature="581:965" ph="{...}" />
+            <marker date="1524518691657" expanded="true" signature="596:698" ph="/// The ScriptableObject holding this enemy's attributes. ... " />
+            <marker date="1524518691657" expanded="true" signature="752:837" ph="/// Initializes this enemy's attributes. ... " />
+            <marker date="1524518691657" expanded="true" signature="877:959" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/Enemies/SplitterChild.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="20" column="28" selection-start-line="20" selection-start-column="28" selection-end-line="20" selection-end-column="28" />
+          <folding>
+            <marker date="1524518705395" expanded="true" signature="0:380" ph="/* ============================================================================= ... */" />
+            <marker date="1524518705395" expanded="false" signature="388:457" ph="..." />
+            <marker date="1524518705395" expanded="true" signature="488:4172" ph="{...}" />
+            <marker date="1524518705395" expanded="true" signature="495:556" ph="/// Splitter child enemy ... " />
+            <marker date="1524518705395" expanded="true" signature="603:4170" ph="{...}" />
+            <marker date="1524518705395" expanded="true" signature="618:720" ph="/// The ScriptableObject holding this enemy's attributes. ... " />
+            <marker date="1524518705395" expanded="true" signature="874:972" ph="/// The amount of burst shots in each attack pattern. ... " />
+            <marker date="1524518705395" expanded="true" signature="1025:1128" ph="/// The amount of burst shots every time this enemy fires. ... " />
+            <marker date="1524518705395" expanded="true" signature="1178:1284" ph="/// How many projectiles have been shot in the current burst. ... " />
+            <marker date="1524518705395" expanded="true" signature="1326:1419" ph="/// The amount of time between shots in a burst. ... " />
+            <marker date="1524518705395" expanded="true" signature="1481:1583" ph="/// The amount of time between each round of burst shots. ... " />
+            <marker date="1524518705395" expanded="true" signature="1630:1715" ph="/// Initializes this enemy's attributes. ... " />
+            <marker date="1524518705395" expanded="true" signature="1755:1837" ph="{...}" />
+            <marker date="1524518705395" expanded="true" signature="1847:1954" ph="///  ... " />
+            <marker date="1524518705395" expanded="true" signature="2033:2836" ph="{...}" />
+            <marker date="1524518705395" expanded="true" signature="2485:2825" ph="{...}" />
+            <marker date="1524518705395" expanded="true" signature="2880:2965" ph="{...}" />
+            <marker date="1524518705395" expanded="true" signature="2975:3098" ph="/// Checks if the fireRate time has passed. Switches between bursting and not. ... " />
+            <marker date="1524518705395" expanded="true" signature="3143:3618" ph="{...}" />
+            <marker date="1524518705395" expanded="true" signature="3197:3608" ph="{...}" />
+            <marker date="1524518705395" expanded="true" signature="3333:3415" ph="{...}" />
+            <marker date="1524518705395" expanded="true" signature="3474:3594" ph="{...}" />
+            <marker date="1524518705395" expanded="true" signature="3628:3814" ph="/// Sets the attack pattern values specific to this enemy. ... " />
+            <marker date="1524518705395" expanded="true" signature="3892:4164" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/Enemies/SplitterTurret.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="19" column="18" selection-start-line="19" selection-start-column="18" selection-end-line="19" selection-end-column="18" />
+          <folding>
+            <marker date="1524439430397" expanded="true" signature="0:432" ph="/* ============================================================================= ... */" />
+            <marker date="1524439430397" expanded="false" signature="440:476" ph="..." />
+            <marker date="1524439430397" expanded="true" signature="507:2937" ph="{...}" />
+            <marker date="1524439430397" expanded="true" signature="514:574" ph="/// The Splitter enemy. ... " />
+            <marker date="1524439430397" expanded="true" signature="622:2935" ph="{...}" />
+            <marker date="1524439430397" expanded="true" signature="637:739" ph="/// The ScriptableObject holding this enemy's attributes. ... " />
+            <marker date="1524439430397" expanded="true" signature="793:879" ph="/// The type ID for the children enemies. ... " />
+            <marker date="1524439430397" expanded="true" signature="924:1030" ph="/// How much force the children split away from the Splitter. ... " />
+            <marker date="1524439430397" expanded="true" signature="1079:1164" ph="/// Initializes this enemy's attributes. ... " />
+            <marker date="1524439430397" expanded="true" signature="1204:1286" ph="{...}" />
+            <marker date="1524439430397" expanded="true" signature="1296:1451" ph="/// Initializes the attributes for this splitter enemy. ... " />
+            <marker date="1524439430397" expanded="true" signature="1520:1774" ph="{...}" />
+            <marker date="1524439430397" expanded="true" signature="1784:1873" ph="/// Spawns 4 children enemies and then dies. ... " />
+            <marker date="1524439430397" expanded="true" signature="1912:2929" ph="{...}" />
+            <marker date="1524439430397" expanded="true" signature="1955:2893" ph="{...}" />
+            <marker date="1524439430397" expanded="true" signature="2014:2879" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/Enemies/Enemy.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3720">
+          <caret line="21" column="18" selection-start-line="21" selection-start-column="18" selection-end-line="21" selection-end-column="18" />
+          <folding>
+            <marker date="1524518721509" expanded="true" signature="0:412" ph="/* ============================================================================= ... */" />
+            <marker date="1524518721509" expanded="false" signature="420:624" ph="..." />
+            <marker date="1524518721509" expanded="true" signature="655:11691" ph="{...}" />
+            <marker date="1524518721509" expanded="true" signature="662:742" ph="/// Varying attack patterns for this enemy. ... " />
+            <marker date="1524518721509" expanded="true" signature="772:931" ph="{...}" />
+            <marker date="1524518721509" expanded="true" signature="937:1032" ph="/// The base class for all enemies. ... " />
+            <marker date="1524518721509" expanded="true" signature="1075:11689" ph="{...}" />
+            <marker date="1524518721509" expanded="true" signature="1132:1255" ph="/// Reference to enemy attributes to initialize/reset this enemy's attributes. ... " />
+            <marker date="1524518721509" expanded="true" signature="1316:1435" ph="/// Reference to the scoring system for adding score when this enemy dies. ... " />
+            <marker date="1524518721509" expanded="true" signature="1490:1673" ph="/// Reference to the object pool manager. Used for easy access to spawning projectiles ... " />
+            <marker date="1524518721509" expanded="true" signature="1788:1978" ph="/// Reference to the wave that spawned this enemy. Used to inform it ... " />
+            <marker date="1524518721509" expanded="true" signature="2046:2170" ph="/// Whether or not this enemy has already been initialized with its attributes. ... " />
+            <marker date="1524518721509" expanded="true" signature="2218:2305" ph="/// How much health the enemy spawns with. ... " />
+            <marker date="1524518721509" expanded="true" signature="2408:2500" ph="/// Current health. Cannot be publicly changed. ... " />
+            <marker date="1524518721509" expanded="true" signature="2560:2657" ph="/// How many points this enemy is worth when killed. ... " />
+            <marker date="1524518721509" expanded="true" signature="2771:2862" ph="/// The color the ship flashes when it is hit. ... " />
+            <marker date="1524518721509" expanded="true" signature="2972:3058" ph="/// The particle emitter for enemy death. ... " />
+            <marker date="1524518721509" expanded="true" signature="3170:3294" ph="/// The type identifier needed to spawn the death emitter from the object pool. ... " />
+            <marker date="1524518721509" expanded="true" signature="3359:3505" ph="/// Used to prevent HitFlash() from being called a ... " />
+            <marker date="1524518721509" expanded="true" signature="3553:3658" ph="/// List of Renderers on the enemy that will flash when hit. ... " />
+            <marker date="1524518721509" expanded="true" signature="3712:3864" ph="/// List of Materials of all pieces of the enemy model. ... " />
+            <marker date="1524518721509" expanded="true" signature="3918:4020" ph="/// The attack pattern number that this enemy should use. ... " />
+            <marker date="1524518721509" expanded="true" signature="4077:4171" ph="/// Time until enemy self-destructs if untouched. ... " />
+            <marker date="1524518721509" expanded="true" signature="4223:4290" ph="/// The player's ship. ... " />
+            <marker date="1524518721509" expanded="true" signature="4344:4426" ph="/// Used to shake low health enemies. ... " />
+            <marker date="1524518721509" expanded="true" signature="4468:4552" ph="/// If this enemy has finished pathing. ... " />
+            <marker date="1524518721509" expanded="true" signature="4622:4838" ph="/// Initializes references to ReferenceManager and other managers, list of renderers and ... " />
+            <marker date="1524518721509" expanded="true" signature="4878:5679" ph="{...}" />
+            <marker date="1524518721509" expanded="true" signature="5377:5669" ph="{...}" />
+            <marker date="1524518721509" expanded="true" signature="5511:5577" ph="{...}" />
+            <marker date="1524518721509" expanded="true" signature="5689:5867" ph="/// Initializes the attributes for this enemy. ... " />
+            <marker date="1524518721509" expanded="true" signature="5922:6309" ph="{...}" />
+            <marker date="1524518721509" expanded="true" signature="6352:6428" ph="{...}" />
+            <marker date="1524518721509" expanded="true" signature="6464:6517" ph="{...}" />
+            <marker date="1524518721509" expanded="true" signature="6527:6789" ph="/// Used to apply damage to an enemy. ... " />
+            <marker date="1524518721509" expanded="true" signature="6860:7577" ph="{...}" />
+            <marker date="1524518721509" expanded="true" signature="6904:6956" ph="{...}" />
+            <marker date="1524518721509" expanded="true" signature="6987:7245" ph="{...}" />
+            <marker date="1524518721509" expanded="true" signature="7051:7231" ph="{...}" />
+            <marker date="1524518721509" expanded="true" signature="7311:7394" ph="{...}" />
+            <marker date="1524518721509" expanded="true" signature="7425:7485" ph="{...}" />
+            <marker date="1524518721509" expanded="true" signature="7515:7567" ph="{...}" />
+            <marker date="1524518721509" expanded="true" signature="7587:7792" ph="/// Notifies the wave that this enemy has been killed, adds to the player's score ... " />
+            <marker date="1524518721509" expanded="true" signature="7830:8657" ph="{...}" />
+            <marker date="1524518721509" expanded="true" signature="7891:7964" ph="{...}" />
+            <marker date="1524518721509" expanded="true" signature="7981:8054" ph="{...}" />
+            <marker date="1524518721509" expanded="true" signature="8449:8518" ph="{...}" />
+            <marker date="1524518721509" expanded="true" signature="8548:8595" ph="{...}" />
+            <marker date="1524518721509" expanded="true" signature="8667:8753" ph="/// Tells the wave to respawn this enemy. ... " />
+            <marker date="1524518721509" expanded="true" signature="8791:9015" ph="{...}" />
+            <marker date="1524518721509" expanded="true" signature="9025:9151" ph="/// Visual feedback when the enemy is hit. Flashes the material using flashColor. ... " />
+            <marker date="1524518721509" expanded="true" signature="9192:9640" ph="{...}" />
+            <marker date="1524518721509" expanded="true" signature="9295:9364" ph="{...}" />
+            <marker date="1524518721509" expanded="true" signature="9498:9600" ph="{...}" />
+            <marker date="1524518721509" expanded="true" signature="9650:9750" ph="/// This is run after the enemy has completed its path. ... " />
+            <marker date="1524518721509" expanded="true" signature="9801:9857" ph="{...}" />
+            <marker date="1524518721509" expanded="true" signature="9867:10035" ph="/// Used to set the wave index. ... " />
+            <marker date="1524518721509" expanded="true" signature="10078:10128" ph="{...}" />
+            <marker date="1524518721509" expanded="true" signature="10138:10329" ph="/// Sets the name of the path this enemy used to spawn. ... " />
+            <marker date="1524518721509" expanded="true" signature="10375:10425" ph="{...}" />
+            <marker date="1524518721509" expanded="true" signature="10435:10633" ph="/// Sets the attack pattern that this enemy will use against the player. ... " />
+            <marker date="1524518721509" expanded="true" signature="10712:10780" ph="{...}" />
+            <marker date="1524518721509" expanded="true" signature="10790:11151" ph="/* /// Countdowns down from selfDestructTime. Calls Kill() if untouched. ... */" />
+            <marker date="1524518721509" expanded="true" signature="11161:11274" ph="/// Resets attributes to this enemy's defaults from enemyAttributes. ... " />
+            <marker date="1524518721509" expanded="true" signature="11314:11683" ph="{...}" />
+            <marker date="1524518721509" expanded="true" signature="11409:11511" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/Enemies/ShootingEnemy.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="169" column="23" selection-start-line="169" selection-start-column="23" selection-end-line="169" selection-end-column="23" />
+          <folding>
+            <marker date="1524519254569" expanded="true" signature="0:334" ph="/* ============================================================================= ... */" />
+            <marker date="1524519254569" expanded="false" signature="342:427" ph="..." />
+            <marker date="1524519254569" expanded="true" signature="458:14116" ph="{...}" />
+            <marker date="1524519254569" expanded="true" signature="465:561" ph="/// Base class for all enemies with shooting functionality. ... " />
+            <marker date="1524519254569" expanded="true" signature="600:14114" ph="{...}" />
+            <marker date="1524519254569" expanded="true" signature="615:718" ph="/// How strongly the enemy should look at the player ship. ... " />
+            <marker date="1524519254569" expanded="true" signature="783:877" ph="/// The transform that projectiles are shot from. ... " />
+            <marker date="1524519254569" expanded="true" signature="924:1004" ph="/// Time between shots, in seconds. ... " />
+            <marker date="1524519254569" expanded="true" signature="1048:1126" ph="/// The speed of the projectiles. ... " />
+            <marker date="1524519254569" expanded="true" signature="1175:1271" ph="/// If the projectiles should be fired with spread. ... " />
+            <marker date="1524519254569" expanded="true" signature="1311:1398" ph="/// If the current attack pattern rotates. ... " />
+            <marker date="1524519254569" expanded="true" signature="1440:1547" ph="/// If the current attack pattern shoots a projectile pattern. ... " />
+            <marker date="1524519254569" expanded="true" signature="1599:1696" ph="/// The type IDs for all attack pattern projectiles. ... " />
+            <marker date="1524519254569" expanded="true" signature="1749:1837" ph="/// The type ID for the current projectile. ... " />
+            <marker date="1524519254569" expanded="true" signature="1894:1978" ph="/// All attack patterns for this enemy. ... " />
+            <marker date="1524519254569" expanded="true" signature="2045:2155" ph="/// The attack pattern attributes for the current attack pattern. ... " />
+            <marker date="1524519254569" expanded="true" signature="2221:2317" ph="/// The time the enemy will be able to shoot again. ... " />
+            <marker date="1524519254569" expanded="true" signature="2366:2445" ph="/// If the enemy can shoot or not. ... " />
+            <marker date="1524519254569" expanded="true" signature="2488:2568" ph="/// If this enemy can hover or not. ... " />
+            <marker date="1524519254569" expanded="true" signature="2609:2716" ph="/// If the hover movement is vertical. False means horizontal. ... " />
+            <marker date="1524519254569" expanded="true" signature="2759:2850" ph="/// The distance the hover movement will span. ... " />
+            <marker date="1524519254569" expanded="true" signature="2935:3034" ph="/// How long the hover movement will take, in seconds. ... " />
+            <marker date="1524519254569" expanded="true" signature="3077:3177" ph="/// The percentage of completion of the hover movement. ... " />
+            <marker date="1524519254569" expanded="true" signature="3223:3321" ph="/// The start position of the current hover movement. ... " />
+            <marker date="1524519254569" expanded="true" signature="3370:3466" ph="/// The end position of the current hover movement. ... " />
+            <marker date="1524519254569" expanded="true" signature="3513:3700" ph="/// Initializes the attributes for this shooting enemy. ... " />
+            <marker date="1524519254569" expanded="true" signature="3763:5050" ph="{...}" />
+            <marker date="1524519254569" expanded="true" signature="3885:4523" ph="{...}" />
+            <marker date="1524519254569" expanded="true" signature="4596:4854" ph="{...}" />
+            <marker date="1524519254569" expanded="true" signature="5060:5142" ph="/// Runs the enemy logic every frame. ... " />
+            <marker date="1524519254569" expanded="true" signature="5174:6098" ph="{...}" />
+            <marker date="1524519254569" expanded="true" signature="5297:5349" ph="{...}" />
+            <marker date="1524519254569" expanded="true" signature="5434:5501" ph="{...}" />
+            <marker date="1524519254569" expanded="true" signature="5644:5697" ph="{...}" />
+            <marker date="1524519254569" expanded="true" signature="5714:5834" ph="{...}" />
+            <marker date="1524519254569" expanded="true" signature="5923:6088" ph="{...}" />
+            <marker date="1524519254569" expanded="true" signature="6108:6262" ph="/// Moves the enemy between the endpoints of the hover/movement. ... " />
+            <marker date="1524519254569" expanded="true" signature="6306:6889" ph="{...}" />
+            <marker date="1524519254569" expanded="true" signature="6618:6670" ph="{...}" />
+            <marker date="1524519254569" expanded="true" signature="6899:6973" ph="/// Looks at the player ship. ... " />
+            <marker date="1524519254569" expanded="true" signature="7007:7325" ph="{...}" />
+            <marker date="1524519254569" expanded="true" signature="7335:7436" ph="/// Shoots the current projectile or projectile pattern. ... " />
+            <marker date="1524519254569" expanded="true" signature="7465:8755" ph="{...}" />
+            <marker date="1524519254569" expanded="true" signature="7583:7676" ph="{...}" />
+            <marker date="1524519254569" expanded="true" signature="7975:8146" ph="{...}" />
+            <marker date="1524519254569" expanded="true" signature="8163:8745" ph="{...}" />
+            <marker date="1524519254569" expanded="true" signature="8279:8601" ph="{...}" />
+            <marker date="1524519254569" expanded="true" signature="8765:8853" ph="/// Checks if the fireRate time has passed. ... " />
+            <marker date="1524519254569" expanded="true" signature="8897:9022" ph="{...}" />
+            <marker date="1524519254569" expanded="true" signature="8951:9012" ph="{...}" />
+            <marker date="1524519254569" expanded="true" signature="9032:9140" ph="/// Toggles post-pathing behavior, including hovering/movement. ... " />
+            <marker date="1524519254569" expanded="true" signature="9192:9333" ph="{...}" />
+            <marker date="1524519254569" expanded="true" signature="9228:9284" ph="{...}" />
+            <marker date="1524519254569" expanded="true" signature="9343:9434" ph="/// Sets the endpoints for the hover/movement. ... " />
+            <marker date="1524519254569" expanded="true" signature="9466:12932" ph="{...}" />
+            <marker date="1524519254569" expanded="true" signature="9504:9861" ph="{...}" />
+            <marker date="1524519254569" expanded="true" signature="9878:12922" ph="{...}" />
+            <marker date="1524519254569" expanded="true" signature="9942:10082" ph="/* Need to find what % gives us the spawn position. ... */" />
+            <marker date="1524519254569" expanded="true" signature="10420:10867" ph="{...}" />
+            <marker date="1524519254569" expanded="true" signature="10592:10714" ph="/* This is or is close enough to the spawn point. ... */" />
+            <marker date="1524519254569" expanded="true" signature="10774:10849" ph="{...}" />
+            <marker date="1524519254569" expanded="true" signature="11003:11075" ph="{...}" />
+            <marker date="1524519254569" expanded="true" signature="11172:11391" ph="/* Multiply the calculated positions by the rotation to make them ... */" />
+            <marker date="1524519254569" expanded="true" signature="11882:11946" ph="{...}" />
+            <marker date="1524519254569" expanded="true" signature="12182:12908" ph="/* Debug.Log(&quot;PERCENT: &quot; + hoverPercent + &quot;\t SPAWN: &quot; + spawn); ... */" />
+            <marker date="1524519254569" expanded="true" signature="12942:13125" ph="/// Sets the attack pattern and updates related values. ... " />
+            <marker date="1524519254569" expanded="true" signature="13203:13740" ph="{...}" />
+            <marker date="1524519254569" expanded="true" signature="13750:13868" ph="/// Reset any values that should not persist across spawns of this enemy. ... " />
+            <marker date="1524519254569" expanded="true" signature="13908:14108" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/Enemies/ProjectilePattern.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="101" column="8" selection-start-line="101" selection-start-column="8" selection-end-line="101" selection-end-column="8" />
+          <folding>
+            <marker date="1524519270531" expanded="true" signature="0:435" ph="/* ============================================================================= ... */" />
+            <marker date="1524519270531" expanded="false" signature="443:578" ph="..." />
+            <marker date="1524519270531" expanded="true" signature="609:7180" ph="{...}" />
+            <marker date="1524519270531" expanded="true" signature="616:703" ph="/// Basic projectile used by all shooting enemies. ... " />
+            <marker date="1524519270531" expanded="true" signature="749:7178" ph="{...}" />
+            <marker date="1524519270531" expanded="true" signature="803:884" ph="/// The renderer for the projectile. ... " />
+            <marker date="1524519270531" expanded="true" signature="929:965" ph="/// ... " />
+            <marker date="1524519270531" expanded="true" signature="1029:1103" ph="/// The current albedo color. ... " />
+            <marker date="1524519270531" expanded="true" signature="1150:1263" ph="/// The current alpha for this projectile in the range [0.0f, 1.0f]. ... " />
+            <marker date="1524519270531" expanded="true" signature="1316:1397" ph="/// The maximum value for the alpha. ... " />
+            <marker date="1524519270531" expanded="true" signature="1453:1534" ph="/// The minimum value for the alpha. ... " />
+            <marker date="1524519270531" expanded="true" signature="1590:1669" ph="/// Length of the fade in seconds. ... " />
+            <marker date="1524519270531" expanded="true" signature="1725:1821" ph="/// Number of steps the fade should be broken into. ... " />
+            <marker date="1524519270531" expanded="true" signature="1874:1973" ph="/// The coroutine for fading the projectile in or out. ... " />
+            <marker date="1524519270531" expanded="true" signature="2024:2112" ph="/// The coroutine for the time warp effect. ... " />
+            <marker date="1524519270531" expanded="true" signature="2304:2403" ph="/// Initializes the reference to the Reference Manager ... " />
+            <marker date="1524519270531" expanded="true" signature="2443:2821" ph="{...}" />
+            <marker date="1524519270531" expanded="true" signature="2692:2811" ph="{...}" />
+            <marker date="1524519270531" expanded="true" signature="2849:2990" ph="/// Sets this projectile's speed ID number. ... " />
+            <marker date="1524519270531" expanded="true" signature="3026:3342" ph="{...}" />
+            <marker date="1524519270531" expanded="true" signature="3271:3332" ph="{...}" />
+            <marker date="1524519270531" expanded="true" signature="3352:3499" ph="/// Sets the velocity of the projectile. ... " />
+            <marker date="1524519270531" expanded="true" signature="3547:3631" ph="{...}" />
+            <marker date="1524519270531" expanded="true" signature="3641:3747" ph="/// Initiates the time warp functionality for the projectile. ... " />
+            <marker date="1524519270531" expanded="true" signature="3783:3985" ph="{...}" />
+            <marker date="1524519270531" expanded="true" signature="3836:3914" ph="{...}" />
+            <marker date="1524519270531" expanded="true" signature="3995:4100" ph="/// Updates the velocity as long as the time warp is active. ... " />
+            <marker date="1524519270531" expanded="true" signature="4139:4490" ph="{...}" />
+            <marker date="1524519270531" expanded="true" signature="4208:4442" ph="{...}" />
+            <marker date="1524519270531" expanded="true" signature="4500:4671" ph="/// Begins fading the opacity of the projectile. ... " />
+            <marker date="1524519270531" expanded="true" signature="4717:4920" ph="{...}" />
+            <marker date="1524519270531" expanded="true" signature="4740:4910" ph="/* if (fadeCoroutine != null) ... */" />
+            <marker date="1524519270531" expanded="true" signature="4930:5093" ph="/// Fades the opacity of the projectile. ... " />
+            <marker date="1524519270531" expanded="true" signature="5140:6562" ph="{...}" />
+            <marker date="1524519270531" expanded="true" signature="5324:5435" ph="{...}" />
+            <marker date="1524519270531" expanded="true" signature="5452:5563" ph="{...}" />
+            <marker date="1524519270531" expanded="true" signature="5577:5682" ph="/* Scaled based on projectile speed. ... */" />
+            <marker date="1524519270531" expanded="true" signature="6003:6160" ph="/* Debug.LogWarning(PoolIdentifier + &quot; - (&quot; + FADE_TIME + &quot;, &quot; + alphaScale + &quot;, &quot; + ... */" />
+            <marker date="1524519270531" expanded="true" signature="6190:6517" ph="{...}" />
+            <marker date="1524519270531" expanded="true" signature="6599:6799" ph="{...}" />
+            <marker date="1524519270531" expanded="true" signature="6696:6789" ph="{...}" />
+            <marker date="1524519270531" expanded="true" signature="6809:6900" ph="/// Initializes the damage for the projectile. ... " />
+            <marker date="1524519270531" expanded="true" signature="6940:7172" ph="{...}" />
+            <marker date="1524519270531" expanded="true" signature="7040:7162" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/Data/HealthData.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="35" selection-start-line="9" selection-start-column="35" selection-end-line="9" selection-end-column="35" />
+          <folding>
+            <marker date="1524519293170" expanded="true" signature="46:260" ph="{...}" />
+            <marker date="1524519293170" expanded="true" signature="173:258" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/Data/ProjectileData.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="36" selection-start-line="7" selection-start-column="36" selection-end-line="7" selection-end-column="36" />
+          <folding>
+            <marker date="1524519329966" expanded="true" signature="46:236" ph="{...}" />
+            <marker date="1524519329966" expanded="true" signature="185:234" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/Game/ReferenceManager.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="73" column="45" selection-start-line="73" selection-start-column="45" selection-end-line="73" selection-end-column="45" />
+          <folding>
+            <marker date="1524519351337" expanded="true" signature="0:646" ph="/* ============================================================================= ... */" />
+            <marker date="1524519351337" expanded="false" signature="654:807" ph="..." />
+            <marker date="1524519351337" expanded="true" signature="835:6637" ph="{...}" />
+            <marker date="1524519351337" expanded="true" signature="842:937" ph="/// Holds references to all prefabs and important objects. ... " />
+            <marker date="1524519351337" expanded="true" signature="987:6635" ph="{...}" />
+            <marker date="1524519351337" expanded="true" signature="1002:1149" ph="/* ---------------------------------------- ... */" />
+            <marker date="1524519351337" expanded="true" signature="2049:2184" ph="/* ---------------------------------------- ... */" />
+            <marker date="1524519351337" expanded="true" signature="2615:2754" ph="/* ---------------------------------------- ... */" />
+            <marker date="1524519351337" expanded="true" signature="2764:2834" ph="/// Main menu game object ... " />
+            <marker date="1524519351337" expanded="true" signature="2906:2979" ph="/// Title screen game object ... " />
+            <marker date="1524519351337" expanded="true" signature="3064:3173" ph="/// Wave count Text. Shows &quot;Wave ##&quot; where ## is the current wave. ... " />
+            <marker date="1524519351337" expanded="true" signature="3226:3300" ph="/// Game win menu with score. ... " />
+            <marker date="1524519351337" expanded="true" signature="3345:3420" ph="/// Game over menu with score. ... " />
+            <marker date="1524519351337" expanded="true" signature="3519:3653" ph="/* ---------------------------------------- ... */" />
+            <marker date="1524519351337" expanded="true" signature="3824:3925" ph="/// Sound for when a powerup is picked up by the player. ... " />
+            <marker date="1524519351337" expanded="true" signature="3979:4115" ph="/* ---------------------------------------- ... */" />
+            <marker date="1524519351337" expanded="true" signature="4125:4228" ph="/// Calls any functions needed to initialize any managers. ... " />
+            <marker date="1524519351337" expanded="true" signature="4257:6629" ph="{...}" />
+            <marker date="1524519351337" expanded="true" signature="4310:4390" ph="{...}" />
+            <marker date="1524519351337" expanded="true" signature="4429:4522" ph="{...}" />
+            <marker date="1524519351337" expanded="true" signature="4563:4660" ph="{...}" />
+            <marker date="1524519351337" expanded="true" signature="4698:4772" ph="{...}" />
+            <marker date="1524519351337" expanded="true" signature="4807:4878" ph="{...}" />
+            <marker date="1524519351337" expanded="true" signature="4915:5005" ph="{...}" />
+            <marker date="1524519351337" expanded="true" signature="5045:5140" ph="{...}" />
+            <marker date="1524519351337" expanded="true" signature="5183:5262" ph="{...}" />
+            <marker date="1524519351337" expanded="true" signature="5303:5401" ph="{...}" />
+            <marker date="1524519351337" expanded="true" signature="5418:5610" ph="{...}" />
+            <marker date="1524519351337" expanded="true" signature="5640:6074" ph="{...}" />
+            <marker date="1524519351337" expanded="true" signature="5674:5889" ph="{...}" />
+            <marker date="1524519351337" expanded="true" signature="5923:6060" ph="{...}" />
+            <marker date="1524519351337" expanded="true" signature="6112:6313" ph="{...}" />
+            <marker date="1524519351337" expanded="true" signature="6213:6299" ph="{...}" />
+            <marker date="1524519351337" expanded="true" signature="6399:6513" ph="{...}" />
+            <marker date="1524519351337" expanded="true" signature="6548:6619" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/Enemies/ProjectileInPattern.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="404">
+          <caret line="37" column="72" selection-start-line="37" selection-start-column="72" selection-end-line="37" selection-end-column="72" />
+          <folding>
+            <marker date="1524519362700" expanded="true" signature="0:435" ph="/* ============================================================================= ... */" />
+            <marker date="1524519362700" expanded="false" signature="443:505" ph="..." />
+            <marker date="1524519362700" expanded="true" signature="536:2447" ph="{...}" />
+            <marker date="1524519362700" expanded="true" signature="543:630" ph="/// Basic projectile used by all shooting enemies. ... " />
+            <marker date="1524519362700" expanded="true" signature="683:2445" ph="{...}" />
+            <marker date="1524519362700" expanded="true" signature="896:1128" ph="{...}" />
+            <marker date="1524519362700" expanded="true" signature="1157:1205" ph="{...}" />
+            <marker date="1524519362700" expanded="true" signature="1232:1320" ph="{...}" />
+            <marker date="1524519362700" expanded="true" signature="1330:1510" ph="/// Runs when the projectile collides with another object with a Collider. ... " />
+            <marker date="1524519362700" expanded="true" signature="1562:2439" ph="{...}" />
+            <marker date="1524519362700" expanded="true" signature="1596:1648" ph="{...}" />
+            <marker date="1524519362700" expanded="true" signature="1693:2228" ph="{...}" />
+            <marker date="1524519362700" expanded="true" signature="1776:1947" ph="{...}" />
+            <marker date="1524519362700" expanded="true" signature="1998:2127" ph="{...}" />
+            <marker date="1524519362700" expanded="true" signature="2315:2429" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/Enemies/Projectile.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="752">
+          <caret line="103" column="62" selection-start-line="103" selection-start-column="62" selection-end-line="103" selection-end-column="62" />
+          <folding>
+            <marker date="1524519379576" expanded="true" signature="0:435" ph="/* ============================================================================= ... */" />
+            <marker date="1524519379576" expanded="false" signature="443:578" ph="..." />
+            <marker date="1524519379576" expanded="true" signature="609:8020" ph="{...}" />
+            <marker date="1524519379576" expanded="true" signature="616:703" ph="/// Basic projectile used by all shooting enemies. ... " />
+            <marker date="1524519379576" expanded="true" signature="742:8018" ph="{...}" />
+            <marker date="1524519379576" expanded="true" signature="842:923" ph="/// The renderer for the projectile. ... " />
+            <marker date="1524519379576" expanded="true" signature="968:1083" ph="/// The amount of damage the projectile takes from the player's health ... " />
+            <marker date="1524519379576" expanded="true" signature="1121:1157" ph="/// ... " />
+            <marker date="1524519379576" expanded="true" signature="1222:1322" ph="/// The original albedo color, used to reset the color. ... " />
+            <marker date="1524519379576" expanded="true" signature="1370:1472" ph="/// The original emission color, used to reset the color. ... " />
+            <marker date="1524519379576" expanded="true" signature="1522:1596" ph="/// The current albedo color. ... " />
+            <marker date="1524519379576" expanded="true" signature="1643:1756" ph="/// The current alpha for this projectile in the range [0.0f, 1.0f]. ... " />
+            <marker date="1524519379576" expanded="true" signature="1809:1890" ph="/// The maximum value for the alpha. ... " />
+            <marker date="1524519379576" expanded="true" signature="1946:2027" ph="/// The minimum value for the alpha. ... " />
+            <marker date="1524519379576" expanded="true" signature="2083:2162" ph="/// Length of the fade in seconds. ... " />
+            <marker date="1524519379576" expanded="true" signature="2218:2314" ph="/// Number of steps the fade should be broken into. ... " />
+            <marker date="1524519379576" expanded="true" signature="2367:2466" ph="/// The coroutine for fading the projectile in or out. ... " />
+            <marker date="1524519379576" expanded="true" signature="2517:2605" ph="/// The coroutine for the time warp effect. ... " />
+            <marker date="1524519379576" expanded="true" signature="2660:2759" ph="/// Initializes the reference to the Reference Manager ... " />
+            <marker date="1524519379576" expanded="true" signature="2799:3179" ph="{...}" />
+            <marker date="1524519379576" expanded="true" signature="3189:3330" ph="/// Sets this projectile's speed ID number. ... " />
+            <marker date="1524519379576" expanded="true" signature="3366:3682" ph="{...}" />
+            <marker date="1524519379576" expanded="true" signature="3611:3672" ph="{...}" />
+            <marker date="1524519379576" expanded="true" signature="3692:3839" ph="/// Sets the velocity of the projectile. ... " />
+            <marker date="1524519379576" expanded="true" signature="3887:3971" ph="{...}" />
+            <marker date="1524519379576" expanded="true" signature="3981:4087" ph="/// Initiates the time warp functionality for the projectile. ... " />
+            <marker date="1524519379576" expanded="true" signature="4123:4325" ph="{...}" />
+            <marker date="1524519379576" expanded="true" signature="4176:4254" ph="{...}" />
+            <marker date="1524519379576" expanded="true" signature="4335:4440" ph="/// Updates the velocity as long as the time warp is active. ... " />
+            <marker date="1524519379576" expanded="true" signature="4479:4880" ph="{...}" />
+            <marker date="1524519379576" expanded="true" signature="4581:4799" ph="{...}" />
+            <marker date="1524519379576" expanded="true" signature="4890:5070" ph="/// Runs when the projectile collides with another object with a Collider. ... " />
+            <marker date="1524519379576" expanded="true" signature="5122:5838" ph="{...}" />
+            <marker date="1524519379576" expanded="true" signature="5176:5648" ph="{...}" />
+            <marker date="1524519379576" expanded="true" signature="5227:5398" ph="{...}" />
+            <marker date="1524519379576" expanded="true" signature="5449:5568" ph="{...}" />
+            <marker date="1524519379576" expanded="true" signature="5735:5828" ph="{...}" />
+            <marker date="1524519379576" expanded="true" signature="5848:6019" ph="/// Begins fading the opacity of the projectile. ... " />
+            <marker date="1524519379576" expanded="true" signature="6065:6268" ph="{...}" />
+            <marker date="1524519379576" expanded="true" signature="6088:6258" ph="/* if (fadeCoroutine != null) ... */" />
+            <marker date="1524519379576" expanded="true" signature="6278:6441" ph="/// Fades the opacity of the projectile. ... " />
+            <marker date="1524519379576" expanded="true" signature="6488:7910" ph="{...}" />
+            <marker date="1524519379576" expanded="true" signature="6672:6783" ph="{...}" />
+            <marker date="1524519379576" expanded="true" signature="6800:6911" ph="{...}" />
+            <marker date="1524519379576" expanded="true" signature="6925:7030" ph="/* Scaled based on projectile speed. ... */" />
+            <marker date="1524519379576" expanded="true" signature="7351:7508" ph="/* Debug.LogWarning(PoolIdentifier + &quot; - (&quot; + FADE_TIME + &quot;, &quot; + alphaScale + &quot;, &quot; + ... */" />
+            <marker date="1524519379576" expanded="true" signature="7538:7865" ph="{...}" />
+            <marker date="1524519379576" expanded="true" signature="7959:8012" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/Enemies/KamikazeTurret.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="660">
+          <caret line="89" column="62" selection-start-line="89" selection-start-column="62" selection-end-line="89" selection-end-column="62" />
+          <folding>
+            <marker date="1524519385668" expanded="true" signature="0:325" ph="/* ============================================================================= ... */" />
+            <marker date="1524519385668" expanded="false" signature="333:421" ph="..." />
+            <marker date="1524519385668" expanded="true" signature="452:5857" ph="{...}" />
+            <marker date="1524519385668" expanded="true" signature="459:514" ph="/// Kamikaze enemy ... " />
+            <marker date="1524519385668" expanded="true" signature="554:5855" ph="{...}" />
+            <marker date="1524519385668" expanded="true" signature="630:724" ph="/// How fast this enemy moves towards the player. ... " />
+            <marker date="1524519385668" expanded="true" signature="767:863" ph="/// How fast this enemy rotates towards the player. ... " />
+            <marker date="1524519385668" expanded="true" signature="910:1019" ph="/// How close this enemy can get to the player before exploding. ... " />
+            <marker date="1524519385668" expanded="true" signature="1058:1153" ph="/// How much damage this enemy does to the player. ... " />
+            <marker date="1524519385668" expanded="true" signature="1191:1289" ph="/// If the Kamikaze has already gone near the player. ... " />
+            <marker date="1524519385668" expanded="true" signature="1332:1422" ph="/// If the Kamikaze has gone in range before. ... " />
+            <marker date="1524519385668" expanded="true" signature="1498:1575" ph="/// Audio source for this enemy. ... " />
+            <marker date="1524519385668" expanded="true" signature="1621:1703" ph="/// Audio clip attached to this enemy ... " />
+            <marker date="1524519385668" expanded="true" signature="1744:1880" ph="/// Shield attached to player ship. ... " />
+            <marker date="1524519385668" expanded="true" signature="1962:2157" ph="{...}" />
+            <marker date="1524519385668" expanded="true" signature="2219:2479" ph="{...}" />
+            <marker date="1524519385668" expanded="true" signature="2489:2633" ph="/// Moves the enemy closer to the player and explodes if they are within 'range'. Runs every frame. ... " />
+            <marker date="1524519385668" expanded="true" signature="2663:4004" ph="{...}" />
+            <marker date="1524519385668" expanded="true" signature="2706:3994" ph="{...}" />
+            <marker date="1524519385668" expanded="true" signature="2756:3528" ph="{...}" />
+            <marker date="1524519385668" expanded="true" signature="3319:3510" ph="{...}" />
+            <marker date="1524519385668" expanded="true" signature="3549:3794" ph="{...}" />
+            <marker date="1524519385668" expanded="true" signature="3659:3776" ph="{...}" />
+            <marker date="1524519385668" expanded="true" signature="3837:3901" ph="{...}" />
+            <marker date="1524519385668" expanded="true" signature="4014:4223" ph="/// Causes a timed explosion when the enemy gets too close to the player ... " />
+            <marker date="1524519385668" expanded="true" signature="4275:4531" ph="{...}" />
+            <marker date="1524519385668" expanded="true" signature="4329:4521" ph="{...}" />
+            <marker date="1524519385668" expanded="true" signature="4541:4626" ph="/// Runs InRange if not already running. ... " />
+            <marker date="1524519385668" expanded="true" signature="4659:4831" ph="{...}" />
+            <marker date="1524519385668" expanded="true" signature="4698:4750" ph="{...}" />
+            <marker date="1524519385668" expanded="true" signature="4841:4966" ph="/// Causes a timed explosion when the enemy gets within range of the player ship ... " />
+            <marker date="1524519385668" expanded="true" signature="5004:5610" ph="{...}" />
+            <marker date="1524519385668" expanded="true" signature="5191:5313" ph="/* if (playerShield.GetComponent&lt;Collider&gt;().bounds ... */" />
+            <marker date="1524519385668" expanded="true" signature="5413:5579" ph="{...}" />
+            <marker date="1524519385668" expanded="true" signature="5620:5733" ph="/// Resets attributes to this enemy's defaults from enemyAttributes. ... " />
+            <marker date="1524519385668" expanded="true" signature="5773:5849" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/Player/PlayerHealth.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="572">
+          <caret line="301" selection-start-line="301" selection-end-line="301" />
+        </state>
+      </provider>
+    </entry>
   </component>
 </project>

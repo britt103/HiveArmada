@@ -139,6 +139,8 @@ namespace Hive.Armada.Enemies
         private bool canRotate;
 
         [Header("Health")]
+        public GameObject mainEye;
+        
         public int[] health;
 
         [Reorderable("Eye", false)]
@@ -304,6 +306,10 @@ namespace Hive.Armada.Enemies
 
             renderers.Clear();
             materials.Clear();
+
+            renderers.Add(mainEye.GetComponent<Renderer>());
+            materials.Add(renderers[0].material);
+            
             patternIds = new short[patterns.Length];
             for (int i = 0; i < patterns.Length; ++i)
             {
@@ -315,16 +321,16 @@ namespace Hive.Armada.Enemies
             //    eyes[i].GetComponent<Renderer>().material = eyeIntactMaterial;
             //}
 
-            foreach (Renderer r in gameObject.GetComponentsInChildren<Renderer>())
-            {
-                if (r.gameObject.CompareTag("Emitter") || r.transform.parent.CompareTag("Emitter"))
-                {
-                    continue;
-                }
-
-                renderers.Add(r);
-                materials.Add(r.material);
-            }
+            // foreach (Renderer r in gameObject.GetComponentsInChildren<Renderer>())
+            // {
+            //     if (r.gameObject.CompareTag("Emitter") || r.transform.parent.CompareTag("Emitter"))
+            //     {
+            //         continue;
+            //     }
+            //
+            //     renderers.Add(r);
+            //     materials.Add(r.material);
+            // }
 
             if (shootPoints.Length <= 0)
             {
@@ -1219,7 +1225,7 @@ namespace Hive.Armada.Enemies
                 case 2:
                     yield return Utility.waitOne;
 
-                    ResetAttackPattern();
+                    // ResetAttackPattern();
                     canRotate = true;
                     StartCoroutine(RotateProjectile(shootPivot));
                     for (int i = 0; i < 5; ++i)
@@ -1519,18 +1525,18 @@ namespace Hive.Armada.Enemies
             //Debug.Log(myPoints.Length);
         }
 
-        /// <summary>
-        /// </summary>
-        private void ResetAttackPattern()
-        {
-            canRotate = false;
-            StopCoroutine(RotateProjectile(shootPivot));
-            shootPivot.rotation = transform.rotation;
-            for (int i = 0; i < projectileArray.Length; ++i)
-            {
-                projectileArray[i] = false;
-            }
-        }
+        // /// <summary>
+        // /// </summary>
+        // private void ResetAttackPattern()
+        // {
+        //     canRotate = false;
+        //     StopCoroutine(RotateProjectile(shootPivot));
+        //     shootPivot.rotation = transform.rotation;
+        //     for (int i = 0; i < projectileArray.Length; ++i)
+        //     {
+        //         projectileArray[i] = false;
+        //     }
+        // }
 
         /// <summary>
         /// </summary>
@@ -1538,7 +1544,7 @@ namespace Hive.Armada.Enemies
         /// <param name="length"> </param>
         private void ActivateShootPoints(int[] points, int length)
         {
-            ResetAttackPattern();
+            //ResetAttackPattern();
             for (int i = 0; i < length; ++i)
             {
                 projectileArray[points[i]] = true;
@@ -1554,7 +1560,7 @@ namespace Hive.Armada.Enemies
         /// </summary>
         /// <param name="damage"> How much damage this enemy is taking. </param>
         /// <param name="sendFeedback"> If the hit should trigger a haptic feedback pulse </param>
-        public override void Hit(int damage, bool sendFeedback)
+        public override void Hit(int damage, bool sendFeedback = false)
         {
             if (!CurrentState.Equals(BossStates.Combat))
             {

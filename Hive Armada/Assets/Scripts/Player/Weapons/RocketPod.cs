@@ -86,7 +86,8 @@ namespace Hive.Armada.Player.Weapons
         /// </summary>
         protected override void SetupWeapon()
         {
-            waitBurst = new WaitForSeconds(fireRate / burstAmount);
+            waitFire = new WaitForSeconds(1.0f / fireRate);
+            waitBurst = new WaitForSeconds(1.0f / fireRate / burstAmount);
             rocketTypeIndex = -1;
 
             for (int i = 0; i < reference.rocketAttributes.rockets.Length; ++i)

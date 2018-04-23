@@ -22,7 +22,7 @@ namespace Hive.Armada.Player.Weapons
     public abstract class Weapon : MonoBehaviour
     {
         /// <summary>
-        /// Reference manager that holds all needed references
+        /// Reference manager that holds all needed references.
         /// (e.g. spawner, game manager, etc.)
         /// </summary>
         protected ReferenceManager reference;
@@ -39,7 +39,7 @@ namespace Hive.Armada.Player.Weapons
         public int damageMultiplier;
 
         /// <summary>
-        /// The radius for the aim assist SphereCast
+        /// The radius for the aim assist SphereCast.
         /// </summary>
         [Tooltip("Radius for the aim assist SphereCast")]
         public float radius = 0.3f;
@@ -57,21 +57,16 @@ namespace Hive.Armada.Player.Weapons
         protected WaitForSeconds waitFire;
 
         /// <summary>
-        /// This weapon's index in the ship's weapon array.
-        /// </summary>
-        protected int index;
-
-        /// <summary>
-        /// If this weapon can shoot or not. Used for the firing Coroutine
+        /// If this weapon can shoot or not. Used for the firing Coroutine.
         /// </summary>
         protected bool canShoot = true;
 
         protected bool AimAssistActive { get; private set; }
 
         /// <summary>
-        /// Initializes the reference to the Reference Manager
+        /// Initializes the reference to the Reference Manager.
         /// </summary>
-        protected virtual void Awake()
+        protected void Awake()
         {
             reference = GameObject.Find("Reference Manager").GetComponent<ReferenceManager>();
 
@@ -79,18 +74,19 @@ namespace Hive.Armada.Player.Weapons
             {
                 Debug.LogError(GetType().Name + " - Could not find Reference Manager!");
             }
-
-            AimAssistActive = reference.gameSettings != null ? reference.gameSettings.aimAssist : true;
-            waitFire = new WaitForSeconds(1.0f / fireRate);
+            else
+            {
+                // Aim assist is on by default if gameSettings cannot be found.
+                AimAssistActive = reference.gameSettings == null || reference.gameSettings.aimAssist;
+            }
         }
 
         /// <summary>
-        /// Initializes weapon attributes
+        /// Initializes weapon attributes.
         /// </summary>
         /// <param name="weaponIndex"> The index of this weapon's attributes in the ship </param>
-        public virtual void Initialize(int weaponIndex)
+        public void Initialize(int weaponIndex)
         {
-            index = weaponIndex;
             damageMultiplier = 1;
             damage = shipController.weapons[weaponIndex].damage;
             fireRate = shipController.weapons[weaponIndex].fireRate;
@@ -105,7 +101,7 @@ namespace Hive.Armada.Player.Weapons
         /// <summary>
         /// Called every frame that the controller's trigger is down.
         /// </summary>
-        public virtual void TriggerUpdate()
+        public void TriggerUpdate()
         {
             if (canShoot)
             {

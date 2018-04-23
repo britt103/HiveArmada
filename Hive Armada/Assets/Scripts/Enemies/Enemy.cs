@@ -3,7 +3,7 @@
 // Perry Sidler
 // 1831784
 // sidle104@mail.chapman.edu
-// CPSC-340-01 & CPSC-344-01
+// CPSC-440-01, CPSC-340-01 & CPSC-344-01
 // Group Project
 // 
 // This abstract class is the base for all enemies. It handles all fields
@@ -15,11 +15,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
+using Hive.Armada.Data;
 using Hive.Armada.Game;
 using Hive.Armada.Menus;
 using Hive.Armada.Player;
-using MirzaBeig.ParticleSystems;
+using UnityEngine;
 
 namespace Hive.Armada.Enemies
 {
@@ -28,24 +28,12 @@ namespace Hive.Armada.Enemies
     /// </summary>
     public enum AttackPattern
     {
-        /// <summary>
-        /// Attack pattern one.
-        /// </summary>
         One,
 
-        /// <summary>
-        /// Attack pattern two.
-        /// </summary>
         Two,
 
-        /// <summary>
-        /// Attack pattern three.
-        /// </summary>
         Three,
 
-        /// <summary>
-        /// Attack pattern four.
-        /// </summary>
         Four,
 
         Five,
@@ -67,7 +55,7 @@ namespace Hive.Armada.Enemies
     /// </summary>
     public abstract class Enemy : Poolable
     {
-        protected WaveManager waveManager;
+        private WaveManager waveManager;
 
         /// <summary>
         /// Reference to enemy attributes to initialize/reset this enemy's attributes.
@@ -77,7 +65,7 @@ namespace Hive.Armada.Enemies
         /// <summary>
         /// Reference to the scoring system for adding score when this enemy dies.
         /// </summary>
-        protected ScoringSystem scoringSystem;
+        private ScoringSystem scoringSystem;
 
         /// <summary>
         /// Reference to the object pool manager. Used for easy access to spawning projectiles
@@ -93,7 +81,7 @@ namespace Hive.Armada.Enemies
         /// </summary>
         protected int wave;
 
-        protected string path;
+        private string path;
 
         /// <summary>
         /// Whether or not this enemy has already been initialized with its attributes.
@@ -124,17 +112,6 @@ namespace Hive.Armada.Enemies
         public Material flashColor;
 
         /// <summary>
-        /// The particle emitter for enemy spawn.
-        /// </summary>
-        [Tooltip("The particle emitter for enemy spawn.")]
-        protected GameObject spawnEmitter;
-
-        /// <summary>
-        /// The particle system for the enemy spawn emitter.
-        /// </summary>
-        protected ParticleSystems spawnEmitterSystem;
-
-        /// <summary>
         /// The particle emitter for enemy death.
         /// </summary>
         [Tooltip("The particle emitter for enemy death.")]
@@ -143,13 +120,7 @@ namespace Hive.Armada.Enemies
         /// <summary>
         /// The type identifier needed to spawn the death emitter from the object pool.
         /// </summary>
-        protected short deathEmitterTypeIdentifier = -2;
-
-        /// <summary>
-        /// Changes to false on first hit.
-        /// Used to tell the wave that it can spawn more enemies.
-        /// </summary>
-        protected bool untouched = true;
+        private short deathEmitterTypeIdentifier = -2;
 
         /// <summary>
         /// Used to prevent HitFlash() from being called a
@@ -181,7 +152,7 @@ namespace Hive.Armada.Enemies
         /// <summary>
         /// The player's ship.
         /// </summary>
-        protected GameObject player;
+        protected Transform shipLookTarget;
 
         /// <summary>
         /// Used to shake low health enemies.
@@ -201,7 +172,7 @@ namespace Hive.Armada.Enemies
         {
             base.Awake();
 
-            player = reference.shipLookTarget;
+            shipLookTarget = reference.shipLookTarget.transform;
             enemyAttributes = reference.enemyAttributes;
             waveManager = reference.waveManager;
             scoringSystem = reference.scoringSystem;
@@ -223,9 +194,24 @@ namespace Hive.Armada.Enemies
             }
         }
 
-        protected void OnEnable()
+        /// <summary>
+        /// Initializes the attributes for this enemy.
+        /// </summary>
+        /// <param name="enemyData"> The ScriptableObject with the attributes </param>
+        protected void Initialize(EnemyData enemyData)
         {
-            SetEnemyId(enemyAttributes.GetNextEnemyId());
+            maxHealth = enemyData.maxHealth;
+            pointValue = enemyData.scoreValue;
+            flashColor = enemyData.flashColor;
+            deathEmitter = enemyData.deathEmitter;
+            deathEmitterTypeIdentifier =
+                reference.objectPoolManager.GetTypeIdentifier(deathEmitter);
+            selfDestructTime = enemyData.selfDestructTime;
+        }
+
+        protected virtual void OnEnable()
+        {
+            EnemyId = enemyAttributes.GetNextEnemyId();
         }
 
         protected void OnDisable()
@@ -233,17 +219,12 @@ namespace Hive.Armada.Enemies
             StopAllCoroutines();
         }
 
-        public virtual void Hit(int damage)
-        {
-            Hit(damage, false);
-        }
-
         /// <summary>
         /// Used to apply damage to an enemy.
         /// </summary>
         /// <param name="damage"> How much damage this enemy is taking. </param>
         /// <param name="sendFeedback"> If the hit should trigger a haptic feedback pulse </param>
-        public virtual void Hit(int damage, bool sendFeedback)
+        public virtual void Hit(int damage, bool sendFeedback = false)
         {
             if (!PathingComplete)
             {
@@ -292,11 +273,13 @@ namespace Hive.Armada.Enemies
                 waveManager.EnemyDead(path);
             }
 
-            reference.scoringSystem.ComboIn(pointValue, transform);
+            scoringSystem.ComboIn(pointValue, transform);
             reference.statistics.EnemyKilled();
             FindObjectOfType<BestiaryUnlockData>().AddEnemyUnlock(gameObject.name);
             objectPoolManager.Spawn(gameObject, deathEmitterTypeIdentifier, transform.position,
                                     transform.rotation);
+
+            StopAllCoroutines();
 
             try
             {
@@ -313,7 +296,7 @@ namespace Hive.Armada.Enemies
         /// <summary>
         /// Tells the wave to respawn this enemy.
         /// </summary>
-        protected virtual void SelfDestruct()
+        protected void SelfDestruct()
         {
             objectPoolManager.Spawn(gameObject, deathEmitterTypeIdentifier, transform.position,
                                     transform.rotation);
@@ -323,7 +306,7 @@ namespace Hive.Armada.Enemies
         /// <summary>
         /// Visual feedback when the enemy is hit. Flashes the material using flashColor.
         /// </summary>
-        protected virtual IEnumerator HitFlash()
+        protected IEnumerator HitFlash()
         {
             // "flash" materials to flashColor
             foreach (Renderer r in renderers)
@@ -350,49 +333,44 @@ namespace Hive.Armada.Enemies
             PathingComplete = true;
         }
 
-        protected virtual void SetEnemyId(int enemyId)
-        {
-            EnemyId = enemyId;
-        }
-
         /// <summary>
         /// Used to set the wave index.
         /// </summary>
-        /// <param name="wave"> The index of the wave that spawned this enemy </param>
-        public virtual void SetWave(int wave)
+        /// <param name="spawnWave"> The index of the wave that spawned this enemy </param>
+        public void SetWave(int spawnWave)
         {
-            this.wave = wave;
+            wave = spawnWave;
         }
 
         /// <summary>
         /// Sets the name of the path this enemy used to spawn.
         /// </summary>
-        /// <param name="path"> The path name </param>
-        public virtual void SetPath(string path)
+        /// <param name="spawnPath"> The path name that this enemy is spawning on </param>
+        public void SetPath(string spawnPath)
         {
-            this.path = path;
+            path = spawnPath;
         }
 
         /// <summary>
         /// Sets the attack pattern that this enemy will use against the player.
         /// </summary>
-        /// <param name="attackPattern"> The attack pattern to use </param>
-        public virtual void SetAttackPattern(AttackPattern attackPattern)
+        /// <param name="spawnAttackPattern"> The attack pattern to use </param>
+        public virtual void SetAttackPattern(AttackPattern spawnAttackPattern)
         {
-            this.attackPattern = attackPattern;
+            attackPattern = spawnAttackPattern;
         }
 
-        /// <summary>
-        /// Countdowns down from selfDestructTime. Calls Kill() if untouched.
-        /// </summary>
-        protected virtual void SelfDestructCountdown()
-        {
-            selfDestructTime -= Time.deltaTime;
-            if (selfDestructTime <= 0 && untouched)
-            {
-                SelfDestruct();
-            }
-        }
+        // /// <summary>
+        // /// Countdowns down from selfDestructTime. Calls Kill() if untouched.
+        // /// </summary>
+        // protected void SelfDestructCountdown()
+        // {
+        //     selfDestructTime -= Time.deltaTime;
+        //     if (selfDestructTime <= 0)
+        //     {
+        //         SelfDestruct();
+        //     }
+        // }
 
         /// <summary>
         /// Resets attributes to this enemy's defaults from enemyAttributes.
@@ -408,20 +386,9 @@ namespace Hive.Armada.Enemies
             PathingComplete = false;
             hitFlash = null;
             shaking = false;
-            maxHealth = enemyAttributes.enemyHealthValues[TypeIdentifier];
             Health = maxHealth;
-            pointValue = enemyAttributes.enemyScoreValues[TypeIdentifier];
-            selfDestructTime = enemyAttributes.enemySelfDestructTimes[TypeIdentifier];
-            deathEmitterTypeIdentifier = enemyAttributes.EnemyDeathEmitterTypeIds[TypeIdentifier];
 
-            try
-            {
-                iTween.Stop(gameObject);
-            }
-            catch (Exception)
-            {
-                //
-            }
+            StopAllCoroutines();
         }
     }
 }

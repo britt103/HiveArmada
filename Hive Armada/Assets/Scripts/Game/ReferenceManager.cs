@@ -20,6 +20,7 @@ using Hive.Armada.Player;
 using Hive.Armada.PowerUps;
 using System;
 using Hive.Armada.Ambient;
+using Hive.Armada.Data;
 
 namespace Hive.Armada.Game
 {
@@ -70,12 +71,16 @@ namespace Hive.Armada.Game
 
         public Tooltips tooltips;
 
+        public ProjectileData projectileData;
+
         //----------------------------------------
         // 
         // Player
         // 
         //----------------------------------------
         [Header("Player")]
+        public HealthData healthData;
+        
         public GameObject player;
 
         public GameObject playerLookTarget;
@@ -156,11 +161,6 @@ namespace Hive.Armada.Game
         /// </summary>
         private void Awake()
         {
-            if (enemyAttributes != null)
-            {
-                enemyAttributes.Initialize(this);
-            }
-
             if (objectPoolManager != null)
             {
                 objectPoolManager.Initialize(this);

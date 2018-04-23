@@ -170,6 +170,8 @@ namespace Hive.Armada.Player.Weapons
 
         public AudioClip overheatSound;
 
+        private WaitForSeconds waitOverheatDecreaseDelay;
+
         /// <summary>
         /// Initializes the LineRenderer's for the minigun tracers and
         /// the muzzle flash emitter pool.
@@ -200,6 +202,9 @@ namespace Hive.Armada.Player.Weapons
                 muzzleFlashSystem.clear();
                 muzzleFlashEmitters[i] = muzzleFlashSystem;
             }
+
+            waitFire = new WaitForSeconds(1.0f / fireRate);
+            waitOverheatDecreaseDelay = new WaitForSeconds(overheatDecreaseDelay);
         }
 
         /// <summary>
@@ -357,7 +362,7 @@ namespace Hive.Armada.Player.Weapons
             reference.statistics.WeaponFired("Minigun", 1);
             reference.playerIdleTimer.SetIsIdle(false);
 
-            yield return new WaitForSeconds(1.0f / fireRate);
+            yield return waitFire;
 
             isLeftFire = !isLeftFire;
             canShoot = true;
@@ -382,7 +387,7 @@ namespace Hive.Armada.Player.Weapons
             tracer.SetPosition(1, position);
             tracer.enabled = true;
 
-            yield return new WaitForSeconds(0.006f);
+            yield return Utility.waitLineRendererFlash;
 
             tracer.enabled = false;
         }
@@ -469,7 +474,7 @@ namespace Hive.Armada.Player.Weapons
         /// </summary>
         private IEnumerator OverheatDecreaseDelay()
         {
-            yield return new WaitForSeconds(overheatDecreaseDelay);
+            yield return waitOverheatDecreaseDelay;
 
             isCooling = true;
             if (!isOverheating)

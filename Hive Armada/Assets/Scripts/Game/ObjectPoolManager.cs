@@ -3,7 +3,7 @@
 // Perry Sidler
 // 1831784
 // sidle104@mail.chapman.edu
-// CPSC-340-01 & CPSC-344-01
+// CPSC-440-01, CPSC-340-01 & CPSC-344-01
 // Group Project
 // 
 // This class contains the object pool manager. It allows us to define a list
@@ -16,10 +16,9 @@
 // 
 //=============================================================================
 
-using SubjectNerd.Utilities;
 using System;
-using System.Collections;
 using System.Collections.Generic;
+using SubjectNerd.Utilities;
 using UnityEngine;
 
 namespace Hive.Armada.Game
@@ -80,16 +79,21 @@ namespace Hive.Armada.Game
         public ObjectToPool[] objects;
 
         /// <summary>
-        /// Array of queues for each object to pool.
-        /// These queues will hold the objects that are currently deactivated in the scene.
+        /// Array of stacks for each object in the pool.
+        /// These stacks will hold the objects that are not currently active.
         /// </summary>
         private Stack<GameObject>[] inactivePools;
 
         /// <summary>
-        /// Array of queues for each object to pool.
-        /// These queues will hold the objects that are currently activated in the scene.
+        /// Dictionary of all objects in the pool that are active.
         /// </summary>
         private Dictionary<uint, GameObject> activePool;
+
+        /// <summary>
+        /// Dictionary of all pooled prefabs' type identifiers.
+        /// Key is the prefab InstanceID for fast lookups.
+        /// </summary>
+        private Dictionary<int, short> typeIdentifierLookup;
 
         /// <summary>
         /// The last pool identifier used.
@@ -115,39 +119,44 @@ namespace Hive.Armada.Game
             isInitialized = true;
             reference = referenceManager;
 
-            if (objects.Length == 0)
+            typeIdentifierLookup = new Dictionary<int, short>();
+
+            for (int i = 0; i < objects.Length; ++i)
             {
-                Debug.LogError(GetType().Name + " - has no objects to pool!");
+                typeIdentifierLookup.Add(objects[i].objectPrefab.GetInstanceID(), (short) i);
             }
-            else
+
+            reference.enemyAttributes.Initialize(referenceManager);
+
+            poolParents = new GameObject[objects.Length];
+            parentNames = new string[objects.Length];
+
+            inactivePools = new Stack<GameObject>[objects.Length];
+            activePool = new Dictionary<uint, GameObject>();
+
+            for (int i = 0; i < objects.Length; ++i)
             {
-                poolParents = new GameObject[objects.Length];
-                parentNames = new string[objects.Length];
-
-                inactivePools = new Stack<GameObject>[objects.Length];
-                activePool = new Dictionary<uint, GameObject>();
-
-                for (int i = 0; i < objects.Length; ++i)
+                if (objects[i].objectPrefab.GetComponent<Poolable>() == null)
                 {
-                    if (objects[i].objectPrefab.GetComponent<Poolable>() == null)
-                    {
-                        Debug.LogError(GetType().Name + " - " + objects[i].objectPrefab.name +
-                                       " does not inherit Poolable!");
-                        continue;
-                    }
+                    Debug.LogError(GetType().Name + " - " + objects[i].objectPrefab.name +
+                                   " does not inherit Poolable!");
+                    continue;
+                }
 
-                    inactivePools[i] = new Stack<GameObject>();
+                // Debug.LogWarning("CREATING POOL => PREFAB NAME: \"" + objects[i].objectPrefab.name +
+                //                  "\" IID: " + objects[i].objectPrefab.GetInstanceID());
 
-                    poolParents[i] = new GameObject();
-                    poolParents[i].transform.parent = transform;
-                    poolParents[i].transform.localPosition = Vector3.zero;
-                    parentNames[i] = " - " + objects[i].objectPrefab.name;
-                    poolParents[i].name = objects[i].amountToPool + parentNames[i];
+                inactivePools[i] = new Stack<GameObject>();
 
-                    for (int n = 0; n < objects[i].amountToPool; ++n)
-                    {
-                        AddObject((short) i);
-                    }
+                poolParents[i] = new GameObject();
+                poolParents[i].transform.parent = transform;
+                poolParents[i].transform.localPosition = Vector3.zero;
+                parentNames[i] = " - " + objects[i].objectPrefab.name;
+                poolParents[i].name = objects[i].amountToPool + parentNames[i];
+
+                for (int n = 0; n < objects[i].amountToPool; ++n)
+                {
+                    AddObject((short) i);
                 }
             }
         }
@@ -351,11 +360,16 @@ namespace Hive.Armada.Game
                     poolParents[typeIdentifier].transform;
                 objectToDespawn.transform.localPosition = Vector3.zero;
 
-                if (activePool.ContainsKey(poolable.PoolIdentifier))
+                if (!activePool.ContainsKey(poolable.PoolIdentifier))
                 {
-                    activePool.Remove(poolable.PoolIdentifier);
-                    inactivePools[typeIdentifier].Push(objectToDespawn);
+                    Debug.LogError(GetType().Name + " - Attempting to despawn object that " +
+                                   "is not in the active pool. TypeID=" + poolable.TypeIdentifier +
+                                   ", PoolID=" + poolable.PoolIdentifier);
+                    return;
                 }
+
+                activePool.Remove(poolable.PoolIdentifier);
+                inactivePools[typeIdentifier].Push(objectToDespawn);
             }
             else
             {
@@ -372,14 +386,13 @@ namespace Hive.Armada.Game
         /// <returns> </returns>
         public short GetTypeIdentifier(GameObject objectType)
         {
-            for (int i = 0; i < objects.Length; ++i)
+            if (typeIdentifierLookup.ContainsKey(objectType.GetInstanceID()))
             {
-                if (objectType.name.Equals(objects[i].objectPrefab.name))
-                {
-                    return (short) i;
-                }
+                return typeIdentifierLookup[objectType.GetInstanceID()];
             }
 
+            Debug.LogError(GetType().Name + " - Object not in pool. Prefab Name: \"" +
+                           objectType.name + "\"");
             return -1;
         }
 
@@ -435,10 +448,10 @@ namespace Hive.Armada.Game
                       .Initialize(reference, typeIdentifier, lastPoolIdentifier++);
                 inactivePools[typeIdentifier].Push(pooled);
 
-                if (typeIdentifier == reference.enemyAttributes.EnemyProjectileTypeIdentifiers[0])
-                {
-                    reference.enemyAttributes.AddProjectile(pooled);
-                }
+                // if (typeIdentifier == reference.enemyAttributes.EnemyProjectileTypeIdentifiers[0])
+                // {
+                //     reference.enemyAttributes.AddProjectile(pooled);
+                // }
             }
             catch (IndexOutOfRangeException e)
             {

@@ -34,11 +34,6 @@ namespace Hive.Armada.Enemies
         private Material material;
 
         /// <summary>
-        /// The amount of damage the projectile takes from the player's health
-        /// </summary>
-        private int damage;
-
-        /// <summary>
         /// </summary>
         public byte ProjectileId { get; private set; }
         /// <summary>
@@ -93,17 +88,18 @@ namespace Hive.Armada.Enemies
         protected override void Awake()
         {
             base.Awake();
-
-            damage = reference.enemyAttributes.projectileDamage;
+            
+            
             pRigidbody = GetComponent<Rigidbody>();
             projectileScripts = new ProjectileInPattern[projectiles.Length];
 
             for (int i = 0; i < projectiles.Length; ++i)
             {
                 projectileScripts[i] = projectiles[i].GetComponent<ProjectileInPattern>();
-                projectileScripts[i].SetDamage(damage);
             }
         }
+        
+        
 
         /// <summary>
         /// Sets this projectile's speed ID number.
@@ -154,7 +150,7 @@ namespace Hive.Armada.Enemies
                 pRigidbody.velocity = transform.forward *
                                       reference.enemyAttributes.projectileSpeeds[ProjectileId];
 
-                yield return new WaitForSeconds(0.1f);
+                yield return Utility.waitOneTenth;
             }
             timeWarpCoroutine = null;
         }
@@ -234,7 +230,6 @@ namespace Hive.Armada.Enemies
         protected override void Reset()
         {
             hitProjectiles = 0;
-            damage = reference.enemyAttributes.projectileDamage;
 
             for (int i = 0; i < projectiles.Length; ++i)
             {

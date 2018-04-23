@@ -265,23 +265,16 @@ namespace Hive.Armada.Game
         /// </summary>
         private IEnumerator Spawn()
         {
-            for (int i = 0; i < setupSpawnGroups.Length; i++)
+            foreach (SetupNormalSpawnGroup group in setupSpawnGroups)
             {
-                //if (WaveNumber == 3 && i < 2)
-                //{
-                //    Debug.LogWarning(GetType().Name + " - Skipping Wave " + (WaveNumber + 1) + " Spawn Group Index = " + i);
-                //    continue;
-                //}
-
-                SetupNormalSpawnGroup @group = setupSpawnGroups[i];
-                yield return new WaitForSeconds(Mathf.Abs(@group.delay));
+                yield return new WaitForSeconds(Mathf.Abs(group.delay));
 
                 while (enemiesRemaining > 0)
                 {
-                    yield return new WaitForSeconds(0.1f);
+                    yield return Utility.waitOneTenth;
                 }
 
-                foreach (SetupNormalSpawnZone zone in @group.setupSpawnZones)
+                foreach (SetupNormalSpawnZone zone in group.setupSpawnZones)
                 {
                     Vector3 position;
 
@@ -349,19 +342,19 @@ namespace Hive.Armada.Game
                     }
                 }
 
-                if (@group.powerupSpawn.powerupSpawn != PowerupSpawnPoint.NoPowerup)
+                if (group.powerupSpawn.powerupSpawn != PowerupSpawnPoint.NoPowerup)
                 {
                     Vector3 spawnPoint = waveManager
-                        .powerupSpawnPoints[(int) @group.powerupSpawn.powerupSpawn - 1].position;
+                        .powerupSpawnPoints[(int) group.powerupSpawn.powerupSpawn - 1].position;
 
-                    Instantiate(waveManager.powerupPrefabs[(int) @group.powerupSpawn.powerup],
+                    Instantiate(waveManager.powerupPrefabs[(int) group.powerupSpawn.powerup],
                                 spawnPoint, Quaternion.identity);
 
                     if (!waveManager.spawnedPowerupOnce)
                     {
                         waveManager.spawnedPowerupOnce = true;
                         reference.tooltips.SpawnGrabPowerup(
-                            (int) @group.powerupSpawn.powerupSpawn - 1);
+                            (int) group.powerupSpawn.powerupSpawn - 1);
                     }
                 }
             }
@@ -377,7 +370,7 @@ namespace Hive.Armada.Game
         {
             while (enemiesRemaining > 0)
             {
-                yield return new WaitForSeconds(0.1f);
+                yield return Utility.waitOneTenth;
             }
 
             IsRunning = false;

@@ -98,6 +98,8 @@ namespace Hive.Armada.PowerUps
         /// </summary>
         public float firerate;
 
+        private WaitForSeconds fireWait;
+
         /// <summary>
         /// State controllering when ally can fire.
         /// </summary>
@@ -121,8 +123,9 @@ namespace Hive.Armada.PowerUps
                 rocketTypeId = reference.objectPoolManager.GetTypeIdentifier(rocketPrefab);
             }
 
-            Instantiate(spawnEmitter, transform);
             transform.localPosition = new Vector3(0, distance, 0);
+            Instantiate(spawnEmitter, transform);
+            fireWait = new WaitForSeconds(1.0f / firerate);
         }
 
         // Subtract from and check timeLimit. Call Move(). Start Fire coroutine.
@@ -153,8 +156,6 @@ namespace Hive.Armada.PowerUps
         /// <returns> Transform of nearest enemy ship. </returns>
         private Transform GetNearestEnemy()
         {
-            Vector3 positionDifference;
-            float distance;
             float shortestDistance = Mathf.Infinity;
             GameObject nearestEnemy = null;
             foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
@@ -183,8 +184,8 @@ namespace Hive.Armada.PowerUps
                     continue;
                 }
 
-                positionDifference = enemy.transform.position -
-                                     transform.parent.transform.position;
+                Vector3 positionDifference = enemy.transform.position -
+                                             transform.parent.transform.position;
 
                 //faster than non-squared magnitude
                 distance = positionDifference.sqrMagnitude;
@@ -196,12 +197,17 @@ namespace Hive.Armada.PowerUps
             }
 
             //couldn't find any enemies
-            if (shortestDistance == Mathf.Infinity)
+            if (float.IsPositiveInfinity(shortestDistance))
             {
                 return null;
             }
 
-            return nearestEnemy.transform;
+            if (nearestEnemy != null)
+            {
+                return nearestEnemy.transform;
+            }
+
+            return null;
         }
 
         /// <summary>
@@ -281,7 +287,7 @@ namespace Hive.Armada.PowerUps
 
             source.PlayOneShot(clips[0]);
 
-            yield return new WaitForSeconds(1.0f / firerate);
+            yield return fireWait;
 
             canFire = true;
         }

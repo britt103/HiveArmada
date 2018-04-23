@@ -2010,19 +2010,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flashColor: {fileID: 2100000, guid: 1db15971033ba594294b4f0c035f7da8, type: 2}
+  lookStrength: 3
   shootPoint: {fileID: 4558188142204940}
-  projectileArray: 00000000000000000000000000000000000000000000000000
-  childTurret: {fileID: 1618603837932422, guid: 9a594f50db7a6b347af3019acb9f591b,
-    type: 2}
-  splitDir: 30
-  projectileAlbedoColor: {r: 0.8235294, g: 0.042387534, b: 0.042387534, a: 1}
-  projectileEmissionColor: {r: 1, g: 0.41176468, b: 0.41176468, a: 1}
-  xMax: 0
-  yMax: 2
-  movingSpeed: 2
-  projectilePatterns:
-  - {fileID: 1933859481263082, guid: ec2f242de238de648a55f01c4259f4e4, type: 2}
-  - {fileID: 1696697073915922, guid: 692a53a639739c440952abd099686e69, type: 2}
+  enemyData: {fileID: 11400000, guid: 31ab9e91f6100524fbd70a49b9cb42e0, type: 2}
 --- !u!136 &136215850579937890
 CapsuleCollider:
   m_ObjectHideFlags: 1

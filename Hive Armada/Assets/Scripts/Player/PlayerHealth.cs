@@ -13,9 +13,10 @@
 
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using Hive.Armada.Data;
 using Hive.Armada.Game;
 using SubjectNerd.Utilities;
+using UnityEngine;
 
 namespace Hive.Armada.Player
 {
@@ -35,10 +36,14 @@ namespace Hive.Armada.Player
         /// </summary>
         public ShipController shipController;
 
+        private HealthData healthData;
+
+        private ProjectileData projectileData;
+
         /// <summary>
         /// Maximum health for the ship.
         /// </summary>
-        public int maxHealth = 30;
+        private int maxHealth;
 
         /// <summary>
         /// Current health for the ship.
@@ -129,7 +134,7 @@ namespace Hive.Armada.Player
 
         public AudioClip heal;
 
-		/// <summary>
+        /// <summary>
         /// The look target for the player ship.
         /// </summary>
         private GameObject lookTarget;
@@ -145,6 +150,9 @@ namespace Hive.Armada.Player
         private void Start()
         {
             reference = FindObjectOfType<ReferenceManager>();
+
+            healthData = reference.healthData;
+            projectileData = reference.projectileData;
 
             lookTarget = reference.shipLookTarget;
             lookTarget.transform.parent = transform;
@@ -170,6 +178,7 @@ namespace Hive.Armada.Player
                 materials.Add(r.material);
             }
 
+            maxHealth = healthData.playerMaxHealth;
             currentHealth = maxHealth;
             playerHitVignette = reference.playerHitVignette;
         }
@@ -185,12 +194,13 @@ namespace Hive.Armada.Player
                 return;
             }
 
-            int podIndex = (maxHealth - currentHealth) / 10;
+            int podIndex = (maxHealth - currentHealth) / projectileData.projectileDamage;
             healthPods[podIndex].GetComponent<Renderer>().material = podDestroyedMaterial;
 
             if (podHitEmitter)
             {
-                ParticleSystem mPodEmitter = healthPods[podIndex].transform.GetChild(0).GetComponent<ParticleSystem>();
+                ParticleSystem mPodEmitter = healthPods[podIndex]
+                                             .transform.GetChild(0).GetComponent<ParticleSystem>();
                 mPodEmitter.Clear();
                 mPodEmitter.Play();
             }
@@ -204,9 +214,12 @@ namespace Hive.Armada.Player
                 Debug.Log("Hit for " + damage + " damage! Remaining health = " + currentHealth);
             }
 
-            if (currentHealth <= 10 && currentHealth != 0)
+            if (currentHealth == healthData.playerLowHealth)
             {
-                source.PlayOneShot(lowHealth);
+                if (lowHealth != null)
+                {
+                    source.PlayOneShot(lowHealth);
+                }
             }
 
             if (currentHealth <= 0)
@@ -240,7 +253,7 @@ namespace Hive.Armada.Player
                 r.material = flashColor;
             }
 
-            yield return new WaitForSeconds(0.05f);
+            yield return Utility.waitHitFlash;
 
             // reset materials
             for (int i = 0; i < renderers.Count; ++i)
@@ -283,15 +296,16 @@ namespace Hive.Armada.Player
 
                 int podIndex = (maxHealth - currentHealth) / 10;
                 healthPods[podIndex].GetComponent<Renderer>().material = podIntactMaterial;
-                StartCoroutine(playHealSound());
+                StartCoroutine(PlayHealSound());
             }
         }
 
-        IEnumerator playHealSound()
+        private IEnumerator PlayHealSound()
         {
             if (source.isPlaying)
             {
                 yield return new WaitWhile(() => source.isPlaying);
+
                 source.PlayOneShot(heal);
             }
             else

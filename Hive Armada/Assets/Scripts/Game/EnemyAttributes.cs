@@ -48,72 +48,72 @@ namespace Hive.Armada.Game
         /// </summary>
         private ReferenceManager reference;
 
-        /// <summary>
-        /// Starting health for each enemy type.
-        /// </summary>
-        [Header("Enemy - General")]
-        [Reorderable("Enemy", false)]
-        public int[] enemyHealthValues;
-
-        /// <summary>
-        /// Self-destruct time for each enemy type.
-        /// </summary>
-        [Reorderable("Enemy", false)]
-        public float[] enemySelfDestructTimes;
-
-        /// <summary>
-        /// How many points each enemy is worth.
-        /// </summary>
-        [Reorderable("Enemy", false)]
-        public int[] enemyScoreValues;
-
-        /// <summary>
-        /// Prefab of each enemy's projectile.
-        /// </summary>
-        [Reorderable("Enemy", false)]
-        public GameObject[] enemyProjectilePrefab;
-
-        /// <summary>
-        /// Type identifiers for each enemy's projectile prefab.
-        /// </summary>
-        public short[] EnemyProjectileTypeIdentifiers { get; private set; }
-
-        /// <summary>
-        /// Fire rate for each enemy type.
-        /// </summary>
-        [Header("Enemy - Combat")]
-        [Reorderable("Enemy", false)]
-        public float[] enemyFireRate;
-
-        /// <summary>
-        /// Shooting spread for each enemy type.
-        /// </summary>
-        [Reorderable("Enemy", false)]
-        public float[] enemySpread;
-
-        /// <summary>
-        /// Particle emitter on enemy spawn.
-        /// </summary>
-        [Header("Enemy - Emitters")]
-        [Reorderable("Enemy", false)]
-        public GameObject[] enemySpawnEmitters;
-
-        /// <summary>
-        /// Particles emitters on enemy death.
-        /// </summary>
-        [Reorderable("Enemy", false)]
-        public GameObject[] enemyDeathEmitters;
-
-        /// <summary>
-        /// Type Ids for the enemy death particle emitters.
-        /// </summary>
-        public short[] EnemyDeathEmitterTypeIds { get; private set; }
-
-        /// <summary>
-        /// Damage that the enemy projectiles deal.
-        /// </summary>
-        [Header("Projectile - General")]
-        public int projectileDamage;
+        // /// <summary>
+        // /// Starting health for each enemy type.
+        // /// </summary>
+        // [Header("Enemy - General")]
+        // [Reorderable("Enemy", false)]
+        // public int[] enemyHealthValues;
+        //
+        // /// <summary>
+        // /// Self-destruct time for each enemy type.
+        // /// </summary>
+        // [Reorderable("Enemy", false)]
+        // public float[] enemySelfDestructTimes;
+        //
+        // /// <summary>
+        // /// How many points each enemy is worth.
+        // /// </summary>
+        // [Reorderable("Enemy", false)]
+        // public int[] enemyScoreValues;
+        //
+        // /// <summary>
+        // /// Prefab of each enemy's projectile.
+        // /// </summary>
+        // [Reorderable("Enemy", false)]
+        // public GameObject[] enemyProjectilePrefab;
+        //
+        // /// <summary>
+        // /// Type identifiers for each enemy's projectile prefab.
+        // /// </summary>
+        // public short[] EnemyProjectileTypeIdentifiers { get; private set; }
+        //
+        // /// <summary>
+        // /// Fire rate for each enemy type.
+        // /// </summary>
+        // [Header("Enemy - Combat")]
+        // [Reorderable("Enemy", false)]
+        // public float[] enemyFireRate;
+        //
+        // /// <summary>
+        // /// Shooting spread for each enemy type.
+        // /// </summary>
+        // [Reorderable("Enemy", false)]
+        // public float[] enemySpread;
+        //
+        // /// <summary>
+        // /// Particle emitter on enemy spawn.
+        // /// </summary>
+        // [Header("Enemy - Emitters")]
+        // [Reorderable("Enemy", false)]
+        // public GameObject[] enemySpawnEmitters;
+        //
+        // /// <summary>
+        // /// Particles emitters on enemy death.
+        // /// </summary>
+        // [Reorderable("Enemy", false)]
+        // public GameObject[] enemyDeathEmitters;
+        //
+        // /// <summary>
+        // /// Type Ids for the enemy death particle emitters.
+        // /// </summary>
+        // public short[] EnemyDeathEmitterTypeIds { get; private set; }
+        //
+        // /// <summary>
+        // /// Damage that the enemy projectiles deal.
+        // /// </summary>
+        // [Header("Projectile - General")]
+        // public int projectileDamage;
 
         /// <summary>
         /// Speed at which the projectile moves.
@@ -150,6 +150,8 @@ namespace Hive.Armada.Game
 
         private int enemyId;
 
+        private WaitForSeconds waitStep;
+
         /// <summary>
         /// Gets the type identifiers for each enemy's projectile prefabs
         /// </summary>
@@ -157,35 +159,35 @@ namespace Hive.Armada.Game
         {
             reference = referenceManager;
 
-            EnemyProjectileTypeIdentifiers = new short[enemyProjectilePrefab.Length];
-
-            for (int i = 0; i < enemyProjectilePrefab.Length; ++i)
-            {
-                for (int j = 0; j < reference.objectPoolManager.objects.Length; ++j)
-                {
-                    if (reference.objectPoolManager.objects[j].objectPrefab.name
-                                 .Equals(enemyProjectilePrefab[i].name))
-                    {
-                        EnemyProjectileTypeIdentifiers[i] = (short) j;
-                        break;
-                    }
-                }
-            }
-
-            EnemyDeathEmitterTypeIds = new short[enemyDeathEmitters.Length];
-
-            for (int i = 0; i < enemyDeathEmitters.Length; ++i)
-            {
-                if (enemyDeathEmitters[i] != null)
-                {
-                    EnemyDeathEmitterTypeIds[i] =
-                        reference.objectPoolManager.GetTypeIdentifier(enemyDeathEmitters[i]);
-                }
-                else
-                {
-                    EnemyDeathEmitterTypeIds[i] = -1;
-                }
-            }
+            // EnemyProjectileTypeIdentifiers = new short[enemyProjectilePrefab.Length];
+            //
+            // for (int i = 0; i < enemyProjectilePrefab.Length; ++i)
+            // {
+            //     for (int j = 0; j < reference.objectPoolManager.objects.Length; ++j)
+            //     {
+            //         if (reference.objectPoolManager.objects[j].objectPrefab.name
+            //                      .Equals(enemyProjectilePrefab[i].name))
+            //         {
+            //             EnemyProjectileTypeIdentifiers[i] = (short) j;
+            //             break;
+            //         }
+            //     }
+            // }
+            //
+            // EnemyDeathEmitterTypeIds = new short[enemyDeathEmitters.Length];
+            //
+            // for (int i = 0; i < enemyDeathEmitters.Length; ++i)
+            // {
+            //     if (enemyDeathEmitters[i] != null)
+            //     {
+            //         EnemyDeathEmitterTypeIds[i] =
+            //             reference.objectPoolManager.GetTypeIdentifier(enemyDeathEmitters[i]);
+            //     }
+            //     else
+            //     {
+            //         EnemyDeathEmitterTypeIds[i] = -1;
+            //     }
+            // }
 
             projectiles = new List<Projectile>();
             stepSizes = new float[projectileSpeeds.Length];
@@ -210,6 +212,8 @@ namespace Hive.Armada.Game
             }
 
             enemyId = 0;
+
+            waitStep = new WaitForSeconds(stepTime);
         }
 
         /// <summary>
@@ -288,7 +292,7 @@ namespace Hive.Armada.Game
                     }
                 }
 
-                yield return new WaitForSeconds(stepTime);
+                yield return waitStep;
             }
 
             if (!isIn)

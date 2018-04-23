@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c706405d2ab2c9e479fbc07d8f5c65d2, type: 3}
+  m_Name: Kamikaze Enemy Attributes
+  m_EditorClassIdentifier: 
+  maxHealth: 80
+  scoreValue: 20
+  flashColor: {fileID: 2100000, guid: 1db15971033ba594294b4f0c035f7da8, type: 2}
+  deathEmitter: {fileID: 1960498793399906, guid: b554dfaa0dac8484daee59f7d24b3e9c,
+    type: 2}
+  selfDestructTime: 180
+  moveSpeed: 0.5
+  rotationSpeed: 3
+  range: 1
+  nearPlayerSound: {fileID: 8300000, guid: 09f981411ddccd9499804516b7f6edbe, type: 3}

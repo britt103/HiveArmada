@@ -88,5 +88,19 @@ namespace Hive.Armada
         public static int pathingEnemyLayerId = 12;
 
         public static float interactDelay = 0.2f;
+
+        //=======================================
+        //
+        // WaitForSeconds
+        //
+        //=======================================
+
+        public static WaitForSeconds waitOne = new WaitForSeconds(1.0f);
+
+        public static WaitForSeconds waitOneTenth = new WaitForSeconds(0.1f);
+
+        public static WaitForSeconds waitHitFlash = new WaitForSeconds(1.0f / 60.0f);
+
+        public static WaitForSeconds waitLineRendererFlash = new WaitForSeconds(0.006f);
     }
 }

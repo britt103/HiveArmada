@@ -10,9 +10,7 @@
 //
 //=============================================================================
 
-using UnityEditor;
 using UnityEngine;
-using System.Collections;
 using Hive.Armada.Game;
 
 namespace Hive.Armada.Menus
@@ -92,14 +90,11 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void PressQuit()
         {
-            if (Application.isEditor)
-            {
-                EditorApplication.isPlaying = false;
-            }
-            else
-            {
-                Application.Quit();
-            }
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#elif UNITY_STANDALONE_WIN
+            Application.Quit();
+#endif
         }
 
         //IEnumerator playmenusound()

@@ -51,6 +51,8 @@ namespace Hive.Armada.Ambient
 
         public bool IsTalking;
 
+        private WaitForSeconds waitTalkingCycle;
+
         private void Awake()
         {
             if (reference == null)
@@ -60,6 +62,8 @@ namespace Hive.Armada.Ambient
 
             player = reference.playerLookTarget.transform;
             initialPosition = transform.position;
+
+            waitTalkingCycle = new WaitForSeconds(0.02f);
         }
 
         public void DoTalking(float time)
@@ -126,7 +130,7 @@ namespace Hive.Armada.Ambient
                     yield return new WaitForSeconds(Random.Range(0.001f, 0.2f));
                 }
 
-                yield return new WaitForSeconds(0.02f);
+                yield return waitTalkingCycle;
             }
 
             StartCoroutine(ResetSize());
@@ -154,7 +158,7 @@ namespace Hive.Armada.Ambient
                     yield break;
                 }
 
-                yield return new WaitForSeconds(0.02f);
+                yield return waitTalkingCycle;
             }
         }
 

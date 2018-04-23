@@ -100,6 +100,8 @@ namespace Hive.Armada.Player.Weapons
         /// </summary>
         protected override void SetupWeapon()
         {
+            waitFire = new WaitForSeconds(1.0f / fireRate);
+
             leftLaser = left.gameObject.AddComponent<LineRenderer>();
             leftLaser.material = laserMaterial;
             leftLaser.shadowCastingMode = ShadowCastingMode.Off;
@@ -142,7 +144,8 @@ namespace Hive.Armada.Player.Weapons
 
             if (AimAssistActive)
             {
-                if (Physics.SphereCast(transform.position, radius, transform.forward, out hit, 200.0f,
+                if (Physics.SphereCast(transform.position, radius, transform.forward, out hit,
+                                       200.0f,
                                        Utility.shootableMask))
                 {
                     StartCoroutine(Shoot(hit.point));
@@ -158,7 +161,8 @@ namespace Hive.Armada.Player.Weapons
 
                     shipController.hand.controller.TriggerHapticPulse(2500);
                 }
-                else if (Physics.SphereCast(transform.position, radius, transform.forward, out hit, 200.0f,
+                else if (Physics.SphereCast(transform.position, radius, transform.forward, out hit,
+                                            200.0f,
                                             Utility.enemyMask))
                 {
                     StartCoroutine(Shoot(hit.point));
@@ -168,7 +172,8 @@ namespace Hive.Armada.Player.Weapons
 
                     if (hit.collider.gameObject.GetComponent<Enemy>() != null)
                     {
-                        hit.collider.gameObject.GetComponent<Enemy>().Hit(damage * damageMultiplier, true);
+                        hit.collider.gameObject.GetComponent<Enemy>()
+                           .Hit(damage * damageMultiplier, true);
                     }
 
                     shipController.hand.controller.TriggerHapticPulse(2500);
@@ -182,7 +187,7 @@ namespace Hive.Armada.Player.Weapons
             else
             {
                 if (Physics.Raycast(transform.position, transform.forward, out hit, 200.0f,
-                                       Utility.shootableMask))
+                                    Utility.shootableMask))
                 {
                     StartCoroutine(Shoot(hit.point));
 
@@ -198,7 +203,7 @@ namespace Hive.Armada.Player.Weapons
                     shipController.hand.controller.TriggerHapticPulse(2500);
                 }
                 else if (Physics.Raycast(transform.position, transform.forward, out hit, 200.0f,
-                                            Utility.enemyMask))
+                                         Utility.enemyMask))
                 {
                     StartCoroutine(Shoot(hit.point));
 
@@ -207,7 +212,8 @@ namespace Hive.Armada.Player.Weapons
 
                     if (hit.collider.gameObject.GetComponent<Enemy>() != null)
                     {
-                        hit.collider.gameObject.GetComponent<Enemy>().Hit(damage * damageMultiplier, true);
+                        hit.collider.gameObject.GetComponent<Enemy>()
+                           .Hit(damage * damageMultiplier, true);
                     }
 
                     shipController.hand.controller.TriggerHapticPulse(2500);
@@ -273,7 +279,7 @@ namespace Hive.Armada.Player.Weapons
             reference.statistics.WeaponFired("Laser Gun", 1);
             reference.playerIdleTimer.SetIsIdle(false);
 
-            yield return new WaitForSeconds(1.0f / fireRate);
+            yield return waitFire;
 
             isLeftFire = !isLeftFire;
             canShoot = true;
@@ -297,7 +303,7 @@ namespace Hive.Armada.Player.Weapons
                 rightLaser.enabled = true;
             }
 
-            yield return new WaitForSeconds(0.006f);
+            yield return Utility.waitLineRendererFlash;
 
             if (isLeft)
             {

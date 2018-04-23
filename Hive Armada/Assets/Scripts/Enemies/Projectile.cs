@@ -101,6 +101,7 @@ namespace Hive.Armada.Enemies
         {
             base.Awake();
 
+            damage = reference.projectileData.projectileDamage;
             pRigidbody = GetComponent<Rigidbody>();
             material = GetComponent<Renderer>().material;
             originalAlbedo = material.GetColor("_Color");
@@ -192,18 +193,6 @@ namespace Hive.Armada.Enemies
         }
 
         /// <summary>
-        /// Sets the albedo and emission color for the projectile.
-        /// </summary>
-        /// <param name="albedoColor"> The albedo color </param>
-        /// <param name="emissionColor"> The emission color </param>
-        public void SetColors(Color albedoColor, Color emissionColor)
-        {
-            currentAlbedo = albedoColor;
-            material.SetColor("_Color", albedoColor);
-            material.SetColor("_EmissionColor", emissionColor);
-        }
-
-        /// <summary>
         /// Begins fading the opacity of the projectile.
         /// </summary>
         /// <param name="fadeOut"> If the projectile should fade out </param>
@@ -261,14 +250,10 @@ namespace Hive.Armada.Enemies
 
             fadeCoroutine = null;
         }
-
-        /// <summary>
-        /// Initializes the damage for the projectile.
-        /// </summary>
+        
         protected override void Reset()
         {
-            SetColors(originalAlbedo, originalEmission);
-            damage = reference.enemyAttributes.projectileDamage;
+            StopAllCoroutines();
         }
     }
 }

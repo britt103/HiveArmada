@@ -36,7 +36,7 @@ namespace Hive.Armada.Player
         /// </summary>
         public ShipController shipController;
 
-        private HealthData healthData;
+        private PlayerData playerData;
 
         private ProjectileData projectileData;
 
@@ -151,7 +151,7 @@ namespace Hive.Armada.Player
         {
             reference = FindObjectOfType<ReferenceManager>();
 
-            healthData = reference.healthData;
+            playerData = reference.playerData;
             projectileData = reference.projectileData;
 
             lookTarget = reference.shipLookTarget;
@@ -178,7 +178,7 @@ namespace Hive.Armada.Player
                 materials.Add(r.material);
             }
 
-            maxHealth = healthData.playerMaxHealth;
+            maxHealth = playerData.playerMaxHealth;
             currentHealth = maxHealth;
             playerHitVignette = reference.playerHitVignette;
         }
@@ -189,6 +189,8 @@ namespace Hive.Armada.Player
         /// <param name="damage"> How much damage to deal </param>
         public void Hit(int damage)
         {
+            return;
+
             if (currentHealth <= 0)
             {
                 return;
@@ -214,7 +216,7 @@ namespace Hive.Armada.Player
                 Debug.Log("Hit for " + damage + " damage! Remaining health = " + currentHealth);
             }
 
-            if (currentHealth == healthData.playerLowHealth)
+            if (currentHealth == playerData.playerLowHealth)
             {
                 if (lowHealth != null)
                 {

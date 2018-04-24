@@ -79,7 +79,7 @@ namespace Hive.Armada.Game
         // 
         //----------------------------------------
         [Header("Player")]
-        public HealthData healthData;
+        public PlayerData playerData;
         
         public GameObject player;
 

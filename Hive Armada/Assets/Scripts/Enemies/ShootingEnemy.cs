@@ -194,7 +194,7 @@ namespace Hive.Armada.Enemies
             if (shaking)
             {
                 iTween.ShakePosition(gameObject, new Vector3(0.05f, 0.05f, 0.05f),
-                                     Time.deltaTime);
+                                     0.01f);
             }
         }
 

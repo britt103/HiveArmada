@@ -98,8 +98,6 @@ namespace Hive.Armada.PowerUps
         /// </summary>
         public float firerate;
 
-        private WaitForSeconds fireWait;
-
         /// <summary>
         /// State controllering when ally can fire.
         /// </summary>
@@ -123,9 +121,8 @@ namespace Hive.Armada.PowerUps
                 rocketTypeId = reference.objectPoolManager.GetTypeIdentifier(rocketPrefab);
             }
 
-            transform.localPosition = new Vector3(0, distance, 0);
             Instantiate(spawnEmitter, transform);
-            fireWait = new WaitForSeconds(1.0f / firerate);
+            transform.localPosition = new Vector3(0, distance, 0);
         }
 
         // Subtract from and check timeLimit. Call Move(). Start Fire coroutine.
@@ -156,6 +153,8 @@ namespace Hive.Armada.PowerUps
         /// <returns> Transform of nearest enemy ship. </returns>
         private Transform GetNearestEnemy()
         {
+            Vector3 positionDifference;
+            float distance;
             float shortestDistance = Mathf.Infinity;
             GameObject nearestEnemy = null;
             foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
@@ -184,8 +183,8 @@ namespace Hive.Armada.PowerUps
                     continue;
                 }
 
-                Vector3 positionDifference = enemy.transform.position -
-                                             transform.parent.transform.position;
+                positionDifference = enemy.transform.position -
+                                     transform.parent.transform.position;
 
                 //faster than non-squared magnitude
                 distance = positionDifference.sqrMagnitude;
@@ -197,17 +196,12 @@ namespace Hive.Armada.PowerUps
             }
 
             //couldn't find any enemies
-            if (float.IsPositiveInfinity(shortestDistance))
+            if (shortestDistance == Mathf.Infinity)
             {
                 return null;
             }
 
-            if (nearestEnemy != null)
-            {
-                return nearestEnemy.transform;
-            }
-
-            return null;
+            return nearestEnemy.transform;
         }
 
         /// <summary>
@@ -259,8 +253,8 @@ namespace Hive.Armada.PowerUps
                 RaycastHit hit;
                 if (Physics.Raycast(transform.position, transform.forward, out hit, 1))
 
-                    //if(Physics.SphereCast(transform.position, sphereCastRadius, transform.forward, out hit, sphereCastMaxDistance))
-                    //if(Physics.SphereCast(transform.position, sphereCastRadius, transform.forward, out hit, sphereCastMaxDistance, LayerMask.GetMask("Player")))
+                //if(Physics.SphereCast(transform.position, sphereCastRadius, transform.forward, out hit, sphereCastMaxDistance))
+                //if(Physics.SphereCast(transform.position, sphereCastRadius, transform.forward, out hit, sphereCastMaxDistance, LayerMask.GetMask("Player")))
                 {
                     if (hit.collider.gameObject.CompareTag("Player") ||
                         hit.collider.gameObject.GetComponent<Shield>() != null)
@@ -287,7 +281,7 @@ namespace Hive.Armada.PowerUps
 
             source.PlayOneShot(clips[0]);
 
-            yield return fireWait;
+            yield return new WaitForSeconds(1.0f / firerate);
 
             canFire = true;
         }

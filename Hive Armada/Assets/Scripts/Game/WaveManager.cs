@@ -13,8 +13,8 @@
 using System;
 using System.Collections;
 using Hive.Armada.Player;
-using UnityEngine;
 using SubjectNerd.Utilities;
+using UnityEngine;
 
 namespace Hive.Armada.Game
 {
@@ -52,9 +52,13 @@ namespace Hive.Armada.Game
     public enum Powerups
     {
         Shield = 0,
+
         DamageBoost = 1,
+
         AreaBomb = 2,
+
         Clear = 3,
+
         Ally = 4
     }
 
@@ -64,13 +68,17 @@ namespace Hive.Armada.Game
     public enum EnemyType
     {
         Standard,
+
         Buckshot,
+
         Moving,
+
         Splitter,
+
         Kamikaze,
+
         SplitterChild
     }
-
 
     /// <summary>
     /// 
@@ -162,12 +170,12 @@ namespace Hive.Armada.Game
         /// <summary>
         /// Which wave to start at?
         /// </summary>
-        [Header("Waves")]
-        public int startingWave;
+        private int startingWave;
 
         /// <summary>
         /// Array of all waves that will be run.
         /// </summary>
+        [Header("Waves")]
         [Reorderable("Wave", false)]
         public Wave[] waves;
 
@@ -219,27 +227,30 @@ namespace Hive.Armada.Game
         {
             reference = referenceManager;
 
+            startingWave = reference.gameSettings.startingWave;
+
             ObjectPoolManager objectPool = reference.objectPoolManager;
-            IsInfinite = reference.gameSettings.selectedGameMode == GameSettings.GameMode.SoloNormal;
+            IsInfinite = reference.gameSettings.selectedGameMode ==
+                         GameSettings.GameMode.SoloNormal;
 
             EnemyIDs = new[]
-            {
-                (int)objectPool.GetTypeIdentifier(enemyTypeSetup.standardEnemyPrefab),
-                objectPool.GetTypeIdentifier(enemyTypeSetup.buckshotEnemyPrefab),
-                objectPool.GetTypeIdentifier(enemyTypeSetup.movingEnemyPrefab),
-                objectPool.GetTypeIdentifier(enemyTypeSetup.splitterEnemyPrefab),
-                objectPool.GetTypeIdentifier(enemyTypeSetup.kamikazeEnemyPrefab),
-                objectPool.GetTypeIdentifier(enemyTypeSetup.splitterChildEnemyPrefab)
-            };
+                       {
+                           (int) objectPool.GetTypeIdentifier(enemyTypeSetup.standardEnemyPrefab),
+                           objectPool.GetTypeIdentifier(enemyTypeSetup.buckshotEnemyPrefab),
+                           objectPool.GetTypeIdentifier(enemyTypeSetup.movingEnemyPrefab),
+                           objectPool.GetTypeIdentifier(enemyTypeSetup.splitterEnemyPrefab),
+                           objectPool.GetTypeIdentifier(enemyTypeSetup.kamikazeEnemyPrefab),
+                           objectPool.GetTypeIdentifier(enemyTypeSetup.splitterChildEnemyPrefab)
+                       };
 
             PathNames = new[]
-            {
-                "CenterPath",
-                "LeftPath",
-                "RightPath",
-                "BackLeftPath",
-                "BackRightPath"
-            };
+                        {
+                            "CenterPath",
+                            "LeftPath",
+                            "RightPath",
+                            "BackLeftPath",
+                            "BackRightPath"
+                        };
 
             //waves = waveLoader.LoadWaves();
         }
@@ -356,7 +367,7 @@ namespace Hive.Armada.Game
                 reference.sceneTransitionManager.TransitionOut("Menu Room");
             }
         }
-        
+
         public void BossWaveComplete(int wave)
         {
             if (waves.Length > ++currentWave)
@@ -369,6 +380,7 @@ namespace Hive.Armada.Game
                 {
                     //
                 }
+
                 RunWave(currentWave);
             }
             else

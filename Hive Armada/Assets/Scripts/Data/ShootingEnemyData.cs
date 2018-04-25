@@ -1,4 +1,14 @@
-﻿using UnityEngine;
+﻿//=============================================================================
+// 
+// Perry Sidler
+// 1831784
+// sidle104@mail.chapman.edu
+// CPSC-440-01
+// Group Project
+// 
+//=============================================================================
+
+using UnityEngine;
 
 namespace Hive.Armada.Data
 {
@@ -31,5 +41,8 @@ namespace Hive.Armada.Data
 
         [Tooltip("How long the hover/movement takes, in seconds.")]
         public float hoverTime;
+
+        [Tooltip("Scales down the hover movement effect.")]
+        public int hoverScale;
     }
 }

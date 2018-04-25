@@ -100,6 +100,9 @@ namespace Hive.Armada.Player.Weapons
         /// </summary>
         protected override void SetupWeapon()
         {
+            if (reference.cheats.doubleDamage)
+                damage *= 2;
+            
             waitFire = new WaitForSeconds(1.0f / fireRate);
 
             leftLaser = left.gameObject.AddComponent<LineRenderer>();

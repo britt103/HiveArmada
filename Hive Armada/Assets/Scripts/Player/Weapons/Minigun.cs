@@ -178,6 +178,9 @@ namespace Hive.Armada.Player.Weapons
         /// </summary>
         protected override void SetupWeapon()
         {
+            if (reference.cheats.doubleDamage)
+                damage *= 2;
+            
             foreach (Renderer r in barrelRenderers)
             {
                 r.material.SetColor("_overheatColor", overheatBarrelColor);

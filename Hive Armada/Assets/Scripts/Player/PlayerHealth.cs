@@ -189,8 +189,6 @@ namespace Hive.Armada.Player
         /// <param name="damage"> How much damage to deal </param>
         public void Hit(int damage)
         {
-            return;
-
             if (currentHealth <= 0)
             {
                 return;
@@ -207,14 +205,11 @@ namespace Hive.Armada.Player
                 mPodEmitter.Play();
             }
 
-            currentHealth -= damage;
+            if (!reference.cheats.godMode)
+                currentHealth -= damage;
+            
             source.PlayOneShot(hitSound);
             playerHitVignette.Hit();
-
-            if (Utility.isDebug)
-            {
-                Debug.Log("Hit for " + damage + " damage! Remaining health = " + currentHealth);
-            }
 
             if (currentHealth == playerData.playerLowHealth)
             {
@@ -269,17 +264,16 @@ namespace Hive.Armada.Player
         /// <summary>
         /// Restores one health to the player.
         /// </summary>
-        public void HealOne()
+        private bool HealOne()
         {
             if ((maxHealth - currentHealth) / 10 == 0)
-            {
-                return;
-            }
+                return false;
 
             currentHealth += 10;
 
             int podIndex = (maxHealth - currentHealth) / 10;
             healthPods[podIndex].GetComponent<Renderer>().material = podIntactMaterial;
+            return true;
         }
 
         /// <summary>
@@ -292,14 +286,22 @@ namespace Hive.Armada.Player
                 return;
             }
 
-            while (currentHealth < maxHealth)
-            {
-                currentHealth += 10;
+            bool healSuccessful;
 
-                int podIndex = (maxHealth - currentHealth) / 10;
-                healthPods[podIndex].GetComponent<Renderer>().material = podIntactMaterial;
-                StartCoroutine(PlayHealSound());
+            do
+            {
+                healSuccessful = HealOne();
             }
+            while (healSuccessful);
+            
+            // while (currentHealth < maxHealth)
+            // {
+            //     currentHealth += 10;
+            //
+            //     int podIndex = (maxHealth - currentHealth) / 10;
+            //     healthPods[podIndex].GetComponent<Renderer>().material = podIntactMaterial;
+            //     StartCoroutine(PlayHealSound());
+            // }
         }
 
         private IEnumerator PlayHealSound()

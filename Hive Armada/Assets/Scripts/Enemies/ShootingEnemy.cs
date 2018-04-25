@@ -39,11 +39,6 @@ namespace Hive.Armada.Enemies
         protected float fireRate;
 
         /// <summary>
-        /// The speed of the projectiles.
-        /// </summary>
-        private float projectileSpeed;
-
-        /// <summary>
         /// If the projectiles should be fired with spread.
         /// </summary>
         private float spread;
@@ -103,12 +98,15 @@ namespace Hive.Armada.Enemies
         /// </summary>
         private float hoverDistance;
 
-        private int hoverScale = 50;
-
         /// <summary>
         /// How long the hover movement will take, in seconds.
         /// </summary>
         private float hoverTime;
+
+        /// <summary>
+        /// Scales down the hover movement to not be quite so drastic.
+        /// </summary>
+        private int hoverScale;
 
         /// <summary>
         /// The percentage of completion of the hover movement.
@@ -157,6 +155,7 @@ namespace Hive.Armada.Enemies
             isVertical = enemyData.isVertical;
             hoverDistance = enemyData.hoverTime;
             hoverTime = enemyData.hoverTime;
+            hoverScale = enemyData.hoverScale;
         }
 
         /// <summary>
@@ -166,15 +165,11 @@ namespace Hive.Armada.Enemies
         {
             // Enemies only do this functionality after they are done pathing.
             if (!PathingComplete)
-            {
                 return;
-            }
 
             // First move the enemy, if it is allowed to.
             if (canHover)
-            {
                 Hover(Time.deltaTime);
-            }
 
             // Then make it look at the player.
             LookAtShip();
@@ -211,9 +206,7 @@ namespace Hive.Armada.Enemies
 
             // Hover/movement is complete.
             if (!(hoverPercent >= 1.0f))
-            {
                 return;
-            }
 
             hoverPercent = 0.0f;
 
@@ -246,9 +239,7 @@ namespace Hive.Armada.Enemies
             nextShootTime = Time.time + fireRate;
 
             if (canRotate)
-            {
                 shootPoint.Rotate(0.0f, 0.0f, 10.0f * fireRate);
-            }
 
             GameObject projectile = objectPoolManager.Spawn(gameObject, currentProjectileTypeId,
                                                             shootPoint.position,
@@ -280,9 +271,7 @@ namespace Hive.Armada.Enemies
         protected virtual void CheckShoot()
         {
             if (Time.time >= nextShootTime)
-            {
                 canShoot = true;
-            }
         }
 
         /// <summary>
@@ -291,9 +280,7 @@ namespace Hive.Armada.Enemies
         protected override void OnPathingComplete()
         {
             if (canHover)
-            {
                 SetHover();
-            }
 
             base.OnPathingComplete();
         }
@@ -314,8 +301,6 @@ namespace Hive.Armada.Enemies
             }
             else
             {
-                hoverScale = 2;
-
                 // Need to find what % gives us the spawn position.
                 // SmoothStep makes it a bit harder than just inverting a sine function.
                 float startOffset = 0.0f;
@@ -335,16 +320,12 @@ namespace Hive.Armada.Enemies
                     // This is or is close enough to the spawn point.
                     // Anything less than 0.015 results in overshooting.
                     if (Math.Abs(current - spawn) < 0.015f)
-                    {
                         break;
-                    }
                 }
 
                 // Overshot the spawn, resetting to the center point. This shouldn't happen.
                 if (hoverPercent >= 1.0f)
-                {
                     current = 0.5f;
-                }
 
                 startOffset -= current;
                 endOffset -= current;
@@ -362,27 +343,12 @@ namespace Hive.Armada.Enemies
                 int roll = Random.Range(1, 100);
 
                 if (roll <= 50)
-                {
                     return;
-                }
 
                 // 50% of the time the enemy will start moving in the opposite direction.
                 Vector3 temp = endPosition;
                 endPosition = startPosition;
                 startPosition = temp;
-
-                // Debug.Log("PERCENT: " + hoverPercent + "\t SPAWN: " + spawn);
-                //
-                // GameObject mid = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                // mid.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-                //
-                // GameObject start = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                // start.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-                // start.transform.position = startPosition;
-                //
-                // GameObject end = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                // end.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-                // end.transform.position = endPosition;
             }
         }
 
@@ -396,7 +362,6 @@ namespace Hive.Armada.Enemies
             currentAttackPattern = attackPatternData[(int) newAttackPattern];
 
             fireRate = currentAttackPattern.fireRate;
-            projectileSpeed = currentAttackPattern.projectileSpeed;
             spread = currentAttackPattern.spread;
             canRotate = currentAttackPattern.canRotate;
             isProjectilePattern = currentAttackPattern.isProjectilePattern;

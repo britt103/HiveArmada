@@ -50,6 +50,8 @@ namespace Hive.Armada.Game
         /// </summary>
         public Weapon selectedWeapon;
 
+        public int selectedSkin;
+
         /// <summary>
         /// State of whether aim assist is on.
         /// </summary>
@@ -64,5 +66,11 @@ namespace Hive.Armada.Game
         /// Type of color blind mode.
         /// </summary>
         public ColorBlindMode.Mode colorBlindMode;
+
+        [Tooltip("Which # wave to start on? Not 0-based." +
+                 "\n0 - Wave 1" +
+                 "\n1 - Wave 1" +
+                 "\n2 - Wave 2")]
+        public int startingWave;
     }
 }

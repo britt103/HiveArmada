@@ -943,21 +943,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1281513903209264
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4080475234434192}
-  m_Layer: 14
-  m_Name: Ship Lights
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &1289321337974960
 GameObject:
   m_ObjectHideFlags: 1
@@ -1222,7 +1207,7 @@ GameObject:
   - component: {fileID: 4388301160641056}
   - component: {fileID: 108883835023673020}
   m_Layer: 14
-  m_Name: Point light
+  m_Name: Ship Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3963,20 +3948,6 @@ Transform:
   m_Father: {fileID: 4685323599652366}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4080475234434192
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1281513903209264}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 4388301160641056}
-  m_Father: {fileID: 4239737579966236}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4083580476456592
 Transform:
   m_ObjectHideFlags: 1
@@ -4432,7 +4403,7 @@ Transform:
   - {fileID: 4010589785040000}
   - {fileID: 4207486939829898}
   - {fileID: 4719595093272300}
-  - {fileID: 4080475234434192}
+  - {fileID: 4388301160641056}
   m_Father: {fileID: 4919109735457890}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 55, y: 0, z: 0}
@@ -4881,12 +4852,12 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1324638958442418}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.471, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.47100002, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 4080475234434192}
-  m_RootOrder: 0
+  m_Father: {fileID: 4239737579966236}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4403995063723348
 Transform:

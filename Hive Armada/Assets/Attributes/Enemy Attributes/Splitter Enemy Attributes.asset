@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a8b7a048d391964f994c1269f968249, type: 3}
+  m_Name: Splitter Enemy Attributes
+  m_EditorClassIdentifier: 
+  maxHealth: 250
+  scoreValue: 50
+  flashColor: {fileID: 2100000, guid: 1db15971033ba594294b4f0c035f7da8, type: 2}
+  deathEmitter: {fileID: 1906894625597420, guid: c6552a9b74bd3d040a7ad4e55cd9e184,
+    type: 2}
+  selfDestructTime: 180
+  pattern1: {fileID: 11400000, guid: 384525c98cdfe7b46a335cadae8adf76, type: 2}
+  pattern2: {fileID: 11400000, guid: 50590ab346943cd4996cca090ce38695, type: 2}
+  pattern3: {fileID: 11400000, guid: 384525c98cdfe7b46a335cadae8adf76, type: 2}
+  pattern4: {fileID: 11400000, guid: 50590ab346943cd4996cca090ce38695, type: 2}
+  canHover: 1
+  isVertical: 1
+  hoverDistance: 2
+  hoverTime: 3
+  hoverScale: 50
+  childPrefab: {fileID: 1618603837932422, guid: 9a594f50db7a6b347af3019acb9f591b,
+    type: 2}
+  childSplitForce: 30

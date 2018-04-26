@@ -55,8 +55,7 @@ namespace Hive.Armada.Player
         /// </summary>
         void Update()
         {
-            if (isIdle && isTracking)
-            {
+
                 currentIdleTime -= Time.deltaTime;
                 if(currentIdleTime <= 0)
                 {
@@ -65,7 +64,7 @@ namespace Hive.Armada.Player
 
                     FindObjectOfType<ReferenceManager>().sceneTransitionManager.TransitionOut("Menu Room");
                 }
-            }
+            
         }
 
         /// <summary>

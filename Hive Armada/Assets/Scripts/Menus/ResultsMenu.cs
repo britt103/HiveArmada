@@ -162,24 +162,14 @@ namespace Hive.Armada.Menus
 
             if (gameSettings.selectedGameMode == GameSettings.GameMode.SoloNormal)
             {
-                if (stats.won)
-                {
-                    victoryDefeatText.text = victoryMessage;
-                    victoryDefeatText.color = victoryColor;
-                }
-                else
-                {
-                    victoryDefeatText.text = defeatMessage;
-                    victoryDefeatText.color = defeatColor;
-                }
+               
             }
             else if (gameSettings.selectedGameMode == GameSettings.GameMode.SoloInfinite)
             {
                 statShift.GetComponent<RectTransform>().anchoredPosition3D =
                     new Vector3(0.0f, -50.0f, 0.0f);
 
-                victoryDefeatText.text = "Results";
-                victoryDefeatText.color = victoryColor;
+                
 
                 TimeSpan time = TimeSpan.FromSeconds(stats.totalAliveTime);
 

@@ -20,6 +20,7 @@ using SubjectNerd.Utilities;
 using System;
 using System.Collections;
 using Random = UnityEngine.Random;
+using Hive.Armada.Data;
 
 namespace Hive.Armada.Player
 {
@@ -50,6 +51,8 @@ namespace Hive.Armada.Player
             /// </summary>
             public float fireRate;
         }
+
+        public PlayerData playerData;
 
         /// <summary>
         /// The master collider used for the shield and Kamikaze proximity detonation.
@@ -110,15 +113,15 @@ namespace Hive.Armada.Player
         [Header("Audio")]
         public AudioSource source;
 
-        /// <summary>
-        /// Helper dialogue that plays when the ship is grabbed.
-        /// </summary>
-        public AudioClip[] startClips;
+        ///// <summary>
+        ///// Helper dialogue that plays when the ship is grabbed.
+        ///// </summary>
+        //private AudioClip[] startClips;
 
-        /// <summary>
-        /// Helper dialogue that tells the player which weapon they have.
-        /// </summary>
-        public AudioClip[] weaponStartClips;
+        ///// <summary>
+        ///// Helper dialogue that tells the player which weapon they have.
+        ///// </summary>
+        //private AudioClip[] weaponStartClips;
 
         /// <summary>
         /// Initializes references to Reference Manager and Laser Sight, sets this
@@ -177,8 +180,38 @@ namespace Hive.Armada.Player
                     }
                 }
 
+                UpdateSkin(reference.gameSettings.selectedSkin);
+
                 StartCoroutine(IntroAudio());
                 reference.tooltips.SpawnProtectShip();
+            }
+        }
+
+        private void UpdateSkin(int skin)
+        {
+            if (skin == 0)
+                return;
+
+            Renderer[] renderers = gameObject.GetComponentsInChildren<Renderer>();
+
+            foreach (Renderer r in renderers)
+            {
+                if (r.sharedMaterial.Equals(playerData.shipBodyMaterials[0]))
+                {
+                    r.material = playerData.shipBodyMaterials[skin];
+                }
+                else if (r.sharedMaterial.Equals(playerData.shipMinigunMaterials[0]))
+                {
+                    r.material = playerData.shipMinigunMaterials[skin];
+                }
+                else if (r.sharedMaterial.Equals(playerData.shipMinigunOverheatMaterials[0]))
+                {
+                    r.material = playerData.shipMinigunOverheatMaterials[skin];
+                }
+                else if (r.sharedMaterial.Equals(playerData.shipRocketPodsMaterials[0]))
+                {
+                    r.material = playerData.shipRocketPodsMaterials[skin];
+                }
             }
         }
 
@@ -188,14 +221,14 @@ namespace Hive.Armada.Player
             yield return new WaitWhile(() => reference.bossManager.IsSpeaking);
             yield return new WaitForSeconds(2.0f);
 
-            AudioClip[] introAudio = new AudioClip[startClips.Length + 1];
+            AudioClip[] introAudio = new AudioClip[playerData.shipIntroClips.Length + 1];
 
-            for (int i = 0; i < startClips.Length; ++i)
+            for (int i = 0; i < playerData.shipIntroClips.Length; ++i)
             {
-                introAudio[i] = startClips[i];
+                introAudio[i] = playerData.shipIntroClips[i];
             }
 
-            introAudio[introAudio.Length - 1] = weaponStartClips[currentWeapon];
+            introAudio[introAudio.Length - 1] = playerData.shipWeaponIntroClips[currentWeapon];
 
             reference.dialoguePlayer.EnqueueDialogue(gameObject, introAudio);
         }

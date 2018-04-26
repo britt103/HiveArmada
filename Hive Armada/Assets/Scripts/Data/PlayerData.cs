@@ -47,6 +47,7 @@ namespace Hive.Armada.Data
         
         public LightSettings[] skinLightSettings;
 
+        [Header("Pickup Skins")]
         public Material[] pickupBodyMaterials;
 
         public Material[] pickupMinigunMaterials;

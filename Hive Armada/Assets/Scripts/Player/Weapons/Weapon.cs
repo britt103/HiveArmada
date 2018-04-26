@@ -89,7 +89,9 @@ namespace Hive.Armada.Player.Weapons
         {
             damageMultiplier = 1;
             damage = shipController.weapons[weaponIndex].damage;
-            fireRate = shipController.weapons[weaponIndex].fireRate;
+            if (reference.cheats.doubleDamage)
+                damage *= 2;
+        fireRate = shipController.weapons[weaponIndex].fireRate;
             SetupWeapon();
         }
 

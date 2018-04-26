@@ -18,6 +18,7 @@ using Hive.Armada.Enemies;
 using Hive.Armada.Game;
 using Random = UnityEngine.Random;
 using Valve.VR.InteractionSystem;
+using Hive.Armada.Data;
 
 namespace Hive.Armada.Player.Weapons
 {
@@ -57,6 +58,8 @@ namespace Hive.Armada.Player.Weapons
             /// </summary>
             NoHoming = 1 << 4
         }
+
+        public RocketData rocketData;
 
         /// <summary>
         /// Reference to the attributes for all rocket types.

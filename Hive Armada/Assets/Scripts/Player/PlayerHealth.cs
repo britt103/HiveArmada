@@ -31,12 +31,12 @@ namespace Hive.Armada.Player
         /// </summary>
         private ReferenceManager reference;
 
+        public PlayerData playerData;
+
         /// <summary>
         /// Reference to the ship controller script.
         /// </summary>
         public ShipController shipController;
-
-        private PlayerData playerData;
 
         private ProjectileData projectileData;
 
@@ -151,7 +151,6 @@ namespace Hive.Armada.Player
         {
             reference = FindObjectOfType<ReferenceManager>();
 
-            playerData = reference.playerData;
             projectileData = reference.projectileData;
 
             lookTarget = reference.shipLookTarget;

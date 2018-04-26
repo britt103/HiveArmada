@@ -347,7 +347,19 @@ namespace Hive.Armada.Game
                     Vector3 spawnPoint = waveManager
                         .powerupSpawnPoints[(int) group.powerupSpawn.powerupSpawn - 1].position;
 
-                    Instantiate(waveManager.powerupPrefabs[(int) group.powerupSpawn.powerup],
+                    bool random = false;
+
+                    int myPowerUp;
+                    if (random)
+                    {
+                        myPowerUp = UnityEngine.Random.Range(0, 5);
+                    }
+                    else
+                    {
+                        myPowerUp = (int)group.powerupSpawn.powerup;
+                    }
+
+                    Instantiate(waveManager.powerupPrefabs[myPowerUp],
                                 spawnPoint, Quaternion.identity);
 
                     if (!waveManager.spawnedPowerupOnce)

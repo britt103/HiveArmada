@@ -26,7 +26,15 @@ namespace Hive.Armada.Menus
     /// </summary>
     public class ShopMenu : MonoBehaviour
     {
+        /// <summary>
+        /// Reference to ReferenceManager.
+        /// </summary>
         private ReferenceManager reference;
+
+        /// <summary>
+        /// Reference to GameSettings.
+        /// </summary>
+        private GameSettings gameSettings;
 
         /// <summary>
         /// Reference to Menu Audio source.
@@ -123,6 +131,8 @@ namespace Hive.Armada.Menus
 
         public GameObject purchased;
 
+        public GameObject setDefault;
+
         /// <summary>
         /// Reference to buy button.
         /// </summary>
@@ -161,7 +171,7 @@ namespace Hive.Armada.Menus
         public GameObject contentGO;
 
         /// <summary>
-        /// References to prefabs used in powerup entries. Order must match Iridium.txt.
+        /// References to prefabs used in weapon entries.
         /// </summary>
         public List<GameObject> weaponPrefabs;
 
@@ -170,6 +180,21 @@ namespace Hive.Armada.Menus
         /// </summary>
         [TextArea]
         public List<string> weaponStats;
+
+        /// <summary>
+        /// References to prefabs used in skin entries.
+        /// </summary>
+        public List<GameObject> skinPrefabs;
+
+        /// <summary>
+        /// Currently selected ship skin.
+        /// </summary>
+        private int selectedSkin;
+
+        /// <summary>
+        /// Enum of default skin; meant to initially unlocked skin.
+        /// </summary>
+        public GameSettings.Skin defaultSkin;
 
         /// <summary>
         /// Id of currently open item.
@@ -195,6 +220,11 @@ namespace Hive.Armada.Menus
         /// Item texts of currently open category.
         /// </summary>
         private List<string> currTexts = new List<string>();
+
+        /// <summary>
+        /// Item stats of currently open category; primarily for weapons.
+        /// </summary>
+        private List<string> currStats = new List<string>();
 
         /// <summary>
         /// Item costs of currently open category.
@@ -226,11 +256,6 @@ namespace Hive.Armada.Menus
         /// </summary>
         private bool categoryOpen;
 
-        private void Awake()
-        {
-            reference = FindObjectOfType<ReferenceManager>();
-        }
-
         /// <summary>
         /// Disable game object near Shop area.
         /// </summary>
@@ -240,10 +265,13 @@ namespace Hive.Armada.Menus
         }
 
         // Find IridiumSystem.
-        private void Start()
+        private void Awake()
         {
+            reference = FindObjectOfType<ReferenceManager>();
             iridiumSystem = FindObjectOfType<IridiumSystem>();
-            BestiaryUnlockData = FindObjectOfType<BestiaryUnlockData>();
+            gameSettings = reference.gameSettings;
+
+            selectedSkin = PlayerPrefs.GetInt("defaultSkin", (int)defaultSkin);
 
             //int shopIndex = Random.Range(3, clips.Length);
             ////ASSUMES FIRST VISIT TO THE SHOP
@@ -287,8 +315,12 @@ namespace Hive.Armada.Menus
                 currTexts.RemoveAt(index);
                 currCosts.RemoveAt(index);
                 currNotBought.RemoveAt(index);
-                weaponPrefabs.RemoveAt(index);
-                weaponStats.RemoveAt(index);
+                currPrefabs.RemoveAt(index);
+
+                if (currCategory == "Weapons")
+                {
+                    currStats.RemoveAt(index);
+                }
             }
 
             int items;
@@ -350,9 +382,35 @@ namespace Hive.Armada.Menus
                 iridiumSystem.UnlockItem(currCategory, currNames[currItemId]);
                 currNotBought[currItemId] = false;
                 purchaseSection.SetActive(false);
-                purchased.SetActive(true);
+
+                if (currCategory == "Weapons")
+                {
+                    purchased.SetActive(true);
+                }
+                else if (currCategory == "Skins")
+                {
+                    setDefault.SetActive(true);
+                }
                 iridiumAmount.text = iridiumSystem.GetIridiumAmount().ToString();
-                //PressBack();
+            }
+        }
+
+        /// <summary>
+        /// Set category item as the default item in that category (primarily meant for skins.)
+        /// </summary>
+        public void SetDefault()
+        {
+            switch (currCategory)
+            {
+                case "Skins":
+                    selectedSkin = currItemId;
+                    PlayerPrefs.SetInt("defaultSkin", selectedSkin);
+                    gameSettings.selectedSkin = (GameSettings.Skin)selectedSkin;
+                    setDefault.SetActive(false);
+                    break;
+                default:
+                    Debug.Log("Unsupported use of set default in shop menu.");
+                    break;
             }
         }
 
@@ -398,10 +456,8 @@ namespace Hive.Armada.Menus
             if (currNotBought[itemId])
             {
                 purchaseSection.SetActive(true);
-                purchased.SetActive(false);
 
                 Color tempColor = buyButton.GetComponent<Image>().color;
-                ;
 
                 if (iridiumSystem.GetIridiumAmount() < currCosts[itemId])
                 {
@@ -425,7 +481,15 @@ namespace Hive.Armada.Menus
             else
             {
                 purchaseSection.SetActive(false);
-                purchased.SetActive(true);
+
+                if (currCategory == "Weapons")
+                {
+                    purchased.SetActive(true);
+                }
+                else if (currCategory == "Skins" && itemId != selectedSkin)
+                {
+                    setDefault.SetActive(true);
+                }
             }
 
             foreach (GameObject uiCover in uiCovers)
@@ -443,7 +507,7 @@ namespace Hive.Armada.Menus
             if (currCategory == "Weapons")
             {
                 itemDescription.text = currTexts[itemId] + "\n"
-                                       + weaponStats[itemId];
+                                       + currStats[itemId];
             }
             else
             {
@@ -452,10 +516,10 @@ namespace Hive.Armada.Menus
 
             itemCost.text = currCosts[itemId].ToString();
             iridiumAmount.text = iridiumSystem.GetIridiumAmount().ToString();
-            currItemId = itemId;
             previewLighting.SetActive(true);
             currPrefab = Instantiate(currPrefabs[itemId], itemPrefabPoint);
 
+            currItemId = itemId;
             itemOpen = true;
         }
 
@@ -469,7 +533,14 @@ namespace Hive.Armada.Menus
             itemSection.SetActive(false);
             purchaseSection.SetActive(false);
             iridiumSection.SetActive(false);
-            purchased.SetActive(false);
+            if (currCategory == "Weapons")
+            {
+                purchased.SetActive(false);
+            }
+            else if (currCategory == "Skins")
+            {
+                setDefault.SetActive(false);
+            }
             scrollView.SetActive(true);
 
             foreach (GameObject uiCover in uiCovers)
@@ -501,9 +572,19 @@ namespace Hive.Armada.Menus
                     currNames = iridiumSystem.GetItemNames(category);
                     currDisplayNames = iridiumSystem.GetItemDisplayNames(category);
                     currTexts = iridiumSystem.GetItemTexts(category);
+                    currStats = new List<string>(weaponStats);
                     currCosts = iridiumSystem.GetItemCosts(category);
                     currNotBought = iridiumSystem.GetItemsLocked(category);
-                    currPrefabs = weaponPrefabs;
+                    currPrefabs = new List<GameObject>(weaponPrefabs);
+                    break;
+                case "Skins":
+                    currCategory = category;
+                    currNames = iridiumSystem.GetItemNames(category);
+                    currDisplayNames = iridiumSystem.GetItemDisplayNames(category);
+                    currTexts = iridiumSystem.GetItemTexts(category);
+                    currCosts = iridiumSystem.GetItemCosts(category);
+                    currNotBought = iridiumSystem.GetItemsLocked(category);
+                    currPrefabs = new List<GameObject>(skinPrefabs);
                     break;
                 default:
                     Debug.Log("ERROR: Bestiary menu category could not be identified.");
@@ -525,7 +606,17 @@ namespace Hive.Armada.Menus
             GenerateContent();
             scrollBar.value = 1;
 
-            categoryButtons[0].GetComponent<UIHover>().Select();
+            foreach (GameObject buttonGO in categoryButtons)
+            {
+                if (buttonGO.name.Contains(category))
+                {
+                    buttonGO.GetComponent<UIHover>().Select();
+                }
+                else
+                {
+                    buttonGO.GetComponent<UIHover>().EndSelect();
+                }
+            }
 
             categoryOpen = true;
         }
@@ -538,7 +629,14 @@ namespace Hive.Armada.Menus
             menuTitle.GetComponent<Text>().text = "Shop";
             scrollView.SetActive(false);
 
-            categoryButtons[0].GetComponent<UIHover>().EndSelect();
+            foreach (GameObject buttonGO in categoryButtons)
+            {
+                if (buttonGO.name.Contains(currCategory))
+                {
+                    buttonGO.GetComponent<UIHover>().EndSelect();
+                    break;
+                }
+            }
 
             categoryOpen = false;
         }

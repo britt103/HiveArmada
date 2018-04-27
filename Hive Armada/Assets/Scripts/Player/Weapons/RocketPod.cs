@@ -15,6 +15,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Hive.Armada.Data;
 using Hive.Armada.Enemies;
 using UnityEngine;
 using Hive.Armada.Game;
@@ -26,11 +27,7 @@ namespace Hive.Armada.Player.Weapons
     /// </summary>
     public class RocketPod : Weapon
     {
-        /// <summary>
-        /// Prefab for the rocket gameobject.
-        /// </summary>
-        [Header("Rockets")]
-        public GameObject rocketPrefab;
+        public RocketPodData rocketPodData;
 
         /// <summary>
         /// The type id for the rockets.
@@ -50,7 +47,7 @@ namespace Hive.Armada.Player.Weapons
         /// <summary>
         /// Number of rockets launched when the rocket pod fires.
         /// </summary>
-        public int burstAmount;
+        private int burstAmount;
 
         private WaitForSeconds waitBurst;
 
@@ -69,17 +66,26 @@ namespace Hive.Armada.Player.Weapons
         /// <summary>
         /// The sound the rocket pod makes when it fires.
         /// </summary>
-        public AudioClip rocketPodLaunchSound;
+        private AudioClip rocketPodLaunchSound;
 
         /// <summary>
         /// Initializes the rockets and active/inactive pools.
         /// </summary>
         protected override void SetupWeapon()
         {
+            radius = rocketPodData.aimAssistRadius;
+            damage = rocketPodData.damage;
+            fireRate = rocketPodData.fireRate;
+            rocketPodLaunchSound = rocketPodData.shootSound;
+            rocketTypeId =
+                reference.objectPoolManager.GetTypeIdentifier(rocketPodData.rocketPrefab);
+            burstAmount = rocketPodData.burstAmount;
+            
+            if (reference.cheats.doubleDamage)
+                damage *= 2;
+            
             waitFire = new WaitForSeconds(1.0f / fireRate);
             waitBurst = new WaitForSeconds(1.0f / fireRate / burstAmount);
-            
-            rocketTypeId = reference.objectPoolManager.GetTypeIdentifier(rocketPrefab);
         }
 
         /// <summary>

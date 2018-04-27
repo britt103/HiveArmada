@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections;
+using Hive.Armada.Data;
 using UnityEngine;
 using UnityEngine.Rendering;
 using Hive.Armada.Enemies;
@@ -30,6 +31,8 @@ namespace Hive.Armada.Player.Weapons
     /// </summary>
     public class Minigun : Weapon
     {
+        public MinigunData minigunData;
+        
         /// <summary>
         /// Used to alternate between left and right guns firing
         /// </summary>
@@ -38,18 +41,18 @@ namespace Hive.Armada.Player.Weapons
         /// <summary>
         /// Material for the minigun's tracers.
         /// </summary>
-        [Header("Tracers")]
-        public Material tracerMaterial;
+        private Material tracerMaterial;
 
         /// <summary>
         /// Thickness of the minigun tracers' LineRenderer's
         /// </summary>
-        public float thickness = 0.003f;
+        private float thickness = 0.003f;
 
         /// <summary>
         /// Array of points where the left minigun can shoot from.
         /// These are the barrels on the left minigun.
         /// </summary>
+        [Space]
         [Tooltip("Array of points representing each barrel of the left minigun.")]
         public GameObject[] left;
 
@@ -63,46 +66,39 @@ namespace Hive.Armada.Player.Weapons
         /// <summary>
         /// This is the color the barrels turns when it overheats.
         /// </summary>
-        [Header("Overheat")]
-        public Color overheatBarrelColor;
+        private Color overheatBarrelColor;
 
         public Renderer[] barrelRenderers;
 
         /// <summary>
         /// Amount at which the minigun overheats.
         /// </summary>
-        [Tooltip("The amount at which the minigun overheats.")]
-        public float overheatMax;
+        private float overheatMax;
 
         /// <summary>
         /// Amount to increase overheat per shot.
         /// </summary>
-        [Tooltip("Amount to increase overheat per shot.")]
-        public float overheatPerShot;
+        private float overheatPerShot;
 
         /// <summary>
         /// How much to decrease overheat per tick.
         /// </summary>
-        [Tooltip("How much the overheat decreases per tick.")]
-        public float overheatDecreaseAmount;
+        private float overheatDecreaseAmount;
 
         /// <summary>
         /// Time length of decrease ticks.
         /// </summary>
-        [Tooltip("Time between overheat decreasing.")]
-        public float overheatDecreaseTickLength;
+        private float overheatDecreaseTickLength;
 
         /// <summary>
         /// Time delay between shooting and overheat decreasing.
         /// </summary>
-        [Tooltip("Time delay between shooting and overheat decreasing.")]
-        public float overheatDecreaseDelay;
+        private float overheatDecreaseDelay;
 
         /// <summary>
         /// How long overheating minigun needs to cool down.
         /// </summary>
-        [Tooltip("How long the minigun needs to cool down once it overheats.")]
-        public float overheatCoolDown;
+        private float overheatCoolDown;
 
         /// <summary>
         /// The current overheat amount.
@@ -130,20 +126,14 @@ namespace Hive.Armada.Player.Weapons
         private Coroutine overheatDecreaseDelayCoroutine;
 
         /// <summary>
-        /// Coroutine for overheat full cool down.
-        /// </summary>
-        private Coroutine overheatCoolDownCoroutine;
-
-        /// <summary>
         /// Particle emitter for the hit spark effect.
         /// </summary>
-        [Header("Emitters")]
-        public GameObject hitSparkEmitter;
+        private GameObject hitSparkEmitter;
 
         /// <summary>
         /// Particle emitter for the muzzle flash effect.
         /// </summary>
-        public GameObject muzzleFlashEmitter;
+        private GameObject muzzleFlashEmitter;
 
         /// <summary>
         /// Pool of muzzle flash emitters.
@@ -161,14 +151,14 @@ namespace Hive.Armada.Player.Weapons
         [Header("Audio")]
         public AudioSource source;
 
-        public AudioSource source2d;
+        public AudioSource source2D;
 
         /// <summary>
         /// The sound the minigun makes when it fires.
         /// </summary>
-        public AudioClip minigunShootSound;
+        private AudioClip minigunShootSound;
 
-        public AudioClip overheatSound;
+        private AudioClip overheatSound;
 
         private WaitForSeconds waitOverheatDecreaseDelay;
 
@@ -178,6 +168,21 @@ namespace Hive.Armada.Player.Weapons
         /// </summary>
         protected override void SetupWeapon()
         {
+            radius = minigunData.aimAssistRadius;
+            tracerMaterial = minigunData.tracerMaterial;
+            thickness = minigunData.thickness;
+            overheatBarrelColor = minigunData.overheatColor;
+            overheatMax = minigunData.overheatMax;
+            overheatPerShot = minigunData.overheatPerShot;
+            overheatDecreaseAmount = minigunData.overheatDecreaseAmount;
+            overheatDecreaseTickLength = minigunData.overheatDecreaseTickLength;
+            overheatDecreaseDelay = minigunData.overheatDecreaseDelay;
+            overheatCoolDown = minigunData.overheatCoolDown;
+            hitSparkEmitter = minigunData.hitSpark;
+            muzzleFlashEmitter = minigunData.muzzleFlash;
+            minigunShootSound = minigunData.shootSound;
+            overheatSound = minigunData.overheatSound;
+            
             if (reference.cheats.doubleDamage)
                 damage *= 2;
             
@@ -446,7 +451,7 @@ namespace Hive.Armada.Player.Weapons
                     StopCoroutine(overheatTickCoroutine);
                 }
 
-                overheatCoolDownCoroutine = StartCoroutine(OverheatCoolDown());
+                StartCoroutine(OverheatCoolDown());
             }
         }
 
@@ -545,9 +550,9 @@ namespace Hive.Armada.Player.Weapons
         /// </summary>
         private IEnumerator OverheatCoolDown()
         {
-            if (!source2d.isPlaying)
+            if (!source2D.isPlaying)
             {
-                source2d.PlayOneShot(overheatSound);
+                source2D.PlayOneShot(overheatSound);
             }
 
             if (overheatDecreaseDelayCoroutine != null)
@@ -572,7 +577,6 @@ namespace Hive.Armada.Player.Weapons
 
             overheatAmount = 0.0f;
             isOverheating = false;
-            overheatCoolDownCoroutine = null;
         }
     }
 }

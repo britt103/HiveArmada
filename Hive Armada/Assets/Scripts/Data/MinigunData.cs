@@ -41,6 +41,6 @@ namespace Hive.Armada.Data
         public GameObject muzzleFlash;
 
         [Header("Minigun Audio")]
-        public AudioClip overheatWarning;
+        public AudioClip overheatSound;
     }
 }

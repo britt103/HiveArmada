@@ -12,15 +12,14 @@
 // 
 //=============================================================================
 
-using UnityEngine;
-using Valve.VR.InteractionSystem;
+using System;
+using System.Collections;
+using Hive.Armada.Data;
 using Hive.Armada.Game;
 using Hive.Armada.Player.Weapons;
 using SubjectNerd.Utilities;
-using System;
-using System.Collections;
-using Random = UnityEngine.Random;
-using Hive.Armada.Data;
+using UnityEngine;
+using Valve.VR.InteractionSystem;
 
 namespace Hive.Armada.Player
 {
@@ -30,28 +29,6 @@ namespace Hive.Armada.Player
     [RequireComponent(typeof(Interactable))]
     public class ShipController : MonoBehaviour
     {
-        /// <summary>
-        /// Structure containing a weapon script, damage, and fire rate for a weapon.
-        /// </summary>
-        [Serializable]
-        public struct WeaponSetup
-        {
-            /// <summary>
-            /// The Weapon script on the weapon's game object.
-            /// </summary>
-            public Weapon weapon;
-
-            /// <summary>
-            /// The damage this weapon does with each hit.
-            /// </summary>
-            public int damage;
-
-            /// <summary>
-            /// The number of times this weapon can fire per second.
-            /// </summary>
-            public float fireRate;
-        }
-
         public PlayerData playerData;
 
         /// <summary>
@@ -62,7 +39,7 @@ namespace Hive.Armada.Player
         /// <summary>
         /// Index of the currently activated weapon.
         /// </summary>
-        public int currentWeapon;
+        private int currentWeapon;
 
         /// <summary>
         /// Prevents the weapon from firing when the player
@@ -104,8 +81,9 @@ namespace Hive.Armada.Player
         /// <summary>
         /// Array of weapons available to the player.
         /// </summary>
+        [Space]
         [Reorderable("Weapon", false)]
-        public WeaponSetup[] weapons;
+        public Weapon[] weapons;
 
         /// <summary>
         /// Audio source for ship sounds.
@@ -143,7 +121,7 @@ namespace Hive.Armada.Player
 
                 reference.tooltips.ShipGrabbed();
 
-                SetWeapon((int)reference.gameSettings.selectedWeapon);
+                SetWeapon((int) reference.gameSettings.selectedWeapon);
 
                 if (reference.shipPickup)
                 {
@@ -300,7 +278,7 @@ namespace Hive.Armada.Player
             {
                 if (hand.GetStandardInteractionButton())
                 {
-                    weapons[currentWeapon].weapon.TriggerUpdate();
+                    weapons[currentWeapon].TriggerUpdate();
                 }
             }
             else
@@ -316,10 +294,10 @@ namespace Hive.Armada.Player
         /// Activates the corresponding weapon object.
         /// </summary>
         /// <param name="weaponNumber"> Index of the weapon to activate </param>
-        public void SetWeapon(int weaponNumber)
+        private void SetWeapon(int weaponNumber)
         {
-            weapons[weaponNumber].weapon.gameObject.SetActive(true);
-            weapons[weaponNumber].weapon.Initialize(weaponNumber);
+            weapons[weaponNumber].gameObject.SetActive(true);
+            weapons[weaponNumber].Initialize(weaponNumber);
 
             currentWeapon = weaponNumber;
         }
@@ -330,7 +308,7 @@ namespace Hive.Armada.Player
         /// <param name="boost"> The damage boost multiplier </param>
         public void SetDamageBoost(int boost)
         {
-            weapons[currentWeapon].weapon.damageMultiplier = boost;
+            weapons[currentWeapon].damageMultiplier = boost;
         }
 
         /// <summary>

@@ -12912,24 +12912,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerData: {fileID: 11400000, guid: 7e2be0af0fd1a9c4b9ea425a0a548170, type: 2}
   shipController: {fileID: 114793993550837528}
-  flashColor: {fileID: 2100000, guid: 1db15971033ba594294b4f0c035f7da8, type: 2}
   healthPods:
   - {fileID: 1656467150415120}
   - {fileID: 1042455899995770}
   - {fileID: 1055519978042126}
-  podIntactMaterial: {fileID: 2100000, guid: 4d76b008887868446a7adce748d4e1c2, type: 2}
-  podDestroyedMaterial: {fileID: 2100000, guid: 5518a15ed9493d44695a335c45aa7750,
-    type: 2}
-  hitEmitter: {fileID: 1055841953223108, guid: 0d57f6e2384c7034888dccc749fac7f4, type: 2}
-  podHitEmitter: {fileID: 1911246495091562, guid: d018b4a4894d15a4d945144c7c1573dc,
-    type: 2}
-  hurtEmitter: {fileID: 0}
-  deathEmitter: {fileID: 1121042957686670, guid: a1bfa5497fc24df4ab1d22001dc533da,
-    type: 2}
   source: {fileID: 82926163793428804}
-  hitSound: {fileID: 8300000, guid: 83cad372b9a3e5b448df2655e0495b4f, type: 3}
-  lowHealth: {fileID: 8300000, guid: b78e97448df1fd54e8532d46501da0e2, type: 3}
-  heal: {fileID: 8300000, guid: f0379a32f5d3d3c4896fd17de47d9eeb, type: 3}
 --- !u!114 &114376579639748570
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -12971,10 +12958,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shipController: {fileID: 114793993550837528}
   damageMultiplier: 0
-  radius: 0.3
-  rocketPrefab: {fileID: 1307413110761698, guid: 44d6133eede41af47acad395888fba4a,
-    type: 2}
-  rocketType: 0
+  rocketPodData: {fileID: 11400000, guid: 5ce75a0a1e5cb92479870a5f191d96d1, type: 2}
   barrels:
   - {fileID: 4185331118889396}
   - {fileID: 4904541521852022}
@@ -12982,11 +12966,8 @@ MonoBehaviour:
   - {fileID: 4600777832978996}
   - {fileID: 4510819735515010}
   - {fileID: 4037051136755908}
-  burstAmount: 6
   rocketLaunchEmitter: {fileID: 0}
   source: {fileID: 82504413075797476}
-  rocketPodLaunchSound: {fileID: 8300000, guid: ec557f9b5abd0b641a4940d752eb3b8f,
-    type: 3}
 --- !u!114 &114469184761876228
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -13067,9 +13048,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shipController: {fileID: 114793993550837528}
   damageMultiplier: 0
-  radius: 0.3
-  tracerMaterial: {fileID: 2100000, guid: 94b83a265507fa64c97d2039f9b11189, type: 2}
-  thickness: 0.003
+  minigunData: {fileID: 11400000, guid: ae1b23ca36eedda4f88f0be656624d68, type: 2}
   left:
   - {fileID: 1891782559340126}
   - {fileID: 1135159323362702}
@@ -13088,7 +13067,6 @@ MonoBehaviour:
   - {fileID: 1618409207318012}
   - {fileID: 1835601282760866}
   - {fileID: 1993460180884510}
-  overheatBarrelColor: {r: 1, g: 0.28965518, b: 0, a: 1}
   barrelRenderers:
   - {fileID: 23799300528090220}
   - {fileID: 23160399660856050}
@@ -13112,20 +13090,8 @@ MonoBehaviour:
   - {fileID: 23915237157719274}
   - {fileID: 23352477348737308}
   - {fileID: 23953391433354570}
-  overheatMax: 100
-  overheatPerShot: 0.5
-  overheatDecreaseAmount: 6.67
-  overheatDecreaseTickLength: 0.1
-  overheatDecreaseDelay: 0.33
-  overheatCoolDown: 3
-  hitSparkEmitter: {fileID: 1514411477096268, guid: 428589331263e1649baa33bed534c884,
-    type: 2}
-  muzzleFlashEmitter: {fileID: 1585948764433870, guid: bb8ae17bb63b15b4f8db2ec1c45e51fa,
-    type: 2}
   source: {fileID: 82297613373361858}
-  source2d: {fileID: 82347148825229244}
-  minigunShootSound: {fileID: 8300000, guid: 58fa71883856e0e49973b4dce75e90d0, type: 3}
-  overheatSound: {fileID: 8300000, guid: 29a8671d31d2f954eac8cd1c77fcc008, type: 3}
+  source2D: {fileID: 82347148825229244}
 --- !u!114 &114689089403391338
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -13163,17 +13129,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shipController: {fileID: 114793993550837528}
   damageMultiplier: 1
-  radius: 0.3
-  laserMaterial: {fileID: 2100000, guid: fb4863ba36a8e134791cc6e1bbb1efeb, type: 2}
-  thickness: 0.003
+  laserGunData: {fileID: 11400000, guid: 261ff0aa64128104a88f54b312ad9429, type: 2}
   left: {fileID: 1387819469322364}
   right: {fileID: 1073334260854514}
-  hitSparkEmitter: {fileID: 1514411477096268, guid: 2c7bff8c66a11a9428c0d364e45bd8a2,
-    type: 2}
-  muzzleFlashEmitter: {fileID: 1585948764433870, guid: 9769f941053c78444bc5cd90454b7ae1,
-    type: 2}
   source: {fileID: 82477393017818666}
-  laserShootSound: {fileID: 8300000, guid: 0f789f5cd793f19469a7c23b8352f1c9, type: 3}
 --- !u!114 &114762446551990762
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -13203,21 +13162,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerData: {fileID: 11400000, guid: 7e2be0af0fd1a9c4b9ea425a0a548170, type: 2}
   masterCollider: {fileID: 114862744229691696}
-  currentWeapon: 0
   hand: {fileID: 0}
   weapons:
-  - weapon: {fileID: 114721725632535252}
-    damage: 8
-    fireRate: 10
-  - weapon: {fileID: 114671084899170778}
-    damage: 6
-    fireRate: 25
-  - weapon: {fileID: 114467211108086248}
-    damage: 30
-    fireRate: 3
-  - weapon: {fileID: 114963946566955436}
-    damage: 15
-    fireRate: 14
+  - {fileID: 114721725632535252}
+  - {fileID: 114671084899170778}
+  - {fileID: 114467211108086248}
+  - {fileID: 114963946566955436}
   source: {fileID: 82926163793428804}
 --- !u!114 &114809922867568770
 MonoBehaviour:
@@ -13318,13 +13268,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shipController: {fileID: 114793993550837528}
   damageMultiplier: 0
-  radius: 0.3
-  maxAmmo: 20
-  reloadTime: 4
-  reloadDelay: 1
-  rocketPrefab: {fileID: 1307413110761698, guid: 44d6133eede41af47acad395888fba4a,
-    type: 2}
-  rocketType: 1
+  plasmaData: {fileID: 11400000, guid: 7d66f63839db58b409dae0ac0e37524d, type: 2}
   barrels:
   - {fileID: 4168356968657116}
   - {fileID: 4355584203181256}
@@ -13338,10 +13282,6 @@ MonoBehaviour:
   - {fileID: 4230780056861154}
   plasmaLaunchEmitter: {fileID: 0}
   source: {fileID: 82172981414638460}
-  plasmaGunShootSound: {fileID: 0}
-  plasmaGunChargingSounds:
-  - {fileID: 8300000, guid: 0a8b74b3f6623fd41b02f3cc647f6af0, type: 3}
-  - {fileID: 8300000, guid: 13a2ebafe891626408bef5c2cb418cab, type: 3}
 --- !u!198 &198096671654029454
 ParticleSystem:
   m_ObjectHideFlags: 1

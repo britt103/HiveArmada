@@ -11,6 +11,7 @@
 //=============================================================================
 
 using System.Collections;
+using Hive.Armada.Data;
 using UnityEngine;
 using Hive.Armada.Game;
 using Hive.Armada.Enemies;
@@ -22,28 +23,19 @@ namespace Hive.Armada.Player.Weapons
     /// </summary>
     public class PlasmaGun : Weapon
     {
-        public int maxAmmo;
+        public PlasmaData plasmaData;
+        
+        private int maxAmmo;
 
-        public float reloadTime;
+        private float reloadTime;
 
-        public float reloadDelay;
+        private float reloadDelay;
 
         private int currentAmmo;
 
         private Coroutine reloadCoroutine;
 
         private bool isReloading;
-
-        /// <summary>
-        /// Prefab for the rocket gameobject.
-        /// </summary>
-        [Header("Projectiles")]
-        public GameObject rocketPrefab;
-
-        /// <summary>
-        /// The type of rocket to use.
-        /// </summary>
-        public RocketAttributes.RocketType rocketType;
 
         /// <summary>
         /// The type id for the rockets.
@@ -70,12 +62,11 @@ namespace Hive.Armada.Player.Weapons
         /// <summary>
         /// The sound the plasma gun makes when it fires.
         /// </summary>
-        public AudioClip plasmaGunShootSound;
+        private AudioClip plasmaGunShootSound;
 
-        /// <summary>
-        /// The sounds used when the plasma gun is charging/complete
-        /// </summary>
-        public AudioClip[] plasmaGunChargingSounds;
+        private AudioClip chargeSound;
+
+        private AudioClip chargeCompleteSound;
 
         private WaitForSeconds waitReloadDelay;
 
@@ -84,11 +75,23 @@ namespace Hive.Armada.Player.Weapons
         /// </summary>
         protected override void SetupWeapon()
         {
+            radius = plasmaData.aimAssistRadius;
+            damage = plasmaData.damage;
+            fireRate = plasmaData.fireRate;
+            plasmaGunShootSound = plasmaData.shootSound;
+            rocketTypeId = reference.objectPoolManager.GetTypeIdentifier(plasmaData.plasmaPrefab);
+            maxAmmo = plasmaData.maxAmmo;
+            reloadTime = plasmaData.reloadTime;
+            reloadDelay = plasmaData.reloadDelay;
+            chargeSound = plasmaData.chargingSound;
+            chargeCompleteSound = plasmaData.chargeCompleteSound;
+            
+            if (reference.cheats.doubleDamage)
+                damage *= 2;
+            
             waitFire = new WaitForSeconds(1.0f / fireRate);
             waitReloadDelay = new WaitForSeconds(reloadDelay);
             currentAmmo = maxAmmo;
-
-            rocketTypeId = reference.objectPoolManager.GetTypeIdentifier(rocketPrefab);
         }
 
         /// <summary>
@@ -240,7 +243,7 @@ namespace Hive.Armada.Player.Weapons
 
         private IEnumerator Reload()
         {
-            source.PlayOneShot(plasmaGunChargingSounds[0]);
+            source.PlayOneShot(chargeSound);
 
             yield return waitReloadDelay;
 
@@ -257,7 +260,7 @@ namespace Hive.Armada.Player.Weapons
             //    ++currentAmmo;
             //}
 
-            source.PlayOneShot(plasmaGunChargingSounds[1]);
+            source.PlayOneShot(chargeCompleteSound);
 
             reloadCoroutine = null;
         }

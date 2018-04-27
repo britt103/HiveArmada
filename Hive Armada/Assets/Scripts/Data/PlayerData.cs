@@ -29,6 +29,16 @@ namespace Hive.Armada.Data
 
         public int playerLowHealth;
 
+        public Material flashColor;
+
+        public GameObject deathEmitter;
+
+        public AudioClip hitSound;
+
+        public AudioClip lowHealthSound;
+
+        public AudioClip healSound;
+
         [Header("Dialogue")]
         public AudioClip[] shipIntroClips;
 

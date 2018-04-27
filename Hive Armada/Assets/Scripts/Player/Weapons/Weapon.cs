@@ -41,8 +41,7 @@ namespace Hive.Armada.Player.Weapons
         /// <summary>
         /// The radius for the aim assist SphereCast.
         /// </summary>
-        [Tooltip("Radius for the aim assist SphereCast")]
-        public float radius = 0.3f;
+        protected float radius = 0.3f;
 
         /// <summary>
         /// Damage done with each hit.

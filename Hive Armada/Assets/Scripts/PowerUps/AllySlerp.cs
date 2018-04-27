@@ -79,11 +79,6 @@ namespace Hive.Armada.PowerUps
         private short rocketTypeId;
 
         /// <summary>
-        /// Rocket type for setting attributes for launched rockets.
-        /// </summary>
-        public RocketAttributes.RocketType rocketType;
-
-        /// <summary>
         /// FX instanted in Start().
         /// </summary>
         public GameObject spawnEmitter;
@@ -276,7 +271,6 @@ namespace Hive.Armada.PowerUps
                 reference.objectPoolManager.Spawn(gameObject, rocketTypeId, shootPoint.position,
                                                   shootPoint.rotation);
             Rocket rocketScript = rocket.GetComponent<Rocket>();
-            rocketScript.SetupRocket((int)rocketType);
             rocketScript.Launch(target, target.transform.position);
 
             source.PlayOneShot(clips[0]);

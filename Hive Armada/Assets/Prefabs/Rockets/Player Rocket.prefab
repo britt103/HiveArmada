@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4260817676876392}
-  - component: {fileID: 114695300130572088}
+  - component: {fileID: 114356552383383942}
   - component: {fileID: 136463465774217652}
   - component: {fileID: 54824565481891302}
   - component: {fileID: 82033480946159818}
@@ -139,7 +139,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
---- !u!114 &114695300130572088
+--- !u!114 &114356552383383942
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -147,11 +147,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1307413110761698}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e4ba9aa6ff6374439892990af7621f9, type: 3}
+  m_Script: {fileID: 11500000, guid: e83fbd7664ba8094a982fd21d88bfd4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rocketData: {fileID: 0}
+  rocketData: {fileID: 11400000, guid: 1290021c9767b514389c00b632cba716, type: 2}
   source: {fileID: 82033480946159818}
+  rocketPodData: {fileID: 11400000, guid: 5ce75a0a1e5cb92479870a5f191d96d1, type: 2}
 --- !u!114 &114703865110171236
 MonoBehaviour:
   m_ObjectHideFlags: 1

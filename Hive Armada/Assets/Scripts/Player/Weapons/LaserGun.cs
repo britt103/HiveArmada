@@ -103,6 +103,8 @@ namespace Hive.Armada.Player.Weapons
         protected override void SetupWeapon()
         {
             radius = laserGunData.aimAssistRadius;
+            damage = laserGunData.damage;
+            fireRate = laserGunData.fireRate;
             laserMaterial = laserGunData.laserMaterial;
             thickness = laserGunData.thickness;
             hitSparkEmitter = laserGunData.hitSpark;

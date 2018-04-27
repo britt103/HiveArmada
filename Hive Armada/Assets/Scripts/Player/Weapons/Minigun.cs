@@ -169,6 +169,8 @@ namespace Hive.Armada.Player.Weapons
         protected override void SetupWeapon()
         {
             radius = minigunData.aimAssistRadius;
+            damage = minigunData.damage;
+            fireRate = minigunData.fireRate;
             tracerMaterial = minigunData.tracerMaterial;
             thickness = minigunData.thickness;
             overheatBarrelColor = minigunData.overheatColor;

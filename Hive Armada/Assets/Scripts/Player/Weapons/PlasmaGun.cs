@@ -70,14 +70,19 @@ namespace Hive.Armada.Player.Weapons
 
         private WaitForSeconds waitReloadDelay;
 
+        protected override void Awake()
+        {
+            base.Awake();
+            SetupWeapon();
+        }
+        
         /// <summary>
         /// Initializes the rockets and active/inactive pools.
         /// </summary>
-        protected override void SetupWeapon()
+        private void SetupWeapon()
         {
-            radius = plasmaData.aimAssistRadius;
-            damage = plasmaData.damage;
-            fireRate = plasmaData.fireRate;
+            SetupWeapon(plasmaData);
+            
             plasmaGunShootSound = plasmaData.shootSound;
             rocketTypeId = reference.objectPoolManager.GetTypeIdentifier(plasmaData.plasmaPrefab);
             maxAmmo = plasmaData.maxAmmo;
@@ -250,15 +255,6 @@ namespace Hive.Armada.Player.Weapons
             yield return new WaitForSeconds(reloadTime / maxAmmo * currentAmmo);
 
             currentAmmo = maxAmmo;
-
-            //float timeToWait = reloadTime / maxAmmo * currentAmmo;
-
-            //while (currentAmmo < maxAmmo)
-            //{
-            //    yield return new WaitForSeconds(timeToWait);
-
-            //    ++currentAmmo;
-            //}
 
             source.PlayOneShot(chargeCompleteSound);
 

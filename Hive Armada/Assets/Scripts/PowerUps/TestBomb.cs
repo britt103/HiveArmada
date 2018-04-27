@@ -33,10 +33,6 @@ namespace Hive.Armada.PowerUps
         /// </summary>
         public GameObject rocketPrefab;
 
-        AudioSource source;
-
-        AudioSource bossSource;
-
         public AudioClip clip;
 
         /// <summary>
@@ -45,8 +41,7 @@ namespace Hive.Armada.PowerUps
         protected void Awake()
         {
             reference = FindObjectOfType<ReferenceManager>();
-            source = GameObject.Find("Powerup Audio Source").GetComponent<AudioSource>();
-            bossSource = GameObject.Find("Boss Audio Source").GetComponent<AudioSource>();
+            reference.dialoguePlayer.EnqueueFeedback(clip);
 
             short typeId = reference.objectPoolManager.GetTypeIdentifier(rocketPrefab);
 

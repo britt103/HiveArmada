@@ -67,15 +67,20 @@ namespace Hive.Armada.Player.Weapons
         /// The sound the rocket pod makes when it fires.
         /// </summary>
         private AudioClip rocketPodLaunchSound;
+        
+        protected override void Awake()
+        {
+            base.Awake();
+            SetupWeapon();
+        }
 
         /// <summary>
         /// Initializes the rockets and active/inactive pools.
         /// </summary>
-        protected override void SetupWeapon()
+        private void SetupWeapon()
         {
-            radius = rocketPodData.aimAssistRadius;
-            damage = rocketPodData.damage;
-            fireRate = rocketPodData.fireRate;
+            SetupWeapon(rocketPodData);
+            
             rocketPodLaunchSound = rocketPodData.shootSound;
             rocketTypeId =
                 reference.objectPoolManager.GetTypeIdentifier(rocketPodData.rocketPrefab);

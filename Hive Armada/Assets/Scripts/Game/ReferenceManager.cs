@@ -58,8 +58,6 @@ namespace Hive.Armada.Game
 
         public IridiumSpawner iridiumSpawner;
 
-        public RocketAttributes rocketAttributes;
-
         public MenuSounds menuSounds;
 
         public DialoguePlayer dialoguePlayer;
@@ -170,11 +168,6 @@ namespace Hive.Armada.Game
             if (optionsValues == null)
             {
                 optionsValues = FindObjectOfType<OptionsValues>();
-            }
-
-            if (rocketAttributes != null)
-            {
-                rocketAttributes.Initialize(this);
             }
 
             if (shipLookTarget == null)

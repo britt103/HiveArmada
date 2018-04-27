@@ -70,18 +70,11 @@ namespace Hive.Armada.PowerUps
         public AudioClip clip;
 
         /// <summary>
-        /// Source to play audio clip from
-        /// </summary>
-        AudioSource source;
-
-        /// <summary>
         /// Find references. Instantiate and rotate FX. Start self-destruct countdown.
         /// </summary>
         private void Awake()
         {
             reference = GameObject.Find("Reference Manager").GetComponent<ReferenceManager>();
-
-            source = GameObject.Find("Powerup Audio Source").GetComponent<AudioSource>();
 
             head = GameObject.Find("VRCamera").transform;
 
@@ -110,14 +103,14 @@ namespace Hive.Armada.PowerUps
         /// Give player powerup upon collision, then self-destruct.
         /// </summary>
         /// <param name="other">Collider of object with which this collided.</param>
-        void OnTriggerEnter(Collider other)
+        private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Player") && status.HasRoom() && !touched)
             {
                 touched = true;
                 reference.playerShipSource.PlayOneShot(reference.powerupReadySound);
                 status.StorePowerup(powerupPrefab, powerupIconPrefab);
-                source.PlayOneShot(clip);
+                reference.dialoguePlayer.EnqueueFeedback(clip);
                 Destroy(transform.gameObject);
             }
         }

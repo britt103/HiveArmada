@@ -63,7 +63,7 @@ namespace Hive.Armada.PowerUps
             reference = GameObject.Find("Reference Manager").GetComponent<ReferenceManager>();
             source = GameObject.Find("Powerup Audio Source").GetComponent<AudioSource>();
             bossSource = GameObject.Find("Boss Audio Source").GetComponent<AudioSource>();
-            StartCoroutine(PauseForBoss());
+            reference.dialoguePlayer.EnqueueFeedback(clip);
 
             Instantiate(spawnEmitter, reference.playerShip.transform);
             StartCoroutine(Run());
@@ -83,28 +83,6 @@ namespace Hive.Armada.PowerUps
             reference.enemyAttributes.StopTimeWarp();
             
             Destroy(gameObject);
-        }
-
-        private IEnumerator PauseForBoss()
-        {
-            if (bossSource.isPlaying)
-            {
-                yield return new WaitWhile(() => bossSource.isPlaying);
-
-                if (source.isPlaying)
-                {
-                    yield return new WaitWhile(() => source.isPlaying);
-                }
-
-                if (!source.isPlaying)
-                {
-                    source.PlayOneShot(clip);
-                }
-            }
-            else
-            {
-                source.PlayOneShot(clip);
-            }
         }
     }
 }

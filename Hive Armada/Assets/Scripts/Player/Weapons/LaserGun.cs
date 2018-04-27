@@ -96,15 +96,20 @@ namespace Hive.Armada.Player.Weapons
         /// </summary>
         private AudioClip laserShootSound;
 
+        protected override void Awake()
+        {
+            base.Awake();
+            SetupWeapon();
+        }
+
         /// <summary>
         /// Initializes the LineRenderer's that are the lasers and
         /// the muzzle flash emitter pool.
         /// </summary>
-        protected override void SetupWeapon()
+        private void SetupWeapon()
         {
-            radius = laserGunData.aimAssistRadius;
-            damage = laserGunData.damage;
-            fireRate = laserGunData.fireRate;
+            SetupWeapon(laserGunData);
+            
             laserMaterial = laserGunData.laserMaterial;
             thickness = laserGunData.thickness;
             hitSparkEmitter = laserGunData.hitSpark;

@@ -51,11 +51,6 @@ namespace Hive.Armada.Player.Weapons
         public RocketData rocketData;
 
         /// <summary>
-        /// Reference to the attributes for all rocket types.
-        /// </summary>
-        private RocketAttributes rocketAttributes;
-
-        /// <summary>
         /// Reference to the ship controller for controller vibrations.
         /// </summary>
         private ShipController shipController;

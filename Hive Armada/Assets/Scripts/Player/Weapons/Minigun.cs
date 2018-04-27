@@ -161,16 +161,21 @@ namespace Hive.Armada.Player.Weapons
         private AudioClip overheatSound;
 
         private WaitForSeconds waitOverheatDecreaseDelay;
+        
+        protected override void Awake()
+        {
+            base.Awake();
+            SetupWeapon();
+        }
 
         /// <summary>
         /// Initializes the LineRenderer's for the minigun tracers and
         /// the muzzle flash emitter pool.
         /// </summary>
-        protected override void SetupWeapon()
+        private void SetupWeapon()
         {
-            radius = minigunData.aimAssistRadius;
-            damage = minigunData.damage;
-            fireRate = minigunData.fireRate;
+            SetupWeapon(minigunData);
+            
             tracerMaterial = minigunData.tracerMaterial;
             thickness = minigunData.thickness;
             overheatBarrelColor = minigunData.overheatColor;

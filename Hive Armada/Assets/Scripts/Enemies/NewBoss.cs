@@ -21,8 +21,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Hive.Armada.Player;
+using NUnit.Framework.Constraints;
 using SubjectNerd.Utilities;
 using UnityEngine;
+using Valve.VR.InteractionSystem;
 using Random = UnityEngine.Random;
 
 namespace Hive.Armada.Enemies
@@ -71,10 +73,6 @@ namespace Hive.Armada.Enemies
         /// Type identifier for object pooling purposes
         /// </summary>
         private short projectileTypeIdentifier;
-
-        public Color projectileAlbedoColor;
-
-        public Color projectileEmissionColor;
 
         /// <summary>
         /// Structure resposible for tracking the positions for which bullets
@@ -169,6 +167,26 @@ namespace Hive.Armada.Enemies
         public AudioSource source;
 
         public AudioClip[] introClips;
+
+        public AudioClip[] combartStartClips;
+
+        public AudioClip[] tauntClips;
+
+        public AudioClip[] playerDeathClips;
+
+        public AudioClip[] playerHitClips;
+
+        private float playerHitTimer;
+
+        public AudioClip[] playerShieldClips;
+
+        private bool[] playedShieldClips;
+
+        public AudioClip timeWarpClip;
+
+        private bool playedTimeWarpClip;
+
+        public AudioClip deathClip;
 
         [Header("Hover")]
         public bool hoverEnabled;
@@ -277,6 +295,12 @@ namespace Hive.Armada.Enemies
         protected override void Awake()
         {
             base.Awake();
+            
+            playedShieldClips = new bool[playerShieldClips.Length];
+            for (int i = 0; i < playedShieldClips.Length; ++i)
+            {
+                playedShieldClips[i] = false;
+            }
 
             //foreach (Renderer r in GetComponentsInChildren<Renderer>())
             //{
@@ -515,25 +539,27 @@ namespace Hive.Armada.Enemies
                 case BossStates.Intro:
 
                     // play intro audio
+					if (introClips.Length > 0)
+					{
+						IsSpeaking = true;
+						if (introSpeakCoroutine == null)
+						{
+							introSpeakCoroutine = StartCoroutine(IntroSpeak());
+						}
+						else
+						{
+							Debug.LogError(GetType().Name +
+								" - \"introSpeakCoroutine\" is not null.");
+						}
+					}
+					else
+					{
+						Debug.LogError(GetType().Name + " - \"introClips\" is empty.");
+					}
+
                     if (source != null)
                     {
-                        if (introClips.Length > 0)
-                        {
-                            IsSpeaking = true;
-                            if (introSpeakCoroutine == null)
-                            {
-                                introSpeakCoroutine = StartCoroutine(IntroSpeak());
-                            }
-                            else
-                            {
-                                Debug.LogError(GetType().Name +
-                                               " - \"introSpeakCoroutine\" is not null.");
-                            }
-                        }
-                        else
-                        {
-                            Debug.LogError(GetType().Name + " - \"introClips\" is empty.");
-                        }
+                        
                     }
                     else
                     {
@@ -541,6 +567,7 @@ namespace Hive.Armada.Enemies
                     }
                     break;
                 case BossStates.Death:
+                    StartCoroutine(Death());
                     break;
             }
         }
@@ -817,8 +844,15 @@ namespace Hive.Armada.Enemies
             //yield break;
 
             StartHover();
-            yield return new WaitForSeconds(5.0f);
-            hoverEnabled = false;
+            //yield return new WaitForSeconds(5.0f);
+            
+            yield return new WaitForSeconds(4.0f);
+
+			reference.dialoguePlayer.EnqueueDialogue (gameObject, introClips);
+
+			IsSpeaking = true;
+
+			yield return new WaitWhile(() => IsSpeaking);
 
             #region FootageFakeEnemyMass
 
@@ -865,21 +899,7 @@ namespace Hive.Armada.Enemies
 
             #endregion
 
-            //yield return null;
-
-            // pass array of clips to DialoguePlayer
-
-            //foreach (AudioClip clip in introClips)
-            //{
-            //    source.PlayOneShot(clip);
-
-            //    yield return new WaitWhile(() => source.isPlaying);
-
-            //    yield return new WaitForSeconds(0.8f);
-            //}
-
-            IsSpeaking = false;
-
+            hoverEnabled = false;
             reference.shipPickup.SetActive(true);
             reference.tooltips.SpawnGrabShip();
 
@@ -909,6 +929,8 @@ namespace Hive.Armada.Enemies
         /// </summary>
         private IEnumerator TransitionToCombat()
         {
+            reference.dialoguePlayer.EnqueueDialogue(gameObject, combartStartClips[wave]);
+            
             if (!IsHovering)
             {
                 yield return new WaitWhile(() => !PathingComplete);
@@ -1036,6 +1058,16 @@ namespace Hive.Armada.Enemies
             }
 
             combatWaitCoroutine = null;
+        }
+
+        private IEnumerator Death()
+        {
+            IsSpeaking = true;
+            reference.dialoguePlayer.EnqueueDialogue(gameObject, deathClip);
+            
+            yield return new WaitWhile(() => IsSpeaking);
+            
+            reference.waveManager.BossWaveComplete(wave);
         }
 
         #region Shooting
@@ -1639,8 +1671,16 @@ namespace Hive.Armada.Enemies
             //}
 
             hoverEnabled = false;
-            TransitionState(Lives > 0 ? BossStates.TransitionFromCombat : BossStates.Death);
-            reference.waveManager.BossWaveComplete(wave);
+
+            if (Lives > 0)
+            {
+                TransitionState(BossStates.TransitionFromCombat);
+                reference.waveManager.BossWaveComplete(wave);
+            }
+            else
+            {
+                TransitionState(BossStates.Death);
+            }
         }
 
         private IEnumerator SpawnScore(int index)

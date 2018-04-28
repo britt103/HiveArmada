@@ -6177,8 +6177,6 @@ MonoBehaviour:
   scoreValues: 32000000
   projectilePrefab: {fileID: 1590670541974036, guid: 0f837641c26eee64eaa72bd67b35506d,
     type: 2}
-  projectileAlbedoColor: {r: 1, g: 0.5568628, b: 0, a: 1}
-  projectileEmissionColor: {r: 0.9632353, g: 0.71470886, b: 0.18414794, a: 1}
   shootPoints:
   - {fileID: 4196681409980144}
   - {fileID: 4053499942562254}
@@ -6277,9 +6275,36 @@ MonoBehaviour:
   lookTarget: {fileID: 0}
   source: {fileID: 0}
   introClips:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 8300000, guid: 9c6eaf67d3a193345aefec1fdaeff53c, type: 3}
+  - {fileID: 8300000, guid: bd54cfef92d121d448c83c875780a1f5, type: 3}
+  - {fileID: 8300000, guid: cebc1fa032d95f5429e6397722195309, type: 3}
+  - {fileID: 8300000, guid: 6e346713e294a7344b9b452224049d8f, type: 3}
+  - {fileID: 8300000, guid: f6bee1c485cf13c49bd72f4cabd64a2a, type: 3}
+  combartStartClips:
+  - {fileID: 8300000, guid: dfbc90ef3511dd347ae39b40753d9650, type: 3}
+  - {fileID: 8300000, guid: 21250f30c5e7f1c45a1a4251e6a1233c, type: 3}
+  - {fileID: 8300000, guid: b39883ae1be52ca4eabd3e62a43d74c2, type: 3}
+  - {fileID: 8300000, guid: 620a5f239c8440a419427cdbd7534b2b, type: 3}
+  - {fileID: 8300000, guid: d8dcc02aae38d2044baaebbb98ec13a5, type: 3}
+  tauntClips:
+  - {fileID: 8300000, guid: 7aa10d8c11906c94b8b1475e071cc816, type: 3}
+  - {fileID: 8300000, guid: c007315fa9271b64db93a4ffc3d7f428, type: 3}
+  - {fileID: 8300000, guid: 3d342e20ae48ba842b9b986a70b31b7a, type: 3}
+  - {fileID: 8300000, guid: 55b771d6123e8434086ad6a5698eb2f3, type: 3}
+  - {fileID: 8300000, guid: 4277f9c6cebff9d489a4d0ae52b60217, type: 3}
+  playerDeathClips:
+  - {fileID: 8300000, guid: 833b8a9f439905b4a896f291328c7f1c, type: 3}
+  - {fileID: 8300000, guid: 8a6607dd17314af47b0292841d534fed, type: 3}
+  - {fileID: 8300000, guid: 8ae4a58314bfee64e93a840c899eb749, type: 3}
+  playerHitClips:
+  - {fileID: 8300000, guid: 5121c8e5228707748a662170a7b75b3b, type: 3}
+  - {fileID: 8300000, guid: 11cb191c98d23f141a0570690ff5f313, type: 3}
+  - {fileID: 8300000, guid: 87f68a5624d827943bcc9c1a6047886e, type: 3}
+  playerShieldClips:
+  - {fileID: 8300000, guid: 4c5dd5a5623fb7f42b370a8b43cf8136, type: 3}
+  - {fileID: 8300000, guid: 5453f59a0e5818e49a1bb5f37020dabb, type: 3}
+  timeWarpClip: {fileID: 8300000, guid: a3aeabe9aed982543a51de721678ad60, type: 3}
+  deathClip: {fileID: 8300000, guid: 6182545981989ea40b97ffa2e6af6c9d, type: 3}
   hoverEnabled: 1
   hoverDistance: 0.1
   hoverTime: 1.5

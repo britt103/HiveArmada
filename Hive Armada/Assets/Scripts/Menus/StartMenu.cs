@@ -120,10 +120,12 @@ namespace Hive.Armada.Menus
         }
 
         /// <summary>
-        /// Get default selected game mode. Setup menu based on default selection.
+        /// Start interaction delay.  Get default selected game mode. Setup menu based on default selection.
         /// </summary>
         private void OnEnable()
         {
+            StartCoroutine(InteractDelay());
+
             selectedGameMode = PlayerPrefs.GetInt("defaultGameMode", gameModeButtons.Length);
 
             if (!iridiumSystem.CheckAnyWeaponsUnlocked())
@@ -145,12 +147,20 @@ namespace Hive.Armada.Menus
             else
             {
                 ShowButton();
-                gameModeUIHoverScripts[selectedGameMode].Select();
+                for (int i = 0; i < gameModeUIHoverScripts.Length; i++)
+                {
+                    if (i == selectedGameMode)
+                    {
+                        gameModeUIHoverScripts[i].Select();
+                    }
+                    else
+                    {
+                        gameModeUIHoverScripts[i].EndSelect();
+                    }
+                }
                 //description.GetComponent<Text>().text = gameModeDescriptions[selectedGameMode];
                 selectionMade = true;
             }
-
-            StartCoroutine(InteractDelay());
         }
 
         private void OnDisable()
@@ -177,20 +187,28 @@ namespace Hive.Armada.Menus
 
             if (selectedGameMode != gameModeNum)
             {
-                if (selectedGameMode == gameModeButtons.Length)
-                {
-                    ShowButton();
-                }
+                ShowButton();
 
                 source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
 
-                if (selectionMade)
+                if (!selectionMade)
                 {
-                    gameModeUIHoverScripts[selectedGameMode].EndSelect();
                     selectionMade = true;
                 }
+
                 selectedGameMode = gameModeNum;
-                gameModeUIHoverScripts[selectedGameMode].Select();
+
+                for (int i = 0; i < gameModeUIHoverScripts.Length; i++)
+                {
+                    if (i == selectedGameMode)
+                    {
+                        gameModeUIHoverScripts[i].Select();
+                    }
+                    else
+                    {
+                        gameModeUIHoverScripts[i].EndSelect();
+                    }
+                }
                 //description.GetComponent<Text>().text = gameModeDescriptions[selectedGameMode];
             }
         }

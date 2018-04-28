@@ -114,7 +114,7 @@ namespace Hive.Armada.Menus
         {
             reference = FindObjectOfType<ReferenceManager>();
 
-            assigning = false;
+            assigning = true;
 
             aimAssistToggle.isOn = reference.optionsValues.aimAssist;
             scoreDisplayToggle.isOn = reference.optionsValues.scoreDisplay;
@@ -152,7 +152,7 @@ namespace Hive.Armada.Menus
                     break;
             }
 
-            assigning = true;
+            assigning = false;
         }
 
         /// <summary>
@@ -250,14 +250,14 @@ namespace Hive.Armada.Menus
                     fastFireRateToggle.isOn = false;
                     selectedFireRate = GameSettings.FireRate.Slow;
                 }
-                else if (normalFireRateToggle.isOn && selectedFireRate != GameSettings.FireRate.Slow)
+                else if (normalFireRateToggle.isOn && selectedFireRate != GameSettings.FireRate.Normal)
                 {
                     slowFireRateToggle.isOn = false;
                     normalFireRateToggle.isOn = true;
                     fastFireRateToggle.isOn = false;
                     selectedFireRate = GameSettings.FireRate.Normal;
                 }
-                else if (fastFireRateToggle.isOn && selectedFireRate != GameSettings.FireRate.Slow)
+                else if (fastFireRateToggle.isOn && selectedFireRate != GameSettings.FireRate.Fast)
                 {
                     slowFireRateToggle.isOn = false;
                     normalFireRateToggle.isOn = false;

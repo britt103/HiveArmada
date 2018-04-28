@@ -172,6 +172,8 @@ namespace Hive.Armada.Enemies
 
         public AudioClip[] tauntClips;
 
+        public bool[] playedTauntClips;
+
         public AudioClip[] playerDeathClips;
 
         public AudioClip[] playerHitClips;
@@ -179,6 +181,8 @@ namespace Hive.Armada.Enemies
         private float playerHitTimer;
 
         public AudioClip[] playerShieldClips;
+
+        private bool playedShieldClip;
 
         private bool[] playedShieldClips;
 
@@ -300,6 +304,12 @@ namespace Hive.Armada.Enemies
             for (int i = 0; i < playedShieldClips.Length; ++i)
             {
                 playedShieldClips[i] = false;
+            }
+
+            playedTauntClips = new bool[tauntClips.Length];
+            for (int i = 0; i < playedTauntClips.Length; ++i)
+            {
+                playedTauntClips[i] = false;
             }
 
             //foreach (Renderer r in GetComponentsInChildren<Renderer>())
@@ -1070,6 +1080,26 @@ namespace Hive.Armada.Enemies
             reference.waveManager.BossWaveComplete(wave);
         }
 
+        public void PlayShield()
+        {
+            if (playedShieldClip)
+                return;
+
+            playedShieldClip = true;
+            IsSpeaking = true;
+            reference.dialoguePlayer.EnqueueDialogue(gameObject, playerShieldClips[Random.Range(0, playerShieldClips.Length)]);
+        }
+
+        public void PlayTimeWarp()
+        {
+            if (playedTimeWarpClip)
+                return;
+
+            playedTimeWarpClip = true;
+            IsSpeaking = true;
+            reference.dialoguePlayer.EnqueueDialogue(gameObject, timeWarpClip);
+        }
+
         #region Shooting
 
         /// <summary>
@@ -1102,7 +1132,7 @@ namespace Hive.Armada.Enemies
                 shootPivot.rotation);
 
             ProjectilePattern projectileScript = projectile.GetComponent<ProjectilePattern>();
-            projectileScript.Launch(0);
+            projectileScript.Launch();
 
             yield return waitFire;
 
@@ -1121,7 +1151,7 @@ namespace Hive.Armada.Enemies
                 shootPivot.rotation);
 
             ProjectilePattern projectileScript = projectile.GetComponent<ProjectilePattern>();
-            projectileScript.Launch(0);
+            projectileScript.Launch();
         }
 
         private void ShootProjectiles()
@@ -1133,7 +1163,7 @@ namespace Hive.Armada.Enemies
             ProjectilePattern projectileScript = projectile.GetComponent<ProjectilePattern>();
             if (projectileScript != null)
             {
-                projectileScript.Launch(0);
+                projectileScript.Launch();
             }
             else
             {

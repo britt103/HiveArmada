@@ -26,6 +26,10 @@ namespace Hive.Armada.Enemies
     /// </summary>
     public class Projectile : Poolable
     {
+        private EnemyManager enemyManager;
+
+        private ProjectileProximity projectileProximity;
+
         private Rigidbody pRigidbody;
 
         public ParticleSystems trailEmitter;
@@ -84,15 +88,11 @@ namespace Hive.Armada.Enemies
         /// </summary>
         private const int FADE_STEPS = 60;
 
-        /// <summary>
-        /// The coroutine for fading the projectile in or out.
-        /// </summary>
-        private Coroutine fadeCoroutine;
+        private float t;
 
-        /// <summary>
-        /// The coroutine for the time warp effect.
-        /// </summary>
-        private Coroutine timeWarpCoroutine;
+        private float alphaScale;
+
+        private bool isFading;
 
         /// <summary>
         /// Initializes the reference to the Reference Manager
@@ -101,6 +101,8 @@ namespace Hive.Armada.Enemies
         {
             base.Awake();
 
+            enemyManager = reference.enemyAttributes;
+            projectileProximity = FindObjectOfType<ProjectileProximity>();
             damage = reference.projectileData.projectileDamage;
             pRigidbody = GetComponent<Rigidbody>();
             material = GetComponent<Renderer>().material;
@@ -109,60 +111,86 @@ namespace Hive.Armada.Enemies
             currentAlpha = 1.0f;
         }
 
+        private void OnEnable()
+        {
+            EnemyManager.OnTimeWarp += TimeWarpStep;
+        }
+
+        private void OnDisable()
+        {
+            projectileProximity.RemoveProjectile(gameObject.GetInstanceID());
+            EnemyManager.OnTimeWarp -= TimeWarpStep;
+            //try
+            //{
+
+            //}
+            //catch (Exception)
+            //{
+            //    // do nothing
+            //}
+            ProjectileProximity.OnFadeOutStep -= FadeOutStep;
+            ProjectileProximity.OnFadeInStep -= FadeInStep;
+        }
+
         /// <summary>
         /// Sets this projectile's speed ID number.
         /// </summary>
-        /// <param name="id"> The ID to use </param>
-        public void Launch(byte id)
+        public void Launch()
         {
-            ProjectileId = id;
-
-            pRigidbody.velocity = transform.forward *
-                                  reference.enemyAttributes.projectileSpeeds[ProjectileId];
-
-            if (reference.enemyAttributes.IsTimeWarped)
-            {
-                StartTimeWarp();
-            }
+            pRigidbody.velocity = transform.forward * enemyManager.projectileSpeed;
         }
 
-        /// <summary>
-        /// Sets the velocity of the projectile.
-        /// </summary>
-        /// <param name="velocity"> The new velocity </param>
-        public void SetVelocity(float velocity)
+        private void TimeWarpStep()
         {
-            pRigidbody.velocity = transform.forward * velocity;
+            pRigidbody.velocity = transform.forward * enemyManager.projectileSpeed;
         }
 
-        /// <summary>
-        /// Initiates the time warp functionality for the projectile.
-        /// </summary>
-        public void StartTimeWarp()
+        public void FadeOut()
         {
-            if (timeWarpCoroutine != null)
-            {
-                StopCoroutine(timeWarpCoroutine);
-            }
-
-            timeWarpCoroutine = StartCoroutine(TimeWarp());
+            isFading = true;
+            t = 0.0f;
+            alphaScale = (currentAlpha - MIN_ALPHA) / (MAX_ALPHA - MIN_ALPHA);
+            ProjectileProximity.OnFadeOutStep += FadeOutStep;
         }
 
-        /// <summary>
-        /// Updates the velocity as long as the time warp is active.
-        /// </summary>
-        private IEnumerator TimeWarp()
+        public void FadeIn()
         {
-            trailEmitter.play();
-            while (reference.enemyAttributes.IsTimeWarped)
-            {
-                pRigidbody.velocity = transform.forward *
-                                      reference.enemyAttributes.projectileSpeeds[ProjectileId];
+            t = 0.0f;
+            alphaScale = (MAX_ALPHA - currentAlpha) / (MAX_ALPHA - MIN_ALPHA);
+            ProjectileProximity.OnFadeOutStep -= FadeOutStep;
+            ProjectileProximity.OnFadeInStep += FadeInStep;
+        }
 
-                yield return null;
+        private void FadeOutStep()
+        {
+            float speedScale = enemyManager.projectileSpeed / enemyManager.projectileSpeedBound.maxSpeed;
+            float scaledFadeTime = FADE_TIME * alphaScale / speedScale;
+
+            t += Time.deltaTime / scaledFadeTime;
+
+            currentAlpha = Mathf.SmoothStep(currentAlpha, MAX_ALPHA, t);
+
+            currentAlbedo.a = currentAlpha;
+            material.SetColor("_Color", currentAlbedo);
+        }
+
+        private void FadeInStep()
+        {
+            float speedScale = enemyManager.projectileSpeed / enemyManager.projectileSpeedBound.maxSpeed;
+            float scaledFadeTime = FADE_TIME * alphaScale / speedScale;
+
+            t += Time.deltaTime / scaledFadeTime;
+
+            currentAlpha = Mathf.SmoothStep(currentAlpha, MIN_ALPHA, t);
+
+            currentAlbedo.a = currentAlpha;
+            material.SetColor("_Color", currentAlbedo);
+
+            if (currentAlpha >= MAX_ALPHA)
+            {
+                isFading = false;
+                ProjectileProximity.OnFadeInStep -= FadeInStep;
             }
-            trailEmitter.stop();
-            timeWarpCoroutine = null;
         }
 
         /// <summary>
@@ -190,65 +218,6 @@ namespace Hive.Armada.Enemies
             {
                 reference.objectPoolManager.Despawn(gameObject);
             }
-        }
-
-        /// <summary>
-        /// Begins fading the opacity of the projectile.
-        /// </summary>
-        /// <param name="fadeOut"> If the projectile should fade out </param>
-        public void FadeOpacity(bool fadeOut)
-        {
-            //if (fadeCoroutine != null)
-            //{
-            //    StopCoroutine(fadeCoroutine);
-            //}
-
-            //fadeCoroutine = StartCoroutine(Fade(fadeOut));
-        }
-
-        /// <summary>
-        /// Fades the opacity of the projectile.
-        /// </summary>
-        /// <param name="fadeOut"> If the projectile should fade out </param>
-        private IEnumerator Fade(bool fadeOut)
-        {
-            float t = 0.0f;
-            float alphaScale;
-
-            // Scale based on current alpha. So partially faded projectiles fade quicker.
-            if (fadeOut)
-            {
-                alphaScale = (currentAlpha - MIN_ALPHA) / (MAX_ALPHA - MIN_ALPHA);
-            }
-            else
-            {
-                alphaScale = (MAX_ALPHA - currentAlpha) / (MAX_ALPHA - MIN_ALPHA);
-            }
-
-            // Scaled based on projectile speed.
-            // Projectiles that are time -warped should fade slower.
-            float speedScale = reference.enemyAttributes.projectileSpeeds[ProjectileId] /
-                               reference.enemyAttributes.projectileSpeedBounds[ProjectileId]
-                                        .maxSpeed;
-
-            float scaledFadeTime = FADE_TIME * alphaScale / speedScale;
-
-            //Debug.LogWarning(PoolIdentifier + " - (" + FADE_TIME + ", " + alphaScale + ", " +
-            //                 speedScale + ", " + scaledFadeTime + ")");
-
-            while (t < 1.0f)
-            {
-                t += Time.deltaTime / scaledFadeTime;
-
-                currentAlpha = Mathf.SmoothStep(currentAlpha, fadeOut ? MIN_ALPHA : MAX_ALPHA, t);
-
-                currentAlbedo.a = currentAlpha;
-                material.SetColor("_Color", currentAlbedo);
-
-                yield return null;
-            }
-
-            fadeCoroutine = null;
         }
         
         protected override void Reset()

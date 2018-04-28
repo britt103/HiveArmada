@@ -117,18 +117,6 @@ namespace Hive.Armada.Game
                              {"idleLeft", idleLeftPoint},
                              {"idleRight", idleRightPoint}
                          };
-            //reference = FindObjectOfType<ReferenceManager>();
-            //reference.enemyAttributes.Initialize(reference);
-            //reference.objectPoolManager.Initialize(reference);
-            //ObjectPoolManager opm = reference.objectPoolManager;
-
-            //bossObject = opm.Spawn(gameObject, opm.GetTypeIdentifier(bossPrefab),
-            //                       bossSpawn.position, bossSpawn.rotation, transform);
-
-            //bossObject = Instantiate(bossPrefab, bossSpawn.position, bossSpawn.rotation,
-            //                         transform);
-            //bossScript = bossObject.GetComponent<NewBoss>();
-            //TransitionState(BossStates.Intro);
         }
 
         /// <summary>
@@ -199,6 +187,16 @@ namespace Hive.Armada.Game
         public void SetSpeaking(bool speaking)
         {
             IsSpeaking = speaking;
+        }
+
+        public void PlayShield()
+        {
+            bossScript.PlayShield();
+        }
+
+        public void PlayTimeWarp()
+        {
+            bossScript.PlayTimeWarp();
         }
     }
 }

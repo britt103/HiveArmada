@@ -40,6 +40,14 @@ namespace Hive.Armada.PowerUps
 
             reference.playerShip.GetComponent<ShipController>().masterCollider.ActivateShield();
 
+            StartCoroutine(PlayBossClip());
+        }
+
+        private IEnumerator PlayBossClip()
+        {
+            yield return new WaitForSeconds(2.1f);
+            reference.bossManager.PlayShield();
+
             Destroy(gameObject);
         }
     }

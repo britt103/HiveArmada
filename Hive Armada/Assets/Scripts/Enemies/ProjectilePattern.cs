@@ -26,6 +26,8 @@ namespace Hive.Armada.Enemies
     /// </summary>
     public class ProjectilePattern : Poolable
     {
+        private EnemyManager enemyManager;
+
         private Rigidbody pRigidbody;
 
         /// <summary>
@@ -66,6 +68,8 @@ namespace Hive.Armada.Enemies
         /// </summary>
         private const int FADE_STEPS = 60;
 
+        private float fadeStep;
+
         /// <summary>
         /// The coroutine for fading the projectile in or out.
         /// </summary>
@@ -88,8 +92,9 @@ namespace Hive.Armada.Enemies
         protected override void Awake()
         {
             base.Awake();
-            
-            
+
+            enemyManager = reference.enemyAttributes;
+
             pRigidbody = GetComponent<Rigidbody>();
             projectileScripts = new ProjectileInPattern[projectiles.Length];
 
@@ -98,61 +103,29 @@ namespace Hive.Armada.Enemies
                 projectileScripts[i] = projectiles[i].GetComponent<ProjectileInPattern>();
             }
         }
-        
-        
+
+        private void OnEnable()
+        {
+            EnemyManager.OnTimeWarp += TimeWarpStep;
+        }
+
+        private void OnDisable()
+        {
+            EnemyManager.OnTimeWarp -= TimeWarpStep;
+        }
 
         /// <summary>
         /// Sets this projectile's speed ID number.
         /// </summary>
         /// <param name="id"> The ID to use </param>
-        public void Launch(byte id)
+        public void Launch()
         {
-            ProjectileId = id;
-
-            pRigidbody.velocity = transform.forward *
-                                  reference.enemyAttributes.projectileSpeeds[ProjectileId];
-
-            if (reference.enemyAttributes.IsTimeWarped)
-            {
-                StartTimeWarp();
-            }
+            pRigidbody.velocity = transform.forward * enemyManager.projectileSpeed;
         }
 
-        /// <summary>
-        /// Sets the velocity of the projectile.
-        /// </summary>
-        /// <param name="velocity"> The new velocity </param>
-        public void SetVelocity(float velocity)
+        private void TimeWarpStep()
         {
-            pRigidbody.velocity = transform.forward * velocity;
-        }
-
-        /// <summary>
-        /// Initiates the time warp functionality for the projectile.
-        /// </summary>
-        public void StartTimeWarp()
-        {
-            if (timeWarpCoroutine != null)
-            {
-                StopCoroutine(timeWarpCoroutine);
-            }
-
-            timeWarpCoroutine = StartCoroutine(TimeWarp());
-        }
-
-        /// <summary>
-        /// Updates the velocity as long as the time warp is active.
-        /// </summary>
-        private IEnumerator TimeWarp()
-        {
-            while (reference.enemyAttributes.IsTimeWarped)
-            {
-                pRigidbody.velocity = transform.forward *
-                                      reference.enemyAttributes.projectileSpeeds[ProjectileId];
-
-                yield return Utility.waitOneTenth;
-            }
-            timeWarpCoroutine = null;
+            pRigidbody.velocity = transform.forward * enemyManager.projectileSpeed;
         }
 
         /// <summary>
@@ -188,11 +161,11 @@ namespace Hive.Armada.Enemies
                 alphaScale = (MAX_ALPHA - currentAlpha) / (MAX_ALPHA - MIN_ALPHA);
             }
 
+            pRigidbody.velocity = transform.forward * enemyManager.projectileSpeed;
+
             // Scaled based on projectile speed.
             // Projectiles that are time -warped should fade slower.
-            float speedScale = reference.enemyAttributes.projectileSpeeds[ProjectileId] /
-                               reference.enemyAttributes.projectileSpeedBounds[ProjectileId]
-                                        .maxSpeed;
+            float speedScale = enemyManager.projectileSpeed / enemyManager.projectileSpeedBound.maxSpeed;
 
             float scaledFadeTime = FADE_TIME * alphaScale / speedScale;
 

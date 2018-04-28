@@ -32,7 +32,7 @@ namespace Hive.Armada.Game
         [Header("Systems & Managers")]
         public GameManager gameManager;
 
-        public EnemyAttributes enemyAttributes;
+        public EnemyManager enemyAttributes;
 
         public ScoringSystem scoringSystem;
 

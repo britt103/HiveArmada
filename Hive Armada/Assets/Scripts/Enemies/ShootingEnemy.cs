@@ -248,7 +248,7 @@ namespace Hive.Armada.Enemies
             if (isProjectilePattern)
             {
                 ProjectilePattern projectileScript = projectile.GetComponent<ProjectilePattern>();
-                projectileScript.Launch(0);
+                projectileScript.Launch();
             }
             else
             {
@@ -261,7 +261,7 @@ namespace Hive.Armada.Enemies
                 }
 
                 Projectile projectileScript = projectile.GetComponent<Projectile>();
-                projectileScript.Launch(0);
+                projectileScript.Launch();
             }
         }
 

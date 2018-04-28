@@ -66,7 +66,14 @@ namespace Hive.Armada.PowerUps
             reference.dialoguePlayer.EnqueueFeedback(clip);
 
             Instantiate(spawnEmitter, reference.playerShip.transform);
+            StartCoroutine(PlayBossClip());
             StartCoroutine(Run());
+        }
+
+        private IEnumerator PlayBossClip()
+        {
+            yield return new WaitForSeconds(2.4f);
+            reference.bossManager.PlayTimeWarp();
         }
 
         /// <summary>

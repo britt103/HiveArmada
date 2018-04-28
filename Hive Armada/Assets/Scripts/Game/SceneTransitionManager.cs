@@ -141,6 +141,10 @@ namespace Hive.Armada.Game
                 { 
                     sceneInfo.runFinished = false;
                 }
+                else if (sceneInfo.demoFinished)
+                {
+                    sceneInfo.demoFinished = false;
+                }
                 else
                 {
                     reference.menuMain.SetActive(true);

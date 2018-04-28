@@ -42,7 +42,7 @@ namespace Hive.Armada.Player
         /// <summary>
         /// Time since player was firing.
         /// </summary>
-        private float currentIdleTime;
+        public float currentIdleTime;
 
         /// <summary>
         /// Set initial value for currentIdleTimer using ResetTimer().
@@ -65,12 +65,13 @@ namespace Hive.Armada.Player
                     SetIsTracking(false);
                     SetIsIdle(false);
                     FindObjectOfType<ReferenceManager>().sceneTransitionManager.TransitionOut("Menu Room");
+                    FindObjectOfType<SceneInfo>().demoFinished = true;               
                     timerStarted = false;
                 }
             }
             else if (Input.GetKeyDown(KeyCode.Space))
             {
-                allowedIdleTime = 500.0f;
+                allowedIdleTime = 300.0f;
                 timerStarted = true;
                 
             }

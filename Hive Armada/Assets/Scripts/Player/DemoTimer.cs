@@ -64,17 +64,15 @@ namespace Hive.Armada.Player
                 {
                     SetIsTracking(false);
                     SetIsIdle(false);
-                    timerStarted = false;
                     FindObjectOfType<ReferenceManager>().sceneTransitionManager.TransitionOut("Menu Room");
+                    timerStarted = false;
                 }
             }
-            else
+            else if (Input.GetKeyDown(KeyCode.Space))
             {
-                if (Input.GetKeyDown(KeyCode.Space))
-                {
-                    timerStarted = true;
-                    allowedIdleTime = 500.0f;
-                }
+                allowedIdleTime = 500.0f;
+                timerStarted = true;
+                
             }
             
         }

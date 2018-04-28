@@ -114,6 +114,16 @@ namespace Hive.Armada.Enemies
             gameObject.SetActive(false);
         }
 
+        private void OnEnable()
+        {
+            if (currentAlpha < MAX_ALPHA)
+            {
+                currentAlpha = MAX_ALPHA;
+                currentAlbedo.a = currentAlpha;
+                material.SetColor("_Color", currentAlbedo);
+            }
+        }
+
         private void OnDisable()
         {
             projectileProximity.RemoveProjectile(gameObject.GetInstanceID());

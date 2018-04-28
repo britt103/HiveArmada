@@ -53,6 +53,11 @@ namespace Hive.Armada.Menus
         public GameObject loadoutGO;
 
         /// <summary>
+        /// Reference to Secondaries Menu.
+        /// </summary>
+        public GameObject secondariesGO;
+
+        /// <summary>
         /// Reference to player transform for Shop Menu.
         /// </summary>
         public Transform shopTransform;
@@ -273,6 +278,20 @@ namespace Hive.Armada.Menus
             gameSettings.selectedGameMode = (GameSettings.GameMode)selectedGameMode;
             PlayerPrefs.SetInt("defaultGameMode", selectedGameMode);
             transitionManager.Transition(loadoutGO);
+        }
+
+        /// <summary>
+        /// Secondaries button pressed; navigates to Secondaries Menu.
+        /// </summary>
+        public void PressSeconadries()
+        {
+            if (!isInteractable)
+            {
+                return;
+            }
+
+            source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
+            transitionManager.Transition(secondariesGO);
         }
     }
 }

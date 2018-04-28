@@ -301,6 +301,8 @@ namespace Hive.Armada.Enemies
             }
             else
             {
+                Vector2 offsetVec2D = enemyAttributes.MovingEnemyLookup(enemyAttributes.GetMovingEnemyLookupIndex());
+
                 // Need to find what % gives us the spawn position.
                 // SmoothStep makes it a bit harder than just inverting a sine function.
                 float startOffset = 0.0f;
@@ -310,18 +312,21 @@ namespace Hive.Armada.Enemies
 
                 hoverPercent = 0.0f;
 
-                // Move along unit movement until we find the spawn point.
-                while (hoverPercent < 1.0f)
-                {
-                    hoverPercent += 0.0015f;
+                hoverPercent = offsetVec2D.x;
+                current = offsetVec2D.y;
 
-                    current = Mathf.SmoothStep(startOffset, endOffset, hoverPercent);
+                //// Move along unit movement until we find the spawn point.
+                //while (hoverPercent < 1.0f)
+                //{
+                //    hoverPercent += 0.0015f;
 
-                    // This is or is close enough to the spawn point.
-                    // Anything less than 0.015 results in overshooting.
-                    if (Math.Abs(current - spawn) < 0.015f)
-                        break;
-                }
+                //    current = Mathf.SmoothStep(startOffset, endOffset, hoverPercent);
+
+                //    // This is or is close enough to the spawn point.
+                //    // Anything less than 0.015 results in overshooting.
+                //    if (Math.Abs(current - spawn) < 0.015f)
+                //        break;
+                //}
 
                 // Overshot the spawn, resetting to the center point. This shouldn't happen.
                 if (hoverPercent >= 1.0f)

@@ -447,7 +447,7 @@ namespace Hive.Armada.Menus
         /// Play audio source based first on which category
         /// is open and second on the entryId that is assigned
         /// </summary>
-        public void Information(int entryId)
+        public void Information()
         {
             if (zenaSource.isPlaying)
             {
@@ -455,7 +455,8 @@ namespace Hive.Armada.Menus
             }
             else
             {
-                zenaSource.PlayOneShot(enemiesAudio[entryId]);
+                Debug.Log("play info");
+                zenaSource.PlayOneShot(enemiesAudio[entryValue]);
             }
         }
 

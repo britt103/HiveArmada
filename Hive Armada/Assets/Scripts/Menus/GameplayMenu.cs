@@ -163,9 +163,7 @@ namespace Hive.Armada.Menus
             source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
             reference.optionsValues.SetSelectedPowerups(shieldToggle.isOn, areaBombToggle.isOn,
                 damageBoostToggle.isOn, allyToggle.isOn, clearBombToggle.isOn);
-
             reference.optionsValues.SetFireRate(selectedFireRate);
-
             reference.optionsValues.SetGameplayPlayerPrefs();
             transitionManager.Transition(backMenuGO);
         }

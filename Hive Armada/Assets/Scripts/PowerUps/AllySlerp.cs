@@ -271,7 +271,15 @@ namespace Hive.Armada.PowerUps
         /// <param name="target"> The target to launch the rocket at </param>
         private IEnumerator Fire(GameObject target)
         {
+            if (currentTarget.GetComponent<NewBoss>() && currentTarget.GetComponent<NewBoss>()
+                .CurrentState != BossStates.Combat)
+            {
+                currentTarget = null;
+                StopAllCoroutines();
+            }
+
             canFire = false;
+
             GameObject rocket =
                 reference.objectPoolManager.Spawn(gameObject, rocketTypeId, shootPoint.position,
                                                   shootPoint.rotation);

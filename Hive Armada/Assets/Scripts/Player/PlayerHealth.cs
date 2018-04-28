@@ -290,14 +290,21 @@ namespace Hive.Armada.Player
                 return;
             }
 
-            while (currentHealth < maxHealth)
-            {
-                currentHealth += 10;
+            currentHealth = maxHealth;
 
-                int podIndex = (maxHealth - currentHealth) / 10;
-                healthPods[podIndex].GetComponent<Renderer>().material = podIntactMaterial;
-                StartCoroutine(PlayHealSound());
+            foreach (GameObject healthPod in healthPods)
+            {
+                healthPod.GetComponent<Renderer>().material = podIntactMaterial;
             }
+
+            //while (currentHealth < maxHealth)
+            //{
+            //    currentHealth += 10;
+
+            //    int podIndex = (maxHealth - currentHealth) / 10;
+            //    healthPods[podIndex].GetComponent<Renderer>().material = podIntactMaterial;
+            //    StartCoroutine(PlayHealSound());
+            //}
         }
 
         private IEnumerator PlayHealSound()

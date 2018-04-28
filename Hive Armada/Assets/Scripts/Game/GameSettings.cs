@@ -106,6 +106,8 @@ namespace Hive.Armada.Game
         /// </summary>
         public FireRate selectedFireRate;
 
+        public float[] fireRatePercents;
+
         /// <summary>
         /// Type of color blind mode.
         /// </summary>

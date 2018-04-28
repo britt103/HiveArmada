@@ -27,6 +27,9 @@ namespace Hive.Armada.PowerUps
     /// </summary>
     public class PowerUpStatus : MonoBehaviour
     {
+        /// <summary>
+        /// Reference to ReferenceManager.
+        /// </summary>
         private ReferenceManager reference;
 
         /// <summary>
@@ -220,6 +223,16 @@ namespace Hive.Armada.PowerUps
         public bool HasRoom()
         {
             return (powerups.Count < maxStoredPowerups);
+        }
+
+        /// <summary>
+        /// Return whether powerups already contains powerup type.
+        /// </summary>
+        /// <param name="powerupPrefab">Powerup to check.</param>
+        /// <returns>State of whether powerup type is in powerups.</returns>
+        public bool HasPowerup(GameObject powerupPrefab)
+        {
+            return powerups.Contains(powerupPrefab);
         }
     }
 }

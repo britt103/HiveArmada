@@ -72,7 +72,7 @@ namespace Hive.Armada.Enemies
         /// <summary>
         /// The minimum value for the alpha.
         /// </summary>
-        private const float MIN_ALPHA = 0.1f;
+        private const float MIN_ALPHA = 0.15f;
 
         /// <summary>
         /// Length of the fade in seconds.
@@ -152,17 +152,24 @@ namespace Hive.Armada.Enemies
             t = 0.0f;
             alphaScale = (MAX_ALPHA - currentAlpha) / (MAX_ALPHA - MIN_ALPHA);
             ProjectileProximity.OnFadeOutStep -= FadeOutStep;
-            ProjectileProximity.OnFadeInStep += FadeInStep;
+            //ProjectileProximity.OnFadeInStep += FadeInStep;
         }
 
         private void FadeOutStep()
         {
+            if (t >= 1.0f)
+            {
+                isFading = false;
+                ProjectileProximity.OnFadeOutStep -= FadeOutStep;
+                return;
+            }
+
             float speedScale = enemyManager.projectileSpeed / enemyManager.projectileSpeedBound.maxSpeed;
             float scaledFadeTime = FADE_TIME * alphaScale / speedScale;
 
-            t += Time.deltaTime / scaledFadeTime;
+            t += 1.0f / 30.0f / scaledFadeTime;
 
-            currentAlpha = Mathf.SmoothStep(currentAlpha, MAX_ALPHA, t);
+            currentAlpha = Mathf.SmoothStep(currentAlpha, MIN_ALPHA, t);
 
             currentAlbedo.a = currentAlpha;
             material.SetColor("_Color", currentAlbedo);
@@ -173,17 +180,26 @@ namespace Hive.Armada.Enemies
             float speedScale = enemyManager.projectileSpeed / enemyManager.projectileSpeedBound.maxSpeed;
             float scaledFadeTime = FADE_TIME * alphaScale / speedScale;
 
-            t += Time.deltaTime / scaledFadeTime;
+            t += 1.0f / 30.0f / scaledFadeTime;
 
-            currentAlpha = Mathf.SmoothStep(currentAlpha, MIN_ALPHA, t);
+            currentAlpha = Mathf.SmoothStep(currentAlpha, MAX_ALPHA, t);
 
             currentAlbedo.a = currentAlpha;
             material.SetColor("_Color", currentAlbedo);
+
+            if (t >= 1.0f)
+            {
+                isFading = false;
+                ProjectileProximity.OnFadeInStep -= FadeInStep;
+                projectileProximity.RemoveProjectile(gameObject.GetInstanceID());
+                return;
+            }
 
             if (currentAlpha >= MAX_ALPHA)
             {
                 isFading = false;
                 ProjectileProximity.OnFadeInStep -= FadeInStep;
+                projectileProximity.RemoveProjectile(gameObject.GetInstanceID());
             }
         }
 

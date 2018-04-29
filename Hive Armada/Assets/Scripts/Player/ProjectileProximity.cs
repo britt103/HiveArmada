@@ -53,26 +53,38 @@ namespace Hive.Armada.Player
 
         private void Update()
         {
-            if (!fading || Time.time < nextFadeTime)
-                return;
-
-            nextFadeTime = Time.time + fadeTime;
-
-            if (projectileInCount > 0)
+            if (fading && Time.time >= nextFadeTime)
             {
-                OnFadeOutStep();
-            }
+                nextFadeTime = Time.time + fadeTime;
 
-            if (projectileOutCount > 0)
-            {
-                OnFadeInStep();
+                if (projectileInCount > 0)
+                {
+                    OnFadeOutStep();
+                }
+
+                if (projectileOutCount > 0)
+                {
+                    OnFadeInStep();
+                }
             }
         }
 
         public void RemoveProjectile(int instanceId)
         {
             if (projectiles.ContainsKey(instanceId))
+            {
+                if (projectiles[instanceId])
+                    --projectileInCount;
+                else
+                    --projectileOutCount;
+
+                if (projectileInCount < 0)
+                    projectileInCount = 0;
+                else if (projectileOutCount < 0)
+                    projectileOutCount = 0;
+
                 projectiles.Remove(instanceId);
+            }
 
             if (projectiles.Count <= 0)
                 fading = false;
@@ -89,13 +101,15 @@ namespace Hive.Armada.Player
                 Projectile projectileScript = other.GetComponent<Projectile>();
                 ProjectileInPattern projectileInPatternScript = other.GetComponent<ProjectileInPattern>();
 
+                projectiles.Add(other.gameObject.GetInstanceID(), true);
+                ++projectileInCount;
+
                 if (projectileScript != null)
                     projectileScript.FadeOut();
                 else if (projectileInPatternScript != null)
                     projectileInPatternScript.FadeOut();
 
-                if (projectiles.Count > 0)
-                    fading = true;
+                fading = true;
             }
         }
 
@@ -110,10 +124,18 @@ namespace Hive.Armada.Player
                 Projectile projectileScript = other.GetComponent<Projectile>();
                 ProjectileInPattern projectileInPatternScript = other.GetComponent<ProjectileInPattern>();
 
+                if (projectiles.ContainsKey(other.gameObject.GetInstanceID()))
+                    projectiles[other.gameObject.GetInstanceID()] = false;
+
+                --projectileInCount;
+                ++projectileOutCount;
+
                 if (projectileScript != null)
                     projectileScript.FadeIn();
                 else if (projectileInPatternScript != null)
                     projectileInPatternScript.FadeIn();
+
+                fading = true;
             }
         }
     }

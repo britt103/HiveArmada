@@ -31,12 +31,12 @@ namespace Hive.Armada.Player
         /// </summary>
         private ReferenceManager reference;
 
+        public PlayerData playerData;
+
         /// <summary>
         /// Reference to the ship controller script.
         /// </summary>
         public ShipController shipController;
-
-        private HealthData healthData;
 
         private ProjectileData projectileData;
 
@@ -53,8 +53,7 @@ namespace Hive.Armada.Player
         /// <summary>
         /// Material that the ship flashes when it is hit.
         /// </summary>
-        [Header("Health Feedback")]
-        public Material flashColor;
+        private Material flashColor;
 
         /// <summary>
         /// Renderers for the game objects on the back of the ship
@@ -68,39 +67,17 @@ namespace Hive.Armada.Player
         /// <summary>
         /// Material for intact health pods.
         /// </summary>
-        [Tooltip("Material for intact health pods.")]
-        public Material podIntactMaterial;
+        private Material podIntactMaterial;
 
         /// <summary>
         /// Material for destroyed health pods.
         /// </summary>
-        [Tooltip("Material for destroyed health pods.")]
-        public Material podDestroyedMaterial;
-
-        /// <summary>
-        /// Particle emitter that spawns when the ship is hit.
-        /// </summary>
-        [Header("Emitters")]
-        [Tooltip("Particle emitter that spawns when the ship is hit.")]
-        public GameObject hitEmitter;
-
-        /// <summary>
-        /// Particle emitter that spawns on a health pod when it blows up.
-        /// </summary>
-        [Tooltip("Particle emitter that spawns on a health pod when it blows up.")]
-        public GameObject podHitEmitter;
-
-        /// <summary>
-        /// Particle emitter that is activated when the ship has 1 hit left.
-        /// </summary>
-        [Tooltip("Particle emitter that is activated when the ship has 1 hit left.")]
-        public GameObject hurtEmitter;
+        private Material podDestroyedMaterial;
 
         /// <summary>
         /// Particle emitter that spawns when the player dies.
         /// </summary>
-        [Tooltip("Particle emitter that spawns when the player dies.")]
-        public GameObject deathEmitter;
+        private GameObject deathEmitter;
 
         /// <summary>
         /// Used to prevent HitFlash() from being called a
@@ -122,17 +99,16 @@ namespace Hive.Armada.Player
         /// <summary>
         /// Audio source for playing sounds when hit.
         /// </summary>
-        [Header("Audio")]
         public AudioSource source;
 
         /// <summary>
         /// The sound that plays when the ship is hit.
         /// </summary>
-        public AudioClip hitSound;
+        private AudioClip hitSound;
 
-        public AudioClip lowHealth;
+        private AudioClip lowHealthSound;
 
-        public AudioClip heal;
+        private AudioClip healSound;
 
         /// <summary>
         /// The look target for the player ship.
@@ -147,17 +123,20 @@ namespace Hive.Armada.Player
         /// <summary>
         /// Initializes health and renderers for hit flashing
         /// </summary>
-        private void Start()
+        private void Awake()
         {
             reference = FindObjectOfType<ReferenceManager>();
 
-            healthData = reference.healthData;
             projectileData = reference.projectileData;
 
             lookTarget = reference.shipLookTarget;
             lookTarget.transform.parent = transform;
             lookTarget.transform.position = transform.position;
             lookTarget.transform.rotation = transform.rotation;
+
+            int skin = reference.gameSettings.selectedSkin;
+            podIntactMaterial = playerData.shipBodyMaterials[skin];
+            podDestroyedMaterial = playerData.shipPodDestroyedMaterials[skin];
 
             renderers = new List<Renderer>();
             materials = new List<Material>();
@@ -178,9 +157,17 @@ namespace Hive.Armada.Player
                 materials.Add(r.material);
             }
 
-            maxHealth = healthData.playerMaxHealth;
+            maxHealth = playerData.playerMaxHealth;
             currentHealth = maxHealth;
             playerHitVignette = reference.playerHitVignette;
+
+            flashColor = playerData.flashColor;
+            
+            deathEmitter = playerData.deathEmitter;
+
+            hitSound = playerData.hitSound;
+            lowHealthSound = playerData.lowHealthSound;
+            healSound = playerData.healSound;
         }
 
         /// <summary>
@@ -197,28 +184,22 @@ namespace Hive.Armada.Player
             int podIndex = (maxHealth - currentHealth) / projectileData.projectileDamage;
             healthPods[podIndex].GetComponent<Renderer>().material = podDestroyedMaterial;
 
-            if (podHitEmitter)
-            {
-                ParticleSystem mPodEmitter = healthPods[podIndex]
-                                             .transform.GetChild(0).GetComponent<ParticleSystem>();
-                mPodEmitter.Clear();
-                mPodEmitter.Play();
-            }
+            ParticleSystem mPodEmitter = healthPods[podIndex]
+                                         .transform.GetChild(0).GetComponent<ParticleSystem>();
+            mPodEmitter.Clear();
+            mPodEmitter.Play();
 
-            currentHealth -= damage;
+            if (!reference.cheats.godMode)
+                currentHealth -= damage;
+
             source.PlayOneShot(hitSound);
             playerHitVignette.Hit();
 
-            if (Utility.isDebug)
+            if (currentHealth == playerData.playerLowHealth)
             {
-                Debug.Log("Hit for " + damage + " damage! Remaining health = " + currentHealth);
-            }
-
-            if (currentHealth == healthData.playerLowHealth)
-            {
-                if (lowHealth != null)
+                if (lowHealthSound != null)
                 {
-                    source.PlayOneShot(lowHealth);
+                    source.PlayOneShot(lowHealthSound);
                 }
             }
 
@@ -267,17 +248,16 @@ namespace Hive.Armada.Player
         /// <summary>
         /// Restores one health to the player.
         /// </summary>
-        public void HealOne()
+        private bool HealOne()
         {
             if ((maxHealth - currentHealth) / 10 == 0)
-            {
-                return;
-            }
+                return false;
 
             currentHealth += 10;
 
             int podIndex = (maxHealth - currentHealth) / 10;
             healthPods[podIndex].GetComponent<Renderer>().material = podIntactMaterial;
+            return true;
         }
 
         /// <summary>
@@ -313,11 +293,11 @@ namespace Hive.Armada.Player
             {
                 yield return new WaitWhile(() => source.isPlaying);
 
-                source.PlayOneShot(heal);
+                source.PlayOneShot(healSound);
             }
             else
             {
-                source.PlayOneShot(heal);
+                source.PlayOneShot(healSound);
             }
         }
     }

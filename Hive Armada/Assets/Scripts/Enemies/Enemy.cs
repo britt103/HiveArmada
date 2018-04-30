@@ -60,7 +60,7 @@ namespace Hive.Armada.Enemies
         /// <summary>
         /// Reference to enemy attributes to initialize/reset this enemy's attributes.
         /// </summary>
-        protected EnemyAttributes enemyAttributes;
+        protected EnemyManager enemyAttributes;
 
         /// <summary>
         /// Reference to the scoring system for adding score when this enemy dies.

@@ -33,15 +33,6 @@ namespace Hive.Armada.PowerUps
         /// </summary>
         public GameObject rocketPrefab;
 
-        /// <summary>
-        /// The type of rocket to use.
-        /// </summary>
-        public RocketAttributes.RocketType rocketType;
-
-        AudioSource source;
-
-        AudioSource bossSource;
-
         public AudioClip clip;
 
         /// <summary>
@@ -50,9 +41,7 @@ namespace Hive.Armada.PowerUps
         protected void Awake()
         {
             reference = FindObjectOfType<ReferenceManager>();
-            source = GameObject.Find("Powerup Audio Source").GetComponent<AudioSource>();
-            bossSource = GameObject.Find("Boss Audio Source").GetComponent<AudioSource>();
-            StartCoroutine(pauseForBoss());
+            reference.dialoguePlayer.EnqueueFeedback(clip);
 
             short typeId = reference.objectPoolManager.GetTypeIdentifier(rocketPrefab);
 
@@ -65,11 +54,16 @@ namespace Hive.Armada.PowerUps
 
                 if (rocketScript != null)
                 {
-                    rocketScript.SetupRocket((int) rocketType);
-
                     RaycastHit hit;
-                    if (Physics.Raycast(transform.position, transform.forward, out hit, 200.0f,
-                                        Utility.roomMask))
+                    
+                    if (Physics.SphereCast(transform.position, 0.004f, transform.forward, out hit,
+                                           200.0f,
+                                           Utility.enemyMask))
+                    {
+                        rocketScript.Launch(hit.collider.gameObject, hit.point);
+                    }
+                    else if (Physics.Raycast(transform.position, transform.forward, out hit, 200.0f,
+                                             Utility.roomMask))
                     {
                         rocketScript.Launch(null, hit.point);
                     }
@@ -89,28 +83,6 @@ namespace Hive.Armada.PowerUps
             gameObject.transform.parent = null;
 
             Destroy(gameObject);
-        }
-
-        IEnumerator pauseForBoss()
-        {
-            if (bossSource.isPlaying)
-            {
-                yield return new WaitWhile(() => bossSource.isPlaying);
-
-                if (source.isPlaying)
-                {
-                    yield return new WaitWhile(() => source.isPlaying);
-                }
-
-                if (!source.isPlaying)
-                {
-                    source.PlayOneShot(clip);
-                }
-            }
-            else if (!bossSource.isPlaying)
-            {
-                source.PlayOneShot(clip);
-            }
         }
     }
 }

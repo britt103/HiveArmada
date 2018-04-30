@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 667f5b9080f04a13a2d9947a74b232ac, type: 3}
+  m_Name: Plasma Data
+  m_EditorClassIdentifier: 
+  aimAssistRadius: 0.4
+  damage: 15
+  fireRate: 14
+  shootSound: {fileID: 0}
+  plasmaPrefab: {fileID: 1307413110761698, guid: 158fba1b6ab669c44b53c25c070addd8,
+    type: 2}
+  maxAmmo: 20
+  reloadTime: 4
+  reloadDelay: 1
+  reloadPartialDelay: 1.2
+  chargingSound: {fileID: 8300000, guid: 3c0256fa9a6d2ba468e71abc1dcf72fc, type: 3}
+  chargeCompleteSound: {fileID: 8300000, guid: 754aa64729c2d0c4c81a414d96114a3e, type: 3}

@@ -192,6 +192,7 @@ GameObject:
   - component: {fileID: 54604687494847582}
   - component: {fileID: 198756474364575348}
   - component: {fileID: 199352828742721624}
+  - component: {fileID: 114876733192145416}
   m_Layer: 0
   m_Name: Splitter Pattern 1
   m_TagString: Projectile
@@ -792,6 +793,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1203166c6be93a94e9d6ae2bdf07b0cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  trailEmitter: {fileID: 114876733192145416}
   projectiles:
   - {fileID: 1135591637703620}
   - {fileID: 1989570355884774}
@@ -910,6 +912,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c755cb26a67aee84781349a00cdc5436, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114876733192145416
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1933859481263082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a70f47e99623a5043adc11839706250a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!135 &135156890438234166

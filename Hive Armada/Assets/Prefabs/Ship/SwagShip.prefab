@@ -171,7 +171,7 @@ GameObject:
   - component: {fileID: 4495339338109636}
   - component: {fileID: 108228091242341074}
   m_Layer: 14
-  m_Name: Point light
+  m_Name: Ship Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2920,21 +2920,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1755157958916914
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4361928293718420}
-  m_Layer: 14
-  m_Name: Ship Lights
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &1757242310331106
 GameObject:
   m_ObjectHideFlags: 1
@@ -4212,7 +4197,7 @@ Transform:
   - {fileID: 4471357388415540}
   - {fileID: 4644577753568172}
   - {fileID: 4289050410670202}
-  - {fileID: 4361928293718420}
+  - {fileID: 4495339338109636}
   m_Father: {fileID: 4706794933125648}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 55, y: 0, z: 0}
@@ -5005,20 +4990,6 @@ Transform:
   m_Father: {fileID: 4143451083849664}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4361928293718420
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1755157958916914}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 4495339338109636}
-  m_Father: {fileID: 4132207167707534}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4365217651766058
 Transform:
   m_ObjectHideFlags: 1
@@ -5413,12 +5384,12 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1067831489650412}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.471, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.47100002, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 4361928293718420}
-  m_RootOrder: 0
+  m_Father: {fileID: 4132207167707534}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4506315579929044
 Transform:
@@ -13240,7 +13211,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shipController: {fileID: 114337190846702964}
-  maxHealth: 30
   flashColor: {fileID: 2100000, guid: 1db15971033ba594294b4f0c035f7da8, type: 2}
   healthPods:
   - {fileID: 1656141648328648}

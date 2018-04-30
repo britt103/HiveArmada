@@ -4016,6 +4016,151 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 1.758}
   m_SizeDelta: {x: 1600, y: 900}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!21 &107193253
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: DefaultShipPickup Body Hologram Material (Instance)
+  m_Shader: {fileID: 4800000, guid: f898299852c00d546aecbd297af0aab6, type: 3}
+  m_ShaderKeywords: FRESNEL_ON SCANLINES _GLITCH_ON _GLOW_ON _SCAN_ON
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DissolveTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmTex:
+        m_Texture: {fileID: 2800000, guid: 2613a7a229b43344b95a5dbc689a93f9, type: 3}
+        m_Scale: {x: 0.1, y: 0.1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionTex:
+        m_Texture: {fileID: 2800000, guid: ad992caf62927544694cc2da1de3af0a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Flicker:
+        m_Texture: {fileID: 2800000, guid: a0775ddee39477446bcbcedd7ca1bd22, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FlickerTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: adc1adb49d95f3d4cb61d8570ee40521, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Noise:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NoiseControl:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Scanline:
+        m_Texture: {fileID: 2800000, guid: 20a617585b6151b4e8e177fc19a927c5, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ScanlinePattern:
+        m_Texture: {fileID: 2800000, guid: 7b0819c792d27f7448ecc71e55fce6aa, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Deform: 0
+    - Dissolve: 0
+    - _Alpha: 0.35
+    - _Brightness: 1.25
+    - _BumpScale: 1
+    - _Cutoff: 0.5
+    - _DetailNormalMapScale: 1
+    - _Dis: 0
+    - _DstBlend: 0
+    - _EdjeSize: 0.02
+    - _EmP: 0.5
+    - _Emission: 2
+    - _Flicker: 0
+    - _FlickerSpeed: 0.01
+    - _Fold: 63
+    - _Glitch: 0
+    - _GlitchIntensity: 0
+    - _GlitchSpeed: 0
+    - _GlossMapScale: 1
+    - _Glossiness: 0.5
+    - _GlossyReflections: 1
+    - _GlowSpeed: 5
+    - _GlowTiling: 1
+    - _HolOffSet: -0.09
+    - _HolTile: 3
+    - _Metallic: 0
+    - _Mode: 0
+    - _OcclusionStrength: 1
+    - _Parallax: 0.02
+    - _RimFallness: 0.5
+    - _RimPower: 6.5
+    - _RimStrength: 1
+    - _ScanSpeed: -1
+    - _ScanTiling: 500
+    - _Scanline: 0
+    - _ScanlineSpeed: 0.05
+    - _ScanlineTiling: 5.9
+    - _ShakeBending: -0.02
+    - _ShakeDisplacement: 1.7
+    - _ShakeTime: 4
+    - _Shakespeed: -0.1
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _UVSec: 0
+    - _ZWrite: 1
+    - fresnel: 1
+    m_Colors:
+    - _Color: {r: 0.2784314, g: 0.8117647, b: 0.9490196, a: 1}
+    - _ColorEm: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _MainColor: {r: 0.27058825, g: 0.3764706, b: 0.42745098, a: 1}
+    - _RimColor: {r: 0.58953285, g: 0.8100154, b: 0.85294116, a: 1}
+    - _ScanlineColor: {r: 0.0719575, g: 0.9485294, b: 0, a: 1}
 --- !u!1001 &111755390
 Prefab:
   m_ObjectHideFlags: 0
@@ -4159,7 +4304,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -4222,79 +4367,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4877362978195390, guid: eee2dcd0033f54b44bf796b2ee2bb9a3, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: eee2dcd0033f54b44bf796b2ee2bb9a3, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &124983606
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 1660239650901188, guid: d25077db4b4d6ba40b33b6f3ff82f287,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 124983607}
-  - component: {fileID: 124983608}
-  m_Layer: 13
-  m_Name: Point light (2)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &124983607
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 4766655635130364, guid: d25077db4b4d6ba40b33b6f3ff82f287,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 124983606}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.0651, y: 0.05859995, z: -0.046800017}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 216038118}
-  m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!108 &124983608
-Light:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 108202797590271498, guid: d25077db4b4d6ba40b33b6f3ff82f287,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 124983606}
-  m_Enabled: 1
-  serializedVersion: 8
-  m_Type: 2
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 2.5
-  m_Range: 0.1
-  m_SpotAngle: 30
-  m_CookieSize: 10
-  m_Shadows:
-    m_Type: 0
-    m_Resolution: -1
-    m_CustomResolution: -1
-    m_Strength: 1
-    m_Bias: 0.05
-    m_NormalBias: 0.4
-    m_NearPlane: 0.2
-  m_Cookie: {fileID: 0}
-  m_DrawHalo: 0
-  m_Flare: {fileID: 0}
-  m_RenderMode: 0
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 8192
-  m_Lightmapping: 4
-  m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 1
-  m_ColorTemperature: 6570
-  m_UseColorTemperature: 0
-  m_ShadowRadius: 0
-  m_ShadowAngle: 0
 --- !u!1 &127326002
 GameObject:
   m_ObjectHideFlags: 0
@@ -4417,7 +4494,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   category: 0
-  baseVolume: 1
+  baseVolume: 0.65
 --- !u!1 &128077516
 GameObject:
   m_ObjectHideFlags: 0
@@ -4449,6 +4526,23 @@ Transform:
   m_Father: {fileID: 1925747329}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &129054670
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 1759454231769060, guid: 965c3af37ca71964ea917c79a708bb12,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1351179624}
+  - component: {fileID: 1351179625}
+  m_Layer: 0
+  m_Name: Enemy Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &130871739
 GameObject:
   m_ObjectHideFlags: 0
@@ -4852,7 +4946,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4684116384836694, guid: 0dc75584cc781d5478a1bf74b6b3eaed, type: 2}
       propertyPath: m_RootOrder
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0dc75584cc781d5478a1bf74b6b3eaed, type: 2}
@@ -5503,112 +5597,16 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 782de0ddc742b8b4c8e61eebc9a99cc8, type: 3}
   m_PrefabInternal: {fileID: 215318877}
---- !u!1001 &216038117
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 925378509}
-    m_Modifications:
-    - target: {fileID: 4704300334154212, guid: d25077db4b4d6ba40b33b6f3ff82f287, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4704300334154212, guid: d25077db4b4d6ba40b33b6f3ff82f287, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 1.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4704300334154212, guid: d25077db4b4d6ba40b33b6f3ff82f287, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 4704300334154212, guid: d25077db4b4d6ba40b33b6f3ff82f287, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4704300334154212, guid: d25077db4b4d6ba40b33b6f3ff82f287, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4704300334154212, guid: d25077db4b4d6ba40b33b6f3ff82f287, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4704300334154212, guid: d25077db4b4d6ba40b33b6f3ff82f287, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4704300334154212, guid: d25077db4b4d6ba40b33b6f3ff82f287, type: 2}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1864243799682172, guid: d25077db4b4d6ba40b33b6f3ff82f287, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 108223396927316380, guid: d25077db4b4d6ba40b33b6f3ff82f287,
-        type: 2}
-      propertyPath: m_SpotAngle
-      value: 65
-      objectReference: {fileID: 0}
-    - target: {fileID: 108630548150116778, guid: d25077db4b4d6ba40b33b6f3ff82f287,
-        type: 2}
-      propertyPath: m_SpotAngle
-      value: 65
-      objectReference: {fileID: 0}
-    - target: {fileID: 108223396927316380, guid: d25077db4b4d6ba40b33b6f3ff82f287,
-        type: 2}
-      propertyPath: m_Range
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 108630548150116778, guid: d25077db4b4d6ba40b33b6f3ff82f287,
-        type: 2}
-      propertyPath: m_Range
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 108079387255977200, guid: d25077db4b4d6ba40b33b6f3ff82f287,
-        type: 2}
-      propertyPath: m_Range
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 108821957977356904, guid: d25077db4b4d6ba40b33b6f3ff82f287,
-        type: 2}
-      propertyPath: m_Range
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 108223396927316380, guid: d25077db4b4d6ba40b33b6f3ff82f287,
-        type: 2}
-      propertyPath: m_Intensity
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 108079387255977200, guid: d25077db4b4d6ba40b33b6f3ff82f287,
-        type: 2}
-      propertyPath: m_Intensity
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 108630548150116778, guid: d25077db4b4d6ba40b33b6f3ff82f287,
-        type: 2}
-      propertyPath: m_Intensity
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 108821957977356904, guid: d25077db4b4d6ba40b33b6f3ff82f287,
-        type: 2}
-      propertyPath: m_Intensity
-      value: 2
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: d25077db4b4d6ba40b33b6f3ff82f287, type: 2}
-  m_IsPrefabParent: 0
 --- !u!4 &216038118 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4704300334154212, guid: d25077db4b4d6ba40b33b6f3ff82f287,
     type: 2}
-  m_PrefabInternal: {fileID: 216038117}
+  m_PrefabInternal: {fileID: 1747003708}
 --- !u!1 &216038119 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1864243799682172, guid: d25077db4b4d6ba40b33b6f3ff82f287,
     type: 2}
-  m_PrefabInternal: {fileID: 216038117}
+  m_PrefabInternal: {fileID: 1747003708}
 --- !u!1 &217761663
 GameObject:
   m_ObjectHideFlags: 0
@@ -5778,9 +5776,10 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 763048276}
   m_Father: {fileID: 421848038}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &229293520
 MonoBehaviour:
@@ -5862,7 +5861,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -5889,8 +5888,153 @@ MonoBehaviour:
   source: {fileID: 229293521}
   lineDelay: 1.5
   clipDelay: 0.8
-  feedbackSource: {fileID: 0}
-  spamTimer: 0
+  feedbackSource: {fileID: 763048278}
+  spamTimer: 15
+--- !u!21 &230513818
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: DefaultShipPickup Body Hologram Material (Instance)
+  m_Shader: {fileID: 4800000, guid: f898299852c00d546aecbd297af0aab6, type: 3}
+  m_ShaderKeywords: FRESNEL_ON SCANLINES _GLITCH_ON _GLOW_ON _SCAN_ON
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DissolveTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmTex:
+        m_Texture: {fileID: 2800000, guid: 2613a7a229b43344b95a5dbc689a93f9, type: 3}
+        m_Scale: {x: 0.1, y: 0.1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionTex:
+        m_Texture: {fileID: 2800000, guid: ad992caf62927544694cc2da1de3af0a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Flicker:
+        m_Texture: {fileID: 2800000, guid: a0775ddee39477446bcbcedd7ca1bd22, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FlickerTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: adc1adb49d95f3d4cb61d8570ee40521, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Noise:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NoiseControl:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Scanline:
+        m_Texture: {fileID: 2800000, guid: 20a617585b6151b4e8e177fc19a927c5, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ScanlinePattern:
+        m_Texture: {fileID: 2800000, guid: 7b0819c792d27f7448ecc71e55fce6aa, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Deform: 0
+    - Dissolve: 0
+    - _Alpha: 0.35
+    - _Brightness: 1.25
+    - _BumpScale: 1
+    - _Cutoff: 0.5
+    - _DetailNormalMapScale: 1
+    - _Dis: 0
+    - _DstBlend: 0
+    - _EdjeSize: 0.02
+    - _EmP: 0.5
+    - _Emission: 2
+    - _Flicker: 0
+    - _FlickerSpeed: 0.01
+    - _Fold: 63
+    - _Glitch: 0
+    - _GlitchIntensity: 0
+    - _GlitchSpeed: 0
+    - _GlossMapScale: 1
+    - _Glossiness: 0.5
+    - _GlossyReflections: 1
+    - _GlowSpeed: 5
+    - _GlowTiling: 1
+    - _HolOffSet: -0.09
+    - _HolTile: 3
+    - _Metallic: 0
+    - _Mode: 0
+    - _OcclusionStrength: 1
+    - _Parallax: 0.02
+    - _RimFallness: 0.5
+    - _RimPower: 6.5
+    - _RimStrength: 1
+    - _ScanSpeed: -1
+    - _ScanTiling: 500
+    - _Scanline: 0
+    - _ScanlineSpeed: 0.05
+    - _ScanlineTiling: 5.9
+    - _ShakeBending: -0.02
+    - _ShakeDisplacement: 1.7
+    - _ShakeTime: 4
+    - _Shakespeed: -0.1
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _UVSec: 0
+    - _ZWrite: 1
+    - fresnel: 1
+    m_Colors:
+    - _Color: {r: 0.2784314, g: 0.8117647, b: 0.9490196, a: 1}
+    - _ColorEm: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _MainColor: {r: 0.27058825, g: 0.3764706, b: 0.42745098, a: 1}
+    - _RimColor: {r: 0.58953285, g: 0.8100154, b: 0.85294116, a: 1}
+    - _ScanlineColor: {r: 0.0719575, g: 0.9485294, b: 0, a: 1}
 --- !u!1 &242179132
 GameObject:
   m_ObjectHideFlags: 0
@@ -6314,7 +6458,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   category: 0
-  baseVolume: 1
+  baseVolume: 0.8
 --- !u!114 &259180520 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114104757298970070, guid: eee2dcd0033f54b44bf796b2ee2bb9a3,
@@ -7523,6 +7667,151 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 379739300}
   m_Mesh: {fileID: 4300000, guid: d3613639ddeacbd48bb6cb0b2bcd0fe7, type: 3}
+--- !u!21 &381833978
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: DefaultShipPickup Body Hologram Material (Instance)
+  m_Shader: {fileID: 4800000, guid: f898299852c00d546aecbd297af0aab6, type: 3}
+  m_ShaderKeywords: FRESNEL_ON SCANLINES _GLITCH_ON _GLOW_ON _SCAN_ON
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DissolveTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmTex:
+        m_Texture: {fileID: 2800000, guid: 2613a7a229b43344b95a5dbc689a93f9, type: 3}
+        m_Scale: {x: 0.1, y: 0.1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionTex:
+        m_Texture: {fileID: 2800000, guid: ad992caf62927544694cc2da1de3af0a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Flicker:
+        m_Texture: {fileID: 2800000, guid: a0775ddee39477446bcbcedd7ca1bd22, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FlickerTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: adc1adb49d95f3d4cb61d8570ee40521, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Noise:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NoiseControl:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Scanline:
+        m_Texture: {fileID: 2800000, guid: 20a617585b6151b4e8e177fc19a927c5, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ScanlinePattern:
+        m_Texture: {fileID: 2800000, guid: 7b0819c792d27f7448ecc71e55fce6aa, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Deform: 0
+    - Dissolve: 0
+    - _Alpha: 0.35
+    - _Brightness: 1.25
+    - _BumpScale: 1
+    - _Cutoff: 0.5
+    - _DetailNormalMapScale: 1
+    - _Dis: 0
+    - _DstBlend: 0
+    - _EdjeSize: 0.02
+    - _EmP: 0.5
+    - _Emission: 2
+    - _Flicker: 0
+    - _FlickerSpeed: 0.01
+    - _Fold: 63
+    - _Glitch: 0
+    - _GlitchIntensity: 0
+    - _GlitchSpeed: 0
+    - _GlossMapScale: 1
+    - _Glossiness: 0.5
+    - _GlossyReflections: 1
+    - _GlowSpeed: 5
+    - _GlowTiling: 1
+    - _HolOffSet: -0.09
+    - _HolTile: 3
+    - _Metallic: 0
+    - _Mode: 0
+    - _OcclusionStrength: 1
+    - _Parallax: 0.02
+    - _RimFallness: 0.5
+    - _RimPower: 6.5
+    - _RimStrength: 1
+    - _ScanSpeed: -1
+    - _ScanTiling: 500
+    - _Scanline: 0
+    - _ScanlineSpeed: 0.05
+    - _ScanlineTiling: 5.9
+    - _ShakeBending: -0.02
+    - _ShakeDisplacement: 1.7
+    - _ShakeTime: 4
+    - _Shakespeed: -0.1
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _UVSec: 0
+    - _ZWrite: 1
+    - fresnel: 1
+    m_Colors:
+    - _Color: {r: 0.2784314, g: 0.8117647, b: 0.9490196, a: 1}
+    - _ColorEm: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _MainColor: {r: 0.27058825, g: 0.3764706, b: 0.42745098, a: 1}
+    - _RimColor: {r: 0.58953285, g: 0.8100154, b: 0.85294116, a: 1}
+    - _ScanlineColor: {r: 0.0719575, g: 0.9485294, b: 0, a: 1}
 --- !u!1 &396401181
 GameObject:
   m_ObjectHideFlags: 0
@@ -7779,6 +8068,151 @@ Transform:
   m_Father: {fileID: 2027920201}
   m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!21 &406192192
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: DefaultShipPickup Body Hologram Material (Instance)
+  m_Shader: {fileID: 4800000, guid: f898299852c00d546aecbd297af0aab6, type: 3}
+  m_ShaderKeywords: FRESNEL_ON SCANLINES _GLITCH_ON _GLOW_ON _SCAN_ON
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DissolveTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmTex:
+        m_Texture: {fileID: 2800000, guid: 2613a7a229b43344b95a5dbc689a93f9, type: 3}
+        m_Scale: {x: 0.1, y: 0.1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionTex:
+        m_Texture: {fileID: 2800000, guid: ad992caf62927544694cc2da1de3af0a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Flicker:
+        m_Texture: {fileID: 2800000, guid: a0775ddee39477446bcbcedd7ca1bd22, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FlickerTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: adc1adb49d95f3d4cb61d8570ee40521, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Noise:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NoiseControl:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Scanline:
+        m_Texture: {fileID: 2800000, guid: 20a617585b6151b4e8e177fc19a927c5, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ScanlinePattern:
+        m_Texture: {fileID: 2800000, guid: 7b0819c792d27f7448ecc71e55fce6aa, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Deform: 0
+    - Dissolve: 0
+    - _Alpha: 0.35
+    - _Brightness: 1.25
+    - _BumpScale: 1
+    - _Cutoff: 0.5
+    - _DetailNormalMapScale: 1
+    - _Dis: 0
+    - _DstBlend: 0
+    - _EdjeSize: 0.02
+    - _EmP: 0.5
+    - _Emission: 2
+    - _Flicker: 0
+    - _FlickerSpeed: 0.01
+    - _Fold: 63
+    - _Glitch: 0
+    - _GlitchIntensity: 0
+    - _GlitchSpeed: 0
+    - _GlossMapScale: 1
+    - _Glossiness: 0.5
+    - _GlossyReflections: 1
+    - _GlowSpeed: 5
+    - _GlowTiling: 1
+    - _HolOffSet: -0.09
+    - _HolTile: 3
+    - _Metallic: 0
+    - _Mode: 0
+    - _OcclusionStrength: 1
+    - _Parallax: 0.02
+    - _RimFallness: 0.5
+    - _RimPower: 6.5
+    - _RimStrength: 1
+    - _ScanSpeed: -1
+    - _ScanTiling: 500
+    - _Scanline: 0
+    - _ScanlineSpeed: 0.05
+    - _ScanlineTiling: 5.9
+    - _ShakeBending: -0.02
+    - _ShakeDisplacement: 1.7
+    - _ShakeTime: 4
+    - _Shakespeed: -0.1
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _UVSec: 0
+    - _ZWrite: 1
+    - fresnel: 1
+    m_Colors:
+    - _Color: {r: 0.2784314, g: 0.8117647, b: 0.9490196, a: 1}
+    - _ColorEm: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _MainColor: {r: 0.27058825, g: 0.3764706, b: 0.42745098, a: 1}
+    - _RimColor: {r: 0.58953285, g: 0.8100154, b: 0.85294116, a: 1}
+    - _ScanlineColor: {r: 0.0719575, g: 0.9485294, b: 0, a: 1}
 --- !u!1 &408382065
 GameObject:
   m_ObjectHideFlags: 0
@@ -7864,7 +8298,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &410168890
 Transform:
   m_ObjectHideFlags: 0
@@ -7882,7 +8316,7 @@ Transform:
   - {fileID: 717571265}
   - {fileID: 696032139}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &411014190
 GameObject:
@@ -8025,6 +8459,7 @@ Transform:
   - {fileID: 2047074951}
   - {fileID: 898325482}
   - {fileID: 331214255}
+  - {fileID: 1351179624}
   - {fileID: 1699631050}
   - {fileID: 1631219986}
   - {fileID: 1879080189}
@@ -8868,6 +9303,151 @@ Transform:
   m_Father: {fileID: 1939732467}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!21 &485380181
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: DefaultShipPickup Body Hologram Material (Instance)
+  m_Shader: {fileID: 4800000, guid: f898299852c00d546aecbd297af0aab6, type: 3}
+  m_ShaderKeywords: FRESNEL_ON SCANLINES _GLITCH_ON _GLOW_ON _SCAN_ON
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DissolveTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmTex:
+        m_Texture: {fileID: 2800000, guid: 2613a7a229b43344b95a5dbc689a93f9, type: 3}
+        m_Scale: {x: 0.1, y: 0.1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionTex:
+        m_Texture: {fileID: 2800000, guid: ad992caf62927544694cc2da1de3af0a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Flicker:
+        m_Texture: {fileID: 2800000, guid: a0775ddee39477446bcbcedd7ca1bd22, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FlickerTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: adc1adb49d95f3d4cb61d8570ee40521, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Noise:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NoiseControl:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Scanline:
+        m_Texture: {fileID: 2800000, guid: 20a617585b6151b4e8e177fc19a927c5, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ScanlinePattern:
+        m_Texture: {fileID: 2800000, guid: 7b0819c792d27f7448ecc71e55fce6aa, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Deform: 0
+    - Dissolve: 0
+    - _Alpha: 0.35
+    - _Brightness: 1.25
+    - _BumpScale: 1
+    - _Cutoff: 0.5
+    - _DetailNormalMapScale: 1
+    - _Dis: 0
+    - _DstBlend: 0
+    - _EdjeSize: 0.02
+    - _EmP: 0.5
+    - _Emission: 2
+    - _Flicker: 0
+    - _FlickerSpeed: 0.01
+    - _Fold: 63
+    - _Glitch: 0
+    - _GlitchIntensity: 0
+    - _GlitchSpeed: 0
+    - _GlossMapScale: 1
+    - _Glossiness: 0.5
+    - _GlossyReflections: 1
+    - _GlowSpeed: 5
+    - _GlowTiling: 1
+    - _HolOffSet: -0.09
+    - _HolTile: 3
+    - _Metallic: 0
+    - _Mode: 0
+    - _OcclusionStrength: 1
+    - _Parallax: 0.02
+    - _RimFallness: 0.5
+    - _RimPower: 6.5
+    - _RimStrength: 1
+    - _ScanSpeed: -1
+    - _ScanTiling: 500
+    - _Scanline: 0
+    - _ScanlineSpeed: 0.05
+    - _ScanlineTiling: 5.9
+    - _ShakeBending: -0.02
+    - _ShakeDisplacement: 1.7
+    - _ShakeTime: 4
+    - _Shakespeed: -0.1
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _UVSec: 0
+    - _ZWrite: 1
+    - fresnel: 1
+    m_Colors:
+    - _Color: {r: 0.2784314, g: 0.8117647, b: 0.9490196, a: 1}
+    - _ColorEm: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _MainColor: {r: 0.27058825, g: 0.3764706, b: 0.42745098, a: 1}
+    - _RimColor: {r: 0.58953285, g: 0.8100154, b: 0.85294116, a: 1}
+    - _ScanlineColor: {r: 0.0719575, g: 0.9485294, b: 0, a: 1}
 --- !u!1 &500941166
 GameObject:
   m_ObjectHideFlags: 0
@@ -9462,6 +10042,151 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 542284342}
   m_Mesh: {fileID: 4300000, guid: b25c2e8f95186d541b260782c4e6a35a, type: 3}
+--- !u!21 &544068306
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: DefaultShipPickup Body Hologram Material (Instance)
+  m_Shader: {fileID: 4800000, guid: f898299852c00d546aecbd297af0aab6, type: 3}
+  m_ShaderKeywords: FRESNEL_ON SCANLINES _GLITCH_ON _GLOW_ON _SCAN_ON
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DissolveTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmTex:
+        m_Texture: {fileID: 2800000, guid: 2613a7a229b43344b95a5dbc689a93f9, type: 3}
+        m_Scale: {x: 0.1, y: 0.1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionTex:
+        m_Texture: {fileID: 2800000, guid: ad992caf62927544694cc2da1de3af0a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Flicker:
+        m_Texture: {fileID: 2800000, guid: a0775ddee39477446bcbcedd7ca1bd22, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FlickerTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: adc1adb49d95f3d4cb61d8570ee40521, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Noise:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NoiseControl:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Scanline:
+        m_Texture: {fileID: 2800000, guid: 20a617585b6151b4e8e177fc19a927c5, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ScanlinePattern:
+        m_Texture: {fileID: 2800000, guid: 7b0819c792d27f7448ecc71e55fce6aa, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Deform: 0
+    - Dissolve: 0
+    - _Alpha: 0.35
+    - _Brightness: 1.25
+    - _BumpScale: 1
+    - _Cutoff: 0.5
+    - _DetailNormalMapScale: 1
+    - _Dis: 0
+    - _DstBlend: 0
+    - _EdjeSize: 0.02
+    - _EmP: 0.5
+    - _Emission: 2
+    - _Flicker: 0
+    - _FlickerSpeed: 0.01
+    - _Fold: 63
+    - _Glitch: 0
+    - _GlitchIntensity: 0
+    - _GlitchSpeed: 0
+    - _GlossMapScale: 1
+    - _Glossiness: 0.5
+    - _GlossyReflections: 1
+    - _GlowSpeed: 5
+    - _GlowTiling: 1
+    - _HolOffSet: -0.09
+    - _HolTile: 3
+    - _Metallic: 0
+    - _Mode: 0
+    - _OcclusionStrength: 1
+    - _Parallax: 0.02
+    - _RimFallness: 0.5
+    - _RimPower: 6.5
+    - _RimStrength: 1
+    - _ScanSpeed: -1
+    - _ScanTiling: 500
+    - _Scanline: 0
+    - _ScanlineSpeed: 0.05
+    - _ScanlineTiling: 5.9
+    - _ShakeBending: -0.02
+    - _ShakeDisplacement: 1.7
+    - _ShakeTime: 4
+    - _Shakespeed: -0.1
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _UVSec: 0
+    - _ZWrite: 1
+    - fresnel: 1
+    m_Colors:
+    - _Color: {r: 0.2784314, g: 0.8117647, b: 0.9490196, a: 1}
+    - _ColorEm: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _MainColor: {r: 0.27058825, g: 0.3764706, b: 0.42745098, a: 1}
+    - _RimColor: {r: 0.58953285, g: 0.8100154, b: 0.85294116, a: 1}
+    - _ScanlineColor: {r: 0.0719575, g: 0.9485294, b: 0, a: 1}
 --- !u!1 &560327898
 GameObject:
   m_ObjectHideFlags: 0
@@ -10075,6 +10800,151 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 601058390}
   m_Mesh: {fileID: 4300000, guid: 8245dfd6bca1267469718890be83ae61, type: 3}
+--- !u!21 &604091113
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: DefaultShipPickup Body Hologram Material (Instance)
+  m_Shader: {fileID: 4800000, guid: f898299852c00d546aecbd297af0aab6, type: 3}
+  m_ShaderKeywords: FRESNEL_ON SCANLINES _GLITCH_ON _GLOW_ON _SCAN_ON
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DissolveTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmTex:
+        m_Texture: {fileID: 2800000, guid: 2613a7a229b43344b95a5dbc689a93f9, type: 3}
+        m_Scale: {x: 0.1, y: 0.1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionTex:
+        m_Texture: {fileID: 2800000, guid: ad992caf62927544694cc2da1de3af0a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Flicker:
+        m_Texture: {fileID: 2800000, guid: a0775ddee39477446bcbcedd7ca1bd22, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FlickerTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: adc1adb49d95f3d4cb61d8570ee40521, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Noise:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NoiseControl:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Scanline:
+        m_Texture: {fileID: 2800000, guid: 20a617585b6151b4e8e177fc19a927c5, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ScanlinePattern:
+        m_Texture: {fileID: 2800000, guid: 7b0819c792d27f7448ecc71e55fce6aa, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Deform: 0
+    - Dissolve: 0
+    - _Alpha: 0.35
+    - _Brightness: 1.25
+    - _BumpScale: 1
+    - _Cutoff: 0.5
+    - _DetailNormalMapScale: 1
+    - _Dis: 0
+    - _DstBlend: 0
+    - _EdjeSize: 0.02
+    - _EmP: 0.5
+    - _Emission: 2
+    - _Flicker: 0
+    - _FlickerSpeed: 0.01
+    - _Fold: 63
+    - _Glitch: 0
+    - _GlitchIntensity: 0
+    - _GlitchSpeed: 0
+    - _GlossMapScale: 1
+    - _Glossiness: 0.5
+    - _GlossyReflections: 1
+    - _GlowSpeed: 5
+    - _GlowTiling: 1
+    - _HolOffSet: -0.09
+    - _HolTile: 3
+    - _Metallic: 0
+    - _Mode: 0
+    - _OcclusionStrength: 1
+    - _Parallax: 0.02
+    - _RimFallness: 0.5
+    - _RimPower: 6.5
+    - _RimStrength: 1
+    - _ScanSpeed: -1
+    - _ScanTiling: 500
+    - _Scanline: 0
+    - _ScanlineSpeed: 0.05
+    - _ScanlineTiling: 5.9
+    - _ShakeBending: -0.02
+    - _ShakeDisplacement: 1.7
+    - _ShakeTime: 4
+    - _Shakespeed: -0.1
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _UVSec: 0
+    - _ZWrite: 1
+    - fresnel: 1
+    m_Colors:
+    - _Color: {r: 0.2784314, g: 0.8117647, b: 0.9490196, a: 1}
+    - _ColorEm: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _MainColor: {r: 0.27058825, g: 0.3764706, b: 0.42745098, a: 1}
+    - _RimColor: {r: 0.58953285, g: 0.8100154, b: 0.85294116, a: 1}
+    - _ScanlineColor: {r: 0.0719575, g: 0.9485294, b: 0, a: 1}
 --- !u!1 &604732521
 GameObject:
   m_ObjectHideFlags: 0
@@ -10430,6 +11300,151 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 400002, guid: da8e2e59ef80c4e4e89fd307942e87c5, type: 3}
   m_PrefabInternal: {fileID: 619405692}
+--- !u!21 &622939375
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: DefaultShipPickup Body Hologram Material (Instance)
+  m_Shader: {fileID: 4800000, guid: f898299852c00d546aecbd297af0aab6, type: 3}
+  m_ShaderKeywords: FRESNEL_ON SCANLINES _GLITCH_ON _GLOW_ON _SCAN_ON
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DissolveTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmTex:
+        m_Texture: {fileID: 2800000, guid: 2613a7a229b43344b95a5dbc689a93f9, type: 3}
+        m_Scale: {x: 0.1, y: 0.1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionTex:
+        m_Texture: {fileID: 2800000, guid: ad992caf62927544694cc2da1de3af0a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Flicker:
+        m_Texture: {fileID: 2800000, guid: a0775ddee39477446bcbcedd7ca1bd22, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FlickerTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: adc1adb49d95f3d4cb61d8570ee40521, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Noise:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NoiseControl:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Scanline:
+        m_Texture: {fileID: 2800000, guid: 20a617585b6151b4e8e177fc19a927c5, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ScanlinePattern:
+        m_Texture: {fileID: 2800000, guid: 7b0819c792d27f7448ecc71e55fce6aa, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Deform: 0
+    - Dissolve: 0
+    - _Alpha: 0.35
+    - _Brightness: 1.25
+    - _BumpScale: 1
+    - _Cutoff: 0.5
+    - _DetailNormalMapScale: 1
+    - _Dis: 0
+    - _DstBlend: 0
+    - _EdjeSize: 0.02
+    - _EmP: 0.5
+    - _Emission: 2
+    - _Flicker: 0
+    - _FlickerSpeed: 0.01
+    - _Fold: 63
+    - _Glitch: 0
+    - _GlitchIntensity: 0
+    - _GlitchSpeed: 0
+    - _GlossMapScale: 1
+    - _Glossiness: 0.5
+    - _GlossyReflections: 1
+    - _GlowSpeed: 5
+    - _GlowTiling: 1
+    - _HolOffSet: -0.09
+    - _HolTile: 3
+    - _Metallic: 0
+    - _Mode: 0
+    - _OcclusionStrength: 1
+    - _Parallax: 0.02
+    - _RimFallness: 0.5
+    - _RimPower: 6.5
+    - _RimStrength: 1
+    - _ScanSpeed: -1
+    - _ScanTiling: 500
+    - _Scanline: 0
+    - _ScanlineSpeed: 0.05
+    - _ScanlineTiling: 5.9
+    - _ShakeBending: -0.02
+    - _ShakeDisplacement: 1.7
+    - _ShakeTime: 4
+    - _Shakespeed: -0.1
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _UVSec: 0
+    - _ZWrite: 1
+    - fresnel: 1
+    m_Colors:
+    - _Color: {r: 0.2784314, g: 0.8117647, b: 0.9490196, a: 1}
+    - _ColorEm: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _MainColor: {r: 0.27058825, g: 0.3764706, b: 0.42745098, a: 1}
+    - _RimColor: {r: 0.58953285, g: 0.8100154, b: 0.85294116, a: 1}
+    - _ScanlineColor: {r: 0.0719575, g: 0.9485294, b: 0, a: 1}
 --- !u!1 &639439805
 GameObject:
   m_ObjectHideFlags: 0
@@ -11351,6 +12366,151 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 714009871}
   m_Mesh: {fileID: 0}
+--- !u!21 &717101680
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: DefaultShipPickup Body Hologram Material (Instance)
+  m_Shader: {fileID: 4800000, guid: f898299852c00d546aecbd297af0aab6, type: 3}
+  m_ShaderKeywords: FRESNEL_ON SCANLINES _GLITCH_ON _GLOW_ON _SCAN_ON
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DissolveTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmTex:
+        m_Texture: {fileID: 2800000, guid: 2613a7a229b43344b95a5dbc689a93f9, type: 3}
+        m_Scale: {x: 0.1, y: 0.1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionTex:
+        m_Texture: {fileID: 2800000, guid: ad992caf62927544694cc2da1de3af0a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Flicker:
+        m_Texture: {fileID: 2800000, guid: a0775ddee39477446bcbcedd7ca1bd22, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FlickerTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: adc1adb49d95f3d4cb61d8570ee40521, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Noise:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NoiseControl:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Scanline:
+        m_Texture: {fileID: 2800000, guid: 20a617585b6151b4e8e177fc19a927c5, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ScanlinePattern:
+        m_Texture: {fileID: 2800000, guid: 7b0819c792d27f7448ecc71e55fce6aa, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Deform: 0
+    - Dissolve: 0
+    - _Alpha: 0.35
+    - _Brightness: 1.25
+    - _BumpScale: 1
+    - _Cutoff: 0.5
+    - _DetailNormalMapScale: 1
+    - _Dis: 0
+    - _DstBlend: 0
+    - _EdjeSize: 0.02
+    - _EmP: 0.5
+    - _Emission: 2
+    - _Flicker: 0
+    - _FlickerSpeed: 0.01
+    - _Fold: 63
+    - _Glitch: 0
+    - _GlitchIntensity: 0
+    - _GlitchSpeed: 0
+    - _GlossMapScale: 1
+    - _Glossiness: 0.5
+    - _GlossyReflections: 1
+    - _GlowSpeed: 5
+    - _GlowTiling: 1
+    - _HolOffSet: -0.09
+    - _HolTile: 3
+    - _Metallic: 0
+    - _Mode: 0
+    - _OcclusionStrength: 1
+    - _Parallax: 0.02
+    - _RimFallness: 0.5
+    - _RimPower: 6.5
+    - _RimStrength: 1
+    - _ScanSpeed: -1
+    - _ScanTiling: 500
+    - _Scanline: 0
+    - _ScanlineSpeed: 0.05
+    - _ScanlineTiling: 5.9
+    - _ShakeBending: -0.02
+    - _ShakeDisplacement: 1.7
+    - _ShakeTime: 4
+    - _Shakespeed: -0.1
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _UVSec: 0
+    - _ZWrite: 1
+    - fresnel: 1
+    m_Colors:
+    - _Color: {r: 0.2784314, g: 0.8117647, b: 0.9490196, a: 1}
+    - _ColorEm: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _MainColor: {r: 0.27058825, g: 0.3764706, b: 0.42745098, a: 1}
+    - _RimColor: {r: 0.58953285, g: 0.8100154, b: 0.85294116, a: 1}
+    - _ScanlineColor: {r: 0.0719575, g: 0.9485294, b: 0, a: 1}
 --- !u!1 &717571264
 GameObject:
   m_ObjectHideFlags: 0
@@ -11740,6 +12900,129 @@ Transform:
   m_Father: {fileID: 1077584951}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &763048275
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 763048276}
+  - component: {fileID: 763048278}
+  - component: {fileID: 763048277}
+  m_Layer: 0
+  m_Name: Feedback Source
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &763048276
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 763048275}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 229293519}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &763048277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 763048275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c772834c140a0ab498793d6548e13561, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  category: 2
+  baseVolume: 1
+--- !u!82 &763048278
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 763048275}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!1 &771068966
 GameObject:
   m_ObjectHideFlags: 0
@@ -11988,116 +13271,151 @@ Transform:
   m_Father: {fileID: 1077584951}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &785211841
-Prefab:
+--- !u!21 &798947981
+Material:
+  serializedVersion: 6
   m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 2047074951}
-    m_Modifications:
-    - target: {fileID: 4391042715942922, guid: 965c3af37ca71964ea917c79a708bb12, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4391042715942922, guid: 965c3af37ca71964ea917c79a708bb12, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4391042715942922, guid: 965c3af37ca71964ea917c79a708bb12, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4391042715942922, guid: 965c3af37ca71964ea917c79a708bb12, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4391042715942922, guid: 965c3af37ca71964ea917c79a708bb12, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4391042715942922, guid: 965c3af37ca71964ea917c79a708bb12, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4391042715942922, guid: 965c3af37ca71964ea917c79a708bb12, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4391042715942922, guid: 965c3af37ca71964ea917c79a708bb12, type: 2}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 965c3af37ca71964ea917c79a708bb12, type: 2}
-  m_IsPrefabParent: 0
---- !u!1 &788640912
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 1660239650901188, guid: d25077db4b4d6ba40b33b6f3ff82f287,
-    type: 2}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 788640913}
-  - component: {fileID: 788640914}
-  m_Layer: 13
-  m_Name: Point light (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &788640913
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 4766655635130364, guid: d25077db4b4d6ba40b33b6f3ff82f287,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 788640912}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.0722, y: 0.0586, z: -0.0468}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 216038118}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!108 &788640914
-Light:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 108202797590271498, guid: d25077db4b4d6ba40b33b6f3ff82f287,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 788640912}
-  m_Enabled: 1
-  serializedVersion: 8
-  m_Type: 2
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 2.5
-  m_Range: 0.1
-  m_SpotAngle: 30
-  m_CookieSize: 10
-  m_Shadows:
-    m_Type: 0
-    m_Resolution: -1
-    m_CustomResolution: -1
-    m_Strength: 1
-    m_Bias: 0.05
-    m_NormalBias: 0.4
-    m_NearPlane: 0.2
-  m_Cookie: {fileID: 0}
-  m_DrawHalo: 0
-  m_Flare: {fileID: 0}
-  m_RenderMode: 0
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 8192
-  m_Lightmapping: 4
-  m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 1
-  m_ColorTemperature: 6570
-  m_UseColorTemperature: 0
-  m_ShadowRadius: 0
-  m_ShadowAngle: 0
+  m_Name: DefaultShipPickup Body Hologram Material (Instance)
+  m_Shader: {fileID: 4800000, guid: f898299852c00d546aecbd297af0aab6, type: 3}
+  m_ShaderKeywords: FRESNEL_ON SCANLINES _GLITCH_ON _GLOW_ON _SCAN_ON
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DissolveTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmTex:
+        m_Texture: {fileID: 2800000, guid: 2613a7a229b43344b95a5dbc689a93f9, type: 3}
+        m_Scale: {x: 0.1, y: 0.1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionTex:
+        m_Texture: {fileID: 2800000, guid: ad992caf62927544694cc2da1de3af0a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Flicker:
+        m_Texture: {fileID: 2800000, guid: a0775ddee39477446bcbcedd7ca1bd22, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FlickerTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: adc1adb49d95f3d4cb61d8570ee40521, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Noise:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NoiseControl:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Scanline:
+        m_Texture: {fileID: 2800000, guid: 20a617585b6151b4e8e177fc19a927c5, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ScanlinePattern:
+        m_Texture: {fileID: 2800000, guid: 7b0819c792d27f7448ecc71e55fce6aa, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Deform: 0
+    - Dissolve: 0
+    - _Alpha: 0.35
+    - _Brightness: 1.25
+    - _BumpScale: 1
+    - _Cutoff: 0.5
+    - _DetailNormalMapScale: 1
+    - _Dis: 0
+    - _DstBlend: 0
+    - _EdjeSize: 0.02
+    - _EmP: 0.5
+    - _Emission: 2
+    - _Flicker: 0
+    - _FlickerSpeed: 0.01
+    - _Fold: 63
+    - _Glitch: 0
+    - _GlitchIntensity: 0
+    - _GlitchSpeed: 0
+    - _GlossMapScale: 1
+    - _Glossiness: 0.5
+    - _GlossyReflections: 1
+    - _GlowSpeed: 5
+    - _GlowTiling: 1
+    - _HolOffSet: -0.09
+    - _HolTile: 3
+    - _Metallic: 0
+    - _Mode: 0
+    - _OcclusionStrength: 1
+    - _Parallax: 0.02
+    - _RimFallness: 0.5
+    - _RimPower: 6.5
+    - _RimStrength: 1
+    - _ScanSpeed: -1
+    - _ScanTiling: 500
+    - _Scanline: 0
+    - _ScanlineSpeed: 0.05
+    - _ScanlineTiling: 5.9
+    - _ShakeBending: -0.02
+    - _ShakeDisplacement: 1.7
+    - _ShakeTime: 4
+    - _Shakespeed: -0.1
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _UVSec: 0
+    - _ZWrite: 1
+    - fresnel: 1
+    m_Colors:
+    - _Color: {r: 0.2784314, g: 0.8117647, b: 0.9490196, a: 1}
+    - _ColorEm: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _MainColor: {r: 0.27058825, g: 0.3764706, b: 0.42745098, a: 1}
+    - _RimColor: {r: 0.58953285, g: 0.8100154, b: 0.85294116, a: 1}
+    - _ScanlineColor: {r: 0.0719575, g: 0.9485294, b: 0, a: 1}
 --- !u!1 &798957955
 GameObject:
   m_ObjectHideFlags: 0
@@ -12180,6 +13498,151 @@ Transform:
   m_Father: {fileID: 1668929406}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!21 &809512579
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: DefaultShipPickup Body Hologram Material (Instance)
+  m_Shader: {fileID: 4800000, guid: f898299852c00d546aecbd297af0aab6, type: 3}
+  m_ShaderKeywords: FRESNEL_ON SCANLINES _GLITCH_ON _GLOW_ON _SCAN_ON
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DissolveTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmTex:
+        m_Texture: {fileID: 2800000, guid: 2613a7a229b43344b95a5dbc689a93f9, type: 3}
+        m_Scale: {x: 0.1, y: 0.1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionTex:
+        m_Texture: {fileID: 2800000, guid: ad992caf62927544694cc2da1de3af0a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Flicker:
+        m_Texture: {fileID: 2800000, guid: a0775ddee39477446bcbcedd7ca1bd22, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FlickerTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: adc1adb49d95f3d4cb61d8570ee40521, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Noise:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NoiseControl:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Scanline:
+        m_Texture: {fileID: 2800000, guid: 20a617585b6151b4e8e177fc19a927c5, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ScanlinePattern:
+        m_Texture: {fileID: 2800000, guid: 7b0819c792d27f7448ecc71e55fce6aa, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Deform: 0
+    - Dissolve: 0
+    - _Alpha: 0.35
+    - _Brightness: 1.25
+    - _BumpScale: 1
+    - _Cutoff: 0.5
+    - _DetailNormalMapScale: 1
+    - _Dis: 0
+    - _DstBlend: 0
+    - _EdjeSize: 0.02
+    - _EmP: 0.5
+    - _Emission: 2
+    - _Flicker: 0
+    - _FlickerSpeed: 0.01
+    - _Fold: 63
+    - _Glitch: 0
+    - _GlitchIntensity: 0
+    - _GlitchSpeed: 0
+    - _GlossMapScale: 1
+    - _Glossiness: 0.5
+    - _GlossyReflections: 1
+    - _GlowSpeed: 5
+    - _GlowTiling: 1
+    - _HolOffSet: -0.09
+    - _HolTile: 3
+    - _Metallic: 0
+    - _Mode: 0
+    - _OcclusionStrength: 1
+    - _Parallax: 0.02
+    - _RimFallness: 0.5
+    - _RimPower: 6.5
+    - _RimStrength: 1
+    - _ScanSpeed: -1
+    - _ScanTiling: 500
+    - _Scanline: 0
+    - _ScanlineSpeed: 0.05
+    - _ScanlineTiling: 5.9
+    - _ShakeBending: -0.02
+    - _ShakeDisplacement: 1.7
+    - _ShakeTime: 4
+    - _Shakespeed: -0.1
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _UVSec: 0
+    - _ZWrite: 1
+    - fresnel: 1
+    m_Colors:
+    - _Color: {r: 0.2784314, g: 0.8117647, b: 0.9490196, a: 1}
+    - _ColorEm: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _MainColor: {r: 0.27058825, g: 0.3764706, b: 0.42745098, a: 1}
+    - _RimColor: {r: 0.58953285, g: 0.8100154, b: 0.85294116, a: 1}
+    - _ScanlineColor: {r: 0.0719575, g: 0.9485294, b: 0, a: 1}
 --- !u!1 &810918945
 GameObject:
   m_ObjectHideFlags: 0
@@ -12960,6 +14423,151 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 844007616}
   m_Mesh: {fileID: 4300124, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
+--- !u!21 &857132003
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: DefaultShipPickup Body Hologram Material (Instance)
+  m_Shader: {fileID: 4800000, guid: f898299852c00d546aecbd297af0aab6, type: 3}
+  m_ShaderKeywords: FRESNEL_ON SCANLINES _GLITCH_ON _GLOW_ON _SCAN_ON
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DissolveTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmTex:
+        m_Texture: {fileID: 2800000, guid: 2613a7a229b43344b95a5dbc689a93f9, type: 3}
+        m_Scale: {x: 0.1, y: 0.1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionTex:
+        m_Texture: {fileID: 2800000, guid: ad992caf62927544694cc2da1de3af0a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Flicker:
+        m_Texture: {fileID: 2800000, guid: a0775ddee39477446bcbcedd7ca1bd22, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FlickerTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: adc1adb49d95f3d4cb61d8570ee40521, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Noise:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NoiseControl:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Scanline:
+        m_Texture: {fileID: 2800000, guid: 20a617585b6151b4e8e177fc19a927c5, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ScanlinePattern:
+        m_Texture: {fileID: 2800000, guid: 7b0819c792d27f7448ecc71e55fce6aa, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Deform: 0
+    - Dissolve: 0
+    - _Alpha: 0.35
+    - _Brightness: 1.25
+    - _BumpScale: 1
+    - _Cutoff: 0.5
+    - _DetailNormalMapScale: 1
+    - _Dis: 0
+    - _DstBlend: 0
+    - _EdjeSize: 0.02
+    - _EmP: 0.5
+    - _Emission: 2
+    - _Flicker: 0
+    - _FlickerSpeed: 0.01
+    - _Fold: 63
+    - _Glitch: 0
+    - _GlitchIntensity: 0
+    - _GlitchSpeed: 0
+    - _GlossMapScale: 1
+    - _Glossiness: 0.5
+    - _GlossyReflections: 1
+    - _GlowSpeed: 5
+    - _GlowTiling: 1
+    - _HolOffSet: -0.09
+    - _HolTile: 3
+    - _Metallic: 0
+    - _Mode: 0
+    - _OcclusionStrength: 1
+    - _Parallax: 0.02
+    - _RimFallness: 0.5
+    - _RimPower: 6.5
+    - _RimStrength: 1
+    - _ScanSpeed: -1
+    - _ScanTiling: 500
+    - _Scanline: 0
+    - _ScanlineSpeed: 0.05
+    - _ScanlineTiling: 5.9
+    - _ShakeBending: -0.02
+    - _ShakeDisplacement: 1.7
+    - _ShakeTime: 4
+    - _Shakespeed: -0.1
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _UVSec: 0
+    - _ZWrite: 1
+    - fresnel: 1
+    m_Colors:
+    - _Color: {r: 0.2784314, g: 0.8117647, b: 0.9490196, a: 1}
+    - _ColorEm: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _MainColor: {r: 0.27058825, g: 0.3764706, b: 0.42745098, a: 1}
+    - _RimColor: {r: 0.58953285, g: 0.8100154, b: 0.85294116, a: 1}
+    - _ScanlineColor: {r: 0.0719575, g: 0.9485294, b: 0, a: 1}
 --- !u!1 &861511336
 GameObject:
   m_ObjectHideFlags: 0
@@ -13102,6 +14710,151 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 865992378}
   m_Mesh: {fileID: 4300000, guid: b25c2e8f95186d541b260782c4e6a35a, type: 3}
+--- !u!21 &880478800
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: DefaultShipPickup Body Hologram Material (Instance)
+  m_Shader: {fileID: 4800000, guid: f898299852c00d546aecbd297af0aab6, type: 3}
+  m_ShaderKeywords: FRESNEL_ON SCANLINES _GLITCH_ON _GLOW_ON _SCAN_ON
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DissolveTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmTex:
+        m_Texture: {fileID: 2800000, guid: 2613a7a229b43344b95a5dbc689a93f9, type: 3}
+        m_Scale: {x: 0.1, y: 0.1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionTex:
+        m_Texture: {fileID: 2800000, guid: ad992caf62927544694cc2da1de3af0a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Flicker:
+        m_Texture: {fileID: 2800000, guid: a0775ddee39477446bcbcedd7ca1bd22, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FlickerTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: adc1adb49d95f3d4cb61d8570ee40521, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Noise:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NoiseControl:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Scanline:
+        m_Texture: {fileID: 2800000, guid: 20a617585b6151b4e8e177fc19a927c5, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ScanlinePattern:
+        m_Texture: {fileID: 2800000, guid: 7b0819c792d27f7448ecc71e55fce6aa, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Deform: 0
+    - Dissolve: 0
+    - _Alpha: 0.35
+    - _Brightness: 1.25
+    - _BumpScale: 1
+    - _Cutoff: 0.5
+    - _DetailNormalMapScale: 1
+    - _Dis: 0
+    - _DstBlend: 0
+    - _EdjeSize: 0.02
+    - _EmP: 0.5
+    - _Emission: 2
+    - _Flicker: 0
+    - _FlickerSpeed: 0.01
+    - _Fold: 63
+    - _Glitch: 0
+    - _GlitchIntensity: 0
+    - _GlitchSpeed: 0
+    - _GlossMapScale: 1
+    - _Glossiness: 0.5
+    - _GlossyReflections: 1
+    - _GlowSpeed: 5
+    - _GlowTiling: 1
+    - _HolOffSet: -0.09
+    - _HolTile: 3
+    - _Metallic: 0
+    - _Mode: 0
+    - _OcclusionStrength: 1
+    - _Parallax: 0.02
+    - _RimFallness: 0.5
+    - _RimPower: 6.5
+    - _RimStrength: 1
+    - _ScanSpeed: -1
+    - _ScanTiling: 500
+    - _Scanline: 0
+    - _ScanlineSpeed: 0.05
+    - _ScanlineTiling: 5.9
+    - _ShakeBending: -0.02
+    - _ShakeDisplacement: 1.7
+    - _ShakeTime: 4
+    - _Shakespeed: -0.1
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _UVSec: 0
+    - _ZWrite: 1
+    - fresnel: 1
+    m_Colors:
+    - _Color: {r: 0.2784314, g: 0.8117647, b: 0.9490196, a: 1}
+    - _ColorEm: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _MainColor: {r: 0.27058825, g: 0.3764706, b: 0.42745098, a: 1}
+    - _RimColor: {r: 0.58953285, g: 0.8100154, b: 0.85294116, a: 1}
+    - _ScanlineColor: {r: 0.0719575, g: 0.9485294, b: 0, a: 1}
 --- !u!1 &891970937
 GameObject:
   m_ObjectHideFlags: 0
@@ -16389,6 +18142,15 @@ MonoBehaviour:
   - objectPrefab: {fileID: 1577835415642778, guid: 12352e24291685e4592fdef29cf51957,
       type: 2}
     amountToPool: 50
+  - objectPrefab: {fileID: 1307413110761698, guid: 5836dae6ada90854ebde690e97f02506,
+      type: 2}
+    amountToPool: 8
+  - objectPrefab: {fileID: 1307413110761698, guid: 0a6310fe6e0315c49b3d5d6181363b2a,
+      type: 2}
+    amountToPool: 5
+  - objectPrefab: {fileID: 1415951353483722, guid: c369e0de9779d60459be5725f2a142bc,
+      type: 2}
+    amountToPool: 40
   - objectPrefab: {fileID: 1307413110761698, guid: 44d6133eede41af47acad395888fba4a,
       type: 2}
     amountToPool: 50
@@ -16410,9 +18172,9 @@ MonoBehaviour:
   - objectPrefab: {fileID: 1381081471905298, guid: 25bfeab4f6fd2224ba48cd259ff77d8a,
       type: 2}
     amountToPool: 10
-  - objectPrefab: {fileID: 1415951353483722, guid: c369e0de9779d60459be5725f2a142bc,
+  - objectPrefab: {fileID: 1307413110761698, guid: 158fba1b6ab669c44b53c25c070addd8,
       type: 2}
-    amountToPool: 40
+    amountToPool: 50
   - objectPrefab: {fileID: 1960874980371040, guid: 89d7014b6d7141e49877d9ba774fa125,
       type: 2}
     amountToPool: 10
@@ -16433,10 +18195,10 @@ MonoBehaviour:
     amountToPool: 10
   - objectPrefab: {fileID: 1513755002767112, guid: 30dc656852d68e1468786a60f4c1317b,
       type: 2}
-    amountToPool: 10
+    amountToPool: 55
   - objectPrefab: {fileID: 1357893919377176, guid: 8b7938b72dd6d574b87c600a2ca628bf,
       type: 2}
-    amountToPool: 10
+    amountToPool: 15
   - objectPrefab: {fileID: 1707196459127982, guid: 6345b1ac59bbdae47b63d92f2e522198,
       type: 2}
     amountToPool: 10
@@ -16463,28 +18225,28 @@ MonoBehaviour:
     amountToPool: 1
   - objectPrefab: {fileID: 1590670541974036, guid: 42e645c723bbafb48ae4e77a562e1668,
       type: 2}
-    amountToPool: 100
+    amountToPool: 300
   - objectPrefab: {fileID: 1590670541974036, guid: 36f0f520dc8513d4786e04f834803383,
       type: 2}
     amountToPool: 1
   - objectPrefab: {fileID: 1227589345395862, guid: 9919fbd69d002ad4ba43788bfb042c76,
       type: 2}
-    amountToPool: 20
+    amountToPool: 65
   - objectPrefab: {fileID: 1729075773718028, guid: 1aa1277ded9adc34c9d91e24cf97aafc,
       type: 2}
-    amountToPool: 20
+    amountToPool: 50
   - objectPrefab: {fileID: 1344628441058594, guid: 5aa2ec81e2c3d2c43add9f5a43da634b,
       type: 2}
-    amountToPool: 20
+    amountToPool: 50
   - objectPrefab: {fileID: 1587026779172016, guid: ea58860281aa55745bbb156499e70f21,
       type: 2}
-    amountToPool: 20
+    amountToPool: 50
   - objectPrefab: {fileID: 1933859481263082, guid: ec2f242de238de648a55f01c4259f4e4,
       type: 2}
-    amountToPool: 20
+    amountToPool: 35
   - objectPrefab: {fileID: 1696697073915922, guid: 692a53a639739c440952abd099686e69,
       type: 2}
-    amountToPool: 20
+    amountToPool: 35
   - objectPrefab: {fileID: 1494540139663382, guid: d561505dddc53c94e926621f609a27f6,
       type: 2}
     amountToPool: 10
@@ -16516,6 +18278,151 @@ Transform:
   m_Father: {fileID: 421848038}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!21 &900772152
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: DefaultShipPickup Body Hologram Material (Instance)
+  m_Shader: {fileID: 4800000, guid: f898299852c00d546aecbd297af0aab6, type: 3}
+  m_ShaderKeywords: FRESNEL_ON SCANLINES _GLITCH_ON _GLOW_ON _SCAN_ON
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DissolveTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmTex:
+        m_Texture: {fileID: 2800000, guid: 2613a7a229b43344b95a5dbc689a93f9, type: 3}
+        m_Scale: {x: 0.1, y: 0.1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionTex:
+        m_Texture: {fileID: 2800000, guid: ad992caf62927544694cc2da1de3af0a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Flicker:
+        m_Texture: {fileID: 2800000, guid: a0775ddee39477446bcbcedd7ca1bd22, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FlickerTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: adc1adb49d95f3d4cb61d8570ee40521, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Noise:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NoiseControl:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Scanline:
+        m_Texture: {fileID: 2800000, guid: 20a617585b6151b4e8e177fc19a927c5, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ScanlinePattern:
+        m_Texture: {fileID: 2800000, guid: 7b0819c792d27f7448ecc71e55fce6aa, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Deform: 0
+    - Dissolve: 0
+    - _Alpha: 0.35
+    - _Brightness: 1.25
+    - _BumpScale: 1
+    - _Cutoff: 0.5
+    - _DetailNormalMapScale: 1
+    - _Dis: 0
+    - _DstBlend: 0
+    - _EdjeSize: 0.02
+    - _EmP: 0.5
+    - _Emission: 2
+    - _Flicker: 0
+    - _FlickerSpeed: 0.01
+    - _Fold: 63
+    - _Glitch: 0
+    - _GlitchIntensity: 0
+    - _GlitchSpeed: 0
+    - _GlossMapScale: 1
+    - _Glossiness: 0.5
+    - _GlossyReflections: 1
+    - _GlowSpeed: 5
+    - _GlowTiling: 1
+    - _HolOffSet: -0.09
+    - _HolTile: 3
+    - _Metallic: 0
+    - _Mode: 0
+    - _OcclusionStrength: 1
+    - _Parallax: 0.02
+    - _RimFallness: 0.5
+    - _RimPower: 6.5
+    - _RimStrength: 1
+    - _ScanSpeed: -1
+    - _ScanTiling: 500
+    - _Scanline: 0
+    - _ScanlineSpeed: 0.05
+    - _ScanlineTiling: 5.9
+    - _ShakeBending: -0.02
+    - _ShakeDisplacement: 1.7
+    - _ShakeTime: 4
+    - _Shakespeed: -0.1
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _UVSec: 0
+    - _ZWrite: 1
+    - fresnel: 1
+    m_Colors:
+    - _Color: {r: 0.2784314, g: 0.8117647, b: 0.9490196, a: 1}
+    - _ColorEm: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _MainColor: {r: 0.27058825, g: 0.3764706, b: 0.42745098, a: 1}
+    - _RimColor: {r: 0.58953285, g: 0.8100154, b: 0.85294116, a: 1}
+    - _ScanlineColor: {r: 0.0719575, g: 0.9485294, b: 0, a: 1}
 --- !u!1 &902762740
 GameObject:
   m_ObjectHideFlags: 0
@@ -16544,7 +18451,7 @@ Transform:
   m_Children:
   - {fileID: 2010568140}
   m_Father: {fileID: 421848038}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &902762742
 MonoBehaviour:
@@ -16777,6 +18684,151 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 916722611}
   m_Mesh: {fileID: 4300000, guid: b25c2e8f95186d541b260782c4e6a35a, type: 3}
+--- !u!21 &920020065
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: DefaultShipPickup Body Hologram Material (Instance)
+  m_Shader: {fileID: 4800000, guid: f898299852c00d546aecbd297af0aab6, type: 3}
+  m_ShaderKeywords: FRESNEL_ON SCANLINES _GLITCH_ON _GLOW_ON _SCAN_ON
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DissolveTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmTex:
+        m_Texture: {fileID: 2800000, guid: 2613a7a229b43344b95a5dbc689a93f9, type: 3}
+        m_Scale: {x: 0.1, y: 0.1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionTex:
+        m_Texture: {fileID: 2800000, guid: ad992caf62927544694cc2da1de3af0a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Flicker:
+        m_Texture: {fileID: 2800000, guid: a0775ddee39477446bcbcedd7ca1bd22, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FlickerTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: adc1adb49d95f3d4cb61d8570ee40521, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Noise:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NoiseControl:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Scanline:
+        m_Texture: {fileID: 2800000, guid: 20a617585b6151b4e8e177fc19a927c5, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ScanlinePattern:
+        m_Texture: {fileID: 2800000, guid: 7b0819c792d27f7448ecc71e55fce6aa, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Deform: 0
+    - Dissolve: 0
+    - _Alpha: 0.35
+    - _Brightness: 1.25
+    - _BumpScale: 1
+    - _Cutoff: 0.5
+    - _DetailNormalMapScale: 1
+    - _Dis: 0
+    - _DstBlend: 0
+    - _EdjeSize: 0.02
+    - _EmP: 0.5
+    - _Emission: 2
+    - _Flicker: 0
+    - _FlickerSpeed: 0.01
+    - _Fold: 63
+    - _Glitch: 0
+    - _GlitchIntensity: 0
+    - _GlitchSpeed: 0
+    - _GlossMapScale: 1
+    - _Glossiness: 0.5
+    - _GlossyReflections: 1
+    - _GlowSpeed: 5
+    - _GlowTiling: 1
+    - _HolOffSet: -0.09
+    - _HolTile: 3
+    - _Metallic: 0
+    - _Mode: 0
+    - _OcclusionStrength: 1
+    - _Parallax: 0.02
+    - _RimFallness: 0.5
+    - _RimPower: 6.5
+    - _RimStrength: 1
+    - _ScanSpeed: -1
+    - _ScanTiling: 500
+    - _Scanline: 0
+    - _ScanlineSpeed: 0.05
+    - _ScanlineTiling: 5.9
+    - _ShakeBending: -0.02
+    - _ShakeDisplacement: 1.7
+    - _ShakeTime: 4
+    - _Shakespeed: -0.1
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _UVSec: 0
+    - _ZWrite: 1
+    - fresnel: 1
+    m_Colors:
+    - _Color: {r: 0.2784314, g: 0.8117647, b: 0.9490196, a: 1}
+    - _ColorEm: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _MainColor: {r: 0.27058825, g: 0.3764706, b: 0.42745098, a: 1}
+    - _RimColor: {r: 0.58953285, g: 0.8100154, b: 0.85294116, a: 1}
+    - _ScanlineColor: {r: 0.0719575, g: 0.9485294, b: 0, a: 1}
 --- !u!1 &920956507
 GameObject:
   m_ObjectHideFlags: 0
@@ -17013,6 +19065,151 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!21 &935791353
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: DefaultShipPickup Body Hologram Material (Instance)
+  m_Shader: {fileID: 4800000, guid: f898299852c00d546aecbd297af0aab6, type: 3}
+  m_ShaderKeywords: FRESNEL_ON SCANLINES _GLITCH_ON _GLOW_ON _SCAN_ON
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DissolveTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmTex:
+        m_Texture: {fileID: 2800000, guid: 2613a7a229b43344b95a5dbc689a93f9, type: 3}
+        m_Scale: {x: 0.1, y: 0.1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionTex:
+        m_Texture: {fileID: 2800000, guid: ad992caf62927544694cc2da1de3af0a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Flicker:
+        m_Texture: {fileID: 2800000, guid: a0775ddee39477446bcbcedd7ca1bd22, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FlickerTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: adc1adb49d95f3d4cb61d8570ee40521, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Noise:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NoiseControl:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Scanline:
+        m_Texture: {fileID: 2800000, guid: 20a617585b6151b4e8e177fc19a927c5, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ScanlinePattern:
+        m_Texture: {fileID: 2800000, guid: 7b0819c792d27f7448ecc71e55fce6aa, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Deform: 0
+    - Dissolve: 0
+    - _Alpha: 0.35
+    - _Brightness: 1.25
+    - _BumpScale: 1
+    - _Cutoff: 0.5
+    - _DetailNormalMapScale: 1
+    - _Dis: 0
+    - _DstBlend: 0
+    - _EdjeSize: 0.02
+    - _EmP: 0.5
+    - _Emission: 2
+    - _Flicker: 0
+    - _FlickerSpeed: 0.01
+    - _Fold: 63
+    - _Glitch: 0
+    - _GlitchIntensity: 0
+    - _GlitchSpeed: 0
+    - _GlossMapScale: 1
+    - _Glossiness: 0.5
+    - _GlossyReflections: 1
+    - _GlowSpeed: 5
+    - _GlowTiling: 1
+    - _HolOffSet: -0.09
+    - _HolTile: 3
+    - _Metallic: 0
+    - _Mode: 0
+    - _OcclusionStrength: 1
+    - _Parallax: 0.02
+    - _RimFallness: 0.5
+    - _RimPower: 6.5
+    - _RimStrength: 1
+    - _ScanSpeed: -1
+    - _ScanTiling: 500
+    - _Scanline: 0
+    - _ScanlineSpeed: 0.05
+    - _ScanlineTiling: 5.9
+    - _ShakeBending: -0.02
+    - _ShakeDisplacement: 1.7
+    - _ShakeTime: 4
+    - _Shakespeed: -0.1
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _UVSec: 0
+    - _ZWrite: 1
+    - fresnel: 1
+    m_Colors:
+    - _Color: {r: 0.2784314, g: 0.8117647, b: 0.9490196, a: 1}
+    - _ColorEm: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _MainColor: {r: 0.27058825, g: 0.3764706, b: 0.42745098, a: 1}
+    - _RimColor: {r: 0.58953285, g: 0.8100154, b: 0.85294116, a: 1}
+    - _ScanlineColor: {r: 0.0719575, g: 0.9485294, b: 0, a: 1}
 --- !u!1 &936767481
 GameObject:
   m_ObjectHideFlags: 0
@@ -25044,7 +27241,7 @@ Transform:
   - {fileID: 1873344626}
   - {fileID: 784264370}
   m_Father: {fileID: 421848038}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1077584952
 MonoBehaviour:
@@ -28646,7 +30843,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4125716692458594, guid: 6882ba8419b540143b75223c5180b03d, type: 2}
       propertyPath: m_RootOrder
-      value: 12
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1146154452581578, guid: 6882ba8419b540143b75223c5180b03d, type: 2}
       propertyPath: m_IsActive
@@ -28875,6 +31072,151 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1123887016}
   m_Mesh: {fileID: 4300000, guid: 77d93082ac1e0b641b1ecc7a3de04319, type: 3}
+--- !u!21 &1124656317
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: DefaultShipPickup Body Hologram Material (Instance)
+  m_Shader: {fileID: 4800000, guid: f898299852c00d546aecbd297af0aab6, type: 3}
+  m_ShaderKeywords: FRESNEL_ON SCANLINES _GLITCH_ON _GLOW_ON _SCAN_ON
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DissolveTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmTex:
+        m_Texture: {fileID: 2800000, guid: 2613a7a229b43344b95a5dbc689a93f9, type: 3}
+        m_Scale: {x: 0.1, y: 0.1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionTex:
+        m_Texture: {fileID: 2800000, guid: ad992caf62927544694cc2da1de3af0a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Flicker:
+        m_Texture: {fileID: 2800000, guid: a0775ddee39477446bcbcedd7ca1bd22, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FlickerTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: adc1adb49d95f3d4cb61d8570ee40521, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Noise:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NoiseControl:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Scanline:
+        m_Texture: {fileID: 2800000, guid: 20a617585b6151b4e8e177fc19a927c5, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ScanlinePattern:
+        m_Texture: {fileID: 2800000, guid: 7b0819c792d27f7448ecc71e55fce6aa, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Deform: 0
+    - Dissolve: 0
+    - _Alpha: 0.35
+    - _Brightness: 1.25
+    - _BumpScale: 1
+    - _Cutoff: 0.5
+    - _DetailNormalMapScale: 1
+    - _Dis: 0
+    - _DstBlend: 0
+    - _EdjeSize: 0.02
+    - _EmP: 0.5
+    - _Emission: 2
+    - _Flicker: 0
+    - _FlickerSpeed: 0.01
+    - _Fold: 63
+    - _Glitch: 0
+    - _GlitchIntensity: 0
+    - _GlitchSpeed: 0
+    - _GlossMapScale: 1
+    - _Glossiness: 0.5
+    - _GlossyReflections: 1
+    - _GlowSpeed: 5
+    - _GlowTiling: 1
+    - _HolOffSet: -0.09
+    - _HolTile: 3
+    - _Metallic: 0
+    - _Mode: 0
+    - _OcclusionStrength: 1
+    - _Parallax: 0.02
+    - _RimFallness: 0.5
+    - _RimPower: 6.5
+    - _RimStrength: 1
+    - _ScanSpeed: -1
+    - _ScanTiling: 500
+    - _Scanline: 0
+    - _ScanlineSpeed: 0.05
+    - _ScanlineTiling: 5.9
+    - _ShakeBending: -0.02
+    - _ShakeDisplacement: 1.7
+    - _ShakeTime: 4
+    - _Shakespeed: -0.1
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _UVSec: 0
+    - _ZWrite: 1
+    - fresnel: 1
+    m_Colors:
+    - _Color: {r: 0.2784314, g: 0.8117647, b: 0.9490196, a: 1}
+    - _ColorEm: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _MainColor: {r: 0.27058825, g: 0.3764706, b: 0.42745098, a: 1}
+    - _RimColor: {r: 0.58953285, g: 0.8100154, b: 0.85294116, a: 1}
+    - _ScanlineColor: {r: 0.0719575, g: 0.9485294, b: 0, a: 1}
 --- !u!1 &1126867848
 GameObject:
   m_ObjectHideFlags: 0
@@ -34217,6 +36559,151 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1313141878}
   m_Mesh: {fileID: 4300000, guid: d0db0aa0656fb2d499454a60e58931a7, type: 3}
+--- !u!21 &1313899311
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: DefaultShipPickup Body Hologram Material (Instance)
+  m_Shader: {fileID: 4800000, guid: f898299852c00d546aecbd297af0aab6, type: 3}
+  m_ShaderKeywords: FRESNEL_ON SCANLINES _GLITCH_ON _GLOW_ON _SCAN_ON
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DissolveTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmTex:
+        m_Texture: {fileID: 2800000, guid: 2613a7a229b43344b95a5dbc689a93f9, type: 3}
+        m_Scale: {x: 0.1, y: 0.1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionTex:
+        m_Texture: {fileID: 2800000, guid: ad992caf62927544694cc2da1de3af0a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Flicker:
+        m_Texture: {fileID: 2800000, guid: a0775ddee39477446bcbcedd7ca1bd22, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FlickerTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: adc1adb49d95f3d4cb61d8570ee40521, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Noise:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NoiseControl:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Scanline:
+        m_Texture: {fileID: 2800000, guid: 20a617585b6151b4e8e177fc19a927c5, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ScanlinePattern:
+        m_Texture: {fileID: 2800000, guid: 7b0819c792d27f7448ecc71e55fce6aa, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Deform: 0
+    - Dissolve: 0
+    - _Alpha: 0.35
+    - _Brightness: 1.25
+    - _BumpScale: 1
+    - _Cutoff: 0.5
+    - _DetailNormalMapScale: 1
+    - _Dis: 0
+    - _DstBlend: 0
+    - _EdjeSize: 0.02
+    - _EmP: 0.5
+    - _Emission: 2
+    - _Flicker: 0
+    - _FlickerSpeed: 0.01
+    - _Fold: 63
+    - _Glitch: 0
+    - _GlitchIntensity: 0
+    - _GlitchSpeed: 0
+    - _GlossMapScale: 1
+    - _Glossiness: 0.5
+    - _GlossyReflections: 1
+    - _GlowSpeed: 5
+    - _GlowTiling: 1
+    - _HolOffSet: -0.09
+    - _HolTile: 3
+    - _Metallic: 0
+    - _Mode: 0
+    - _OcclusionStrength: 1
+    - _Parallax: 0.02
+    - _RimFallness: 0.5
+    - _RimPower: 6.5
+    - _RimStrength: 1
+    - _ScanSpeed: -1
+    - _ScanTiling: 500
+    - _Scanline: 0
+    - _ScanlineSpeed: 0.05
+    - _ScanlineTiling: 5.9
+    - _ShakeBending: -0.02
+    - _ShakeDisplacement: 1.7
+    - _ShakeTime: 4
+    - _Shakespeed: -0.1
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _UVSec: 0
+    - _ZWrite: 1
+    - fresnel: 1
+    m_Colors:
+    - _Color: {r: 0.2784314, g: 0.8117647, b: 0.9490196, a: 1}
+    - _ColorEm: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _MainColor: {r: 0.27058825, g: 0.3764706, b: 0.42745098, a: 1}
+    - _RimColor: {r: 0.58953285, g: 0.8100154, b: 0.85294116, a: 1}
+    - _ScanlineColor: {r: 0.0719575, g: 0.9485294, b: 0, a: 1}
 --- !u!1 &1318908267
 GameObject:
   m_ObjectHideFlags: 0
@@ -34438,17 +36925,181 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1338146205}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &1351179624 stripped
+--- !u!4 &1351179624
 Transform:
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 4391042715942922, guid: 965c3af37ca71964ea917c79a708bb12,
     type: 2}
-  m_PrefabInternal: {fileID: 785211841}
---- !u!114 &1351179625 stripped
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 129054670}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 421848038}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1351179625
 MonoBehaviour:
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 114083984002419404, guid: 965c3af37ca71964ea917c79a708bb12,
     type: 2}
-  m_PrefabInternal: {fileID: 785211841}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 129054670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cd6c37d73f3d330439ad4e3db0d075a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectileSpeed: 1.5
+  projectileLifetime: 10
+  timeWarpPrefab: {fileID: 1207937996568046, guid: 5201957c382643d49b6f06c526e35261,
+    type: 2}
+--- !u!21 &1365813165
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: DefaultShipPickup Body Hologram Material (Instance)
+  m_Shader: {fileID: 4800000, guid: f898299852c00d546aecbd297af0aab6, type: 3}
+  m_ShaderKeywords: FRESNEL_ON SCANLINES _GLITCH_ON _GLOW_ON _SCAN_ON
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DissolveTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmTex:
+        m_Texture: {fileID: 2800000, guid: 2613a7a229b43344b95a5dbc689a93f9, type: 3}
+        m_Scale: {x: 0.1, y: 0.1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionTex:
+        m_Texture: {fileID: 2800000, guid: ad992caf62927544694cc2da1de3af0a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Flicker:
+        m_Texture: {fileID: 2800000, guid: a0775ddee39477446bcbcedd7ca1bd22, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FlickerTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: adc1adb49d95f3d4cb61d8570ee40521, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Noise:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NoiseControl:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Scanline:
+        m_Texture: {fileID: 2800000, guid: 20a617585b6151b4e8e177fc19a927c5, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ScanlinePattern:
+        m_Texture: {fileID: 2800000, guid: 7b0819c792d27f7448ecc71e55fce6aa, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Deform: 0
+    - Dissolve: 0
+    - _Alpha: 0.35
+    - _Brightness: 1.25
+    - _BumpScale: 1
+    - _Cutoff: 0.5
+    - _DetailNormalMapScale: 1
+    - _Dis: 0
+    - _DstBlend: 0
+    - _EdjeSize: 0.02
+    - _EmP: 0.5
+    - _Emission: 2
+    - _Flicker: 0
+    - _FlickerSpeed: 0.01
+    - _Fold: 63
+    - _Glitch: 0
+    - _GlitchIntensity: 0
+    - _GlitchSpeed: 0
+    - _GlossMapScale: 1
+    - _Glossiness: 0.5
+    - _GlossyReflections: 1
+    - _GlowSpeed: 5
+    - _GlowTiling: 1
+    - _HolOffSet: -0.09
+    - _HolTile: 3
+    - _Metallic: 0
+    - _Mode: 0
+    - _OcclusionStrength: 1
+    - _Parallax: 0.02
+    - _RimFallness: 0.5
+    - _RimPower: 6.5
+    - _RimStrength: 1
+    - _ScanSpeed: -1
+    - _ScanTiling: 500
+    - _Scanline: 0
+    - _ScanlineSpeed: 0.05
+    - _ScanlineTiling: 5.9
+    - _ShakeBending: -0.02
+    - _ShakeDisplacement: 1.7
+    - _ShakeTime: 4
+    - _Shakespeed: -0.1
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _UVSec: 0
+    - _ZWrite: 1
+    - fresnel: 1
+    m_Colors:
+    - _Color: {r: 0.2784314, g: 0.8117647, b: 0.9490196, a: 1}
+    - _ColorEm: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _MainColor: {r: 0.27058825, g: 0.3764706, b: 0.42745098, a: 1}
+    - _RimColor: {r: 0.58953285, g: 0.8100154, b: 0.85294116, a: 1}
+    - _ScanlineColor: {r: 0.0719575, g: 0.9485294, b: 0, a: 1}
 --- !u!1 &1377375827
 GameObject:
   m_ObjectHideFlags: 0
@@ -34786,13 +37437,8 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4822322694911372, guid: 6503730551a61ef4ebeca6bd91b11120, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 114727511158786194, guid: 6503730551a61ef4ebeca6bd91b11120,
-        type: 2}
-      propertyPath: reference
-      value: 
-      objectReference: {fileID: 2047074952}
     - target: {fileID: 114508135794012018, guid: 6503730551a61ef4ebeca6bd91b11120,
         type: 2}
       propertyPath: bossManager
@@ -34828,11 +37474,6 @@ Prefab:
       propertyPath: bossAudioSource
       value: 
       objectReference: {fileID: 1937185397}
-    - target: {fileID: 114508135794012018, guid: 6503730551a61ef4ebeca6bd91b11120,
-        type: 2}
-      propertyPath: startingWave
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6503730551a61ef4ebeca6bd91b11120, type: 2}
   m_IsPrefabParent: 0
@@ -38199,6 +40840,151 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!21 &1430359089
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: DefaultShipPickup Body Hologram Material (Instance)
+  m_Shader: {fileID: 4800000, guid: f898299852c00d546aecbd297af0aab6, type: 3}
+  m_ShaderKeywords: FRESNEL_ON SCANLINES _GLITCH_ON _GLOW_ON _SCAN_ON
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DissolveTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmTex:
+        m_Texture: {fileID: 2800000, guid: 2613a7a229b43344b95a5dbc689a93f9, type: 3}
+        m_Scale: {x: 0.1, y: 0.1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionTex:
+        m_Texture: {fileID: 2800000, guid: ad992caf62927544694cc2da1de3af0a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Flicker:
+        m_Texture: {fileID: 2800000, guid: a0775ddee39477446bcbcedd7ca1bd22, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FlickerTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: adc1adb49d95f3d4cb61d8570ee40521, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Noise:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NoiseControl:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Scanline:
+        m_Texture: {fileID: 2800000, guid: 20a617585b6151b4e8e177fc19a927c5, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ScanlinePattern:
+        m_Texture: {fileID: 2800000, guid: 7b0819c792d27f7448ecc71e55fce6aa, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Deform: 0
+    - Dissolve: 0
+    - _Alpha: 0.35
+    - _Brightness: 1.25
+    - _BumpScale: 1
+    - _Cutoff: 0.5
+    - _DetailNormalMapScale: 1
+    - _Dis: 0
+    - _DstBlend: 0
+    - _EdjeSize: 0.02
+    - _EmP: 0.5
+    - _Emission: 2
+    - _Flicker: 0
+    - _FlickerSpeed: 0.01
+    - _Fold: 63
+    - _Glitch: 0
+    - _GlitchIntensity: 0
+    - _GlitchSpeed: 0
+    - _GlossMapScale: 1
+    - _Glossiness: 0.5
+    - _GlossyReflections: 1
+    - _GlowSpeed: 5
+    - _GlowTiling: 1
+    - _HolOffSet: -0.09
+    - _HolTile: 3
+    - _Metallic: 0
+    - _Mode: 0
+    - _OcclusionStrength: 1
+    - _Parallax: 0.02
+    - _RimFallness: 0.5
+    - _RimPower: 6.5
+    - _RimStrength: 1
+    - _ScanSpeed: -1
+    - _ScanTiling: 500
+    - _Scanline: 0
+    - _ScanlineSpeed: 0.05
+    - _ScanlineTiling: 5.9
+    - _ShakeBending: -0.02
+    - _ShakeDisplacement: 1.7
+    - _ShakeTime: 4
+    - _Shakespeed: -0.1
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _UVSec: 0
+    - _ZWrite: 1
+    - fresnel: 1
+    m_Colors:
+    - _Color: {r: 0.2784314, g: 0.8117647, b: 0.9490196, a: 1}
+    - _ColorEm: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _MainColor: {r: 0.27058825, g: 0.3764706, b: 0.42745098, a: 1}
+    - _RimColor: {r: 0.58953285, g: 0.8100154, b: 0.85294116, a: 1}
+    - _ScanlineColor: {r: 0.0719575, g: 0.9485294, b: 0, a: 1}
 --- !u!1 &1436548138
 GameObject:
   m_ObjectHideFlags: 0
@@ -39072,17 +41858,6 @@ Transform:
   m_Father: {fileID: 2027920201}
   m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &1533610576 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4875036780894688, guid: 33896937bf8020d479da75be3e09e081,
-    type: 2}
-  m_PrefabInternal: {fileID: 1591140523}
---- !u!114 &1533610577 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114471007866272358, guid: 33896937bf8020d479da75be3e09e081,
-    type: 2}
-  m_PrefabInternal: {fileID: 1591140523}
-  m_Script: {fileID: 11500000, guid: 69b8af92f2f02c44c9fe7c18db5cef02, type: 3}
 --- !u!1 &1537673239
 GameObject:
   m_ObjectHideFlags: 0
@@ -43189,48 +45964,6 @@ Transform:
   m_Father: {fileID: 2027920201}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &1591140523
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 2047074951}
-    m_Modifications:
-    - target: {fileID: 4875036780894688, guid: 33896937bf8020d479da75be3e09e081, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4875036780894688, guid: 33896937bf8020d479da75be3e09e081, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4875036780894688, guid: 33896937bf8020d479da75be3e09e081, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4875036780894688, guid: 33896937bf8020d479da75be3e09e081, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4875036780894688, guid: 33896937bf8020d479da75be3e09e081, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4875036780894688, guid: 33896937bf8020d479da75be3e09e081, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4875036780894688, guid: 33896937bf8020d479da75be3e09e081, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4875036780894688, guid: 33896937bf8020d479da75be3e09e081, type: 2}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 33896937bf8020d479da75be3e09e081, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &1592140047
 GameObject:
   m_ObjectHideFlags: 0
@@ -47620,6 +50353,151 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1720772256}
   m_Mesh: {fileID: 4300000, guid: b25c2e8f95186d541b260782c4e6a35a, type: 3}
+--- !u!21 &1724689334
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: DefaultShipPickup Body Hologram Material (Instance)
+  m_Shader: {fileID: 4800000, guid: f898299852c00d546aecbd297af0aab6, type: 3}
+  m_ShaderKeywords: FRESNEL_ON SCANLINES _GLITCH_ON _GLOW_ON _SCAN_ON
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DissolveTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmTex:
+        m_Texture: {fileID: 2800000, guid: 2613a7a229b43344b95a5dbc689a93f9, type: 3}
+        m_Scale: {x: 0.1, y: 0.1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionTex:
+        m_Texture: {fileID: 2800000, guid: ad992caf62927544694cc2da1de3af0a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Flicker:
+        m_Texture: {fileID: 2800000, guid: a0775ddee39477446bcbcedd7ca1bd22, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FlickerTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: adc1adb49d95f3d4cb61d8570ee40521, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Noise:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NoiseControl:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Scanline:
+        m_Texture: {fileID: 2800000, guid: 20a617585b6151b4e8e177fc19a927c5, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ScanlinePattern:
+        m_Texture: {fileID: 2800000, guid: 7b0819c792d27f7448ecc71e55fce6aa, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Deform: 0
+    - Dissolve: 0
+    - _Alpha: 0.35
+    - _Brightness: 1.25
+    - _BumpScale: 1
+    - _Cutoff: 0.5
+    - _DetailNormalMapScale: 1
+    - _Dis: 0
+    - _DstBlend: 0
+    - _EdjeSize: 0.02
+    - _EmP: 0.5
+    - _Emission: 2
+    - _Flicker: 0
+    - _FlickerSpeed: 0.01
+    - _Fold: 63
+    - _Glitch: 0
+    - _GlitchIntensity: 0
+    - _GlitchSpeed: 0
+    - _GlossMapScale: 1
+    - _Glossiness: 0.5
+    - _GlossyReflections: 1
+    - _GlowSpeed: 5
+    - _GlowTiling: 1
+    - _HolOffSet: -0.09
+    - _HolTile: 3
+    - _Metallic: 0
+    - _Mode: 0
+    - _OcclusionStrength: 1
+    - _Parallax: 0.02
+    - _RimFallness: 0.5
+    - _RimPower: 6.5
+    - _RimStrength: 1
+    - _ScanSpeed: -1
+    - _ScanTiling: 500
+    - _Scanline: 0
+    - _ScanlineSpeed: 0.05
+    - _ScanlineTiling: 5.9
+    - _ShakeBending: -0.02
+    - _ShakeDisplacement: 1.7
+    - _ShakeTime: 4
+    - _Shakespeed: -0.1
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _UVSec: 0
+    - _ZWrite: 1
+    - fresnel: 1
+    m_Colors:
+    - _Color: {r: 0.2784314, g: 0.8117647, b: 0.9490196, a: 1}
+    - _ColorEm: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _MainColor: {r: 0.27058825, g: 0.3764706, b: 0.42745098, a: 1}
+    - _RimColor: {r: 0.58953285, g: 0.8100154, b: 0.85294116, a: 1}
+    - _ScanlineColor: {r: 0.0719575, g: 0.9485294, b: 0, a: 1}
 --- !u!1 &1732903676
 GameObject:
   m_ObjectHideFlags: 0
@@ -47774,6 +50652,338 @@ Transform:
   m_Father: {fileID: 2027920201}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!21 &1743392429
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: DefaultShipPickup Body Hologram Material (Instance)
+  m_Shader: {fileID: 4800000, guid: f898299852c00d546aecbd297af0aab6, type: 3}
+  m_ShaderKeywords: FRESNEL_ON SCANLINES _GLITCH_ON _GLOW_ON _SCAN_ON
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DissolveTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmTex:
+        m_Texture: {fileID: 2800000, guid: 2613a7a229b43344b95a5dbc689a93f9, type: 3}
+        m_Scale: {x: 0.1, y: 0.1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionTex:
+        m_Texture: {fileID: 2800000, guid: ad992caf62927544694cc2da1de3af0a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Flicker:
+        m_Texture: {fileID: 2800000, guid: a0775ddee39477446bcbcedd7ca1bd22, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FlickerTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: adc1adb49d95f3d4cb61d8570ee40521, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Noise:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NoiseControl:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Scanline:
+        m_Texture: {fileID: 2800000, guid: 20a617585b6151b4e8e177fc19a927c5, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ScanlinePattern:
+        m_Texture: {fileID: 2800000, guid: 7b0819c792d27f7448ecc71e55fce6aa, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Deform: 0
+    - Dissolve: 0
+    - _Alpha: 0.35
+    - _Brightness: 1.25
+    - _BumpScale: 1
+    - _Cutoff: 0.5
+    - _DetailNormalMapScale: 1
+    - _Dis: 0
+    - _DstBlend: 0
+    - _EdjeSize: 0.02
+    - _EmP: 0.5
+    - _Emission: 2
+    - _Flicker: 0
+    - _FlickerSpeed: 0.01
+    - _Fold: 63
+    - _Glitch: 0
+    - _GlitchIntensity: 0
+    - _GlitchSpeed: 0
+    - _GlossMapScale: 1
+    - _Glossiness: 0.5
+    - _GlossyReflections: 1
+    - _GlowSpeed: 5
+    - _GlowTiling: 1
+    - _HolOffSet: -0.09
+    - _HolTile: 3
+    - _Metallic: 0
+    - _Mode: 0
+    - _OcclusionStrength: 1
+    - _Parallax: 0.02
+    - _RimFallness: 0.5
+    - _RimPower: 6.5
+    - _RimStrength: 1
+    - _ScanSpeed: -1
+    - _ScanTiling: 500
+    - _Scanline: 0
+    - _ScanlineSpeed: 0.05
+    - _ScanlineTiling: 5.9
+    - _ShakeBending: -0.02
+    - _ShakeDisplacement: 1.7
+    - _ShakeTime: 4
+    - _Shakespeed: -0.1
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _UVSec: 0
+    - _ZWrite: 1
+    - fresnel: 1
+    m_Colors:
+    - _Color: {r: 0.2784314, g: 0.8117647, b: 0.9490196, a: 1}
+    - _ColorEm: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _MainColor: {r: 0.27058825, g: 0.3764706, b: 0.42745098, a: 1}
+    - _RimColor: {r: 0.58953285, g: 0.8100154, b: 0.85294116, a: 1}
+    - _ScanlineColor: {r: 0.0719575, g: 0.9485294, b: 0, a: 1}
+--- !u!1001 &1747003708
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 925378509}
+    m_Modifications:
+    - target: {fileID: 4704300334154212, guid: d25077db4b4d6ba40b33b6f3ff82f287, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4704300334154212, guid: d25077db4b4d6ba40b33b6f3ff82f287, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 1.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4704300334154212, guid: d25077db4b4d6ba40b33b6f3ff82f287, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4704300334154212, guid: d25077db4b4d6ba40b33b6f3ff82f287, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4704300334154212, guid: d25077db4b4d6ba40b33b6f3ff82f287, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4704300334154212, guid: d25077db4b4d6ba40b33b6f3ff82f287, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4704300334154212, guid: d25077db4b4d6ba40b33b6f3ff82f287, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4704300334154212, guid: d25077db4b4d6ba40b33b6f3ff82f287, type: 2}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 23978350040812164, guid: d25077db4b4d6ba40b33b6f3ff82f287,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 622939375}
+    - target: {fileID: 23964583388022928, guid: d25077db4b4d6ba40b33b6f3ff82f287,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2039838213}
+    - target: {fileID: 23953243232494362, guid: d25077db4b4d6ba40b33b6f3ff82f287,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 485380181}
+    - target: {fileID: 23858665054086926, guid: d25077db4b4d6ba40b33b6f3ff82f287,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 717101680}
+    - target: {fileID: 23846762566231500, guid: d25077db4b4d6ba40b33b6f3ff82f287,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 406192192}
+    - target: {fileID: 23725773997446478, guid: d25077db4b4d6ba40b33b6f3ff82f287,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 809512579}
+    - target: {fileID: 23702226096573810, guid: d25077db4b4d6ba40b33b6f3ff82f287,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 544068306}
+    - target: {fileID: 23674265359548766, guid: d25077db4b4d6ba40b33b6f3ff82f287,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 107193253}
+    - target: {fileID: 23667941055552064, guid: d25077db4b4d6ba40b33b6f3ff82f287,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 920020065}
+    - target: {fileID: 23628884568044468, guid: d25077db4b4d6ba40b33b6f3ff82f287,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 1922742234}
+    - target: {fileID: 23623112291423834, guid: d25077db4b4d6ba40b33b6f3ff82f287,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 880478800}
+    - target: {fileID: 23605976427122616, guid: d25077db4b4d6ba40b33b6f3ff82f287,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 900772152}
+    - target: {fileID: 23564891348958682, guid: d25077db4b4d6ba40b33b6f3ff82f287,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 1818336775}
+    - target: {fileID: 23518811695335700, guid: d25077db4b4d6ba40b33b6f3ff82f287,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 1430359089}
+    - target: {fileID: 23508834826078834, guid: d25077db4b4d6ba40b33b6f3ff82f287,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 1124656317}
+    - target: {fileID: 23483801982967760, guid: d25077db4b4d6ba40b33b6f3ff82f287,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 857132003}
+    - target: {fileID: 23475889915680872, guid: d25077db4b4d6ba40b33b6f3ff82f287,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 798947981}
+    - target: {fileID: 23473949879202946, guid: d25077db4b4d6ba40b33b6f3ff82f287,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 604091113}
+    - target: {fileID: 23409225013956142, guid: d25077db4b4d6ba40b33b6f3ff82f287,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 1365813165}
+    - target: {fileID: 23267301030741404, guid: d25077db4b4d6ba40b33b6f3ff82f287,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 1743392429}
+    - target: {fileID: 23246549422872068, guid: d25077db4b4d6ba40b33b6f3ff82f287,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2055726072}
+    - target: {fileID: 23239573088916522, guid: d25077db4b4d6ba40b33b6f3ff82f287,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 1991543355}
+    - target: {fileID: 23230548619481142, guid: d25077db4b4d6ba40b33b6f3ff82f287,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 381833978}
+    - target: {fileID: 23177580562625224, guid: d25077db4b4d6ba40b33b6f3ff82f287,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 230513818}
+    - target: {fileID: 23169973063568858, guid: d25077db4b4d6ba40b33b6f3ff82f287,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2105053788}
+    - target: {fileID: 23146997103764422, guid: d25077db4b4d6ba40b33b6f3ff82f287,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2136080076}
+    - target: {fileID: 23129800962058946, guid: d25077db4b4d6ba40b33b6f3ff82f287,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 1724689334}
+    - target: {fileID: 23079538082830200, guid: d25077db4b4d6ba40b33b6f3ff82f287,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 935791353}
+    - target: {fileID: 23009141983636142, guid: d25077db4b4d6ba40b33b6f3ff82f287,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 1313899311}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: d25077db4b4d6ba40b33b6f3ff82f287, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &1797995387
 GameObject:
   m_ObjectHideFlags: 0
@@ -47916,6 +51126,151 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1805377761}
   m_Mesh: {fileID: 4300000, guid: 1684b9b5aed8e5f41ba2a81abf0d7f07, type: 3}
+--- !u!21 &1818336775
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: DefaultShipPickup Body Hologram Material (Instance)
+  m_Shader: {fileID: 4800000, guid: f898299852c00d546aecbd297af0aab6, type: 3}
+  m_ShaderKeywords: FRESNEL_ON SCANLINES _GLITCH_ON _GLOW_ON _SCAN_ON
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DissolveTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmTex:
+        m_Texture: {fileID: 2800000, guid: 2613a7a229b43344b95a5dbc689a93f9, type: 3}
+        m_Scale: {x: 0.1, y: 0.1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionTex:
+        m_Texture: {fileID: 2800000, guid: ad992caf62927544694cc2da1de3af0a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Flicker:
+        m_Texture: {fileID: 2800000, guid: a0775ddee39477446bcbcedd7ca1bd22, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FlickerTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: adc1adb49d95f3d4cb61d8570ee40521, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Noise:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NoiseControl:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Scanline:
+        m_Texture: {fileID: 2800000, guid: 20a617585b6151b4e8e177fc19a927c5, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ScanlinePattern:
+        m_Texture: {fileID: 2800000, guid: 7b0819c792d27f7448ecc71e55fce6aa, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Deform: 0
+    - Dissolve: 0
+    - _Alpha: 0.35
+    - _Brightness: 1.25
+    - _BumpScale: 1
+    - _Cutoff: 0.5
+    - _DetailNormalMapScale: 1
+    - _Dis: 0
+    - _DstBlend: 0
+    - _EdjeSize: 0.02
+    - _EmP: 0.5
+    - _Emission: 2
+    - _Flicker: 0
+    - _FlickerSpeed: 0.01
+    - _Fold: 63
+    - _Glitch: 0
+    - _GlitchIntensity: 0
+    - _GlitchSpeed: 0
+    - _GlossMapScale: 1
+    - _Glossiness: 0.5
+    - _GlossyReflections: 1
+    - _GlowSpeed: 5
+    - _GlowTiling: 1
+    - _HolOffSet: -0.09
+    - _HolTile: 3
+    - _Metallic: 0
+    - _Mode: 0
+    - _OcclusionStrength: 1
+    - _Parallax: 0.02
+    - _RimFallness: 0.5
+    - _RimPower: 6.5
+    - _RimStrength: 1
+    - _ScanSpeed: -1
+    - _ScanTiling: 500
+    - _Scanline: 0
+    - _ScanlineSpeed: 0.05
+    - _ScanlineTiling: 5.9
+    - _ShakeBending: -0.02
+    - _ShakeDisplacement: 1.7
+    - _ShakeTime: 4
+    - _Shakespeed: -0.1
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _UVSec: 0
+    - _ZWrite: 1
+    - fresnel: 1
+    m_Colors:
+    - _Color: {r: 0.2784314, g: 0.8117647, b: 0.9490196, a: 1}
+    - _ColorEm: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _MainColor: {r: 0.27058825, g: 0.3764706, b: 0.42745098, a: 1}
+    - _RimColor: {r: 0.58953285, g: 0.8100154, b: 0.85294116, a: 1}
+    - _ScanlineColor: {r: 0.0719575, g: 0.9485294, b: 0, a: 1}
 --- !u!1 &1826645850
 GameObject:
   m_ObjectHideFlags: 0
@@ -52120,7 +55475,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 421848038}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1908650250
 MonoBehaviour:
@@ -52387,6 +55742,151 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1914942170}
   m_Mesh: {fileID: 4300000, guid: d0db0aa0656fb2d499454a60e58931a7, type: 3}
+--- !u!21 &1922742234
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: DefaultShipPickup Body Hologram Material (Instance)
+  m_Shader: {fileID: 4800000, guid: f898299852c00d546aecbd297af0aab6, type: 3}
+  m_ShaderKeywords: FRESNEL_ON SCANLINES _GLITCH_ON _GLOW_ON _SCAN_ON
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DissolveTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmTex:
+        m_Texture: {fileID: 2800000, guid: 2613a7a229b43344b95a5dbc689a93f9, type: 3}
+        m_Scale: {x: 0.1, y: 0.1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionTex:
+        m_Texture: {fileID: 2800000, guid: ad992caf62927544694cc2da1de3af0a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Flicker:
+        m_Texture: {fileID: 2800000, guid: a0775ddee39477446bcbcedd7ca1bd22, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FlickerTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: adc1adb49d95f3d4cb61d8570ee40521, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Noise:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NoiseControl:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Scanline:
+        m_Texture: {fileID: 2800000, guid: 20a617585b6151b4e8e177fc19a927c5, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ScanlinePattern:
+        m_Texture: {fileID: 2800000, guid: 7b0819c792d27f7448ecc71e55fce6aa, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Deform: 0
+    - Dissolve: 0
+    - _Alpha: 0.35
+    - _Brightness: 1.25
+    - _BumpScale: 1
+    - _Cutoff: 0.5
+    - _DetailNormalMapScale: 1
+    - _Dis: 0
+    - _DstBlend: 0
+    - _EdjeSize: 0.02
+    - _EmP: 0.5
+    - _Emission: 2
+    - _Flicker: 0
+    - _FlickerSpeed: 0.01
+    - _Fold: 63
+    - _Glitch: 0
+    - _GlitchIntensity: 0
+    - _GlitchSpeed: 0
+    - _GlossMapScale: 1
+    - _Glossiness: 0.5
+    - _GlossyReflections: 1
+    - _GlowSpeed: 5
+    - _GlowTiling: 1
+    - _HolOffSet: -0.09
+    - _HolTile: 3
+    - _Metallic: 0
+    - _Mode: 0
+    - _OcclusionStrength: 1
+    - _Parallax: 0.02
+    - _RimFallness: 0.5
+    - _RimPower: 6.5
+    - _RimStrength: 1
+    - _ScanSpeed: -1
+    - _ScanTiling: 500
+    - _Scanline: 0
+    - _ScanlineSpeed: 0.05
+    - _ScanlineTiling: 5.9
+    - _ShakeBending: -0.02
+    - _ShakeDisplacement: 1.7
+    - _ShakeTime: 4
+    - _Shakespeed: -0.1
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _UVSec: 0
+    - _ZWrite: 1
+    - fresnel: 1
+    m_Colors:
+    - _Color: {r: 0.2784314, g: 0.8117647, b: 0.9490196, a: 1}
+    - _ColorEm: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _MainColor: {r: 0.27058825, g: 0.3764706, b: 0.42745098, a: 1}
+    - _RimColor: {r: 0.58953285, g: 0.8100154, b: 0.85294116, a: 1}
+    - _ScanlineColor: {r: 0.0719575, g: 0.9485294, b: 0, a: 1}
 --- !u!1 &1923599316
 GameObject:
   m_ObjectHideFlags: 0
@@ -52414,7 +55914,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 421848038}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1923599318
 MonoBehaviour:
@@ -52453,6 +55953,8 @@ MonoBehaviour:
   defaultAlly: 0
   clearBomb: 0
   defaultClearBomb: 0
+  fireRate: 0
+  defaultFireRate: 0
   cameraGO: {fileID: 2052364201}
 --- !u!1 &1925687260
 GameObject:
@@ -52828,7 +56330,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 421848038}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1943424998
 MonoBehaviour:
@@ -53422,6 +56924,151 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1985894464}
   m_Mesh: {fileID: 4300132, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
+--- !u!21 &1991543355
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: DefaultShipPickup Body Hologram Material (Instance)
+  m_Shader: {fileID: 4800000, guid: f898299852c00d546aecbd297af0aab6, type: 3}
+  m_ShaderKeywords: FRESNEL_ON SCANLINES _GLITCH_ON _GLOW_ON _SCAN_ON
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DissolveTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmTex:
+        m_Texture: {fileID: 2800000, guid: 2613a7a229b43344b95a5dbc689a93f9, type: 3}
+        m_Scale: {x: 0.1, y: 0.1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionTex:
+        m_Texture: {fileID: 2800000, guid: ad992caf62927544694cc2da1de3af0a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Flicker:
+        m_Texture: {fileID: 2800000, guid: a0775ddee39477446bcbcedd7ca1bd22, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FlickerTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: adc1adb49d95f3d4cb61d8570ee40521, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Noise:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NoiseControl:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Scanline:
+        m_Texture: {fileID: 2800000, guid: 20a617585b6151b4e8e177fc19a927c5, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ScanlinePattern:
+        m_Texture: {fileID: 2800000, guid: 7b0819c792d27f7448ecc71e55fce6aa, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Deform: 0
+    - Dissolve: 0
+    - _Alpha: 0.35
+    - _Brightness: 1.25
+    - _BumpScale: 1
+    - _Cutoff: 0.5
+    - _DetailNormalMapScale: 1
+    - _Dis: 0
+    - _DstBlend: 0
+    - _EdjeSize: 0.02
+    - _EmP: 0.5
+    - _Emission: 2
+    - _Flicker: 0
+    - _FlickerSpeed: 0.01
+    - _Fold: 63
+    - _Glitch: 0
+    - _GlitchIntensity: 0
+    - _GlitchSpeed: 0
+    - _GlossMapScale: 1
+    - _Glossiness: 0.5
+    - _GlossyReflections: 1
+    - _GlowSpeed: 5
+    - _GlowTiling: 1
+    - _HolOffSet: -0.09
+    - _HolTile: 3
+    - _Metallic: 0
+    - _Mode: 0
+    - _OcclusionStrength: 1
+    - _Parallax: 0.02
+    - _RimFallness: 0.5
+    - _RimPower: 6.5
+    - _RimStrength: 1
+    - _ScanSpeed: -1
+    - _ScanTiling: 500
+    - _Scanline: 0
+    - _ScanlineSpeed: 0.05
+    - _ScanlineTiling: 5.9
+    - _ShakeBending: -0.02
+    - _ShakeDisplacement: 1.7
+    - _ShakeTime: 4
+    - _Shakespeed: -0.1
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _UVSec: 0
+    - _ZWrite: 1
+    - fresnel: 1
+    m_Colors:
+    - _Color: {r: 0.2784314, g: 0.8117647, b: 0.9490196, a: 1}
+    - _ColorEm: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _MainColor: {r: 0.27058825, g: 0.3764706, b: 0.42745098, a: 1}
+    - _RimColor: {r: 0.58953285, g: 0.8100154, b: 0.85294116, a: 1}
+    - _ScanlineColor: {r: 0.0719575, g: 0.9485294, b: 0, a: 1}
 --- !u!1 &1994358047
 GameObject:
   m_ObjectHideFlags: 0
@@ -53927,6 +57574,151 @@ Transform:
   m_Father: {fileID: 1925747329}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!21 &2039838213
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: DefaultShipPickup Body Hologram Material (Instance)
+  m_Shader: {fileID: 4800000, guid: f898299852c00d546aecbd297af0aab6, type: 3}
+  m_ShaderKeywords: FRESNEL_ON SCANLINES _GLITCH_ON _GLOW_ON _SCAN_ON
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DissolveTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmTex:
+        m_Texture: {fileID: 2800000, guid: 2613a7a229b43344b95a5dbc689a93f9, type: 3}
+        m_Scale: {x: 0.1, y: 0.1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionTex:
+        m_Texture: {fileID: 2800000, guid: ad992caf62927544694cc2da1de3af0a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Flicker:
+        m_Texture: {fileID: 2800000, guid: a0775ddee39477446bcbcedd7ca1bd22, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FlickerTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: adc1adb49d95f3d4cb61d8570ee40521, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Noise:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NoiseControl:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Scanline:
+        m_Texture: {fileID: 2800000, guid: 20a617585b6151b4e8e177fc19a927c5, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ScanlinePattern:
+        m_Texture: {fileID: 2800000, guid: 7b0819c792d27f7448ecc71e55fce6aa, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Deform: 0
+    - Dissolve: 0
+    - _Alpha: 0.35
+    - _Brightness: 1.25
+    - _BumpScale: 1
+    - _Cutoff: 0.5
+    - _DetailNormalMapScale: 1
+    - _Dis: 0
+    - _DstBlend: 0
+    - _EdjeSize: 0.02
+    - _EmP: 0.5
+    - _Emission: 2
+    - _Flicker: 0
+    - _FlickerSpeed: 0.01
+    - _Fold: 63
+    - _Glitch: 0
+    - _GlitchIntensity: 0
+    - _GlitchSpeed: 0
+    - _GlossMapScale: 1
+    - _Glossiness: 0.5
+    - _GlossyReflections: 1
+    - _GlowSpeed: 5
+    - _GlowTiling: 1
+    - _HolOffSet: -0.09
+    - _HolTile: 3
+    - _Metallic: 0
+    - _Mode: 0
+    - _OcclusionStrength: 1
+    - _Parallax: 0.02
+    - _RimFallness: 0.5
+    - _RimPower: 6.5
+    - _RimStrength: 1
+    - _ScanSpeed: -1
+    - _ScanTiling: 500
+    - _Scanline: 0
+    - _ScanlineSpeed: 0.05
+    - _ScanlineTiling: 5.9
+    - _ShakeBending: -0.02
+    - _ShakeDisplacement: 1.7
+    - _ShakeTime: 4
+    - _Shakespeed: -0.1
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _UVSec: 0
+    - _ZWrite: 1
+    - fresnel: 1
+    m_Colors:
+    - _Color: {r: 0.2784314, g: 0.8117647, b: 0.9490196, a: 1}
+    - _ColorEm: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _MainColor: {r: 0.27058825, g: 0.3764706, b: 0.42745098, a: 1}
+    - _RimColor: {r: 0.58953285, g: 0.8100154, b: 0.85294116, a: 1}
+    - _ScanlineColor: {r: 0.0719575, g: 0.9485294, b: 0, a: 1}
 --- !u!1001 &2042387825
 Prefab:
   m_ObjectHideFlags: 0
@@ -54177,9 +57969,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1351179624}
-  - {fileID: 1533610576}
+  m_Children: []
   m_Father: {fileID: 421848038}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -54208,12 +57998,9 @@ MonoBehaviour:
   colorBlindMode: {fileID: 1943424998}
   playerIdleTimer: {fileID: 2052364200}
   iridiumSpawner: {fileID: 902762742}
-  rocketAttributes: {fileID: 1533610577}
   menuSounds: {fileID: 0}
   dialoguePlayer: {fileID: 229293522}
   tooltips: {fileID: 1077584952}
-  projectileData: {fileID: 11400000, guid: ab6033c35cd0e52419dac4f56ca31b69, type: 2}
-  healthData: {fileID: 11400000, guid: 7e2be0af0fd1a9c4b9ea425a0a548170, type: 2}
   player: {fileID: 2052364198}
   playerLookTarget: {fileID: 1197194090}
   playerShip: {fileID: 0}
@@ -54229,6 +58016,9 @@ MonoBehaviour:
   menuWin: {fileID: 0}
   menuGameOver: {fileID: 0}
   talkingParticle: {fileID: 0}
+  playerData: {fileID: 11400000, guid: 7e2be0af0fd1a9c4b9ea425a0a548170, type: 2}
+  projectileData: {fileID: 11400000, guid: ab6033c35cd0e52419dac4f56ca31b69, type: 2}
+  cheats: {fileID: 11400000, guid: c7e7526a2bc8a3f4887f6dfb94335046, type: 2}
   waveCountSource: {fileID: 1732903678}
   gameMusicSource: {fileID: 257247245}
   playerShipSource: {fileID: 0}
@@ -54298,6 +58088,151 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 111755390}
   m_Script: {fileID: 11500000, guid: 863c528159f956549b4a9767dcc3b655, type: 3}
+--- !u!21 &2055726072
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: DefaultShipPickup Body Hologram Material (Instance)
+  m_Shader: {fileID: 4800000, guid: f898299852c00d546aecbd297af0aab6, type: 3}
+  m_ShaderKeywords: FRESNEL_ON SCANLINES _GLITCH_ON _GLOW_ON _SCAN_ON
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DissolveTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmTex:
+        m_Texture: {fileID: 2800000, guid: 2613a7a229b43344b95a5dbc689a93f9, type: 3}
+        m_Scale: {x: 0.1, y: 0.1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionTex:
+        m_Texture: {fileID: 2800000, guid: ad992caf62927544694cc2da1de3af0a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Flicker:
+        m_Texture: {fileID: 2800000, guid: a0775ddee39477446bcbcedd7ca1bd22, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FlickerTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: adc1adb49d95f3d4cb61d8570ee40521, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Noise:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NoiseControl:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Scanline:
+        m_Texture: {fileID: 2800000, guid: 20a617585b6151b4e8e177fc19a927c5, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ScanlinePattern:
+        m_Texture: {fileID: 2800000, guid: 7b0819c792d27f7448ecc71e55fce6aa, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Deform: 0
+    - Dissolve: 0
+    - _Alpha: 0.35
+    - _Brightness: 1.25
+    - _BumpScale: 1
+    - _Cutoff: 0.5
+    - _DetailNormalMapScale: 1
+    - _Dis: 0
+    - _DstBlend: 0
+    - _EdjeSize: 0.02
+    - _EmP: 0.5
+    - _Emission: 2
+    - _Flicker: 0
+    - _FlickerSpeed: 0.01
+    - _Fold: 63
+    - _Glitch: 0
+    - _GlitchIntensity: 0
+    - _GlitchSpeed: 0
+    - _GlossMapScale: 1
+    - _Glossiness: 0.5
+    - _GlossyReflections: 1
+    - _GlowSpeed: 5
+    - _GlowTiling: 1
+    - _HolOffSet: -0.09
+    - _HolTile: 3
+    - _Metallic: 0
+    - _Mode: 0
+    - _OcclusionStrength: 1
+    - _Parallax: 0.02
+    - _RimFallness: 0.5
+    - _RimPower: 6.5
+    - _RimStrength: 1
+    - _ScanSpeed: -1
+    - _ScanTiling: 500
+    - _Scanline: 0
+    - _ScanlineSpeed: 0.05
+    - _ScanlineTiling: 5.9
+    - _ShakeBending: -0.02
+    - _ShakeDisplacement: 1.7
+    - _ShakeTime: 4
+    - _Shakespeed: -0.1
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _UVSec: 0
+    - _ZWrite: 1
+    - fresnel: 1
+    m_Colors:
+    - _Color: {r: 0.2784314, g: 0.8117647, b: 0.9490196, a: 1}
+    - _ColorEm: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _MainColor: {r: 0.27058825, g: 0.3764706, b: 0.42745098, a: 1}
+    - _RimColor: {r: 0.58953285, g: 0.8100154, b: 0.85294116, a: 1}
+    - _ScanlineColor: {r: 0.0719575, g: 0.9485294, b: 0, a: 1}
 --- !u!1 &2089217574
 GameObject:
   m_ObjectHideFlags: 0
@@ -54542,6 +58477,151 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2102158974}
   m_Mesh: {fileID: 4300098, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
+--- !u!21 &2105053788
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: DefaultShipPickup Body Hologram Material (Instance)
+  m_Shader: {fileID: 4800000, guid: f898299852c00d546aecbd297af0aab6, type: 3}
+  m_ShaderKeywords: FRESNEL_ON SCANLINES _GLITCH_ON _GLOW_ON _SCAN_ON
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DissolveTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmTex:
+        m_Texture: {fileID: 2800000, guid: 2613a7a229b43344b95a5dbc689a93f9, type: 3}
+        m_Scale: {x: 0.1, y: 0.1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionTex:
+        m_Texture: {fileID: 2800000, guid: ad992caf62927544694cc2da1de3af0a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Flicker:
+        m_Texture: {fileID: 2800000, guid: a0775ddee39477446bcbcedd7ca1bd22, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FlickerTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: adc1adb49d95f3d4cb61d8570ee40521, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Noise:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NoiseControl:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Scanline:
+        m_Texture: {fileID: 2800000, guid: 20a617585b6151b4e8e177fc19a927c5, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ScanlinePattern:
+        m_Texture: {fileID: 2800000, guid: 7b0819c792d27f7448ecc71e55fce6aa, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Deform: 0
+    - Dissolve: 0
+    - _Alpha: 0.35
+    - _Brightness: 1.25
+    - _BumpScale: 1
+    - _Cutoff: 0.5
+    - _DetailNormalMapScale: 1
+    - _Dis: 0
+    - _DstBlend: 0
+    - _EdjeSize: 0.02
+    - _EmP: 0.5
+    - _Emission: 2
+    - _Flicker: 0
+    - _FlickerSpeed: 0.01
+    - _Fold: 63
+    - _Glitch: 0
+    - _GlitchIntensity: 0
+    - _GlitchSpeed: 0
+    - _GlossMapScale: 1
+    - _Glossiness: 0.5
+    - _GlossyReflections: 1
+    - _GlowSpeed: 5
+    - _GlowTiling: 1
+    - _HolOffSet: -0.09
+    - _HolTile: 3
+    - _Metallic: 0
+    - _Mode: 0
+    - _OcclusionStrength: 1
+    - _Parallax: 0.02
+    - _RimFallness: 0.5
+    - _RimPower: 6.5
+    - _RimStrength: 1
+    - _ScanSpeed: -1
+    - _ScanTiling: 500
+    - _Scanline: 0
+    - _ScanlineSpeed: 0.05
+    - _ScanlineTiling: 5.9
+    - _ShakeBending: -0.02
+    - _ShakeDisplacement: 1.7
+    - _ShakeTime: 4
+    - _Shakespeed: -0.1
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _UVSec: 0
+    - _ZWrite: 1
+    - fresnel: 1
+    m_Colors:
+    - _Color: {r: 0.2784314, g: 0.8117647, b: 0.9490196, a: 1}
+    - _ColorEm: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _MainColor: {r: 0.27058825, g: 0.3764706, b: 0.42745098, a: 1}
+    - _RimColor: {r: 0.58953285, g: 0.8100154, b: 0.85294116, a: 1}
+    - _ScanlineColor: {r: 0.0719575, g: 0.9485294, b: 0, a: 1}
 --- !u!1001 &2107312837
 Prefab:
   m_ObjectHideFlags: 0
@@ -54579,7 +58659,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4822322694911372, guid: 6503730551a61ef4ebeca6bd91b11120, type: 2}
       propertyPath: m_RootOrder
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 114727511158786194, guid: 6503730551a61ef4ebeca6bd91b11120,
         type: 2}
@@ -54826,6 +58906,151 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2123901941}
   m_Mesh: {fileID: 4300104, guid: 6f07ce2559d32e746ba25d6bd58ace71, type: 3}
+--- !u!21 &2136080076
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: DefaultShipPickup Body Hologram Material (Instance)
+  m_Shader: {fileID: 4800000, guid: f898299852c00d546aecbd297af0aab6, type: 3}
+  m_ShaderKeywords: FRESNEL_ON SCANLINES _GLITCH_ON _GLOW_ON _SCAN_ON
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DissolveTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmTex:
+        m_Texture: {fileID: 2800000, guid: 2613a7a229b43344b95a5dbc689a93f9, type: 3}
+        m_Scale: {x: 0.1, y: 0.1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionTex:
+        m_Texture: {fileID: 2800000, guid: ad992caf62927544694cc2da1de3af0a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Flicker:
+        m_Texture: {fileID: 2800000, guid: a0775ddee39477446bcbcedd7ca1bd22, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FlickerTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: adc1adb49d95f3d4cb61d8570ee40521, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Noise:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NoiseControl:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Scanline:
+        m_Texture: {fileID: 2800000, guid: 20a617585b6151b4e8e177fc19a927c5, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ScanlinePattern:
+        m_Texture: {fileID: 2800000, guid: 7b0819c792d27f7448ecc71e55fce6aa, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Deform: 0
+    - Dissolve: 0
+    - _Alpha: 0.35
+    - _Brightness: 1.25
+    - _BumpScale: 1
+    - _Cutoff: 0.5
+    - _DetailNormalMapScale: 1
+    - _Dis: 0
+    - _DstBlend: 0
+    - _EdjeSize: 0.02
+    - _EmP: 0.5
+    - _Emission: 2
+    - _Flicker: 0
+    - _FlickerSpeed: 0.01
+    - _Fold: 63
+    - _Glitch: 0
+    - _GlitchIntensity: 0
+    - _GlitchSpeed: 0
+    - _GlossMapScale: 1
+    - _Glossiness: 0.5
+    - _GlossyReflections: 1
+    - _GlowSpeed: 5
+    - _GlowTiling: 1
+    - _HolOffSet: -0.09
+    - _HolTile: 3
+    - _Metallic: 0
+    - _Mode: 0
+    - _OcclusionStrength: 1
+    - _Parallax: 0.02
+    - _RimFallness: 0.5
+    - _RimPower: 6.5
+    - _RimStrength: 1
+    - _ScanSpeed: -1
+    - _ScanTiling: 500
+    - _Scanline: 0
+    - _ScanlineSpeed: 0.05
+    - _ScanlineTiling: 5.9
+    - _ShakeBending: -0.02
+    - _ShakeDisplacement: 1.7
+    - _ShakeTime: 4
+    - _Shakespeed: -0.1
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _UVSec: 0
+    - _ZWrite: 1
+    - fresnel: 1
+    m_Colors:
+    - _Color: {r: 0.2784314, g: 0.8117647, b: 0.9490196, a: 1}
+    - _ColorEm: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _MainColor: {r: 0.27058825, g: 0.3764706, b: 0.42745098, a: 1}
+    - _RimColor: {r: 0.58953285, g: 0.8100154, b: 0.85294116, a: 1}
+    - _ScanlineColor: {r: 0.0719575, g: 0.9485294, b: 0, a: 1}
 --- !u!1 &2145306158
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22df8be889704416875116a8f980705e, type: 3}
+  m_Name: Minigun Data
+  m_EditorClassIdentifier: 
+  aimAssistRadius: 0.4
+  damage: 9
+  fireRate: 25
+  shootSound: {fileID: 8300000, guid: 58fa71883856e0e49973b4dce75e90d0, type: 3}
+  tracerMaterial: {fileID: 2100000, guid: 94b83a265507fa64c97d2039f9b11189, type: 2}
+  thickness: 0.004
+  overheatColor: {r: 1, g: 0.2901961, b: 0, a: 1}
+  overheatMax: 100
+  overheatPerShot: 0.5
+  overheatDecreaseAmount: 6.67
+  overheatDecreaseTickLength: 0.1
+  overheatDecreaseDelay: 0.33
+  overheatCoolDown: 3
+  hitSpark: {fileID: 1514411477096268, guid: 428589331263e1649baa33bed534c884, type: 2}
+  muzzleFlash: {fileID: 1585948764433870, guid: bb8ae17bb63b15b4f8db2ec1c45e51fa,
+    type: 2}
+  overheatSound: {fileID: 8300000, guid: 44e2c3c2744b5324bb664a135d640de4, type: 3}

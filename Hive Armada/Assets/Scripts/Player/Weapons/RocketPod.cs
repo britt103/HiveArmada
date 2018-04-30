@@ -15,6 +15,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Hive.Armada.Data;
 using Hive.Armada.Enemies;
 using UnityEngine;
 using Hive.Armada.Game;
@@ -26,21 +27,7 @@ namespace Hive.Armada.Player.Weapons
     /// </summary>
     public class RocketPod : Weapon
     {
-        /// <summary>
-        /// Prefab for the rocket gameobject.
-        /// </summary>
-        [Header("Rockets")]
-        public GameObject rocketPrefab;
-
-        /// <summary>
-        /// The type of rocket to use.
-        /// </summary>
-        public RocketAttributes.RocketType rocketType;
-
-        /// <summary>
-        /// The index of the rocket type to use.
-        /// </summary>
-        private int rocketTypeIndex;
+        public RocketPodData rocketPodData;
 
         /// <summary>
         /// The type id for the rockets.
@@ -60,7 +47,7 @@ namespace Hive.Armada.Player.Weapons
         /// <summary>
         /// Number of rockets launched when the rocket pod fires.
         /// </summary>
-        public int burstAmount;
+        private int burstAmount;
 
         private WaitForSeconds waitBurst;
 
@@ -79,27 +66,31 @@ namespace Hive.Armada.Player.Weapons
         /// <summary>
         /// The sound the rocket pod makes when it fires.
         /// </summary>
-        public AudioClip rocketPodLaunchSound;
+        private AudioClip rocketPodLaunchSound;
+        
+        protected override void Awake()
+        {
+            base.Awake();
+            SetupWeapon();
+        }
 
         /// <summary>
         /// Initializes the rockets and active/inactive pools.
         /// </summary>
-        protected override void SetupWeapon()
+        private void SetupWeapon()
         {
+            SetupWeapon(rocketPodData);
+            
+            rocketPodLaunchSound = rocketPodData.shootSound;
+            rocketTypeId =
+                reference.objectPoolManager.GetTypeIdentifier(rocketPodData.rocketPrefab);
+            burstAmount = rocketPodData.burstAmount;
+            
+            if (reference.cheats.doubleDamage)
+                damage *= 2;
+            
             waitFire = new WaitForSeconds(1.0f / fireRate);
             waitBurst = new WaitForSeconds(1.0f / fireRate / burstAmount);
-            rocketTypeIndex = -1;
-
-            for (int i = 0; i < reference.rocketAttributes.rockets.Length; ++i)
-            {
-                if (reference.rocketAttributes.rockets[i].rocketType == rocketType)
-                {
-                    rocketTypeIndex = i;
-                    break;
-                }
-            }
-
-            rocketTypeId = reference.objectPoolManager.GetTypeIdentifier(rocketPrefab);
         }
 
         /// <summary>
@@ -181,8 +172,6 @@ namespace Hive.Armada.Player.Weapons
                     reference.objectPoolManager.Spawn(gameObject, rocketTypeId, barrel.position,
                                                       barrel.rotation);
                 Rocket rocketScript = rocket.GetComponent<Rocket>();
-                rocketScript.SetupRocket(rocketTypeIndex, shipController);
-                rocketScript.SetDamageMultiplier(damageMultiplier);
 
                 bool launched = false;
                 if (target != null)
@@ -191,7 +180,7 @@ namespace Hive.Armada.Player.Weapons
                     {
                         if (target.GetComponent<Poolable>().IsActive)
                         {
-                            rocketScript.Launch(target, position);
+                            rocketScript.Launch(target, position, damageMultiplier);
                             launched = true;
                         }
                     }
@@ -202,7 +191,7 @@ namespace Hive.Armada.Player.Weapons
                         {
                             if (target.GetComponent<Enemy>().Health > 0)
                             {
-                                rocketScript.Launch(target, position);
+                                rocketScript.Launch(target, position, damageMultiplier);
                                 launched = true;
                             }
                         }
@@ -212,14 +201,14 @@ namespace Hive.Armada.Player.Weapons
                     {
                         if (target.activeInHierarchy && target.activeSelf)
                         {
-                            rocketScript.Launch(target, position);
+                            rocketScript.Launch(target, position, damageMultiplier);
                             launched = true;
                         }
                     }
                 }
                 else
                 {
-                    rocketScript.Launch(null, position);
+                    rocketScript.Launch(null, position, damageMultiplier);
                     launched = true;
                 }
 
@@ -231,7 +220,7 @@ namespace Hive.Armada.Player.Weapons
                     if (Physics.Raycast(position, forward, out hit, 200.0f,
                                         Utility.roomMask))
                     {
-                        rocketScript.Launch(null, hit.point);
+                        rocketScript.Launch(null, hit.point, damageMultiplier);
                     }
                     else
                     {

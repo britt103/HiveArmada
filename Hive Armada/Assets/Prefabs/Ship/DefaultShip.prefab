@@ -887,9 +887,10 @@ GameObject:
   - component: {fileID: 4033704898849584}
   - component: {fileID: 33420890946496686}
   - component: {fileID: 23609388635617532}
+  - component: {fileID: 136069623699241332}
   m_Layer: 14
   m_Name: thruster_right
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -938,21 +939,6 @@ GameObject:
   - component: {fileID: 23642401264145290}
   m_Layer: 14
   m_Name: pCylinder67
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &1281513903209264
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4080475234434192}
-  m_Layer: 14
-  m_Name: Ship Lights
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1222,7 +1208,7 @@ GameObject:
   - component: {fileID: 4388301160641056}
   - component: {fileID: 108883835023673020}
   m_Layer: 14
-  m_Name: Point light
+  m_Name: Ship Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2340,9 +2326,10 @@ GameObject:
   - component: {fileID: 4520043283167456}
   - component: {fileID: 33057721148969808}
   - component: {fileID: 23521473747721424}
+  - component: {fileID: 136237794688029744}
   m_Layer: 14
   m_Name: thruster_left
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3963,20 +3950,6 @@ Transform:
   m_Father: {fileID: 4685323599652366}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4080475234434192
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1281513903209264}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 4388301160641056}
-  m_Father: {fileID: 4239737579966236}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4083580476456592
 Transform:
   m_ObjectHideFlags: 1
@@ -4432,7 +4405,7 @@ Transform:
   - {fileID: 4010589785040000}
   - {fileID: 4207486939829898}
   - {fileID: 4719595093272300}
-  - {fileID: 4080475234434192}
+  - {fileID: 4388301160641056}
   m_Father: {fileID: 4919109735457890}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 55, y: 0, z: 0}
@@ -4881,12 +4854,12 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1324638958442418}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.471, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.47100002, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 4080475234434192}
-  m_RootOrder: 0
+  m_Father: {fileID: 4239737579966236}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4403995063723348
 Transform:
@@ -6871,7 +6844,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 4d76b008887868446a7adce748d4e1c2, type: 2}
+  - {fileID: 2100000, guid: 712712c49467ddb41b5697739b5d6dd0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -7127,7 +7100,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 07abe57a32ebdd241a8a538972e88731, type: 2}
+  - {fileID: 2100000, guid: 4d76b008887868446a7adce748d4e1c2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -7543,7 +7516,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 4d76b008887868446a7adce748d4e1c2, type: 2}
+  - {fileID: 2100000, guid: 4fff8160209bcdd418cba810db7fafd2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -7959,7 +7932,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 07abe57a32ebdd241a8a538972e88731, type: 2}
+  - {fileID: 2100000, guid: 4d76b008887868446a7adce748d4e1c2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -8919,7 +8892,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 5927c950d7bc8574c8c8ce9342484c21, type: 2}
+  - {fileID: 2100000, guid: 4d76b008887868446a7adce748d4e1c2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9015,7 +8988,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 4d76b008887868446a7adce748d4e1c2, type: 2}
+  - {fileID: 2100000, guid: 4fff8160209bcdd418cba810db7fafd2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9815,7 +9788,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 07abe57a32ebdd241a8a538972e88731, type: 2}
+  - {fileID: 2100000, guid: 4d76b008887868446a7adce748d4e1c2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -10807,7 +10780,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 4d76b008887868446a7adce748d4e1c2, type: 2}
+  - {fileID: 2100000, guid: 712712c49467ddb41b5697739b5d6dd0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -10935,7 +10908,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 07abe57a32ebdd241a8a538972e88731, type: 2}
+  - {fileID: 2100000, guid: 4d76b008887868446a7adce748d4e1c2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -12939,25 +12912,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0f93fd932201a14f8d38f1d5776112c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerData: {fileID: 11400000, guid: 7e2be0af0fd1a9c4b9ea425a0a548170, type: 2}
   shipController: {fileID: 114793993550837528}
-  flashColor: {fileID: 2100000, guid: 1db15971033ba594294b4f0c035f7da8, type: 2}
   healthPods:
   - {fileID: 1656467150415120}
   - {fileID: 1042455899995770}
   - {fileID: 1055519978042126}
-  podIntactMaterial: {fileID: 2100000, guid: 4d76b008887868446a7adce748d4e1c2, type: 2}
-  podDestroyedMaterial: {fileID: 2100000, guid: 5518a15ed9493d44695a335c45aa7750,
-    type: 2}
-  hitEmitter: {fileID: 1055841953223108, guid: 0d57f6e2384c7034888dccc749fac7f4, type: 2}
-  podHitEmitter: {fileID: 1911246495091562, guid: d018b4a4894d15a4d945144c7c1573dc,
-    type: 2}
-  hurtEmitter: {fileID: 0}
-  deathEmitter: {fileID: 1121042957686670, guid: a1bfa5497fc24df4ab1d22001dc533da,
-    type: 2}
   source: {fileID: 82926163793428804}
-  hitSound: {fileID: 8300000, guid: 83cad372b9a3e5b448df2655e0495b4f, type: 3}
-  lowHealth: {fileID: 8300000, guid: b78e97448df1fd54e8532d46501da0e2, type: 3}
-  heal: {fileID: 8300000, guid: f0379a32f5d3d3c4896fd17de47d9eeb, type: 3}
 --- !u!114 &114376579639748570
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -12999,10 +12960,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shipController: {fileID: 114793993550837528}
   damageMultiplier: 0
-  radius: 0.3
-  rocketPrefab: {fileID: 1307413110761698, guid: 44d6133eede41af47acad395888fba4a,
-    type: 2}
-  rocketType: 0
+  rocketPodData: {fileID: 11400000, guid: 5ce75a0a1e5cb92479870a5f191d96d1, type: 2}
   barrels:
   - {fileID: 4185331118889396}
   - {fileID: 4904541521852022}
@@ -13010,11 +12968,8 @@ MonoBehaviour:
   - {fileID: 4600777832978996}
   - {fileID: 4510819735515010}
   - {fileID: 4037051136755908}
-  burstAmount: 6
   rocketLaunchEmitter: {fileID: 0}
   source: {fileID: 82504413075797476}
-  rocketPodLaunchSound: {fileID: 8300000, guid: ec557f9b5abd0b641a4940d752eb3b8f,
-    type: 3}
 --- !u!114 &114469184761876228
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -13095,9 +13050,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shipController: {fileID: 114793993550837528}
   damageMultiplier: 0
-  radius: 0.3
-  tracerMaterial: {fileID: 2100000, guid: 94b83a265507fa64c97d2039f9b11189, type: 2}
-  thickness: 0.003
+  minigunData: {fileID: 11400000, guid: ae1b23ca36eedda4f88f0be656624d68, type: 2}
   left:
   - {fileID: 1891782559340126}
   - {fileID: 1135159323362702}
@@ -13116,7 +13069,6 @@ MonoBehaviour:
   - {fileID: 1618409207318012}
   - {fileID: 1835601282760866}
   - {fileID: 1993460180884510}
-  overheatBarrelColor: {r: 1, g: 0.28965518, b: 0, a: 1}
   barrelRenderers:
   - {fileID: 23799300528090220}
   - {fileID: 23160399660856050}
@@ -13140,20 +13092,8 @@ MonoBehaviour:
   - {fileID: 23915237157719274}
   - {fileID: 23352477348737308}
   - {fileID: 23953391433354570}
-  overheatMax: 100
-  overheatPerShot: 0.5
-  overheatDecreaseAmount: 6.67
-  overheatDecreaseTickLength: 0.1
-  overheatDecreaseDelay: 0.33
-  overheatCoolDown: 3
-  hitSparkEmitter: {fileID: 1514411477096268, guid: 428589331263e1649baa33bed534c884,
-    type: 2}
-  muzzleFlashEmitter: {fileID: 1585948764433870, guid: bb8ae17bb63b15b4f8db2ec1c45e51fa,
-    type: 2}
   source: {fileID: 82297613373361858}
-  source2d: {fileID: 82347148825229244}
-  minigunShootSound: {fileID: 8300000, guid: 58fa71883856e0e49973b4dce75e90d0, type: 3}
-  overheatSound: {fileID: 8300000, guid: 29a8671d31d2f954eac8cd1c77fcc008, type: 3}
+  source2D: {fileID: 82347148825229244}
 --- !u!114 &114689089403391338
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -13191,17 +13131,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shipController: {fileID: 114793993550837528}
   damageMultiplier: 1
-  radius: 0.3
-  laserMaterial: {fileID: 2100000, guid: fb4863ba36a8e134791cc6e1bbb1efeb, type: 2}
-  thickness: 0.003
+  laserGunData: {fileID: 11400000, guid: 261ff0aa64128104a88f54b312ad9429, type: 2}
   left: {fileID: 1387819469322364}
   right: {fileID: 1073334260854514}
-  hitSparkEmitter: {fileID: 1514411477096268, guid: 2c7bff8c66a11a9428c0d364e45bd8a2,
-    type: 2}
-  muzzleFlashEmitter: {fileID: 1585948764433870, guid: 9769f941053c78444bc5cd90454b7ae1,
-    type: 2}
   source: {fileID: 82477393017818666}
-  laserShootSound: {fileID: 8300000, guid: 0f789f5cd793f19469a7c23b8352f1c9, type: 3}
 --- !u!114 &114762446551990762
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -13229,28 +13162,154 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e23030c77dd034d4ab463f488c746cc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerData: {fileID: 11400000, guid: 7e2be0af0fd1a9c4b9ea425a0a548170, type: 2}
   masterCollider: {fileID: 114862744229691696}
-  currentWeapon: 0
   hand: {fileID: 0}
   weapons:
-  - weapon: {fileID: 114721725632535252}
-    damage: 8
-    fireRate: 10
-  - weapon: {fileID: 114671084899170778}
-    damage: 6
-    fireRate: 25
-  - weapon: {fileID: 114467211108086248}
-    damage: 30
-    fireRate: 3
-  - weapon: {fileID: 114963946566955436}
-    damage: 15
-    fireRate: 14
+  - {fileID: 114721725632535252}
+  - {fileID: 114671084899170778}
+  - {fileID: 114467211108086248}
+  - {fileID: 114963946566955436}
   source: {fileID: 82926163793428804}
-  startClips:
-  - {fileID: 8300000, guid: 11d45a31ddd13cf4ab0b4cf15e57b29c, type: 3}
-  - {fileID: 8300000, guid: 5b687e147fa85624db00d1ceb6f0b41b, type: 3}
-  - {fileID: 8300000, guid: 35e145daddf286c44a805feff739e052, type: 3}
-  weaponStartClips: []
+  body:
+  - {fileID: 23210730412172476}
+  - {fileID: 23715013723070188}
+  - {fileID: 23023849673016026}
+  - {fileID: 23060182975441696}
+  - {fileID: 23966887182574902}
+  - {fileID: 23235169136499354}
+  - {fileID: 23665506131516670}
+  - {fileID: 23425563561384214}
+  - {fileID: 23390051846350136}
+  - {fileID: 23319885529315960}
+  - {fileID: 23549140259401770}
+  - {fileID: 23300132132255904}
+  - {fileID: 23516081634347726}
+  - {fileID: 23408769626994604}
+  - {fileID: 23636226198494108}
+  - {fileID: 23328950605518550}
+  - {fileID: 23370525452001926}
+  - {fileID: 23080598990453174}
+  - {fileID: 23041643932256130}
+  - {fileID: 23070026875931014}
+  - {fileID: 23247448293274164}
+  - {fileID: 23082002987436380}
+  - {fileID: 23831542448512768}
+  - {fileID: 23040769755126110}
+  - {fileID: 23898611903933870}
+  - {fileID: 23405446429041528}
+  - {fileID: 23070390933558576}
+  - {fileID: 23521473747721424}
+  - {fileID: 23609388635617532}
+  minigunNoOverheat:
+  - {fileID: 23474620755242964}
+  - {fileID: 23659779557047378}
+  - {fileID: 23142821491002766}
+  - {fileID: 23448504086454970}
+  minigunOverheat:
+  - {fileID: 23799300528090220}
+  - {fileID: 23160399660856050}
+  - {fileID: 23290805417224774}
+  - {fileID: 23038921401530640}
+  - {fileID: 23553298347551554}
+  - {fileID: 23335333936225774}
+  - {fileID: 23523439599221668}
+  - {fileID: 23744680258963484}
+  - {fileID: 23209999065112192}
+  - {fileID: 23333805996200170}
+  - {fileID: 23655725508162546}
+  - {fileID: 23190460682299724}
+  - {fileID: 23120261026989296}
+  - {fileID: 23739059822126026}
+  - {fileID: 23400032057251576}
+  - {fileID: 23631409956461676}
+  - {fileID: 23422586563918424}
+  - {fileID: 23184270266305244}
+  - {fileID: 23271889251368962}
+  - {fileID: 23915237157719274}
+  - {fileID: 23352477348737308}
+  - {fileID: 23953391433354570}
+  rocketPod:
+  - {fileID: 23594460236726734}
+  - {fileID: 23350311018450478}
+  - {fileID: 23086142124324586}
+  - {fileID: 23491397431494452}
+  - {fileID: 23131833415973440}
+  - {fileID: 23689718806708898}
+  - {fileID: 23255993382496004}
+  - {fileID: 23879853061444626}
+  - {fileID: 23237883123076462}
+  - {fileID: 23843537247201626}
+  - {fileID: 23158086300591184}
+  - {fileID: 23910832836830326}
+  - {fileID: 23465815072237700}
+  - {fileID: 23446000805048620}
+  - {fileID: 23698340833157530}
+  - {fileID: 23911174042441512}
+  - {fileID: 23793833757703686}
+  - {fileID: 23129206201561624}
+  - {fileID: 23871483705926962}
+  - {fileID: 23831148491396808}
+  - {fileID: 23635772353554800}
+  - {fileID: 23064355650384648}
+  - {fileID: 23052215355986784}
+  - {fileID: 23903651457885960}
+  - {fileID: 23243945428879792}
+  - {fileID: 23677056991468438}
+  - {fileID: 23011421816621316}
+  - {fileID: 23876795844410318}
+  - {fileID: 23176761468151260}
+  - {fileID: 23429105168814936}
+  - {fileID: 23987945798135610}
+  - {fileID: 23974878007990846}
+  - {fileID: 23714005788024656}
+  - {fileID: 23394480961519958}
+  - {fileID: 23957596215236866}
+  - {fileID: 23671483807759432}
+  - {fileID: 23338096451494206}
+  - {fileID: 23620056199529462}
+  - {fileID: 23147363998155976}
+  - {fileID: 23293393638887824}
+  - {fileID: 23076696018105158}
+  - {fileID: 23993497985120866}
+  - {fileID: 23509765781217604}
+  - {fileID: 23976279955449060}
+  - {fileID: 23573284599876536}
+  - {fileID: 23380319803632500}
+  - {fileID: 23295041174784334}
+  - {fileID: 23699861833198770}
+  - {fileID: 23216911996106502}
+  - {fileID: 23745564191891470}
+  - {fileID: 23616135924216132}
+  - {fileID: 23790975061793548}
+  - {fileID: 23210201307402476}
+  - {fileID: 23423875875764918}
+  - {fileID: 23642401264145290}
+  - {fileID: 23533438013807798}
+  - {fileID: 23652136516032276}
+  - {fileID: 23734494313303482}
+  - {fileID: 23968677939228286}
+  - {fileID: 23123406287182668}
+  - {fileID: 23935163161729328}
+  - {fileID: 23995578499120880}
+  - {fileID: 23406373576247934}
+  - {fileID: 23222001154146882}
+  - {fileID: 23998883533458590}
+  - {fileID: 23851163844484716}
+  - {fileID: 23786588280704356}
+  - {fileID: 23979484570497586}
+  - {fileID: 23358845658894472}
+  - {fileID: 23855554571861910}
+  - {fileID: 23586613690409108}
+  - {fileID: 23235378130341868}
+  - {fileID: 23206646517392788}
+  - {fileID: 23745555258678426}
+  - {fileID: 23494081662729132}
+  - {fileID: 23037700178762232}
+  - {fileID: 23095096491748364}
+  - {fileID: 23791444999770192}
+  - {fileID: 23935136976955232}
+  - {fileID: 23006780298163510}
 --- !u!114 &114809922867568770
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -13350,13 +13409,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shipController: {fileID: 114793993550837528}
   damageMultiplier: 0
-  radius: 0.3
-  maxAmmo: 20
-  reloadTime: 4
-  reloadDelay: 1
-  rocketPrefab: {fileID: 1307413110761698, guid: 44d6133eede41af47acad395888fba4a,
-    type: 2}
-  rocketType: 1
+  plasmaData: {fileID: 11400000, guid: 7d66f63839db58b409dae0ac0e37524d, type: 2}
   barrels:
   - {fileID: 4168356968657116}
   - {fileID: 4355584203181256}
@@ -13370,10 +13423,32 @@ MonoBehaviour:
   - {fileID: 4230780056861154}
   plasmaLaunchEmitter: {fileID: 0}
   source: {fileID: 82172981414638460}
-  plasmaGunShootSound: {fileID: 0}
-  plasmaGunChargingSounds:
-  - {fileID: 8300000, guid: 0a8b74b3f6623fd41b02f3cc647f6af0, type: 3}
-  - {fileID: 8300000, guid: 13a2ebafe891626408bef5c2cb418cab, type: 3}
+--- !u!136 &136069623699241332
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1277271109717630}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.052448798
+  m_Height: 0.28814155
+  m_Direction: 1
+  m_Center: {x: -0.00091405027, y: -0.04444803, z: -0.0000000093132275}
+--- !u!136 &136237794688029744
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1657854951031792}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.052448798
+  m_Height: 0.28814155
+  m_Direction: 1
+  m_Center: {x: 0.00000007636845, y: -0.04444803, z: -0.0000000093132275}
 --- !u!198 &198096671654029454
 ParticleSystem:
   m_ObjectHideFlags: 1

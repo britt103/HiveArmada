@@ -386,10 +386,11 @@ namespace Hive.Armada.Game
         /// <returns> </returns>
         public short GetTypeIdentifier(GameObject objectType)
         {
+            if (objectType == null)
+                return -1;
+            
             if (typeIdentifierLookup.ContainsKey(objectType.GetInstanceID()))
-            {
                 return typeIdentifierLookup[objectType.GetInstanceID()];
-            }
 
             Debug.LogError(GetType().Name + " - Object not in pool. Prefab Name: \"" +
                            objectType.name + "\"");

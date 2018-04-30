@@ -14,10 +14,11 @@
 //=============================================================================
 
 using System.Collections;
-using UnityEngine;
-using UnityEngine.Rendering;
+using Hive.Armada.Data;
 using Hive.Armada.Enemies;
 using MirzaBeig.ParticleSystems;
+using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace Hive.Armada.Player.Weapons
 {
@@ -26,6 +27,8 @@ namespace Hive.Armada.Player.Weapons
     /// </summary>
     public class LaserGun : Weapon
     {
+        public LaserGunData laserGunData;
+
         /// <summary>
         /// Alternates between firing the left and right laser
         /// </summary>
@@ -34,17 +37,17 @@ namespace Hive.Armada.Player.Weapons
         /// <summary>
         /// Material for the lasers
         /// </summary>
-        [Header("Lasers")]
-        public Material laserMaterial;
+        private Material laserMaterial;
 
         /// <summary>
         /// Thickness of the lasers
         /// </summary>
-        public float thickness = 0.002f;
+        private float thickness = 0.002f;
 
         /// <summary>
         /// Left gun
         /// </summary>
+        [Space]
         public GameObject left;
 
         /// <summary>
@@ -65,13 +68,12 @@ namespace Hive.Armada.Player.Weapons
         /// <summary>
         /// Particle emitter for the hit spark effect.
         /// </summary>
-        [Header("Emitters")]
-        public GameObject hitSparkEmitter;
+        private GameObject hitSparkEmitter;
 
         /// <summary>
         /// Particle emitter for the muzzle flash effect.
         /// </summary>
-        public GameObject muzzleFlashEmitter;
+        private GameObject muzzleFlashEmitter;
 
         /// <summary>
         /// Pool of muzzle flash emitters.
@@ -92,14 +94,31 @@ namespace Hive.Armada.Player.Weapons
         /// <summary>
         /// The sound the laser gun makes when it fires.
         /// </summary>
-        public AudioClip laserShootSound;
+        private AudioClip laserShootSound;
+
+        protected override void Awake()
+        {
+            base.Awake();
+            SetupWeapon();
+        }
 
         /// <summary>
         /// Initializes the LineRenderer's that are the lasers and
         /// the muzzle flash emitter pool.
         /// </summary>
-        protected override void SetupWeapon()
+        private void SetupWeapon()
         {
+            SetupWeapon(laserGunData);
+            
+            laserMaterial = laserGunData.laserMaterial;
+            thickness = laserGunData.thickness;
+            hitSparkEmitter = laserGunData.hitSpark;
+            muzzleFlashEmitter = laserGunData.muzzleFlash;
+            laserShootSound = laserGunData.shootSound;
+
+            if (reference.cheats.doubleDamage)
+                damage *= 2;
+
             waitFire = new WaitForSeconds(1.0f / fireRate);
 
             leftLaser = left.gameObject.AddComponent<LineRenderer>();

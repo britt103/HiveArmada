@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c283a92f0f448e4fbe36acabef8daef, type: 3}
+  m_Name: Player Rocket Data
+  m_EditorClassIdentifier: 
+  behaviorFlags: 1
+  speed: 5
+  homingSensitivity: 0.85
+  explodeTime: 7
+  explosiveRadius: 0
+  randomTime: 0.35
+  randomX: 0.02
+  randomY: 0.02
+  randomZ: 0.02
+  explosionEmitterPrefab: {fileID: 1149115680930312, guid: b76cef86fabf4a6488f30f04521ff9c8,
+    type: 2}
+  rocketEmitterPrefab: {fileID: 0}
+  trailEmitterPrefab: {fileID: 1960874980371040, guid: d0b15749a6c8b1446a88d7576c461f35,
+    type: 2}
+  explosionClip: {fileID: 8300000, guid: 670401f036675f94289edd02894a63cd, type: 3}
+  trailClip: {fileID: 8300000, guid: e624d9a40e20d71498145c130df1ae05, type: 3}

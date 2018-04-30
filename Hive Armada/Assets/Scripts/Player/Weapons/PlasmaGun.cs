@@ -11,6 +11,7 @@
 //=============================================================================
 
 using System.Collections;
+using Hive.Armada.Data;
 using UnityEngine;
 using Hive.Armada.Game;
 using Hive.Armada.Enemies;
@@ -22,33 +23,19 @@ namespace Hive.Armada.Player.Weapons
     /// </summary>
     public class PlasmaGun : Weapon
     {
-        public int maxAmmo;
+        public PlasmaData plasmaData;
+        
+        private int maxAmmo;
 
-        public float reloadTime;
+        private float reloadTime;
 
-        public float reloadDelay;
+        private float reloadDelay;
 
         private int currentAmmo;
 
         private Coroutine reloadCoroutine;
 
         private bool isReloading;
-
-        /// <summary>
-        /// Prefab for the rocket gameobject.
-        /// </summary>
-        [Header("Projectiles")]
-        public GameObject rocketPrefab;
-
-        /// <summary>
-        /// The type of rocket to use.
-        /// </summary>
-        public RocketAttributes.RocketType rocketType;
-
-        /// <summary>
-        /// The index of the rocket type to use.
-        /// </summary>
-        private int rocketTypeIndex;
 
         /// <summary>
         /// The type id for the rockets.
@@ -75,36 +62,41 @@ namespace Hive.Armada.Player.Weapons
         /// <summary>
         /// The sound the plasma gun makes when it fires.
         /// </summary>
-        public AudioClip plasmaGunShootSound;
+        private AudioClip plasmaGunShootSound;
 
-        /// <summary>
-        /// The sounds used when the plasma gun is charging/complete
-        /// </summary>
-        public AudioClip[] plasmaGunChargingSounds;
+        private AudioClip chargeSound;
+
+        private AudioClip chargeCompleteSound;
 
         private WaitForSeconds waitReloadDelay;
 
+        protected override void Awake()
+        {
+            base.Awake();
+            SetupWeapon();
+        }
+        
         /// <summary>
         /// Initializes the rockets and active/inactive pools.
         /// </summary>
-        protected override void SetupWeapon()
+        private void SetupWeapon()
         {
+            SetupWeapon(plasmaData);
+            
+            plasmaGunShootSound = plasmaData.shootSound;
+            rocketTypeId = reference.objectPoolManager.GetTypeIdentifier(plasmaData.plasmaPrefab);
+            maxAmmo = plasmaData.maxAmmo;
+            reloadTime = plasmaData.reloadTime;
+            reloadDelay = plasmaData.reloadDelay;
+            chargeSound = plasmaData.chargingSound;
+            chargeCompleteSound = plasmaData.chargeCompleteSound;
+            
+            if (reference.cheats.doubleDamage)
+                damage *= 2;
+            
             waitFire = new WaitForSeconds(1.0f / fireRate);
             waitReloadDelay = new WaitForSeconds(reloadDelay);
             currentAmmo = maxAmmo;
-
-            rocketTypeIndex = -1;
-
-            for (int i = 0; i < reference.rocketAttributes.rockets.Length; ++i)
-            {
-                if (reference.rocketAttributes.rockets[i].rocketType == rocketType)
-                {
-                    rocketTypeIndex = i;
-                    break;
-                }
-            }
-
-            rocketTypeId = reference.objectPoolManager.GetTypeIdentifier(rocketPrefab);
         }
 
         /// <summary>
@@ -188,8 +180,6 @@ namespace Hive.Armada.Player.Weapons
                     reference.objectPoolManager.Spawn(gameObject, rocketTypeId, barrel.position,
                                                       barrel.rotation);
             Rocket rocketScript = rocket.GetComponent<Rocket>();
-            rocketScript.SetupRocket(rocketTypeIndex, shipController);
-            rocketScript.SetDamageMultiplier(damageMultiplier);
 
             bool launched = false;
             if (target != null)
@@ -198,7 +188,7 @@ namespace Hive.Armada.Player.Weapons
                 {
                     if (target.GetComponent<Poolable>().IsActive)
                     {
-                        rocketScript.Launch(target, position);
+                        rocketScript.Launch(target, position, damageMultiplier);
                         launched = true;
                     }
                 }
@@ -209,7 +199,7 @@ namespace Hive.Armada.Player.Weapons
                     {
                         if (target.GetComponent<Enemy>().Health > 0)
                         {
-                            rocketScript.Launch(target, position);
+                            rocketScript.Launch(target, position, damageMultiplier);
                             launched = true;
                         }
                     }
@@ -219,14 +209,14 @@ namespace Hive.Armada.Player.Weapons
                 {
                     if (target.activeInHierarchy && target.activeSelf)
                     {
-                        rocketScript.Launch(target, position);
+                        rocketScript.Launch(target, position, damageMultiplier);
                         launched = true;
                     }
                 }
             }
             else
             {
-                rocketScript.Launch(null, position);
+                rocketScript.Launch(null, position, damageMultiplier);
                 launched = true;
             }
 
@@ -238,7 +228,7 @@ namespace Hive.Armada.Player.Weapons
                 if (Physics.Raycast(position, forward, out hit, 200.0f,
                                     Utility.roomMask))
                 {
-                    rocketScript.Launch(null, hit.point);
+                    rocketScript.Launch(null, hit.point, damageMultiplier);
                 }
                 else
                 {
@@ -258,7 +248,7 @@ namespace Hive.Armada.Player.Weapons
 
         private IEnumerator Reload()
         {
-            source.PlayOneShot(plasmaGunChargingSounds[0]);
+            source.PlayOneShot(chargeSound);
 
             yield return waitReloadDelay;
 
@@ -266,16 +256,7 @@ namespace Hive.Armada.Player.Weapons
 
             currentAmmo = maxAmmo;
 
-            //float timeToWait = reloadTime / maxAmmo * currentAmmo;
-
-            //while (currentAmmo < maxAmmo)
-            //{
-            //    yield return new WaitForSeconds(timeToWait);
-
-            //    ++currentAmmo;
-            //}
-
-            source.PlayOneShot(plasmaGunChargingSounds[1]);
+            source.PlayOneShot(chargeCompleteSound);
 
             reloadCoroutine = null;
         }

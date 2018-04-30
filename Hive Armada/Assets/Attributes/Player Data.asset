@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f91d648a6e8396549840b9cb0e59882d, type: 3}
+  m_Name: Player Data
+  m_EditorClassIdentifier: 
+  playerMaxHealth: 3
+  playerLowHealth: 1
+  flashColor: {fileID: 2100000, guid: 1db15971033ba594294b4f0c035f7da8, type: 2}
+  deathEmitter: {fileID: 1121042957686670, guid: a1bfa5497fc24df4ab1d22001dc533da,
+    type: 2}
+  hitSound: {fileID: 8300000, guid: 83cad372b9a3e5b448df2655e0495b4f, type: 3}
+  lowHealthSound: {fileID: 8300000, guid: 39807fa71ca28f541abe04bccaded7ed, type: 3}
+  healSound: {fileID: 8300000, guid: d6e072cc51039704bb232420cdd8bd6d, type: 3}
+  shipIntroClips:
+  - {fileID: 8300000, guid: c6246b4fb4b5af540aa49250cd9392ed, type: 3}
+  - {fileID: 8300000, guid: c3d47dbe75d9aa345b62347ea2a4ee02, type: 3}
+  - {fileID: 8300000, guid: d46e444361afb8d4f807b653039e82b8, type: 3}
+  shipWeaponIntroClips:
+  - {fileID: 8300000, guid: fade4af60a013694fb08cf6b39c0c731, type: 3}
+  - {fileID: 8300000, guid: a5b2e73db8bcc334eae15d357e262df6, type: 3}
+  - {fileID: 8300000, guid: 19ab1881ae3675942ac1c1892c9f7923, type: 3}
+  - {fileID: 8300000, guid: 357a7c54ac69820418fcb65e1cdff7cb, type: 3}
+  shipBodyMaterials:
+  - {fileID: 2100000, guid: 4d76b008887868446a7adce748d4e1c2, type: 2}
+  - {fileID: 2100000, guid: 5927c950d7bc8574c8c8ce9342484c21, type: 2}
+  shipMinigunMaterials:
+  - {fileID: 2100000, guid: 4fff8160209bcdd418cba810db7fafd2, type: 2}
+  - {fileID: 2100000, guid: 4cfe17afed1787244b03ea78e87a84eb, type: 2}
+  shipMinigunOverheatMaterials:
+  - {fileID: 2100000, guid: bc99d3e7ca4e361459643afda5dec913, type: 2}
+  - {fileID: 2100000, guid: e5535334c23acd84fa100b04ebfdd734, type: 2}
+  shipRocketPodsMaterials:
+  - {fileID: 2100000, guid: 712712c49467ddb41b5697739b5d6dd0, type: 2}
+  - {fileID: 2100000, guid: 285788e3aa52c4f429e4da07e39f31ff, type: 2}
+  shipPodDestroyedMaterials:
+  - {fileID: 2100000, guid: 5518a15ed9493d44695a335c45aa7750, type: 2}
+  - {fileID: 2100000, guid: 5518a15ed9493d44695a335c45aa7750, type: 2}
+  skinLightSettings:
+  - color: {r: 0.6431373, g: 0.72156864, b: 0.78039217, a: 1}
+    intensity: 2.5
+  - color: {r: 1, g: 0.8901961, b: 0.38431373, a: 1}
+    intensity: 1.5
+  pickupBodyMaterials:
+  - {fileID: 2100000, guid: 88feb23a7481d0b4684c7eedf84afbba, type: 2}
+  - {fileID: 2100000, guid: 789bf10e0b8cbc645ac835c32d434ed7, type: 2}
+  pickupMinigunMaterials:
+  - {fileID: 2100000, guid: f05dcbd027c3c534eadc9b299f03cc1e, type: 2}
+  - {fileID: 2100000, guid: 5b5252fe7068f5c409ccf10a544b5f5a, type: 2}
+  pickupRocketPodsMaterials:
+  - {fileID: 2100000, guid: 9f16161f2afb47041881007743205d97, type: 2}
+  - {fileID: 2100000, guid: 714f0235d108aa84bbf8e413df652c79, type: 2}
+  pickupLightSettings:
+  - color: {r: 1, g: 1, b: 1, a: 1}
+    intensity: 1.75
+  - color: {r: 0.99607843, g: 1, b: 0.85490197, a: 1}
+    intensity: 1

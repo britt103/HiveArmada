@@ -11,6 +11,7 @@
 // 
 //=============================================================================
 
+using Hive.Armada.Data;
 using Hive.Armada.Game;
 using UnityEngine;
 
@@ -41,8 +42,7 @@ namespace Hive.Armada.Player.Weapons
         /// <summary>
         /// The radius for the aim assist SphereCast.
         /// </summary>
-        [Tooltip("Radius for the aim assist SphereCast")]
-        public float radius = 0.3f;
+        protected float radius = 0.3f;
 
         /// <summary>
         /// Damage done with each hit.
@@ -66,7 +66,7 @@ namespace Hive.Armada.Player.Weapons
         /// <summary>
         /// Initializes the reference to the Reference Manager.
         /// </summary>
-        protected void Awake()
+        protected virtual void Awake()
         {
             reference = GameObject.Find("Reference Manager").GetComponent<ReferenceManager>();
 
@@ -89,14 +89,20 @@ namespace Hive.Armada.Player.Weapons
         {
             damageMultiplier = 1;
             damage = shipController.weapons[weaponIndex].damage;
-            fireRate = shipController.weapons[weaponIndex].fireRate;
-            SetupWeapon();
+            if (reference.cheats.doubleDamage)
+                damage *= 2;
+        fireRate = shipController.weapons[weaponIndex].fireRate;
         }
 
         /// <summary>
         /// Runs any setup needed for the weapon.
         /// </summary>
-        protected abstract void SetupWeapon();
+        protected void SetupWeapon(WeaponData weaponData)
+        {
+            radius = weaponData.aimAssistRadius;
+            damage = weaponData.damage;
+            fireRate = weaponData.fireRate;
+        }
 
         /// <summary>
         /// Called every frame that the controller's trigger is down.

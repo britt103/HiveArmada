@@ -79,11 +79,6 @@ namespace Hive.Armada.PowerUps
         private short rocketTypeId;
 
         /// <summary>
-        /// Rocket type for setting attributes for launched rockets.
-        /// </summary>
-        public RocketAttributes.RocketType rocketType;
-
-        /// <summary>
         /// FX instanted in Start().
         /// </summary>
         public GameObject spawnEmitter;
@@ -114,7 +109,8 @@ namespace Hive.Armada.PowerUps
         {
             reference = FindObjectOfType<ReferenceManager>();
             bossSource = GameObject.Find("Boss Audio Source").GetComponent<AudioSource>();
-            StartCoroutine(pauseForBoss());
+            reference.dialoguePlayer.EnqueueFeedback(clips[1]);
+            //StartCoroutine(pauseForBoss());
 
             if (reference != null)
             {
@@ -284,7 +280,6 @@ namespace Hive.Armada.PowerUps
                 reference.objectPoolManager.Spawn(gameObject, rocketTypeId, shootPoint.position,
                                                   shootPoint.rotation);
             Rocket rocketScript = rocket.GetComponent<Rocket>();
-            rocketScript.SetupRocket((int)rocketType);
             rocketScript.Launch(target, target.transform.position);
 
             source.PlayOneShot(clips[0]);
@@ -292,28 +287,6 @@ namespace Hive.Armada.PowerUps
             yield return new WaitForSeconds(1.0f / firerate);
 
             canFire = true;
-        }
-
-        IEnumerator pauseForBoss()
-        {
-            if (bossSource.isPlaying)
-            {
-                yield return new WaitWhile(() => bossSource.isPlaying);
-
-                if (source.isPlaying)
-                {
-                    yield return new WaitWhile(() => source.isPlaying);
-                }
-
-                if (!source.isPlaying)
-                {
-                    source.PlayOneShot(clips[1]);
-                }
-            }
-            else if (!bossSource.isPlaying)
-            {
-                source.PlayOneShot(clips[1]);
-            }
         }
     }
 }

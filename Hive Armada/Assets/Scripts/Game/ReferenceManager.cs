@@ -29,15 +29,10 @@ namespace Hive.Armada.Game
     /// </summary>
     public class ReferenceManager : MonoBehaviour
     {
-        //----------------------------------------
-        // 
-        // Systems & Managers
-        // 
-        //----------------------------------------
         [Header("Systems & Managers")]
         public GameManager gameManager;
 
-        public EnemyAttributes enemyAttributes;
+        public EnemyManager enemyAttributes;
 
         public ScoringSystem scoringSystem;
 
@@ -63,24 +58,13 @@ namespace Hive.Armada.Game
 
         public IridiumSpawner iridiumSpawner;
 
-        public RocketAttributes rocketAttributes;
-
         public MenuSounds menuSounds;
 
         public DialoguePlayer dialoguePlayer;
 
         public Tooltips tooltips;
-
-        public ProjectileData projectileData;
-
-        //----------------------------------------
-        // 
-        // Player
-        // 
-        //----------------------------------------
-        [Header("Player")]
-        public HealthData healthData;
         
+        [Header("Player")]
         public GameObject player;
 
         public GameObject playerLookTarget;
@@ -96,13 +80,7 @@ namespace Hive.Armada.Game
         public PlayerHitVignette playerHitVignette;
 
         public ScoreDisplay playerScoreDisplay;
-
-        //----------------------------------------
-        // 
-        // Menus & UI
-        // 
-        //----------------------------------------
-
+        
         /// <summary>
         /// Main menu game object
         /// </summary>
@@ -132,12 +110,14 @@ namespace Hive.Armada.Game
         public GameObject menuGameOver;
 
         public TalkingParticle talkingParticle;
+        
+        [Header("Data Containers")]
+        public PlayerData playerData;
+        
+        public ProjectileData projectileData;
 
-        //----------------------------------------
-        // 
-        // Audio
-        // 
-        //----------------------------------------
+        public Cheats cheats;
+        
         [Header("Audio")]
         public AudioSource waveCountSource;
 
@@ -149,13 +129,7 @@ namespace Hive.Armada.Game
         /// Sound for when a powerup is picked up by the player.
         /// </summary>
         public AudioClip powerupReadySound;
-
-        //----------------------------------------
-        // 
-        // Methods
-        // 
-        //----------------------------------------
-
+        
         /// <summary>
         /// Calls any functions needed to initialize any managers.
         /// </summary>
@@ -194,11 +168,6 @@ namespace Hive.Armada.Game
             if (optionsValues == null)
             {
                 optionsValues = FindObjectOfType<OptionsValues>();
-            }
-
-            if (rocketAttributes != null)
-            {
-                rocketAttributes.Initialize(this);
             }
 
             if (shipLookTarget == null)

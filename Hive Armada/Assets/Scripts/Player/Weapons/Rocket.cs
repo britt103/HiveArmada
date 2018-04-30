@@ -12,19 +12,19 @@
 //=============================================================================
 
 using System;
-using System.Collections;
-using UnityEngine;
+using Hive.Armada.Data;
 using Hive.Armada.Enemies;
 using Hive.Armada.Game;
-using Random = UnityEngine.Random;
+using UnityEngine;
 using Valve.VR.InteractionSystem;
+using Random = UnityEngine.Random;
 
 namespace Hive.Armada.Player.Weapons
 {
     /// <summary>
     /// Multi-use rocket. Used by player rocket pod weapon, ally power-up, and area bomb power-up.
     /// </summary>
-    public class Rocket : Poolable
+    public abstract class Rocket : Poolable
     {
         /// <summary>
         /// Bit flag for rocket behavior.
@@ -43,25 +43,12 @@ namespace Hive.Armada.Player.Weapons
             ExplosiveDamage = 1 << 1,
 
             /// <summary>
-            /// If the rocket should acquire a new target if its current target dies.
-            /// </summary>
-            Retarget = 1 << 2,
-
-            /// <summary>
-            /// If the rocket should auto-aquire its own target.
+            /// If the rocket should auto-aquire new targets.
             /// </summary>
             AutoTarget = 1 << 3,
-
-            /// <summary>
-            /// Disable homing.
-            /// </summary>
-            NoHoming = 1 << 4
         }
 
-        /// <summary>
-        /// Reference to the attributes for all rocket types.
-        /// </summary>
-        private RocketAttributes rocketAttributes;
+        public RocketData rocketData;
 
         /// <summary>
         /// Reference to the ship controller for controller vibrations.
@@ -69,20 +56,15 @@ namespace Hive.Armada.Player.Weapons
         private ShipController shipController;
 
         /// <summary>
-        /// Index of this rocket's type attributes in RocketAttributes.
-        /// </summary>
-        private int rocketType;
-
-        /// <summary>
         /// How much damage the rocket does to enemies.
         /// </summary>
-        private int damage;
+        protected int damage;
 
         /// <summary>
         /// Sets a list of behaviors for this rocket.
         /// </summary>
         [EnumFlags]
-        private RocketFlags behaviorFlags;
+        protected RocketFlags behaviorFlags;
 
         /// <summary>
         /// How fast the rocket moves.
@@ -100,6 +82,8 @@ namespace Hive.Armada.Player.Weapons
         /// Time until the rocket auto explodes.
         /// </summary>
         private float explodeTime;
+
+        private float selfDestructTime;
 
         /// <summary>
         /// The radius of the area of effect.
@@ -218,10 +202,6 @@ namespace Hive.Armada.Player.Weapons
 
         private AudioClip explosionClip;
 
-        private WaitForSeconds waitRandom;
-
-        private WaitForSeconds waitExplode;
-
         /// <summary>
         /// Deactivates the rocket when it is first created.
         /// </summary>
@@ -229,81 +209,29 @@ namespace Hive.Armada.Player.Weapons
         {
             base.Awake();
 
-            rocketAttributes = reference.rocketAttributes;
+            Initialize();
             nextRandomTime = Time.time;
         }
 
-        /// <summary>
-        /// Initializes the rocket and its attributes.
-        /// </summary>
-        /// <param name="rocketType"> The index for the rocket's attributes </param>
-        /// <param name="shipController"> The ship controller </param>
-        public void SetupRocket(int rocketType, ShipController shipController)
+        private void Initialize()
         {
-            this.rocketType = rocketType;
-            this.shipController = shipController;
-            SetAttributes();
-        }
-
-        /// <summary>
-        /// Initializes the rocket and its attributes.
-        /// </summary>
-        /// <param name="rocketType"> The index for the rocket's attributes </param>
-        public void SetupRocket(int rocketType)
-        {
-            this.rocketType = rocketType;
-            SetAttributes();
-        }
-
-        /// <summary>
-        /// Sets the rocket's attributes from RocketAttributes.
-        /// </summary>
-        private void SetAttributes()
-        {
-            behaviorFlags = rocketAttributes.rockets[rocketType].behaviorFlags;
-            damage = rocketAttributes.rockets[rocketType].damage;
-            speed = rocketAttributes.rockets[rocketType].speed;
-            homingSensitivity = rocketAttributes.rockets[rocketType].homingSensitivity;
-            explodeTime = rocketAttributes.rockets[rocketType].explodeTime;
-            explosiveRadius = rocketAttributes.rockets[rocketType].explosiveRadius;
-            randomTime = rocketAttributes.rockets[rocketType].randomTime;
-            randomX = rocketAttributes.rockets[rocketType].randomX;
-            randomY = rocketAttributes.rockets[rocketType].randomY;
-            randomZ = rocketAttributes.rockets[rocketType].randomZ;
-            explosionClip = rocketAttributes.rockets[rocketType].explosionClip;
-            trailClip = rocketAttributes.rockets[rocketType].trailClip;
-
-            waitRandom = new WaitForSeconds(randomTime);
-            waitExplode = new WaitForSeconds(explodeTime);
-
-            explosionEmitterId = rocketAttributes.RocketExplosionEmitterIds[rocketType];
-            rocketEmitterId = rocketAttributes.RocketEmitterIds[rocketType];
-            trailEmitterId = rocketAttributes.TrailEmitterIds[rocketType];
-
-            if (rocketEmitterId >= 0)
-            {
-                rocketEmitter =
-                    reference.objectPoolManager.Spawn(gameObject, rocketEmitterId,
-                                                      transform.position, transform.rotation,
-                                                      transform);
-            }
-
-            if (trailEmitterId >= 0)
-            {
-                trailEmitter =
-                    reference.objectPoolManager.Spawn(gameObject, trailEmitterId,
-                                                      transform.position, transform.rotation,
-                                                      transform);
-            }
-        }
-
-        /// <summary>
-        /// Sets the damage multiplier for the rocket.
-        /// </summary>
-        /// <param name="multiplier"> The damage multiplier </param>
-        public void SetDamageMultiplier(int multiplier)
-        {
-            damageMultiplier = multiplier;
+            behaviorFlags = rocketData.behaviorFlags;
+            speed = rocketData.speed;
+            homingSensitivity = rocketData.homingSensitivity;
+            explodeTime = rocketData.explodeTime;
+            explosiveRadius = rocketData.explosiveRadius;
+            randomTime = rocketData.randomTime;
+            randomX = rocketData.randomX;
+            randomY = rocketData.randomY;
+            randomZ = rocketData.randomZ;
+            explosionEmitterId =
+                reference.objectPoolManager.GetTypeIdentifier(rocketData.explosionEmitterPrefab);
+            rocketEmitterId =
+                reference.objectPoolManager.GetTypeIdentifier(rocketData.rocketEmitterPrefab);
+            trailEmitterId =
+                reference.objectPoolManager.GetTypeIdentifier(rocketData.trailEmitterPrefab);
+            explosionClip = rocketData.explosionClip;
+            trailClip = rocketData.trailClip;
         }
 
         /// <summary>
@@ -311,6 +239,9 @@ namespace Hive.Armada.Player.Weapons
         /// </summary>
         private void Update()
         {
+            if (Time.time >= selfDestructTime)
+                Explode();
+
             if (isHoming)
             {
                 if (target != null && target.CompareTag("Enemy") && targetEnemyScript != null &&
@@ -369,7 +300,7 @@ namespace Hive.Armada.Player.Weapons
                     Explode();
                 }
             }
-            
+
             if (Time.time >= nextRandomTime)
             {
                 nextRandomTime += randomTime;
@@ -392,22 +323,28 @@ namespace Hive.Armada.Player.Weapons
                 Quaternion.Slerp(transform.rotation, rotation, homingSensitivity);
         }
 
+        public void Launch(GameObject launchTarget, Vector3 position, int launchDamageMultiplier)
+        {
+            damageMultiplier = launchDamageMultiplier;
+            Launch(launchTarget, position);
+        }
+
         /// <summary>
         /// Enables the rocket, initializes its target,
         /// begins the random movement and self-destruct countdown.
         /// </summary>
-        /// <param name="target"> The gameobject for the rocket to home to </param>
+        /// <param name="launchTarget"> The gameobject for the rocket to home to </param>
         /// <param name="position"> The position for the rocket to launch to </param>
-        public void Launch(GameObject target, Vector3 position)
+        public void Launch(GameObject launchTarget, Vector3 position)
         {
-            if (target != null)
+            if (launchTarget != null)
             {
-                this.target = target;
-                targetPosition = target.transform.position;
+                target = launchTarget;
+                targetPosition = launchTarget.transform.position;
                 isHoming = true;
 
-                targetPoolableScript = target.GetComponent<Poolable>();
-                targetEnemyScript = target.GetComponent<Enemy>();
+                targetPoolableScript = launchTarget.GetComponent<Poolable>();
+                targetEnemyScript = launchTarget.GetComponent<Enemy>();
 
                 if (targetEnemyScript != null)
                 {
@@ -429,35 +366,7 @@ namespace Hive.Armada.Player.Weapons
                 isHoming = false;
             }
 
-            smoothFrac = 1.0f;
-            randomMovement = new Vector3(Random.Range(-randomX, randomX),
-                                         Random.Range(-randomY, randomY),
-                                         Random.Range(0.0f, randomZ));
-            smoothMovement = Vector3.zero;
-            initialMovement = Vector3.zero;
-
-            if (trailClip != null)
-            {
-                source.PlayOneShot(trailClip);
-
-                //source.loop = true;
-                //source.clip = trailClip;
-                //source.Play();
-            }
-
-            // StartCoroutine(RandomMovement());
-            StartCoroutine(SelfDestruct());
-        }
-
-        /// <summary>
-        /// Enables the rocket, initializes its target,
-        /// begins the random movement and self-destruct countdown.
-        /// </summary>
-        /// <param name="position"> The position for the rocket to launch to </param>
-        public void Launch(Vector3 position)
-        {
-            targetPosition = position;
-            isHoming = false;
+            selfDestructTime = Time.time + explodeTime;
 
             smoothFrac = 1.0f;
             randomMovement = new Vector3(Random.Range(-randomX, randomX),
@@ -466,17 +375,24 @@ namespace Hive.Armada.Player.Weapons
             smoothMovement = Vector3.zero;
             initialMovement = Vector3.zero;
 
+            if (rocketEmitterId >= 0)
+            {
+                rocketEmitter = reference.objectPoolManager.Spawn(
+                    gameObject, rocketEmitterId, transform.position,
+                    transform.rotation, transform);
+            }
+
+            if (trailEmitterId >= 0)
+            {
+                trailEmitter = reference.objectPoolManager.Spawn(
+                    gameObject, trailEmitterId, transform.position,
+                    transform.rotation, transform);
+            }
+
             if (trailClip != null)
             {
                 source.PlayOneShot(trailClip);
-
-                //source.loop = true;
-                //source.clip = trailClip;
-                //source.Play();
             }
-
-            // StartCoroutine(RandomMovement());
-            StartCoroutine(SelfDestruct());
         }
 
         /// <summary>
@@ -537,6 +453,10 @@ namespace Hive.Armada.Player.Weapons
                 {
                     shootable.Hit();
                 }
+
+                if (shipController == null)
+                    shipController = FindObjectOfType<ShipController>();
+
                 shipController.hand.controller.TriggerHapticPulse(2500);
                 Explode();
             }
@@ -544,33 +464,6 @@ namespace Hive.Armada.Player.Weapons
             {
                 Explode();
             }
-        }
-
-        /// <summary>
-        /// Generates the random movement for the rocket.
-        /// </summary>
-        private IEnumerator RandomMovement()
-        {
-            while (true)
-            {
-                smoothFrac = 0.0f;
-                initialMovement = randomMovement;
-                randomMovement = new Vector3(Random.Range(-randomX, randomX),
-                                             Random.Range(-randomY, randomY),
-                                             Random.Range(0.0f, randomZ));
-
-                yield return waitRandom;
-            }
-        }
-
-        /// <summary>
-        /// Explodes the rocket after a set amount of time.
-        /// </summary>
-        private IEnumerator SelfDestruct()
-        {
-            yield return waitExplode;
-
-            Explode();
         }
 
         /// <summary>
@@ -660,7 +553,6 @@ namespace Hive.Armada.Player.Weapons
         /// </summary>
         public override void Deactivate()
         {
-            StopAllCoroutines();
             isTargetDead = false;
             explosionTarget = null;
 
@@ -672,8 +564,6 @@ namespace Hive.Armada.Player.Weapons
         /// </summary>
         protected override void Reset()
         {
-            behaviorFlags = 0;
-            shipController = null;
             target = null;
             targetPoolableScript = null;
             targetEnemyScript = null;

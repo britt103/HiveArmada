@@ -28,10 +28,6 @@ namespace Hive.Armada.PowerUps
         /// </summary>
         private ReferenceManager reference;
 
-        AudioSource source;
-
-        AudioSource bossSource;
-
         public AudioClip clip;
 
         /// <summary>
@@ -40,43 +36,19 @@ namespace Hive.Armada.PowerUps
         private void Awake()
         {
             reference = GameObject.Find("Reference Manager").GetComponent<ReferenceManager>();
-            source = GameObject.Find("Powerup Audio Source").GetComponent<AudioSource>();
-            bossSource = GameObject.Find("Boss Audio Source").GetComponent<AudioSource>();
-            StartCoroutine(pauseForBoss());
+            reference.dialoguePlayer.EnqueueFeedback(clip);
 
-            StartCoroutine(Run());
-        }
-
-        private IEnumerator Run()
-        {
             reference.playerShip.GetComponent<ShipController>().masterCollider.ActivateShield();
 
-            yield return new WaitForSeconds(reference.playerShip.GetComponent<ShipController>()
-                .masterCollider.shieldDuration);
-
-            Destroy(gameObject);
+            StartCoroutine(PlayBossClip());
         }
 
-        IEnumerator pauseForBoss()
+        private IEnumerator PlayBossClip()
         {
-            if (bossSource.isPlaying)
-            {
-                yield return new WaitWhile(() => bossSource.isPlaying);
+            yield return new WaitForSeconds(2.1f);
+            reference.bossManager.PlayShield();
 
-                if (source.isPlaying)
-                {
-                    yield return new WaitWhile(() => source.isPlaying);
-                }
-
-                if (!source.isPlaying)
-                {
-                    source.PlayOneShot(clip);
-                }
-            }
-            else if (!bossSource.isPlaying)
-            {
-                source.PlayOneShot(clip);
-            }
+            Destroy(gameObject);
         }
     }
 }

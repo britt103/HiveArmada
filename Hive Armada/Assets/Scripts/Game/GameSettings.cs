@@ -122,6 +122,11 @@ namespace Hive.Armada.Game
         /// </summary>
         public ColorBlindMode.Mode colorBlindMode;
 
+        public int selectedSkin;
+
+        [Header("Wave")]
+        public int startingWave;
+
         /// <summary>
         /// Create new list of selected powerups.
         /// </summary>

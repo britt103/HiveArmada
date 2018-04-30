@@ -19,12 +19,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4604467080848270}
-  - component: {fileID: 33432691334932396}
-  - component: {fileID: 23143547182534098}
   - component: {fileID: 95235547479060226}
-  - component: {fileID: 114710874733079680}
-  - component: {fileID: 135373833219534116}
-  - component: {fileID: 82513323596731970}
+  - component: {fileID: 114208547272255640}
   m_Layer: 0
   m_Name: Shield
   m_TagString: Untagged
@@ -45,125 +41,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &23143547182534098
-MeshRenderer:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1993006961651092}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_Materials:
-  - {fileID: 2100000, guid: c190ca4d98e6af04b9527e069a5f7c03, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
---- !u!33 &33432691334932396
-MeshFilter:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1993006961651092}
-  m_Mesh: {fileID: 4300000, guid: b042d5a6e998928418a77342b74d3431, type: 3}
---- !u!82 &82513323596731970
-AudioSource:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1993006961651092}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    - serializedVersion: 2
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 0
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 0
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 0
 --- !u!95 &95235547479060226
 Animator:
   serializedVersion: 3
@@ -181,7 +58,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114710874733079680
+--- !u!114 &114208547272255640
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -189,32 +66,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1993006961651092}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a708ec25b98e6c4e9d5face55fc80a3, type: 3}
+  m_Script: {fileID: 11500000, guid: 453bd8e83d07a334e972fbe3e27ca1fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeLimit: 12
-  startFlashingTime: 4
-  flashDuration: 0.5
-  flashAcceleration: 0.9
-  rotation: {x: 0, y: 0, z: 0}
-  rotationVector: {x: 0.1, y: 0.1, z: 0}
-  source: {fileID: 82513323596731970}
-  clips:
-  - {fileID: 8300000, guid: e08b946d17e9a444481b031914e5b6e8, type: 3}
-  - {fileID: 8300000, guid: 0750f8edc1238be4a97524096aaa0051, type: 3}
-  shieldHitEmitter: {fileID: 1577835415642778, guid: d1fe1399eb9556d4fac7a5dd29c8e636,
-    type: 2}
-  bulletHitEmitter: {fileID: 1577835415642778, guid: 12352e24291685e4592fdef29cf51957,
-    type: 2}
---- !u!135 &135373833219534116
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1993006961651092}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.010000001
-  m_Center: {x: -0.000000027939677, y: 0, z: 0}
+  clip: {fileID: 8300000, guid: aa184cf1bf7aa8e4a8469ec463289689, type: 3}

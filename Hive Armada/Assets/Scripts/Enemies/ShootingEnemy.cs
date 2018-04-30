@@ -14,6 +14,7 @@ using System;
 using Hive.Armada.Data;
 using UnityEngine;
 using Random = UnityEngine.Random;
+using Hive.Armada.Game;
 
 namespace Hive.Armada.Enemies
 {
@@ -396,6 +397,13 @@ namespace Hive.Armada.Enemies
             currentAttackPattern = attackPatternData[(int) newAttackPattern];
 
             fireRate = currentAttackPattern.fireRate;
+
+            if (reference.gameSettings.selectedFireRate != GameSettings.FireRate.Normal)
+            {
+                fireRate /= reference.gameSettings.fireRatePercents[(int)reference.gameSettings
+                    .selectedFireRate];
+            }
+
             projectileSpeed = currentAttackPattern.projectileSpeed;
             spread = currentAttackPattern.spread;
             canRotate = currentAttackPattern.canRotate;

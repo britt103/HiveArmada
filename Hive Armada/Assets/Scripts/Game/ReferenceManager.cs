@@ -161,14 +161,14 @@ namespace Hive.Armada.Game
         /// </summary>
         private void Awake()
         {
-            if (objectPoolManager != null)
-            {
-                objectPoolManager.Initialize(this);
-            }
-
             if (gameSettings == null)
             {
                 gameSettings = FindObjectOfType<GameSettings>();
+            }
+
+            if (objectPoolManager != null)
+            {
+                objectPoolManager.Initialize(this);
             }
 
             if (colorBlindMode == null)

@@ -27,6 +27,9 @@ namespace Hive.Armada.PowerUps
     /// </summary>
     public class PowerUpStatus : MonoBehaviour
     {
+        /// <summary>
+        /// Reference to ReferenceManager.
+        /// </summary>
         private ReferenceManager reference;
 
         /// <summary>
@@ -102,15 +105,30 @@ namespace Hive.Armada.PowerUps
             {
                 if (hand != null && hand.controller.GetPressDown(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad))
                 {
-                    stats.PowerupUsed(powerups.Peek().name);
-                    Instantiate(powerups.Dequeue(), powerupPoint);
-                    RemoveDisplayIcon();
+                    String nextPowerupName = powerups.Peek().name;
+                    bool canUseNextPowerup = true;
 
-                    if (!usedPowerupOnce)
+                    for (int i = 0; i < powerupPoint.childCount; i++)
                     {
-                        usedPowerupOnce = true;
-                        reference.tooltips.PowerupUsed();
+                        if (powerupPoint.GetChild(i).name.Contains(nextPowerupName))
+                        {
+                            canUseNextPowerup = false;
+                        }
                     }
+
+                    if (canUseNextPowerup)
+                    {
+                        stats.PowerupUsed(nextPowerupName);
+                        Instantiate(powerups.Dequeue(), powerupPoint);
+                        RemoveDisplayIcon();
+
+                        if (!usedPowerupOnce)
+                        {
+                            usedPowerupOnce = true;
+                            reference.tooltips.PowerupUsed();
+                        }
+                    }
+
                 }
                 else if (hand == null)
                 {
@@ -220,6 +238,16 @@ namespace Hive.Armada.PowerUps
         public bool HasRoom()
         {
             return (powerups.Count < maxStoredPowerups);
+        }
+
+        /// <summary>
+        /// Return whether powerups already contains powerup type.
+        /// </summary>
+        /// <param name="powerupPrefab">Powerup to check.</param>
+        /// <returns>State of whether powerup type is in powerups.</returns>
+        public bool HasPowerup(GameObject powerupPrefab)
+        {
+            return powerups.Contains(powerupPrefab);
         }
     }
 }

@@ -279,12 +279,12 @@ namespace Hive.Armada.Game
 
             while (Time.time < endTime)
             {
-                if (enemiesRemaining >= maxEnemies && spawns < maxSpawns)
-                {
-                    yield return null;
-                    endTime += 0.1f + Time.deltaTime;
-                    continue;
-                }
+                //if (enemiesRemaining >= maxEnemies && spawns < maxSpawns)
+                //{
+                //    yield return null;
+                //    endTime += 0.1f + Time.deltaTime;
+                //    continue;
+                //}
 
                 roll = Random.Range(0, 100);
                 spawned = false;

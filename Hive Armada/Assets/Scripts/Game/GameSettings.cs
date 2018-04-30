@@ -46,6 +46,15 @@ namespace Hive.Armada.Game
             Plasma
         }
 
+        public enum Powerups
+        {
+            Shield,
+            DamageBoost,
+            AreaBomb,
+            Clear,
+            Ally
+        }
+
         /// <summary>
         /// Weapon enum.
         /// </summary>

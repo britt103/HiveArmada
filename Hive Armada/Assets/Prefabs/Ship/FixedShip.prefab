@@ -12662,10 +12662,10 @@ MonoBehaviour:
   hand: {fileID: 0}
   weapons:
   - weapon: {fileID: 114162874286398668}
-    damage: 8
+    damage: 10
     fireRate: 10
   - weapon: {fileID: 114409586814718092}
-    damage: 6
+    damage: 8
     fireRate: 25
   - weapon: {fileID: 114809287747398820}
     damage: 30
@@ -12811,7 +12811,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shipController: {fileID: 114338893226363622}
-  maxHealth: 30
   flashColor: {fileID: 2100000, guid: 1db15971033ba594294b4f0c035f7da8, type: 2}
   healthPods:
   - {fileID: 1220033467069014}
@@ -12862,6 +12861,7 @@ MonoBehaviour:
   pointer: {fileID: 0}
   addRigidBody: 0
   reference: {fileID: 0}
+  playerScale: 1
 --- !u!114 &114671862365908560
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -1252,24 +1252,16 @@ namespace Hive.Armada.Enemies
                     }
 
                     break;
-                //spread pattern
+                //arrow pattern
                 case 3:
                     yield return Utility.waitOne;
 
+                    canRotate = true;
+                    StartCoroutine(RotateProjectile(shootPivot));
                     SetAttackPattern(AttackPattern.Five);
-                    for (int i = 0; i < 10; ++i)
+                    for (int i = 0; i < 15; ++i)
                     {
-                        for (int j = 0; j < 3; ++j)
-                        {
-                            for (int k = 0; k < 3; ++k)
-                            {
-                                //StartCoroutine(Shoot());
-                                ShootPattern();
-                            }
-
-                            yield return waitP2;
-                        }
-
+                        ShootPattern();
                         yield return waitFire;
                     }
 
@@ -1425,7 +1417,7 @@ namespace Hive.Armada.Enemies
                     //ActivateShootPoints(myPoints, myPoints.Length);
                     break;
                 case 4:
-                    fireRate = 2f;
+                    fireRate = 0.75f;
                     projectileSpeed = 5;
                     spread = 1;
 

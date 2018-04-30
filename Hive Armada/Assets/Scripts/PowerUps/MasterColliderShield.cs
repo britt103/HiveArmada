@@ -44,7 +44,15 @@ namespace Hive.Armada.PowerUps
             bossSource = GameObject.Find("Boss Audio Source").GetComponent<AudioSource>();
             StartCoroutine(pauseForBoss());
 
+            StartCoroutine(Run());
+        }
+
+        private IEnumerator Run()
+        {
             reference.playerShip.GetComponent<ShipController>().masterCollider.ActivateShield();
+
+            yield return new WaitForSeconds(reference.playerShip.GetComponent<ShipController>()
+                .masterCollider.shieldDuration);
 
             Destroy(gameObject);
         }

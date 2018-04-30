@@ -342,13 +342,14 @@ namespace Hive.Armada.Game
                     }
                 }
 
-                if (group.powerupSpawn.powerupSpawn != PowerupSpawnPoint.NoPowerup)
+                if (group.powerupSpawn.powerupSpawn != PowerupSpawnPoint.NoPowerup 
+                    && waveManager.powerupPrefabs.Length != 0)
                 {
                     Vector3 spawnPoint = waveManager
                         .powerupSpawnPoints[(int) group.powerupSpawn.powerupSpawn - 1].position;
 
-                    Instantiate(waveManager.powerupPrefabs[(int) group.powerupSpawn.powerup],
-                                spawnPoint, Quaternion.identity);
+                    Instantiate(waveManager.powerupPrefabs[UnityEngine.Random.Range(0, 
+                        waveManager.powerupPrefabs.Length)],spawnPoint, Quaternion.identity);
 
                     if (!waveManager.spawnedPowerupOnce)
                     {

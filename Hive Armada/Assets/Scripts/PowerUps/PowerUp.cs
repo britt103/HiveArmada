@@ -112,8 +112,7 @@ namespace Hive.Armada.PowerUps
         /// <param name="other">Collider of object with which this collided.</param>
         void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Player") && status.HasRoom() && !status.HasPowerup(powerupPrefab) 
-                && !touched)
+            if (other.CompareTag("Player") && status.HasRoom() && !touched)
             {
                 touched = true;
                 reference.playerShipSource.PlayOneShot(reference.powerupReadySound);

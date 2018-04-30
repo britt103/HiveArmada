@@ -155,8 +155,6 @@ namespace Hive.Armada.Game
         /// <summary>
         /// Array of power-up prefabs for the waves to use.
         /// </summary>
-        [Header("Power-ups")]
-        [Reorderable("Powerup", false)]
         public GameObject[] powerupPrefabs;
 
         /// <summary>
@@ -240,6 +238,8 @@ namespace Hive.Armada.Game
                 "BackLeftPath",
                 "BackRightPath"
             };
+
+            powerupPrefabs = reference.gameSettings.selectedPowerups.ToArray();
 
             //waves = waveLoader.LoadWaves();
         }

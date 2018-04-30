@@ -309,6 +309,9 @@ namespace Hive.Armada.Menus
             }
 
             source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
+
+            gameSettings.selectedGameMode = (GameSettings.GameMode)selectedGameMode;
+            PlayerPrefs.SetInt("defaultGameMode", selectedGameMode);
             transitionManager.Transition(secondariesGO);
         }
     }

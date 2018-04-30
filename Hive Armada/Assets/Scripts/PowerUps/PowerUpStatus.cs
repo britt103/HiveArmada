@@ -105,15 +105,30 @@ namespace Hive.Armada.PowerUps
             {
                 if (hand != null && hand.controller.GetPressDown(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad))
                 {
-                    stats.PowerupUsed(powerups.Peek().name);
-                    Instantiate(powerups.Dequeue(), powerupPoint);
-                    RemoveDisplayIcon();
+                    String nextPowerupName = powerups.Peek().name;
+                    bool canUseNextPowerup = true;
 
-                    if (!usedPowerupOnce)
+                    for (int i = 0; i < powerupPoint.childCount; i++)
                     {
-                        usedPowerupOnce = true;
-                        reference.tooltips.PowerupUsed();
+                        if (powerupPoint.GetChild(i).name.Contains(nextPowerupName))
+                        {
+                            canUseNextPowerup = false;
+                        }
                     }
+
+                    if (canUseNextPowerup)
+                    {
+                        stats.PowerupUsed(nextPowerupName);
+                        Instantiate(powerups.Dequeue(), powerupPoint);
+                        RemoveDisplayIcon();
+
+                        if (!usedPowerupOnce)
+                        {
+                            usedPowerupOnce = true;
+                            reference.tooltips.PowerupUsed();
+                        }
+                    }
+
                 }
                 else if (hand == null)
                 {

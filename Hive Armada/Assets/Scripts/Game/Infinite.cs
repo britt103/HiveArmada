@@ -37,18 +37,6 @@ namespace Hive.Armada.Game
         }
 
         [Serializable]
-        public struct PowerupSpawnChance
-        {
-            public Powerups powerup;
-
-            [Range(0.0f, 1.0f)]
-            public float percentChance;
-
-            [Range(1, 100)]
-            public int firstWave;
-        }
-
-        [Serializable]
         private struct Chances
         {
             public int LowerLimit { get; private set; }
@@ -104,12 +92,6 @@ namespace Hive.Armada.Game
             new Chances(70, 84, 7),
             new Chances(85, 99, 9)
         };
-
-        [Header("Powerup Setup")]
-        [Reorderable("Powerup", false)]
-        public PowerupSpawnChance[] powerupSpawnChanceSetup;
-
-        private Chances[] powerupSpawnChances;
 
         private GameObject[] powerupPrefabs;
 
@@ -193,20 +175,7 @@ namespace Hive.Armada.Game
                 enemySpawnChances[i] = new Chances(low, high, enemySpawnChanceSetup[i].firstWave);
             }
 
-            powerupSpawnChances = new Chances[powerupSpawnChanceSetup.Length];
-            powerupPrefabs = new GameObject[powerupSpawnChanceSetup.Length];
-            high = 0;
-
-            for (int i = 0; i < powerupSpawnChanceSetup.Length; ++i)
-            {
-                int low = high;
-                high += (int) (powerupSpawnChanceSetup[i].percentChance * 100);
-                powerupPrefabs[i] =
-                    waveManager.powerupPrefabs[(int) powerupSpawnChanceSetup[i].powerup];
-
-                powerupSpawnChances[i] =
-                    new Chances(low, high, powerupSpawnChanceSetup[i].firstWave);
-            }
+            powerupPrefabs = waveManager.powerupPrefabs;
 
             paths = new Hashtable {{"child", false}};
 
@@ -301,7 +270,7 @@ namespace Hive.Armada.Game
 
             int roll = Random.Range(0, 100);
 
-            if (roll >= 100 - intPowerupSpawnChance)
+            if (powerupPrefabs.Length != 0 && roll >= 100 - intPowerupSpawnChance)
             {
                 StartCoroutine(SpawnPowerup());
             }
@@ -524,48 +493,20 @@ namespace Hive.Armada.Game
 
             yield return new WaitForSeconds(delay);
 
-            bool locSpawned = false;
+            int spawnPoint = Random.Range(0, waveManager.powerupSpawnPoints.Length);
 
-            while (!locSpawned)
+            Transform spawn = waveManager.powerupSpawnPoints[spawnPoint];
+
+            Instantiate(powerupPrefabs[Random.Range(0, powerupPrefabs.Length)], 
+                spawn.position, Quaternion.identity);
+
+            if (!waveManager.spawnedPowerupOnce)
             {
-                int roll = Random.Range(0, 100);
-                bool lowLevel = false;
-
-                for (int i = 0; i < powerupSpawnChances.Length; ++i)
-                {
-                    if (roll >= powerupSpawnChances[i].LowerLimit &&
-                        roll < powerupSpawnChances[i].UpperLimit)
-                    {
-                        if (currentWave < powerupSpawnChances[i].FirstWave)
-                        {
-                            lowLevel = true;
-                            break;
-                        }
-
-                        int spawnPoint = Random.Range(0, waveManager.powerupSpawnPoints.Length);
-
-                        Transform spawn = waveManager.powerupSpawnPoints[spawnPoint];
-
-                        Instantiate(powerupPrefabs[i], spawn.position, Quaternion.identity);
-
-                        if (!waveManager.spawnedPowerupOnce)
-                        {
-                            waveManager.spawnedPowerupOnce = true;
-                            reference.tooltips.SpawnGrabPowerup(spawnPoint);
-                        }
-
-                        locSpawned = true;
-                        break;
-                    }
-                }
-
-                if (lowLevel && !locSpawned)
-                {
-                    continue;
-                }
-
-                yield return null;
+                waveManager.spawnedPowerupOnce = true;
+                reference.tooltips.SpawnGrabPowerup(spawnPoint);
             }
+
+            yield return null;
         }
 
         public void EnemyDead(string path)

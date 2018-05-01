@@ -105,13 +105,10 @@ namespace Hive.Armada.Enemies
 
         private void OnEnable()
         {
-            if (currentAlpha < MAX_ALPHA)
-            {
-                currentAlpha = MAX_ALPHA;
-                currentAlbedo.a = currentAlpha;
-                material.SetColor("_Color", currentAlbedo);
-            }
-            
+            currentAlpha = MAX_ALPHA;
+            currentAlbedo.a = currentAlpha;
+            material.SetColor("_Color", currentAlbedo);
+
             if (enemyManager.IsTimeWarped)
                 TimeWarpToggle();
 

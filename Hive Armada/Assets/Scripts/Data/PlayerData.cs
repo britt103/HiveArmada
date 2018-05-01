@@ -19,6 +19,12 @@ namespace Hive.Armada.Data
         public Color color;
 
         public float intensity;
+
+        public LightSettings(Color _color, float _intensity)
+        {
+            color = _color;
+            intensity = _intensity;
+        }
     }
 
     [CreateAssetMenu(fileName = "New Player Data", menuName = "Player Data")]

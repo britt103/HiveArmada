@@ -92,20 +92,21 @@ namespace Hive.Armada.Enemies
             currentAlbedo = originalAlbedo;
             currentAlpha = 1.0f;
 
-            if (trailEmitter != null)
-            {
-                trailEmitter.stop();
-                trailEmitter.clear();
-            }
-            else
-            {
-                Debug.LogError(gameObject.name + " - Does not have time warp distortion emitter.");
-            }
+            //if (trailEmitter != null)
+            //{
+            //    trailEmitter.stop();
+            //    trailEmitter.clear();
+            //}
+            //else
+            //{
+            //    Debug.LogError(gameObject.name + " - Does not have time warp distortion emitter.");
+            //}
         }
 
         private void OnEnable()
         {
-            currentAlpha = MAX_ALPHA;
+            currentAlpha = 1.0f;
+            currentAlbedo = material.GetColor("_Color");
             currentAlbedo.a = currentAlpha;
             material.SetColor("_Color", currentAlbedo);
 
@@ -147,15 +148,15 @@ namespace Hive.Armada.Enemies
             if (trailEmitter == null)
                 return;
             
-            if (enemyManager.IsTimeWarped)
-            {
-                trailEmitter.play();
-            }
-            else
-            {
-                trailEmitter.stop();
-                trailEmitter.clear();
-            }
+            //if (enemyManager.IsTimeWarped)
+            //{
+            //    trailEmitter.play();
+            //}
+            //else
+            //{
+            //    trailEmitter.stop();
+            //    trailEmitter.clear();
+            //}
         }
 
         private void TimeWarpStep()
@@ -255,7 +256,10 @@ namespace Hive.Armada.Enemies
 
         protected override void Reset()
         {
-            StopAllCoroutines();
+            currentAlpha = 1.0f;
+            currentAlbedo = material.GetColor("_Color");
+            currentAlbedo.a = currentAlpha;
+            material.SetColor("_Color", currentAlbedo);
         }
     }
 }

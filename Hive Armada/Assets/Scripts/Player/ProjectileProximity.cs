@@ -101,6 +101,12 @@ namespace Hive.Armada.Player
                 Projectile projectileScript = other.GetComponent<Projectile>();
                 ProjectileInPattern projectileInPatternScript = other.GetComponent<ProjectileInPattern>();
 
+                if (projectiles.ContainsKey(other.gameObject.GetInstanceID()))
+                {
+                    --projectileOutCount;
+                    projectiles.Remove(other.gameObject.GetInstanceID());
+                }
+
                 projectiles.Add(other.gameObject.GetInstanceID(), true);
                 ++projectileInCount;
 

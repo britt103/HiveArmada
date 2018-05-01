@@ -53,15 +53,15 @@ namespace Hive.Armada.Enemies
             for (int i = 0; i < projectiles.Length; ++i)
                 projectileScripts[i] = projectiles[i].GetComponent<ProjectileInPattern>();
             
-            if (trailEmitter != null)
-            {
-                trailEmitter.stop();
-                trailEmitter.clear();
-            }
-            else
-            {
-                Debug.LogError(gameObject.name + " - Does not have time warp distortion emitter.");
-            }
+            //if (trailEmitter != null)
+            //{
+            //    trailEmitter.stop();
+            //    trailEmitter.clear();
+            //}
+            //else
+            //{
+            //    Debug.LogError(gameObject.name + " - Does not have time warp distortion emitter.");
+            //}
         }
 
         private void OnEnable()
@@ -93,15 +93,15 @@ namespace Hive.Armada.Enemies
             if (trailEmitter == null)
                 return;
             
-            if (enemyManager.IsTimeWarped)
-            {
-                trailEmitter.play();
-            }
-            else
-            {
-                trailEmitter.stop();
-                trailEmitter.clear();
-            }
+            //if (enemyManager.IsTimeWarped)
+            //{
+            //    trailEmitter.play();
+            //}
+            //else
+            //{
+            //    trailEmitter.stop();
+            //    trailEmitter.clear();
+            //}
         }
 
         private void TimeWarpStep()

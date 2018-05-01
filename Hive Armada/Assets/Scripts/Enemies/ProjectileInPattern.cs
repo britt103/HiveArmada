@@ -106,6 +106,11 @@ namespace Hive.Armada.Enemies
         public void Reset()
         {
             HasHit = false;
+
+            currentAlpha = 1.0f;
+            currentAlbedo = material.GetColor("_Color");
+            currentAlbedo.a = currentAlpha;
+            material.SetColor("_Color", currentAlbedo);
         }
 
         public void Hit()
@@ -116,12 +121,10 @@ namespace Hive.Armada.Enemies
 
         private void OnEnable()
         {
-            if (currentAlpha < MAX_ALPHA)
-            {
-                currentAlpha = MAX_ALPHA;
-                currentAlbedo.a = currentAlpha;
-                material.SetColor("_Color", currentAlbedo);
-            }
+            currentAlpha = 1.0f;
+            currentAlbedo = material.GetColor("_Color");
+            currentAlbedo.a = currentAlpha;
+            material.SetColor("_Color", currentAlbedo);
         }
 
         private void OnDisable()

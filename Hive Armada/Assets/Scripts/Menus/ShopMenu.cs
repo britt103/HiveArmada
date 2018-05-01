@@ -18,6 +18,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Hive.Armada.Game;
+using Hive.Armada.Data;
 
 namespace Hive.Armada.Menus
 {
@@ -256,6 +257,13 @@ namespace Hive.Armada.Menus
         /// </summary>
         private bool categoryOpen;
 
+        [Header("Lighting")]
+        public Light[] lights;
+
+        public LightSettings[] skinLightSettings;
+
+        private LightSettings defaultLightSettings;
+
         /// <summary>
         /// Disable game object near Shop area.
         /// </summary>
@@ -272,6 +280,7 @@ namespace Hive.Armada.Menus
             gameSettings = reference.gameSettings;
 
             selectedSkin = PlayerPrefs.GetInt("defaultSkin", (int)defaultSkin);
+            defaultLightSettings = new LightSettings(lights[0].color, lights[0].intensity);
 
             //int shopIndex = Random.Range(3, clips.Length);
             ////ASSUMES FIRST VISIT TO THE SHOP
@@ -521,6 +530,15 @@ namespace Hive.Armada.Menus
 
             currItemId = itemId;
             itemOpen = true;
+
+            if (currCategory.Equals("Skins"))
+            {
+                foreach (Light l in lights)
+                {
+                    l.color = skinLightSettings[currItemId].color;
+                    l.intensity = skinLightSettings[currItemId].intensity;
+                }
+            }
         }
 
         /// <summary>
@@ -533,11 +551,11 @@ namespace Hive.Armada.Menus
             itemSection.SetActive(false);
             purchaseSection.SetActive(false);
             iridiumSection.SetActive(false);
-            if (currCategory == "Weapons")
+            if (currCategory.Equals("Weapons"))
             {
                 purchased.SetActive(false);
             }
-            else if (currCategory == "Skins")
+            else if (currCategory.Equals("Skins"))
             {
                 setDefault.SetActive(false);
             }
@@ -626,6 +644,15 @@ namespace Hive.Armada.Menus
         /// </summary>
         private void CloseCategory()
         {
+            if (currCategory.Equals("Shop"))
+            {
+                foreach (Light l in lights)
+                {
+                    l.color = defaultLightSettings.color;
+                    l.intensity = defaultLightSettings.intensity;
+                }
+            }
+
             menuTitle.GetComponent<Text>().text = "Shop";
             scrollView.SetActive(false);
 

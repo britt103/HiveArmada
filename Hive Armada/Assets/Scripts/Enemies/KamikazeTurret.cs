@@ -53,7 +53,15 @@ namespace Hive.Armada.Enemies
         /// </summary>
         private bool inRange;
 
+        /// <summary>
+        /// the player ship
+        /// </summary>
         private GameObject player;
+
+        /// <summary>
+        /// position of the player
+        /// </summary>
+        private Vector3 playerPosition;
 
         /// <summary>
         /// Audio source for this enemy.
@@ -99,6 +107,7 @@ namespace Hive.Armada.Enemies
             {
                 if (player != null)
                 {
+                    playerPosition = player.transform.position;
                     transform.rotation = Quaternion.Lerp(transform.rotation,
                                                          Quaternion.LookRotation(
                                                              player.transform.position
@@ -119,7 +128,14 @@ namespace Hive.Armada.Enemies
 
                     if (player == null)
                     {
-                        transform.LookAt(new Vector3(0.0f, 0.0f, 0.0f));
+                        transform.rotation = Quaternion.Lerp(transform.rotation,
+                                                         Quaternion.LookRotation(
+                                                             playerPosition
+                                                             - transform.position),
+                                                         rotationSpeed * Time.deltaTime);
+
+                        transform.position += transform.forward * moveSpeed * Time.deltaTime;
+                        NearPlayer();
                     }
                 }
 
@@ -154,7 +170,7 @@ namespace Hive.Armada.Enemies
         /// </summary>
         public void NearPlayer()
         {
-            if (!nearPlayer)
+            if (nearPlayer)
             {
                 return;
             }

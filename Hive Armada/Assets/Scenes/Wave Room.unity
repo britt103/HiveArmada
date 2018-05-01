@@ -4200,10 +4200,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1214156786441618, guid: 35e15fd7fc96afe41a7c51cd3f1cc6a2, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 35e15fd7fc96afe41a7c51cd3f1cc6a2, type: 2}
   m_IsPrefabParent: 0
@@ -5776,8 +5772,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 763048276}
+  m_Children: [{fileID: 763048276}]
   m_Father: {fileID: 421848038}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -41027,6 +41022,12 @@ MeshCollider:
   m_InflateMesh: 0
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1447018326 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114982984793684692, guid: 6503730551a61ef4ebeca6bd91b11120,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: bedbc11a6aec1fc47b39084df48adfa2, type: 3}
 --- !u!1 &1447117579
 GameObject:
   m_ObjectHideFlags: 0
@@ -58684,6 +58685,11 @@ Prefab:
       propertyPath: enemySpawnPoints.Array.data[2]
       value: 
       objectReference: {fileID: 160874940}
+    - target: {fileID: 114508135794012018, guid: 6503730551a61ef4ebeca6bd91b11120,
+        type: 2}
+      propertyPath: waves.Array.data[0]
+      value: 
+      objectReference: {fileID: 1447018326}
     - target: {fileID: 114508135794012018, guid: 6503730551a61ef4ebeca6bd91b11120,
         type: 2}
       propertyPath: waveCountSource

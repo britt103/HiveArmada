@@ -64,6 +64,9 @@ namespace Hive.Armada.Menus
         /// </summary>
         public AudioSource source;
 
+        /// <summary>
+        /// Reference to enemy specific audio
+        /// </summary>
         public AudioSource zenaSource;
 
         /// <summary>
@@ -258,6 +261,8 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void PressBack()
         {
+            zenaSource.Stop();
+            source.Stop();
             source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
 
             if (entryOpen)
@@ -444,55 +449,16 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void Information()
         {
-            StartCoroutine(InformationAudio());
-
-            //switch(entryCategory)
-            //{
-            //    case "Powerups":
-            //        source.PlayOneShot(powerupsAudio[entryValue]);
-            //        powerupCounter += 1;
-            //        if (powerupCounter > 1)
-            //        {
-            //            source.Stop();
-            //            source.PlayOneShot(powerupsAudio[entryValue]);
-            //        }
-            //        break;
-            //    case "Enemies":
-            //        source.PlayOneShot(enemiesAudio[entryValue]);
-            //        enemyCounter += 1;
-            //        if (enemyCounter > 1)
-            //        {
-            //            source.Stop();
-            //            source.PlayOneShot(enemiesAudio[entryValue]);
-            //        }
-            //        break;
-            //    case "Weapons":
-            //        source.PlayOneShot(weaponsAudio[entryValue]);
-            //        weaponCounter += 1;
-            //        if (weaponCounter > 1)
-            //        {
-            //            source.Stop();
-            //            source.PlayOneShot(weaponsAudio[entryValue]);
-            //        }
-            //        break;
-            //    default:
-            //        Debug.Log("ERROR: the category is not defined");
-            //        break;
-            //}
-        }
-
-        private IEnumerator InformationAudio()
-        {
             if (zenaSource.isPlaying)
             {
-                yield return new WaitWhile(() => zenaSource.isPlaying);
-
-                zenaSource.PlayOneShot(enemiesAudio[entryValue]);
+                //do nothing
             }
             else
             {
+                Debug.Log("play info");
                 zenaSource.PlayOneShot(enemiesAudio[entryValue]);
             }
         }
+
     }
 }

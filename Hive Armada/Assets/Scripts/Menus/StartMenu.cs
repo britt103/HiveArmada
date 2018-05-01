@@ -296,6 +296,7 @@ namespace Hive.Armada.Menus
             gameSettings.selectedGameMode = (GameSettings.GameMode)selectedGameMode;
             PlayerPrefs.SetInt("defaultGameMode", selectedGameMode);
             transitionManager.Transition(loadoutGO);
+            source.PlayOneShot(reference.menuSounds.gameStart[Random.Range(0, reference.menuSounds.gameStart.Length)]);
         }
 
         /// <summary>

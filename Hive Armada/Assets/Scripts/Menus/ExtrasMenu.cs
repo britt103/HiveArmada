@@ -97,6 +97,7 @@ namespace Hive.Armada.Menus
 
             source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
             FindObjectOfType<RoomTransport>().Transport(shopTransform, gameObject, shopMenuGO);
+            source.PlayOneShot(reference.menuSounds.shopEnterSound[Random.Range(0, reference.menuSounds.shopEnterSound.Length)]);
         }
 
         /// <summary>

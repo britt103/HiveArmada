@@ -42,6 +42,9 @@ namespace Hive.Armada.Menus
         /// [Header("References")]
         public AudioSource source;
 
+        /// <summary>
+        /// Reference for Zena menu audio source.
+        /// </summary>
         public AudioSource zenaSource;
 
         /// <summary>
@@ -365,23 +368,15 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void BuyItem()
         {
-            /* NEED TO ADD SOUNDS INTO THE ARRAY THEN UNCOMMENT
-             * SOUNDS: (ACCORDING TO DIALOGUE DOC)
-             *      TAKE THIS
-             *      WONDERFUL
-             *      A NICE REWARD
-             *      YOU'LL LIKE THAT ONE
-             *      
-             * Don't forget to actually do work...
-             */
-            //int purchaseSound = Random.Range(2, clips.Length);
+         
             if (iridiumSystem.PayIridium(currCosts[currItemId]))
             {
                 //zenaSource.PlayOneShot(clips[purchaseSound]);
-                source.PlayOneShot(reference.menuSounds.shopPurchaseSound);
+                source.PlayOneShot(reference.menuSounds.shopPurchaseButton);
                 iridiumSystem.UnlockItem(currCategory, currNames[currItemId]);
                 currNotBought[currItemId] = false;
                 purchaseSection.SetActive(false);
+                source.PlayOneShot(reference.menuSounds.shopPurchaseSound[UnityEngine.Random.Range(0, reference.menuSounds.shopPurchaseSound.Length)]);
 
                 if (currCategory == "Weapons")
                 {

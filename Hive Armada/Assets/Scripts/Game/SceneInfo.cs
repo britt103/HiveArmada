@@ -34,8 +34,6 @@ namespace Hive.Armada.Game
         /// </summary>
         public bool runFinished = false;
 
-        public bool demoFinished = false;
-
         /// <summary>
         /// Increment numScenesLoaded.
         /// </summary>

@@ -32,8 +32,6 @@ namespace Hive.Armada.Player
         /// </summary>
         private bool isTracking = false;
 
-        private bool timerStarted;
-
         /// <summary>
         /// Time until game quits.
         /// </summary>
@@ -57,26 +55,17 @@ namespace Hive.Armada.Player
         /// </summary>
         void Update()
         {
-            if (timerStarted)
+            if (isIdle && isTracking)
             {
                 currentIdleTime -= Time.deltaTime;
-                if (currentIdleTime <= 0)
+                if(currentIdleTime <= 0)
                 {
                     SetIsTracking(false);
                     SetIsIdle(false);
-                    timerStarted = false;
+
                     FindObjectOfType<ReferenceManager>().sceneTransitionManager.TransitionOut("Menu Room");
                 }
             }
-            else
-            {
-                if (Input.GetKeyDown(KeyCode.Space))
-                {
-                    timerStarted = true;
-                    allowedIdleTime = 500.0f;
-                }
-            }
-            
         }
 
         /// <summary>

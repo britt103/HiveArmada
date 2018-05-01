@@ -163,7 +163,7 @@ namespace Hive.Armada.Game
         /// </summary>
         /// <returns>State of whether multiple weapons have been unlocked.</returns>
         public bool CheckAnyWeaponsUnlocked()
-        { 
+        {
             for (int i = 0; i < iridiumData.weaponsLocked.Length; i++)
             {
                 if (!iridiumData.weaponsLocked[i] && iridiumData.weaponCosts[i] > 0)
@@ -193,14 +193,54 @@ namespace Hive.Armada.Game
         }
 
         /// <summary>
-        /// Check if weapon is part of iridium system (used for weapons that are not bought
-        /// through shop).
+        /// Check if named skin has been unlocked. If skin name not found, return false.
         /// </summary>
-        /// <param name="weaponName">Name of weapon to check for.</param>
-        /// <returns>True if weapon found, otherwise false.</returns>
-        public bool CheckWeaponIsPresent(string weaponName)
+        /// <param name="skinName">Name of skin to check status of.</param>
+        /// <returns>State of whether skin has been unlocked.</returns>
+        public bool CheckSkinUnlocked(string skinName)
         {
-            return iridiumData.weaponNames.Contains(weaponName);
+            for (int i = 0; i < iridiumData.skinNames.Length; i++)
+            {
+                if (skinName == iridiumData.skinNames[i])
+                {
+                    return !iridiumData.skinsLocked[i];
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Check if named weapon is new. If weapon name not found, return false.
+        /// </summary>
+        /// <param name="weaponName">Name of weapon to check status of.</param>
+        /// <returns>State of whether weapon is new.</returns>
+        public bool CheckWeaponNew(string weaponName)
+        {
+            for (int i = 0; i < iridiumData.weaponNames.Length; i++)
+            {
+                if (weaponName == iridiumData.weaponNames[i])
+                {
+                    return !iridiumData.weaponsNew[i];
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Check if named skin is new. If skin name not found, return false.
+        /// </summary>
+        /// <param name="skinName">Name of skin to check status of.</param>
+        /// <returns>State of whether skin is new.</returns>
+        public bool CheckSkinNew(string skinName)
+        {
+            for (int i = 0; i < iridiumData.skinNames.Length; i++)
+            {
+                if (skinName == iridiumData.skinNames[i])
+                {
+                    return !iridiumData.skinsNew[i];
+                }
+            }
+            return false;
         }
 
         /// <summary>
@@ -215,6 +255,9 @@ namespace Hive.Armada.Game
             {
                 case "Weapons":
                     itemNames = iridiumData.weaponNames.ToList();
+                    break;
+                case "Skins":
+                    itemNames = iridiumData.skinNames.ToList();
                     break;
                 default:
                     Debug.Log("ERROR: Item category could not be identified.");
@@ -238,6 +281,9 @@ namespace Hive.Armada.Game
                 case "Weapons":
                     itemDisplayNames = iridiumData.weaponDisplayNames.ToList();
                     break;
+                case "Skins":
+                    itemDisplayNames = iridiumData.skinDisplayNames.ToList();
+                    break;
                 default:
                     Debug.Log("ERROR: Item category could not be identified.");
                     itemDisplayNames = new List<string>();
@@ -259,6 +305,9 @@ namespace Hive.Armada.Game
             {
                 case "Weapons":
                     itemTexts = iridiumData.weaponTexts.ToList();
+                    break;
+                case "Skins":
+                    itemTexts = iridiumData.skinTexts.ToList();
                     break;
                 default:
                     Debug.Log("ERROR: Item category could not be identified.");
@@ -283,6 +332,9 @@ namespace Hive.Armada.Game
                 case "Weapons":
                     itemCosts = iridiumData.weaponCosts.ToList();
                     break;
+                case "Skins":
+                    itemCosts = iridiumData.skinCosts.ToList();
+                    break;
                 default:
                     Debug.Log("ERROR: Item category could not be identified.");
                     itemCosts = new List<int>();
@@ -305,6 +357,9 @@ namespace Hive.Armada.Game
                 case "Weapons":
                     itemsLocked = iridiumData.weaponsLocked.ToList();
                     break;
+                case "Skins":
+                    itemsLocked = iridiumData.skinsLocked.ToList();
+                    break;
                 default:
                     Debug.Log("ERROR: Item category could not be identified.");
                     itemsLocked = new List<bool>();
@@ -312,6 +367,31 @@ namespace Hive.Armada.Game
             }
 
             return itemsLocked;
+        }
+
+        /// <summary>
+        /// Returns a list of all items just unlocked in the specified iridiumData category.
+        /// </summary>
+        /// <returns>List of item cost integers.</returns>
+        public List<bool> GetItemsNew(string category)
+        {
+            List<bool> itemsNew = new List<bool>();
+
+            switch (category)
+            {
+                case "Weapons":
+                    itemsNew = iridiumData.weaponsNew.ToList();
+                    break;
+                case "Skins":
+                    itemsNew = iridiumData.skinsNew.ToList();
+                    break;
+                default:
+                    Debug.Log("ERROR: Item category could not be identified.");
+                    itemsNew = new List<bool>();
+                    break;
+            }
+
+            return itemsNew;
         }
 
         /// <summary>
@@ -326,9 +406,58 @@ namespace Hive.Armada.Game
                 case "Weapons":
                     for (int i = 0; i < iridiumData.weaponNames.Length; i++)
                     {
-                        if (name == iridiumData.weaponNames[i])
+                        if (name == iridiumData.weaponNames[i] && iridiumData.weaponsLocked[i])
                         {
                             iridiumData.weaponsLocked[i] = false;
+                            iridiumData.weaponsNew[i] = true;
+                            break;
+                        }
+                    }
+                    WriteIridiumFile();
+                    break;
+                case "Skins":
+                    for (int i = 0; i < iridiumData.skinNames.Length; i++)
+                    {
+                        if (name == iridiumData.skinNames[i] && iridiumData.skinsLocked[i])
+                        {
+                            iridiumData.skinsLocked[i] = false;
+                            iridiumData.skinsNew[i] = true;
+                        }
+                    }
+                    WriteIridiumFile();
+                    break;
+                default:
+                    Debug.Log("ERROR: Item category could not be identified.");
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Set item to no longer new after being seen by player.
+        /// </summary>
+        /// <param name="category">Category of the item.</param>
+        /// <param name="name">Name of the item.</param>
+        public void ViewItem(string category, string name)
+        {
+            switch (category)
+            {
+                case "Weapons":
+                    for (int i = 0; i < iridiumData.weaponNames.Length; i++)
+                    {
+                        if (name == iridiumData.weaponNames[i] && iridiumData.weaponsNew[i])
+                        {
+                            iridiumData.weaponsNew[i] = false;
+                        }
+                    }
+                    WriteIridiumFile();
+                    break;
+                case "Skins":
+                    for (int i = 0; i < iridiumData.skinNames.Length; i++)
+                    {
+                        if (name == iridiumData.skinNames[i] && iridiumData.skinsLocked[i])
+                        {
+                            iridiumData.skinsLocked[i] = false;
+                            iridiumData.skinsNew[i] = true;
                         }
                     }
                     WriteIridiumFile();

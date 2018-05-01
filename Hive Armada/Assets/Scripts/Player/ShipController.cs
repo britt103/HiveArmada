@@ -12,7 +12,6 @@
 // 
 //=============================================================================
 
-using System;
 using System.Collections;
 using Hive.Armada.Data;
 using Hive.Armada.Game;
@@ -99,7 +98,7 @@ namespace Hive.Armada.Player
         public Renderer[] minigunOverheat;
 
         public Renderer[] rocketPod;
-        
+
         ///// <summary>
         ///// Helper dialogue that plays when the ship is grabbed.
         ///// </summary>
@@ -167,7 +166,7 @@ namespace Hive.Armada.Player
                     }
                 }
 
-                UpdateSkin(reference.gameSettings.selectedSkin);
+                UpdateSkin((int) reference.gameSettings.selectedSkin);
 
                 StartCoroutine(IntroAudio());
                 reference.tooltips.SpawnProtectShip();
@@ -183,17 +182,17 @@ namespace Hive.Armada.Player
             {
                 r.material = playerData.shipBodyMaterials[skin];
             }
-            
+
             foreach (Renderer r in minigunNoOverheat)
             {
                 r.material = playerData.shipMinigunMaterials[skin];
             }
-            
+
             foreach (Renderer r in minigunOverheat)
             {
                 r.material = playerData.shipMinigunOverheatMaterials[skin];
             }
-            
+
             foreach (Renderer r in rocketPod)
             {
                 r.material = playerData.shipRocketPodsMaterials[skin];

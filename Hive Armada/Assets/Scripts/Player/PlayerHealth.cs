@@ -134,7 +134,7 @@ namespace Hive.Armada.Player
             lookTarget.transform.position = transform.position;
             lookTarget.transform.rotation = transform.rotation;
 
-            int skin = reference.gameSettings.selectedSkin;
+            int skin = (int) reference.gameSettings.selectedSkin;
             podIntactMaterial = playerData.shipBodyMaterials[skin];
             podDestroyedMaterial = playerData.shipPodDestroyedMaterials[skin];
 
@@ -162,7 +162,7 @@ namespace Hive.Armada.Player
             playerHitVignette = reference.playerHitVignette;
 
             flashColor = playerData.flashColor;
-            
+
             deathEmitter = playerData.deathEmitter;
 
             hitSound = playerData.hitSound;

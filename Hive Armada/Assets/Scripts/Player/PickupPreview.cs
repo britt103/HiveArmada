@@ -11,10 +11,9 @@
 //
 //=============================================================================
 
-using System.Collections.Generic;
 using Hive.Armada.Data;
-using UnityEngine;
 using Hive.Armada.Game;
+using UnityEngine;
 
 namespace Hive.Armada.Player
 {
@@ -57,30 +56,30 @@ namespace Hive.Armada.Player
         /// </summary>
         private void Awake()
         {
-             reference = FindObjectOfType<ReferenceManager>();
-            
-             if (reference != null)
-             {
-                 reference = FindObjectOfType<ReferenceManager>();
-                 
-                 UpdateSkin(reference.gameSettings.selectedSkin);
-            
-                 switch ((int)reference.gameSettings.selectedWeapon)
-                 {
-                     case 1:
-                         minigun.SetActive(true);
-                         rocketPods.SetActive(false);
-                         break;
-                     case 2:
-                         minigun.SetActive(false);
-                         rocketPods.SetActive(true);
-                         break;
-                     default:
-                         minigun.SetActive(false);
-                         rocketPods.SetActive(false);
-                         break;
-                 }
-             }
+            reference = FindObjectOfType<ReferenceManager>();
+
+            if (reference != null)
+            {
+                reference = FindObjectOfType<ReferenceManager>();
+
+                UpdateSkin((int) reference.gameSettings.selectedSkin);
+
+                switch ((int) reference.gameSettings.selectedWeapon)
+                {
+                    case 1:
+                        minigun.SetActive(true);
+                        rocketPods.SetActive(false);
+                        break;
+                    case 2:
+                        minigun.SetActive(false);
+                        rocketPods.SetActive(true);
+                        break;
+                    default:
+                        minigun.SetActive(false);
+                        rocketPods.SetActive(false);
+                        break;
+                }
+            }
         }
 
         /// <summary>
@@ -96,12 +95,12 @@ namespace Hive.Armada.Player
             {
                 r.material = playerData.pickupBodyMaterials[skin];
             }
-            
+
             foreach (Renderer r in minigunRenderers)
             {
                 r.material = playerData.pickupMinigunMaterials[skin];
             }
-            
+
             foreach (Renderer r in rocketPodRenderers)
             {
                 r.material = playerData.pickupRocketPodsMaterials[skin];

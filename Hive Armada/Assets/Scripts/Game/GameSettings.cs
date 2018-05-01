@@ -40,10 +40,10 @@ namespace Hive.Armada.Game
         /// </summary>
         public enum Weapon
         {
-            Laser,
-            Minigun,
-            RocketPods,
-            Plasma
+            Laser = 0,
+            Minigun = 1,
+            RocketPods = 2,
+            Plasma = 3
         }
 
         public enum Powerups
@@ -59,6 +59,26 @@ namespace Hive.Armada.Game
         /// Weapon enum.
         /// </summary>
         public Weapon selectedWeapon;
+
+        /// <summary>
+        /// Enums for different weapons.
+        /// </summary>
+        public enum Skin
+        {
+            Skin1 = 0,
+            Skin2 = 1,
+            Skin3 = 2,
+        }
+
+        /// <summary>
+        /// Skin enum.
+        /// </summary>
+        public Skin selectedSkin;
+
+        /// <summary>
+        /// Enum of default skin; meant to initially unlocked skin.
+        /// </summary>
+        public Skin defaultSkin = Skin.Skin1;
 
         /// <summary>
         /// State of whether aim assist is on.
@@ -122,10 +142,16 @@ namespace Hive.Armada.Game
         /// </summary>
         public ColorBlindMode.Mode colorBlindMode;
 
-        public int selectedSkin;
-
         [Header("Wave")]
         public int startingWave;
+        
+        /// <summary>
+        /// Get default skin from PlayerPrefs.
+        /// </summary>
+        private void Awake()
+        {
+            selectedSkin = (Skin)PlayerPrefs.GetInt("defaultSkin", (int)defaultSkin);
+        }
 
         /// <summary>
         /// Create new list of selected powerups.

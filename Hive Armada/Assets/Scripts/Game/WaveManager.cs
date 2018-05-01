@@ -135,8 +135,6 @@ namespace Hive.Armada.Game
 
         public BossManager bossManager;
 
-        public WaveLoader waveLoader;
-
         public EnemyTypeSetup enemyTypeSetup;
 
         public int[] EnemyIDs { get; private set; }
@@ -251,8 +249,6 @@ namespace Hive.Armada.Game
                         };
 
             powerupPrefabs = reference.gameSettings.selectedPowerups.ToArray();
-
-            //waves = waveLoader.LoadWaves();
         }
 
         /// <summary>

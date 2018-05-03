@@ -55,6 +55,11 @@ namespace Hive.Armada.Menus
         public AudioSource source;
 
         /// <summary>
+        /// reference to zena audio.
+        /// </summary>
+        public AudioSource zenaSource;
+
+        /// <summary>
         /// Refernece to IridiumSystem.
         /// </summary>
         private IridiumSystem iridiumSystem;
@@ -164,11 +169,11 @@ namespace Hive.Armada.Menus
             {
                 if (GameObject.Find("Player Stats").GetComponent<Player.PlayerStats>().won == true)
                 {
-                    source.PlayOneShot(reference.menuSounds.victorySound[UnityEngine.Random.Range(0, reference.menuSounds.victorySound.Length)]);
+                    zenaSource.PlayOneShot(reference.menuSounds.victorySound[UnityEngine.Random.Range(0, reference.menuSounds.victorySound.Length)]);
                 }
                 else
                 {
-                    source.PlayOneShot(reference.menuSounds.defeatSound[UnityEngine.Random.Range(3, reference.menuSounds.defeatSound.Length)]);
+                    zenaSource.PlayOneShot(reference.menuSounds.defeatSound[UnityEngine.Random.Range(0, reference.menuSounds.defeatSound.Length)]);
                 }
             }
             else if (gameSettings.selectedGameMode == GameSettings.GameMode.SoloInfinite)
@@ -176,7 +181,7 @@ namespace Hive.Armada.Menus
                 statShift.GetComponent<RectTransform>().anchoredPosition3D =
                     new Vector3(0.0f, -50.0f, 0.0f);
 
-                source.PlayOneShot(reference.menuSounds.victorySound[UnityEngine.Random.Range(0, reference.menuSounds.victorySound.Length)]);
+                zenaSource.PlayOneShot(reference.menuSounds.victorySound[UnityEngine.Random.Range(0, reference.menuSounds.victorySound.Length)]);
 
                 
 

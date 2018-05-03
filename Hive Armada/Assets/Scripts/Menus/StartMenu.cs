@@ -83,6 +83,11 @@ namespace Hive.Armada.Menus
 		public AudioSource source;
 
         /// <summary>
+        /// Reference to zena audio source.
+        /// </summary>
+        public AudioSource zenaSource;
+
+        /// <summary>
         /// Reference to GameModeSelection.
         /// </summary>
         private GameSettings gameSettings;
@@ -296,7 +301,6 @@ namespace Hive.Armada.Menus
             gameSettings.selectedGameMode = (GameSettings.GameMode)selectedGameMode;
             PlayerPrefs.SetInt("defaultGameMode", selectedGameMode);
             transitionManager.Transition(loadoutGO);
-            source.PlayOneShot(reference.menuSounds.gameStart[Random.Range(0, reference.menuSounds.gameStart.Length)]);
         }
 
         /// <summary>

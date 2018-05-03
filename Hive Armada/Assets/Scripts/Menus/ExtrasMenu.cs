@@ -63,6 +63,11 @@ namespace Hive.Armada.Menus
         /// </summary>
         public AudioSource source;
 
+        /// <summary>
+        /// Reference to zena audio source.
+        /// </summary>
+        public AudioSource zenaSource;
+
         private void Awake()
         {
             reference = FindObjectOfType<ReferenceManager>();
@@ -97,7 +102,7 @@ namespace Hive.Armada.Menus
 
             source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
             FindObjectOfType<RoomTransport>().Transport(shopTransform, gameObject, shopMenuGO);
-            source.PlayOneShot(reference.menuSounds.shopEnterSound[Random.Range(0, reference.menuSounds.shopEnterSound.Length)]);
+            zenaSource.PlayOneShot(reference.menuSounds.shopEnterSound[Random.Range(0, reference.menuSounds.shopEnterSound.Length)]);
         }
 
         /// <summary>

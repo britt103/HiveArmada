@@ -162,12 +162,21 @@ namespace Hive.Armada.Menus
 
             if (gameSettings.selectedGameMode == GameSettings.GameMode.SoloNormal)
             {
-               
+                if (GameObject.Find("Player Stats").GetComponent<Player.PlayerStats>().won == true)
+                {
+                    source.PlayOneShot(reference.menuSounds.victorySound[UnityEngine.Random.Range(0, reference.menuSounds.victorySound.Length)]);
+                }
+                else
+                {
+                    source.PlayOneShot(reference.menuSounds.defeatSound[UnityEngine.Random.Range(3, reference.menuSounds.defeatSound.Length)]);
+                }
             }
             else if (gameSettings.selectedGameMode == GameSettings.GameMode.SoloInfinite)
             {
                 statShift.GetComponent<RectTransform>().anchoredPosition3D =
                     new Vector3(0.0f, -50.0f, 0.0f);
+
+                source.PlayOneShot(reference.menuSounds.victorySound[UnityEngine.Random.Range(0, reference.menuSounds.victorySound.Length)]);
 
                 
 

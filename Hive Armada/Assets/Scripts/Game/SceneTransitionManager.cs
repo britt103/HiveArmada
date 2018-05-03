@@ -295,6 +295,8 @@ namespace Hive.Armada.Game
 
                 reference.menuMain.transform.parent.transform.Find("Results Menu")
                     .gameObject.SetActive(true);
+                
+                
             }
 
             //else if (sceneName == "Wave Room")

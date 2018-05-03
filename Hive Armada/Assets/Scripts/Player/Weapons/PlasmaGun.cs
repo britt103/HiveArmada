@@ -252,9 +252,18 @@ namespace Hive.Armada.Player.Weapons
 
             yield return waitReloadDelay;
 
-            yield return new WaitForSeconds(reloadTime / maxAmmo * currentAmmo);
+            float timeToWait = reloadTime / maxAmmo * currentAmmo;
 
-            currentAmmo = maxAmmo;
+            while (currentAmmo < maxAmmo)
+            {
+                yield return new WaitForSeconds(timeToWait);
+
+                ++currentAmmo;
+            }
+
+            //yield return new WaitForSeconds(reloadTime / maxAmmo * currentAmmo);
+
+            //currentAmmo = maxAmmo;
 
             source.PlayOneShot(chargeCompleteSound);
 

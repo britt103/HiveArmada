@@ -72,7 +72,7 @@ namespace Hive.Armada.Enemies
         /// <summary>
         /// The minimum value for the alpha.
         /// </summary>
-        private const float MIN_ALPHA = 0.15f;
+        private const float MIN_ALPHA = 0.25f;
 
         /// <summary>
         /// Length of the fade in seconds.

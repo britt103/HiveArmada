@@ -65,9 +65,16 @@ namespace Hive.Armada.Game
         /// </summary>
         public enum Skin
         {
-            Skin1 = 0,
-            Skin2 = 1,
-            Skin3 = 2,
+            Skin1,
+            Skin2,
+            Skin3,
+            Skin4,
+            Skin5,
+            Skin6,
+            Skin7,
+            Skin8,
+            Skin9,
+            Skin10
         }
 
         /// <summary>

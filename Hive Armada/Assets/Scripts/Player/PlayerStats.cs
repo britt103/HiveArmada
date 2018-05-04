@@ -116,7 +116,6 @@ namespace Hive.Armada.Player
         /// <summary>
         /// State of whether player won the most recent run.
         /// </summary>
-        [NonSerialized]
         public bool won = false;
 
         /// <summary>

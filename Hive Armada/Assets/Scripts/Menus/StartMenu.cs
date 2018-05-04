@@ -83,6 +83,11 @@ namespace Hive.Armada.Menus
 		public AudioSource source;
 
         /// <summary>
+        /// Reference to zena audio source.
+        /// </summary>
+        public AudioSource zenaSource;
+
+        /// <summary>
         /// Reference to GameModeSelection.
         /// </summary>
         private GameSettings gameSettings;

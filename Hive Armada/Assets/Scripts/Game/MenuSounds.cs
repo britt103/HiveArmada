@@ -30,7 +30,19 @@ namespace Hive.Armada.Game
 
         public AudioClip menuButtonSelectSound;
 
+        public AudioClip[] gameStart;
+
+        public AudioClip[] victorySound;
+
+        public AudioClip[] defeatSound;
+
         [Header("Shop")]
-        public AudioClip shopPurchaseSound;
+        public AudioClip shopPurchaseButton;
+
+        public AudioClip[] shopEnterSound;
+
+        public AudioClip[] shopPurchaseSound;
+
+        
     }
 }

@@ -55,6 +55,11 @@ namespace Hive.Armada.Menus
         public AudioSource source;
 
         /// <summary>
+        /// reference to zena audio.
+        /// </summary>
+        public AudioSource zenaSource;
+
+        /// <summary>
         /// Refernece to IridiumSystem.
         /// </summary>
         private IridiumSystem iridiumSystem;
@@ -228,11 +233,13 @@ namespace Hive.Armada.Menus
                 {
                     victoryDefeatText.text = victoryMessage;
                     victoryDefeatText.color = victoryColor;
+                    zenaSource.PlayOneShot(reference.menuSounds.victorySound[UnityEngine.Random.Range(0, reference.menuSounds.victorySound.Length)]);
                 }
                 else
                 {
                     victoryDefeatText.text = defeatMessage;
                     victoryDefeatText.color = defeatColor;
+                    zenaSource.PlayOneShot(reference.menuSounds.defeatSound[UnityEngine.Random.Range(0, reference.menuSounds.defeatSound.Length)]);
                 }
             }
             else if (gameSettings.selectedGameMode == GameSettings.GameMode.SoloInfinite)

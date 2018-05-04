@@ -52,6 +52,11 @@ namespace Hive.Armada.Menus
         public Transform bestiaryTransform;
 
         /// <summary>
+        /// Reference to Credits Menu.
+        /// </summary>
+        public GameObject creditsMenuGO;
+
+        /// <summary>
         /// Reference to menu to go to when back is pressed.
         /// </summary>
         public GameObject backMenuGO;
@@ -124,7 +129,7 @@ namespace Hive.Armada.Menus
             }
 
             source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
-
+            transitionManager.Transition(creditsMenuGO);
         }
 
         /// <summary>

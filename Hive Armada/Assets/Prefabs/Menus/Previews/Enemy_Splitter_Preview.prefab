@@ -482,7 +482,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4408641099333984}
   - component: {fileID: 95236629968101142}
-  - component: {fileID: 114481586452284178}
   m_Layer: 5
   m_Name: enemy_splitter_child_uv2 BL
   m_TagString: Untagged
@@ -516,7 +515,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4211490932575368}
   - component: {fileID: 95262035347587428}
-  - component: {fileID: 114297988214245312}
   m_Layer: 5
   m_Name: enemy_splitter_child_uv2 TL
   m_TagString: Untagged
@@ -716,7 +714,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4002333844976058}
   - component: {fileID: 95735597701736198}
-  - component: {fileID: 114771410275853734}
   m_Layer: 5
   m_Name: enemy_splitter_child_uv2 BR
   m_TagString: Untagged
@@ -916,7 +913,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4938786626459548}
   - component: {fileID: 95845802759940014}
-  - component: {fileID: 114390093134947112}
   m_Layer: 5
   m_Name: enemy_splitter_child_uv2 TR
   m_TagString: Untagged
@@ -984,7 +980,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4633400882615300}
   - component: {fileID: 95124225320312838}
-  - component: {fileID: 114535339392047014}
   m_Layer: 5
   m_Name: enemy_splitter_uv
   m_TagString: Untagged
@@ -3767,28 +3762,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114297988214245312
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1496288494895436}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f6100fbaff2e4b4ba2198bbd62e8dd7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114390093134947112
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1810367905074088}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f6100fbaff2e4b4ba2198bbd62e8dd7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114433087039385756
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3801,39 +3774,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inBestiary: 1
---- !u!114 &114481586452284178
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1472074491698394}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f6100fbaff2e4b4ba2198bbd62e8dd7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114535339392047014
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1929716489717224}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f6100fbaff2e4b4ba2198bbd62e8dd7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114771410275853734
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1623633877803050}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f6100fbaff2e4b4ba2198bbd62e8dd7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!135 &135407956431345648
 SphereCollider:
   m_ObjectHideFlags: 1

@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using Hive.Armada.Data;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -162,9 +163,8 @@ namespace Hive.Armada.Player.Weapons
 
         private WaitForSeconds waitOverheatDecreaseDelay;
         
-        protected override void Awake()
+        private void Start()
         {
-            base.Awake();
             SetupWeapon();
         }
 
@@ -192,12 +192,6 @@ namespace Hive.Armada.Player.Weapons
             
             if (reference.cheats.doubleDamage)
                 damage *= 2;
-            
-            foreach (Renderer r in barrelRenderers)
-            {
-                r.material.SetColor("_overheatColor", overheatBarrelColor);
-                r.material.SetFloat("_overheatPercent", 0.0f);
-            }
 
             for (int i = 0; i < left.Length; ++i)
             {
@@ -220,6 +214,12 @@ namespace Hive.Armada.Player.Weapons
 
             waitFire = new WaitForSeconds(1.0f / fireRate);
             waitOverheatDecreaseDelay = new WaitForSeconds(overheatDecreaseDelay);
+            
+            foreach (Renderer r in barrelRenderers)
+            {
+                r.material.SetColor("_overheatColor", overheatBarrelColor);
+                r.material.SetFloat("_overheatPercent", 0.0f);
+            }
         }
 
         /// <summary>
@@ -448,6 +448,8 @@ namespace Hive.Armada.Player.Weapons
             {
                 isOverheating = true;
 
+                overheatAmount = overheatMax;
+
                 if (overheatDecreaseDelayCoroutine != null)
                 {
                     StopCoroutine(overheatDecreaseDelayCoroutine);
@@ -469,11 +471,6 @@ namespace Hive.Armada.Player.Weapons
         private void RemoveOverheat(float amount)
         {
             overheatAmount -= amount;
-
-            if (overheatAmount < 0.0f)
-            {
-                Debug.Log("Overheat = " + overheatAmount);
-            }
 
             float percent = Mathf.Clamp(overheatAmount / 100.0f, 0.0f, 1.0f);
 

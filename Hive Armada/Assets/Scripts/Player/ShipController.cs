@@ -136,11 +136,6 @@ namespace Hive.Armada.Player
                     reference.shipPickup.SetActive(false);
                 }
 
-                if (reference.powerUpStatus)
-                {
-                    reference.powerUpStatus.BeginTracking(reference, hand);
-                }
-
                 if (reference.gameSettings.selectedGameMode == GameSettings.GameMode.SoloNormal)
                 {
                     if (reference.waveManager != null)
@@ -236,6 +231,11 @@ namespace Hive.Armada.Player
         public void OnAttachedToHand(Hand attachedHand)
         {
             hand = attachedHand;
+            
+            if (reference.powerUpStatus)
+            {
+                reference.powerUpStatus.BeginTracking(reference, hand);
+            }
         }
 
         /// <summary>

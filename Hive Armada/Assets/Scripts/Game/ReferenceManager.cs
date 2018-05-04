@@ -21,6 +21,8 @@ using Hive.Armada.PowerUps;
 using System;
 using Hive.Armada.Ambient;
 using Hive.Armada.Data;
+using Hive.Armada.Menus;
+using UnityEngine.SceneManagement;
 
 namespace Hive.Armada.Game
 {
@@ -210,6 +212,16 @@ namespace Hive.Armada.Game
             if (tooltips != null)
             {
                 tooltips.Initialize(this);
+            }
+
+            if (SceneManager.GetActiveScene().name.Equals("Menu Room"))
+            {
+                UIPointer[] pointers = FindObjectsOfType<UIPointer>();
+
+                foreach (UIPointer pointer in pointers)
+                {
+                    pointer.Initialize(gameSettings);
+                }
             }
         }
     }

@@ -429,6 +429,8 @@ namespace Hive.Armada.Game
             //Gameplay
             SetAimAssist(aimAssist);
             SetScoreDisplay(scoreDisplay);
+            SetFireRate(fireRate);
+            SetSelectedPowerups(shield, areaBomb, damageBoost, ally, clearBomb);
         }
     }
 }

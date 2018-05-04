@@ -129,11 +129,25 @@ namespace Hive.Armada.Game
         /// Minimize effect start times to audio clip length.
         /// Activate appropriate menu in Menu Room.
         /// </summary>
-        private void Awake()
+        private void Start()
         {
             reference = FindObjectOfType<ReferenceManager>();
             sceneInfo = FindObjectOfType<SceneInfo>();
             gameSettings = FindObjectOfType<GameSettings>();
+
+            if (gameSettings != null)
+            {
+                if (gameSettings.IsVive)
+                {
+                    normalModeLoadingScreen = gameSettings.bossLoadingScreens[0];
+                    infiniteModeLoadingScreen = gameSettings.infiniteLoadingScreens[0];
+                }
+                else
+                {
+                    normalModeLoadingScreen = gameSettings.bossLoadingScreens[1];
+                    infiniteModeLoadingScreen = gameSettings.infiniteLoadingScreens[1];
+                }
+            }
 
             if (SceneManager.GetActiveScene().name == "Menu Room")
             {

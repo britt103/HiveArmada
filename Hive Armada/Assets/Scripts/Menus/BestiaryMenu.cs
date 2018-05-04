@@ -15,7 +15,6 @@
 
 using System.IO;
 using System.Linq;
-using System.Collections;
 using System.Collections.Generic;
 using Hive.Armada.Game;
 using UnityEngine;
@@ -48,16 +47,6 @@ namespace Hive.Armada.Menus
         /// Reference to player transform for Options Menu.
         /// </summary>
         public Transform backMenuTransform;
-
-        /// <summary>
-        /// Reference to ui cover near top of canvas.
-        /// </summary>
-        public GameObject uiCoverHigh;
-
-        /// <summary>
-        /// Reference to ui cover near bottom of canvas.
-        /// </summary>
-        public GameObject uiCoverLow;
 
         /// <summary>
         /// Reference to Menu Audio source.
@@ -370,9 +359,6 @@ namespace Hive.Armada.Menus
             entryText.SetActive(true);
             entryValue = entryId;
 
-            uiCoverHigh.SetActive(false);
-            uiCoverLow.SetActive(false);
-
             if (enemiesLocked[entryId])
             {
                 entryName.GetComponent<Text>().text = entryData.lockedName;
@@ -411,9 +397,6 @@ namespace Hive.Armada.Menus
             entryText.SetActive(false);
             scrollView.SetActive(true);
             informationButton.SetActive(false);
-
-            uiCoverHigh.SetActive(true);
-            uiCoverLow.SetActive(true);
 
             if (entryName.GetComponent<Text>().text == enemyDisplayNames[0])
             {

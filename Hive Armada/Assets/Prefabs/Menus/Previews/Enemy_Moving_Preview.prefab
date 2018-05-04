@@ -168,8 +168,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4087773783051190}
-  - component: {fileID: 95802273894896862}
-  - component: {fileID: 114913694121818872}
   m_Layer: 5
   m_Name: enemy_moving_uv
   m_TagString: Untagged
@@ -900,23 +898,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1886771892805426}
   m_Mesh: {fileID: 4300010, guid: 9d43859ef8519194783f63640bd1257a, type: 3}
---- !u!95 &95802273894896862
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1791167281859200}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 9d43859ef8519194783f63640bd1257a, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114571022280102590
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -929,17 +910,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inBestiary: 1
---- !u!114 &114913694121818872
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1791167281859200}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f6100fbaff2e4b4ba2198bbd62e8dd7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!135 &135808706671319528
 SphereCollider:
   m_ObjectHideFlags: 1

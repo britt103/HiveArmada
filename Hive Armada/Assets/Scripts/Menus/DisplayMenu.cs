@@ -77,6 +77,8 @@ namespace Hive.Armada.Menus
 
         private int colorBlindModeCounter = 0;
 
+        private bool assigning = true;
+
         /// <summary>
         /// Find references. 
         /// </summary>
@@ -105,6 +107,8 @@ namespace Hive.Armada.Menus
                     }
                 }
             }
+
+            assigning = false;
         }
 
         /// <summary>
@@ -122,8 +126,11 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void SetBloom(bool isOn)
         {
-            source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
-            reference.optionsValues.SetBloom(isOn);
+            if (!assigning)
+            {
+                source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
+                reference.optionsValues.SetBloom(isOn);
+            }
         }
 
         /// <summary>
@@ -132,25 +139,30 @@ namespace Hive.Armada.Menus
         /// <param name="isOn"></param>
         public void ToggleColorBlindMode(bool isOn)
         {
-            if (isOn)
+            if (!assigning)
             {
-                foreach (ColorBlindModeButton button in colorBlindModeButtons)
+                if (isOn)
                 {
-                    button.buttonGO.SetActive(true); 
-                }
+                    foreach (ColorBlindModeButton button in colorBlindModeButtons)
+                    {
+                        button.buttonGO.SetActive(true);
+                    }
 
-                colorBlindModeButtons[0].buttonGO.GetComponent<UIHover>().Select();
-                SetColorBlindMode(colorBlindModeButtons[0].buttonGO);
-            }
-            else
-            {
-                foreach (ColorBlindModeButton button in colorBlindModeButtons)
+                    colorBlindModeButtons[0].buttonGO.GetComponent<UIHover>().Select();
+                    SetColorBlindMode(colorBlindModeButtons[0].buttonGO);
+                }
+                else
                 {
-                    button.buttonGO.SetActive(false);
-                    button.buttonGO.GetComponent<UIHover>().EndSelect();
-                }
+                    source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
 
-                reference.optionsValues.SetColorBlindMode(ColorBlindMode.Mode.Standard);
+                    foreach (ColorBlindModeButton button in colorBlindModeButtons)
+                    {
+                        button.buttonGO.SetActive(false);
+                        button.buttonGO.GetComponent<UIHover>().EndSelect();
+                    }
+
+                    reference.optionsValues.SetColorBlindMode(ColorBlindMode.Mode.Standard);
+                }
             }
         }
 
@@ -160,18 +172,21 @@ namespace Hive.Armada.Menus
         /// <param name="buttonGO">Game Object of button that was pressed.</param>
         public void SetColorBlindMode(GameObject buttonGO)
         {
-            source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
-
-            foreach (ColorBlindModeButton button in colorBlindModeButtons)
+            if (!assigning)
             {
-                if (button.buttonGO == buttonGO)
+                source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
+
+                foreach (ColorBlindModeButton button in colorBlindModeButtons)
                 {
-                    button.buttonGO.GetComponent<UIHover>().Select();
-                    reference.optionsValues.SetColorBlindMode(button.mode);
-                }
-                else
-                {
-                    button.buttonGO.GetComponent<UIHover>().EndSelect();
+                    if (button.buttonGO == buttonGO)
+                    {
+                        button.buttonGO.GetComponent<UIHover>().Select();
+                        reference.optionsValues.SetColorBlindMode(button.mode);
+                    }
+                    else
+                    {
+                        button.buttonGO.GetComponent<UIHover>().EndSelect();
+                    }
                 }
             }
         }

@@ -117,13 +117,6 @@ namespace Hive.Armada.Menus
 
         public Text timeValue;
 
-        /// <summary>
-        /// Reference to Text GameObject for kills stat.
-        /// </summary>
-        public Text killsText;
-
-        public Text killsValue;
-
         public GameObject statShift;
 
         /// <summary>
@@ -146,6 +139,75 @@ namespace Hive.Armada.Menus
         /// doesn't play over itself
         /// </summary>
         private int continueCounter = 0;
+
+        [Header("Scrollview Texts and Values")]
+        public Text killsText;
+
+        public Text killsValue;
+
+        public Text allyText;
+
+        public Text allyValue;
+
+        public Text areaBombText;
+
+        public Text areaBombValue;
+
+        public Text damageBoostText;
+
+        public Text damageBoostValue;
+
+        public Text shieldText;
+
+        public Text shieldValue;
+
+        public Text timeWarpText;
+
+        public Text timeWarpValue;
+
+        public Text comboScoreText;
+
+        public Text comboScoreValue;
+
+        public Text comboEnemiesText;
+
+        public Text comboEnemiesValue;
+
+        public Text damageDealtText;
+
+        public Text damageDealtValue;
+
+        public Text standardEnemyText;
+
+        public Text standardEnemyValue;
+
+        public Text buckshotEnemyText;
+
+        public Text buckshotEnemyValue;
+
+        public Text movingEnemyText;
+
+        public Text movingEnemyValue;
+
+        public Text splitterEnemyText;
+
+        public Text splitterEnemyValue;
+
+        public Text kamikazeEnemyText;
+
+        public Text kamikazeEnemyValue;
+
+        public Text bossEnemyText;
+
+        public Text bossEnemyValue;
+
+        public Text weaponText;
+
+        public Text weaponValue;
+
+        public Text enemyShotsText;
+
+        public Text enemyShotsValue;
 
         /// <summary>
         /// Find references. Get and set results values. Reset stats totals.
@@ -213,14 +275,43 @@ namespace Hive.Armada.Menus
                                                     iridiumShootablesObtainedAmount,
                                                     iridiumShootablesSpawnedAmount);
 
-            //wavesTextGO.text = "Waves: " + stats.waves;
 
-            if (killsText)
-            {
-                killsText.text = "Kills:";
-                killsValue.text = stats.totalEnemiesKilled.ToString();
-            }
-
+            killsText.text = "Kills:";
+            killsValue.text = stats.totalEnemiesKilled.ToString();
+            allyText.text = "Allies Used:";
+            allyValue.text = stats.powerupTotalCount[0].ToString();
+            areaBombText.text = "Bombs Used:";
+            areaBombValue.text = stats.powerupTotalCount[1].ToString();
+            damageBoostText.text = "Damage Boosts Used:";
+            damageBoostValue.text = stats.powerupTotalCount[2].ToString();
+            shieldText.text = "Shields Used:";
+            shieldValue.text = stats.powerupTotalCount[3].ToString();
+            timeWarpText.text = "Time Warps Used:";
+            timeWarpValue.text = stats.powerupTotalCount[4].ToString();
+            comboScoreText.text = "Best Combo:";
+            comboScoreValue.text = stats.bestScore.ToString();
+            comboEnemiesText.text = "Enemies In Combo:";
+            comboEnemiesValue.text = stats.bestCombo.ToString();
+            damageDealtText.text = "Total Damage Dealt:";
+            damageDealtValue.text = stats.totalDamageDealt.ToString();
+            standardEnemyText.text = "Workers Killed:";
+            standardEnemyValue.text = stats.enemyTotalCount[0].ToString();
+            buckshotEnemyText.text = "Soldiers Killed:";
+            buckshotEnemyValue.text = stats.enemyTotalCount[1].ToString();
+            movingEnemyText.text = "Hunters Killed:";
+            movingEnemyValue.text = stats.enemyTotalCount[2].ToString();
+            splitterEnemyText.text = "Carriers Killed:";
+            splitterEnemyValue.text = stats.enemyTotalCount[3].ToString();
+            kamikazeEnemyText.text = "Predators Killed:";
+            kamikazeEnemyValue.text = stats.enemyTotalCount[4].ToString();
+            bossEnemyText.text = "Cortexes Killed:";
+            bossEnemyValue.text = stats.enemyTotalCount[5].ToString();
+            weaponText.text = "Weapon Used:";
+            weaponValue.text = reference.gameSettings.weaponNames[(int)reference.gameSettings
+                .selectedWeapon];
+            enemyShotsText.text = "Enemy Shots Fired:";
+            enemyShotsValue.text = stats.totalEnemyProjectiles.ToString();
+            
             if (scrollViewContent.transform.childCount <= numFittableCells)
             {
                 scrollbar.gameObject.GetComponent<BoxCollider>().enabled = false;

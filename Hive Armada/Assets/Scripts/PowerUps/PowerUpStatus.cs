@@ -118,7 +118,7 @@ namespace Hive.Armada.PowerUps
 
                     if (canUseNextPowerup)
                     {
-                        stats.PowerupUsed(nextPowerupName);
+                        stats.PowerupUsed(powerups.Peek());
                         Instantiate(powerups.Dequeue(), powerupPoint);
                         RemoveDisplayIcon();
 

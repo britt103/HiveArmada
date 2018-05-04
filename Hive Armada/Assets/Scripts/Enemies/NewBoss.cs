@@ -1134,6 +1134,8 @@ namespace Hive.Armada.Enemies
             ProjectilePattern projectileScript = projectile.GetComponent<ProjectilePattern>();
             projectileScript.Launch();
 
+            reference.statistics.EnemyFired(projectileScript.projectiles.Length);
+
             yield return waitFire;
 
             //shootCoroutine = null;
@@ -1636,6 +1638,7 @@ namespace Hive.Armada.Enemies
             }
 
             Health -= damage;
+            reference.statistics.DamageDealt(damage);
 
             if (hitFlash == null)
             {
@@ -1702,6 +1705,7 @@ namespace Hive.Armada.Enemies
             else
             {
                 TransitionState(BossStates.Death);
+                reference.statistics.EnemyKilled(gameObject);
             }
         }
 

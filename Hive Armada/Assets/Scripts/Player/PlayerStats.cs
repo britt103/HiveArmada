@@ -62,9 +62,34 @@ namespace Hive.Armada.Player
         public int totalEnemiesKilled = 0;
 
         /// <summary>
+        /// Array of the names of the enemies.
+        /// </summary>
+        public GameObject[] enemyPrefabs;
+
+        /// <summary>
+        /// Array of the number of times each powerup has been used in the current run.
+        /// </summary>
+        public int[] enemyTotalCount;
+
+        /// <summary>
+        /// Number of projectiles shot by enemies in the current run.
+        /// </summary>
+        public int totalEnemyProjectiles = 0;
+
+        /// <summary>
+        /// Amount of damage dealt in the current run.
+        /// </summary>
+        public int totalDamageDealt = 0;
+
+        /// <summary>
         /// Best combo achieved by player in the current run.
         /// </summary>
         public int bestCombo = 0;
+
+        /// <summary>
+        /// best combo score achieved by player in the current run.
+        /// </summary>
+        public int bestScore = 0;
 
         /// <summary>
         /// Time player has been firing in the current wave.
@@ -119,7 +144,7 @@ namespace Hive.Armada.Player
         /// <summary>
         /// Array of the names of the powerups.
         /// </summary>
-        public string[] powerupNames;
+        public GameObject[] powerupPrefabs;
 
         /// <summary>
         /// Array of the number of times each powerup has been used in the current wave.
@@ -157,10 +182,10 @@ namespace Hive.Armada.Player
                 weaponTotalShotsFired[i] = 0;
             }
 
-            int numPowerups = powerupNames.Length;
+            int numPowerups = powerupPrefabs.Length;
             powerupCount = new int[numPowerups];
             powerupTotalCount = new int[numPowerups];
-            for (int i = 0; i < powerupNames.Length; ++i)
+            for (int i = 0; i < powerupPrefabs.Length; ++i)
             {
                 powerupCount[i] = 0;
                 powerupTotalCount[i] = 0;
@@ -213,9 +238,9 @@ namespace Hive.Armada.Player
             }
 
             string powerupsOutput = "";
-            for(int i = 0; i < powerupNames.Length; ++i)
+            for(int i = 0; i < powerupPrefabs.Length; ++i)
             {
-                powerupsOutput += "Total " + powerupNames[i] + " Use: " + powerupTotalCount[i] + "\n";
+                powerupsOutput += "Total " + powerupPrefabs[i] + " Use: " + powerupTotalCount[i] + "\n";
             }
 
             String output = dateTime + "\n" +
@@ -248,9 +273,9 @@ namespace Hive.Armada.Player
             }
 
             string powerupsOutput = "";
-            for (int i = 0; i < powerupNames.Length; ++i)
+            for (int i = 0; i < powerupPrefabs.Length; ++i)
             {
-                powerupsOutput += powerupNames[i] + " Use: " + powerupCount[i] + "\n";
+                powerupsOutput += powerupPrefabs[i] + " Use: " + powerupCount[i] + "\n";
             }
 
             String output = DateTime.Now.ToString() + "\n" +
@@ -291,7 +316,7 @@ namespace Hive.Armada.Player
                 weaponShotsFired[i] = 0;
             }
 
-            for (int i = 0; i < powerupNames.Length; ++i)
+            for (int i = 0; i < powerupPrefabs.Length; ++i)
             {
                 powerupTotalCount[i] += powerupCount[i];
                 powerupCount[i] = 0;
@@ -307,7 +332,6 @@ namespace Hive.Armada.Player
             aliveTime = 0;
             isAlive = false;
             enemiesKilled = 0;
-            bestCombo = 0;
             firingTime = 0;
             score = 0;
             isFiring = false;
@@ -333,8 +357,12 @@ namespace Hive.Armada.Player
             waves = 0;
             totalAliveTime = 0;
             totalEnemiesKilled = 0;
+            totalEnemyProjectiles = 0;
+            totalDamageDealt = 0;
             totalFiringTime = 0;
             totalScore = 0;
+            bestCombo = 0;
+            bestScore = 0;
 
             for (int i = 0; i < weaponShotsFired.Length; ++i)
             {
@@ -385,20 +413,45 @@ namespace Hive.Armada.Player
         /// <summary>
         /// Add to enemiesKilled
         /// </summary>
-        public void EnemyKilled()
+        public void EnemyKilled(GameObject go)
         {
+            for (int i = 0; i < enemyPrefabs.Length; ++i)
+            {
+                if (go.name.Contains(enemyPrefabs[i].name))
+                {
+                    enemyTotalCount[i]++;
+                    break;
+                }
+            }
             enemiesKilled++;
+        }
+
+        /// <summary>
+        /// Add to total enemy projectiles
+        /// </summary>
+        public void EnemyFired(int numProjectiles)
+        {
+            totalEnemyProjectiles += numProjectiles;
+        }
+
+        /// <summary>
+        /// Add to enemiesKilled
+        /// </summary>
+        public void DamageDealt(int damage)
+        {
+            totalDamageDealt += damage;
         }
 
         /// <summary>
         /// Set current best combo of run
         /// </summary>
         /// <param name="combo">latest combo that ended</param>
-        public void Combo(int combo)
+        public void Combo(int combo, int points)
         {
             if(combo > bestCombo)
             {
                 bestCombo = combo;
+                bestScore = points;
             }
         }
 
@@ -424,13 +477,14 @@ namespace Hive.Armada.Player
         /// Record powerup use.
         /// </summary>
         /// <param name="name">name of powerup used</param>
-        public void PowerupUsed(string name)
+        public void PowerupUsed(GameObject go)
         {
-            for(int i = 0; i < powerupNames.Length; ++i)
+            for(int i = 0; i < powerupPrefabs.Length; ++i)
             {
-                if(name == powerupNames[i])
+                if(go.name.Contains(powerupPrefabs[i].name))
                 {
                     powerupCount[i]++;
+                    break;
                 }
             }
         }

@@ -241,6 +241,7 @@ namespace Hive.Armada.Enemies
             }
 
             Health -= damage;
+            reference.statistics.DamageDealt(damage);
 
             if (hitFlash == null)
             {
@@ -274,7 +275,7 @@ namespace Hive.Armada.Enemies
             }
 
             scoringSystem.ComboIn(pointValue, transform);
-            reference.statistics.EnemyKilled();
+            reference.statistics.EnemyKilled(gameObject);
             FindObjectOfType<BestiaryUnlockData>().AddEnemyUnlock(gameObject.name);
             objectPoolManager.Spawn(gameObject, deathEmitterTypeIdentifier, transform.position,
                                     transform.rotation);

@@ -134,36 +134,11 @@ namespace Hive.Armada.Menus
                 if (Physics.Raycast(transform.position, transform.forward,
                     out hit, 500.0f, Utility.uiCoverMask))
                 {
-                    interactingPreview = null;
+                    RaycastHit uiCoverHit = hit;
+
                     if (Physics.Raycast(transform.position, transform.forward,
-                        out hit, 500.0f, Utility.uiMask))
-                    {
-                        if (hit.collider.gameObject.CompareTag("InteractableUI"))
-                        {
-                            Physics.Raycast(transform.position, transform.forward,
-                            out hit, Mathf.Infinity, Utility.roomMask);
-                        }
-                    }
-                    else
-                    {
-                        Physics.Raycast(transform.position, transform.forward,
-                            out hit, Mathf.Infinity, Utility.roomMask);
-                    }
-
-                    ExitLastInteractable();
-                    aimObject = null;
-                    isInteractable = false;
-
-                    pointer.SetPosition(0, transform.position);
-                    pointer.SetPosition(1, hit.point);
-
-                    float mag = (transform.position - hit.point).magnitude;
-                    pointer.endWidth = thickness * Mathf.Max(mag, 1.0f);
-                }
-                else if (Physics.Raycast(transform.position, transform.forward,
-                        out hit, 500.0f, Utility.uiMask))
-                {
-                    if (hit.collider.gameObject.CompareTag("InteractableUI"))
+                        out hit, 500.0f, Utility.uiMask) && hit.collider.gameObject
+                        .CompareTag("CoverableUI"))
                     {
                         if (!isInteractable)
                         {
@@ -178,14 +153,105 @@ namespace Hive.Armada.Menus
                                 // Do nothing
                             }
                         }
+
+                        aimObject = hit.collider.gameObject;
                     }
                     else
                     {
+                        hit = uiCoverHit;
+                        aimObject = null;
                         ExitLastInteractable();
                         isInteractable = false;
                     }
 
-                    aimObject = hit.collider.gameObject;
+                    pointer.SetPosition(0, transform.position);
+                    pointer.SetPosition(1, hit.point);
+
+                    float mag = (transform.position - hit.point).magnitude;
+                    pointer.endWidth = thickness * Mathf.Max(mag, 1.0f);
+                }
+                else if (Physics.Raycast(transform.position, transform.forward,
+                        out hit, 500.0f, Utility.uiMask))
+                {
+                    RaycastHit uiHit = hit;
+
+                    Physics.Raycast(transform.position, transform.forward,
+                        out hit, Mathf.Infinity, Utility.roomMask);
+
+                    RaycastHit roomHit = hit;
+
+                    if (uiHit.distance < roomHit.distance)
+                    {
+                        hit = uiHit;
+
+                        if (hit.collider.gameObject.CompareTag("InteractableUI"))
+                        {
+                            if (hit.collider.gameObject.GetComponent<PreviewRotation>()
+                                && Physics.Raycast(transform.position, transform.forward,
+                                out hit, Mathf.Infinity, Utility.menuMask))
+                            {
+                                aimObject = null;
+                                ExitLastInteractable();
+                                isInteractable = false;
+                            }
+                            else
+                            {
+                                hit = uiHit;
+
+                                if (!isInteractable)
+                                {
+                                    isInteractable = true;
+
+                                    try
+                                    {
+                                        hand.controller.TriggerHapticPulse();
+                                    }
+                                    catch (Exception)
+                                    {
+                                        // Do nothing
+                                    }
+                                }
+
+                                aimObject = hit.collider.gameObject;
+                            }
+                            
+                        }
+                        else if (hit.collider.gameObject.CompareTag("CoverableUI"))
+                        {
+                            aimObject = null;
+                            Physics.Raycast(transform.position, transform.forward,
+                                out hit, Mathf.Infinity, Utility.roomMask);
+                            Physics.Raycast(transform.position, transform.forward,
+                                out hit, Mathf.Infinity, Utility.menuMask);
+                        }
+                        else
+                        {
+                            aimObject = null;
+                            ExitLastInteractable();
+                            isInteractable = false;
+                        }
+                    }
+                    else
+                    {
+                        hit = roomHit;
+                        aimObject = null;
+                        ExitLastInteractable();
+                        isInteractable = false;
+                    }
+                    
+                    pointer.SetPosition(0, transform.position);
+                    pointer.SetPosition(1, hit.point);
+
+                    float mag = (transform.position - hit.point).magnitude;
+                    pointer.endWidth = thickness * Mathf.Max(mag, 1.0f);
+                }
+                else if (Physics.Raycast(transform.position, transform.forward,
+                    out hit, Mathf.Infinity, Utility.menuMask))
+                {
+                    interactingPreview = null;
+                    ExitLastInteractable();
+                    aimObject = null;
+                    isInteractable = false;
 
                     pointer.SetPosition(0, transform.position);
                     pointer.SetPosition(1, hit.point);
@@ -209,7 +275,7 @@ namespace Hive.Armada.Menus
                 }
 
                 //Check for UI interaction
-                if (isInteractable)
+                if (isInteractable && aimObject)
                 {
                     if (aimObject != lastInteractableAimObject)
                     {

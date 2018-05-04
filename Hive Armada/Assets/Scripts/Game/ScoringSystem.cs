@@ -44,6 +44,11 @@ namespace Hive.Armada.Game
         private int score;
 
         /// <summary>
+        /// the player's current combo score.
+        /// </summary>
+        private int comboScore;
+
+        /// <summary>
         /// The timer of the current combo.
         /// </summary>
         private int comboTimer;
@@ -129,9 +134,10 @@ namespace Hive.Armada.Game
             //comboBank *= comboMultiplier;
             //int comboOut = (int)comboBank;
             //AddScore(comboOut);
-            reference.statistics.Combo(comboSequence);
+            reference.statistics.Combo(comboSequence,comboScore);
             SetMultiplier(1);
             comboSequence = 0;
+            comboScore = 0;
         }
 
         /// <summary>
@@ -141,6 +147,7 @@ namespace Hive.Armada.Game
         private void AddScore(int points)
         {
             score += points;
+            comboScore += points;
             reference.statistics.AddScore(points);
 
             if (scoreDisplay != null)

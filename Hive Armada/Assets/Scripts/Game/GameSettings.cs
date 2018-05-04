@@ -46,6 +46,14 @@ namespace Hive.Armada.Game
             Plasma = 3
         }
 
+        /// <summary>
+        /// Names of weapons; primarily meant for Results Menu.
+        /// </summary>
+        public string[] weaponNames;
+
+        /// <summary>
+        /// Enum for different powerups.
+        /// </summary>
         public enum Powerups
         {
             Shield,

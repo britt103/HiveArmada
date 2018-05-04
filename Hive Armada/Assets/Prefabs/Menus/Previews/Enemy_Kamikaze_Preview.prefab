@@ -19,8 +19,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4894501586240586}
-  - component: {fileID: 95386077657044762}
-  - component: {fileID: 114861613963200052}
   m_Layer: 5
   m_Name: enemy_kamikaze_uv
   m_TagString: Untagged
@@ -521,23 +519,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1498658747620322}
   m_Mesh: {fileID: 4300004, guid: 6ce5dc1161377e341a8fbd28dd3e5a53, type: 3}
---- !u!95 &95386077657044762
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1051243202554928}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 6ce5dc1161377e341a8fbd28dd3e5a53, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114570169207549072
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -550,17 +531,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inBestiary: 1
---- !u!114 &114861613963200052
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1051243202554928}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f6100fbaff2e4b4ba2198bbd62e8dd7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!135 &135461719818977200
 SphereCollider:
   m_ObjectHideFlags: 1

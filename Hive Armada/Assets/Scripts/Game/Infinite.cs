@@ -300,14 +300,14 @@ namespace Hive.Armada.Game
 
                     spawned = false;
 
-                    if (spawns >= maxSpawns)
-                    {
-                        maxSpawns = IncreaseSpawns(maxSpawns, currentWave);
-                        yield return new WaitForSeconds(preemptTime);
-
-                        PreemptWave();
-                        //StopCoroutine(waveCoroutine);
-                    }
+                    // if (spawns >= maxSpawns)
+                    // {
+                    //     maxSpawns = IncreaseSpawns(maxSpawns, currentWave);
+                    //     //yield return new WaitForSeconds(preemptTime);
+                    //
+                    //     //PreemptWave();
+                    //     //StopCoroutine(waveCoroutine);
+                    // }
 
                     if (currentDelay >= maxDelay)
                     {
@@ -450,13 +450,13 @@ namespace Hive.Armada.Game
                             ++enemiesRemaining;
                             currentDelay -= maxDelay;
 
-                            if (spawns >= maxSpawns)
-                            {
-                                maxSpawns = IncreaseSpawns(maxSpawns, currentWave);
-                                yield return new WaitForSeconds(preemptTime);
-
-                                PreemptWave();
-                            }
+                            // if (spawns >= maxSpawns)
+                            // {
+                            //     maxSpawns = IncreaseSpawns(maxSpawns, currentWave);
+                            //     //yield return new WaitForSeconds(preemptTime);
+                            //
+                            //     //PreemptWave();
+                            // }
                         }
                         else
                         {

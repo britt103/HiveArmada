@@ -11,10 +11,13 @@
 //=============================================================================
 
 using System;
+using Hive.Armada.Game;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.Rendering;
+using UnityEngine.VR;
+using Valve.VR;
 using Valve.VR.InteractionSystem;
 
 namespace Hive.Armada.Menus
@@ -24,6 +27,8 @@ namespace Hive.Armada.Menus
     /// </summary>
     public class UIPointer : MonoBehaviour
     {
+        private GameSettings gameSettings;
+        
         /// <summary>
         /// Reference to hand in parent object.
         /// </summary>
@@ -99,6 +104,11 @@ namespace Hive.Armada.Menus
         /// </summary>
         private bool menusOn = true;
 
+        public void Initialize(GameSettings gameSettings)
+        {
+            this.gameSettings = gameSettings;
+        }
+
         /// <summary>
         /// Find references, initialize pointer and pointer values.
         /// </summary>
@@ -124,9 +134,12 @@ namespace Hive.Armada.Menus
                     Initialize();
                 }
 
-                if (hand.controller.GetPressDown(SteamVR_Controller.ButtonMask.ApplicationMenu))
+                if (gameSettings != null)
                 {
-                    ToggleMenus();
+                    if (hand.controller.GetPressDown(gameSettings.ToggleMenuButtonId))
+                    {
+                        ToggleMenus();
+                    }
                 }
 
                 RaycastHit hit;

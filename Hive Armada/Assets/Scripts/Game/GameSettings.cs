@@ -11,8 +11,11 @@
 //
 //=============================================================================
 
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VR;
+using Valve.VR;
 
 namespace Hive.Armada.Game
 {
@@ -152,6 +155,19 @@ namespace Hive.Armada.Game
 
         [Header("Wave")]
         public int startingWave;
+
+        [Header("Loading Screen")]
+        public Texture[] bossLoadingScreens;
+
+        public Texture[] infiniteLoadingScreens;
+        
+        public bool IsVive { get; private set; }
+        
+        public EVRButtonId ToggleMenuButtonId { get; private set; }
+        
+        public EVRButtonId UsePowerupButtonId1 { get; private set; }
+        
+        public EVRButtonId UsePowerupButtonId2 { get; private set; }
         
         /// <summary>
         /// Get default skin from PlayerPrefs.
@@ -159,6 +175,21 @@ namespace Hive.Armada.Game
         private void Awake()
         {
             selectedSkin = (Skin)PlayerPrefs.GetInt("defaultSkin", (int)defaultSkin);
+
+            IsVive = VRDevice.model.IndexOf("Vive", StringComparison.Ordinal) >= 0;
+
+            if (IsVive)
+            {
+                ToggleMenuButtonId = EVRButtonId.k_EButton_ApplicationMenu;
+                UsePowerupButtonId1 = EVRButtonId.k_EButton_SteamVR_Touchpad;
+                UsePowerupButtonId2 = EVRButtonId.k_EButton_SteamVR_Touchpad;
+            }
+            else
+            {
+                ToggleMenuButtonId = EVRButtonId.k_EButton_Axis0;
+                UsePowerupButtonId1 = EVRButtonId.k_EButton_A;
+                UsePowerupButtonId2 = EVRButtonId.k_EButton_ApplicationMenu;
+            }
         }
 
         /// <summary>

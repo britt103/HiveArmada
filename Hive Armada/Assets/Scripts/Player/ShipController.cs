@@ -99,6 +99,8 @@ namespace Hive.Armada.Player
 
         public Renderer[] rocketPod;
 
+        private bool isSpeaking;
+
         ///// <summary>
         ///// Helper dialogue that plays when the ship is grabbed.
         ///// </summary>
@@ -132,44 +134,12 @@ namespace Hive.Armada.Player
                 SetWeapon((int) reference.gameSettings.selectedWeapon);
 
                 if (reference.shipPickup)
-                {
                     reference.shipPickup.SetActive(false);
-                }
-
-                if (reference.powerUpStatus)
-                {
-                    reference.powerUpStatus.BeginTracking(reference, hand);
-                }
-
-                if (reference.gameSettings.selectedGameMode == GameSettings.GameMode.SoloNormal)
-                {
-                    if (reference.waveManager != null)
-                    {
-                        reference.waveManager.Run();
-                    }
-                    else
-                    {
-                        Debug.LogError(GetType().Name +
-                                       " - Reference.WaveManager is null. Cannot call Run().");
-                    }
-                }
-                else
-                {
-                    if (reference.countdown)
-                    {
-                        reference.countdown.SetActive(true);
-                    }
-                    else
-                    {
-                        Debug.LogError(
-                            GetType().Name + " - Reference.Countdown is null. Cannot enable.");
-                    }
-                }
 
                 UpdateSkin((int) reference.gameSettings.selectedSkin);
 
+                isSpeaking = true;
                 StartCoroutine(IntroAudio());
-                reference.tooltips.SpawnProtectShip();
             }
         }
 
@@ -217,6 +187,37 @@ namespace Hive.Armada.Player
             reference.dialoguePlayer.EnqueueDialogue(gameObject, introAudio);
         }
 
+        private void OnDialogueComplete()
+        {
+            isSpeaking = false;
+            if (reference.gameSettings.selectedGameMode == GameSettings.GameMode.SoloNormal)
+            {
+                if (reference.waveManager != null)
+                {
+                    reference.waveManager.Run();
+                }
+                else
+                {
+                    Debug.LogError(GetType().Name +
+                                   " - Reference.WaveManager is null. Cannot call Run().");
+                }
+            }
+            else
+            {
+                if (reference.countdown)
+                {
+                    reference.countdown.SetActive(true);
+                }
+                else
+                {
+                    Debug.LogError(
+                        GetType().Name + " - Reference.Countdown is null. Cannot enable.");
+                }
+            }
+            
+            reference.tooltips.SpawnProtectShip();
+        }
+
         /// <summary>
         /// Sets the late update pose if we are deferring new poses
         /// </summary>
@@ -236,6 +237,11 @@ namespace Hive.Armada.Player
         public void OnAttachedToHand(Hand attachedHand)
         {
             hand = attachedHand;
+            
+            if (reference.powerUpStatus)
+            {
+                reference.powerUpStatus.BeginTracking(reference, hand);
+            }
         }
 
         /// <summary>

@@ -16,16 +16,14 @@
 //=============================================================================
 
 using System;
-using Hive.Armada.Game;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Hive.Armada.Game;
 using Hive.Armada.Player;
-using NUnit.Framework.Constraints;
 using SubjectNerd.Utilities;
 using UnityEngine;
-using Valve.VR.InteractionSystem;
-using Random = UnityEngine.Random;
+using Random = System.Random;
 
 namespace Hive.Armada.Enemies
 {
@@ -168,7 +166,7 @@ namespace Hive.Armada.Enemies
 
         public AudioClip[] introClips;
 
-        public AudioClip[] combartStartClips;
+        public AudioClip[] combatStartClips;
 
         public AudioClip[] tauntClips;
 
@@ -191,6 +189,10 @@ namespace Hive.Armada.Enemies
         private bool playedTimeWarpClip;
 
         public AudioClip deathClip;
+        
+        private float cannotDamageTime;
+
+        public AudioClip cannotDamageClip;
 
         [Header("Hover")]
         public bool hoverEnabled;
@@ -288,7 +290,7 @@ namespace Hive.Armada.Enemies
 
         private Dictionary<int, Transform[]> scorePointsDictionary;
 
-        private static System.Random random;
+        private static Random random;
 
         //private List<short> ids;
 
@@ -326,7 +328,7 @@ namespace Hive.Armada.Enemies
             lookTarget = GameObject.Find("THE CAMERA");
             source = GameObject.Find("Boss Audio Source").GetComponent<AudioSource>();
 
-            Random.InitState((int) DateTime.Now.Ticks);
+            UnityEngine.Random.InitState((int) DateTime.Now.Ticks);
             SetLookTarget(lookTarget);
             LookAtTarget = true;
             currentPosition = BossPosition.Intro;
@@ -401,6 +403,8 @@ namespace Hive.Armada.Enemies
             wait1P5 = new WaitForSeconds(1.5f);
 
             wait2 = new WaitForSeconds(2.0f);
+            
+            cannotDamageTime = Time.time + 15.0f;
 
             //reference.shipPickup.SetActive(false);
 
@@ -658,7 +662,7 @@ namespace Hive.Armada.Enemies
                 }
 
                 moveHash.Add(
-                    "path", iTweenPath.GetPath(paths[Random.Range(0, paths.Length)].pathName));
+                    "path", iTweenPath.GetPath(paths[UnityEngine.Random.Range(0, paths.Length)].pathName));
 
                 iTween.MoveTo(gameObject, moveHash);
             }
@@ -699,7 +703,7 @@ namespace Hive.Armada.Enemies
                         "path",
                         iTweenPath.GetPath(bossManager
                                                .patrolLCPaths[
-                                               Random.Range(0, bossManager.patrolLCPaths.Length)]
+                                               UnityEngine.Random.Range(0, bossManager.patrolLCPaths.Length)]
                                                .pathName));
                     PatrolIsLeft = false;
                     currentPosition = BossPosition.PatrolCenter;
@@ -710,7 +714,7 @@ namespace Hive.Armada.Enemies
                         "path",
                         iTweenPath.GetPath(bossManager
                                                .patrolCLPaths[
-                                               Random.Range(0, bossManager.patrolCLPaths.Length)]
+                                               UnityEngine.Random.Range(0, bossManager.patrolCLPaths.Length)]
                                                .pathName));
                     currentPosition = BossPosition.PatrolLeft;
                 }
@@ -723,7 +727,7 @@ namespace Hive.Armada.Enemies
                         "path",
                         iTweenPath.GetPath(bossManager
                                                .patrolRCPaths[
-                                               Random.Range(0, bossManager.patrolRCPaths.Length)]
+                                               UnityEngine.Random.Range(0, bossManager.patrolRCPaths.Length)]
                                                .pathName));
                     PatrolIsLeft = true;
                     currentPosition = BossPosition.PatrolCenter;
@@ -734,7 +738,7 @@ namespace Hive.Armada.Enemies
                         "path",
                         iTweenPath.GetPath(bossManager
                                                .patrolCRPaths[
-                                               Random.Range(0, bossManager.patrolCRPaths.Length)]
+                                               UnityEngine.Random.Range(0, bossManager.patrolCRPaths.Length)]
                                                .pathName));
                     currentPosition = BossPosition.PatrolRight;
                 }
@@ -939,7 +943,7 @@ namespace Hive.Armada.Enemies
         /// </summary>
         private IEnumerator TransitionToCombat()
         {
-            reference.dialoguePlayer.EnqueueDialogue(gameObject, combartStartClips[wave]);
+            reference.dialoguePlayer.EnqueueDialogue(gameObject, combatStartClips[wave]);
             
             if (!IsHovering)
             {
@@ -983,7 +987,7 @@ namespace Hive.Armada.Enemies
                 }
 
                 moveHash.Add(
-                    "path", iTweenPath.GetPath(paths[Random.Range(0, paths.Length)].pathName));
+                    "path", iTweenPath.GetPath(paths[UnityEngine.Random.Range(0, paths.Length)].pathName));
 
                 iTween.MoveTo(gameObject, moveHash);
                 currentPosition = BossPosition.Combat;
@@ -1025,7 +1029,7 @@ namespace Hive.Armada.Enemies
                 iTweenPath[] paths = bossManager.bossPaths["combatToC"];
 
                 moveHash.Add(
-                    "path", iTweenPath.GetPath(paths[Random.Range(0, paths.Length)].pathName));
+                    "path", iTweenPath.GetPath(paths[UnityEngine.Random.Range(0, paths.Length)].pathName));
 
                 iTween.MoveTo(gameObject, moveHash);
                 currentPosition = BossPosition.PatrolCenter;
@@ -1087,7 +1091,7 @@ namespace Hive.Armada.Enemies
 
             playedShieldClip = true;
             IsSpeaking = true;
-            reference.dialoguePlayer.EnqueueDialogue(gameObject, playerShieldClips[Random.Range(0, playerShieldClips.Length)]);
+            reference.dialoguePlayer.EnqueueDialogue(gameObject, playerShieldClips[UnityEngine.Random.Range(0, playerShieldClips.Length)]);
         }
 
         public void PlayTimeWarp()
@@ -1394,7 +1398,7 @@ namespace Hive.Armada.Enemies
                     break;
             }
 
-            int me = Random.Range(0, 7);
+            int me = UnityEngine.Random.Range(0, 7);
             selectBehaviorCoroutine = StartCoroutine(SelectBehavior(me));
             Debug.Log("Switched to " + me);
             yield return null;
@@ -1620,6 +1624,9 @@ namespace Hive.Armada.Enemies
         {
             if (!CurrentState.Equals(BossStates.Combat))
             {
+                if (sendFeedback)
+                    PlayCannotDamageClip();
+                
                 return;
             }
 
@@ -1719,7 +1726,7 @@ namespace Hive.Armada.Enemies
                 {
                     reference.scoringSystem.ComboIn(scoreValues[0], point);
 
-                    yield return new WaitForSeconds(Random.Range(0.2f, 0.4f));
+                    yield return new WaitForSeconds(UnityEngine.Random.Range(0.2f, 0.4f));
                 }
             }
             else
@@ -1728,7 +1735,7 @@ namespace Hive.Armada.Enemies
                 {
                     reference.scoringSystem.ComboIn(scoreValues[0], point);
 
-                    yield return new WaitForSeconds(Random.Range(0.2f, 0.4f));
+                    yield return new WaitForSeconds(UnityEngine.Random.Range(0.2f, 0.4f));
                 }
             }
         }
@@ -1751,10 +1758,19 @@ namespace Hive.Armada.Enemies
         }
 
         #endregion
-
-        public static void Shuffle(List<Transform> list)
+        
+        private void PlayCannotDamageClip()
         {
-            random = new System.Random((int) DateTime.Now.Ticks);
+            if (Time.time < cannotDamageTime)
+                return;
+            
+            cannotDamageTime = Time.time + 30.0f;
+            reference.dialoguePlayer.EnqueueFeedback(cannotDamageClip);
+        }
+
+        private static void Shuffle(List<Transform> list)
+        {
+            random = new Random((int) DateTime.Now.Ticks);
 
             for (int i = 0; i < 12; ++i)
             {

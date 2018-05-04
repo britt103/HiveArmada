@@ -19,6 +19,7 @@ using Hive.Armada.Menus;
 using Hive.Armada.Player;
 using Valve.VR.InteractionSystem;
 using System;
+using Valve.VR;
 
 namespace Hive.Armada.PowerUps
 {
@@ -31,6 +32,8 @@ namespace Hive.Armada.PowerUps
         /// Reference to ReferenceManager.
         /// </summary>
         private ReferenceManager reference;
+
+        private GameSettings gameSettings;
 
         /// <summary>
         /// Queue containing powerup prefabs.
@@ -96,6 +99,8 @@ namespace Hive.Armada.PowerUps
 
         private bool usedPowerupOnce;
 
+        private bool isVive;
+
         /// <summary>
         /// Activate powerup and tooltip if input is detected.
         /// </summary>
@@ -103,7 +108,9 @@ namespace Hive.Armada.PowerUps
         {
             if (tracking && powerups.Count > 0)
             {
-                if (hand != null && hand.controller.GetPressDown(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad))
+                if (hand != null &&
+                    (hand.controller.GetPressDown(gameSettings.UsePowerupButtonId1) ||
+                     hand.controller.GetPressDown(gameSettings.UsePowerupButtonId2)))
                 {
                     String nextPowerupName = powerups.Peek().name;
                     bool canUseNextPowerup = true;
@@ -128,7 +135,6 @@ namespace Hive.Armada.PowerUps
                             reference.tooltips.PowerupUsed();
                         }
                     }
-
                 }
                 else if (hand == null)
                 {
@@ -155,9 +161,20 @@ namespace Hive.Armada.PowerUps
             tracking = true;
             shipGO = reference.playerShip;
             this.hand = hand;
+
             //hand = shipGO.GetComponentInParent<Hand>();
             powerupPoint = shipGO.transform.Find("Powerup Point");
             iconPoint = shipGO.transform.Find("Powerup Icon Point");
+
+            if (reference.gameSettings != null)
+            {
+                gameSettings = reference.gameSettings;
+                isVive = gameSettings.IsVive;
+            }
+            else
+            {
+                Debug.LogError("PowerUpStatus - \"reference.gameSettings\" is null.");
+            }
         }
 
         /// <summary>
@@ -188,7 +205,7 @@ namespace Hive.Armada.PowerUps
         {
             //position
             newIcon.transform.localPosition = new Vector3
-                    (iconSpacing * (powerupIcons.Count - 1), 0, 0);
+                (iconSpacing * (powerupIcons.Count - 1), 0, 0);
 
             //scale
             //newIcon.transform.localScale *= (powerupIcons.Count / maxStoredPowerups);
@@ -206,7 +223,7 @@ namespace Hive.Armada.PowerUps
         private void RemoveDisplayIcon()
         {
             Destroy(powerupIcons.Dequeue());
-            foreach(GameObject icon in powerupIcons)
+            foreach (GameObject icon in powerupIcons)
             {
                 icon.transform.localPosition -= new Vector3(iconSpacing, 0, 0);
 
@@ -224,10 +241,11 @@ namespace Hive.Armada.PowerUps
         public void RemoveStoredPowerups()
         {
             powerups.Clear();
-            foreach(GameObject icon in powerupIcons)
+            foreach (GameObject icon in powerupIcons)
             {
                 Destroy(icon);
             }
+
             powerupIcons.Clear();
         }
 

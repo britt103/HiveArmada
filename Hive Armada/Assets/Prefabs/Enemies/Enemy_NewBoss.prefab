@@ -3261,8 +3261,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1341702145332166}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 4, z: 8}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 16, y: 16, z: 16}
   m_Children:
   - {fileID: 4995268269535764}
@@ -3271,7 +3271,7 @@ Transform:
   - {fileID: 4862884382233450}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4471828720266798
 Transform:
   m_ObjectHideFlags: 1
@@ -6275,13 +6275,13 @@ MonoBehaviour:
   lookTarget: {fileID: 0}
   source: {fileID: 0}
   introClips:
-  - {fileID: 8300000, guid: 436a78284ac0d8741afec9d6726ff394, type: 3}
-  combartStartClips:
-  - {fileID: 8300000, guid: dfbc90ef3511dd347ae39b40753d9650, type: 3}
-  - {fileID: 8300000, guid: 21250f30c5e7f1c45a1a4251e6a1233c, type: 3}
-  - {fileID: 8300000, guid: b39883ae1be52ca4eabd3e62a43d74c2, type: 3}
-  - {fileID: 8300000, guid: 620a5f239c8440a419427cdbd7534b2b, type: 3}
-  - {fileID: 8300000, guid: d8dcc02aae38d2044baaebbb98ec13a5, type: 3}
+  - {fileID: 8300000, guid: 76b373f1c224459469536a9d00aa40d0, type: 3}
+  combatStartClips:
+  - {fileID: 8300000, guid: 3481a7bd0b91c22428929235b628af9d, type: 3}
+  - {fileID: 8300000, guid: 7babf74f01398fe46aff08ada9993de6, type: 3}
+  - {fileID: 8300000, guid: 25652b1e58e0fd54faba05ed8fa3204f, type: 3}
+  - {fileID: 8300000, guid: db8334aee4e3e224b9d2490bffccd30f, type: 3}
+  - {fileID: 8300000, guid: f82cadc3a2998ba498508b1eae82efb5, type: 3}
   tauntClips:
   - {fileID: 8300000, guid: 7aa10d8c11906c94b8b1475e071cc816, type: 3}
   - {fileID: 8300000, guid: c007315fa9271b64db93a4ffc3d7f428, type: 3}
@@ -6290,18 +6290,19 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 4277f9c6cebff9d489a4d0ae52b60217, type: 3}
   playedTauntClips: 
   playerDeathClips:
-  - {fileID: 8300000, guid: 833b8a9f439905b4a896f291328c7f1c, type: 3}
-  - {fileID: 8300000, guid: 8a6607dd17314af47b0292841d534fed, type: 3}
-  - {fileID: 8300000, guid: 8ae4a58314bfee64e93a840c899eb749, type: 3}
+  - {fileID: 8300000, guid: deef414b7759da740b45f2ad925a2e8e, type: 3}
+  - {fileID: 8300000, guid: 6125c52192fcca44980db6f86dedda8a, type: 3}
+  - {fileID: 8300000, guid: 385466d7f47886649850a7d5dfff903a, type: 3}
   playerHitClips:
-  - {fileID: 8300000, guid: 5121c8e5228707748a662170a7b75b3b, type: 3}
-  - {fileID: 8300000, guid: 11cb191c98d23f141a0570690ff5f313, type: 3}
-  - {fileID: 8300000, guid: 87f68a5624d827943bcc9c1a6047886e, type: 3}
+  - {fileID: 8300000, guid: 9a32bd1b6ea091e4fb45b5baac9e1415, type: 3}
+  - {fileID: 8300000, guid: 7fd5152f316fba64d9915b44119fca0a, type: 3}
+  - {fileID: 8300000, guid: e56582e3760b7fa4c863d04ba343e0a2, type: 3}
   playerShieldClips:
-  - {fileID: 8300000, guid: 4c5dd5a5623fb7f42b370a8b43cf8136, type: 3}
-  - {fileID: 8300000, guid: 5453f59a0e5818e49a1bb5f37020dabb, type: 3}
-  timeWarpClip: {fileID: 8300000, guid: a3aeabe9aed982543a51de721678ad60, type: 3}
-  deathClip: {fileID: 8300000, guid: 6182545981989ea40b97ffa2e6af6c9d, type: 3}
+  - {fileID: 8300000, guid: 91957c52adfdc7a4299950e846102d17, type: 3}
+  - {fileID: 8300000, guid: 9b836fc6d38780c41b23ed18996257f1, type: 3}
+  timeWarpClip: {fileID: 8300000, guid: 32de656e271e76142a2badcf6f7e9707, type: 3}
+  deathClip: {fileID: 8300000, guid: 4f3d7f65b50f41a45a7fccd874095679, type: 3}
+  cannotDamageClip: {fileID: 8300000, guid: 19c536f57c4802148b7c21c2f204c81e, type: 3}
   hoverEnabled: 1
   hoverDistance: 0.1
   hoverTime: 1.5

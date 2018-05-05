@@ -83,9 +83,7 @@ namespace Hive.Armada.Game
             dialogueQueue.Enqueue(new Dialogue(sender, new AudioClip[] { dialogueClip }));
 
             if (dialogueCoroutine == null)
-            {
                 dialogueCoroutine = StartCoroutine(PlayDialogue());
-            }
         }
 
         public void StopDialogue()
@@ -137,13 +135,6 @@ namespace Hive.Armada.Game
 
         public void EnqueueFeedback(AudioClip clip)
         {
-            if (clipTimes.ContainsKey(clip.GetInstanceID()))
-            {
-                return;
-            }
-
-            clipTimes.Add(clip.GetInstanceID(), Time.time + spamTimer);
-
             feedbackQueue.Enqueue(clip);
 
             if (feedbackCoroutine == null)
@@ -156,12 +147,14 @@ namespace Hive.Armada.Game
         {
             while (feedbackQueue.Count > 0)
             {
+                AudioClip clip = feedbackQueue.Dequeue();
+                
                 if (feedbackSource.isPlaying)
                 {
                     yield return new WaitWhile(() => feedbackSource.isPlaying);
                 }
 
-                feedbackSource.PlayOneShot(feedbackQueue.Dequeue());
+                feedbackSource.PlayOneShot(clip);
 
                 yield return new WaitWhile(() => feedbackSource.isPlaying);
 
@@ -174,7 +167,7 @@ namespace Hive.Armada.Game
                 yield break;
             }
 
-            dialogueCoroutine = null;
+            feedbackCoroutine = null;
         }
     }
 }

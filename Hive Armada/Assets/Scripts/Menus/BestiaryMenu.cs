@@ -217,7 +217,8 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void WriteBestiaryFile()
         {
-            File.WriteAllText(@"Bestiary.txt", JsonUtility.ToJson(entryData, true));
+            string filePath = Application.dataPath + "/StreamingAssets/Bestiary.json";
+            File.WriteAllText(filePath, JsonUtility.ToJson(entryData, true));
         }
 
         /// <summary>
@@ -225,7 +226,8 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void ReadBestiaryFile()
         {
-            string jsonString = File.ReadAllText(@"Bestiary.txt");
+            string filePath = Path.Combine(Application.streamingAssetsPath, "Bestiary.json");
+            string jsonString = File.ReadAllText(filePath);
             entryData = JsonUtility.FromJson<BestiaryEntryData>(jsonString);
         }
 

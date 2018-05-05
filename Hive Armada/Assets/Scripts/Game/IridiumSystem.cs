@@ -46,6 +46,7 @@ namespace Hive.Armada.Game
         /// </summary>
         void Awake()
         {
+            Resources.Load("Iridium.txt");
             ReadIridiumFile();
         }
 
@@ -63,7 +64,8 @@ namespace Hive.Armada.Game
         public void WriteIridiumFile()
         {
             SetData();
-            File.WriteAllText(@"Iridium.txt", JsonUtility.ToJson(iridiumData, true));
+            string filePath = Application.dataPath + "/StreamingAssets/Iridium.json";
+            File.WriteAllText(filePath, JsonUtility.ToJson(iridiumData, true));
         }
 
         /// <summary>
@@ -71,7 +73,8 @@ namespace Hive.Armada.Game
         /// </summary>
         public void ReadIridiumFile()
         {
-            string jsonString = File.ReadAllText(@"Iridium.txt");
+            string filePath = Path.Combine(Application.streamingAssetsPath, "Iridium.json");
+            string jsonString = File.ReadAllText(filePath);
             iridiumData = JsonUtility.FromJson<IridiumData>(jsonString);
             iridiumAmount = iridiumData.amount;
         }

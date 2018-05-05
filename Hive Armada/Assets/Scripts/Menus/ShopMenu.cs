@@ -98,11 +98,6 @@ namespace Hive.Armada.Menus
         /// </summary>
         public Slider verticalSlider;
 
-        /// <summary>
-        /// Reference to UI Cover GameObjects.
-        /// </summary>
-        public GameObject[] uiCovers;
-
         public GameObject previewLighting;
 
         [Header("Sections")]
@@ -496,11 +491,6 @@ namespace Hive.Armada.Menus
                 }
             }
 
-            foreach (GameObject uiCover in uiCovers)
-            {
-                uiCover.SetActive(false);
-            }
-
             foreach (GameObject categoryButton in categoryButtons)
             {
                 categoryButton.SetActive(false);
@@ -555,11 +545,6 @@ namespace Hive.Armada.Menus
                 setDefault.SetActive(false);
             }
             scrollView.SetActive(true);
-
-            foreach (GameObject uiCover in uiCovers)
-            {
-                uiCover.SetActive(true);
-            }
 
             foreach (GameObject categoryButton in categoryButtons)
             {

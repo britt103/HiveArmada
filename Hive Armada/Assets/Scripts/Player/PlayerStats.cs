@@ -254,6 +254,7 @@ namespace Hive.Armada.Player
    
             Debug.Log(output);
 
+            string filePath = Application.dataPath + "/StreamingAssets/PlayerStats.json";
             File.AppendAllText(@"PlayerStatsJson.txt", JsonUtility.ToJson(this, true) + "\n\n");
         }
 

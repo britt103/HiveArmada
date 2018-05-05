@@ -11,14 +11,12 @@
 //
 //=============================================================================
 
-using System;
-using System.Collections;
-using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Hive.Armada.Game;
 using Hive.Armada.Data;
+using Random = UnityEngine.Random;
 
 namespace Hive.Armada.Menus
 {
@@ -142,11 +140,10 @@ namespace Hive.Armada.Menus
         /// </summary>
         public GameObject armadaPreviewGO;
 
-        [Header("Content")]
-
         /// <summary>
         /// Prefab for item button.
         /// </summary>
+        [Header("Content")]
         public GameObject itemButtonPrefab;
 
         /// <summary>
@@ -268,6 +265,8 @@ namespace Hive.Armada.Menus
         private void OnEnable()
         {
             armadaPreviewGO.SetActive(false);
+            reference.talkingParticle.MovePosition("Shop");
+            reference.talkingParticle.Speak(reference.menuSounds.shopEnterSound[Random.Range(0, reference.menuSounds.shopEnterSound.Length)], false);
         }
 
         // Find IridiumSystem.
@@ -380,7 +379,8 @@ namespace Hive.Armada.Menus
                 iridiumSystem.UnlockItem(currCategory, currNames[currItemId]);
                 currNotBought[currItemId] = false;
                 purchaseSection.SetActive(false);
-                source.PlayOneShot(reference.menuSounds.shopPurchaseSound[UnityEngine.Random.Range(0, reference.menuSounds.shopPurchaseSound.Length)]);
+                reference.talkingParticle.Speak(reference.menuSounds.shopPurchaseSound[Random.Range(0, reference.menuSounds.shopPurchaseSound.Length)], false);
+                //source.PlayOneShot(reference.menuSounds.shopPurchaseSound[Random.Range(0, reference.menuSounds.shopPurchaseSound.Length)]);
 
                 if (currCategory == "Weapons")
                 {

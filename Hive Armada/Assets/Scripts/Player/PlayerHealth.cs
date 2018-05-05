@@ -182,7 +182,9 @@ namespace Hive.Armada.Player
             }
 
             int podIndex = (maxHealth - currentHealth) / projectileData.projectileDamage;
-            healthPods[podIndex].GetComponent<Renderer>().material = podDestroyedMaterial;
+            
+            if (!reference.cheats.godMode)
+                healthPods[podIndex].GetComponent<Renderer>().material = podDestroyedMaterial;
 
             ParticleSystem mPodEmitter = healthPods[podIndex]
                                          .transform.GetChild(0).GetComponent<ParticleSystem>();

@@ -51,8 +51,6 @@ namespace Hive.Armada.Game
 
         public float spamTimer;
 
-
-
         private void Awake()
         {
             dialogueQueue = new Queue<Dialogue>();
@@ -87,6 +85,17 @@ namespace Hive.Armada.Game
             if (dialogueCoroutine == null)
             {
                 dialogueCoroutine = StartCoroutine(PlayDialogue());
+            }
+        }
+
+        public void StopDialogue()
+        {
+            if (dialogueCoroutine != null)
+            {
+                StopCoroutine(dialogueCoroutine);
+                dialogueCoroutine = null;
+                source.Stop();
+                dialogueQueue.Clear();
             }
         }
 

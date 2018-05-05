@@ -233,13 +233,15 @@ namespace Hive.Armada.Menus
                 {
                     victoryDefeatText.text = victoryMessage;
                     victoryDefeatText.color = victoryColor;
-                    zenaSource.PlayOneShot(reference.menuSounds.victorySound[UnityEngine.Random.Range(0, reference.menuSounds.victorySound.Length)]);
+                    reference.talkingParticle.Speak(reference.menuSounds.victorySound[UnityEngine.Random.Range(0, reference.menuSounds.victorySound.Length)], true);
+                    // zenaSource.PlayOneShot(reference.menuSounds.victorySound[UnityEngine.Random.Range(0, reference.menuSounds.victorySound.Length)]);
                 }
                 else
                 {
                     victoryDefeatText.text = defeatMessage;
                     victoryDefeatText.color = defeatColor;
-                    zenaSource.PlayOneShot(reference.menuSounds.defeatSound[UnityEngine.Random.Range(0, reference.menuSounds.defeatSound.Length)]);
+                    reference.talkingParticle.Speak(reference.menuSounds.defeatSound[UnityEngine.Random.Range(0, reference.menuSounds.defeatSound.Length)], true);
+                    // zenaSource.PlayOneShot(reference.menuSounds.defeatSound[UnityEngine.Random.Range(0, reference.menuSounds.defeatSound.Length)]);
                 }
             }
             else if (gameSettings.selectedGameMode == GameSettings.GameMode.SoloInfinite)
@@ -314,8 +316,11 @@ namespace Hive.Armada.Menus
             bossEnemyText.text = "Cortexes Killed:";
             bossEnemyValue.text = stats.enemyTotalCount[5].ToString();
             weaponText.text = "Weapon Used:";
-            weaponValue.text = reference.gameSettings.weaponNames[(int)reference.gameSettings
-                .selectedWeapon];
+            
+            Debug.Log((int)reference.gameSettings.selectedWeapon);
+            weaponValue.text = reference.gameSettings.weaponNames[PlayerPrefs.GetInt("defaultWeapon", 0)];
+            // weaponValue.text = reference.gameSettings.weaponNames[(int)reference.gameSettings
+            //     .selectedWeapon];
             enemyShotsText.text = "Enemy Shots Fired:";
             enemyShotsValue.text = stats.totalEnemyProjectiles.ToString();
             

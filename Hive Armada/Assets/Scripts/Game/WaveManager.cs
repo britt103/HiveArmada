@@ -352,7 +352,7 @@ namespace Hive.Armada.Game
 
             if (waves.Length >= currentWave)
             {
-                StartCoroutine(PlayBossAudio(wave));
+                //StartCoroutine(PlayBossAudio(wave));
                 RunBossWave(currentWave);
             }
             else
@@ -419,8 +419,6 @@ namespace Hive.Armada.Game
             yield return new WaitForSeconds(1.0f);
 
             firstEnemySource.PlayOneShot(firstEnemyClips[wave]);
-
-            yield return new WaitForSeconds(firstEnemyClips[wave].length);
         }
 
         private IEnumerator PlayBossAudio(int wave)

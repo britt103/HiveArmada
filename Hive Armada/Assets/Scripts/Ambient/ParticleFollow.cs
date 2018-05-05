@@ -66,32 +66,44 @@ namespace Hive.Armada.Ambient
             waitTalkingCycle = new WaitForSeconds(0.02f);
         }
 
-        public void DoTalking(float time)
-        {
-            StartCoroutine(TalkTest(time));
-        }
+        // public void DoTalking(float time)
+        // {
+        //     StartCoroutine(TalkTest(time));
+        // }
+        //
+        // private IEnumerator TalkTest(float time)
+        // {
+        //     yield return new WaitForSeconds(0.6f);
+        //
+        //     Talk();
+        //
+        //     yield return new WaitForSeconds(time);
+        //
+        //     IsTalking = false;
+        // }
 
-        private IEnumerator TalkTest(float time)
-        {
-            yield return new WaitForSeconds(0.6f);
-
-            Talk();
-
-            yield return new WaitForSeconds(time);
-
-            IsTalking = false;
-        }
-
-        public void Talk()
+        public void Talk(float time)
         {
             if (!IsTalking)
             {
                 IsTalking = true;
                 if (talkingCoroutine == null)
-                {
                     talkingCoroutine = StartCoroutine(Talking());
-                }
+
+                StartCoroutine(TimeTalk(time));
             }
+        }
+
+        private IEnumerator TimeTalk(float time)
+        {
+            yield return new WaitForSeconds(time);
+            
+            StopTalking();
+        }
+
+        public void StopTalking()
+        {
+            IsTalking = false;
         }
 
         private IEnumerator Talking()
@@ -127,12 +139,27 @@ namespace Hive.Armada.Ambient
                     percent = 0.0f;
                     increasing = !increasing;
                     needTarget = true;
+
+                    if (!IsTalking)
+                    {
+                        StartCoroutine(ResetSize());
+                        talkingCoroutine = null;
+                        yield break;
+                    }
+                    
                     yield return new WaitForSeconds(Random.Range(0.001f, 0.2f));
                 }
 
+                if (!IsTalking)
+                {
+                    StartCoroutine(ResetSize());
+                    talkingCoroutine = null;
+                    yield break;
+                }
+                
                 yield return waitTalkingCycle;
             }
-
+            
             StartCoroutine(ResetSize());
             talkingCoroutine = null;
         }

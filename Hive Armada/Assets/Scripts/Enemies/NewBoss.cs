@@ -333,7 +333,8 @@ namespace Hive.Armada.Enemies
             LookAtTarget = true;
             currentPosition = BossPosition.Intro;
 
-            Lives = eyes.Length;
+            //Lives = eyes.Length;
+            Lives = 1;
 
             if (Lives <= 0)
             {
@@ -404,7 +405,7 @@ namespace Hive.Armada.Enemies
 
             wait2 = new WaitForSeconds(2.0f);
             
-            cannotDamageTime = Time.time + 15.0f;
+            cannotDamageTime = Time.time + 1000.0f;
 
             //reference.shipPickup.SetActive(false);
 
@@ -934,6 +935,7 @@ namespace Hive.Armada.Enemies
             currentPosition = BossPosition.PatrolCenter;
             TransitionState(BossStates.Patrol);
             introSpeakCoroutine = null;
+            cannotDamageTime = Time.time + 30.0f;
         }
 
         #region CombatTransitions
@@ -1688,8 +1690,14 @@ namespace Hive.Armada.Enemies
             shootPivot.localRotation = Quaternion.identity;
             --Lives;
 
-            eyeRenderers[Lives].material = eyeDestroyedMaterial;
-            eyes[Lives].GetComponent<Renderer>().material = eyeDestroyedMaterial;
+            // eyeRenderers[Lives].material = eyeDestroyedMaterial;
+            // eyes[Lives].GetComponent<Renderer>().material = eyeDestroyedMaterial;
+
+            for (int i = 0; i < eyeRenderers.Length; ++i)
+            {
+                eyeRenderers[i].material = eyeDestroyedMaterial;
+                eyes[i].GetComponent<Renderer>().material = eyeDestroyedMaterial;
+            }
 
             //reference.scoringSystem.ComboIn(pointValue, eyes[Lives].transform);
 
@@ -1765,7 +1773,7 @@ namespace Hive.Armada.Enemies
                 return;
             
             cannotDamageTime = Time.time + 30.0f;
-            reference.dialoguePlayer.EnqueueFeedback(cannotDamageClip);
+            reference.dialoguePlayer.EnqueueDialogue(gameObject, cannotDamageClip);
         }
 
         private static void Shuffle(List<Transform> list)

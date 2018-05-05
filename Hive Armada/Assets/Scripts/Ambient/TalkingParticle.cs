@@ -10,11 +10,9 @@
 // 
 //=============================================================================
 
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using Hive.Armada.Game;
 using SubjectNerd.Utilities;
+using UnityEngine;
 
 namespace Hive.Armada.Ambient
 {
@@ -38,6 +36,8 @@ namespace Hive.Armada.Ambient
 
         public bool IsSpeaking { get; private set; }
 
+        public bool isSmall;
+
         private void Awake()
         {
             if (reference == null)
@@ -47,6 +47,7 @@ namespace Hive.Armada.Ambient
 
             if (enable)
             {
+                isSmall = true;
                 smallParticle.SetActive(true);
             }
         }
@@ -54,45 +55,64 @@ namespace Hive.Armada.Ambient
         private void OnDialogueComplete()
         {
             IsSpeaking = false;
+            small.StopTalking();
+            large.StopTalking();
         }
 
-        public void Speak(AudioClip clip)
+        public void Speak(AudioClip clip, bool smallTalk)
         {
+            float talkTime = clip.length * 0.9f;
+            
+            if (smallTalk)
+                small.Talk(talkTime);
+            else
+                large.Talk(talkTime);
+            
             reference.dialoguePlayer.EnqueueDialogue(gameObject, clip);
             IsSpeaking = true;
+        }
+
+        public void StopSpeaking()
+        {
+            reference.dialoguePlayer.StopDialogue();
+            small.StopTalking();
+            large.StopTalking();
         }
 
         public void MovePosition(string nextMenu)
         {
             if (!enable)
-            {
                 return;
-            }
-
+            
             if (nextMenu.Contains("Extras"))
             {
-                Debug.Log(nextMenu);
+                isSmall = false;
+                // Debug.Log(nextMenu);
                 smallParticle.SetActive(true);
                 smallParticle.transform.position = positions[0].position;
                 largeParticle.SetActive(false);
             }
             else if (nextMenu.Contains("Bestiary"))
             {
-                Debug.Log(nextMenu);
+                isSmall = false;
+                // Debug.Log(nextMenu);
                 smallParticle.SetActive(false);
                 largeParticle.transform.position = positions[1].position;
                 largeParticle.SetActive(true);
             }
             else if (nextMenu.Contains("Shop"))
             {
-                Debug.Log(nextMenu);
+                isSmall = true;
+                // Debug.Log(nextMenu);
                 smallParticle.SetActive(false);
                 largeParticle.transform.position = positions[2].position;
                 largeParticle.SetActive(true);
             }
             else
             {
-                Debug.LogError(GetType().Name + " - Menu isn't \"Main\", \"Bestiary\" or \"Shop\". Menu = \"" + nextMenu + "\"");
+                Debug.LogError(GetType().Name +
+                               " - Menu isn't \"Main\", \"Bestiary\" or \"Shop\". Menu = \"" +
+                               nextMenu + "\"");
             }
         }
     }

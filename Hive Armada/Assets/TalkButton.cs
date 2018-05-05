@@ -11,26 +11,26 @@ public class TalkButton : MonoBehaviour
 
     public Hand hand;
 
-    private void Update()
-    {
-        if (hand != null && hand.controller != null)
-        {
-            if (hand.controller.GetPressDown(EVRButtonId.k_EButton_SteamVR_Touchpad))
-            {
-                if (reference.talkingParticle.small.isActiveAndEnabled)
-                {
-                    reference.talkingParticle.small.Talk();
-                }
-                if (reference.talkingParticle.large.isActiveAndEnabled)
-                {
-                    reference.talkingParticle.large.Talk();
-                }
-            }
-            else if (hand.controller.GetPressUp(EVRButtonId.k_EButton_SteamVR_Touchpad))
-            {
-                reference.talkingParticle.small.IsTalking = false;
-                reference.talkingParticle.large.IsTalking = false;
-            }
-        }
-    }
+    // private void Update()
+    // {
+    //     if (hand != null && hand.controller != null)
+    //     {
+    //         if (hand.controller.GetPressDown(EVRButtonId.k_EButton_SteamVR_Touchpad))
+    //         {
+    //             if (reference.talkingParticle.small.isActiveAndEnabled)
+    //             {
+    //                 reference.talkingParticle.small.Talk();
+    //             }
+    //             if (reference.talkingParticle.large.isActiveAndEnabled)
+    //             {
+    //                 reference.talkingParticle.large.Talk();
+    //             }
+    //         }
+    //         else if (hand.controller.GetPressUp(EVRButtonId.k_EButton_SteamVR_Touchpad))
+    //         {
+    //             reference.talkingParticle.small.IsTalking = false;
+    //             reference.talkingParticle.large.IsTalking = false;
+    //         }
+    //     }
+    // }
 }

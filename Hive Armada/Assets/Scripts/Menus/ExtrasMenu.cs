@@ -80,6 +80,7 @@ namespace Hive.Armada.Menus
 
         private void OnEnable()
         {
+            reference.talkingParticle.isSmall = true;
             StartCoroutine(InteractDelay());
         }
 
@@ -101,13 +102,12 @@ namespace Hive.Armada.Menus
         public void PressShop()
         {
             if (!isInteractable)
-            {
                 return;
-            }
 
-            source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
             FindObjectOfType<RoomTransport>().Transport(shopTransform, gameObject, shopMenuGO);
-            zenaSource.PlayOneShot(reference.menuSounds.shopEnterSound[Random.Range(0, reference.menuSounds.shopEnterSound.Length)]);
+            source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
+            //reference.talkingParticle.Speak(reference.menuSounds.shopEnterSound[Random.Range(0, reference.menuSounds.shopEnterSound.Length)]);
+            // zenaSource.PlayOneShot(reference.menuSounds.shopEnterSound[Random.Range(0, reference.menuSounds.shopEnterSound.Length)]);
         }
 
         /// <summary>
@@ -116,12 +116,11 @@ namespace Hive.Armada.Menus
         public void PressBestiary()
         {
             if (!isInteractable)
-            {
                 return;
-            }
 
-            source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
+            
             FindObjectOfType<RoomTransport>().Transport(bestiaryTransform, gameObject, bestiaryMenuGO);
+            source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
         }
 
         /// <summary>

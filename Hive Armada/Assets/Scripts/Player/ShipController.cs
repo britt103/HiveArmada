@@ -101,6 +101,8 @@ namespace Hive.Armada.Player
 
         private bool isSpeaking;
 
+        private bool introDone;
+
         ///// <summary>
         ///// Helper dialogue that plays when the ship is grabbed.
         ///// </summary>
@@ -171,9 +173,8 @@ namespace Hive.Armada.Player
 
         private IEnumerator IntroAudio()
         {
-            yield return new WaitForSeconds(2.0f);
             yield return new WaitWhile(() => reference.bossManager.IsSpeaking);
-            yield return new WaitForSeconds(2.0f);
+            yield return new WaitForSeconds(0.7f);
 
             AudioClip[] introAudio = new AudioClip[playerData.shipIntroClips.Length + 1];
 
@@ -189,7 +190,12 @@ namespace Hive.Armada.Player
 
         private void OnDialogueComplete()
         {
+            if (introDone)
+                return;
+            
             isSpeaking = false;
+            introDone = true;
+            
             if (reference.gameSettings.selectedGameMode == GameSettings.GameMode.SoloNormal)
             {
                 if (reference.waveManager != null)

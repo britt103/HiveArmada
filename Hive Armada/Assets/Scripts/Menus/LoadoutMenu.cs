@@ -301,7 +301,9 @@ namespace Hive.Armada.Menus
             PlayerPrefs.SetInt("defaultWeapon", selectedWeapon);
             reference.sceneTransitionManager.TransitionOut("Wave Room");
             gameObject.SetActive(false);
-            zenaSource.PlayOneShot(reference.menuSounds.gameStart[Random.Range(0, reference.menuSounds.gameStart.Length)]);
+            
+            reference.talkingParticle.Speak(reference.menuSounds.gameStart[Random.Range(0, reference.menuSounds.gameStart.Length)], true);
+            // zenaSource.PlayOneShot(reference.menuSounds.gameStart[Random.Range(0, reference.menuSounds.gameStart.Length)]);
 
         }
 

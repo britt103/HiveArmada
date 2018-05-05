@@ -202,6 +202,7 @@ namespace Hive.Armada.Menus
         /// </summary>
         private void OnEnable()
         {
+            reference.talkingParticle.isSmall = false;
             ReadBestiaryFile();
             unlockData = FindObjectOfType<BestiaryUnlockData>();
             UpdateUnlocks();
@@ -252,7 +253,8 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void PressBack()
         {
-            zenaSource.Stop();
+            reference.talkingParticle.StopSpeaking();
+            // zenaSource.Stop();
             source.Stop();
             source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
 
@@ -434,15 +436,20 @@ namespace Hive.Armada.Menus
         /// </summary>
         public void Information()
         {
-            if (zenaSource.isPlaying)
-            {
-                //do nothing
-            }
-            else
-            {
-                Debug.Log("play info");
-                zenaSource.PlayOneShot(enemiesAudio[entryValue]);
-            }
+            if (reference.talkingParticle.IsSpeaking)
+                return;
+            
+            reference.talkingParticle.Speak(enemiesAudio[entryValue], false);
+            
+            // if (zenaSource.isPlaying)
+            // {
+            //     //do nothing
+            // }
+            // else
+            // {
+            //     Debug.Log("play info");
+            //     zenaSource.PlayOneShot(enemiesAudio[entryValue]);
+            // }
         }
 
     }

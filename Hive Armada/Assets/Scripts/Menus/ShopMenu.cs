@@ -51,6 +51,8 @@ namespace Hive.Armada.Menus
         /// </summary>
         public MenuTransitionManager transitionManager;
 
+        public GameObject uiCover;
+
         /// <summary>
         /// Reference to menu to go to when back is pressed.
         /// </summary>
@@ -129,6 +131,8 @@ namespace Hive.Armada.Menus
         public GameObject purchased;
 
         public GameObject setDefault;
+
+        public GameObject skinIsDefault;
 
         /// <summary>
         /// Reference to buy button.
@@ -389,6 +393,7 @@ namespace Hive.Armada.Menus
                 else if (currCategory == "Skins")
                 {
                     setDefault.SetActive(true);
+                    skinIsDefault.SetActive(false);
                 }
                 iridiumAmount.text = iridiumSystem.GetIridiumAmount().ToString();
             }
@@ -406,6 +411,7 @@ namespace Hive.Armada.Menus
                     PlayerPrefs.SetInt("defaultSkin", selectedSkin);
                     gameSettings.selectedSkin = (GameSettings.Skin)selectedSkin;
                     setDefault.SetActive(false);
+                    skinIsDefault.SetActive(true);
                     break;
                 default:
                     Debug.Log("Unsupported use of set default in shop menu.");
@@ -445,6 +451,7 @@ namespace Hive.Armada.Menus
         /// <param name="itemId"> Index of selected item. </param>
         public void OpenItem(int itemId)
         {
+            uiCover.SetActive(false);
             source.PlayOneShot(reference.menuSounds.menuButtonSelectSound);
 
             menuTitle.SetActive(false);
@@ -485,9 +492,11 @@ namespace Hive.Armada.Menus
                 {
                     purchased.SetActive(true);
                 }
-                else if (currCategory == "Skins" && itemId != selectedSkin)
+                else if (currCategory == "Skins")
                 {
-                    setDefault.SetActive(true);
+                    
+                    setDefault.SetActive(itemId != selectedSkin);
+                    skinIsDefault.SetActive(itemId == selectedSkin);
                 }
             }
 
@@ -531,6 +540,7 @@ namespace Hive.Armada.Menus
         /// </summary>
         private void CloseItem()
         {
+            uiCover.SetActive(true);
             menuTitle.SetActive(true);
 
             itemSection.SetActive(false);
@@ -543,6 +553,7 @@ namespace Hive.Armada.Menus
             else if (currCategory.Equals("Skins"))
             {
                 setDefault.SetActive(false);
+                skinIsDefault.SetActive(false);
             }
             scrollView.SetActive(true);
 

@@ -20,69 +20,69 @@ Bullet hell virtual reality game in space.
 		Fire and detonate bombs  
 
 ### Contributors:
-Ryan Britton
+Ryan Britton  
+britt103@mail.chapman.edu  
 
-britt103@mail.chapman.edu
+Miguel Gotao  
+gotao100@mail.chapman.edu  
 
-Miguel Gotao
+Chad Johnson  
+johns428@mail.chapman.edu  
 
-gotao100@mail.chapman.edu
+Marc Karam  
+karam105@mail.chapman.edu  
 
-Chad Johnson
+Kara Mendez  
+mende122@mail.chapman.edu  
 
-johns428@mail.chapman.edu
-
-Marc Karam
-
-karam105@mail.chapman.edu
-
-Kara Mendez
-
-mende122@mail.chapman.edu
-
-Perry Sidler
-
-sidle104@mail.chapman.edu
+Perry Sidler  
+sidle104@mail.chapman.edu  
 
 ### Source Files:
 Ambient:  
-	FanBlades.cs  
+  * FanBlades.cs  
+
 Enemies:  
-	BuckshotTurret.cs  
-	Enemy.cs  
-	EnemyShip.cs  
-	JumperTurret.cs  
-	MovingTurret.cs  
-	Projectile.cs  
-	SineTurret.cs  
-	SplitterChild.cs  
-	SplitterTurret.cs  
-	StraightTurret.cs  
+  * BuckshotTurret.cs  
+  * Enemy.cs  
+  * EnemyShip.cs  
+  * JumperTurret.cs  
+  * MovingTurret.cs  
+  * Projectile.cs  
+  * SineTurret.cs  
+  * SplitterChild.cs  
+  * SplitterTurret.cs  
+  * StraightTurret.cs  
+
 Game:  
-	Spawner.cs  
-	Waves.cs  
+  * Spawner.cs  
+	* Waves.cs  
+
 Menus:  
-	MenuTest.cs  
-	StartMenu.cs  
-	UIPointer.cs  
+  * MenuTest.cs  
+  * StartMenu.cs  
+  * UIPointer.cs  
+
 Player:  
-	Guns:  
-		Gun.cs  
-		LaserGun.cs  
-	LaserSight.cs  
-	PlayerHealth.cs  
-	PlayerStats.cs  
-	ShipController.cs  
+  * Guns:  
+    * Gun.cs  
+    * LaserGun.cs  
+  * LaserSight.cs  
+  * PlayerHealth.cs  
+  * PlayerStats.cs  
+  * ShipController.cs  
+
 PowerUps:  
-	AllyBullet.cs  
-	AllySlerp.cs  
-	AllyStatic.cs  
-	AreaBomb.cs  
-	ClearBomb.cs  
-	DamageBoost.cs  
-	PowerUp.cs  
-	PowerUpStatus.cs  
-	Shield.cs  
+  * AllyBullet.cs  
+  * AllySlerp.cs  
+  * AllyStatic.cs  
+  * AreaBomb.cs  
+  * ClearBomb.cs  
+  * DamageBoost.cs  
+  * PowerUp.cs  
+  * PowerUpStatus.cs  
+  * Shield.cs  
+
 CalcHealth.cs  
 DestroyBullet.cs  
 EnemyBullet.cs  
